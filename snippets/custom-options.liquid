@@ -73,7 +73,7 @@
         {% endfor %}
       </div>
     {%- else -%}
-      <div class="swatch swatch-wrap clearfix swatch-{{ downcased_option }}" data-option-index="{{ option_index }}" {{ selected-value }}>
+      <div class="swatch swatch-wrap clearfix swatch-{{ downcased_option }} form-group suit-select-box" data-option-index="{{ option_index }}" {{ selected-value }}>
         {%- unless template contains 'customize-your-look' -%}
           {%- if swatch == 'Style' -%}
             <div class="header">Length : </div>
@@ -98,17 +98,17 @@
               {% endfor %}
         {% else %}
         
-              <select>
+              <select id="exampleFormControlSelect2" class="var-select-custom" data-name="{{ downcased_option }}">
                 {%- if swatch == 'Style' -%}
                   <option value="{{ swatch }}" disabled selected>Choose Length</option>
                 {% else %}
                   <option value="{{ swatch }}" disabled selected>Choose {{ swatch }}</option>
                 {% endif %}
                 {% for value in option.values %}
-                  <option value="{{ value | handleize }}">{{ value }}</option>
+                  <option value="{{ value }}">{{ value }}</option>
                 {% endfor %}
               </select>
-
+              {% render 'icon-caret' %}
               {% for variant in product.variants %}
                 {% assign value = variant.options[option_index] %}
                 {% unless values contains value %}
