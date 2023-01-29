@@ -1,0 +1,65 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "16481455532b5de5ec": {
+      "type": "image-with-text",
+      "disabled": true,
+      "blocks": {
+        "1648145552165b3f6b-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Coming Soon!",
+            "heading_count": ""
+          }
+        },
+        "1648145552165b3f6b-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Try it before your buy it! If you're the Groom, we'll send you a suit to test out for up to 7 days, 100% free!<\/p><p><\/p><p>Until then, everyone receives FREE RETURNS up to 30 days after purchase.<\/p>"
+          }
+        },
+        "1648145552165b3f6b-2": {
+          "type": "button",
+          "settings": {
+            "button_label": "Schedule",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "1648145552165b3f6b-0",
+        "1648145552165b3f6b-1",
+        "1648145552165b3f6b-2"
+      ],
+      "settings": {
+        "check_width": false,
+        "image": "shopify:\/\/shop_images\/Mark_Sitting.png",
+        "video_mp4_link": "",
+        "image_mobile": "shopify:\/\/shop_images\/Mark_Sitting.png",
+        "height": "adapt",
+        "color_scheme": "background-1",
+        "background_color": "#ffffff",
+        "layout": "image_first",
+        "custom_class": ""
+      }
+    },
+    "166065625787200d6e": {
+      "type": "page-home-try-on",
+      "settings": {
+        "title": "Home try on",
+        "heading": "Home try on",
+        "content": "Home Try On is reserved for Grooms. Create an event and choose your look to initiate your home try on."
+      }
+    }
+  },
+  "order": [
+    "main",
+    "16481455532b5de5ec",
+    "166065625787200d6e"
+  ]
+}

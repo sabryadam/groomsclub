@@ -1,0 +1,63 @@
+<div class="page-top-head-background">
+  <div class="page-width-big">
+      <div class="page-top-headpadding-flex">
+          <div class="breadcrumb">
+              <div class="breadcrumb-links">
+                  <a href="/account">My Account</a>
+                  <span class="breadcrumb__sep">
+                    <svg width="25" height="25" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 10 14" style="enable-background:new 0 0 10 14;" xml:space="preserve">
+                    <style type="text/css">
+                    .breadcrumb-arrow{fill:#FFFFFF;stroke:#001F49;stroke-width:2;stroke-miterlimit:10;}
+                    </style>
+                    <polyline class="breadcrumb-arrow" points="0.9,0.7 8,7.3 0.9,13 "></polyline></svg>
+                    </span>
+                  <span class="active-page">My Wedding</span>
+              </div>
+          </div>
+      </div> 
+  </div>
+   
+  <div class="page-width">
+     <h1 class="text-center-heading border-heading margin-0 page-title">Update an Event</h1>
+  </div>
+</div>
+<div class="getapi_error"></div>
+<div class="event-name_container" id="event{{section.id}}">
+    <div class="page-width">
+        <div class="event-name_section_wrap">
+            {% if section.settings.heading != blank %}
+            <h2 class="event_title h2">{{ section.settings.heading }}</h2>
+            {% endif %}
+            <div class="input_event_name_wrap">
+              <div class="field form-wrap">   
+                <input type="hidden" name="event_id"  id="EventForm-id"  >  
+                <input class="custom-event-reminder-name event-form-inpt" type="text" name="event_name" id="EventForm-EventName" autocomplete="given-name" placeholder="{{ section.settings.event_subtitle }}" maxlength="100">
+                <span class="form-error"></span>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>            
+
+
+{% schema %}
+{
+  "name": "Event Name Section",
+  "tag": "section",
+  "class": "event-name__section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Event Name",
+      "label": "Event Title"
+    },
+    {
+        "type": "text",
+        "id": "event_subtitle",
+        "default": "Enter Event Name",
+        "label": "Inner Event Title "
+    }
+  ]
+}
+{% endschema %}

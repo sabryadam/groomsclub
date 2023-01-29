@@ -1,0 +1,149 @@
+{%- comment -%} Capture the content for header containing the tracking data {%- endcomment -%}
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+
+{% comment %} Use string splitting to pull the value from content_for_header and apply some string clean up {% endcomment %}
+{%- assign pageUrl = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&' -%}
+{%- if customer -%}
+  {%- unless pageUrl contains 'event_id=' -%}
+    <script>window.location.href = '/account';</script>
+  {%- endunless -%}
+{%- else -%}
+  <script>window.location.href = '/account/login';</script>
+{%- endif -%}
+
+
+{{ 'invited-event.js' | asset_url | script_tag }}
+{{ 'invited-event.css' | asset_url | stylesheet_tag }}
+{{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
+
+<div class="mywedding_section_wrap hidden">
+  <div class="page-top-head-background page-top-margin-0">
+    <div class="page-width-big">
+      <div class="page-top-headpadding-flex">
+        <div class="breadcrumb">
+          <div class="breadcrumb-links">
+            <a href="{{ routes.account_url }}">My Account</a>
+            <span class="breadcrumb__sep">{% include 'breadcrumb-arrow' %}</span>
+            <span class="active-page"></span>
+          </div>
+        </div>
+        <div class="page-back-link">
+          <a href="{{ routes.account_url }}" class="link"><i class="fas fa-arrow-left"></i> Back to My Account</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="page-width">
+      <input type="hidden" id="weddingevent_id">
+      <input type="hidden" id="customer_id" value="{{ customer.id }}">
+      <input type="hidden" id="customer_name" value="{{ customer.name }}">
+      <input type="hidden" id="member_id">
+      <input type="hidden" id="look_id">
+      <div class="account-profile-top-part">
+        <div class="profile-pic-part">
+          <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/default-event-img.jpg?v=1654156190">
+        </div>
+        <div class="profile-info-part">
+          <div class="event-edit-hosted xs-show"><i class="fas fa-user-tie"></i> Hosted By <span class="user-name">Bobby Jones</span></div>
+          <h1 class="text-center-heading border-heading page-title" id="weddingeventname"></h1>
+          <input type="hidden" class="payment_flag" />
+          <div class="event-detail-part">
+            <div class="event-date-part h4" id="weddingeventdate"></div>
+            <div class="event-edit-hosted xs-hide"><i class="fas fa-user-tie"></i> Hosted By <span class="user-name">Bobby Jones</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="event-process-part">
+        <div class="mobile-show">
+          <div class="process-part">
+            <label for="file" class="h5">Event Progress</label>
+            <span class="h4 progress-count">32%</span>
+            <progress id="file" value="32" max="100"> 32% </progress>
+          </div>
+          <div class="mobile-event-detail-button"><a href="#" class="link">Show Details <i class="fas fa-arrow-down"></i></a></div>
+        </div>
+        <div class="create-event-step-checkbox">
+          <label class="account-event-step" data-event-step="invited"> Invited
+            <span class="checkmark"></span>
+          </label>
+          <label class="account-event-step" data-event-step="sized"> Sized 
+            <span class="checkmark"></span>
+          </label>
+          <label class="account-event-step" data-event-step="purchased"> Purchased
+            <span class="checkmark"></span>
+          </label>        
+          <label class="account-event-step" data-event-step="received-order"> Received Order
+            <span class="checkmark"></span>
+          </label>
+          <!-- <label class="account-event-step" data-event-step="verified-fit"> 
+            Verified Fit
+            <span class="checkmark"></span>
+          </label> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="background-color-spacing assigned-look-back hidden">
+    <div class="page-width">
+      <div class="invited-assigned-look">
+        <div class="left-part-image-part look-event-data">
+          <div class="image">
+            <img class="look-img" src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/product-img-3.png?v=1634963523" alt="Look image" />
+          </div>
+          <h3 class="suit-heading margin-0 look-name">Look Name</h3>
+        </div>
+        <div class="right-assigned-look-list">
+          <div class="loader-icon">
+            <div class="loading-overlay__spinner">
+              <svg width="25" height="25" aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                  <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+              </svg>
+            </div>
+          </div>
+          <div class="product-data-wrapper hidden">
+            <div class="look-product-block"></div>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </div>
+  <div class="the-party-part">
+    <div class="party-background-part">
+      <div class="page-width">
+        <div class="section-heading">
+          <h2 class="text-center-heading border-heading title">The Party</h2>
+        </div>
+        <div class="party-invite-member-part"></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-back-link page-last-link">
+    <div class="page-width-big">
+      <a href="/account" class="link"><i class="fas fa-arrow-left"></i> Back to My Account</a>
+    </div>
+  </div>
+</div>
+<div class="mywedding_api_call_loading">
+  <div class="loading-overlay">
+    <div class="loading-overlay__spinner">
+      <svg width="25" height="25" aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+        <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+      </svg>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Event Details Look",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Looks heading",
+      "default": "The Looks"
+    }
+  ]
+}
+{% endschema %}

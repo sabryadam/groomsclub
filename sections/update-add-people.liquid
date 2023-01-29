@@ -1,0 +1,60 @@
+<div class="event-addPeople_container" id="event{{section.id}}">
+  <div class="page-width">
+      <div class="event-addPeople_section_wrap">
+          {% if section.settings.heading != blank %}
+          <h2 class="event_title h2">{{ section.settings.heading }}</h2>
+          {% endif %}
+          <div class="add-people-block">
+              <div class="blockicontext_loop">
+
+
+
+
+
+                  {% comment %}
+                  <div class="blockemail_wrap">
+                      <a class="block_icontext_link" href="javaScript:void(0)">
+                          <div class="icontext_icon_image">
+                              <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/edit.png?v=1634110781" alt="edit-icon"> {% include 'icon-pencil' %}
+                          </div>
+                      </a>
+                      <div class="text_email_wrap">
+                          <h2 class="icontext_title h4">Bill Jones</h2>
+                          <span class="people_email_wrap">issmith@gmail.com</span><br/>
+                          <span class="pay_text">They Pay</span>
+                      </div>
+                  </div>
+                  <div class="blockemail_wrap">
+                      <a class="block_icontext_link" href="javaScript:void(0)">
+                          <div class="icontext_icon_image">
+                              <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/edit.png?v=1634110781" alt="edit-icon"> {% include 'icon-pencil' %}
+                          </div>
+                      </a>
+                      <div class="text_email_wrap">
+                          <h2 class="icontext_title h4">John Smith</h2>
+                          <span class="people_email_wrap">issmith@gmail.com</span><br/>
+                          <span class="pay_text">They Pay</span>
+                      </div>
+                  </div>
+                  <div class="blockemail_wrap">
+                      <a class="block_icontext_link" href="javaScript:void(0)">
+                          <div class="icontext_icon_image">
+                              <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/edit.png?v=1634110781" alt="edit-icon"> {% include 'icon-pencil' %}
+                          </div>
+                      </a>
+                      <div class="text_email_wrap">
+                          <h2 class="icontext_title h4">Kyle Williams</h2>
+                          <span class="people_email_wrap">issmith@gmail.com</span><br/>
+                          <span class="pay_text">They Pay</span>
+                      </div>
+                  </div>
+                  {% endcomment %}
+              </div>
+          </div>
+
+      </div>
+  </div>
+</div>
+
+
+{% schema %} { "name": "Event Add People Section", "tag": "section", "class": "event-addPeople__section", "settings": [ { "type": "text", "id": "heading", "default": "Add People", "label": "Event People Title" } ] } {% endschema %}

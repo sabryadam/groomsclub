@@ -1,0 +1,17 @@
+<div class="event-name_container" id="event{{section.id}}">
+  <div class="page-width">
+      <div class="event-name_section_wrap">
+          {% if section.settings.heading != blank %}
+          <h2 class="event_title h2">{{ section.settings.heading }}</h2>
+          {% endif %}
+          <div class="input_event_name_wrap">
+            <div class="field form-wrap">     
+                <input class="event_owner_number form_phone event-form-inpt" type="text" name="event_name" id="EventForm-EventName-Owner-Contact-Number"  placeholder="Phone" maxlength="14" minlength="10">
+                <span class="form-error"></span>
+            </div>
+          </div>
+      </div>
+  </div>
+</div> 
+
+{% schema %} { "name": "Update Event owner number","class": "event-add-contact-number", "settings": [ { "type": "text", "id": "heading", "default": "Phone", "label": "Event Owner Contact number Title" } ] } {% endschema %}

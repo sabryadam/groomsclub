@@ -1,0 +1,207 @@
+<div class="fit-finder-main-wrapper">
+  <div class="page-width">
+    <div class="page-heading">
+        {% if section.settings.page_header != blank %}
+          <div class="page-header-title text-center-heading border-heading title h1">
+            {{ section.settings.page_header}}
+          </div>
+        {% else %}
+          <div class="page-header-title text-center-heading border-heading title h1">
+            {{ page.title }}
+          </div>
+        {% endif %}
+    </div>
+    <div class="page-content-wrapper" style="background-color: {{section.settings.size_content_bg_color}};">
+      <div class="content-heading">
+        {{ section.settings.page_content_header }}
+      </div>
+      <div class="scale-svg">
+        {{ section.settings.scal_svg }}
+      </div>
+      <h4 class="block-heading">
+        {{ section.settings.size_heading }}
+      </h4>
+      <div class="custom-radio">
+        <ul>
+          <li>
+            <label class="size-select">
+              <input type="radio" checked="checked" name="radio">
+              <span class="checkmark">5'3"</span>
+            </label>
+          </li>
+          <li>
+            <label class="size-select">
+              <input type="radio" name="radio">
+              <span class="checkmark">5'4"</span>
+            </label>
+          </li>
+          <li>
+            <label class="size-select">
+              <input type="radio" name="radio">
+              <span class="checkmark">5'5"</span>
+            </label>
+          </li>
+          <li>
+            <label class="size-select">
+              <input type="radio" name="radio">
+              <span class="checkmark">5'6"</span>
+            </label>
+          </li>
+          <li>
+            <label class="size-select">
+              <input type="radio" name="radio">
+              <span class="checkmark">5'7"</span>
+            </label>
+          </li>
+          <li>
+            <label class="size-select">
+              <input type="radio" name="radio">
+              <span class="checkmark">5'8"</span>
+            </label>
+          </li>
+          <li>
+            <label class="size-select">
+              <input type="radio" name="radio">
+              <span class="checkmark">5'9"</span>
+            </label>
+          </li>
+          <li>
+            <label class="size-select">
+              <input type="radio" name="radio">
+              <span class="checkmark">5'10"</span>
+            </label>
+          </li>
+          <li>
+            <label class="size-select">
+              <input type="radio" name="radio">
+              <span class="checkmark">5'11"</span>
+            </label>
+          </li>
+          <li>
+            <label class="size-select">
+              <input type="radio" name="radio">
+              <span class="checkmark">6'</span>
+            </label>
+          </li>
+          <li>
+            <label class="size-select">
+              <input type="radio" name="radio">
+              <span class="checkmark">6'1"</span>
+            </label>
+          </li>
+          <li>
+            <label class="size-select">
+              <input type="radio" name="radio">
+              <span class="checkmark">6'2"</span>
+            </label>
+          </li>
+          <li>
+            <label class="size-select">
+              <input type="radio" name="radio">
+              <span class="checkmark">6'3"</span>
+            </label>
+          </li>
+          <li>
+            <label class="size-select">
+              <input type="radio" name="radio">
+              <span class="checkmark">6'4"</span>
+            </label>
+          </li>
+          <li>
+            <label class="size-select">
+              <input type="radio" name="radio">
+              <span class="checkmark">6'5"</span>
+            </label>
+          </li>
+          <li>
+            <label class="size-select">
+              <input type="radio" name="radio">
+              <span class="checkmark">6'6"</span>
+            </label>
+          </li>
+          <li>
+            <label class="size-select">
+              <input type="radio" name="radio">
+              <span class="checkmark">6'7"</span>
+            </label>
+          </li>
+          <li>
+            <label class="size-select">
+              <input type="radio" name="radio">
+              <span class="checkmark">6'8"</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+      <div class="custom-height">
+        <span class="field__label">Other &nbsp; :</span>
+        <span class="fit-part custom-size"><input type="text" pattern="[0-9]" class="input-ft" id="input-feet"></span>
+        <span class="inch-part custom-size"><input type="text" pattern="[0-9]" class="input-in" id="input-inch"></span>
+      </div>
+      <div class="watch-tutorial">
+        <a data-fancybox data-width="800" data-height="460" href="{{ section.settings.video_mp4_linkv_watch }}" class="link fit-finder-popup-link">Watch Tutorial <i class="fas fa-play"></i></a>
+      </div>
+    </div>
+    <div class="footer-btn-wrap">
+      <a href="#" class="btn-prev-step link"><i class="fas fa-arrow-left"></i> Back to Previous</a>
+      <a href="#" class="btn-next-step button button--secondary">Next Step <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</div>
+
+<script>
+$('[data-fancybox]').fancybox({
+  helpers : { 
+   overlay: {
+    opacity: 0.8,  
+    css: {'background-color': '#ff0000'} 
+   } 
+  } 
+});
+</script>
+
+{% schema %}
+{
+  "name": "Fit Finder",
+  "settings": [
+    {
+      "type":"text",
+      "id":"page_header",
+      "label":"Heading"
+    },
+    {
+      "type":"text",
+      "id":"page_content_header",
+      "label":"Content Heading",
+      "default":"Step"
+    },
+    {
+      "type":"html",
+      "id":"scal_svg",
+      "label":"Svg",
+      "info":"add svg code*"
+    },
+    {
+      "type":"text",
+      "id":"size_heading",
+      "label":"Size Heading",
+      "default":"How tall are you?"
+    },
+    {
+      "type": "text",
+      "id": "video_mp4_linkv_watch",
+      "label": "Video link",
+      "info": "Just Paste Video Link ( Remove the Image)"
+    },
+    {
+      "type":"header",
+      "content":"Color"
+    },
+    {
+      "type":"color",
+      "id":"size_content_bg_color",
+      "label":"Background Color for Size Content"
+    }
+  ]
+}
+{% endschema %}

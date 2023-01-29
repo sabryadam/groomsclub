@@ -1,0 +1,152 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "1654805860802901af": {
+      "type": "rich-text",
+      "blocks": {
+        "1654805860b633dbd0-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Quality & Comfort",
+            "heading_size": "medium"
+          }
+        },
+        "1654805860b633dbd0-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Stylish comfort that moves with you!<\/p>"
+          }
+        },
+        "1654805860b633dbd0-2": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "1654805860b633dbd0-0",
+        "1654805860b633dbd0-1",
+        "1654805860b633dbd0-2"
+      ],
+      "settings": {
+        "color_scheme": "background-1",
+        "full_width": true
+      }
+    },
+    "164814820921bfb857": {
+      "type": "video",
+      "settings": {
+        "heading": "",
+        "cover_image": "shopify:\/\/shop_images\/vid-placeholder.jpg",
+        "video_url": "",
+        "video_mp4_linkv": "https:\/\/cdn.shopify.com\/s\/files\/1\/0585\/3223\/3402\/files\/Updated_Graphics.mp4?v=1654792217",
+        "description": "",
+        "full_width": false,
+        "customclass": ""
+      }
+    },
+    "165480606993307475": {
+      "type": "icon-text",
+      "blocks": {
+        "42acd75a-8f66-4b4d-9ab3-c82d99e6a262": {
+          "type": "icontext",
+          "settings": {
+            "icontitle": "4 Way Stretch Fabric",
+            "iconsubtitle": "A suit that moves with you",
+            "information_title": "",
+            "information_content": "",
+            "icon_image": "shopify:\/\/shop_images\/4-way-stretch-01-light-blue.png"
+          }
+        },
+        "5bbadbd9-2e47-4a16-9a59-97cdeacc203c": {
+          "type": "icontext",
+          "settings": {
+            "icontitle": "Waistband Flex",
+            "iconsubtitle": "Waistband stretches up to 2 inches for maximum comfort.",
+            "information_title": "",
+            "information_content": "",
+            "icon_image": "shopify:\/\/shop_images\/waistband_square.png"
+          }
+        },
+        "1bf34822-aa80-418d-9332-0d442e2c0078": {
+          "type": "icontext",
+          "settings": {
+            "icontitle": "Performance Fabrics",
+            "iconsubtitle": "54% Cotton 37% Polyester 9% Elastane",
+            "information_title": "",
+            "information_content": "",
+            "icon_image": "shopify:\/\/shop_images\/Fabrics.png"
+          }
+        }
+      },
+      "block_order": [
+        "42acd75a-8f66-4b4d-9ab3-c82d99e6a262",
+        "5bbadbd9-2e47-4a16-9a59-97cdeacc203c",
+        "1bf34822-aa80-418d-9332-0d442e2c0078"
+      ],
+      "settings": {
+        "title": "",
+        "subtitle": "",
+        "custom_class": ""
+      }
+    },
+    "1654700068a7109983": {
+      "type": "image-with-text",
+      "blocks": {
+        "1654700068a8d0cabf-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "4 Way Stretch Tech",
+            "heading_count": ""
+          }
+        },
+        "1654700068a8d0cabf-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our performance stretch tech fabric gives you the freedom and flexibilty to move... dance... eat... be you! Nothing is stopping you from looking and feeling great!<\/p>"
+          }
+        },
+        "1654700068a8d0cabf-2": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "1654700068a8d0cabf-0",
+        "1654700068a8d0cabf-1",
+        "1654700068a8d0cabf-2"
+      ],
+      "settings": {
+        "check_width": false,
+        "image": "shopify:\/\/shop_images\/Adrian-stretch.png",
+        "video_mp4_link": "",
+        "image_mobile": "shopify:\/\/shop_images\/Adrian-stretch.png",
+        "height": "adapt",
+        "color_scheme": "background-1",
+        "background_color": "#ffffff",
+        "layout": "image_first",
+        "custom_class": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1654805860802901af",
+    "164814820921bfb857",
+    "165480606993307475",
+    "1654700068a7109983"
+  ]
+}

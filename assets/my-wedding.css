@@ -1,0 +1,312 @@
+/* my-wedding.css */
+
+.event-details-looks-wrap .look-container .img-container{
+  padding-bottom: 0;
+  overflow: hidden;
+  min-height: 450px;
+  position: relative;
+  background: #f5f5f5;
+}
+
+.event-details-looks-wrap .look-container .img-container img{
+  /* width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  max-height: 450px; */
+  width: auto;
+  height: auto;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.event-details-looks-wrap .add-new-look-button{
+  margin: 0 auto;
+  display: inherit;
+}
+
+.Squer-radio-button-big svg path,
+.top-look-icon,
+.Squer-radio-button-big svg .circle{
+  fill: var(--color-light-blue);
+}
+
+.tooltip-in-slider .slick-list.draggable{
+  padding-bottom: 50px;
+}
+
+.Squer-radio-button-big .Squer-radio-button-inner{
+  margin: 15px 0;
+  text-decoration: none;
+}
+
+.member-info-list-edit .look-button{
+  display: flex;
+  justify-content: space-around;
+}
+
+.page-back-link.page-last-link {
+  padding: 20px 0;
+  background: #f5f5f5;
+}
+
+.empty-reminder-msg {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-light-blue);
+}
+
+.form-wrap{
+  margin-bottom: 15px;
+}
+
+.add-reminder-popup-wrapper #reminderDate,
+.edit-reminder-popup-wrapper #reminderDate,
+.suggested-edit-reminder-popup-wrapper #reminderDate{
+  height: auto !important;
+  min-height: auto;
+}
+
+.add-reminder-popup-wrapper .chosen-container-multi,
+.edit-reminder-popup-wrapper .chosen-container-multi,
+.suggested-edit-reminder-popup-wrapper .chosen-container-multi{
+  width: 100% !important;
+  margin-bottom: 15px;
+}
+
+.add-reminder-popup-wrapper .chosen-container-multi .chosen-choices,
+.edit-reminder-popup-wrapper .chosen-container-multi .chosen-choices,
+.suggested-edit-reminder-popup-wrapper .chosen-container-multi .chosen-choices{
+  padding: 0;
+  border: none;
+  flex-direction: column-reverse;
+  display: flex;
+  background: transparent;
+}
+
+.add-reminder-popup-wrapper .chosen-container-multi .chosen-choices .search-field,
+.edit-reminder-popup-wrapper .chosen-container-multi .chosen-choices .search-field,
+.suggested-edit-reminder-popup-wrapper .chosen-container-multi .chosen-choices .search-field{
+  max-width: 100%;
+  display: block;
+  width: 100%;
+}
+
+.chosen-container-multi .chosen-choices li.search-field input[type=text]{
+  background-color: #f5f5f5 !important;
+  border-color: #f5f5f5 !important;
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-weight: var(--font-body-weight);
+  color: var(--color-gray-text);
+  font-size: var(--font-size-body);
+  padding: 15px;
+  min-height: 50px;
+  resize: none;
+  flex-grow: 1;
+  text-align: left;
+  height: 50px;
+  box-sizing: border-box;
+  outline: 0!important;
+  box-shadow: none!important;
+  width: 100% !important;
+}
+
+
+.field__input,
+.chosen-container-multi .chosen-choices li.search-field input[type=text]{
+  font-size: 14px !important;
+}
+
+.add-reminder-popup-wrapper .button,
+.edit-reminder-popup-wrapper .button,
+.send-reminder-popup-wrapper .button,
+.update-profile-image-popup-wrapper .button,
+.suggested-edit-reminder-popup-wrapper .button{
+  width: 100%;
+}
+
+.add-reminder-popup-wrapper .chosen-results,
+.edit-reminder-popup-wrapper .chosen-results,
+.suggested-edit-reminder-popup-wrapper .chosen-results{
+  max-height: 100px;
+  overflow: auto;
+}
+.success-event{
+  color: #4F8A10;
+}
+
+h5.title{
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 16px;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.api_error{
+  margin-bottom: 15px;
+}
+
+.member-wrap .chosen-container-multi .chosen-choices li.search-field input[type=text]{
+  background-color: #f5f5f5 !important;
+  border-color: #f5f5f5 !important;
+  padding: 15px;
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-weight: var(--font-body-weight);
+  color: var(--color-gray-text);
+  font-size: 14px!important;
+}
+
+.edit-reminder-popup-wrapper .loading-overlay__spinner,
+.suggested-edit-reminder-popup-wrapper .loading-overlay__spinner{
+  margin: 50px auto;
+  display: block;
+}
+
+.order-prod-wrapper.pay-for-other .horizontal-product-part:not(.order-block-wrap){
+  display: none;
+}
+
+@media(max-width:767px){
+  .event-details-looks-wrap .look-container .img-container{
+    min-height: 250px;
+  }
+  .single-member-detail-part {
+    min-height: 170px;
+  }
+  .single-member-detail-part .background-part{
+    min-height: 172px;
+    max-height: 172px;
+  }
+  .breadcrumb-links *,
+  .page-top-head-background .page-back-link .link{
+    font-size: 10px;
+  }
+  .page-back-link{
+    text-align: right;
+    /* margin-top: 10px; */
+  }
+}
+.information_content:before {
+  z-index: -1;
+  right: 85px;
+  top: -10px;
+}
+
+.product-slider-detail-edit .tooltip-main .information_content {
+  width: 230px;
+  height: 50px;
+  padding: 5px 0;
+  font-size: 12px;
+  right: -100px;
+  top: 28px;
+}
+
+.page-back-link.page-last-link{
+  margin: 0;
+  text-align: left;
+}
+
+.event-look-wrapper .feature-looks-slider .slick-track{
+  display: flex;
+  align-items: baseline;
+}
+
+/* suggested-reminders-wrapper */
+.suggested-reminders-wrapper{
+  margin: 50px 0;
+}
+.suggested-reminders-wrapper .title{
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0;
+}
+.reminder-box-wrapper{
+  background: #f5f5f5;
+  padding: 30px;
+  display: flex;
+  align-items: baseline;
+  margin: 25px 0;
+}
+.reminder-box-wrapper .reminder-title{
+  width: 28%;
+}
+.reminder-box-wrapper .reminder-title .reminder-box-title{
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+.reminder-box-wrapper .reminder-data-wrap{
+  width: 72%;
+}
+.reminder-box-wrapper .reminder-data-wrap .title{
+  font-size: 16px;
+  margin: 0;
+  margin-bottom: 15px;
+}
+.reminder-box-wrapper .reminder-data-wrap .link{
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none;
+}
+.reminder-box-wrapper .reminder-data-wrap .link.disabled{
+  opacity: 0.5;
+}
+.reminder-box-wrapper .reminder-data-wrap .edit-reminder-button{
+  padding-left: 0;
+}
+.reminder-box-wrapper .reminder-data-wrap .edit-reminder-button .pipe{
+  margin-right: 5px ;
+}
+.add-reminder-popup-wrapper .loading-overlay__spinner {
+  margin: 50px auto;
+  display: block;
+}
+.single-member-detail-part .member-name{
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 500;
+  color: #0f2541;
+  line-height: initial;
+  cursor: pointer;
+}
+
+.multiselect-container {
+  position: static !important;
+}
+
+.multiselect.dropdown-toggle {
+  display: none;
+}
+
+.multiselect-container li.disabled {
+  color: rgb(235,235,228);
+}
+
+.multiselect-container li.disabled label {
+  cursor: not-allowed;
+}
+
+@media (max-width:767px){
+  .reminder-box-wrapper{
+    padding: 20px;
+  }
+  .reminder-box-wrapper .reminder-title{
+    width: 50%;
+  }
+  .reminder-box-wrapper .reminder-data-wrap{
+    width: 50%;
+  }
+  .reminder-box-wrapper .reminder-title .reminder-box-title{
+    font-size: 17px;
+  }
+  .reminder-box-wrapper .reminder-data-wrap .link{
+    padding: 0;
+  }
+}

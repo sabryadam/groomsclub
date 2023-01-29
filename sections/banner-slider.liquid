@@ -1,0 +1,239 @@
+{% liquid
+    assign autoplay = section.settings.autoplay
+    assign arrowprev = section.settings.arrowprev
+    assign dots = section.settings.dots
+    assign loop = section.settings.loop
+    %}
+<div class="banner-slider_container">
+    <div class="{{section.settings.custom_class}}">
+        <div class="sliderinner_container">
+            {% for block in section.blocks %}
+                {% liquid
+                    assign title = block.settings.title
+                    assign subtitle = block.settings.subtitle
+                    assign desktop_image = block.settings.desktop_image
+                    assign mobile_image = block.settings.mobile_image
+                    assign button_link = block.settings.button_link
+                    assign button_name = block.settings.button_name
+                    
+                %}
+                    <div class="slidercontent_container" id="slider_{{block.id}}" data-autoplay="{{autoplay}}" data-arrow="{{arrowprev}}" data-dots="{{dots}}" data-loop="{{loop}}" aria-label="banner-slider">
+                        {% if block.type == 'video' %}
+                            <div class="slidercontent_video">
+                                {% if block.settings.video_link != blank %}
+                                    <div class="item slide-video youtube" id="slide-{{ block.id }}">
+                                        <div class="fluid-width-video-wrapper">
+                                            <!-- <div data-youtube="{{ block.settings.video_link }}"></div> -->
+                                            <iframe class="youtube-player" id="player_{{ block.id }}" width="100%" height="100%" data-video-id="{{ block.settings.video_link }}" src="https://www.youtube.com/embed/{{ block.settings.video_link }}?enablejsapi=1&autoplay=1&loop=1&mute=1&controls=0&rel=0" frameborder="0" allowfullscreen=""></iframe>
+                                        </div>
+                                    </div>
+                                {% elsif block.settings.video_mp4_link != blank %}
+                                    <div class="item slide-videexternal_videoo1 mp4" id="slide-{{ block.id }}">
+                                        <div class="fluid-width-video-wrapper">
+                                            <video class="video lazyvideo" width="100%" poster="{{ block.settings.overlay_image | img_url:'1920x' }}" style="max-height:{{block.settings.video_mp4_height}}px" muted playsinline preload="auto" autoplay loop>
+                                                <source type="video/mp4" src="{{ block.settings.video_mp4_link }}">
+                                            </video>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% else %}
+
+                            {% unless button_name %} {% if button_link %} <a href="{{button_link}}">{% endif %}{% endunless %} 
+                            <div class="slidercontent_image">
+                                {% if desktop_image %}
+                                    
+                                    <div class="slidercontent_desktopimg {% if mobile_image %} sliderenable_mobile {% endif %}">
+                                        {% comment %}<img src=" {{ desktop_image | img_url : 'master' }}">{% endcomment %}
+                                        <img
+                                        srcset="{% if desktop_image.width >= 288 %}{{ desktop_image | img_url: '288x' }} 288w,{% endif %}
+                                                {% if desktop_image.width >= 576 %}{{ desktop_image | img_url: '576x' }} 576w,{% endif %}
+                                                {% if desktop_image.width >= 550 %}{{ desktop_image | img_url: '550x' }} 550w,{% endif %}
+                                                {% if desktop_image.width >= 1100 %}{{ desktop_image | img_url: '1100x' }} 1100w{% endif %}"
+                                        loading="lazy"
+                                        width="auto"
+                                        height="auto"
+                                        alt="{{ desktop_image.alt | default : shop.name | escape }}"
+                                        >
+                                    </div>
+                                {% endif %}
+
+                                {% if mobile_image %}
+                                    <div class="slidercontent_mobileimage">
+                                        <img
+                                        srcset="{% if mobile_image.width >= 288 %}{{ mobile_image | img_url: '288x' }} 288w,{% endif %}
+                                                {% if mobile_image.width >= 576 %}{{ mobile_image | img_url: '576x' }} 576w,{% endif %}
+                                                {% if mobile_image.width >= 550 %}{{ mobile_image | img_url: '550x' }} 550w,{% endif %}
+                                                {% if mobile_image.width >= 1100 %}{{ mobile_image | img_url: '1100x' }} 1100w{% endif %}"
+                                        loading="lazy"
+                                        width="{{ desktop_image.width }}"
+                                        height="{{ desktop_image.height }}"
+                                        alt="{{ mobile_image.alt | default : shop.name | escape }}"
+                                        >
+                                    </div>
+                                {% endif %}
+                            </div>
+                            {% unless button_name %} {% if button_link %} </a>{% endif %}{% endunless %}
+
+                            <div class="slidercontent_text">
+                                {% if title != '' %}
+                                <div class="heading sliderheading">
+                                    <h2 >{{title}}</h2>
+                                </div>
+                                {% endif %} 
+
+                                {% if subtitle != '' %}
+                                <div class="subheading slidersubheading">
+                                    <h2 >{{subtitle}}</h2>
+                                </div>
+                                {% endif %} 
+                                
+                                {%- if button_name != '' -%}
+                                <button class="button sliderbutton">
+                                    <a href="{% if button_link %}{{button_link}} {% else %} # {% endif %}"> {{button_name}}</a>
+                                </btton>
+                                {%- endif -%}  
+                            </div>
+                        {% endif %}
+                    </div>
+            {% endfor %}
+            
+        </div>
+    </div>
+</div>
+<style>
+ .slidercontent_mobileimage{display:none;}
+ @media only screen and (max-width: 767px) {
+    .sliderenable_mobile {
+    display:none;
+  }
+  .slidercontent_mobileimage{display:block;}
+  .slidercontent_mobileimage img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+</style>
+{% schema %}
+{
+    "name": "Slider Show ",
+    
+    "settings": [
+        {
+            "type": "header",
+            "content": "Slider Settings"
+        },
+        {
+            "type": "checkbox",
+            "label": "Autuplay",
+            "id" :"autoplay",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "label": "Arrow (prev/next) Show",
+            "id" :"arrowprev",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "label": "Dots Show",
+            "id" :"dots",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "label": "Slide Loop ",
+            "id" :"loop",
+            "default": true
+        },{
+            "type": "text",
+            "label": "Class",
+            "id" :"custom_class"
+        }
+    ],
+    "blocks": [
+    {
+        "type": "sliderimage",
+        "name": "Slider Image",
+        "settings": [
+            {
+                "type": "text",
+                "label": "Title",
+                "id" :"title"
+            },
+            {
+                "type": "text",
+                "label": "Subtitle ",
+                "id" :"subtitle" 
+            },
+            {
+                "type": "url",
+                "label": "Link",
+                "id" :"button_link"
+            }, 
+            {
+                "type": "text",
+                "label": "Button Name ",
+                "id" :"button_name",
+                "default": "Shop Now" 
+            }, 
+            {
+                "type": "image_picker",
+                "label": "Desktop Image  ",
+                "id" :"desktop_image" 
+            },
+            {
+                "type": "image_picker",
+                "label": "Mobile Image",
+                "id" :"mobile_image" 
+            } 
+
+        ]
+    },{
+        "type": "video",
+        "name": "Video Slider",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Youtube"
+            },
+            {
+                "type": "text",
+                "id": "video_link",
+                "label": "YouTube video ID",
+                "info": "Find your YouTube video ID"
+            },
+            {
+                "type": "header",
+                "content": "MP4"
+            },
+            {
+                "type": "text",
+                "id": "video_mp4_link",
+                "label": "Video link",
+                "info": "just choose one option: YouTube or MP4"
+            },
+            {
+                "type":"image_picker",
+                "id":"overlay_image",
+                "label":"Background Image"
+            },
+            {
+                "type": "text",
+                "id": "video_mp4_height",
+                "label": "Video Height",
+                "default":"500",
+                "info": "Video Height"
+            }
+            ]
+        }
+    ],
+    "presets": [
+    {
+      "name": "Multi Image Slider",
+      "category": "slider"
+    }]
+}
+{% endschema %}

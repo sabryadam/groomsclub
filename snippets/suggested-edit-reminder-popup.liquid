@@ -1,0 +1,65 @@
+<!-- snippest/edit-reminder-popup -->
+<div class="suggested-edit-reminder-popup-wrapper reminder-parent">
+  <h5 class="title">Edit Reminder</h5>
+  <div class="invite-person">
+    <div class="grid_form">
+      <div class="loading-overlay__spinner">
+        <svg  width="25" height="25" aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+        </svg>
+      </div>
+      <div class="suggested-edit-remider-outer-wrapper hidden">
+        <div class="suggested-edit-reminder-inner-wrapper">
+          <div class="field-wrap form-wrap">
+            <label class="form-label field__label" for="suggestedEditRemiderName">
+              Name:
+            </label>
+            <input type="text" name="remiderName" class="field__input custom-event-reminder-name" id="suggestedEditRemiderName" autocomplete="given-name" placeholder="Reminder Name" maxlength="100" value="">
+            <span class="form-error"></span>
+          </div>
+          <div class="field-wrap form-wrap">
+            <label class="form-label field__label" for="suggestedEditReminderDate">
+              Scheduled date:
+            </label>
+            <input type="date" id="suggestedEditReminderDate" class="select-date" vale="" />
+            <span class="form-error"></span>
+          </div>
+          <div class="field-wrap form-wrap">
+            <label class="form-label field__label" for="suggestedEditReminderMessage">
+              Message:
+            </label>
+            <textarea rows="10" id="suggestedEditReminderMessage" class="text-area field__input" name="comment" placeholder="Message..." maxlength="250"></textarea>
+            <span class="form-error mobile_error"></span>
+          </div>
+          <div class="field-wrap form-wrap">
+            <label class="form-label field__label" for="sendVia">
+              Send via:
+            </label>
+              <div class="send-via-main field-wrap form-wrap">
+                <label>
+                  <input type="checkbox" value="email" class="send-via"><span>Email</span>
+                </label>
+              </div>
+              <div class="send-via-main field-wrap form-wrap">
+                <label>
+                    <input type="checkbox" value="text-sms" class="send-via"><span>Text / SMS</span>
+                </label>
+              </div>
+              <span class="form-error mobile_error send_via_error"></span>
+          </div>
+          <div class="field-wrap form-wrap member-wrap">
+            <label class="form-label field__label" for="editReminderMember">
+              Members:
+            </label>
+            <select data-placeholder="Begin typing a name to filter..." multiple class="suggested-reminder-member member-select" id="suggestedEditReminderMember" name="reminderMember"></select>
+            <span class="form-error mobile_error"></span>
+          </div>
+        </div>
+        <div class="api_error form-error text_center"></div>
+        <button class="button button--primary suggested-update-reminder-button cmn-reminder-update" data-text="Update Reminder...">
+          Update Reminder
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

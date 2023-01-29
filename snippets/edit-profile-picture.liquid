@@ -1,0 +1,21 @@
+<!-- snippest/update-profile-image -->
+<div class="update-profile-image-popup-wrapper">
+  <div class="container">
+    <h5 class="title">Update Profile Image</h5>
+    <div class="avatar-upload">
+      <div class="avatar-edit">
+        <input type='file' id="imageUpload" accept="image/*" />
+        <label for="imageUpload">
+          {% include 'icon-pencil' %}
+        </label>
+      </div>
+      <div class="avatar-preview">
+        <div id="imagePreview"></div>
+      </div>
+    </div>
+    <div class="api_error form-error text_center"></div>
+    <button class="button button--primary update-profile-image-button disabled">
+      update
+    </button>
+  </div>
+</div>

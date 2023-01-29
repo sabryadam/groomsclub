@@ -1,0 +1,1235 @@
+<script type="text/javascript" src="{{ 'jquery.zoom.min.js' | asset_url }}" defer=”defer”></script>
+<script src="{{ 'jquery.pan.js' | asset_url }}"></script>
+<!-- /section/customize-your-look -->	
+{{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
+{{ 'jquery.pan.css' | asset_url | stylesheet_tag }}
+<script>	
+  theme_custom.hasNoOverViewMsg = '{{ section.settings.no_product_has_overview | escape }}';	
+  theme_custom.defaultmage = '{{ section.settings.skeleton_image }}';
+  theme_custom.emptyFitFinderMsg = "{{ section.settings.emptyFitFinderMsg }}";
+</script>
+<script type="text/javascript" src="{{ 'htmltocanvas.js' | asset_url }}"></script>
+
+{%- render 'customize-your-look-style' -%}
+
+{% liquid
+  assign _personalizeBlock      = section.blocks | where: 'type', 'personalize_products'
+  assign _customizeBlock        = section.blocks | where: 'type', 'customize_products'
+  assign _accessoriesBlock      = section.blocks | where: 'type', 'accessories_products'
+%}
+
+{%- if _personalizeBlock -%}
+  {%- capture personalizeProductData -%}
+    <div class="tabbed-content-block-inner-wrapper personalize active" data-tab-content="personalize">
+      <div class="product-info-top-block">
+        <h3 class="section-heading right-scroll-spcing">Personalize</h3>
+        <div class="scroll-part right-scroll-spcing">
+          {%- for personalizeBlockData in _personalizeBlock -%}
+            {%- assign personalizeCollectionHandle = personalizeBlockData.settings.collection | strip -%}
+            {% assign collectionProducts = collections[personalizeCollectionHandle].products %}
+            {%- assign personalizeProductType = personalizeBlockData.settings.product_type | downcase | handleize -%}
+            {%- if personalizeBlockData.settings.title-%}
+              {%- assign personalizeProductBlockTitle = personalizeBlockData.settings.title -%}
+            {%- else -%}
+              {%- assign personalizeProductBlockTitle = collections[personalizeCollectionHandle].title -%}
+            {%- endif -%}
+            <div class="product-block-outer-wrapper active" data-collection-title="{{ personalizeProductBlockTitle | downcase | handleize }}">
+              <p class="product-title not_toggle">
+                <span class="product-title-wrap" data-product-handle="{{ personalizeProductBlockTitle | downcase | handleize }}">{{personalizeProductBlockTitle}} : </span>
+                <span class="price-wrap" data-product-price="0000" style="display: none;">$00.00</span>
+                <span class="mobile-tab-icon">{% include 'icon-plus' %}</span>
+              </p>  
+              <div class="custom-tabs-scroll">
+                <div class="product-block-wrapper" data-product-type="{{ personalizeProductType }}">
+                  {% for productData in collectionProducts %}
+                    {%- assign vest_product_handle = productData.metafields.custom_look.products-1 | split: '?' | first  | strip -%}
+                    {%- assign vest_product_flag = false -%} 
+                    {%- if  productData.metafields.custom_look.products-1 -%}
+                      {%- assign vest_product_flag = true -%}
+                    {%- endif -%}
+                    {%- render 'customize-product-data' product: productData, vest_product_flag: vest_product_flag, vest_product_handle: vest_product_handle -%}
+                  {%- endfor -%}
+                </div>
+                <div class="custom-tab-paddles">
+                  <button class="left-paddle paddle hidden" aria-label="left-arrow">
+                    <span class="arrow"></span>
+                  </button>
+                  <button class="right-paddle paddle hidden" aria-label="right-arrow">
+                    <span class="arrow"></span>
+                  </button>
+                </div>
+              </div>
+            </div>    
+          {%- endfor -%}
+          
+          {% for block in section.blocks %}
+            {%- if block.type == 'productaccordion' -%}
+              <div class="question-answer-wrapper question-answer-wrapper-pdp-page">
+                <div class="question-heading">
+                  {{ block.settings.title }}
+                </div>
+                <div class="answer-content">
+                  {{ block.settings.description }}
+                </div>
+              </div>
+            {%- endif -%}
+          {% endfor %}
+        </div>
+      </div>
+      <div class="product-info-footer right-scroll-spcing">
+        <div class="product-price">
+          <span class="title">Subtotal : </span>
+          <span class="money" data-price="00">$00.00</span>
+        </div>
+        <div class="button-wrapper">
+          {%- comment -%}<a href="#" class="back-button link"><i class="fas fa-arrow-left"></i> Back to personalize</a>{%- endcomment -%}
+          <div class="continue-button">
+            <button type="button" name="continue-btn" class="button button--full-width button--primary next-step disabled">
+              Continue <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {%- endcapture -%}
+{%- endif -%}
+
+{%- if _customizeBlock -%}
+  {%- capture customizeProductData -%}
+    <div class="tabbed-content-block-inner-wrapper"  data-tab-content="customize">
+      <div class="product-info-top-block">
+        <h3 class="section-heading right-scroll-spcing">Customize</h3>
+        <ul class="mobile-customize-tab">
+          {%- for customizeBlockData in _customizeBlock -%}
+          {%- if customizeBlockData.settings.title-%}
+          {%- assign customizeProductBlockTitle = customizeBlockData.settings.title -%}
+          {%- else -%}
+            {%- assign customizeProductBlockTitle = collections[customizeCollectionHandle].title -%}
+          {%- endif -%}
+          {%- assign customizeProductType = customizeBlockData.settings.product_type | downcase | handleize -%}
+              <li class="mobile-tab-content-title{% if forloop.first %} active{% endif %}" data-target="{{ customizeProductType }}">{{customizeProductBlockTitle}}</li>
+          {% endfor %}
+          
+          
+          {%- for accessoriesBlockData in _accessoriesBlock -%}
+          {%- if accessoriesBlockData.settings.title-%}
+              {%- assign accessoriesProductBlockTitle = accessoriesBlockData.settings.title -%}
+          {%- else -%}
+              {%- assign accessoriesProductBlockTitle = collections[accessoriesCollectionHandle].title -%}
+          {%- endif -%}
+          {%- assign accessoriesProductType = accessoriesBlockData.settings.product_type | downcase | handleize -%}
+
+              {%- if accessoriesBlockData.settings.title-%}
+                {%- assign accessoriesProductBlockTitle = accessoriesBlockData.settings.title -%}
+              {%- else -%}
+                {%- assign accessoriesProductBlockTitle = collections[accessoriesCollectionHandle].title -%}
+              {%- endif -%}
+
+              {% assign check_pocket_square = accessoriesProductBlockTitle | downcase | handleize %}
+              {%- if check_pocket_square == "pocket-square" -%}
+                <li class="mobile-tab-content-title" data-target="pocket-square">{{accessoriesProductBlockTitle}}</li>
+              {%- endif -%}
+          {% endfor %}
+          
+
+        </ul>
+        <div class="scroll-part right-scroll-spcing">
+          {%- for customizeBlockData in _customizeBlock -%}
+            {%- if customizeBlockData.settings.product != blank -%}
+              {% assign collectionProducts = '' %}
+              <div class="product-block-outer-wrapper {% if forloop.first %}active{% endif %}">
+                {%- assign customizeCollectionHandle = customizeBlockData.settings.product | strip -%}
+                {% assign collectionProducts = all_products[customizeCollectionHandle] %}
+                {%- assign customizeProductType = customizeBlockData.settings.product_type | downcase | handleize -%}
+                {%- if customizeBlockData.settings.title-%}
+                  {%- assign customizeProductBlockTitle = customizeBlockData.settings.title -%}
+                {%- else -%}
+                  {%- assign customizeProductBlockTitle = collections[customizeCollectionHandle].title -%}
+                {%- endif -%}
+                <p class="product-title">
+                  <span class="product-title-wrap" data-product-handle="{{ customizeProductBlockTitle | downcase | handleize }}">{{customizeProductBlockTitle}} : </span>
+                  <span class="price-wrap desk-tab-price" data-product-price="0000" style="display: none;">$00.00</span>
+                  <span class="mobile-tab-icon">{% include 'icon-plus' %}</span>
+                </p>  
+                <div class="product-block-wrapper one_product_swatch" data-product-type="{{ customizeProductType }}">
+                  {%- render 'customize-product-data' product: collectionProducts, selectProduct: true -%}
+                  <span class="price-wrap mob-tab-price" data-product-price="0000" style="display: none;">$00.00</span>
+                </div>
+              </div>
+            {%- else -%}
+              <div class="product-block-outer-wrapper {% if forloop.first %}active{% endif %}">
+                {%- assign customizeCollectionHandle = customizeBlockData.settings.collection | strip -%}
+                {% assign collectionProducts = collections[customizeCollectionHandle].products %}
+                {%- assign customizeProductType = customizeBlockData.settings.product_type | downcase | handleize -%}
+                {%- if customizeBlockData.settings.title-%}
+                  {%- assign customizeProductBlockTitle = customizeBlockData.settings.title -%}
+                {%- else -%}
+                  {%- assign customizeProductBlockTitle = collections[customizeCollectionHandle].title -%}
+                {%- endif -%}
+                <p class="product-title">
+                  <span class="product-title-wrap" data-product-handle="{{ customizeProductBlockTitle | downcase | handleize }}">{{customizeProductBlockTitle}} : </span>
+                  <span class="price-wrap desk-tab-price" data-product-price="0000" style="display: none;">$00.00</span>
+                  <span class="mobile-tab-icon">{% include 'icon-plus' %}</span>
+                </p>
+                <div class="custom-tabs-scroll">
+                  <div class="product-block-wrapper" data-product-type="{{ customizeProductType }}">
+                    {% for productData in collectionProducts %}
+                      {%- render 'customize-product-data' product: productData -%}
+                    {%- endfor -%}
+                    {%- if customizeProductType == 'vest' -%}
+                      <div class="product-block product-item-wrap no-vest">
+                        <label><span>No Vest</span></label>                        
+                      </div>
+                    {%- endif -%}
+                    <span class="price-wrap mob-tab-price" data-product-price="0000" style="display: none;">$00.00</span>
+                  </div>
+                  <div class="custom-tab-paddles">
+                    <button class="left-paddle paddle hidden">
+                      <span class="arrow"></span>
+                    </button>
+                    <button class="right-paddle paddle hidden">
+                      <span class="arrow"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}            
+          {%- endfor -%}
+
+          {%- for accessoriesBlockData in _accessoriesBlock -%}
+          {%- if accessoriesBlockData.settings.product != blank -%}
+            {% assign accessoriesCollectionProducts = '' %}
+
+            {%- if accessoriesBlockData.settings.title-%}
+              {%- assign accessoriesProductBlockTitle = accessoriesBlockData.settings.title -%}
+            {%- else -%}
+              {%- assign accessoriesProductBlockTitle = collections[accessoriesCollectionHandle].title -%}
+            {%- endif -%}
+
+            {% assign check_pocket_square = accessoriesProductBlockTitle | downcase | handleize %}
+            {%- if check_pocket_square == "pocket-square" -%}
+              <div class="product-block-outer-wrapper">
+                {%- assign accessoriesCollectionHandle = accessoriesBlockData.settings.product | strip -%}
+                {% assign accessoriesCollectionProducts = all_products[accessoriesCollectionHandle] %}
+                {%- assign accessoriesProductType = accessoriesBlockData.settings.product_type | downcase | handleize -%}
+                {%- if accessoriesBlockData.settings.title-%}
+                  {%- assign accessoriesProductBlockTitle = accessoriesBlockData.settings.title -%}
+                {%- else -%}
+                  {%- assign accessoriesProductBlockTitle = collections[accessoriesCollectionHandle].title -%}
+                {%- endif -%}
+                <p class="product-title">
+                  <span class="product-title-wrap" data-product-handle="{{ accessoriesProductBlockTitle | downcase | handleize }}">{{accessoriesProductBlockTitle}} : </span>
+                  <span class="price-wrap desk-tab-price" data-product-price="0000" style="display: none;">$00.00</span>
+                  <span class="mobile-tab-icon">{% include 'icon-plus' %}</span>
+                </p>
+                <div class="product-block-wrapper one_product_swatch" data-product-type="{{ accessoriesProductType }}">
+                  {%- render 'customize-product-data' product: accessoriesCollectionProducts, selectProduct: true -%}
+                  <span class="price-wrap mob-tab-price" data-product-price="0000" style="display: none;">$00.00</span>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        </div>
+      </div>
+      <div class="product-info-footer right-scroll-spcing">
+        <div class="product-price">
+          <span class="title">Subtotal : </span>
+          <span class="money" data-price="00">$00.00</span>
+        </div>
+        <div class="button-wrapper">
+          <div class="back-button link prev-step"><i class="fas fa-arrow-left"></i> Back to personalize</div>
+          <div class="continue-button mobile-next-tab-btn-main">
+            <button type="button" name="next-btn" class="product-data-add button button--full-width button--primary next-tab-step">
+              Next <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+          <div class="continue-button">
+            <button type="button" name="continue-btn" class="button button--full-width button--primary next-step">
+              Continue <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {%- endcapture -%}
+{%- endif -%}
+
+{%- if _accessoriesBlock -%}
+  {%- capture accessoriesProductData -%}
+    <div class="tabbed-content-block-inner-wrapper" data-tab-content="accessories">
+      <div class="product-info-top-block">
+        <h3 class="section-heading right-scroll-spcing">Accessories</h3>
+        <ul class="mobile-customize-tab">
+          {%- for accessoriesBlockData in _accessoriesBlock -%}
+          {%- if accessoriesBlockData.settings.title-%}
+              {%- assign accessoriesProductBlockTitle = accessoriesBlockData.settings.title -%}
+          {%- else -%}
+              {%- assign accessoriesProductBlockTitle = collections[accessoriesCollectionHandle].title -%}
+          {%- endif -%}
+          {%- assign accessoriesProductType = accessoriesBlockData.settings.product_type | downcase | handleize -%}
+
+              {%- if accessoriesBlockData.settings.title-%}
+                {%- assign accessoriesProductBlockTitle = accessoriesBlockData.settings.title -%}
+              {%- else -%}
+                {%- assign accessoriesProductBlockTitle = collections[accessoriesCollectionHandle].title -%}
+              {%- endif -%}
+
+              {% assign check_pocket_square = accessoriesProductBlockTitle | downcase | handleize %}
+              {%- if check_pocket_square != "pocket-square" -%}
+                <li class="mobile-tab-content-title{% if forloop.first %} active{% endif %}" data-target="{{ accessoriesProductType }}">{{accessoriesProductBlockTitle}}</li>
+              {%- endif -%}
+          {% endfor %}
+        </ul>
+        <div class="scroll-part right-scroll-spcing">
+          {%- for accessoriesBlockData in _accessoriesBlock -%}
+            {%- if accessoriesBlockData.settings.product != blank -%}
+              {% assign accessoriesCollectionProducts = '' %}
+
+              {%- if accessoriesBlockData.settings.title-%}
+                {%- assign accessoriesProductBlockTitle = accessoriesBlockData.settings.title -%}
+              {%- else -%}
+                {%- assign accessoriesProductBlockTitle = collections[accessoriesCollectionHandle].title -%}
+              {%- endif -%}
+
+              {% assign check_pocket_square = accessoriesProductBlockTitle | downcase | handleize %}
+              {%- if check_pocket_square != "pocket-square" -%}
+                <div class="product-block-outer-wrapper {% if forloop.first %}active {% endif %}">
+                  {%- assign accessoriesCollectionHandle = accessoriesBlockData.settings.product | strip -%}
+                  {% assign accessoriesCollectionProducts = all_products[accessoriesCollectionHandle] %}
+                  {%- assign accessoriesProductType = accessoriesBlockData.settings.product_type | downcase | handleize -%}
+                  {%- if accessoriesBlockData.settings.title-%}
+                    {%- assign accessoriesProductBlockTitle = accessoriesBlockData.settings.title -%}
+                  {%- else -%}
+                    {%- assign accessoriesProductBlockTitle = collections[accessoriesCollectionHandle].title -%}
+                  {%- endif -%}
+                  <p class="product-title">
+                    <span class="product-title-wrap" data-product-handle="{{ accessoriesProductBlockTitle | downcase | handleize }}">{{accessoriesProductBlockTitle}} : </span>
+                    <span class="price-wrap desk-tab-price" data-product-price="0000" style="display: none;">$00.00</span>
+                    <span class="mobile-tab-icon">{% include 'icon-plus' %}</span>
+                  </p>
+                  <div class="product-block-wrapper one_product_swatch" data-product-type="{{ accessoriesProductType }}">
+                    {%- render 'customize-product-data' product: accessoriesCollectionProducts, selectProduct: true -%}
+                    <span class="price-wrap mob-tab-price" data-product-price="0000" style="display: none;">$00.00</span>
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- else -%}
+              <div class="product-block-outer-wrapper {% if forloop.first %}active {% endif %}">
+                {%- assign accessoriesCollectionHandle = accessoriesBlockData.settings.collection | strip -%}
+                {% assign collectionProducts = collections[accessoriesCollectionHandle].products %}
+                {%- assign accessoriesProductType = accessoriesBlockData.settings.product_type | downcase | handleize -%}
+                {%- if accessoriesBlockData.settings.title-%}
+                  {%- assign accessoriesProductBlockTitle = accessoriesBlockData.settings.title -%}
+                {%- else -%}
+                  {%- assign accessoriesProductBlockTitle = collections[accessoriesCollectionHandle].title -%}
+                {%- endif -%}
+                <p class="product-title">
+                  <span class="product-title-wrap" data-product-handle="{{ accessoriesProductBlockTitle | downcase | handleize }}">{{accessoriesProductBlockTitle}} : </span>
+                  <span class="price-wrap desk-tab-price" data-product-price="0000" style="display: none;">$00.00</span>
+                  <span class="mobile-tab-icon">{% include 'icon-plus' %}</span>
+                </p>
+                {%- if accessoriesProductType == 'shoes' -%}
+                <div class="customize_product_title_wrap">
+                  {%- for productData in collectionProducts -%}
+                    <div class="customize_product_title{% if forloop.first %} active{% endif %}" data-product-type-handle="{{ productData.handle | handle }}">{{productData.title | remove : 'Shoes' | remove: '*' | strip }}</div>
+                  {%- endfor -%}
+                </div>
+                {%- endif -%}
+                <div class="custom-tabs-scroll">
+                  <div class="product-block-wrapper" data-product-type="{{ accessoriesProductType }}">
+                    {% for productData in collectionProducts %}
+                      {%- render 'customize-product-data' product: productData -%}
+                    {%- endfor -%}
+                    <span class="price-wrap mob-tab-price" data-product-price="0000" style="display: none;">$00.00</span>
+                  </div>
+                  <div class="custom-tab-paddles">
+                    <button class="left-paddle paddle hidden">
+                      <span class="arrow"></span>
+                    </button>
+                    <button class="right-paddle paddle hidden">
+                      <span class="arrow"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+      <div class="product-info-footer right-scroll-spcing">
+        <div class="product-price">
+          <span class="title">Subtotal : </span>
+          <span class="money" data-price="00">$00.00</span>
+        </div>
+        <div class="button-wrapper">
+          <div class="back-button link prev-step"><i class="fas fa-arrow-left"></i> Back to Customize</div>
+          <div class="continue-button mobile-next-tab-btn-main">
+            <button type="button" name="next-btn" class="product-data-add button button--full-width button--primary next-tab-step">
+              Next <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+          <div class="continue-button">
+            <button type="button" name="continue-btn" class="product-data-add button button--full-width button--primary next-step">
+              Continue <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {%- endcapture -%}
+{%- endif -%}
+
+{%- capture fitFinderData -%}
+  <div class="tabbed-content-block-inner-wrapper"  data-tab-content="find-your-fit">
+    <div class="product-info-top-block">
+      <h3 class="section-heading right-scroll-spcing" style="display: none;">Find Your Fit</h3>
+      <div class="scroll-part right-scroll-spcing">
+        <div class="fit-finder-data" style="display: none;"></div>
+
+        <div id="cust-size-chart" class="product-block-wrap-suit-wrappertwo">
+          <div class="row">
+            <h4>SELECT SIZES:</h4>
+          </div>
+          <div class="row">
+          <h5>Jacket/Vest</h5>
+            <div class="form-row">
+              <div class="form-group">
+                <select class="form-control suit_attr recomm_select" id="exampleFormControlSelect1" name="properties[Jacket Chest Size]" data-row="jacket_size" form="product-form-{{ section.id }}">
+                  <option value="">Chest Size</option>
+                  <option value="32">32</option>
+                  <option value="34">34</option>
+                  <option value="36">36</option>
+                  <option value="38">38</option>
+                  <option value="40">40</option>
+                  <option value="42">42</option>
+                  <option value="44">44</option>
+                  <option value="46">46</option>
+                  <option value="48">48</option>
+                  <option value="50">50</option>
+                  <option value="52">52</option>
+                  <option value="54">54</option>
+                  <option value="56">56</option>
+                  <option value="58">58</option>
+                  <option value="60">60</option>
+                </select>
+                {% render 'icon-caret' %}
+              </div>
+              <div class="form-group">
+                <select class="form-control suit_attr recomm_select" data-row="jacket_type" id="exampleFormControlSelect1" name="properties[Jacket Length]" form="product-form-{{ section.id }}">
+                  <option value="">Length</option>          
+                  <option value="Short">Short</option>
+                  <option value="Regular">Regular</option>
+                  <option value="Long">Long</option>
+                </select>
+                {% render 'icon-caret' %}
+              </div>
+            </div>
+          </div>
+         <div class="row">
+         <h5>Pants</h5>
+            <div class="form-row">
+              <div class="form-group">
+                <select class="form-control suit_attr recomm_select" data-row="pants_waist" id="exampleFormControlSelect2" name="properties[Pant Waist Size]">
+                  <option value="">Waist Size</option>
+                  <option value="26">26</option>
+                  <option value="28">28</option>
+                  <option value="30">30</option>
+                  <option value="32">32</option>
+                  <option value="34">34</option>
+                  <option value="36">36</option>
+                  <option value="38">38</option>
+                  <option value="40">40</option>
+                  <option value="42">42</option>
+                  <option value="44">44</option>
+                  <option value="46">46</option>
+                  <option value="48">48</option>
+                  <option value="50">50</option>
+                  <option value="52">52</option>
+                  <option value="54">54</option>
+                </select>
+                {% render 'icon-caret' %}
+              </div>
+              <div class="form-group">
+                <select class="form-control suit_attr recomm_select" data-row="pants_hight" id="exampleFormControlSelect1" name="properties[Pant Length]">
+                  <option value="">Length</option>          
+                  <option value="30">30</option>
+                  <option value="32">32</option>
+                  <option value="34">34</option>
+                </select>
+                {% render 'icon-caret' %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="overview_ff_box">
+          <div id="suit_fit_finder" class="completefit product_fit_finder" style="display: none;">
+            <a href="https://www.groomsclub.com/pages/fit-finder">
+              <div>
+                  <h4>Try the fit finder</h4>
+                <p>Get a better fit! Take three minutes to get a fit recommendation using machine learning.</p>
+              </div>
+              <i class="fas fa-chevron-right"></i>
+            </a>
+          </div>
+          <div id="fit_finder_data_auto" style="display: none;">
+            <div class="ff-top-box">
+              <h3>Your Sizes</h3>
+              <span>Calculated based on your fit responses.</span>
+              <a href="https://www.groomsclub.com/pages/fit-finder">Retry fit finder</a>
+            </div>
+            <div id="ff-data-box">
+            </div>
+          </div>
+        </div>
+
+        <button type="button" data-href="/pages/fit-finder" class="button button--secondary button--full-width fit-finder-button">
+          {% include 'icon-size-rular'%}
+          <span>Try out Fit Finder</span>
+        </button>
+      </div>
+    </div>
+    <div class="product-info-footer right-scroll-spcing">
+      <div class="product-price">
+        <span class="title">Subtotal : </span>
+        <span class="money" data-price="">$00.00</span>
+      </div>
+      <div class="button-wrapper">
+        <div class="back-button link prev-step"><i class="fas fa-arrow-left"></i> Back to Accessories</div>
+        <div class="continue-button">
+          <button type="button" name="continue-btn" class="button button--full-width button--primary next-step">
+            Continue <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endcapture -%}
+
+{%- capture productOverViewData -%}
+  <div class="tabbed-content-block-inner-wrapper overview-tab"  data-tab-content="overview">
+    <div class="product-info-top-block">
+      <h3 class="section-heading right-scroll-spcing">Overview</h3>
+      <div class="scroll-part right-scroll-spcing overview-product no-product-in-overview">
+        <h5 class="no-product-has-overview">{{ section.settings.no_product_has_overview | escape }}</h5>
+      </div> 
+    </div>
+    <div class="product-info-footer right-scroll-spcing">
+      <div class="product-price">
+        <span class="title">Subtotal : </span>
+        <span class="money" data-price="">$00.00</span>
+      </div>
+      {%- if customer -%}
+        <div class="wishlist-add-event-part">
+          <div class="wishlist-icon-wrap">
+            <a href="javascript:void(0)" class="link link-with-svg event-text favorite-event-button">
+              <i class="far fa-heart"></i> Favorite
+            </a>
+          </div>
+          <div class="add-to-event">
+            <a href="javascript:void(0)" class="link link-with-svg event-text add-event-look">
+              <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 19 18" style="enable-background:new 0 0 19 18;" xml:space="preserve"><style type="text/css">.plus-icon{fill:#1075BC;}</style><g><g><path class="plus-icon" d="M9.6,1.5c4.1,0,7.5,3.3,7.5,7.5s-3.4,7.5-7.5,7.5S2.1,13.1,2.1,9S5.5,1.5,9.6,1.5 M9.6,0c-5,0-9,4-9,9    s4,9,9,9s9-4,9-9S14.6,0,9.6,0L9.6,0z"/></g><g><rect x="8.6" y="5" class="plus-icon" width="2" height="8.1"/><rect x="8.6" y="5" transform="matrix(6.123234e-17 -1 1 6.123234e-17 0.6405 18.6186)" class="plus-icon" width="2" height="8.1"/></g></g></svg>
+              Add to Event
+            </a>
+          </div>
+        </div>
+      {%- else -%}
+        <div class="wishlist-add-event-part">
+          <div class="wishlist-icon-wrap">
+            <a href="{{ routes.account_login_url }}" class="link link-with-svg event-text">
+              <i class="far fa-heart"></i> Favorite
+            </a>
+          </div>
+          <div class="add-to-event">
+            <a href="{{ routes.account_login_url }}" class="link link-with-svg event-text">
+              <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 19 18" style="enable-background:new 0 0 19 18;" xml:space="preserve"><style type="text/css">.plus-icon{fill:#1075BC;}</style><g><g><path class="plus-icon" d="M9.6,1.5c4.1,0,7.5,3.3,7.5,7.5s-3.4,7.5-7.5,7.5S2.1,13.1,2.1,9S5.5,1.5,9.6,1.5 M9.6,0c-5,0-9,4-9,9    s4,9,9,9s9-4,9-9S14.6,0,9.6,0L9.6,0z"/></g><g><rect x="8.6" y="5" class="plus-icon" width="2" height="8.1"/><rect x="8.6" y="5" transform="matrix(6.123234e-17 -1 1 6.123234e-17 0.6405 18.6186)" class="plus-icon" width="2" height="8.1"/></g></g></svg>
+              Add to Event
+            </a>
+          </div>
+        </div>
+      {%- endif -%}
+      <share-button class="product-share-button">
+        <span class="share-button_label">
+          Share
+        </span>
+        {% render 'share-icons' %}
+      </share-button>
+      <div class="button-wrapper">
+        <div class="back-button link prev-step"><i class="fas fa-arrow-left"></i> Back to Find Your Fit</div>
+        <div class="continue-button">
+          <button type="button" name="continue-btn" class="button button--full-width button--primary add-to-cart-button" data-text="Adding...">
+            <span class="btn-title">Add to Cart</span>
+            <i class="fas fa-shopping-cart"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endcapture -%}
+
+{% render 'look-added-into-event-popup' %}
+{% render 'customizer-favourite-popup' %}
+
+<input type="hidden" class="order-type" value="{{ cart.attributes.order_type }}">
+<section class="breadcrumb">
+  <div class="page-width-big">
+    <div class="page-top-headpadding-flex">
+      <div class="breadcrumb">
+        <div class="breadcrumb-links">
+          <a href="/collections/all">Shop Collection</a>
+          <span class="breadcrumb__sep">
+            {% include 'breadcrumb-arrow' %}
+          </span>
+          <span class="active-page">Suit</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- if section.settings.heading or section.settings.description -%}
+    <div class="header-wrapper">
+      <div class="collection-hero__text-wrapper main-heading-part">
+        <h1 class="text-center-heading border-heading h1 margin-0">
+        {%- if section.settings.heading != blank -%}
+          {{ section.settings.heading | escape }}
+        {%- else -%}
+          {{ page.title | escape }}
+          {%- endif -%}
+        </h1>
+        <div class="collection-hero__description description--primary h5">
+          {%- if section.settings.description != blank -%}
+            {{ section.settings.description }}
+          {%- else -%}
+            {{ page.description }}
+          {%- endif -%}
+        </div>
+        {%- if section.settings.sub_heading != blank -%}
+          <div class="sub-heading">
+            {{ section.settings.sub_heading }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+<div class="tabbed-content-wrapper">
+  <div class="tabbed-content-header">
+    <div class="page-width">
+      <ul class="tabbed-content-header-ul">
+        <li class="tabbed-content-title active" data-target="personalize">Personalize</li>
+        <li class="tabbed-content-title" data-target="customize">customize</li>
+        <li class="tabbed-content-title" data-target="accessories">accessories</li>
+        <li class="tabbed-content-title" data-target="find-your-fit">Recommended Sizes</li>
+        <li class="tabbed-content-title" data-target="overview">Overview</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tabbed-content-wrap page-width-big">
+    <div class="tabbed-content-block-outer-wrapper" >
+      <div class="product-image-wrap">
+        <div class="custom-look-image image-zoom">
+          {%- if variant.metafields.my_fields.color_image_one != blank -%}
+            <link rel="preload" as="image" href="{{ section.settings.shirt_image | img_url : '1400x'}}">
+            <link rel="preload" as="image" href="{{ section.settings.jacket_image | img_url : '1400x'}}">
+            <link rel="preload" as="image" href="{{ section.settings.pants_image | img_url : '1400x'}}">
+            <link rel="preload" as="image" href="{{ section.settings.vest_image | img_url : '1400x'}}">
+            <link rel="preload" as="image" href="{{ section.settings.hanky_image | img_url : '1400x'}}">
+            <link rel="preload" as="image" href="{{ section.settings.bow_ties_image | img_url : '1400x'}}">
+            <link rel="preload" as="image" href="{{ section.settings.neckties_image | img_url : '1400x'}}">
+            <link rel="preload" as="image" href="{{ section.settings.tie_bar_image | img_url : '1400x'}}">
+            <link rel="preload" as="image" href="{{ section.settings.belt_image | img_url : '1400x'}}">
+            <link rel="preload" as="image" href="{{ section.settings.shoes_image | img_url : '1400x'}}">
+          {%- endif -%}
+          <img class="shirt-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.shirt_image | img_url : '1400x' }}" alt="Shirt Image" data-close-collar-image="{{ section.settings.shirt_image | img_url : 'master' }}" data-open-collar-image="{{ section.settings.open_shirt_image | img_url : 'master' }}" />
+          <img class="jacket-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.jacket_image | img_url : '1400x' }}" alt="Suit image" />
+          <img class="pants-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.pants_image | img_url : '1400x' }}" alt="Suit image" />
+          <img class="vest-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.vest_image | img_url : '1400x' }}" alt="vest image" />
+          <img class="hanky-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.hanky_image | img_url : '1400x' }}" alt="Hanky image" />
+          <img class="bow-ties-customize-image hide" loading="lazy" crossorigin="anonymous" src="{{ section.settings.bow_ties_image | img_url : '1400x' }}" alt="Bow Tie image" />
+          <img class="neckties-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.neckties_image | img_url : '1400x' }}" alt="Neckties image" />
+          <img class="tie-bar-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.tie_bar_image | img_url : '1400x' }}" alt="Tie bar image" />
+          <img class="belt-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.belt_image | img_url : '1400x' }}" alt="Belt Image" />
+          <img class="shoes-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.shoes_image | img_url : '1400x' }}" alt="Shoes Image" />
+        </div>
+        <div class="zoom-image-magnifier-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="492" height="513" viewBox="0 0 492 513" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M385 202.5C385 304.481 302.76 387 201.5 387C100.24 387 18 304.481 18 202.5C18 100.519 100.24 18 201.5 18C302.76 18 385 100.519 385 202.5ZM329.606 358.814C294.785 387.669 250.156 405 201.5 405C90.2146 405 0 314.338 0 202.5C0 90.6623 90.2146 0 201.5 0C312.785 0 403 90.6623 403 202.5C403 258.584 380.313 309.342 343.659 346.013L489.029 495.954C492.681 499.721 492.588 505.735 488.821 509.387C485.054 513.039 479.039 512.946 475.387 509.179L329.613 358.821L329.606 358.814ZM201 122C205.971 122 210 126.029 210 131V195H271C275.971 195 280 199.029 280 204C280 208.971 275.971 213 271 213H210V276C210 280.971 205.971 285 201 285C196.029 285 192 280.971 192 276V213H127C122.029 213 118 208.971 118 204C118 199.029 122.029 195 127 195H192V131C192 126.029 196.029 122 201 122Z" fill="#010101" style="fill: #1075bc;"/></svg>
+        </div>
+      </div>
+      <div id="product_info_box" class="product-info-wrap">
+        {{ personalizeProductData }}
+        {{ customizeProductData }}
+        {{ accessoriesProductData }}
+        {{ fitFinderData }}
+        {{ productOverViewData }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id='ex1' class="image-magnifier-wrap">
+  <a class="pan" data-big="" href="">
+    <img crossorigin="anonymous" src="" alt="Look Image" />
+  </a>
+</div>
+
+<script>
+
+const API_URL = theme_custom.api_base_url;
+const APP_Token = 'Bearer ' + localStorage.getItem("customerToken");
+function suitSizeData() {
+  var size_api_url = API_URL + '/api/customer/myFit';
+  var jacket_image = "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/jacket-vest.png";
+  var pants_image = "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/account-2.png";
+  var shirt_image = "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/shirt-display-img.png?v=1641880242";
+  var shoe_image = "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/shoes-display-img.png?v=1641880242";
+  $.ajax({
+      url: size_api_url,
+      method: "GET",
+      data: '',
+      dataType: "json",
+      headers: {
+          "Authorization": APP_Token
+      },
+      beforeSend: function () {
+          
+      },
+      success: function (result) {
+          if (result.success) {
+              //console.log(result);
+
+              var jacket_size = 'NA';
+              var jacket_type = 'NA';
+              var jacket_allsizes = result.data[0].jacketSize;
+
+              if(jacket_allsizes){
+                jacketType = jacket_allsizes.split(":");
+                jacket_size = jacketType[0];
+
+                if (jacketType[1] == "S") {
+                  jacket_type = 'Short'
+                } else if (jacketType[1] == "R") {
+                  jacket_type = 'Regular'
+                } else if (jacketType[1] == "L") {
+                  jacket_type = 'Long'
+                }
+              }
+
+              var ff_html = '';
+              if (result.data.length > 0) {
+                $(`select[name="properties[Jacket Chest Size]"]`).val(jacket_size);
+                $(`select[name="properties[Jacket Length]"]`).val(jacket_type);
+
+                $(`select[name="properties[Pant Waist Size]"]`).val(result.data[0].pants_waist);
+                $(`select[name="properties[Pant Length]"]`).val(result.data[0].pants_hight);
+
+                //$(`select[name="properties[Vest Size]"]`).val(result.data[0].pants_waist);
+                //$(`select[name="properties[Vest Length]"]`).val(result.data[0].pants_hight);
+
+                ff_html += `<div class="ff-data">
+                                <strong>Jacket/Vest</strong>
+                                <span>Chest: ${jacket_size}</span>
+                                <span>Length: ${result.data[0].jacket_type}</span>
+                                
+                            </div>`;
+                
+
+                if( result.data[0].pants_waist || result.data[0].pants_hight ){
+                  ff_html += `<div class="ff-data">
+                                  <strong>Pants</strong>
+                                  <span>Waist: ${result.data[0].pants_waist}</span>
+                                  <span>Length: ${result.data[0].pants_hight}</span>
+                              </div>`;
+                }
+
+                /*if( result.data[0].shirt_neck || result.data[0].shirt_sleeve ){
+                  ff_html += `<div class="ff-data">
+                                  <strong>${result.data[0].shirt_neck}N | ${result.data[0].shirt_sleeve}S</strong>
+                                  <span>Shirt</span>
+                              </div>`;
+                }
+
+                if( result.data[0].shoe_size ){
+                  ff_html += `<div class="ff-data">
+                                  <strong>${result.data[0].shoe_size}</strong>
+                                  <span>Shoes</span>
+                              </div>`;
+                }*/
+
+                $("#suit_fit_finder").hide();
+                $("#ff-data-box").html(ff_html);
+                $("#fit_finder_data_auto").show();
+              }
+          }else{
+            $("#suit_fit_finder").show();
+            $("#fit_finder_data_auto").hide();
+          }
+      },
+      error: function (xhr, status, error) {
+        $("#suit_fit_finder").show();
+        $("#fit_finder_data_auto").hide();
+        //window.location.href = '/account/logout';
+      }
+  });
+
+}
+
+
+function suitSizeDataNonLogged(){
+  var getFitFinder = getCookie("fit-finder-data");
+  if(getFitFinder){
+    getFitFinder = JSON.parse(getCookie("fit-finder-data"));
+    console.log(getFitFinder);
+    var ff_html = '';
+
+    var jacket_size = 'NA';
+    var jacket_type = 'NA';
+    var jacket_allsizes = getFitFinder.jacketSize;
+
+    if(jacket_allsizes){
+      jacketType = jacket_allsizes.split(":");
+      jacket_size = jacketType[0];
+
+      if (jacketType[1] == "S") {
+        jacket_type = 'Short'
+      } else if (jacketType[1] == "R") {
+        jacket_type = 'Regular'
+      } else if (jacketType[1] == "L") {
+        jacket_type = 'Long'
+      }
+    }
+
+    $(`select[name="properties[Jacket Chest Size]"]`).val(jacket_size);
+    $(`select[name="properties[Jacket Length]"]`).val(jacket_type);
+
+    $(`select[name="properties[Pant Waist Size]"]`).val(getFitFinder.pants_waist);
+    $(`select[name="properties[Pant Length]"]`).val(getFitFinder.pants_hight);
+
+    //$(`select[name="properties[Vest Size]"]`).val(getFitFinder.pants_waist);
+    //$(`select[name="properties[Vest Length]"]`).val(getFitFinder.pants_hight);
+
+    ff_html += `<div class="ff-data">
+                    <strong>Jacket/Vest</strong>
+                    <span>Chest: ${jacket_size}</span>
+                    <span>Length: ${jacket_type}</span>
+                </div>`;
+    
+
+    if( getFitFinder.pants_waist || getFitFinder.pants_hight ){
+      ff_html += `<div class="ff-data">
+                      <strong>Pants</strong>
+                      <span>Waist: ${getFitFinder.pants_waist}</span>
+                      <span>Length: ${getFitFinder.pants_hight}</span>
+                  </div>`;
+    }
+
+    /*if( getFitFinder.shirt_neck || getFitFinder.shirt_sleeve ){
+      ff_html += `<div class="ff-data">
+                      <strong>${getFitFinder.shirt_neck}N | ${getFitFinder.shirt_sleeve}S</strong>
+                      <span>Shirt</span>
+                  </div>`;
+    }
+
+    if( getFitFinder.shoe_size ){
+      ff_html += `<div class="ff-data">
+                      <strong>${getFitFinder.shoe_size}</strong>
+                      <span>Shoes</span>
+                  </div>`;
+    }*/
+
+    $("#suit_fit_finder").hide();
+    $("#ff-data-box").html(ff_html);
+    $("#fit_finder_data_auto").show();
+
+  }else{
+    $("#suit_fit_finder").show();
+    $("#fit_finder_data_auto").hide();
+  }
+}
+
+
+$(document).ready(function(){
+
+$(".ff-top-box a").click(function(e){
+  e.preventDefault();
+  var fit_finder_url = $(this).attr("href");
+  var bring_back_url = window.location.href;
+  localStorage.setItem("bring_back_fit_finder_url", bring_back_url);
+  localStorage.setItem("open_recomm_size", '1');
+  window.location.href = fit_finder_url;
+});
+
+$("#suit_fit_finder a").click(function(e){
+  e.preventDefault();
+  var fit_finder_url = $(this).attr("href");
+  localStorage.setItem("open_recomm_size", '1');
+  window.location.href = fit_finder_url;
+});
+
+
+setTimeout(function(){
+  $("#product_info_box .next-step").removeClass("disabled");
+}, 2000);
+
+var check_recomm = localStorage.getItem("open_recomm_size");
+if(check_recomm){
+  setTimeout(function(){
+    $(`.tabbed-content-title.tab-header[data-target="find-your-fit"]`).trigger("click");
+    localStorage.removeItem("open_recomm_size");
+  }, 2000);
+}
+
+$(document).on("click", ".no-vest label", function () {
+  $(this).addClass("active");
+  $(".product-block-wrapper[data-product-type=vest] .unchecked-product").trigger("click");
+});
+
+$(document).on("change", ".product-block-wrapper[data-product-type=vest] input", function () {
+  $(".no-vest label").removeClass("active");
+});
+
+if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-flag-replace") == 'true') {
+  $("#suit_fit_finder").show();
+  $("#fit_finder_data_auto").hide();
+}else{
+  {% if customer %}
+    suitSizeData();
+  {% else %}
+    suitSizeDataNonLogged();
+      {% endif %}
+    }
+
+    $(document).on("change", ".recomm_select", function () {
+      var select_name = $(this).attr("data-row");
+      var select_data = $(this).val();
+      if(select_data){
+        //alert(select_name + ' | ' + select_data);
+        var getFitFinder = getCookie("fit-finder-data");
+
+        if(getFitFinder){
+          getFitFinder = JSON.parse(getCookie("fit-finder-data"));
+
+          console.log(getFitFinder);
+
+          if($(`select[name="properties[Jacket Chest Size]"]`).val()){
+            getFitFinder.jacket_size = $(`select[name="properties[Jacket Chest Size]"]`).val();
+          }
+
+          if($(`select[name="properties[Jacket Length]"]`).val()){
+            getFitFinder.jacket_type = $(`select[name="properties[Jacket Length]"]`).val();
+          }
+
+          if($(`select[name="properties[Pant Waist Size]"]`).val()){
+            getFitFinder.pants_waist = $(`select[name="properties[Pant Waist Size]"]`).val();
+          }
+
+          if($(`select[name="properties[Pant Length]"]`).val()){
+            getFitFinder.pants_hight = $(`select[name="properties[Pant Length]"]`).val();
+          }
+
+          console.log(getFitFinder);
+          setCookie("fit-finder-data", '');
+          setCookie("fit-finder-data", JSON.stringify(getFitFinder), 365);
+
+          {% if customer %}
+            $.ajax({
+                url: `${theme_custom.base_url}/api/customer/myFit`,
+                method: "POST",
+                data: getFitFinder,
+                dataType: "json",
+                header: {
+                    // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
+                    "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+                },
+                beforeSend: function () {
+                },
+                success: function (result) {
+                    localStorage.setItem("save-fit-finder-flag-replace", "false");
+                },
+                error: function (xhr, status, error) {
+                    if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+                        $('.api_error').removeClass("hidden").html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+                            'text-align': 'center',
+                            'color': 'red'
+                        });
+                        setTimeout(() => {
+                            window.location.href = '/account/logout';
+                        }, 3000);
+                    } else {
+                        var event_date_msg = '';
+                        if (xhr.responseJSON.data != '') {
+                            $.map(xhr.responseJSON.data, function (value, index) {
+                                event_date_msg += `<span>${value}</span>`;
+                            });
+                        } else {
+                            event_date_msg += `<span>${xhr.responseJSON.message}</span>`;
+                        }
+                        $('.api_error').removeClass("hidden").html(event_date_msg);
+                        setTimeout(function () {
+                            $('.api_error').addClass("hidden")
+                        }, 10000);
+                    }
+                }
+            });
+          {% endif %}
+      
+        } 
+      }
+    });
+
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Customize your look page",
+  "class" : "customize-your-look-page",  
+  "settings": [
+    {
+      "type" : "header",
+      "content" : "Page Header content"
+    },
+    {
+      "type" : "text",
+      "id" : "heading",
+      "label" : "Heading",
+      "default" : "Customize your look"
+    },
+    {
+      "type" : "richtext",
+      "id" : "description",
+      "label" : "Description",
+      "default" : "<p>Dress it up howerver you like! Choose your color, accessories, and more!</p>"
+    },
+    {
+      "type" : "textarea",
+      "id" : "sub_heading",
+      "label" : "Sub heading",
+      "default" : "<p>Starting at $199 (price includes suit jacket and pants)</p>"
+    },
+    {
+      "type" : "image_picker",
+      "id" : "shirt_image",
+      "label" : "Shirt"
+    },
+    {
+      "type" : "image_picker",
+      "id" : "open_shirt_image",
+      "label" : "Open Collar Shirt"
+    },
+    {
+      "type" : "image_picker",
+      "id" : "jacket_image",
+      "label" : "Jacket"
+    },
+    {
+      "type" : "image_picker",
+      "id" : "pants_image",
+      "label" : "Pants"
+    },
+    {
+      "type" : "image_picker",
+      "id" : "vest_image",
+      "label" : "Vest"
+    },
+    {
+      "type" : "image_picker",
+      "id" : "hanky_image",
+      "label" : "Pocket Square"
+    },
+    {
+      "type" : "image_picker",
+      "id" : "bow_ties_image",
+      "label" : "Bow-ties"
+    },
+    {
+      "type" : "image_picker",
+      "id" : "neckties_image",
+      "label" : "Neckties"
+    },
+    {
+      "type" : "image_picker",
+      "id" : "tie_bar_image",
+      "label" : "Tie Bar"
+    },
+    {
+      "type" : "image_picker",
+      "id" : "belt_image",
+      "label" : "Belt"
+    },
+    {
+      "type" : "image_picker",
+      "id" : "shoes_image",
+      "label" : "Shoes"
+    },
+    {
+      "type": "header",
+      "content": "header__1 content"
+    },
+    {
+      "type": "checkbox",
+      "id": "share_facebook",
+      "default": true,
+      "label": "Facebook"
+    },
+    {
+      "type": "checkbox",
+      "id": "share_twitter",
+      "default": true,
+      "label": "Twitter"
+    },
+    {
+      "type": "checkbox",
+      "id": "share_pinterest",
+      "default": true,
+      "label": "Pinterest"
+    },
+    {
+      "type": "header",
+      "content": "header__2 content"
+    },
+    {
+      "type": "text",
+      "id": "social_twitter_link",
+      "label": "t:settings_schema.social-media.settings.social_twitter_link.label",
+      "info": "t:settings_schema.social-media.settings.social_twitter_link.info"
+    },
+    {
+      "type": "text",
+      "id": "social_facebook_link",
+      "label": "t:settings_schema.social-media.settings.social_facebook_link.label",
+      "info": "t:settings_schema.social-media.settings.social_facebook_link.info"
+    },
+    {
+      "type": "text",
+      "id": "social_pinterest_link",
+      "label": "t:settings_schema.social-media.settings.social_pinterest_link.label",
+      "info": "t:settings_schema.social-media.settings.social_pinterest_link.info"
+    },
+    {
+      "type": "text",
+      "id": "social_instagram_link",
+      "label": "t:settings_schema.social-media.settings.social_instagram_link.label",
+      "info": "t:settings_schema.social-media.settings.social_instagram_link.info"
+    },
+    {
+      "type" : "text",
+      "id" : "emptyFitFinderMsg",
+      "label" : "Empty Fit Finder text",
+      "default" : "We Have't Fit Finder Size please Slect Find your Fit and Contiune"
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "personalize_products",
+      "name": "Personalize collection",
+      "limit": 3,
+      "settings": [
+        {
+          "type" : "header",
+          "content" : "Collection"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "product_type",
+          "label": "Product Type"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    },
+
+    {
+      "type": "customize_products",
+      "name": "Customize Collection",
+      "settings": [
+        {
+          "type" : "header",
+          "content" : "Collection"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "product_type",
+          "label": "Product Type"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Title"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    },
+
+    {
+      "type": "accessories_products",
+      "name": "Accessories Collection",
+      "settings": [
+        {
+          "type" : "header",
+          "content" : "Collection"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "product_type",
+          "label": "Product Type"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    },
+
+    {
+      "type":"productaccordion",
+      "name":"Product Accordion",
+      "settings":[
+        {
+            "type":"richtext",
+            "id":"title",
+            "label":"Title",
+            "default":"<p>Aliquam tellus nisi, interdum vel consectetur sed, vehicula a velit?</p>"
+        },
+        {
+          "type":"richtext",
+          "id":"description",
+          "label":"Description",
+          "default":"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pharetra justo elit, quis egestas velit vehicula ac. Nulla facilisi. Praesent vitae tortor nec augue pellentesque ullamcorper vitae id nulla.</p>"
+        } 
+      ]
+    }
+  ]
+}
+{% endschema %}

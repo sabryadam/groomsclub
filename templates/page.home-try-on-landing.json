@@ -1,0 +1,384 @@
+{
+  "sections": {
+    "163358072366c97303": {
+      "type": "rich-text",
+      "blocks": {
+        "163358072366c97303-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Home Try On",
+            "heading_size": "medium"
+          }
+        },
+        "e1663b08-1c53-4ab8-b41e-d226dd8637f9": {
+          "type": "sub_heading",
+          "settings": {
+            "sub_heading": "Try your suit on before you buy it, for free!"
+          }
+        }
+      },
+      "block_order": [
+        "163358072366c97303-0",
+        "e1663b08-1c53-4ab8-b41e-d226dd8637f9"
+      ],
+      "settings": {
+        "color_scheme": "background-1",
+        "full_width": true
+      }
+    },
+    "1633580731ca848de6": {
+      "type": "video",
+      "disabled": true,
+      "settings": {
+        "heading": "",
+        "video_url": "",
+        "video_mp4_linkv": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/09ece068aa8642209124ce052c23387c.mp4",
+        "mp4_back_image": "shopify:\/\/shop_images\/groomsclub-logo.png",
+        "description": "",
+        "full_width": false,
+        "customclass": ""
+      }
+    },
+    "163358073380d8cd22": {
+      "type": "image-with-text",
+      "blocks": {
+        "163358073380d8cd22-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Start the Process",
+            "heading_count": ""
+          }
+        },
+        "eb1e6fb5-7b55-4b69-b88a-dbe288600f71": {
+          "type": "subheading",
+          "settings": {
+            "sub_heading": "Try before your buy!"
+          }
+        },
+        "163358073380d8cd22-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We want to make sure your suit fits perfectly! Activate your FREE 7-day home try on.<\/p>"
+          }
+        },
+        "eb294ccd-489b-4666-87de-565b966b253f": {
+          "type": "button",
+          "settings": {
+            "button_label": "Schedule Now",
+            "button_link": "https:\/\/www.groomsclub.com\/pages\/home-try-on\/",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "163358073380d8cd22-0",
+        "eb1e6fb5-7b55-4b69-b88a-dbe288600f71",
+        "163358073380d8cd22-1",
+        "eb294ccd-489b-4666-87de-565b966b253f"
+      ],
+      "settings": {
+        "check_width": true,
+        "image": "shopify:\/\/shop_images\/Mark_Sitting.png",
+        "video_mp4_link": "",
+        "image_mobile": "shopify:\/\/shop_images\/Mark_Sitting.png",
+        "height": "adapt",
+        "color_scheme": "background-1",
+        "background_color": "#ffffff",
+        "layout": "image_first",
+        "custom_class": "first-img-how-work   how-work-page-img-text"
+      }
+    },
+    "163358079156341aef": {
+      "type": "image-with-text",
+      "disabled": true,
+      "blocks": {
+        "163358079156341aef-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Choose From Top Looks",
+            "heading_count": "1."
+          }
+        },
+        "778ceb53-389b-4c09-b5fe-170894d99a9d": {
+          "type": "subheading",
+          "settings": {
+            "sub_heading": "Popular Combinations"
+          }
+        },
+        "163358079156341aef-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Start with some inspiration from our experts, with looks designed for every season and style of wedding!<\/p>"
+          }
+        },
+        "9d626121-60f2-450e-98ba-2932abca183c": {
+          "type": "button",
+          "settings": {
+            "button_label": "Browse Top Looks",
+            "button_link": "shopify:\/\/collections\/looks",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "163358079156341aef-0",
+        "778ceb53-389b-4c09-b5fe-170894d99a9d",
+        "163358079156341aef-1",
+        "9d626121-60f2-450e-98ba-2932abca183c"
+      ],
+      "settings": {
+        "check_width": false,
+        "image": "shopify:\/\/shop_images\/top-looks-new.png",
+        "video_mp4_link": "",
+        "image_mobile": "shopify:\/\/shop_images\/top-looks-new.png",
+        "height": "adapt",
+        "color_scheme": "background-1",
+        "background_color": "#ffffff",
+        "layout": "text_first",
+        "custom_class": "first-content-how-work how-work-page-img-text mobile-reverse"
+      }
+    },
+    "16335808129ab190af": {
+      "type": "image-with-text",
+      "disabled": true,
+      "blocks": {
+        "16335808129ab190af-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Start From Scratch",
+            "heading_count": "2."
+          }
+        },
+        "87ac929d-32bf-4b8b-8c56-0f09ab10997d": {
+          "type": "subheading",
+          "settings": {
+            "sub_heading": "Build From Head To Toe!"
+          }
+        },
+        "16335808129ab190af-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Pick a suit, and then start customizing to your liking!<\/p>"
+          }
+        },
+        "16335808129ab190af-2": {
+          "type": "button",
+          "settings": {
+            "button_label": "Choose A Suit",
+            "button_link": "shopify:\/\/collections\/suit",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "16335808129ab190af-0",
+        "87ac929d-32bf-4b8b-8c56-0f09ab10997d",
+        "16335808129ab190af-1",
+        "16335808129ab190af-2"
+      ],
+      "settings": {
+        "check_width": true,
+        "image": "shopify:\/\/shop_images\/TOP_Looks_HP.png",
+        "video_mp4_link": "",
+        "image_mobile": "shopify:\/\/shop_images\/TOP_Looks_HP.png",
+        "height": "adapt",
+        "color_scheme": "background-1",
+        "background_color": "#ffffff",
+        "layout": "image_first",
+        "custom_class": "first-img-how-work how-work-page-img-text mobile-reverse"
+      }
+    },
+    "main": {
+      "type": "how-it-works-question",
+      "disabled": true,
+      "blocks": {
+        "e01514a9-2792-4029-a0d7-38397576deac": {
+          "type": "accordion",
+          "settings": {
+            "question": "<p>Why should i buy instead of renting?<\/p>",
+            "answer": "<p>Is a rental suit brand new? Nope… for the cost of one rental you could BUY one of ours. And in the end, it’s yours to use again and again. Oh, and it’s tailored to your body. Need we say more?<\/p>"
+          }
+        },
+        "949fb08f-b538-4fe4-8bb8-b8a45ef1ae7f": {
+          "type": "accordion",
+          "settings": {
+            "question": "<p>can i try the suit on before buying it?<\/p>",
+            "answer": "<p>Yes! Try it on with free shipping\/returns for up to 7 days. If<br\/>you like it simply keep it, if not we'll send a return label and your card won’t be charged.<\/p>"
+          }
+        },
+        "ee50bac6-66e5-406e-9bd1-f3bc8188948c": {
+          "type": "accordion",
+          "settings": {
+            "question": "<p>What is your return policy?<\/p>",
+            "answer": "<p>All unworn, unwashed, & unaltered products with the original tags attached are eligible for return up to 30 days after purchase.<\/p>"
+          }
+        },
+        "3b07a4b5-34c7-48d7-9be3-4be959c31532": {
+          "type": "accordion",
+          "settings": {
+            "question": "<p>how do i know what size suit i need?<\/p>",
+            "answer": "<p>Meet, our <a href=\"\/pages\/fit-finder\" title=\"Fit Finder\">fit finder<\/a>. Answer a few questions to find the perfect fit.<\/p>"
+          }
+        },
+        "625681e5-5f28-4247-b5f4-069565d6cadf": {
+          "type": "accordion",
+          "settings": {
+            "question": "<p>am i able to buy a suit without creating an event?<\/p>",
+            "answer": "<p>Yes, simply choose your look... pick your sizes... add to cart... and checkout! <\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "e01514a9-2792-4029-a0d7-38397576deac",
+        "949fb08f-b538-4fe4-8bb8-b8a45ef1ae7f",
+        "ee50bac6-66e5-406e-9bd1-f3bc8188948c",
+        "3b07a4b5-34c7-48d7-9be3-4be959c31532",
+        "625681e5-5f28-4247-b5f4-069565d6cadf"
+      ],
+      "settings": {
+        "heading": "Frequently Asked Questions",
+        "description": "<p>We've got answers!<\/p>",
+        "button_heading": "Still have questions?",
+        "button_text": "Contact Us",
+        "button_url": "shopify:\/\/pages\/contact",
+        "button_style_secondary": true,
+        "bg_color": "#f5f5f5"
+      }
+    },
+    "1633935671a4d91269": {
+      "type": "featured-blog",
+      "disabled": true,
+      "blocks": {
+        "1633935671a4d91269-0": {
+          "type": "title",
+          "settings": {
+            "show_date": true,
+            "show_author": false,
+            "show_blog_tag": true
+          }
+        },
+        "1633935671a4d91269-1": {
+          "type": "summary",
+          "disabled": true,
+          "settings": {}
+        },
+        "1633935671a4d91269-2": {
+          "type": "link",
+          "disabled": true,
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "1633935671a4d91269-0",
+        "1633935671a4d91269-1",
+        "1633935671a4d91269-2"
+      ],
+      "settings": {
+        "heading": "Tips & Tricks",
+        "blog": "tips-tricks",
+        "post_limit": 3,
+        "show_view_all": false,
+        "show_image": true,
+        "soft_background": false,
+        "btn_label": "More Tips",
+        "btn_link": "shopify:\/\/blogs\/tips-tricks",
+        "button_style_secondary_blog": true
+      }
+    },
+    "1633580824f0905c1a": {
+      "type": "image-with-text",
+      "disabled": true,
+      "blocks": {
+        "1633580824f0905c1a-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Get Started",
+            "heading_count": ""
+          }
+        },
+        "0ba37dd5-0c6d-461d-90f5-018faf29c491": {
+          "type": "subheading",
+          "settings": {
+            "sub_heading": "It all begins here, create an account to get started!"
+          }
+        },
+        "1633580824f0905c1a-2": {
+          "type": "button",
+          "settings": {
+            "button_label": "Create Account",
+            "button_link": "\/account\/register",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "1633580824f0905c1a-0",
+        "0ba37dd5-0c6d-461d-90f5-018faf29c491",
+        "1633580824f0905c1a-2"
+      ],
+      "settings": {
+        "check_width": false,
+        "image": "shopify:\/\/shop_images\/Tux-jam-group.png",
+        "video_mp4_link": "",
+        "image_mobile": "shopify:\/\/shop_images\/Tux-jam-group.png",
+        "height": "adapt",
+        "color_scheme": "custom_color",
+        "background_color": "#f5f5f5",
+        "layout": "text_first",
+        "custom_class": "how-work-page-img-text"
+      }
+    },
+    "1663002885b7c7cd02": {
+      "type": "image-banner",
+      "disabled": true,
+      "blocks": {
+        "1663002885ca9caa5e-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Home Try On"
+          }
+        },
+        "1663002885ca9caa5e-1": {
+          "type": "text",
+          "settings": {
+            "text": "We want to make sure your suit fits perfectly! Schedule your FREE 7-day home try on. Start the process below, either from one of our Top Looks, or from scratch! Simply follow the steps and process your order!"
+          }
+        },
+        "1663002885ca9caa5e-2": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Top Looks",
+            "button_link_1": "",
+            "button_style_secondary_1": false,
+            "button_label_2": "Start From Scratch",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "1663002885ca9caa5e-0",
+        "1663002885ca9caa5e-1",
+        "1663002885ca9caa5e-2"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/Mark_Sitting.png",
+        "desktop_text_box_position": "center",
+        "color_scheme": "background-1",
+        "stack_images_on_mobile": true,
+        "adapt_height_first_image": false
+      }
+    }
+  },
+  "order": [
+    "163358072366c97303",
+    "1633580731ca848de6",
+    "163358073380d8cd22",
+    "163358079156341aef",
+    "16335808129ab190af",
+    "main",
+    "1633935671a4d91269",
+    "1633580824f0905c1a",
+    "1663002885b7c7cd02"
+  ]
+}

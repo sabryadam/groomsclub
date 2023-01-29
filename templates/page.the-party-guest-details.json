@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "165029045901fe7c32": {
+      "type": "the-party-guest-details-html",
+      "settings": {
+        "title": "Guest Details"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "165029045901fe7c32"
+  ]
+}

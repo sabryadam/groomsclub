@@ -1,0 +1,45 @@
+<div class="stripe-payment-popup-wrapper">
+  <div class="invite-person">
+    <form id="stripe-payment-form" method="post" accept-charset="UTF-8" novalidate="novalidate">
+      <div class="grid_form">
+        <div class="field-wrap form-wrap">
+          <label class="form-label field__label" for="nameoncard">
+            Name On Card:
+          </label>
+          <input type="text" name="nameoncard" class=" field__input custom-event-reminder-name" id="nameoncard" autocomplete="name-on-card" placeholder="Name On Card" maxlength="100">
+          <span class="form-error mobile_error"></span>
+        </div>
+
+        <div class="field-wrap form-wrap">
+          <label class="form-label field__label" for="cardnumber">
+            Card Number:
+          </label>
+          <input type="text" name="cardnumber" class=" field__input card-number-validate" id="cardnumber" autocomplete="card-number" placeholder="0000 0000 0000 0000" maxlength="19">
+          <span class="form-error mobile_error"></span>
+        </div>
+
+        <div class="exp-cvv-main">
+          <div class="field-wrap form-wrap">
+            <label class="form-label field__label" for="expirationdate">
+              Expiration Date:
+            </label>
+            <input type="text" name="expirationdate" class=" field__input exp-date" id="expirationdate" autocomplete="expirationdate" placeholder="mm/yyyy" maxlength="7">
+            <span class="form-error mobile_error"></span>
+          </div>
+          <div class="field-wrap form-wrap">
+            <label class="form-label field__label" for="cvv">
+              CVV:
+            </label>
+            <input type="text" name="cvv" class=" field__input cvv-validate" id="cvv" autocomplete="cvv" placeholder="XXX" maxlength="4">
+            <span class="form-error mobile_error"></span>
+          </div>
+        </div>
+
+      </div>
+      <div class="api_error form-error text_center"></div>
+      <button class="button button--primary pay-now-btn">
+      Pay Now
+      </button>
+  </form>
+  </div>
+</div>

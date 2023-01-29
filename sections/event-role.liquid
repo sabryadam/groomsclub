@@ -1,0 +1,71 @@
+<div class="event-role_container" id="event{{section.id}}">
+    <div class="page-width">
+        <div class="event-role_section_wrap">
+            {% if section.settings.heading != blank %}
+            <h2 class="event_title h2">{{ section.settings.heading }}</h2>
+            {% endif %}
+            <div class="Squer-radio-button-big">
+                {% for block in section.blocks %}
+                    {%- assign event_type_text = block.settings.event_type | downcase  -%}
+                    <label class="Squer-radio-button-inner{% if event_type_text == 'special event' %} hidden{% endif %}{% if event_type_text == 'other' %} show{% endif %}" id="{{block.id}}" data-class="{{ event_type_text }}">
+                        <input type="radio" name="event_role" data-event_role_id="{{forloop.index}}" value="{{forloop.index}}">
+                        <span class="checkmark">   
+                        {% if block.settings.icon_image_svg!= blank %}
+                            <div class="icon-part">
+                            {% comment %}<img src="{{ block.settings.icon_image | img_url: 'master'}}"> {% endcomment %} 
+                            {{ block.settings.icon_image_svg }}
+                            </div>
+                        {% endif %}
+                            {% if block.settings.icontitle != blank  %}
+                                <h2 class="icontext h4">
+                                    {{ block.settings.icontitle }}
+                                </h2>
+                            {% endif %}
+                        </span>
+                    </label>                    
+                {% endfor %}
+            </div>
+            <p class="event-role-error form-error">Please select Event role.</p>
+        </div>
+    </div>
+</div>            
+
+
+{% schema %}
+{
+  "name": "Event Role Section",
+  "tag": "section",
+  "class": "event-role__section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Event Role",
+      "label": "Event Role Title"
+    }
+  ],
+  "blocks": [
+    {
+        "type": "icontext",
+        "name": "Icon Text",
+        "settings": [
+            {
+                "type": "text",
+                "label": "Event Type",
+                "id" :"event_type"
+            },
+            {
+                "type": "html",
+                "label": "Icon svg ",
+                "id" :"icon_image_svg" 
+            },
+            {
+                "type": "text",
+                "label": "Title",
+                "id" :"icontitle"
+            }
+        ]
+    }
+    ]
+}
+{% endschema %}

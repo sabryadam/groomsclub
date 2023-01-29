@@ -1,0 +1,26 @@
+<ul class="product__list-social list-unstyled list-social" role="list">
+  <li class="list-social__item Gmail">
+    <a target="_blank" class="sharing-link" href="mailto:?subject=I think you'll love this&amp;body=I saw something at {{ shop.name }} I think you'll love! {{ shop.url }}{{product.url }}" target="_blank" rel="noopener" aria-label="Mail">
+      <i class="fas fa-envelope"></i>
+      <span class="visually-hidden">Gmail</span>
+    </a>
+  </li>
+  <li class="list-social__item facebook">
+    <a target="_blank" class="sharing-link" href="//www.facebook.com/sharer.php?u={{ shop.url | append: share_permalink }}{{ product.url }}">
+      <i class="fab fa-facebook-square"></i>
+      <span class="visually-hidden">facebook</span>
+    </a>
+  </li>
+  <li class="list-social__item twitter">
+    <a target="_blank" class="sharing-link" href="//twitter.com/share?text={{ share_title | url_param_escape }}&amp;url={{ shop.url | append: share_permalink }}{{ product.url }}">
+      <i class="fab fa-twitter-square"></i>
+      <span class="visually-hidden">twitter</span>
+    </a>
+  </li>
+  <li class="list-social__item Pinterest">
+    <a target="_blank" class="sharing-link" href="//pinterest.com/pin/create/button/?url={{ shop.url | append: share_permalink }}&amp;media={{ share_image | img_url: '1024x1024' }}&amp;description={{ share_title | url_param_escape }}{{ product.url }}">
+      <i class="fab fa-pinterest-square"></i>
+      <span class="visually-hidden">Pinterest</span>
+    </a>
+  </li>  
+</ul>

@@ -1,0 +1,518 @@
+<div class="edit-my-size-wrapper">
+
+  <div class="edit-size-popup" data-popup="edit-jacket">
+    <!-- Jacket size -->
+    <div class="page-width step-wrapper">
+      <h5 class="title">Jacket</h5>
+      <h3>Size:</h3>
+      <div class="fit-finder-main-wrapper">
+        <div class="page-content-wrapper">
+          <div class="custom-radio">
+            <ul class="radio-wrap">
+              <li class="form-wrap">
+                <input type="radio" id="jacket_size-32" name="jacket_size" value="32">
+                <label class="size-select" for="jacket_size-32">
+                  <span class="checkmark">32</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="jacket_size-34" name="jacket_size" value="34">
+                <label class="size-select" for="jacket_size-34">
+                  <span class="checkmark">34</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="jacket_size-36" name="jacket_size" value="36">
+                <label class="size-select" for="jacket_size-36">
+                  <span class="checkmark">36</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="jacket_size-38" name="jacket_size" value="38">
+                <label class="size-select" for="jacket_size-38">
+                  <span class="checkmark">38</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="jacket_size-40" name="jacket_size" value="40">
+                <label class="size-select" for="jacket_size-40">
+                  <span class="checkmark">40</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="jacket_size-42" name="jacket_size" value="42">
+                <label class="size-select" for="jacket_size-42">
+                  <span class="checkmark">42</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="jacket_size-44" name="jacket_size" value="44">
+                <label class="size-select" for="jacket_size-44">
+                  <span class="checkmark">44</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="jacket_size-46" name="jacket_size" value="46">
+                <label class="size-select" for="jacket_size-46">
+                  <span class="checkmark">46</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="jacket_size-48" name="jacket_size" value="48">
+                <label class="size-select" for="jacket_size-48">
+                  <span class="checkmark">48</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="jacket_size-50" name="jacket_size" value="50">
+                <label class="size-select" for="jacket_size-50">
+                  <span class="checkmark">50</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="jacket_size-52" name="jacket_size" value="52">
+                <label class="size-select" for="jacket_size-52">
+                  <span class="checkmark">52</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="jacket_size-54" name="jacket_size" value="54">
+                <label class="size-select" for="jacket_size-54">
+                  <span class="checkmark">54</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="jacket_size-56" name="jacket_size" value="56">
+                <label class="size-select" for="jacket_size-56">
+                  <span class="checkmark">56</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="jacket_size-58" name="jacket_size" value="58">
+                <label class="size-select" for="jacket_size-58">
+                  <span class="checkmark">58</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="jacket_size-60" name="jacket_size" value="60">
+                <label class="size-select" for="jacket_size-60">
+                  <span class="checkmark">60</span>
+                </label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Jacket Type -->
+    <div class="page-width step-wrapper">
+      <h3>Type:</h3>
+      <div class="fit-finder-main-wrapper">
+        <div class="page-content-wrapper">
+          <div class="custom-radio custom-text--box-main">
+            <ul class="radio-wrap">
+              <li class="form-wrap">
+                <input type="radio" id="suit-jacket-short" name="suit-jacket-length" value="Short">
+                <label class="size-select" for="suit-jacket-short">
+                  {%- comment -%}{%- render 'svg-icons', svg_icons : 'suit-jacket-short' -%}{%- endcomment -%}
+                  <span class="checkmark">Short</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="suit-jacket-regular" name="suit-jacket-length" value="Regular">
+                <label class="size-select" for="suit-jacket-regular">
+                  {%- comment -%}{%- render 'svg-icons', svg_icons : 'suit-jacket-regular' -%}{%- endcomment -%}
+                  <span class="checkmark">Regular</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="suit-jacket-long" name="suit-jacket-length" value="Long">
+                <label class="size-select" for="suit-jacket-long">
+                  {%- comment -%}{%- render 'svg-icons', svg_icons : 'suit-jacket-long' -%}{%- endcomment -%}
+                  <span class="checkmark">Long</span>
+                </label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-width">
+      <span class="error-message"></span>
+    </div>
+    <div class="page-width update-btn-main">
+      <button class="button button--primary update-my-size">
+        Update
+      </button>
+    </div>
+  </div>
+
+  <div class="edit-size-popup" data-popup="edit-pants">
+    <!-- Wast size -->
+    <div class="page-width step-wrapper">
+      <h5 class="title">Pant</h5>
+      <h3>Waist:</h3>
+      <div class="fit-finder-main-wrapper">
+        <div class="page-content-wrapper">
+          <div class="custom-radio">
+            <ul class="radio-wrap">
+              <li class="form-wrap">
+                <input type="radio" id="waist-26" name="waist" value="26">
+                <label class="size-select" for="waist-26">
+                  <span class="checkmark">26</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="waist-28" name="waist" value="28">
+                <label class="size-select" for="waist-28">
+                  <span class="checkmark">28</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="waist-30" name="waist" value="30">
+                <label class="size-select" for="waist-30">
+                  <span class="checkmark">30</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="waist-32" name="waist" value="32">
+                <label class="size-select" for="waist-32">
+                  <span class="checkmark">32</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="waist-34" name="waist" value="34">
+                <label class="size-select" for="waist-34">
+                  <span class="checkmark">34</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="waist-36" name="waist" value="36">
+                <label class="size-select" for="waist-36">
+                  <span class="checkmark">36</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="waist-38" name="waist" value="38">
+                <label class="size-select" for="waist-38">
+                  <span class="checkmark">38</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="waist-40" name="waist" value="40">
+                <label class="size-select" for="waist-40">
+                  <span class="checkmark">40</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="waist-42" name="waist" value="42">
+                <label class="size-select" for="waist-42">
+                  <span class="checkmark">42</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="waist-44" name="waist" value="44">
+                <label class="size-select" for="waist-44">
+                  <span class="checkmark">44</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="waist-46" name="waist" value="46">
+                <label class="size-select" for="waist-46">
+                  <span class="checkmark">46</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="waist-48" name="waist" value="48">
+                <label class="size-select" for="waist-48">
+                  <span class="checkmark">48</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="waist-50" name="waist" value="50">
+                <label class="size-select" for="waist-50">
+                  <span class="checkmark">50</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="waist-52" name="waist" value="52">
+                <label class="size-select" for="waist-52">
+                  <span class="checkmark">52</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="waist-54" name="waist" value="54">
+                <label class="size-select" for="waist-54">
+                  <span class="checkmark">54</span>
+                </label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Pants Height -->
+    <div class="page-width step-wrapper">
+      <h3>Height:</h3>
+      <div class="fit-finder-main-wrapper">
+        <div class="page-content-wrapper">
+          <div class="custom-radio">
+            <ul class="radio-wrap">
+              <li class="form-wrap">
+                <input type="radio" id="inseam-30" name="inseam" value="30">
+                <label class="size-select" for="inseam-30">
+                  <span class="checkmark">30</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="inseam-32" name="inseam" value="32">
+                <label class="size-select" for="inseam-32">
+                  <span class="checkmark">32</span>
+                </label>
+              </li>
+              <li class="form-wrap">
+                <input type="radio" id="inseam-34" name="inseam" value="34">
+                <label class="size-select" for="inseam-34">
+                  <span class="checkmark">34</span>
+                </label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-width">
+      <span class="error-message"></span>
+    </div>
+    <div class="page-width update-btn-main">
+      <button class="button button--primary update-my-size">
+        Update
+      </button>
+    </div>
+  </div>
+
+  <div class="edit-size-popup" data-popup="edit-shirt">
+   <!--Shirt Neck -->
+   <div class="page-width step-wrapper">
+    <h5 class="title">Shirt</h5>
+    <h3>Neck:</h3>
+    <div class="fit-finder-main-wrapper">
+      <div class="page-content-wrapper">
+        <div class="custom-radio">
+          <ul class="radio-wrap">
+            <li class="form-wrap">
+              <input type="radio" id="neck-13.5" name="neck" value="13.5">
+              <label class="size-select" for="neck-13.5">
+                <span class="checkmark">13.5</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-14.5" name="neck" value="14.5">
+              <label class="size-select" for="neck-14.5">
+                <span class="checkmark">14.5</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-15" name="neck" value="15">
+              <label class="size-select" for="neck-15">
+                <span class="checkmark">15</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-15.5" name="neck" value="15.5">
+              <label class="size-select" for="neck-15.5">
+                <span class="checkmark">15.5</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-16" name="neck" value="16">
+              <label class="size-select" for="neck-16">
+                <span class="checkmark">16</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-16.5" name="neck" value="16.5">
+              <label class="size-select" for="neck-16.5">
+                <span class="checkmark">16.5</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-17" name="neck" value="17">
+              <label class="size-select" for="neck-17">
+                <span class="checkmark">17</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-17.5" name="neck" value="17.5">
+              <label class="size-select" for="neck-17.5">
+                <span class="checkmark">17.5</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-18" name="neck" value="18">
+              <label class="size-select" for="neck-18">
+                <span class="checkmark">18</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-18.5" name="neck" value="18.5">
+              <label class="size-select" for="neck-18.5">
+                <span class="checkmark">18.5</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-19.5" name="neck" value="19.5">
+              <label class="size-select" for="neck-19.5">
+                <span class="checkmark">19.5</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-20.5" name="neck" value="20.5">
+              <label class="size-select" for="neck-20.5">
+                <span class="checkmark">20.5</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+   </div>
+    <!-- Sleeve Length -->
+    <div class="page-width step-wrapper">
+      <h3>Sleeve:</h3>
+        <div class="fit-finder-main-wrapper">
+          <div class="page-content-wrapper">
+            <div class="custom-radio custom-text--box-main">
+              <ul class="radio-wrap">
+                <li class="form-wrap">
+                  <input type="radio" id="shirt-sleeve-short" name="shirt-sleeve-length" value="32/33">
+                  <label class="size-select" for="shirt-sleeve-short">
+                    {%- comment -%}{%- render 'svg-icons', svg_icons : 'shirt-sleeve-short' -%}{%- endcomment -%}
+                    <span class="checkmark">Short (32/33)</span>
+                  </label>
+                </li>
+                <li class="form-wrap">
+                  <input type="radio" id="shirt-sleeve-average" name="shirt-sleeve-length" value="34/35">
+                  <label class="size-select" for="shirt-sleeve-average">
+                    {%- comment -%}{%- render 'svg-icons', svg_icons : 'shirt-sleeve-average' -%}{%- endcomment -%}
+                    <span class="checkmark">Average (34/35)</span>
+                  </label>
+                </li>
+                <li class="form-wrap">
+                  <input type="radio" id="shirt-sleeve-long" name="shirt-sleeve-length" value="36/37">
+                  <label class="size-select" for="shirt-sleeve-long">
+                    {%- comment -%}{%- render 'svg-icons', svg_icons : 'shirt-sleeve-long' -%}{%- endcomment -%}
+                    <span class="checkmark">Long (36/37)</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="page-width">
+      <span class="error-message"></span>
+    </div>
+    <div class="page-width update-btn-main">
+      <button class="button button--primary update-my-size">
+        Update
+      </button>
+    </div>
+  </div>
+
+  <div class="edit-size-popup" data-popup="edit-shoes">
+    <!--  Shoes -->
+    <div class="page-width step-wrapper">
+      <h5 class="title">Shoes</h5>
+      <h3>Size:</h3>
+        <div class="fit-finder-main-wrapper">
+          <div class="page-content-wrapper">
+            <div class="custom-radio">
+              <ul class="radio-wrap">
+                <li class="form-wrap">
+                  <input type="radio" id='shoes-07' name="shoes" value='7'>
+                  <label class="size-select" for='shoes-07'>
+                    <span class="checkmark">7</span>
+                  </label>
+                </li>
+                <li class="form-wrap">
+                  <input type="radio" id='shoes-7.5' name="shoes" value='7.5'>
+                  <label class="size-select" for='shoes-7.5'>
+                    <span class="checkmark">7.5</span>
+                  </label>
+                </li>
+                <li class="form-wrap">
+                  <input type="radio" id='shoes-08' name="shoes" value='8'>
+                  <label class="size-select" for='shoes-08'>
+                    <span class="checkmark">8</span>
+                  </label>
+                </li>
+                <li class="form-wrap">
+                  <input type="radio" id='shoes-8.5' name="shoes" value='8.5'>
+                  <label class="size-select" for='shoes-8.5'>
+                    <span class="checkmark">8.5</span>
+                  </label>
+                </li>
+                <li class="form-wrap">
+                  <input type="radio" id='shoes-09' name="shoes" value='9'>
+                  <label class="size-select" for='shoes-09'>
+                    <span class="checkmark">9</span>
+                  </label>
+                </li>
+                <li class="form-wrap">
+                  <input type="radio" id='shoes-9.5' name="shoes" value='9.5'>
+                  <label class="size-select" for='shoes-9.5'>
+                    <span class="checkmark">9.5</span>
+                  </label>
+                </li>
+                <li class="form-wrap">
+                  <input type="radio" id='shoes-10' name="shoes" value='10'>
+                  <label class="size-select" for='shoes-10'>
+                    <span class="checkmark">10</span>
+                  </label>
+                </li>              
+                <li class="form-wrap">
+                  <input type="radio" id='shoes-10.5' name="shoes" value='10.5'>
+                  <label class="size-select" for='shoes-10.5'>
+                    <span class="checkmark">10.5</span>
+                  </label>
+                </li>
+                <li class="form-wrap">
+                  <input type="radio" id='shoes-11' name="shoes" value='11'>
+                  <label class="size-select" for='shoes-11'>
+                    <span class="checkmark">11</span>
+                  </label>
+                </li>
+                <li class="form-wrap">
+                  <input type="radio" id='shoes-12' name="shoes" value='12'>
+                  <label class="size-select" for='shoes-12'>
+                    <span class="checkmark">12</span>
+                  </label>
+                </li>
+                <li class="form-wrap">
+                  <input type="radio" id='shoes-13' name="shoes" value='13'>
+                  <label class="size-select" for='shoes-13'>
+                    <span class="checkmark">13</span>
+                  </label>
+                </li>
+                <li class="form-wrap">
+                  <input type="radio" id='shoes-14' name="shoes" value='14'>
+                  <label class="size-select" for='shoes-14'>
+                    <span class="checkmark">14</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="page-width">
+      <span class="error-message"></span>
+    </div>
+    <div class="page-width update-btn-main">
+      <button class="button button--primary update-my-size">
+        Update
+      </button>
+    </div>
+  </div>
+</div>

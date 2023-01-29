@@ -1,0 +1,489 @@
+{
+  "sections": {
+    "main": {
+      "type": "top-looks-main-product",
+      "blocks": {
+        "vendor": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "<p>{{ product.vendor }}<\/p>",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "9c0b38ac-0f09-4bed-9016-0b432b9cbf28": {
+          "type": "short_description",
+          "settings": {
+            "short_desc": "<p>{{ product.metafields.my_fields.short_description | metafield_tag }}<\/p>"
+          }
+        },
+        "subtitle": {
+          "type": "text",
+          "settings": {
+            "text": "<p>{{ product.metafields.descriptors.subtitle.value }}<\/p>",
+            "text_style": "subtitle"
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "swatch"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "disabled": true,
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true
+          }
+        },
+        "f7551950-20af-45f0-aedd-33c54fe16081": {
+          "type": "productaccordion",
+          "settings": {
+            "title": "<p>Product Details<\/p>",
+            "description": "<p><strong>JACKET<\/strong><\/p><p>4 Way Stretch Fabric<\/p><p>Stretch Lining<\/p><p>2-Button Single Breasted<\/p><p>Notch Lapel<\/p><p>Side Vents<\/p><p>Flap Pockets<\/p><p><strong>PANTS<\/strong><\/p><p>4 Way Stretch Fabric<\/p><p>SuperFlex Waistband<\/p><p>Flat Front<\/p><p>Line To The Knee<\/p>"
+          }
+        },
+        "092a5e0a-daad-4cec-9d6a-087c07972fba": {
+          "type": "productaccordion",
+          "settings": {
+            "title": "<p>Shipping & returns<\/p>",
+            "description": "<p>Free shipping and free returns! All items that are unworn, unwashed, and have the original tags attached are eligible for a full refund up 30 days from purchase.<\/p>"
+          }
+        },
+        "share": {
+          "type": "share",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "price",
+        "9c0b38ac-0f09-4bed-9016-0b432b9cbf28",
+        "subtitle",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "f7551950-20af-45f0-aedd-33c54fe16081",
+        "092a5e0a-daad-4cec-9d6a-087c07972fba",
+        "share"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "enable_video_looping": false
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "heading": "You may also like",
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "add_image_padding": false,
+        "show_vendor": false
+      }
+    },
+    "1637218661f22c5985": {
+      "type": "icon-text",
+      "blocks": {
+        "759ef02f-3761-48d2-9c30-25ba2791b0ab": {
+          "type": "icontext",
+          "settings": {
+            "icontitle": "2-Button Single Breasted",
+            "iconsubtitle": "Notch Lapel",
+            "information_title": "",
+            "information_content": "",
+            "icon_image": "shopify:\/\/shop_images\/Suit_buttons.png"
+          }
+        },
+        "d69aab98-8f99-4cee-81c8-9eaf3c86132d": {
+          "type": "icontext",
+          "settings": {
+            "icontitle": "4 Way Stretch Fabric",
+            "iconsubtitle": "A suit that moves with you",
+            "information_title": "",
+            "information_content": "",
+            "icon_image": "shopify:\/\/shop_images\/4-way-stretch-01-light-blue.png"
+          }
+        },
+        "32de98e0-8f5b-44fa-b5a7-6df0eda5455a": {
+          "type": "icontext",
+          "settings": {
+            "icontitle": "Waistband Flex",
+            "iconsubtitle": "Waistband stretches up to 2 inches for maximum comfort.",
+            "information_title": "",
+            "information_content": "",
+            "icon_image": "shopify:\/\/shop_images\/Waistband.png"
+          }
+        }
+      },
+      "block_order": [
+        "759ef02f-3761-48d2-9c30-25ba2791b0ab",
+        "d69aab98-8f99-4cee-81c8-9eaf3c86132d",
+        "32de98e0-8f5b-44fa-b5a7-6df0eda5455a"
+      ],
+      "settings": {
+        "title": "",
+        "subtitle": "",
+        "custom_class": "top-bottom-border"
+      }
+    },
+    "1637218881c7cbe80b": {
+      "type": "before-after-image",
+      "blocks": {
+        "932d334b-ea81-4dc8-bc3f-9b70a8dcb705": {
+          "type": "before_after_text_groom",
+          "settings": {
+            "svg_img_groom": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" version=\"1.1\" id=\"Layer_1\" x=\"0px\" y=\"0px\" viewbox=\"0 0 27 27\" style=\"enable-background:new 0 0 27 27;\" xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\" xml:space=\"preserve\">\n<style type=\"text\/css\">\n\t.before-after-right-icon{fill:#2AC2BE;}\n\t.before-after-right-icon-one{fill:none;stroke:#2AC2BE;stroke-width:2;stroke-miterlimit:10;}\n<\/style>\n<g>\n\t<g>\n\t\t<path class=\"before-after-right-icon\" d=\"M13.1,2.4c6.1,0,11,4.9,11,11s-4.9,11-11,11s-11-4.9-11-11S7.1,2.4,13.1,2.4 M13.1,0.4c-7.2,0-13,5.8-13,13    s5.8,13,13,13s13-5.8,13-13S20.3,0.4,13.1,0.4L13.1,0.4z\"><\/path>\n\t<\/g>\n\t<polyline class=\"before-after-right-icon-one\" points=\"6.1,11.4 11.1,18.4 20.1,8.4  \"><\/polyline>\n<\/g>\n<\/svg>",
+            "groomsuit_content": "Brand New"
+          }
+        },
+        "0741a324-ed4e-458c-9885-a4295101f50c": {
+          "type": "before_after_text_groom",
+          "settings": {
+            "svg_img_groom": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" version=\"1.1\" id=\"Layer_1\" x=\"0px\" y=\"0px\" viewbox=\"0 0 27 27\" style=\"enable-background:new 0 0 27 27;\" xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\" xml:space=\"preserve\">\n<style type=\"text\/css\">\n\t.before-after-right-icon{fill:#2AC2BE;}\n\t.before-after-right-icon-one{fill:none;stroke:#2AC2BE;stroke-width:2;stroke-miterlimit:10;}\n<\/style>\n<g>\n\t<g>\n\t\t<path class=\"before-after-right-icon\" d=\"M13.1,2.4c6.1,0,11,4.9,11,11s-4.9,11-11,11s-11-4.9-11-11S7.1,2.4,13.1,2.4 M13.1,0.4c-7.2,0-13,5.8-13,13    s5.8,13,13,13s13-5.8,13-13S20.3,0.4,13.1,0.4L13.1,0.4z\"><\/path>\n\t<\/g>\n\t<polyline class=\"before-after-right-icon-one\" points=\"6.1,11.4 11.1,18.4 20.1,8.4  \"><\/polyline>\n<\/g>\n<\/svg>",
+            "groomsuit_content": "You Own It"
+          }
+        },
+        "f45abde0-b9bc-4f91-9870-aa8c8ed7f72c": {
+          "type": "before_after_text_groom",
+          "settings": {
+            "svg_img_groom": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" version=\"1.1\" id=\"Layer_1\" x=\"0px\" y=\"0px\" viewbox=\"0 0 27 27\" style=\"enable-background:new 0 0 27 27;\" xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\" xml:space=\"preserve\">\n<style type=\"text\/css\">\n\t.before-after-right-icon{fill:#2AC2BE;}\n\t.before-after-right-icon-one{fill:none;stroke:#2AC2BE;stroke-width:2;stroke-miterlimit:10;}\n<\/style>\n<g>\n\t<g>\n\t\t<path class=\"before-after-right-icon\" d=\"M13.1,2.4c6.1,0,11,4.9,11,11s-4.9,11-11,11s-11-4.9-11-11S7.1,2.4,13.1,2.4 M13.1,0.4c-7.2,0-13,5.8-13,13    s5.8,13,13,13s13-5.8,13-13S20.3,0.4,13.1,0.4L13.1,0.4z\"><\/path>\n\t<\/g>\n\t<polyline class=\"before-after-right-icon-one\" points=\"6.1,11.4 11.1,18.4 20.1,8.4  \"><\/polyline>\n<\/g>\n<\/svg>",
+            "groomsuit_content": "Wear It Again"
+          }
+        },
+        "15a51603-8616-48b1-9ec2-edc79c6b1163": {
+          "type": "before_after_text_groom",
+          "settings": {
+            "svg_img_groom": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" version=\"1.1\" id=\"Layer_1\" x=\"0px\" y=\"0px\" viewbox=\"0 0 27 27\" style=\"enable-background:new 0 0 27 27;\" xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\" xml:space=\"preserve\">\n<style type=\"text\/css\">\n\t.before-after-right-icon{fill:#2AC2BE;}\n\t.before-after-right-icon-one{fill:none;stroke:#2AC2BE;stroke-width:2;stroke-miterlimit:10;}\n<\/style>\n<g>\n\t<g>\n\t\t<path class=\"before-after-right-icon\" d=\"M13.1,2.4c6.1,0,11,4.9,11,11s-4.9,11-11,11s-11-4.9-11-11S7.1,2.4,13.1,2.4 M13.1,0.4c-7.2,0-13,5.8-13,13    s5.8,13,13,13s13-5.8,13-13S20.3,0.4,13.1,0.4L13.1,0.4z\"><\/path>\n\t<\/g>\n\t<polyline class=\"before-after-right-icon-one\" points=\"6.1,11.4 11.1,18.4 20.1,8.4  \"><\/polyline>\n<\/g>\n<\/svg>",
+            "groomsuit_content": "Custom Fit"
+          }
+        },
+        "2d924c71-e435-43cb-9fc7-fdcba337dc28": {
+          "type": "before_after_text_rent",
+          "settings": {
+            "svg_img_rent": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" version=\"1.1\" id=\"Layer_1\" x=\"0px\" y=\"0px\" viewbox=\"0 0 27 27\" style=\"enable-background:new 0 0 27 27;\" xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\" xml:space=\"preserve\">\n<style type=\"text\/css\">\n\t.before-after-close-icon{fill:#950023;}\n\t.before-after-close-icon-one{fill:none;stroke:#950023;stroke-width:2;stroke-miterlimit:10;}\n<\/style>\n<g>\n\t<path class=\"before-after-close-icon\" d=\"M13.4,2.4c6.1,0,11,4.9,11,11s-4.9,11-11,11s-11-4.9-11-11S7.3,2.4,13.4,2.4 M13.4,0.4c-7.2,0-13,5.8-13,13   s5.8,13,13,13s13-5.8,13-13S20.6,0.4,13.4,0.4L13.4,0.4z\"><\/path>\n<\/g>\n<line class=\"before-after-close-icon-one\" x1=\"8.9\" y1=\"8.9\" x2=\"17.9\" y2=\"17.9\"><\/line>\n<line class=\"before-after-close-icon-one\" x1=\"18.2\" y1=\"9.1\" x2=\"9.2\" y2=\"18.1\"><\/line>\n<\/svg>",
+            "rent_content": "Used"
+          }
+        },
+        "c9db0b73-617f-445a-8b54-9af1b7bfa3ca": {
+          "type": "before_after_text_rent",
+          "settings": {
+            "svg_img_rent": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" version=\"1.1\" id=\"Layer_1\" x=\"0px\" y=\"0px\" viewbox=\"0 0 27 27\" style=\"enable-background:new 0 0 27 27;\" xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\" xml:space=\"preserve\">\n<style type=\"text\/css\">\n\t.before-after-close-icon{fill:#950023;}\n\t.before-after-close-icon-one{fill:none;stroke:#950023;stroke-width:2;stroke-miterlimit:10;}\n<\/style>\n<g>\n\t<path class=\"before-after-close-icon\" d=\"M13.4,2.4c6.1,0,11,4.9,11,11s-4.9,11-11,11s-11-4.9-11-11S7.3,2.4,13.4,2.4 M13.4,0.4c-7.2,0-13,5.8-13,13   s5.8,13,13,13s13-5.8,13-13S20.6,0.4,13.4,0.4L13.4,0.4z\"><\/path>\n<\/g>\n<line class=\"before-after-close-icon-one\" x1=\"8.9\" y1=\"8.9\" x2=\"17.9\" y2=\"17.9\"><\/line>\n<line class=\"before-after-close-icon-one\" x1=\"18.2\" y1=\"9.1\" x2=\"9.2\" y2=\"18.1\"><\/line>\n<\/svg>",
+            "rent_content": "Don't Own It"
+          }
+        },
+        "13f7c8ed-9252-4a34-b782-39080ebcd17a": {
+          "type": "before_after_text_rent",
+          "settings": {
+            "svg_img_rent": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" version=\"1.1\" id=\"Layer_1\" x=\"0px\" y=\"0px\" viewbox=\"0 0 27 27\" style=\"enable-background:new 0 0 27 27;\" xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\" xml:space=\"preserve\">\n<style type=\"text\/css\">\n\t.before-after-close-icon{fill:#950023;}\n\t.before-after-close-icon-one{fill:none;stroke:#950023;stroke-width:2;stroke-miterlimit:10;}\n<\/style>\n<g>\n\t<path class=\"before-after-close-icon\" d=\"M13.4,2.4c6.1,0,11,4.9,11,11s-4.9,11-11,11s-11-4.9-11-11S7.3,2.4,13.4,2.4 M13.4,0.4c-7.2,0-13,5.8-13,13   s5.8,13,13,13s13-5.8,13-13S20.6,0.4,13.4,0.4L13.4,0.4z\"><\/path>\n<\/g>\n<line class=\"before-after-close-icon-one\" x1=\"8.9\" y1=\"8.9\" x2=\"17.9\" y2=\"17.9\"><\/line>\n<line class=\"before-after-close-icon-one\" x1=\"18.2\" y1=\"9.1\" x2=\"9.2\" y2=\"18.1\"><\/line>\n<\/svg>",
+            "rent_content": "One Time Use"
+          }
+        },
+        "2988252e-7b3f-4ae5-a9d3-6b85e294fb89": {
+          "type": "before_after_text_rent",
+          "settings": {
+            "svg_img_rent": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" version=\"1.1\" id=\"Layer_1\" x=\"0px\" y=\"0px\" viewbox=\"0 0 27 27\" style=\"enable-background:new 0 0 27 27;\" xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\" xml:space=\"preserve\">\n<style type=\"text\/css\">\n\t.before-after-close-icon{fill:#950023;}\n\t.before-after-close-icon-one{fill:none;stroke:#950023;stroke-width:2;stroke-miterlimit:10;}\n<\/style>\n<g>\n\t<path class=\"before-after-close-icon\" d=\"M13.4,2.4c6.1,0,11,4.9,11,11s-4.9,11-11,11s-11-4.9-11-11S7.3,2.4,13.4,2.4 M13.4,0.4c-7.2,0-13,5.8-13,13   s5.8,13,13,13s13-5.8,13-13S20.6,0.4,13.4,0.4L13.4,0.4z\"><\/path>\n<\/g>\n<line class=\"before-after-close-icon-one\" x1=\"8.9\" y1=\"8.9\" x2=\"17.9\" y2=\"17.9\"><\/line>\n<line class=\"before-after-close-icon-one\" x1=\"18.2\" y1=\"9.1\" x2=\"9.2\" y2=\"18.1\"><\/line>\n<\/svg>",
+            "rent_content": "Not Tailored"
+          }
+        }
+      },
+      "block_order": [
+        "932d334b-ea81-4dc8-bc3f-9b70a8dcb705",
+        "0741a324-ed4e-458c-9885-a4295101f50c",
+        "f45abde0-b9bc-4f91-9870-aa8c8ed7f72c",
+        "15a51603-8616-48b1-9ec2-edc79c6b1163",
+        "2d924c71-e435-43cb-9fc7-fdcba337dc28",
+        "c9db0b73-617f-445a-8b54-9af1b7bfa3ca",
+        "13f7c8ed-9252-4a34-b782-39080ebcd17a",
+        "2988252e-7b3f-4ae5-a9d3-6b85e294fb89"
+      ],
+      "settings": {
+        "title": "Why Rent When You Can Buy?",
+        "subtitle": "",
+        "btntitle": "Learn More",
+        "btnlink": "shopify:\/\/pages\/quality-and-comfort",
+        "button_style_secondary": false,
+        "groom_text_title": "Groomsclub Suit",
+        "rent_text_title": "Rental Suit",
+        "banner_image": "shopify:\/\/shop_images\/before-desktop.png",
+        "banner_image_mobile": "shopify:\/\/shop_images\/before-desktop.png",
+        "banner_image_right": "shopify:\/\/shop_images\/after-desktop.png",
+        "banner_image_right_mobile": "shopify:\/\/shop_images\/after-desktop.png"
+      }
+    },
+    "16372210646c46d93a": {
+      "type": "banner-slider",
+      "blocks": {
+        "8270513a-f10e-4cb1-ab0d-8f0084a3a890": {
+          "type": "sliderimage",
+          "settings": {
+            "title": "",
+            "subtitle": "",
+            "button_link": "",
+            "button_name": "",
+            "desktop_image": "shopify:\/\/shop_images\/Stretch_Adrian_neck_cropped.png",
+            "mobile_image": "shopify:\/\/shop_images\/Stretch_Adrian_neck_cropped.png"
+          }
+        },
+        "d5454a5d-9276-4c5b-a0e1-31537926adee": {
+          "type": "sliderimage",
+          "settings": {
+            "title": "",
+            "subtitle": "",
+            "button_link": "",
+            "button_name": "",
+            "desktop_image": "shopify:\/\/shop_images\/Stretch_Adrian_cropped.png",
+            "mobile_image": "shopify:\/\/shop_images\/Stretch_Adrian_cropped.png"
+          }
+        },
+        "4a231ef1-817f-4e52-86f5-5e6f10cae1cb": {
+          "type": "sliderimage",
+          "settings": {
+            "title": "",
+            "subtitle": "",
+            "button_link": "",
+            "button_name": "",
+            "desktop_image": "shopify:\/\/shop_images\/Don-split.png",
+            "mobile_image": "shopify:\/\/shop_images\/Don-split.png"
+          }
+        },
+        "4ac0da4d-7621-4c67-be7b-9c43fd1b694f": {
+          "type": "sliderimage",
+          "settings": {
+            "title": "",
+            "subtitle": "",
+            "button_link": "",
+            "button_name": "",
+            "desktop_image": "shopify:\/\/shop_images\/new-Stretch-sleeve.png",
+            "mobile_image": "shopify:\/\/shop_images\/new-Stretch-sleeve.png"
+          }
+        },
+        "16f44468-c5df-4ce8-bac5-8b8b539a10c2": {
+          "type": "sliderimage",
+          "settings": {
+            "title": "",
+            "subtitle": "",
+            "button_link": "",
+            "button_name": "",
+            "desktop_image": "shopify:\/\/shop_images\/Ethan-slide.png",
+            "mobile_image": "shopify:\/\/shop_images\/Ethan-slide.png"
+          }
+        }
+      },
+      "block_order": [
+        "8270513a-f10e-4cb1-ab0d-8f0084a3a890",
+        "d5454a5d-9276-4c5b-a0e1-31537926adee",
+        "4a231ef1-817f-4e52-86f5-5e6f10cae1cb",
+        "4ac0da4d-7621-4c67-be7b-9c43fd1b694f",
+        "16f44468-c5df-4ce8-bac5-8b8b539a10c2"
+      ],
+      "settings": {
+        "autoplay": true,
+        "arrowprev": true,
+        "dots": false,
+        "loop": true,
+        "custom_class": "page-width  secoundry-slider"
+      }
+    },
+    "16372214325ca32849": {
+      "type": "image-with-text",
+      "blocks": {
+        "16372214311bceba87-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Sizing & Fit",
+            "heading_count": ""
+          }
+        },
+        "16372214311bceba87-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Use our quick sizing accessment tool to tailor your suit to the perfect fit.<\/p>"
+          }
+        },
+        "16372214311bceba87-2": {
+          "type": "button",
+          "settings": {
+            "button_label": "Find Your Fit",
+            "button_link": "shopify:\/\/pages\/fit-finder",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "16372214311bceba87-0",
+        "16372214311bceba87-1",
+        "16372214311bceba87-2"
+      ],
+      "settings": {
+        "check_width": false,
+        "image": "shopify:\/\/shop_images\/homw-how-it-work-2x.png",
+        "video_mp4_link": "",
+        "image_mobile": "shopify:\/\/shop_images\/homw-how-it-work-2x.png",
+        "height": "large",
+        "color_scheme": "background-1",
+        "background_color": "#ffffff",
+        "layout": "text_first",
+        "custom_class": ""
+      }
+    },
+    "1637221439d4df7908": {
+      "type": "image-with-text",
+      "blocks": {
+        "16372214390e7744a5-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Customize Your Look",
+            "heading_count": ""
+          }
+        },
+        "16372214390e7744a5-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Dress it up, however you like! Choose your color,accessories and more!<\/p>"
+          }
+        },
+        "16372214390e7744a5-2": {
+          "type": "button",
+          "settings": {
+            "button_label": "Try Our Customizer",
+            "button_link": "shopify:\/\/pages\/customize-your-look",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "16372214390e7744a5-0",
+        "16372214390e7744a5-1",
+        "16372214390e7744a5-2"
+      ],
+      "settings": {
+        "check_width": false,
+        "video_mp4_link": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/5ce7f5dfe9b344db9efeb9442de8d151.mp4",
+        "height": "adapt",
+        "color_scheme": "background-2",
+        "background_color": "#ffffff",
+        "layout": "image_first",
+        "custom_class": ""
+      }
+    },
+    "16372214599f5ccf5a": {
+      "type": "image-with-text",
+      "blocks": {
+        "1637221459d723b949-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Our Top Looks",
+            "heading_count": ""
+          }
+        },
+        "1637221459d723b949-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Browse some of our suggested looks to seamlessly style your group<\/p>"
+          }
+        },
+        "1637221459d723b949-2": {
+          "type": "button",
+          "settings": {
+            "button_label": "Browse Top Looks",
+            "button_link": "shopify:\/\/collections\/looks",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "1637221459d723b949-0",
+        "1637221459d723b949-1",
+        "1637221459d723b949-2"
+      ],
+      "settings": {
+        "check_width": false,
+        "image": "shopify:\/\/shop_images\/TOP_Looks_HP.png",
+        "video_mp4_link": "",
+        "image_mobile": "shopify:\/\/shop_images\/TOP_Looks_HP.png",
+        "height": "large",
+        "color_scheme": "background-1",
+        "background_color": "#ffffff",
+        "layout": "text_first",
+        "custom_class": ""
+      }
+    },
+    "16376739206d7c2bdd": {
+      "type": "collection-list",
+      "blocks": {
+        "16376739206da0534c-0": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "suit"
+          }
+        },
+        "16376739206da0534c-1": {
+          "type": "featured_collection",
+          "disabled": true,
+          "settings": {
+            "collection": "jacket"
+          }
+        },
+        "16376739206da0534c-2": {
+          "type": "featured_collection",
+          "disabled": true,
+          "settings": {
+            "collection": "pants"
+          }
+        },
+        "142b31de-8c71-40ce-9df0-d1c48ea9505e": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "shirt"
+          }
+        }
+      },
+      "block_order": [
+        "16376739206da0534c-0",
+        "16376739206da0534c-1",
+        "16376739206da0534c-2",
+        "142b31de-8c71-40ce-9df0-d1c48ea9505e"
+      ],
+      "settings": {
+        "background_color": "#f5f5f5",
+        "title": "Shop Essentials",
+        "image_ratio": "portrait",
+        "color_scheme": "background-2",
+        "swipe_on_mobile": false,
+        "image_padding": false,
+        "show_view_all": false,
+        "autoplay": true,
+        "arrowprev": true,
+        "dots": false,
+        "loop": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "product-recommendations",
+    "1637218661f22c5985",
+    "1637218881c7cbe80b",
+    "16372210646c46d93a",
+    "16372214325ca32849",
+    "1637221439d4df7908",
+    "16372214599f5ccf5a",
+    "16376739206d7c2bdd"
+  ]
+}

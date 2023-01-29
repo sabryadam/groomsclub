@@ -1,0 +1,98 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-blog",
+      "blocks": {
+        "36196649-2f45-4f82-9c87-26a4b470913e": {
+          "type": "title",
+          "settings": {
+            "show_date": true,
+            "show_author": false,
+            "show_blog_type": false
+          }
+        },
+        "0cd337a9-c0f6-4ff3-9a3f-6ecb44e11718": {
+          "type": "summary",
+          "disabled": true,
+          "settings": {}
+        },
+        "a32937aa-3234-4a47-ad5a-b9bafdda3fb3": {
+          "type": "link",
+          "disabled": true,
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "36196649-2f45-4f82-9c87-26a4b470913e",
+        "0cd337a9-c0f6-4ff3-9a3f-6ecb44e11718",
+        "a32937aa-3234-4a47-ad5a-b9bafdda3fb3"
+      ],
+      "settings": {
+        "show_blog_type": false,
+        "show_image": true,
+        "check_heading": "tips-tricks",
+        "blog_description": "<p>Be smart about your style. Learn insider tips and tricks to show up as the sharpest dressed men<\/p>",
+        "blog_number": "3"
+      }
+    },
+    "1633582106c1a3ae74": {
+      "type": "collection-list",
+      "blocks": {
+        "1633582106c1a3ae74-0": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "suit"
+          }
+        },
+        "d4047ff3-e612-4772-a20a-52cad9b242a2": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "shoes"
+          }
+        },
+        "a9208269-23a6-4a40-9966-430477e562ac": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "pocket-square"
+          }
+        },
+        "a297dd96-c6cb-4fb8-9d36-9361d6d8a75d": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "socks"
+          }
+        },
+        "0a6e2a65-c052-46d5-add7-80214395c104": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "looks"
+          }
+        }
+      },
+      "block_order": [
+        "1633582106c1a3ae74-0",
+        "d4047ff3-e612-4772-a20a-52cad9b242a2",
+        "a9208269-23a6-4a40-9966-430477e562ac",
+        "a297dd96-c6cb-4fb8-9d36-9361d6d8a75d",
+        "0a6e2a65-c052-46d5-add7-80214395c104"
+      ],
+      "settings": {
+        "background_color": "#f5f5f5",
+        "title": "Explore Groomsclub",
+        "image_ratio": "adapt",
+        "color_scheme": "transprent",
+        "swipe_on_mobile": false,
+        "image_padding": false,
+        "show_view_all": false,
+        "autoplay": false,
+        "arrowprev": true,
+        "dots": false,
+        "loop": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "1633582106c1a3ae74"
+  ]
+}

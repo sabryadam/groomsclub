@@ -1,0 +1,70 @@
+<!-- snippest/account-party-invite-popup -->
+<div class="invite-another-member-popup-wrapper">
+  <h5 class="title">Invite Person</h5>
+  <div class="invite-person">
+    <div class="grid_form">
+      <div class="field-wrap form-wrap">
+        <label class="form-label" for="InviteForm-FirstName">
+          First Name:
+        </label>
+        <input type="text" name="first_name" class="form_field field__input form_name" id="InviteForm-FirstName"
+          autocomplete="given-name" placeholder="First Name">
+        <input type="hidden" id="hiddenInviteForm_FirstName">
+        <span class="form-error"></span>
+      </div>
+
+      <div class="field-wrap form-wrap">
+        <label class="form-label" for="InviteForm-LastName">
+          Last Name:
+        </label>
+        <input type="text" name="last_name" class="form_field field__input form_name" id="InviteForm-LastName"
+          autocomplete="family-name" placeholder="Last Name">
+        <input type="hidden" id="hiddenInviteForm_lastName">
+        <span class="form-error"></span>
+      </div>
+
+      <div class="field-wrap form-wrap">
+        <label class="form-label" for="InviteForm-email">
+          Email:
+        </label>
+        <input type="text" name="email" id="InviteForm-email" class="form_email field__input" spellcheck="false"
+          autocapitalize="off" autocomplete="email" aria-required="true" placeholder="Email Address">
+        <input type="hidden" id="hiddenInviteForm_email">
+        <span class="form-error"></span>
+      </div>
+
+      <div class="field-wrap form-wrap">
+        <label class="form-label" for="InviteForm-telephone">
+          Phone:
+        </label>
+        <input type="tel" name="phone" maxlength="10" minlength="10" id="InviteForm-telephone" class="field__input form_phone"
+          spellcheck="false" autocapitalize="off" autocomplete="phone" aria-required="true"
+          placeholder="Phone Number">
+        <input type="hidden" id="hiddenInviteForm_phone">
+        <span class="form-error mobile_error"></span>
+      </div>
+    </div>
+    <div class="field-wrap form-wrap custom-checkobx field">
+      <label class="form-label" for="InviteForm-email">
+        Are You Paying for them?
+        <p class="invite-payment-not-changed">(This cannot be changed later.)</p>
+      </label>
+      <span class="custom_checkbox">
+        <input type="radio" id="yes" name="is_host_paying" value="I Pay" data-val="1">
+        <label class="checkbox-label" for="yes"> Yes</label>
+      </span>
+      <span class="break">|</span>
+      <span class="custom_checkbox">
+        <input type="radio" id="No" name="is_host_paying" value="They Pay" data-val="0">
+        <label class="checkbox-label" for="No">No</label>
+      </span>
+    </div>
+    <input type="hidden" id="yes_radio">
+    <div class="api_error form-error text_center"></div>
+    <div class="field button-wrap">
+      <button class="button button--primary invite-person-button">
+        Invite Person
+      </button>
+    </div>
+  </div>
+</div>

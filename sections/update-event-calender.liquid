@@ -1,0 +1,272 @@
+<div class="event-calender_container" id="event{{section.id}}">
+  <div class="page-width">
+      <div class="event-calender_section_wrap">
+          {% if section.settings.heading != blank %}
+          <h2 class="event_title h2">{{ section.settings.heading }}</h2>
+          {% endif %}
+         
+      <div class="calendar">
+        <input type="hidden" id="eventDate" value=""/>
+      <div class="group calendar-ympicker">
+          <div class="calendar-ympicker-header">
+          <div style="font-size:small;" class="today">Today</div>
+          <div style="float:right;width:20%;text-align:right;" class="close">&uarr;</div>
+          </div>
+          <ul style="clear:both;" class="center calendar-ympicker-months">
+          <li>Jan</li><li>Feb</li><li>Mar</li><li>Apr</li><li>May</li><li>Jun</li>
+          <li>Jul</li><li>Aug</li><li>Oct</li><li>Sep</li><li>Nov</li><li>Dec</li>
+          </ul>
+          <ul class="center calendar-ympicker-years">
+          </ul>
+      </div>
+
+      <div class="group calendar-header">
+         <p class="pointer arrow minusmonth disabled"><span>{% render 'pagination-left-arrow' %}</span></p>
+          <h3 class="pointer center monthname">&nbsp;</h3>
+          <p class="pointer arrow addmonth"><span>{% render 'pagination-right-arrow' %}</span></p>
+      </div>
+
+      <ul class="group calendar-days">
+          <li>Mo</li><li>Tu</li><li>We</li><li>Th</li><li>Fr</li><li>Sa</li><li>Su</li>
+      </ul>
+      <ul class="group calendar-body"><!-- Dates go in here --></ul>
+      </div>
+
+      </div>
+  </div>
+</div>            
+<script></script>
+<style>
+ul {
+list-style-type: none;
+}
+.right {
+text-align: right;
+}
+.center {
+text-align: center;
+}
+.pointer {
+cursor: pointer;
+}
+.group:after {
+content: "";
+display: table;
+clear: both;
+}
+.calendar {
+position: relative;
+overflow: hidden;
+color: #ddd;
+max-width: 100%;
+min-height: 33em;
+margin: 0 auto;
+background: transparent;
+border:1px solid var(--color-light-blue);
+border-radius: 0;
+-webkit-border-radius: 0;
+}
+
+/*Styles for dropdown*/
+.calendar-ympicker{
+position: absolute;
+max-width: 19.5em; /*stop more years causing overflow*/
+min-height: 15em;
+padding: .5em .5em 1em;
+transform: translateY(-100%); /*Start offscreen*/
+transition: transform ease-in-out 0.2s;
+background:#f5f5f5;
+z-index: 2;
+width: 100%;
+max-width: 100%;
+height: 100%;
+}
+.calendar-ympicker-header div{
+display: inline-block;
+color:#428bca;
+cursor: pointer;
+}
+.calendar-ympicker .close{
+text-align: right;
+border: 1px transparent solid;
+}
+.calendar-ympicker li{
+display: inline-block;
+line-height: 2em;
+border: 1px transparent solid;
+text-align: center;
+cursor: pointer;
+color: #000;
+}
+.calendar-ympicker li:hover{
+border-color: #428bca;
+color: #428bca;
+}    
+.calendar-ympicker-months{
+border-bottom: 1px solid #444;
+}
+.calendar-ympicker-months li{
+width: 30%;
+}
+.calendar-ympicker-years{
+overflow-x: scroll;
+white-space: nowrap;
+padding: 0.5em 0;
+}
+.calendar-ympicker-years li{
+width: 25%;
+}
+/*Years scroll bar*/
+.calendar-ympicker-years::-webkit-scrollbar-thumb:horizontal:hover {
+background:#428bca;
+}
+.calendar-ympicker-years::-webkit-scrollbar {
+height: 8px;
+}
+.calendar-ympicker-years::-webkit-scrollbar-track {
+background-color: #555;
+-webkit-border-radius: 10px;
+border-radius: 10px;
+}
+.calendar-ympicker-years::-webkit-scrollbar-thumb {
+background-color: #aaa;
+-webkit-border-radius: 10px;
+border-radius: 10px;
+}
+
+/*Styles for main part of calander*/
+.calendar-header {
+padding: 20px 0;
+margin: 0 0;
+color:var(--color-light-blue);
+display: flex;
+align-items: center;
+justify-content: center;
+border-bottom:1px solid var(--color-light-blue);
+}
+.calendar-header .arrow{
+position: unset;
+width: 40px;
+top: 0;
+text-align: center;
+margin: 0;
+}
+.calendar-header .addmonth{
+right: 0em;
+}
+.calendar-header .arrow svg{
+  width: 15px;
+  height: 15px;
+}
+.calendar-header .arrow span{
+display: flex;
+transition: transform ease-in-out 0.2s;
+width: 15px;
+height: auto;
+margin: 0 auto;
+}
+
+
+.calendar-days{
+padding: 0 .5em; /*Right and Left*/
+border-bottom: 1px solid #444;
+color: #666;
+display: none;
+}
+
+.calendar .calendar-header .monthname {
+font-size: calc(var(--font-h4) + 3px);
+margin: 0;
+min-width: 27%
+}
+
+.event_title{margin-top: 0px;}
+
+/*Dates*/
+.calendar-body{
+padding: 0 1.5em .5em 1.5em;
+}
+.calendar-body li, .calendar-days li{
+float: left;
+width: -webkit-calc(100%/7);
+padding:0em 0;
+text-align: center;
+cursor: pointer;
+color: var(--color-light-blue);
+font-size: var(--font-h2);
+font-weight: var(--font-heading-weight);
+margin-bottom: 0.3em;
+}
+
+.calendar li > span{
+display: inline-block;
+width: 72px;
+height: 72px;
+text-align: center;
+line-height: 72px;
+border: 1px transparent solid;
+}
+
+.calendar-body li:hover >span {
+background-color:#a1a1a1;
+color:#fff;
+}
+.calendar li.active > span{
+background-color:var(--color-light-blue);
+color: #fff;
+}
+.calendar-body .today > span{
+border: 1px solid var(--color-light-blue);      
+}
+.calendar-body li.noclick{
+cursor: default;
+}
+.calendar-body li.noclick:hover >span{
+  background-color: #ffffff;
+}
+
+@media screen and (max-width: 767px) {
+.calendar{    min-height: 21em;}
+.calendar .calendar-header .monthname{min-width: 65%;} 
+.calendar li > span{width: 36px; height: 36px; line-height: 36px;}
+.calendar-body li, .calendar-days li {font-size: calc(var(--font-h2) - 17px);}
+.calendar-body {padding: 0 0em .5em 0em;} 
+}
+
+.calendar-body li.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+</style>        
+
+<script>
+  // Alternative to load event
+  document.onreadystatechange = function () {
+    if (document.readyState === 'complete') {
+      $(".calendar-body").find("li.active").prevAll().addClass("disabled");
+    }
+  }
+</script>
+
+{% schema %}
+{
+"name": "Event calender Section",
+"tag": "section",
+"class": "event-calender__section",
+"settings": [
+  {
+    "type": "text",
+    "id": "heading",
+    "default": "Event Name",
+    "label": "Event Title"
+  }
+]
+}
+{% endschema %}
+
+<script>
+  var date = new Date(),
+      currentMonth = date.getMonth()+1;
+  theme_custom.currentMonth = currentMonth;
+</script>

@@ -1,0 +1,14 @@
+{{ 'update.js' | asset_url | script_tag }}
+<div id="updateEventWrap" class="update-event-wrapper">
+    {%- section 'update-event-name' -%}
+    {%- section 'update-event-type' -%}
+    {%- section 'update-event-calender' -%}
+    {%- section 'update-event-role' -%}
+    {%- section 'update-event-owner-contact-number'-%}
+    <div class="page-width">
+        <div class="api_error create-event-error form-error text_center"></div>
+        <div class="section-bottom-button">
+            <a href="javaScript:void(0)"  class="button button--primary update_event_btn disabled">Update Event <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+</div>

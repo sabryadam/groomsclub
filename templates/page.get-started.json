@@ -1,0 +1,177 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "cd31d507-6931-452f-be10-1296c999c97d": {
+      "type": "rich-text",
+      "blocks": {
+        "template--15943423754426__cd31d507-6931-452f-be10-1296c999c97d-166618653778292148-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Get Started!",
+            "heading_size": "medium"
+          }
+        },
+        "template--15943423754426__cd31d507-6931-452f-be10-1296c999c97d-166618653778292148-1": {
+          "type": "text",
+          "settings": {
+            "text": ""
+          }
+        },
+        "template--15943423754426__cd31d507-6931-452f-be10-1296c999c97d-166618653778292148-2": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "template--15943423754426__cd31d507-6931-452f-be10-1296c999c97d-166618653778292148-0",
+        "template--15943423754426__cd31d507-6931-452f-be10-1296c999c97d-166618653778292148-1",
+        "template--15943423754426__cd31d507-6931-452f-be10-1296c999c97d-166618653778292148-2"
+      ],
+      "settings": {
+        "color_scheme": "background-1",
+        "full_width": true
+      }
+    },
+    "2d2c591e-84fd-4058-9a9a-72e053b2ac52": {
+      "type": "image-with-text",
+      "blocks": {
+        "template--15943423754426__2d2c591e-84fd-4058-9a9a-72e053b2ac52-1666186289f82b206d-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Top Looks",
+            "heading_count": ""
+          }
+        },
+        "template--15943423754426__2d2c591e-84fd-4058-9a9a-72e053b2ac52-1666186289f82b206d-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Start from a collection of our top looks!<\/p>"
+          }
+        },
+        "template--15943423754426__2d2c591e-84fd-4058-9a9a-72e053b2ac52-1666186289f82b206d-2": {
+          "type": "button",
+          "settings": {
+            "button_label": "Top Looks",
+            "button_link": "shopify:\/\/collections\/looks",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "template--15943423754426__2d2c591e-84fd-4058-9a9a-72e053b2ac52-1666186289f82b206d-0",
+        "template--15943423754426__2d2c591e-84fd-4058-9a9a-72e053b2ac52-1666186289f82b206d-1",
+        "template--15943423754426__2d2c591e-84fd-4058-9a9a-72e053b2ac52-1666186289f82b206d-2"
+      ],
+      "settings": {
+        "check_width": false,
+        "image": "shopify:\/\/shop_images\/TOP_Looks_HP.png",
+        "video_mp4_link": "",
+        "image_mobile": "shopify:\/\/shop_images\/TOP_Looks_HP.png",
+        "height": "adapt",
+        "color_scheme": "background-1",
+        "background_color": "#ffffff",
+        "layout": "image_first",
+        "custom_class": "first-img-get-started   get-started-page-img-text"
+      }
+    },
+    "3bfe0e6a-802e-4496-8c04-bed070ab9457": {
+      "type": "image-with-text",
+      "blocks": {
+        "template--15943423754426__3bfe0e6a-802e-4496-8c04-bed070ab9457-16661948028100742b-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Start From Scratch",
+            "heading_count": ""
+          }
+        },
+        "template--15943423754426__3bfe0e6a-802e-4496-8c04-bed070ab9457-16661948028100742b-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Customize any suit, however you like, with our customizer!<\/p>"
+          }
+        },
+        "template--15943423754426__3bfe0e6a-802e-4496-8c04-bed070ab9457-16661948028100742b-2": {
+          "type": "button",
+          "settings": {
+            "button_label": "Customizer",
+            "button_link": "shopify:\/\/pages\/customize-your-look",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "template--15943423754426__3bfe0e6a-802e-4496-8c04-bed070ab9457-16661948028100742b-0",
+        "template--15943423754426__3bfe0e6a-802e-4496-8c04-bed070ab9457-16661948028100742b-1",
+        "template--15943423754426__3bfe0e6a-802e-4496-8c04-bed070ab9457-16661948028100742b-2"
+      ],
+      "settings": {
+        "check_width": false,
+        "image": "shopify:\/\/shop_images\/New-Vert_8ece258b-3d99-4571-818e-682110ac7709.gif",
+        "video_mp4_link": "",
+        "image_mobile": "shopify:\/\/shop_images\/New-Vert_8ece258b-3d99-4571-818e-682110ac7709.gif",
+        "height": "adapt",
+        "color_scheme": "background-1",
+        "background_color": "#ffffff",
+        "layout": "image_first",
+        "custom_class": "first-content-get-started get-started-page-img-text mobile-reverse"
+      }
+    },
+    "5ca48b6e-f4a8-4c58-9752-e492b6fe0c94": {
+      "type": "image-banner",
+      "disabled": true,
+      "blocks": {
+        "template--15943423754426__5ca48b6e-f4a8-4c58-9752-e492b6fe0c94-16661959865521b233-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Get Started"
+          }
+        },
+        "template--15943423754426__5ca48b6e-f4a8-4c58-9752-e492b6fe0c94-16661959865521b233-1": {
+          "type": "text",
+          "settings": {
+            "text": "Begin the process one of two ways..."
+          }
+        },
+        "template--15943423754426__5ca48b6e-f4a8-4c58-9752-e492b6fe0c94-16661959865521b233-2": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Start From Scratch",
+            "button_link_1": "shopify:\/\/pages\/customize-your-look",
+            "button_style_secondary_1": false,
+            "button_label_2": "Top Looks",
+            "button_link_2": "shopify:\/\/collections\/looks",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "template--15943423754426__5ca48b6e-f4a8-4c58-9752-e492b6fe0c94-16661959865521b233-0",
+        "template--15943423754426__5ca48b6e-f4a8-4c58-9752-e492b6fe0c94-16661959865521b233-1",
+        "template--15943423754426__5ca48b6e-f4a8-4c58-9752-e492b6fe0c94-16661959865521b233-2"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/groomsclub-1200x628.jpg",
+        "desktop_text_box_position": "center",
+        "color_scheme": "background-1",
+        "stack_images_on_mobile": true,
+        "adapt_height_first_image": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "cd31d507-6931-452f-be10-1296c999c97d",
+    "2d2c591e-84fd-4058-9a9a-72e053b2ac52",
+    "3bfe0e6a-802e-4496-8c04-bed070ab9457",
+    "5ca48b6e-f4a8-4c58-9752-e492b6fe0c94"
+  ]
+}

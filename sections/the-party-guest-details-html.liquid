@@ -1,0 +1,124 @@
+{{ 'the-party-guest-details.js' | asset_url | script_tag }}
+{{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
+{{ 'invited-event.css' | asset_url | stylesheet_tag }}
+{{ 'the-party-guest-details.css' | asset_url | stylesheet_tag }}
+<script src="https://harvesthq.github.io/chosen/chosen.jquery.js" defer></script>
+<script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+<link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
+
+<div class="mywedding_section_wrap hidden">
+  <div class="page-top-head-background page-top-margin-0">
+    <div class="page-width-big">
+      <div class="page-top-headpadding-flex">
+        <div class="breadcrumb">
+          <div class="breadcrumb-links">
+            <a href="{{ routes.account_url }}">My Account</a>
+            <span class="breadcrumb__sep">{% include 'breadcrumb-arrow' %}</span>
+            <span class="active-page"></span>
+          </div>
+        </div>
+        <div class="page-back-link">
+          <a href="{{ routes.account_url }}" class="link"><i class="fas fa-arrow-left"></i> Back to My Account</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="page-width">
+      <input type="hidden" id="weddingevent_id">
+      <input type="hidden" id="customer_id" value="{{ customer.id }}">
+      <input type="hidden" id="customer_name" value="{{ customer.name }}">
+      <input type="hidden" id="customer_email" value="{{ customer.email }}">
+      <input type="hidden" id="member_id">
+      <input type="hidden" id="look_id">
+      <div class="account-profile-top-part">
+        <div class="profile-pic-part">
+          <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/default-event-img.jpg?v=1654156190">
+        </div>
+        <div class="profile-info-part">
+          <h1 class="text-center-heading border-heading page-title" id="weddingeventname">My Wedding - Test</h1>
+          <div class="event-detail-part">
+            <p class="user-email-value h4">bjones@gmail.com</p>
+            <p class="who-payment">They pay</p>
+          </div>
+        </div>
+      </div>
+      <div class="event-process-part">
+        <div class="create-event-step-checkbox">
+          <label class="account-event-step active" data-event-step="invited"> Invited
+            <span class="checkmark"></span>
+          </label>
+          <label class="account-event-step" data-event-step="sized"> Sized 
+            <span class="checkmark"></span>
+          </label>
+          <label class="account-event-step" data-event-step="purchased"> Purchased
+            <span class="checkmark"></span>
+          </label>        
+          <label class="account-event-step" data-event-step="received-order"> Received Order
+            <span class="checkmark"></span>
+          </label>
+          {%comment%}
+          <label class="account-event-step" data-event-step="verified-fit"> 
+            Verified Fit
+            <span class="checkmark"></span>
+          </label>
+          {% endcomment %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-width guest-details-main-outer-wrapper">
+    <div class="loader-icon">
+      <div class="loading-overlay__spinner">
+        <svg width="25" height="25" aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+        </svg>
+      </div>
+    </div>
+  </div>  
+  <div class="the-party-part">
+    <div class="party-background-part">
+      <div class="page-width">
+        <div class="section-heading">
+          <h2 class="text-center-heading border-heading title">The Party</h2>
+        </div>
+        <div class="party-invite-member-part"></div>
+      </div>
+    </div>
+  </div>
+  <div class="page-back-link page-last-link">
+    <div class="page-width-big">
+      <a href="/account" class="link"><i class="fas fa-arrow-left"></i> Back to My Account</a>
+    </div>
+  </div>
+</div>
+<div class="mywedding_api_call_loading">
+  <div class="loading-overlay">
+    <div class="loading-overlay__spinner">
+      <svg width="25" height="25" aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+        <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- add reminder popup  -->
+{%- render 'add-reminder-popup' -%}
+
+{% schema %}
+  {
+    "name": "The party guest details",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "page title",
+        "default": "Guest Details"
+      }
+    ],
+    "presets": [
+      {
+        "name": "The party guest details"
+      }
+    ]
+  }
+{% endschema %}

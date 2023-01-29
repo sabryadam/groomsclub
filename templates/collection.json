@@ -1,0 +1,241 @@
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": false
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 9,
+        "image_ratio": "adapt",
+        "show_secondary_image": true,
+        "add_image_padding": false,
+        "show_vendor": false,
+        "enable_filtering": true,
+        "enable_sorting": true
+      }
+    },
+    "1637216711df5a6ab7": {
+      "type": "image-with-text",
+      "blocks": {
+        "16372167119bc1ad06-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Sizing & Fit",
+            "heading_count": ""
+          }
+        },
+        "16372167119bc1ad06-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Use our quick sizing accessment tool to tailor your suit to the perfect fir.<\/p>"
+          }
+        },
+        "16372167119bc1ad06-2": {
+          "type": "button",
+          "settings": {
+            "button_label": "Find Yout Fit",
+            "button_link": "shopify:\/\/pages\/fit-finder",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "16372167119bc1ad06-0",
+        "16372167119bc1ad06-1",
+        "16372167119bc1ad06-2"
+      ],
+      "settings": {
+        "check_width": false,
+        "image": "shopify:\/\/shop_images\/homw-how-it-work-2x.png",
+        "video_mp4_link": "",
+        "image_mobile": "shopify:\/\/shop_images\/homw-how-it-work-2x.png",
+        "height": "large",
+        "color_scheme": "background-1",
+        "background_color": "#ffffff",
+        "layout": "text_first",
+        "custom_class": ""
+      }
+    },
+    "16372170389c54c5d1": {
+      "type": "image-with-text",
+      "blocks": {
+        "16372170386cb90443-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Customize Your Look",
+            "heading_count": ""
+          }
+        },
+        "16372170386cb90443-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Dress it up, however you like! Choose your color, accessories, and more!<\/p>"
+          }
+        },
+        "16372170386cb90443-2": {
+          "type": "button",
+          "settings": {
+            "button_label": "Try Our Customizer",
+            "button_link": "shopify:\/\/pages\/customize-your-look",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "16372170386cb90443-0",
+        "16372170386cb90443-1",
+        "16372170386cb90443-2"
+      ],
+      "settings": {
+        "check_width": false,
+        "image": "shopify:\/\/shop_images\/New-Vert_8ece258b-3d99-4571-818e-682110ac7709.gif",
+        "video_mp4_link": "",
+        "image_mobile": "shopify:\/\/shop_images\/New-sequence-6-16.gif",
+        "height": "large",
+        "color_scheme": "background-2",
+        "background_color": "#ffffff",
+        "layout": "image_first",
+        "custom_class": ""
+      }
+    },
+    "16372172284b4854e4": {
+      "type": "image-with-text",
+      "blocks": {
+        "163721722871e2a6ae-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Our Top Looks",
+            "heading_count": ""
+          }
+        },
+        "163721722871e2a6ae-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Browse some of our suggested looks to seamlessly style your group.<\/p>"
+          }
+        },
+        "163721722871e2a6ae-2": {
+          "type": "button",
+          "settings": {
+            "button_label": "Browse Top Looks",
+            "button_link": "shopify:\/\/collections\/looks",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "163721722871e2a6ae-0",
+        "163721722871e2a6ae-1",
+        "163721722871e2a6ae-2"
+      ],
+      "settings": {
+        "check_width": false,
+        "image": "shopify:\/\/shop_images\/TOP_Looks_HP.png",
+        "video_mp4_link": "",
+        "image_mobile": "shopify:\/\/shop_images\/TOP_Looks_HP.png",
+        "height": "large",
+        "color_scheme": "background-1",
+        "background_color": "#ffffff",
+        "layout": "text_first",
+        "custom_class": ""
+      }
+    },
+    "1637217326a77c73a8": {
+      "type": "collection-list",
+      "blocks": {
+        "1637217326195d7294-0": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "looks"
+          }
+        },
+        "b7d817ec-5675-47dc-918c-59cd8db9117a": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "suit"
+          }
+        },
+        "8a00cfce-a9b6-4ba8-b7bd-7ac900f8a22f": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "shirt"
+          }
+        },
+        "1637217326195d7294-2": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "bow-ties"
+          }
+        },
+        "fc7a38fe-b7e7-459c-9cc5-6338f1555680": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "neckties"
+          }
+        },
+        "0f2423e7-3399-4244-8399-4a970d9b5902": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "pocket-square"
+          }
+        },
+        "d78b7928-2532-432b-a79f-38ae709cf719": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "shoes"
+          }
+        },
+        "cf877264-9159-4474-b1da-bddf12d0d796": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "socks"
+          }
+        },
+        "1637217326195d7294-1": {
+          "type": "featured_collection",
+          "disabled": true,
+          "settings": {
+            "collection": "belts"
+          }
+        }
+      },
+      "block_order": [
+        "1637217326195d7294-0",
+        "b7d817ec-5675-47dc-918c-59cd8db9117a",
+        "8a00cfce-a9b6-4ba8-b7bd-7ac900f8a22f",
+        "1637217326195d7294-2",
+        "fc7a38fe-b7e7-459c-9cc5-6338f1555680",
+        "0f2423e7-3399-4244-8399-4a970d9b5902",
+        "d78b7928-2532-432b-a79f-38ae709cf719",
+        "cf877264-9159-4474-b1da-bddf12d0d796",
+        "1637217326195d7294-1"
+      ],
+      "settings": {
+        "background_color": "#f5f5f5",
+        "title": "Shop Essentials",
+        "image_ratio": "portrait",
+        "color_scheme": "transprent",
+        "swipe_on_mobile": false,
+        "image_padding": false,
+        "show_view_all": false,
+        "autoplay": false,
+        "arrowprev": true,
+        "dots": false,
+        "loop": true
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "product-grid",
+    "1637216711df5a6ab7",
+    "16372170389c54c5d1",
+    "16372172284b4854e4",
+    "1637217326a77c73a8"
+  ]
+}

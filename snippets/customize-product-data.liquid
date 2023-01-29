@@ -1,0 +1,53 @@
+{% assign is_color = false %}
+{%- unless selectProduct -%}
+  {%- assign selectProduct = false -%}
+{%- endunless -%}
+{%- for option in product.options_with_values -%}
+  {% assign opt_name = option.name | downcase %}
+  {% if opt_name contains 'color' or opt_name contains 'colour' %}
+    {% assign is_color = true %}
+  {% endif %}
+{%- endfor -%}
+<div class="product-block product-item-wrap" data-product-handle="{{ product.handle }}" data-product-type-handle="{{ product.title | handle }}" data-var-id="{{ product.selected_or_first_available_variant.id }}"{% if vest_product_flag %} data-vest-handle="{{ vest_product_handle | strip | split : '?' | first}}"{% endif %}>
+  <div class="no-js-hidden swatches-wrapper" >
+    <select class="product-var-dropdown select__select hidden">
+      {%- for variant in product.variants -%}
+        {%- capture preloadImage -%}
+          {{preloadImage}}
+          {%- if variant.image != blank -%}
+            <link rel="preload" as="image" href="{{ variant.image.src | img_url: '1400x' }}">
+          {%- endif -%}
+          {%- if variant.metafields.my_fields.color_image != blank -%}
+            <link rel="preload" as="image" href="{{ variant.metafields.my_fields.color_image | img_url : '1400x'}}">
+          {%- endif -%}
+          {%- if variant.metafields.my_fields.color_image_one != blank -%}
+            <link rel="preload" as="image" href="{{ variant.metafields.my_fields.color_image_one | img_url : '1400x'}}">
+          {%- endif -%}
+        {%- endcapture -%}
+        <option
+          {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %}
+          {% unless variant.available %}disabled{% endunless %}
+          value="{{ variant.id }}"
+          data-product-id="{{product.id }}"
+          data-variant-price="{{ variant.price}}"
+          data-variant-title="{{ variant.title}}"
+          data-variant-featured-img="{{ variant.image.src | img_url: '1400x' }}"
+          data-variant-img="{{ variant.metafields.my_fields.color_image | img_url : '1400x'}}"
+          data-variant-inventory="{{ variant.inventory_quantity }}" 
+          {% unless variant.metafields.my_fields.color_image_one == blank %}
+          data-variant-img-one="{{ variant.metafields.my_fields.color_image_one | img_url : '1400x'}}"
+          {% endunless %}
+        >
+          {{ variant.title }}
+        </option>
+      {%- endfor -%}
+    </select>
+    {{preloadImage}}
+    <input type="hidden" class="selected-variant-id" data-product-handle="{{ product.handle }}" data-variant-id="{{ product.selected_or_first_available_variant.id }}" value="{{ product.selected_or_first_available_variant.id }}">
+    <div class="swatch-outer-wrapper">
+      {%- for product_option in product.options_with_values -%}
+        {%- render 'customize-swatch' with swatch: product_option.name, product: product, selectProduct:selectProduct -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>

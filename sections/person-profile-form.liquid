@@ -1,0 +1,230 @@
+
+<div class="event-person-form_container" id="event{{section.id}}">
+    <div class="page-width">
+        <div class="event-person-form_section_wrap">
+            {% if section.settings.btn_title != blank %}
+            <div class="add-person-button">
+                <button class="icon_btn_wrap button button--secondary" id="addpersonbutton">
+              {% render 'icon-plus' %} {{ section.settings.btn_title }}
+              </button>
+                <span class="button-down-arrow" style="display:none;">{% include 'icon-button-down-arrow' %}</span>
+            </div>
+            {% endif %}
+
+            <div class="person_form_wrap" style="display:none;">
+                <div class="grid_form">
+                    <div class="field form-wrap">
+                        <label class="form-label field__label" for="personForm-FirstName">
+               {{ section.settings.fname_title }}
+              </label>
+                        <input type="text" name="first_name" class="form_field field__input" id="personForm-FirstName" autocomplete="given-name" placeholder="{{ section.settings.fname_placeholder }}">
+                        <input type="hidden" id="hiddenpersonForm_FirstName">
+                        <span class="form-error"></span>
+                    </div>
+
+                    <div class="field form-wrap">
+                        <label class="form-label field__label" for="personForm-LastName">
+               {{ section.settings.lname_title}}
+              </label>
+                        <input type="text" name="last_name" class="form_field field__input" id="personForm-LastName" autocomplete="family-name" placeholder="{{ section.settings.lname_placeholder }}">
+                        <input type="hidden" id="hiddenpersonForm_lastName">
+                        <span class="form-error"></span>
+                    </div>
+
+                    <div class="field form-wrap">
+                        <label class="form-label field__label" for="personForm-email">
+              {{ section.settings.email_title}}
+            </label>
+                        <input type="text" name="email" id="personForm-email" class="form_email field__input" spellcheck="false" autocapitalize="off" autocomplete="email" aria-required="true" placeholder="{{ section.settings.email_placeholder }}">
+                        <input type="hidden" id="hiddenpersonForm_email">
+                        <span class="form-error"></span>
+                    </div>
+
+                    <div class="field form-wrap">
+                        <label class="form-label field__label" for="personForm-telephone">
+              {{ section.settings.phone_title}}
+            </label>
+                        <input type="tel" name="phone" maxlength="14" minlength="10" id="personForm-telephone" class="field__input form_phone" spellcheck="false" autocapitalize="off" autocomplete="phone" aria-required="true" placeholder="{{ section.settings.phone_placeholder }}">
+                        <input type="hidden" id="hiddenpersonForm_phone">
+                       <span class="form-error"></span>
+                    </div>
+                </div>
+                <div class="field form-wrap custom-checkobx">
+                    <label class="form-label field__label" for="personForm-email">
+          {{ section.settings.checkbox_title}}
+          <p class="payment-not-changed">(This cannot be changed later.)</p>
+        </label>
+                    <span class="custom_checkbox">
+          <input type="radio" id="yes" name="is_host_paying" value="I Pay" data-val="1" checked>
+          
+          <label class="checkbox-label" for="yes"> Yes</label>
+        </span>
+                    <span class="break">|</span>
+                    <span class="custom_checkbox">
+          <input type="radio" id="No" name="is_host_paying" value="They Pay" data-val="0">
+          <label class="checkbox-label" for="No">No</label>
+        </span>
+        <span class="form-error"></span>
+                </div>
+                <input type="hidden" id="yes_radio">
+                <div class="field">
+                    <button class="button button--primary" id="saveperson">
+            Save person
+          </button>
+                    <a href="#" class="link" id="cancel_person">
+            Cancel
+          </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        
+<div class="custom-model-main">
+   <div class="custom-model-inner">
+      <div class="close-btn">×</div>
+      <div class="custom-model-wrap">
+         <div class="pop-up-content-wrap">
+            
+               <div class="field form-wrap">
+                  <label class="form-label field__label">First Name :</label>
+                  <input type="text" name="popfirst_Name" placeholder="First Name" class="field__input pop_firstname">
+                  <span class="form-error"></span>
+               </div>
+               <div class="field form-wrap">
+                  <label class="form-label field__label">Last Name :</label>
+                  <input type="text" name="poplast_Name" placeholder="Last Name" class="field__input pop_lastname">
+                  <span class="form-error"></span>
+               </div>
+               <div class="field form-wrap">
+                  <label class="form-label field__label">Email :</label>
+                  <input type="email" name="popemail" placeholder="Email" class="field__input pop_email">
+                  <span class="form-error"></span>
+               </div>
+               <div class="field form-wrap">
+                  <label class="form-label field__label">Phone :</label>
+                  <input type="telephone" name="pop_tel" placeholder="Telephone" class="field__input pop_phone">
+                  <span class="form-error"></span>
+               </div>
+               <div class="field form-wrap custom-checkobx">
+                  <label class="form-label field__label">
+                  Are you paying for them?
+                  <p class="payment-not-changed">(This cannot be changed later.)</p>
+                  </label>
+                  <span class="cst_check_box">
+                  <input type="radio" id="yess" name="is_host_paying" value="I Pay" data-radioval="1">
+                  <label class="checkbox-label" for="yess"> Yes</label>
+                  </span>
+                  <span class="cst_check_box">
+                  <input type="radio" id="Noo" name="is_host_paying" value="They Pay" data-radioval="0">
+                  <label class="checkbox-label" for="Noo">No</label>
+                  </span>
+               </div>
+               <input type="hidden" id="parent_id">
+               <button class="button button--primary"  type="button" id="popsave">Save</button>
+            
+         </div>
+      </div>
+   </div>
+   <div class="bg-overlay"></div>
+</div>
+
+{% schema %}
+{
+   "name":"Event person Form",
+   "tag":"section",
+   "class":"event-person-form__section",
+   "settings":[
+      {
+         "type":"text",
+         "id":"btn_title",
+         "default":"Add person",
+         "label":"Button Title"
+      },
+      {
+         "type":"text",
+         "id":"event_subtitle",
+         "default":"Enter Event Name",
+         "label":"Inner Event Title "
+      },
+      {
+         "type":"header",
+         "content":"Form Label"
+      },
+      {
+         "type":"text",
+         "id":"fname_title",
+         "default":"First Name",
+         "label":"First Name Title"
+      },
+      {
+         "type":"text",
+         "id":"lname_title",
+         "default":"Last Name",
+         "label":"Last Name Title"
+      },
+      {
+         "type":"text",
+         "id":"email_title",
+         "default":"Email",
+         "label":"Email"
+      },
+      {
+         "type":"text",
+         "id":"phone_title",
+         "default":"Phone",
+         "label":"Phone Title"
+      },
+      {
+         "type":"text",
+         "id":"checkbox_title",
+         "default":"Are you paying for them?",
+         "label":"Check pay Title"
+      },
+      {
+         "type":"header",
+         "content":"Form Placeholder"
+      },
+      {
+         "type":"text",
+         "id":"fname_placeholder",
+         "default":"First Name",
+         "label":"First Name Placeholder"
+      },
+      {
+         "type":"text",
+         "id":"lname_placeholder",
+         "default":"Last Name",
+         "label":"Last Name Placeholder"
+      },
+      {
+         "type":"text",
+         "id":"email_placeholder",
+         "default":"Email",
+         "label":"Email Placeholder"
+      },
+      {
+         "type":"text",
+         "id":"phone_placeholder",
+         "default":"Phone",
+         "label":"Phone Placeholder"
+      },
+      {
+         "type":"header",
+         "content":"Form Button"
+      },
+      {
+         "type":"text",
+         "id":"btn_save",
+         "default":"Save person",
+         "label":"Save Button Title"
+      },
+      {
+         "type":"text",
+         "id":"btn_cancel",
+         "default":"Cancel",
+         "label":"Cancle Button Title"
+      }
+   ]
+}
+{% endschema %}

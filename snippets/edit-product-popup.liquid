@@ -1,0 +1,43 @@
+{%- assign product = currentProduct -%}
+
+<div class="edit-item-popup {{ orderTypeClass }}" data-product-id="{{ product.id }}" data-line-item-id="{{ s_variant.id }}" data-product-handle="{{ product.handle }}" data-product-type="{{ product.type | downcase | handleize }}">
+  {% unless template contains 'product' %}<h5>{{ currentProduct.title }}</h5>{% endunless %}
+  <select class="single-option-selector">
+    {% for variant in currentProduct.variants %}
+      <option data-var-title="{{ variant.title }}" data-product-id="{{ product.id }}" value="{{ variant.id }}" data-v-inventory="{{variant.inventory_quantity}}" data-v-price="{{ variant.price }}" data-img="{% if variant.image == blank %}prod-img{% else %}var-img{% endif %}" data-v-image="{% if variant.image == blank %}{{ productHandle.featured_media.image.src | img_url: 'master' }}{% else %}{{ variant.image.src | img_url : 'master' }}{%endif%}" data-v-id="{{ variant.id }}" data-title="{{ variant.title }}" {% unless variant.available %}disable{% endunless %}>
+        {{ variant.title }}
+      </option>
+    {%- endfor -%}
+  </select>
+  <div class="swatch-wrapper-options">
+    {% if currentProduct.available and currentProduct.variants.size > 1 %}
+      {%- for product_option in currentProduct.options_with_values -%} 
+        {%- render 'custom-options' with option: product_option, swatch: product_option.name, product: currentProduct, variantId : s_variant.id, selectedOption: s_variant, currentItemTitle : currentItemTitle  -%}
+      {%- endfor -%}
+    {% endif %}
+  </div>
+  <div class="swatch-wrapper">
+    {% if currentProduct.available and currentProduct.variants.size > 1 %}
+      {%- for product_option in currentProduct.options_with_values -%} 
+        {%- render 'custom-swatch' with swatch: product_option.name, product: currentProduct, variantId : s_variant.id, selectedOption: s_variant, currentItemTitle : currentItemTitle  -%}
+      {%- endfor -%}
+    {% endif %}
+  </div>
+  {%- if template contains 'cart'  -%}
+    <span class="error-message"></span>
+    <div class="updates-button">
+      <button type="button" class="button button--primary disabled">
+        {%- render 'loader-icon' -%}
+        Update
+      </button>
+    </div>
+  {%- else -%}
+    <span class="error-message"></span>
+    <div class="pdp-updates-button">
+      <button type="button" class="button button--primary disabled">
+        {%- render 'loader-icon' -%}
+        Update
+      </button>
+    </div>
+  {%- endif -%}
+</div>

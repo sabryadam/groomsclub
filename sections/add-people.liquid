@@ -1,0 +1,16 @@
+<div class="event-addPeople_container" id="event{{section.id}}">
+    <div class="page-width">
+        <div class="event-addPeople_section_wrap">
+            {% if section.settings.heading != blank %}
+            <h2 class="event_title h2">{{ section.settings.heading }}</h2>
+            {% endif %}
+            <div class="add-people-block">
+                <div class="blockicontext_loop"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+{% schema %} { "name": "Event Add People Section", "tag": "section", "class": "event-addPeople__section", "settings": [ { "type": "text", "id": "heading", "default": "Add People", "label": "Event People Title" } ] } {% endschema %}

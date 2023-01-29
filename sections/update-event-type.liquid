@@ -1,0 +1,68 @@
+<div class="event-type_container" id="event{{section.id}}">
+  <div class="page-width">
+      <div class="event-type_section_wrap">
+          {% if section.settings.heading != blank %}
+          <h2 class="event_title h2">{{ section.settings.heading }}</h2>
+          {% endif %}
+          <div class="Squer-radio-button-big">
+              {% for block in section.blocks %}
+                  <label class="Squer-radio-button-inner" data-event-type-box="{{ block.settings.icontitle }}" id="{{block.id}}">
+                      <input type="radio" name="event-type" data-event_type_id="{{forloop.index}}" value="{{ block.settings.icontitle }}">
+
+                      <span class="checkmark">
+                          {% if block.settings.icon_image_svg!= blank %}
+                              <div class="icon-part">
+                                {% comment %} <img src="{{ block.settings.icon_image | img_url: 'master'}}"> {% endcomment %}
+                                {{ block.settings.icon_image_svg }}
+                              </div>
+                          {% endif %}
+                          {% if block.settings.icontitle != blank  %}
+                              <h2 class="icontext h4">
+                                  {{ block.settings.icontitle }}
+                              </h2>
+                          {% endif %}
+                      </span>
+
+                  </label>
+                  
+              {% endfor %}
+          </div>
+          <p class="event-type-error form-error">Please select Event type.</p>
+      </div>
+  </div>
+</div>            
+
+
+{% schema %}
+{
+"name": "Event Type Section",
+"tag": "section",
+"class": "event-type__section",
+"settings": [
+  {
+    "type": "text",
+    "id": "heading",
+    "default": "Event Type",
+    "label": "Event Type Title"
+  }
+],
+"blocks": [
+  {
+      "type": "icontext",
+      "name": "Icon Text",
+      "settings": [
+         {
+              "type": "html",
+              "label": "Icon svg ",
+              "id" :"icon_image_svg" 
+          },
+          {
+              "type": "text",
+              "label": "Title",
+              "id" :"icontitle"
+          }
+      ]
+  }
+  ]
+}
+{% endschema %}

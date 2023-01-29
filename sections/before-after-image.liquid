@@ -1,0 +1,252 @@
+<style>
+    .beforeafter_section .image-wrapper .img img {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        display: block;
+    }
+</style>
+
+<div class="beforeafter_section" id="{{section.id}}">
+    <div class="beforeafter_container page-width">
+        
+        {% if section.settings.title != '' %}
+            <h2 class="text-center-heading border-heading title beforeafter_title">{{section.settings.title}}</h2>
+        {% endif %}
+
+        {% if section.settings.subtitle != ''%}
+            <p class="beforeafter_subtitle">{{section.settings.subtitle}}</p>
+        {% endif %}
+        
+        {% if section.settings.before_image %}
+            {% style %}
+               .beforeafter_beforeimage{background-image:url( {{section.settings.before_image | img_url: 'master'}});}
+
+               @media screen and (max-width:767px) {
+                .beforeafter_beforeimage{background-image:url( {{section.settings.before_image_mobile | img_url: 'master'}});}
+               }
+            {% endstyle %}
+        {% endif %}
+
+        {% if section.settings.after_image %}
+           {% style %}
+              .beforeafter_agterimage{background-image:url({{section.settings.after_image | img_url: 'master'}});}
+
+               @media screen and (max-width:767px) {
+                .beforeafter_agterimage{background-image:url({{section.settings.after_image_mobile | img_url: 'master'}});}
+               }
+           {% endstyle %}
+        {% endif %}
+        {%- comment -%}
+        <div class="afterbeforeimage">
+            {% if section.settings.before_image %}
+                <div class="beforeafter_beforeimage"></div>
+            {% endif %}
+
+            {% if section.settings.after_image %}
+                <div class="beforeafter_agterimage"></div>
+            {% endif %}
+            {% if section.settings.after_image %}
+            <input type="range" min="1" max="100" value="50" class="beforeafterinput" name='beforeafterinput' id="slider">
+            <div class='beforeslider-button'></div>
+            {% endif %}
+        </div>
+        {%- endcomment -%}
+        <div class="image-wrapper">
+           
+            {% unless section.settings.banner_image == blank and section.settings.banner_image_right == blank %}
+                <div class="left img{% unless section.settings.banner_image_mobile == blank %} xs-hide{% endunless %}">
+                    <img
+                    srcset="{% if section.settings.banner_image.width >= 288 %}{{ section.settings.banner_image | img_url: '288x' }} 288w,{% endif %}
+                            {% if section.settings.banner_image.width >= 576 %}{{ section.settings.banner_image | img_url: '576x' }} 576w,{% endif %}
+                            {% if section.settings.banner_image.width >= 550 %}{{ section.settings.banner_image | img_url: '550x' }} 550w,{% endif %}
+                            {% if section.settings.banner_image.width >= 1100 %}{{ section.settings.banner_image | img_url: '1100x' }} 1100w{% endif %}"
+                    loading="lazy"
+                    class="banner-image-wrapper"
+                    width="auto"
+                    height="auto"
+                    alt="{{ section.settings.banner_image.alt | default: shop.name | escape }}"
+                    >
+                </div>
+                <div class="right img{% unless section.settings.banner_image_right_mobile == blank %} xs-hide{% endunless %}">
+                    <img
+                    srcset="{% if section.settings.banner_image_right.width >= 288 %}{{ section.settings.banner_image_right | img_url: '288x' }} 288w,{% endif %}
+                            {% if section.settings.banner_image_right.width >= 576 %}{{ section.settings.banner_image_right | img_url: '576x' }} 576w,{% endif %}
+                            {% if section.settings.banner_image_right.width >= 550 %}{{ section.settings.banner_image_right | img_url: '550x' }} 550w,{% endif %}
+                            {% if section.settings.banner_image_right.width >= 1100 %}{{ section.settings.banner_image_right | img_url: '1100x' }} 1100w{% endif %}"
+                    loading="lazy"
+                    class="banner-image-wrapper"
+                    width="auto"
+                    height="auto"
+                    alt="{{ section.settings.banner_image_right.alt | default: shop.name | escape }}"
+                    >
+                </div>
+            {% endunless %}
+            <!-- Start Image Content -->
+                <div class="left-side-text-content before-after-content">
+                    <h3 class="groom-content-title before-after-title">{{ section.settings.groom_text_title }}</h3>
+                    <ul class="before-after-list">
+                    {% for block in section.blocks %}
+                        {% if block.type == 'before_after_text_groom' %}
+                            <li class="left-content-svg-text">
+                                <span>{{ block.settings.svg_img_groom }}</span>
+                                <span> {{ block.settings.groomsuit_content }} </span>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+                </div>
+                <div class="right-side-text-content before-after-content">
+                    <h3 class="rent-content-title before-after-title">{{ section.settings.rent_text_title }}</h3>
+                        <ul class="before-after-list">
+                        {% for block in section.blocks %}
+                            {% if block.type == 'before_after_text_rent' %}
+                                <li class="right-content-svg-text">
+                                    <span>{{ block.settings.svg_img_rent }}</span>
+                                    <span> {{ block.settings.rent_content }} </span>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        </ul>
+                </div>
+            <!-- End Image Content -->
+            {% unless section.settings.banner_image_mobile == blank and section.settings.banner_image_right_mobile == blank %}
+                <div class="left-mobile img{% unless section.settings.banner_image == blank %} xs-show{% endunless %}">
+                    <img
+                    srcset="{% if section.settings.banner_image_mobile.width >= 288 %}{{ section.settings.banner_image_mobile | img_url: '288x' }} 288w,{% endif %}
+                            {% if section.settings.banner_image_mobile.width >= 576 %}{{ section.settings.banner_image_mobile | img_url: '576x' }} 576w,{% endif %}
+                            {% if section.settings.banner_image_mobile.width >= 550 %}{{ section.settings.banner_image_mobile | img_url: '550x' }} 550w,{% endif %}
+                            {% if section.settings.banner_image_mobile.width >= 1100 %}{{ section.settings.banner_image_mobile | img_url: '1100x' }} 1100w{% endif %}"
+                    loading="lazy"
+                    class="banner-image-wrapper"
+                    width="auto"
+                    height="auto"
+                    alt="{{ section.settings.banner_image_mobile.alt | default: shop.name | escape }}"
+                    >
+                </div>
+                <div class="right-mobile img{% unless section.settings.banner_image_right == blank %} xs-show{% endunless %}">
+                    <img
+                    srcset="{% if section.settings.banner_image_right_mobile.width >= 288 %}{{ section.settings.banner_image_right_mobile | img_url: '288x' }} 288w,{% endif %}
+                            {% if section.settings.banner_image_right_mobile.width >= 576 %}{{ section.settings.banner_image_right_mobile | img_url: '576x' }} 576w,{% endif %}
+                            {% if section.settings.banner_image_right_mobile.width >= 550 %}{{ section.settings.banner_image_right_mobile | img_url: '550x' }} 550w,{% endif %}
+                            {% if section.settings.banner_image_right_mobile.width >= 1100 %}{{ section.settings.banner_image_right_mobile | img_url: '1100x' }} 1100w{% endif %}"
+                    loading="lazy"
+                    class="banner-image-wrapper"
+                    width="auto"
+                    height="auto"
+                    alt="{{ section.settings.banner_image_right_mobile.alt | default: shop.name | escape }}"
+                    >
+                </div>
+            {% endunless %}
+        </div>
+        <div class="before-after-button section-bottom-button">
+            <a href="{{ section.settings.btnlink }}" class="button {% if section.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}">{{ section.settings.btntitle }} <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+
+</div>
+
+{% schema %}
+{
+    "name": "Before After Image",
+    "settings": [
+        {
+            "type": "text",
+            "label": "Title",
+            "id" :"title"
+        },
+        {
+            "type": "text",
+            "label": "Sub Title",
+            "id" :"subtitle"
+        },
+        {
+            "type": "text",
+            "label": "Button Title",
+            "id" :"btntitle"
+        },
+        {
+            "type": "url",
+            "label": "Button Link",
+            "id" :"btnlink"
+        },
+        {
+            "type": "checkbox",
+            "id": "button_style_secondary",
+            "default": false,
+            "label": "Use Outline Button Style"
+        },
+        {
+            "type":"text",
+            "id":"groom_text_title",
+            "label":"Groom Content Title"
+        },
+        {
+            "type":"text",
+            "id":"rent_text_title",
+            "label":"Rent Content Title"
+        },
+        {
+            "type": "image_picker",
+            "label": "Banner Image Left",
+            "id" :"banner_image"
+        },
+        {
+            "type": "image_picker",
+            "label": "Banner Image Left mobile",
+            "id" :"banner_image_mobile"
+        },
+        {
+            "type": "image_picker",
+            "label": "Banner Image Right",
+            "id" :"banner_image_right"
+        },
+        {
+            "type": "image_picker",
+            "label": "Banner Image Right mobile",
+            "id" :"banner_image_right_mobile"
+        }
+    ],
+    "blocks":[
+        {
+            "type":"before_after_text_groom",
+            "name":"Before After Text",
+            "settings":[
+                {
+                    "type":"html",
+                    "id":"svg_img_groom",
+                    "label":"svg"
+                },
+                {
+                    "type":"html",
+                    "id":"groomsuit_content",
+                    "label":"Groomsuit Content",
+                    "default":"Brand New"
+                }
+            ]
+        },
+        {
+            "type":"before_after_text_rent",
+            "name":"Before After Text Rent",
+            "settings":[
+                {
+                    "type":"html",
+                    "id":"svg_img_rent",
+                    "label":"svg"
+                },
+                {
+                    "type":"html",
+                    "id":"rent_content",
+                    "label":"Rent Content",
+                    "default":"Used"
+                }
+            ]
+        }
+    ],
+    "presets": [
+    {
+      "name": "Before Image Slider",
+      "category": "image"
+    }]
+}
+{% endschema %}

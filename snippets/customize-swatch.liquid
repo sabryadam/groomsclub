@@ -1,0 +1,109 @@
+{% comment %}
+  Set the extension of your color files below. Use 'png', 'jpeg', 'jpg' or 'gif'.
+{% endcomment %}
+
+{% assign file_extension = 'png' %}
+
+{% if swatch == blank %}
+  <div class="swatch error">
+    <p>You must include the snippet swatch.liquid with the name of a product option.</p> 
+    <p>Use: <code>{% raw %}{% include 'swatch' with 'name of your product option here' %}{% endraw %}</code></p>
+    <p>Example: <code>{% raw %}{% include 'swatch' with 'Color' %}{% endraw %}</code></p>
+  </div>
+{% else %}
+
+  {% assign found_option = false %}
+  {% assign is_color = false %}
+  {% assign option_index = 0 %}
+  {% for option in product.options %}
+    {% if option == swatch %}
+      {% assign optionNameVal = swatch | downcase | handleize %}
+      {% assign found_option = true %}
+      {% assign option_index = forloop.index0 %}
+      {% assign downcased_option = swatch | downcase %}
+      {% if downcased_option contains 'color' or downcased_option contains 'colour' or downcased_option contains 'Color' %}
+        {% assign is_color = true %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {% unless found_option %}
+    <div class="swatch error swatch-wrap">
+      <p>You included the snippet swatch.liquid with the name of a product option — <code>'{{ swatch }}'</code> — that does not belong to your product.</p>
+      <p>Use <code>{% raw %}{% include 'swatch' with 'name of your product option here' %}{% endraw %}</code></p>
+      <p>Example: <code>{% raw %}{% include 'swatch' with 'Color' %}{% endraw %}</code></p>
+      <p><strong>This is case-sensitive!</strong> Do not put in <code>'color'</code> if your product option name is <code>'Color'</code>.</p>
+    </div>
+  {% else %}
+    {% if is_color %}
+      <div class="swatch-el-outer-wrapper">
+        <input type="hidden" class="customizer-product-{{product.id}}" data-option-index="{{ option_index }}" data-product-id="{{product.id}}" data-product-type="{{product.type | handleize}}" data-option-name-title="{{ swatch }}" data-option-name={{ optionNameVal }} value="{{product.selected_or_first_available_variant.options[option_index] }}">
+        {% if selectProduct %}<div class="custom-tabs-scroll"><div class="custom-tabs-scroll-swatch">{% endif %}
+        <div class="swatch clearfix swatch-{{ downcased_option }}" data-option-index="{{ option_index }}" {{ selected-value }}>
+          {% assign values = '' %}
+          {% for variant in product.variants %}
+            {% assign value = variant.options[option_index] %}
+            {% unless values contains value %}
+              {% assign values = values | join: ',' %}
+              {% assign values = values | append: ',' | append: value %} 
+              {% assign values = values | split: ',' %}
+              <div class="swatch-wrap {{ value | handle }}" data-value="{{ value | escape }}" data-product-title="{{ product.title }}" data-product-handle="{{product.handle}}" data-variant-id="{{ variant.id }}">
+                <span class="tool-tip">{{ value }}</span>
+                <input id="{{ product.handle }}-{{ forloop.index }}-{{ downcased_option }}-{{ value | handle }}" type="radio" name="customizer-{{product.type | handleize}}" value="{{ value | escape }}" />
+                {%- assign checkProdType = product.type | downcase -%}
+                <label class="swatch-element" for="{{ product.handle }}-{{ forloop.index }}-{{ downcased_option }}-{{ value | handle }}" data-product-title="{{ product.title }}" data-product-id="{{ product.id }}" {% if checkProdType == 'jacket' or checkProdType == 'pants' %} data-variant-price="0000" {% else %}data-variant-price="{{ variant.price }}"{% endif %} data-variant-id="{{ variant.id }}" data-product-handle="{{ product.handle }}" data-variant-featured-img="{{ variant.image.src | img_url: 'master' }}" data-variant-img="{{ variant.metafields.my_fields.color_image | img_url : 'master'}}" data-option-value="{{ value | escape }}">
+                  <span style="background: {{ value | split: ' ' | last | handle }}; background: url({{ value | handle | prepend : 'color_' | append: '.' | append: file_extension | file_img_url: '50x' }})">{{ value }}</span>
+                  <div class="remove-product-icon">
+                    {%- render 'radio-unchecked' -%}
+                  </div>
+                  {%- unless variant.available -%}
+                    <div class="cross-icon">
+                      {%- render 'radio-unchecked' -%}
+                    </div>
+                  {%- endunless -%}
+                </label>
+              </div>
+            {% endunless %}
+          {% endfor %}
+        </div>
+        {%- if selectProduct -%}
+        </div>
+        <div class="custom-tab-paddles">
+          <button class="left-paddle paddle hidden">
+            <span class="arrow"></span>
+          </button>
+          <button class="right-paddle paddle hidden">
+            <span class="arrow"></span>
+          </button>
+        </div>
+        </div>
+        {%- endif -%}
+      </div>
+    {%- else -%}
+      {%- if product.type == 'Neckties' or product.type == 'Tie Bar' -%}
+        <div class="swatch-el-outer-wrapper">
+          <input type="hidden" class="customizer-product-{{product.id}}" data-option-index="{{ option_index }}" data-product-id="{{product.id}}" data-product-type="{{product.type | handleize}}" data-option-name-title="{{ swatch }}" data-option-name={{ optionNameVal }} value="{{product.selected_or_first_available_variant.options[option_index] }}">
+          <div class="not-color swatch swatch-wrap clearfix swatch-{{ downcased_option }}" data-option-index="{{ option_index }}">
+            {% assign values = '' %}
+            {% for variant in product.variants %}
+              {% assign value = variant.options[option_index] %}
+              {% unless values contains value %}
+                {% assign values = values | join: ',' %}
+                {% assign values = values | append: ',' | append: value %} 
+                {% assign values = values | split: ',' %}
+                <div class="swatch-wrap {{ value | handle }} {% if variant.available %}available{% else %}soldout{% endif %}" data-value="{{ value | escape }}" data-product-title="{{ product.title }}" data-product-handle="{{product.handle}}" data-variant-id="{{ variant.id }}"{% if forloop.index.first %} checked{% endif %}>
+                  <input id="{{ product.handle }}-{{ forloop.index }}-{{ downcased_option }}-{{ value | handle }}" type="radio" name="{{product.handle}}-option-{{ option_index }}" value="{{ value | escape }}"{% unless variant.available %}disabled{% endunless %} />
+                  <label class="swatch-element" for="{{ product.handle }}-{{ forloop.index }}-{{ downcased_option }}-{{ value | handle }}" data-product-title="{{ product.title }}" data-product-id="{{ product.id }}" {% if checkProdType == 'jacket' or checkProdType == 'pants' %} data-variant-price="0000" {% else %}data-variant-price="{{ variant.price }}"{% endif %} data-variant-id="{{ variant.id }}" data-product-handle="{{ product.handle }}" data-variant-featured-img="{{ variant.image.src | img_url: 'master' }}" data-variant-img="{{ variant.metafields.my_fields.color_image | img_url : 'master'}}" data-option-value="{{ value | escape }}">
+                    {{ value }}
+                  </label>
+                </div>
+              {% endunless %}
+            {% endfor %}
+          </div>
+        </div>
+      {%- else -%}
+        <input type="hidden" class="customizer-product-{{product.id}}" data-option-index="{{ option_index }}" data-product-id="{{product.id}}" data-product-type="{{ product.type | handleize}}" data-option-name-title="{{ swatch }}" data-option-name={{ optionNameVal }} value="{{product.selected_or_first_available_variant.options[option_index] }}">
+      {%- endif -%}
+    {%- endif -%}
+  {% endunless %}
+{% endif %}

@@ -1,0 +1,28 @@
+{%- liquid
+ assign product_pub_at = article.published_at | date: '%s' 
+ assign totalDay = 'now' | date: '%s' | minus: product_pub_at | divided_by: 86400
+  if totalDay < 7
+      assign plurl = totalDay | pluralize: 'day ago', 'days ago'
+      echo totalDay 
+      echo ' '
+      echo plurl 
+  elsif totalDay > 7 and totalDay < 30
+      assign totalDay = 'now' | date: '%s' | minus: product_pub_at | divided_by: 604800 
+      assign plurl = totalDay | pluralize: 'week ago', 'weeks ago'
+      echo totalDay
+      echo ' '
+      echo plurl 
+  elsif totalDay > 30 and totalDay < 365
+      assign totalDay = 'now' | date: '%s' | minus: product_pub_at | divided_by: 2592000
+      assign plurl = totalDay | pluralize: 'month ago', 'months ago'
+      echo totalDay
+      echo ' '
+      echo plurl 
+  else
+      assign totalDay = 'now' | date: '%s' | minus: product_pub_at | divided_by: 31536000
+      assign plurl = totalDay | pluralize: 'year ago', 'years ago'
+      echo totalDay
+      echo ' '
+      echo plurl 
+  endif
+-%}

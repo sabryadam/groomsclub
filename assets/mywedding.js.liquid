@@ -1,0 +1,2492 @@
+theme_custom.reminder = function (sendReminderDataObj, button) {
+  $.ajax({
+    url: `${theme_custom.base_url}/api/reminder/create`,
+    method: "POST",
+    data: sendReminderDataObj,
+    dataType: "json",
+    headers: {
+      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+    },
+    beforeSend: function () {
+      button.addClass("disabled");
+    },
+    success: function (result) {
+      button.addClass("disabled");
+      $('.api_error').addClass("success-event").show().html(result.message);
+      setTimeout(() => {
+        $('.api_error').removeClass("success-event").html('').hide();
+        button.removeClass("disabled");
+        $(".fancybox-button").click();
+        $(".search-choice-close").click();
+        $(".send-via-main .send-via").prop("checked",false);
+      }, 3000);
+      theme_custom.getEventDetails();
+    },
+    error: function (xhr, status, error) {
+      if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+        $('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+          'text-align': 'center',
+          'color': 'red'
+        });
+        setTimeout(() => {
+          window.location.href = '/account/logout';
+        }, 5000);
+      } else {
+        var event_date_msg = '';
+        if (xhr.responseJSON.data) {
+          if (xhr.responseJSON.data.event_date != undefined) {
+            for (let i = 0; i < xhr.responseJSON.data.event_date.length; i++) {
+              event_date_msg += `<span>${xhr.responseJSON.data.event_date[i]}</span>`;
+            }
+          } else {
+            for (let i = 0; i < xhr.responseJSON.data.length; i++) {
+              var errorMsg = xhr.responseJSON.data[i];
+              var membererror = '';
+              $.each(errorMsg, function (key, value) {
+                membererror += `<p><b style="text-transform: uppercase;">${key}</b>: ${value}</p>`;
+              })
+              event_date_msg += `<div>${membererror}</div>`;
+            }
+          }
+        } else {
+          event_date_msg += `<span>${xhr.responseJSON.message}</span>`;
+        }
+        $('.api_error').show().html(event_date_msg);
+        setTimeout(() => {
+          button.removeClass("disabled");
+          $(".api_error").html('').hide();
+        }, 10000);
+      }
+    }
+  });
+};
+
+theme_custom.updateReminder = function(reminderDataObj, button,reminderId){
+  // if (error_count == 0) {
+    $.ajax({
+      url: `${theme_custom.base_url}/api/reminder/update/${reminderId}`,
+      method: "PUT",
+      data: reminderDataObj,
+      dataType: "json",
+      headers: {
+        // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
+        "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+      },
+      beforeSend: function () {
+          button.addClass("disabled");
+      },
+      success: function (result) {
+        button.addClass("disabled");
+        $('.edit-reminder-popup-wrapper .api_error').addClass("success-event").show().html(result.message);
+        setTimeout(() => {
+          // location.reload();
+          $(".fancybox-button").click();
+        }, 3000);
+        theme_custom.getEventDetails();
+      },
+      error: function (xhr, status, error) {
+        if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+          $('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+            'text-align': 'center',
+            'color': 'red'
+          });
+          setTimeout(() => {
+            window.location.href = '/account/logout';
+          }, 5000);
+        } else {
+          // $('.edit-reminder-popup-wrapper .api_error').show().html(xhr.responseJSON.message);
+          var event_date_msg = '';
+          if (xhr.responseJSON.data) {
+            if (xhr.responseJSON.data.scheduled_date != undefined) {
+              for (let i = 0; i < xhr.responseJSON.data.scheduled_date.length; i++) {
+                event_date_msg += `<span>${xhr.responseJSON.data.scheduled_date[i]}</span>`;
+              }
+            } else {
+              var errorMsg = xhr.responseJSON.data[i];
+              var membererror = '';
+              $.each(errorMsg, function (key, value) {
+                membererror += `<p><b style="text-transform: uppercase;">${key}</b>: ${value}</p>`;
+              })
+              event_date_msg += `<div>${membererror}</div>`;
+            }
+          } else {
+            event_date_msg += `<span>${xhr.responseJSON.message}</span>`;
+          }
+          $('.api_error').show().html(event_date_msg);
+          setTimeout(function () {
+            $('.api_error').fadeOut();
+            button.removeClass("disabled");
+          }, 10000);
+        }
+      }
+    });
+  }
+
+// theme_custom.multipleProductAjax
+theme_custom.multipleProductAjax = function (button, parent, memberId, lookId) {
+  var getProduct = parent.find(".order-prod-wrapper .horizontal-product-part"),
+    eventId = $("#weddingevent_id").val();
+  var items = [];
+  getProduct.each(function () {
+    var varId = $(this).find(".prod-data").data("var-id");
+    var productType = $(this).data("product-type").toLowerCase(),
+      item = {};
+    if (productType == 'jacket') {
+      var pantsSelectedVariant = $(`.horizontal-product-part[data-product-type="pants"]`).attr("data-variant-id"),
+        pantsVarTitle = $(`.horizontal-product-part[data-product-type="pants"]`).attr("data-variant-title");
+      item = {
+        "id": varId,
+        "quantity": 1,
+        "properties": {
+          "variant-title": pantsVarTitle,
+          "variant-id": pantsSelectedVariant
+        }
+      }
+    } else if (productType == 'pants') {
+      var jacketSelectedVariant = $(`.horizontal-product-part[data-product-type="jacket"]`).attr("data-variant-id"),
+        jacketVarTitle = $(`.horizontal-product-part[data-product-type="jacket"]`).attr("data-variant-title");
+      item = {
+        "id": varId,
+        "quantity": 1,
+        "properties": {
+          "variant-title": jacketVarTitle,
+          "variant-id": jacketSelectedVariant
+        }
+      }
+    } else {
+      item = {
+        "id": varId,
+        "quantity": 1
+      }
+    }
+    items.push(item);
+  });
+  data = {
+    'items': items,
+    'attributes': {
+      'event_id': eventId,
+      'member_id': memberId,
+      'look_id': lookId,
+      'order_type': 'normal'
+    }
+  }
+  $.ajax({
+    type: "POST",
+    url: '/cart/clear.js',
+    data: '',
+    dataType: 'json',
+    success: function () {
+      jQuery.ajax({
+        type: 'POST',
+        url: '/cart/add.js',
+        data: data,
+        dataType: 'json',
+        success: function () {
+          button.find(".btn-title").text("Added To Cart");
+          window.location.href = `/cart`;
+        },
+        error: function (xhr, status, error) {
+          button.find(".btn-title").text("Add To Cart");
+          alert(xhr.responseJSON.description);
+        }
+      });
+    }
+  });
+}
+
+
+// virtual Product Add To cart
+theme_custom.virtualProdAddToCart = function (button, qty, memberId, lookId) {
+  var virtualProdVarId = $(".virtual-product-wrapper .var-id").val(),
+    eventId = $("#weddingevent_id").val(),
+    qty = Math.ceil(qty);
+  data = {
+    'items': [{
+      "id": virtualProdVarId,
+      "quantity": qty,
+      properties: {
+        '_Ordet type': 'Virtual'
+      }
+    }],
+    'attributes': {
+      'event_id': eventId,
+      'member_id': memberId,
+      'look_id': lookId,
+      'order_type': 'virtual'
+    }
+  };
+  $.ajax({
+    type: "POST",
+    url: '/cart/clear.js',
+    data: '',
+    dataType: 'json',
+    success: function () {
+      jQuery.ajax({
+        type: 'POST',
+        url: '/cart/add.js',
+        data: data,
+        dataType: 'json',
+        success: function () {
+          button.find(".btn-title").text("Added To Cart");
+          window.location.href = "/cart";
+        },
+        error: function (xhr, status, error) {
+          button.find(".btn-title").text("Add To Cart");
+          alert(xhr.responseJSON.message);
+        }
+      });
+    }
+  })
+}
+
+// theme_custom.productBlockDataWrap
+theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, lookDetails) {
+  var productItemHTML = productOptionVal = '',
+    subTotal = 0,
+    productSubTotalPrice;
+  if (orderItems.is_host == 0) {
+    var orderImg = '';
+    for (let i = 0; i < lookDetails.length; i++) {
+      const element = lookDetails[i];
+      if (element.look_id == orderItems.look_id) {
+        orderImg = element.look_image;
+      }
+    }
+    var isHostZeroData = `<div class="horizontal-product-part order-block-wrap">
+                            <div class="product-imge-left">
+                              <img src="${orderImg}" alt="image">
+                            </div>
+                            <div class="product-info">
+                              <h4>${orderItems.look_name}</h4>
+                              <p class="user-name"><i class="fas fa-user-tie"></i> ${orderItems.member_name}</p>
+                            </div>
+                            <div class="product-price">
+                              <p class="price product-price-wrap">$199.99</p>
+                            </div>
+                          </div>`;
+  }
+  $.map(orderItemsObj, function (productItems) {
+    jQuery.ajax({
+      type: 'GET',
+      url: `/products/${productItems.product_handle}.json`,
+      success: function (response) {
+        $.each(response.product.variants, function (key, value) {
+          if (value.id == productItems.variant_id) {
+            variantSelected = value;
+            var variantSelectedImage = variantSelected.image_id,
+              variantSelectedPrice = variantSelected.price,
+              productOptionVal = variantTitle = '',
+              productType = response.product.product_type.toLowerCase();
+            var productPrice = theme_custom.Shopify.formatMoney(variantSelectedPrice, theme_custom.money_format);
+            if (variantSelectedImage == null || variantSelectedImage == '' || variantSelectedImage == undefined) {
+              productImg = response.product.image.src;
+            } else {
+              $.each(response.product.images, function (key, imgValue) {
+                if (imgValue.id == variantSelectedImage) {
+                  imageSelected = imgValue;
+                }
+              })
+              productImg = imageSelected.src;
+            }
+            if (productType == 'Suit') {
+              if (getCookie("fit-finder-data") != "") {
+                var getFitFinderData = JSON.parse(getCookie("fit-finder-data"));
+                var jacketType = getFitFinderData.jacketSize.split(":");
+                var jacketTypeVal = '';
+                if (jacketType[1] == "S") {
+                  jacketTypeVal = 'Short'
+                } else if (jacketType[1] == "R") {
+                  jacketTypeVal = 'Regular'
+                } else if (jacketType[1] == "L") {
+                  jacketTypeVal = 'Long'
+                }
+                productOptionVal += `<p class="product-size-type">Jacket ${jacketType[0]} | ${jacketTypeVal} </p>
+                                     <p class="product-size-type">Size ${getFitFinderData.pants_waist}W ${getFitFinderData.pants_hight}H </p>`;
+              }
+            } else {
+              productOptionVal += '<p class="product-size-type">'
+              for (var i = 0; i < response.product.options.length; i++) {
+                var optionIndex = i + 1;
+                var option = 'option' + optionIndex;
+                if (i == (response.product.options.length - 1)) {
+                  productOptionVal += `${response.product.options[i].name} ${variantSelected[option]}`;
+                } else {
+                  productOptionVal += `${response.product.options[i].name} ${variantSelected[option]},&nbsp;`;
+                }
+              }
+              productOptionVal += `</p>`;
+            }
+            productItemHTML += `<div class="horizontal-product-part" data-product-type="${productType}" data-prod-price="${variantSelectedPrice}"  data-variant-title="${variantSelected.title}" data-variant-id="${variantSelected.id}">
+                        <div class="product-imge-left">
+                          <img class="prod-img" src="${productImg}" alt="${response.product.title}" />
+                        </div>
+                        <div class="product-info">
+                          <h4>${response.product.title}</h4>
+                          ${productOptionVal}
+                        </div>
+                        <div class="product-price">
+                          <p class="price" data-price="${variantSelectedPrice}">${productPrice}</p>
+                        </div>
+                        <input type="hidden" class="prod-data" data-var-id="${variantSelected.id}" />
+                      </div>`;
+            subTotal = subTotal + parseInt(variantSelectedPrice * 100);
+          }
+        })
+        productSubTotalPrice = theme_custom.Shopify.formatMoney((subTotal * 100) / 100, theme_custom.money_format);
+        $(`.order-list-main.order-wrap-${index} .order-prod-wrapper`).html(productItemHTML);
+        $(`.order-list-main.order-wrap-${index} .order-prod-wrapper`).html(isHostZeroData);
+        $(`.order-list-main.order-wrap-${index} .order-footer .price-number,.order-list-main.order-wrap-${index} .product-price-wrap`).text(productSubTotalPrice);
+        $(`.order-list-main.order-wrap-${index} .order-footer .virtual-order-extra-info`).attr("data-item-qty", subTotal);
+        if (orderItems.is_host == 0) {
+          $(`.order-list-main.order-wrap-${index} .order-prod-wrapper`).addClass("pay-for-other");
+        }
+      }
+    });
+  })
+}
+
+// theme_custom.paymentInfo
+theme_custom.paymentInfo = function (result) {
+  var paymentInfo = result.data.payment_info;
+  var lookDetails = result.data.event_looks;
+  var paymentInfoHTMLtarget = $(".order-list-main-wrapper");
+  if (result.data.payment_info == '') {
+    $(".payment-info").addClass("hidden");
+  } else {
+    $(".payment-info").removeClass("hidden");
+  }
+  $(".order-list-main").remove();
+  $.map(paymentInfo, function (orderItems, index) {
+    var productHTML = '';
+    var orderItemsObj = orderItems.items;
+    if (orderItems.payment_status != "Complete") {
+      var proceedToCartClass = virtualDataInfo = "";
+      if (orderItems.is_host == 1) {
+        proceedToCartClass = 'pay-for-me';
+        virtualDataInfo = `<input type="hidden" class="normal-order-extra-info" data-member-id="${orderItems.member_id}" data-look-id="${orderItems.look_id}">`;
+      } else {
+        proceedToCartClass = 'pay-for-other-button';
+        virtualDataInfo = `<input type="hidden" class="virtual-order-extra-info" data-item-qty='0' data-member-id="${orderItems.member_id}" data-look-id="${orderItems.look_id}">`
+      }
+      orderFooter = `<div class="order-footer">
+                      ${virtualDataInfo}
+                      <div class="order-subtotal">Subtotal: <h3 class="price-number">$304.98</h3>
+                      </div>
+                      <button type="button" class="button  button--primary button-lr-small-padding ${proceedToCartClass}" data-text="Adding...">
+                          <span class="btn-title">Proceed to Cart</span> <i class="fas fa-shopping-cart"></i>
+                      </button>
+                    </div>`;
+    } else {
+      orderFooter = '';
+    }
+    if (orderItems.payment_date == undefined || orderItems.payment_date == '' || orderItems.payment_date == null) {
+      orderDate = ``;
+    } else {
+      orderDate = `<span class="order-date">${orderItems.payment_date}</span>`;
+    }
+    if (orderItems.order == undefined || orderItems.order == '' || orderItems.order == null) {
+      orderNumber = `<p class="order-number payment-status">${orderItems.payment_status}</p>`;
+    } else {
+      orderNumber = `<p class="order-number">Order : ${orderItems.order}</p>
+                    ${orderDate}
+                    <span class="payment-status">${orderItems.payment_status}</span>`;
+    }
+    productHTML += `<div class="order-list-main order-wrap-${index}">
+                    <div class="order-number-part">
+                      ${orderNumber}
+                    </div>
+                    <div class="order-list-innner-main">
+                      <div class="order-prod-wrapper"></div>
+                      ${orderFooter}
+                    </div>
+                  </div>`;
+    theme_custom.productBlockDataWrap(orderItemsObj, orderItems, index, lookDetails);
+    paymentInfoHTMLtarget.append(productHTML);
+  })
+}
+
+theme_custom.homeTryOnInfo = function (result) {
+ var eventmemberlist = result.data.event_members;
+ $.each(eventmemberlist, function(key,value){
+  if(value.payment_status == 1 && value.is_host == 1){
+    $(".schedule-button-part").addClass("hidden");
+    $(".schedule-success-messages").removeClass("hidden");
+  }
+ });
+}
+
+// theme_custom.getProfileImage
+theme_custom.getProfileImage = function (result) {
+  var profileImgHTML = previewImage = '';
+  if (result.data.eventImage == null) {
+    profileImgHTML = `<img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/default-event-img.jpg?v=1654156190" alt="no image" /><span class="edit-img">Edit</span>`;
+    previewImage = 'https://cdn.shopify.com/s/files/1/0585/3223/3402/files/default-event-img.jpg?v=1654156190';
+  } else {
+    profileImgHTML = `<img src="${result.data.eventImage}" alt="User profile" /><span class="edit-img">Edit</span>`
+    previewImage = result.data.eventImage;
+  }
+  $(".profile-pic-part").html(profileImgHTML);
+  $(".avatar-preview #imagePreview").css("background-image", "url('" + previewImage + "')")
+}
+
+// theme_custom.assignToMember
+theme_custom.assignToMember = function (data, button) {
+  var data = data,
+    button = button;
+  $.ajax({
+    url: `${theme_custom.base_url}/api/look/assignToMember`,
+    method: "POST",
+    data: data,
+    dataType: "json",
+    headers: {
+      // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
+      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+    },
+    beforeSend: function () {
+    },
+    success: function (result) {
+      // location.reload();
+      button.removeClass("disabled").text("Assigned");
+      $(".fancybox-button").click();
+      button.removeClass("disabled").text("Assign Look");
+      setTimeout(() => {
+        theme_custom.getEventDetails();
+      }, 3000);
+    },
+    error: function (xhr, status, error) {
+      if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+        $('.assign-member-look-popup-wrapper .api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+          'text-align': 'center',
+          'color': 'red'
+        });
+        setTimeout(() => {
+          window.location.href = '/account/logout';
+        }, 5000);
+      } else {
+        $('.assign-member-look-popup-wrapper .api_error').show().html(xhr.responseJSON.message);
+        setTimeout(() => {
+          button.removeClass("disabled").text("Assign Look");
+          $('.assign-member-look-popup-wrapper .api_error').hide();
+        }, 3000);
+      }
+    }
+  });
+};
+
+// theme_custom.removeUserFromLook()
+theme_custom.removeUserFromLook = function (eventId, memberId) {
+  var eventId = eventId,
+    memberId = memberId;
+  confirms = confirm("Are you sure you want to remove this?");
+  if (eventId && confirms) {
+    if (eventId) {
+      $.ajax({
+        url: `${theme_custom.base_url}/api/event/removeMember/${eventId}/${memberId}`,
+        method: "DELETE",
+        data: '',
+        dataType: "json",
+        headers: {
+          "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+        },
+        beforeSend: function () {
+          // $('.favorite-looks-wrapper').css('cursor','not-allowed');
+        },
+        success: function (result) {
+          // $('.favorite-looks-wrapper').css('cursor','allowed');
+          // location.reload();
+          $(".fancybox-button").click();
+          theme_custom.getEventDetails();
+        },
+        error: function (xhr, status, error) {
+          if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+            alert('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>');
+            setTimeout(() => {
+              window.location.href = '/account/logout';
+            }, 5000);
+          } else {
+            alert(xhr.responseJSON.message);
+          }
+        }
+      });
+    }
+  }
+}
+// remove reminder from event detail page
+theme_custom.deleteReminder = function (reminderId) {
+  var reminderId = reminderId;
+  confirms = confirm("Are you sure you want to remove this?");
+  if (reminderId && confirms) {
+    if (reminderId) {
+      $.ajax({
+        url: `${theme_custom.base_url}/api/reminder/removeReminder/${reminderId}`,
+        method: "DELETE",
+        data: '',
+        dataType: "json",
+        headers: {
+          "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+        },
+        beforeSend: function () {
+          // $('.favorite-looks-wrapper').css('cursor','not-allowed');
+        },
+        success: function (result) {
+          // $('.favorite-looks-wrapper').css('cursor','allowed');
+          // location.reload();
+          $(".fancybox-button").click();
+          theme_custom.getEventDetails();
+        },
+        error: function (xhr, status, error) {
+          if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+            alert('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>');
+            setTimeout(() => {
+              window.location.href = '/account/logout';
+            }, 5000);
+          } else {
+            alert(xhr.responseJSON.message);
+          }
+        }
+      });
+    }
+  }
+}
+
+// theme_custom.editReminderPopupOpen
+theme_custom.editReminderPopupOpen = function (eidtEventId, eidtindex) {
+  var eidtEventId = eidtEventId,
+    editReminderEventArray = theme_edit_reminder_array,
+    edit_item_wrap = '';
+  var editReminderOuterWrapper = $(".edit-remider-outer-wrapper");
+  for (var i = 0; i < editReminderEventArray.length; i++) {
+    if (editReminderEventArray[i].id == eidtEventId) {
+      edit_item_wrap = `<div class="edit-reminder-inner-wrapper">
+                          <div class="field-wrap form-wrap">
+                            <label class="form-label field__label" for="editRemiderName">
+                              Name:
+                            </label>
+                            <input type="text" name="remiderName" class="custom-event-reminder-name field__input " id="editRemiderName" autocomplete="given-name" placeholder="Reminder Name" maxlength="100" value="${editReminderEventArray[i].name}">
+                            <span class="form-error"></span>
+                          </div>
+                          <div class="field-wrap form-wrap">
+                            <label class="form-label field__label" for="editReminderDate">
+                              Scheduled date:
+                            </label>
+                            <input type="date" id="editReminderDate" class="select-date" value="" />
+                            <span class="form-error"></span>
+                          </div>
+                          <div class="field-wrap form-wrap">
+                            <label class="form-label field__label" for="editReminderMessage">
+                              Message:
+                            </label>
+                            <textarea rows="10" id="editReminderMessage" class="text-area field__input form_field" name="comment" placeholder="Message..." maxlength="250">${editReminderEventArray[i].message}</textarea>
+                            <span class="form-error mobile_error"></span>
+                          </div>
+                          <div class="field-wrap form-wrap">
+                          <label class="form-label field__label" for="sendVia">
+                            Send via:
+                          </label>
+                            <div class="send-via-main field-wrap form-wrap">
+                              <label>`;
+      if(editReminderEventArray[i].is_email){
+        edit_item_wrap += `<input type="checkbox" value="email" class="send-via" checked><span>Email</span>`;
+      }else{
+        edit_item_wrap += `<input type="checkbox" value="email" class="send-via"><span>Email</span>`;
+      }
+      edit_item_wrap += `</label>
+                            </div>
+                            <div class="send-via-main field-wrap form-wrap">
+                              <label>`;
+      if(editReminderEventArray[i].is_sms){
+        edit_item_wrap += `<input type="checkbox" value="text-sms" class="send-via" checked><span>Text / SMS</span>`;
+      }else{
+        edit_item_wrap += `<input type="checkbox" value="text-sms" class="send-via"><span>Text / SMS</span>`;
+      }
+      edit_item_wrap += `</label>
+                            </div>
+                            <span class="form-error mobile_error send_via_error"></span>
+                        </div>
+                          <div class="field-wrap form-wrap member-wrap">
+                            <label class="form-label field__label" for="editReminderMember">
+                              Members:
+                            </label>
+                            <select data-placeholder="Begin typing a name to filter..." multiple class="reminder-member member-select" id="editReminderMember" name="reminderMember"></select>
+                            <span class="form-error mobile_error"></span>
+                          </div>
+                        </div>
+                        <div class="api_error form-error text_center"></div>
+                        <button class="button button--primary update-reminder-button cmn-reminder-update">
+                          Update Reminder
+                        </button>`;
+      theme_custom.selectedOption(theme_edit_reminder_array, eidtindex);
+      $(editReminderOuterWrapper).html(edit_item_wrap);
+      $('#editReminderDate').val(editReminderEventArray[i].scheduled_date);
+      $(".edit-reminder-popup-wrapper .loading-overlay__spinner").removeClass("hidden");
+      var editReminderMemberOption = setInterval(function () {
+        if ($("#editReminderMember, .add-reminder-popup-wrapper").find("option").length > 0) {
+          $('.reminder-member').chosen();
+          $(".edit-reminder-popup-wrapper .loading-overlay__spinner").addClass("hidden");
+          theme_custom.getMemberSelectedForReminder(theme_edit_reminder_array, eidtindex);
+          $(".edit-reminder-popup-wrapper .loading-overlay__spinner").addClass("hidden");
+          $(".edit-remider-outer-wrapper").removeClass("hidden");
+          clearInterval(editReminderMemberOption);
+        }
+      }, 3000);
+      $('.custom-event-reminder-name').bind("keypress keyup keydown", function (e) {
+        theme_custom.eventReminderTitleValidation($(this));
+      });
+      $('.text-area').bind("keypress keyup keydown", function (e) {
+        theme_custom.textareaValidation($(this));
+      });
+    }
+  }
+}
+
+theme_custom.getEventMemberList = function (eventId) {
+  $.ajax({
+    url: `${theme_custom.base_url}/api/eventMembers/${eventId}`,
+    method: "GET",
+    data: '',
+    dataType: "json",
+    headers: {
+      // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
+      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+    },
+    beforeSend: function () {
+    },
+    success: function (result) {
+      var eventMemberArray = result.data.event_members,
+        getMemberHtml = '';
+      for (i = 0; i < eventMemberArray.length; i++) {
+        if(!eventMemberArray[i].is_host){
+          getMemberHtml += `<option value="${eventMemberArray[i].event_member_id}" selected>${eventMemberArray[i].first_name} ${eventMemberArray[i].last_name}</option>`;
+        }
+      }
+      $(".suggested-edit-reminder-popup-wrapper #suggestedEditReminderMember").html(getMemberHtml);
+    },
+    error: function (xhr, status, error) {
+      if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+        $('.reminder-added-part .api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+          'text-align': 'center',
+          'color': 'red'
+        });
+        setTimeout(() => {
+          window.location.href = '/account/logout';
+        }, 3000);
+      } else {
+        var event_date_msg = '';
+        if (xhr.responseJSON.data) {
+          if (xhr.responseJSON.data.event_id != undefined) {
+            for (let i = 0; i < xhr.responseJSON.data.event_id.length; i++) {
+              event_date_msg += `<span>${xhr.responseJSON.data.event_id[i]}</span>`;
+            }
+          } else {
+            for (let i = 0; i < xhr.responseJSON.data.length; i++) {
+              var errorMsg = xhr.responseJSON.data[i];
+              var membererror = '';
+              $.each(errorMsg, function (key, value) {
+                membererror += `<p><b style="text-transform: uppercase;">${key}</b>: ${value}</p>`;
+              })
+              event_date_msg += `<div>${membererror}</div>`;
+            }
+          }
+        } else {
+          event_date_msg += `<span>${xhr.responseJSON.message}</span>`;
+        }
+        $('.reminder-added-part .api_error').show().html(event_date_msg);
+        setTimeout(() => {
+          $('.reminder-added-part .api_error').html('').hide();
+        }, 10000);
+      }
+    }
+  });
+}
+
+// theme_custom.editSuggestedReminder
+theme_custom.editSuggestedReminder = function (getParentSuggestion, target, button) {
+  var reminderTitle = reminderMessage = reminderDate = '';
+  if (getParentSuggestion.attr('data-reminder-type') == 'one-month-before-reminder') {
+    reminderTitle = '30 Days Before';
+    reminderMessage= '';
+    // reminderMessage = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book'
+    reminderDate = getParentSuggestion.attr("data-date-value");
+  } else if (getParentSuggestion.attr('data-reminder-type') == 'final-reminder') {
+    reminderTitle = 'Final Reminder';
+    reminderMessage = ''
+    reminderDate = getParentSuggestion.attr("data-date-value")
+  }
+  
+  else if (getParentSuggestion.attr('data-reminder-type') == 'time-to-order-one-month-before') {
+    reminderTitle = 'Time To Order!';
+    reminderMessage = "I want to make sure you get your suit in time! Log in to view and complete your order if you haven't already."
+    reminderDate = getParentSuggestion.attr("data-date-value")
+  }
+  else if (getParentSuggestion.attr('data-reminder-type') == 'event-creation-date1') {
+    reminderTitle = 'Your Look Was Assigned!';
+    reminderMessage = 'Hi, just a reminder that I assigned your look! Log in to view and complete next steps to order.'
+    reminderDate = getParentSuggestion.attr("data-date-value")
+  }
+  else if (getParentSuggestion.attr('data-reminder-type') == 'event-creation-date2') {
+    reminderTitle = 'Did it Fit?';
+    reminderMessage = 'It looks like your suit was sent; can you confirm that it fits?'
+    reminderDate = getParentSuggestion.attr("data-date-value")
+  }
+  else if (getParentSuggestion.attr('data-reminder-type') == 'event-creation-date3') {
+    reminderTitle = 'I paid for you, just place the order!';
+    reminderMessage = 'Your look has been paid for! Simply log in and complete the final steps to have your suit shipped!'
+    reminderDate = getParentSuggestion.attr("data-date-value")
+  }
+  else if (getParentSuggestion.attr('data-reminder-type') == 'event-creation-date4') {
+    reminderTitle = 'Exchange Progress?';
+    reminderMessage = 'How did your exchange go? Does the suit fit now? Follow up with your event owner to confirm.'
+    reminderDate = getParentSuggestion.attr("data-date-value")
+  }
+  else if (getParentSuggestion.attr('data-reminder-type') == 'event-creation-date5') {
+    reminderTitle = 'Find Your Fit!';
+    reminderMessage = 'Please complete the fit finder so Grooms Club can prepare your sizes.'
+    reminderDate = getParentSuggestion.attr("data-date-value")
+  }
+  target.find("#suggestedEditRemiderName").val(reminderTitle);
+  target.find("#suggestedEditReminderMessage").val(reminderMessage);
+  target.find("#suggestedEditReminderDate").val(reminderDate);
+  var eventId = $("#weddingevent_id").val();
+  theme_custom.getEventMemberList(eventId);
+  var suggestedEditReminderMemberOption = setInterval(function () {
+    if ($(".suggested-edit-reminder-popup-wrapper").find("option").length > 0) {
+      $('.suggested-reminder-member').chosen();
+      $(".suggested-edit-reminder-popup-wrapper .loading-overlay__spinner").addClass("hidden");
+      $(".suggested-edit-remider-outer-wrapper").removeClass("hidden");
+      clearInterval(suggestedEditReminderMemberOption);
+    }
+  }, 3000);
+}
+
+// theme_custom.myWeddingClickEvent
+theme_custom.myWeddingClickEvent = function () {
+
+  // edit-item-look page redirect 
+  $(document).on("click", ".edit-item-look", function () {
+    var getRediectUrl = $(this).attr("data-href");
+    window.location.href = getRediectUrl;
+    localStorage.setItem("customizerlookFrom", "exiting-looks");
+    localStorage.setItem("customizerlookUrl", getRediectUrl.split("?")[1]);
+  })
+
+  // Added suggested reminder
+  $(document).on("click", ".suggested-reminders-wrapper .add-suggested-reminder-button", function () {
+    var eventId = $("#weddingevent_id").val(),
+      button = $(this),
+      reminderMemberArray = [],
+      remiderName = $(this).closest(".reminder-box-wrapper").find(".reminder-box-title").text(),
+      reminderDate = $(this).closest(".reminder-box-wrapper").attr("data-date-value"),
+      // reminderMessage = `One month before reminder sending`;
+      reminderMessage = $(this).closest(".reminder-box-wrapper").find(".default-reminder-message").val();
+      button.text(button.attr("data-test")).addClass("disabled");
+      $(".party-invite-member-part .single-member-detail-part").each(function () {
+        var is_host = $(this).attr("data-host");
+        var memberId = $(this).find(".event_member_id").val();
+        if(is_host == '0'){
+          reminderMemberArray.push(memberId); 
+        }
+      });
+    var reminderDataObj = {
+      "name": remiderName,
+      "event_id": eventId,
+      "scheduled_date": reminderDate,
+      "message": reminderMessage,
+      "members": reminderMemberArray,
+      "is_email": "1",
+      "is_sms": "1"
+    }
+    theme_custom.reminder(reminderDataObj, button);
+  });
+
+  // edit suggested reminder
+  $(document).on("click", ".suggested-edit-reminder-popup-wrapper .suggested-update-reminder-button", function () {
+    var button = $(this);
+    button.text(button.attr("data-test")).addClass("disabled");
+    var parent = $(this).closest(".suggested-edit-reminder-popup-wrapper"),
+      error_count = 0,
+      is_email_data=0, is_sms_data=0;
+      weddingevent_id = $("#weddingevent_id").val(),
+      error_count = error_count + theme_custom.eventReminderTitleValidation(parent.find('#suggestedEditRemiderName'));
+      error_count = error_count + theme_custom.datePicker(parent.find('#suggestedEditReminderDate'));
+      error_count = error_count + theme_custom.textareaValidation(parent.find('#suggestedEditReminderMessage')),
+      searchChoice = parent.find(".chosen-choices .search-choice").length;
+      if(parent.find('.send-via:checked').length > 0){
+        parent.find(".send_via_error").text('').css('display','none');
+      }else{
+        parent.find(".send_via_error").text("Please select any option").css('display','inline-block');
+      }
+    if (searchChoice == 0) {
+      parent.find(".member-wrap .form-error").text("This field is required").addClass("active");
+      error_count = 1;
+    } else {
+      parent.find(".member-wrap .form-error").text("This field is required").removeClass("active");
+    }
+    if (error_count == 0) {
+      var editRemiderName = $(".suggested-edit-reminder-popup-wrapper").find("#suggestedEditRemiderName").val();
+      var editReminderDate = $(".suggested-edit-reminder-popup-wrapper").find("#suggestedEditReminderDate").val();
+      var editReminderMessage = $(".suggested-edit-reminder-popup-wrapper").find("#suggestedEditReminderMessage").val();
+      var editReminderMember = $(".suggested-edit-reminder-popup-wrapper").find("#suggestedEditReminderMember").val();
+  
+    // var reminderDataObj = {
+    //   "name": editRemiderName,
+    //   "event_id": weddingevent_id,
+    //   "scheduled_date": editReminderDate,
+    //   "message": editReminderMessage,
+    //   "members": editReminderMember
+    // }
+    // theme_custom.reminder(reminderDataObj, button);
+
+        var reminderArray = [];
+        $.each(editReminderMember, function (index, item) {
+          // var phone = $(`.single-member-detail-part[data-member-id="${item}"]`).attr('data-member-phone');
+          var member_id = $(`.single-member-detail-part[data-member-id="${item}"]`).attr('data-member-id');
+          reminderArray.push({member_id});
+        });
+
+        is_email_data=0, is_sms_data=0;
+        if(parent.find('[value="email"]').prop('checked')){
+            is_email_data = 1;
+          }
+          if(parent.find('[value="text-sms"]').prop('checked')){
+            is_sms_data = 1;
+          }
+          var suggestedReminderDataObj = {
+            "name": editRemiderName,
+            "event_id": weddingevent_id,
+            "scheduled_date": editReminderDate,
+            "message": editReminderMessage,
+            "members": editReminderMember,
+            "is_email": is_email_data,
+            "is_sms": is_sms_data,
+          }
+          theme_custom.reminder(suggestedReminderDataObj, button);
+       }
+
+  });
+
+  $(document).on('change','.member-select', function() {
+    var parent = $(this).closest(".reminder-parent");
+    parent.find(".member-wrap .form-error").text("This field is required").removeClass("active");
+    parent.find(".cmn-reminder-update").removeClass("disabled");
+  });
+
+  // edit suggested reminder
+  $(document).on("click", ".suggested-reminders-wrapper .edit-reminder-button", function () {
+    $(".suggested-edit-remider-outer-wrapper").addClass("hidden");
+    var target = $(".suggested-edit-reminder-popup-wrapper"),
+      button = $(this),
+      getParentSuggestion = $(this).closest(".reminder-box-wrapper");
+    $(".loading-overlay__spinner").removeClass("hidden");
+    $(".edit-remider-outer-wrapper").addClass("hidden");
+    target.find("#suggestedEditRemiderName, #suggestedEditReminderDate, #suggestedEditReminderMessage").val('');
+    theme_custom.editSuggestedReminder(getParentSuggestion, target, button);
+    $.fancybox.open(target);
+  });
+
+  // account-event-step scroll to top
+  theme_custom.heightScroll = $("#shopify-section-header").height() + $(".breadcrumb").height();
+  $(document).on("click", ".account-event-step", function () {
+    if ($(this).hasClass("choose_your_looks_step")) {
+      $('html, body').stop().animate({
+        'scrollTop': $(".assign-look-product-slider-part").offset().top - theme_custom.heightScroll - 30
+      }, 1000);
+    }
+    if ($(this).hasClass("invite_party_members_step")) {
+      $('html, body').stop().animate({
+        'scrollTop': $(".the-party-part").offset().top - theme_custom.heightScroll
+      }, 1000);
+    }
+    if ($(this).hasClass("schedule_reminders_step")) {
+      $('html, body').stop().animate({
+        'scrollTop': $(".reminder-schedule-part").offset().top - theme_custom.heightScroll
+      }, 1000);
+    }
+  })
+
+  // virtualProdAddToCart
+  $(document).on("click", ".pay-for-other-button", function () {
+    var button = $(this);
+    var button_text = $(this).data("text"),
+      parent = $(this).parent(".order-footer");
+    button.find(".btn-title").text(button_text);
+    var qty = parent.find(".virtual-order-extra-info").data("item-qty") / 100,
+      memberId = parent.find(".virtual-order-extra-info").data("member-id"),
+      lookId = parent.find(".virtual-order-extra-info").data("look-id");
+    theme_custom.virtualProdAddToCart(button, qty, memberId, lookId);
+  })
+
+  // Multiple product add to cart 
+  $(document).on("click", ".pay-for-me", function () {
+    var button = $(this),
+      button_text = $(this).data("text"),
+      parent = $(this).closest(".order-list-main"),
+      memberId = parent.find(".normal-order-extra-info").data("member-id"),
+      lookId = parent.find(".normal-order-extra-info").data("look-id");;
+    button.find(".btn-title").text(button_text);
+    theme_custom.multipleProductAjax(button, parent, memberId, lookId);
+  })
+
+  // assign-look-button click event 
+  $(document).on("click", ".assign-look-button", function () {
+    var selectedVal = $(this).closest(".assign-member-look-popup-wrapper").find("#memberIDsDropdown").val();
+    var nonSelectedVal = [];
+
+    var selectedMemberIds = localStorage.getItem("selectedMemberIds");
+    if(selectedMemberIds != '') {
+      selectedMemberIdArr = selectedMemberIds.split(',');
+      var nonSelectedVal = $(selectedMemberIdArr).not(selectedVal).get();
+    }
+    
+    var eventLookId = $(this).attr("data-event-look-id"),
+      button = $(this);
+
+    var data = {
+      "look_id": eventLookId,
+      "member_id": selectedVal,
+      "deleted_member_id": nonSelectedVal
+    }
+    button.addClass("disabled");
+    theme_custom.assignToMember(data, button);
+  })
+
+  // wedding_event_icon
+  $(document).on('click', '.wedding_event_icon', function (e) {
+    e.preventDefault();
+    var parent = $(this).parent().attr('id');
+    $(this).parent('.single-member-detail-part').find('.member-info-list-edit').css({ 'z-index': '10' });
+  });
+  $(document).on('click', '.close_btns', function (e) {
+    e.preventDefault();
+    $(this).closest(".member-info-list-edit").css({ 'z-index': '-1' });
+  });
+  // Add new look button click event
+  $(document).on('click', '#add_newlook', function (e) {
+    e.preventDefault();
+    $(".look-part-wedding").toggle();
+  });
+  $(document).on("click", ".invite-popup-button", function () {
+    var Invite_form_target = $(this).closest(".party-background-part").find(".invite-another-member-popup-wrapper");
+    Invite_form_target.find(`input[type="tel"],input[type="text"]`).val('');
+    $.fancybox.open(Invite_form_target);
+  });
+  // add reminder event popup
+  $(document).on("click", ".reminder-button", function () {
+    var addReminder = $(this).closest(".reminder-schedule-part").find(".add-reminder-popup-wrapper");
+    addReminder.find(`input[type="date"],input[type="text"],textarea`).val('');
+    $(".loading-overlay__spinner").removeClass("hidden");
+    $(".add-remider-outer-wrapper").addClass("hidden");
+    $(".form-error").text('').hide();
+    $(".form-error").removeClass("active");
+    $.fancybox.open(addReminder);
+    setTimeout(() => {
+      $(".loading-overlay__spinner").addClass("hidden");
+      $(".add-remider-outer-wrapper").removeClass("hidden");
+    }, 1500);
+  });
+
+  // Send reminder event popup
+  $(document).on("click", ".send-reminder-button", function () {
+    var sendReminder = $(this).closest(".the-party-part").find(".send-reminder-popup-wrapper");
+    sendReminder.find(`input[type="text"],textarea`).val('');
+    $.fancybox.open(sendReminder);
+  });
+
+  // Send reminder event popup
+  $(document).on("click", ".edit-reminder", function () {
+    $(".loading-overlay__spinner").removeClass("hidden");
+    var editReminder = $(this).closest(".mywedding_section_wrap").find(".edit-reminder-popup-wrapper");
+    $.fancybox.open(editReminder);
+    var eidtEventId = $(this).data("event-id");
+    var eidtindex = $(this).data("index");
+    $(".edit-remider-outer-wrapper").addClass("hidden");
+    theme_custom.editReminderPopupOpen(eidtEventId, eidtindex);
+  });
+
+  $(document).on("click", ".delete-reminder", function () {
+    var reminderId = $(this).attr('data-reminder-id');
+    theme_custom.deleteReminder(reminderId);
+    // $(".loading-overlay__spinner").removeClass("hidden");
+    // var editReminder = $(this).closest(".mywedding_section_wrap").find(".edit-reminder-popup-wrapper");
+    // $.fancybox.open(editReminder);
+    // var eidtEventId = $(this).data("event-id");
+    // var eidtindex = $(this).data("index");
+    // $(".edit-remider-outer-wrapper").addClass("hidden");
+    // theme_custom.editReminderPopupOpen(eidtEventId, eidtindex);
+  });
+
+  // assign_look_button
+  $(document).on("click", ".assign_look_button", function () {
+    var eventLookId = $(this).data("event-look-id"),
+      eventId = $("#weddingevent_id").val(),
+      target = $(".assign-member-look-popup-wrapper .drop-down"),
+      memberIDsDropdown = '',
+      assignMemberLookPopup = $(this).closest(".mywedding_section_wrap").find(".assign-member-look-popup-wrapper");
+      target.html('');
+    
+    $(".assign-member-look-popup-wrapper .form-outer-wrapper").removeClass("hidden");
+    $('.api_error').hide();
+    $.ajax({
+      url: `${theme_custom.base_url}/api/eventMembers/${eventId}`,
+      method: "GET",
+      data: '',
+      dataType: "json",
+      headers: {
+        // "Authorization": 'Bearer BzuPQTFq84j4ZDX7EBpveJ0rzGo6Ljj1PQ4AXNMWtsnd5UsNn9kG1Pidd7EnFDVTadlI5eNpKOrfW5JoegG7FU3cXRQNjd0b3FMNA'
+        "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+      },
+      beforeSend: function () { },
+      success: function (result) {
+        var formWrapMemberId = result.data.event_members;
+        memberIDsDropdown += '<select class="member-ids-dropdown" id="memberIDsDropdown" multiple>';
+        var selectedMemberIds = [];
+        for (i = 0; i < formWrapMemberId.length; i++) {
+          dropDownDisable = "";
+          dropDownSelected = "";
+          if(formWrapMemberId[i].payment_status != '0') {
+            dropDownDisable = "disabled";
+          }
+          if(formWrapMemberId[i].look_id != "NULL") {
+            if(eventLookId != formWrapMemberId[i].look_id) {
+              dropDownDisable = "disabled";
+            }
+          }
+
+          if(formWrapMemberId[i].look_id != "NULL") {
+            if(eventLookId == formWrapMemberId[i].look_id) {
+              dropDownSelected = "selected";
+              selectedMemberIds.push(formWrapMemberId[i].event_member_id);
+            }
+          }
+          
+          memberIDsDropdown += '<option '+dropDownDisable+' '+dropDownSelected+' value="' + formWrapMemberId[i].event_member_id + '">' + formWrapMemberId[i].first_name + ' ' + formWrapMemberId[i].last_name + '</option>';
+        }
+        memberIDsDropdown += '</select">';
+        localStorage.setItem("selectedMemberIds", selectedMemberIds);
+        target.find(".loading-overlay").addClass("hidden");
+        $(".member-ids-dropdown").remove();
+        $(memberIDsDropdown).appendTo(target);
+        $(".assign-look-button").attr("data-event-look-id", eventLookId);
+        $('#memberIDsDropdown').multiselect({
+        	nonSelectedText: 'Select Member'
+        });
+        $.fancybox.open(assignMemberLookPopup);
+        
+      },
+      error: function (xhr, status, error) {
+        if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+          $('.assign-member-look-popup-wrapper .api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+            'text-align': 'center',
+            'color': 'red'
+          });
+          setTimeout(() => {
+            window.location.href = '/account/logout';
+          }, 5000);
+        } else {
+          var event_date_msg = '';
+          if (xhr.responseJSON.data) {
+            if (xhr.responseJSON.data.event_id != undefined) {
+              for (let i = 0; i < xhr.responseJSON.data.event_id.length; i++) {
+                event_date_msg += `<span>${xhr.responseJSON.data.event_id[i]}</span>`;
+              }
+            } else {
+              for (let i = 0; i < xhr.responseJSON.data.length; i++) {
+                var errorMsg = xhr.responseJSON.data[i];
+                var membererror = '';
+                $.each(errorMsg, function (key, value) {
+                  membererror += `<p><b style="text-transform: uppercase;">${key}</b>: ${value}</p>`;
+                })
+                event_date_msg += `<div>${membererror}</div>`;
+              }
+            }
+          } else {
+            event_date_msg += `<span>${xhr.responseJSON.message}</span>`;
+          }
+          $('.assign-member-look-popup-wrapper .api_error').show().html(event_date_msg);
+          setTimeout(() => {
+            $('.assign-member-look-popup-wrapper .api_error').html('').hide();
+            $(".assign-member-look-popup-wrapper .form-outer-wrapper").removeClass("hidden");
+          }, 10000);
+        }
+      }
+    });
+  });
+
+  // invite person
+  $(".invite-person-button").click(function (e) {
+    e.preventDefault();
+    var parent = $(this).closest('.invite-another-member-popup-wrapper');
+    var error_count = 0,
+      weddingevent_id = $("#weddingevent_id").val(),
+      button = $(this);
+    error_count = error_count + theme_custom.textValidationWithSpacialChar(parent.find('#InviteForm-FirstName'));
+    error_count = error_count + theme_custom.textValidationWithSpacialChar(parent.find('#InviteForm-LastName'));
+    error_count = error_count + theme_custom.emailValidation(parent.find('#InviteForm-email'));
+    error_count = error_count + theme_custom.phoneValidation(parent.find('#InviteForm-telephone'));
+    if (error_count == 0) {
+      var InviteFormFirstName = $("#InviteForm-FirstName").val();
+      var InviteFormLastName = $("#InviteForm-LastName").val();
+      var InviteFormEmail = $("#InviteForm-email").val();
+      var InviteFormtelephone = $("#InviteForm-telephone").val().replace('(','').replace(' ','').replace(')','').replace('-','');
+      var InviteFormradio_val = $(".field.form-wrap.custom-checkobx span.custom_checkbox input[type=radio]:checked").val();
+      var data_radio_val = $(".field.form-wrap.custom-checkobx span.custom_checkbox input[type=radio]:checked").data('val');
+    }
+    var invite_person = {
+      "first_name": InviteFormFirstName,
+      "last_name": InviteFormLastName,
+      "email": InviteFormEmail,
+      "phone": InviteFormtelephone,
+      "is_host_paying": data_radio_val
+    }
+    if (error_count == 0) {
+      $(this).addClass("disabled");
+      $.ajax({
+        url: `${theme_custom.base_url}/api/event/addMember/${weddingevent_id}`,
+        method: "POST",
+        data: invite_person,
+        dataType: "json",
+        crossDomain: true,
+        headers: {
+          // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
+          "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+        },
+        beforeSend: function () {
+        },
+        success: function (result) {
+          $('.invite-another-member-popup-wrapper .api_error').addClass("success-event").show().html(result.message);
+          setTimeout(() => {
+            $('.invite-another-member-popup-wrapper .api_error').hide()
+            // location.reload();
+            $(".fancybox-button").click();
+            button.removeClass("disabled");
+          }, 10000);
+          theme_custom.getEventDetails();
+        },
+        error: function (xhr, status, error) {
+          if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+            $('.invite-another-member-popup-wrapper .api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+              'text-align': 'center',
+              'color': 'red'
+            });
+            setTimeout(() => {
+              window.location.href = '/account/logout';
+            }, 5000);
+          } else {
+            $('.invite-another-member-popup-wrapper .api_error').show().html(xhr.responseJSON.message);
+            setTimeout(() => {
+              button.removeClass("disabled");
+              $('.invite-another-member-popup-wrapper .api_error').hide()
+            }, 10000);
+          }
+        }
+      });
+    }
+  });
+
+  // chosen-search-input click event
+  $(document).on("click", ".chosen-results li", function () {
+    var parent = $(this).closest('.add-reminder-popup-wrapper');
+    var target = parent.find(".chosen-results li.result-selected").length;
+    if (target == 0) {
+      parent.find(".member-wrap .form-error").text("This field is required").addClass("active");
+      error_count = 1;
+    } else {
+      parent.find(".member-wrap .form-error").text("This field is required").removeClass("active");
+    }
+  })
+
+
+  // Add reminder event
+  $(document).on("click", ".add-reminder-button", function () {
+    var parent = $(this).closest('.add-reminder-popup-wrapper'),
+      button = $(this), is_email_data=0, is_sms_data=0;
+    var error_count = 0,
+      weddingevent_id = $("#weddingevent_id").val(),
+      error_count = error_count + theme_custom.eventReminderTitleValidation(parent.find('#remiderName'));
+    error_count = error_count + theme_custom.datePicker(parent.find('#reminderDate'));
+    error_count = error_count + theme_custom.textareaValidation(parent.find('#reminderMessage')),
+    today = new Date(),
+    dd = String(today.getDate()).padStart(2, '0'),
+    mm = String(today.getMonth() + 1).padStart(2, '0'),
+    yyyy = today.getFullYear(),
+    today = yyyy + '-' + mm + '-' + dd;
+    reminderDate = today;
+      searchChoice = parent.find(".chosen-choices .search-choice").length;
+      button.addClass("disabled");
+    if (searchChoice == 0) {
+      parent.find(".member-wrap .form-error").text("This field is required").addClass("active");
+      error_count = 1;
+    } else {
+      parent.find(".member-wrap .form-error").text("This field is required").removeClass("active");
+    }
+    if(parent.find('.send-via:checked').length > 0){
+      parent.find(".send_via_error").text('').css('display','none');
+    }else{
+      parent.find(".send_via_error").text("Please select any option").css('display','inline-block');
+    }	
+
+    if (error_count == 0) {
+      var remiderName = $("#remiderName").val();
+      var reminderDate = $("#reminderDate").val();
+      var reminderMessage = $("#reminderMessage").val();
+      var reminderMember = $("#reminderMember").val();
+    }
+    // var reminderDataObj = {
+    //   "name": remiderName,
+    //   "event_id": weddingevent_id,
+    //   "scheduled_date": reminderDate,
+    //   "message": reminderMessage,
+    //   "members": reminderMember
+    // }
+    if (error_count == 0) {
+        $(".schedule-check-main input.schedule-check[type=checkbox]").each(function () {
+          if($(this).prop('checked') == true){
+            var  reminderDate = today;
+            $("#reminderDate").val(reminderDate);
+          }
+        });
+
+          var reminderArray = [];
+          $.each(reminderMember, function (index, item) {
+            // var phone = $(`.single-member-detail-part[data-member-id="${item}"]`).attr('data-member-phone');
+            var member_id = $(`.single-member-detail-part[data-member-id="${item}"]`).attr('data-member-id');
+            reminderArray.push({member_id});
+          });
+
+          if(parent.find('[value="email"]').prop('checked')){
+            is_email_data = 1;
+          }
+          if(parent.find('[value="text-sms"]').prop('checked')){
+            is_sms_data = 1;
+          }
+         
+          var addReminderDataObj = {
+            "name": remiderName,
+            "event_id": weddingevent_id,
+            "scheduled_date": reminderDate,
+            "message": reminderMessage,
+            "members": reminderMember,
+            "is_email": is_email_data,
+            "is_sms": is_sms_data,
+          }
+          theme_custom.reminder(addReminderDataObj, button);
+      }
+  });
+
+  // Update reminder event
+  $(document).on("click", ".update-reminder-button", function () {
+
+    var parent = $(this).closest('.edit-reminder-popup-wrapper'),
+      button = $(this), is_email_data = 0, is_sms_data = 0;
+    var error_count = 0,
+      weddingevent_id = $("#weddingevent_id").val(),
+      reminderId = parent.data("reminder-id"),
+      error_count = error_count + theme_custom.eventReminderTitleValidation(parent.find('#editRemiderName'));
+    error_count = error_count + theme_custom.datePicker(parent.find('#editReminderDate'));
+    error_count = error_count + theme_custom.textareaValidation(parent.find('#editReminderMessage'));
+      searchChoice = parent.find(".chosen-choices .search-choice").length;
+    if (searchChoice == 0) {
+      parent.find(".member-wrap .form-error").text("This field is required").addClass("active");
+      error_count = 1;
+    } else {
+      parent.find(".member-wrap .form-error").text("This field is required").removeClass("active");
+    }
+
+    if(parent.find('.send-via:checked').length > 0){
+      parent.find(".send_via_error").text('').css('display','none');
+      button.removeClass("disabled");
+    }else{
+      parent.find(".send_via_error").text("Please select any option").css('display','inline-block');
+      button.addClass("disabled");
+      error_count = 1;
+    }	
+
+    if (error_count == 0) {
+      var editRemiderName = $("#editRemiderName").val();
+      var editReminderDate = $("#editReminderDate").val();
+      var editReminderMessage = $("#editReminderMessage").val();
+      var editReminderMember = $("#editReminderMember").val();
+    
+        if(parent.find('[value="email"]').prop('checked')){
+          is_email_data = 1;
+        }
+        if(parent.find('[value="text-sms"]').prop('checked')){
+          is_sms_data = 1;
+        }
+        var editreminderArray = [];
+        $.each(editReminderMember, function (index,item) {
+          var member_id = $(`.single-member-detail-part[data-member-id="${item}"]`).attr('data-member-id');
+          editreminderArray.push({member_id});
+        });
+        var editreminderDataObj = {
+          "name": editRemiderName,
+          "event_id": weddingevent_id,
+          "scheduled_date": editReminderDate,
+          "message": editReminderMessage,
+          "members": editreminderArray,
+          "is_email": is_email_data,
+          "is_sms": is_sms_data
+        }
+        theme_custom.updateReminder(editreminderDataObj, button,reminderId);
+    }
+  });
+
+  // All member send reminder event
+  $(document).on("click", ".send-reminder-popup-wrapper .send-reminder", function () {
+    var parent = $(this).closest('.send-reminder-popup-wrapper'),
+      is_email_data=0, is_sms_data=0;
+      button = $(this),
+      error_count = 0,
+      weddingevent_id = $("#weddingevent_id").val(),
+      error_count = error_count + theme_custom.eventReminderTitleValidation(parent.find('#sendName'));
+    error_count = error_count + theme_custom.textareaValidation(parent.find('#sendMessage')),
+      searchChoice = parent.find(".chosen-choices .search-choice").length,
+      today = new Date(),
+      dd = String(today.getDate()).padStart(2, '0'),
+      mm = String(today.getMonth() + 1).padStart(2, '0'),
+      yyyy = today.getFullYear(),
+      reminderMemberArray = [],
+      eventId = $("#weddingevent_id").val(),
+      memberIdsArr = [],
+      sendViaCheckbox = '',
+      remiderName = reminderDate = reminderMessage = reminderMember = '';
+    today = yyyy + '-' + mm + '-' + dd;
+    button.addClass("disabled");
+    if(parent.find('.send-via:checked').length > 0){
+      parent.find(".send_via_error").text('').css('display','none');
+    }else{
+      parent.find(".send_via_error").text("Please select any option").css('display','inline-block');
+    }	
+    $.ajax({
+      url: `${theme_custom.base_url}/api/eventMembers/${eventId}`,
+      method: "GET",
+      data: '',
+      dataType: "json",
+      headers: {
+        // "Authorization": 'Bearer BzuPQTFq84j4ZDX7EBpveJ0rzGo6Ljj1PQ4AXNMWtsnd5UsNn9kG1Pidd7EnFDVTadlI5eNpKOrfW5JoegG7FU3cXRQNjd0b3FMNA'
+        "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+      },
+      beforeSend: function () {
+      },
+      success: function (result) {
+        var eventMemberIds = result.data.event_members;
+        for (i = 0; i < eventMemberIds.length; i++) {
+           if(!eventMemberIds[i].is_host){
+              memberIdsArr.push(eventMemberIds[i].event_member_id);
+           }
+        }
+        if (error_count == 0) {
+          remiderName = $("#sendName").val();
+          reminderDate = today;
+          reminderMessage = $("#sendMessage").val();
+          reminderMember = memberIdsArr;
+        //   var reminderArray = [];
+        
+        // $.each(reminderMember, function (index,item) {
+        //   // var phone = $(`.single-member-detail-part[data-member-id="${item}"]`).attr('data-member-phone');
+        //   var member_id = $(`.single-member-detail-part[data-member-id="${item}"]`).attr('data-member-id');
+        //   reminderArray.push({phone,member_id});
+        // });
+              if(parent.find('[value="email"]').prop('checked')){
+                is_email_data = 1;
+              }
+              if(parent.find('[value="text-sms"]').prop('checked')){
+                is_sms_data = 1;
+              }
+       
+            var sendReminderDataObj = {
+              "name": remiderName,
+              "event_id": weddingevent_id,
+              "scheduled_date": reminderDate,
+              "message": reminderMessage,
+              "members": reminderMember,
+              "is_email": is_email_data,
+              "is_sms": is_sms_data,
+            }
+            theme_custom.reminder(sendReminderDataObj, button);
+      }
+      },
+      error: function (xhr, status, error) {
+        if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+          $('.send-reminder-popup-wrapper .api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+            'text-align': 'center',
+            'color': 'red'
+          });
+          setTimeout(() => {
+            window.location.href = '/account/logout';
+          }, 5000);
+        } else {
+          $('.send-reminder-popup-wrapper .api_error').show().html(xhr.responseJSON.message);
+          setTimeout(() => {
+            button.removeClass("disabled");
+            $('.send-reminder-popup-wrapper .api_error').hide();
+          }, 3000);
+        }
+      }
+    });
+
+  });
+
+  // personal member send reminder event
+  $(document).on("click", ".member-send-reminder-popup-wrapper .send-reminder", function () {
+    var parent = $(this).closest('.member-send-reminder-popup-wrapper'),
+    is_email_data=0, is_sms_data=0;
+      button = $(this),
+      memberIdsArr = [],
+      memberId = parent.data("member-id"),
+      error_count = 0,
+      weddingevent_id = $("#weddingevent_id").val(),
+      error_count = error_count + theme_custom.textValidationWithSpacialChar(parent.find('#memberSendReminderName'));
+    error_count = error_count + theme_custom.textareaValidation(parent.find('#memberSenderReminderMsg')),
+      searchChoice = parent.find(".chosen-choices .search-choice").length,
+      today = new Date(),
+      dd = String(today.getDate()).padStart(2, '0'),
+      mm = String(today.getMonth() + 1).padStart(2, '0'),
+      yyyy = today.getFullYear(),
+      reminderMemberArray = [],
+      eventId = $("#weddingevent_id").val(),
+      remiderName = reminderDate = reminderMessage = reminderMember = '';
+    memberIdsArr.push(memberId);
+    today = yyyy + '-' + mm + '-' + dd;
+    button.addClass("disabled");
+    if(parent.find('.send-via:checked').length > 0){
+      parent.find(".send_via_error").text('').css('display','none');
+    }else{
+      parent.find(".send_via_error").text("Please select any option").css('display','inline-block');
+    }	
+    $.ajax({
+      url: `${theme_custom.base_url}/api/eventMembers/${eventId}`,
+      method: "GET",
+      data: '',
+      dataType: "json",
+      headers: {
+        // "Authorization": 'Bearer BzuPQTFq84j4ZDX7EBpveJ0rzGo6Ljj1PQ4AXNMWtsnd5UsNn9kG1Pidd7EnFDVTadlI5eNpKOrfW5JoegG7FU3cXRQNjd0b3FMNA'
+        "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+      },
+      beforeSend: function () { },
+      success: function (result) {
+        if (error_count == 0) {
+          remiderName = $("#memberSendReminderName").val();
+          reminderDate = today;
+          reminderMessage = $("#memberSenderReminderMsg").val();
+          reminderMember = memberIdsArr;
+          if(parent.find('[value="email"]').prop('checked')){
+            is_email_data = 1;
+          }
+          if(parent.find('[value="text-sms"]').prop('checked')){
+            is_sms_data = 1;
+          }
+       
+        var memberSendReminderDataObj = {
+          "name": remiderName,
+          "event_id": weddingevent_id,
+          "scheduled_date": reminderDate,
+          "message": reminderMessage,
+          "members": reminderMember,
+          "is_email": is_email_data,
+          "is_sms": is_sms_data,
+        }
+        theme_custom.reminder(memberSendReminderDataObj, button);
+
+        }
+      },
+      error: function (xhr, status, error) {
+        if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+          $('.member-send-reminder-popup-wrapper .api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+            'text-align': 'center',
+            'color': 'red'
+          });
+          setTimeout(() => {
+            window.location.href = '/account/logout';
+          }, 5000);
+        } else {
+          $('.member-send-reminder-popup-wrapper .api_error').show().html(xhr.responseJSON.message);
+          setTimeout(() => {
+            button.removeClass("disabled");
+            $('.member-send-reminder-popup-wrapper .api_error').hide();
+          }, 3000);
+        }
+      }
+    });
+
+  });
+
+  // Add new look click event 
+  $(document).on("click", ".event-details-looks-wrap .add-new-look-button", function () {
+    var targetWrap = $(".Squer-radio-button-big");
+    $.fancybox.open(targetWrap);
+  });
+
+  // remove-guest from looks
+  $(document).on("click", ".member-info-list-edit .remove-guest", function () {
+    var eventid = $("#weddingevent_id").val(),
+      memberId = $(this).closest(".single-member-detail-part").find(".event_member_id").val();
+    theme_custom.removeUserFromLook(eventid, memberId);
+  })
+
+  // open preview profile image popup 
+  $(document).on("click", ".template-page-mywedding .edit-img", function () {
+    var updateProfileImage = $(this).closest(".account-profile-top-part").find(".update-profile-image-popup-wrapper");
+    $.fancybox.open(updateProfileImage);
+  })
+
+  // member-send-reminder
+  $(document).on("click", ".single-member-detail-part .member-send-reminder", function () {
+    var targetMemberSendReminder = $(".member-send-reminder-popup-wrapper"),
+      memberId = $(this).closest(".single-member-detail-part").find(".event_member_id").val();
+    $(".member-send-reminder-popup-wrapper").attr("data-member-id", memberId);
+    targetMemberSendReminder.find(`input[type="text"],textarea`).val('');
+    $.fancybox.open(targetMemberSendReminder);
+  });
+
+  // assign member Look 
+  $(document).on("click", ".save-guest", function () {
+    var parent = $(this).closest(".member-info-list-edit");
+    var selectedLook = parent.find("#looks").val();
+    var eventMemberId = parent.find(".event_member_id").val();
+
+    if(selectedLook == '')
+    {
+      parent.find('.api_error').show().html('In order to save your changes, please assign a look above.').css("text-align", "center");
+      setTimeout(() => {
+        parent.find(".api_error").hide();
+      }, 3000);
+      return;
+    }
+    var data = {
+      "look_id": selectedLook,
+      "member_id": eventMemberId
+    }
+    $.ajax({
+      url: `${theme_custom.base_url}/api/look/assignToMember`,
+      method: "POST",
+      data: data,
+      dataType: "json",
+      headers: {
+        // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
+        "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+      },
+      beforeSend: function () {
+        $(this).addClass("disabled");
+      },
+      success: function (result) {
+        parent.find('.api_error').addClass("success-event").show().html(result.message).css("text-align", "center");
+        setTimeout(() => {
+          parent.find(".api_error.success-event").remove();
+          // location.reload();
+          $(".fancybox-button").click();
+        }, 3000);
+        theme_custom.getEventDetails();
+      },
+      error: function (xhr, status, error) {
+        $(this).removeClass("disabled");
+        if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+          parent.find('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+            'text-align': 'center',
+            'color': 'red'
+          });
+          setTimeout(() => {
+            window.location.href = '/account/logout';
+          }, 5000);
+        } else {
+          parent.find('.api_error').show().html(xhr.responseJSON.message).css("text-align", "center");
+          setTimeout(() => {
+            parent.find(".api_error").hide();
+          }, 3000);
+        }
+      }
+    });
+  })
+};
+
+// Delete the favorite looks
+theme_custom.deleteTheLooksItem = function () {
+  $(document).on('click', '.delete_favorites', function () {
+    var eventLookId = $(this).data('event-look-id'),
+      confirms = confirm("Are you sure you want to remove this?");
+    if (eventLookId && confirms) {
+      if (eventLookId) {
+        $.ajax({
+          url: `${theme_custom.base_url}/api/look/removeFromEvent/${eventLookId}`,
+          method: "DELETE",
+          data: '',
+          dataType: "json",
+          headers: {
+            "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+          },
+          beforeSend: function () {
+            // $('.favorite-looks-wrapper').css('cursor','not-allowed');
+          },
+          success: function (result) {
+            // $('.favorite-looks-wrapper').css('cursor','allowed');
+            // location.reload();
+            $(".fancybox-button").click();
+            theme_custom.getEventDetails();
+          },
+          error: function (xhr, status, error) {
+            if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+              alert('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>');
+              setTimeout(() => {
+                window.location.href = '/account/logout';
+              }, 5000);
+            } else {
+              alert(xhr.responseJSON.message);
+            }
+          }
+        });
+      }
+    }
+  });
+}
+
+theme_custom.daysdifference = function (firstDate, secondDate) {
+  var startDay = new Date(firstDate);
+  var endDay = new Date(secondDate);
+  var millisBetween = startDay.getTime() - endDay.getTime();
+  var days = millisBetween / (1000 * 3600 * 24);
+  return Math.round(Math.abs(days));
+}
+
+// theme_custom.getEventDetails
+theme_custom.getEventDetails = function () {
+  var searchParams = new URLSearchParams(window.location.search)
+  if (searchParams.has('event_id')) {
+    var event_id = searchParams.get('event_id');
+    if (event_id) {
+      $.ajax({
+        url: `${theme_custom.base_url}/api/event/${event_id}`,
+        method: "GET",
+        data: '',
+        dataType: "json",
+        headers: {
+          // "Authorization": 'Bearer BzuPQTFq84j4ZDX7EBpveJ0rzGo6Ljj1PQ4AXNMWtsnd5UsNn9kG1Pidd7EnFDVTadlI5eNpKOrfW5JoegG7FU3cXRQNjd0b3FMNA'
+          "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+        },
+        beforeSend: function () {
+
+        },
+        success: function (result) {
+          theme_custom.eventName = result.data.event_name;
+          $('#weddingeventname').html(result.data.event_name);
+          $('.breadcrumb .active-page').text(result.data.event_name);
+          $('#weddingevent_id').val(result.data.event_id);
+
+          if(result.data.is_host == 1){
+            $(".schedule-button-part").removeClass("hidden");
+            if($('.schedule-button-part a').attr('href').indexOf('event_id=') == -1){
+              $('.schedule-button-part a').attr('href',$('.schedule-button-part a').attr('href')+'?event_id='+result.data.event_id);
+            }
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+          ];
+            let getDateFormat = result.data.event_date.replace(/-/g, "/");
+            const d = new Date(getDateFormat);
+            var dateformat = monthNames[d.getMonth()] + " " + d.getDate() + "," + " " + d.getFullYear();
+            var getMonth = d.getMonth() + 1,
+              getDate = d.getDate();
+            var eventDate = getMonth + '/' + getDate + '/' + d.getFullYear();
+            $('#weddingeventdate').html(dateformat).attr("data-event-date", eventDate);
+            var getEventDate = new Date($("#weddingeventdate").attr("data-event-date"));
+            var todayDate = new Date();
+            var WeekDate = theme_custom.daysdifference(todayDate, getEventDate);
+            var getEventDate = new Date($("#weddingeventdate").attr("data-event-date"));
+            if(getEventDate < todayDate){
+              $(".schedule-button-part").addClass("hidden");
+            }
+          }
+          $('.event-edit-hosted').html(`<a href="/pages/update-event?event_id=${result.data.event_id}">Edit Event Details</a>`);
+          if (result.data.event_members.length > 0) {
+            $('.account-event-step.invite_party_members_step').addClass('active');
+          }
+          if (result.data.event_looks.length > 0) {
+            $('.account-event-step.choose_your_looks_step').addClass('active');
+            var eventLooksHtml = favorite_look_image = editButton = deleteButton = assignLookBtn = '';
+            eventLooksHtml += '<div class="feature-looks-slider">';
+            for (var i = 0; i < result.data.event_looks.length; i++) {
+              if (result.data.event_looks[i].look_image == null) {
+                favorite_look_image = '//cdn.shopify.com/shopifycloud/shopify/assets/no-image-100-c91dd4bdb56513f2cbf4fc15436ca35e9d4ecd014546c8d421b1aece861dfecf_small.gif';
+              } else {
+                favorite_look_image = result.data.event_looks[i].look_image;
+              }
+              if (result.data.event_looks[i].assign != true) {
+                if (result.data.event_looks[i].url != null) {
+                  editButton = `<span class="break"> | </span><span><span data-href="${result.data.event_looks[i].url}" class="link edit-item-look">Edit look</span></span>`
+                }
+                deleteButton = `<span class="break"> | </span><span><a href="javascript:void(0)" class="link delete_favorites" data-event-look-id="${result.data.event_looks[i].mapping_id}">Delete</a></span>`;
+              } else {
+                editButton = '';
+                deleteButton = '';
+              }
+                assignLookBtn = `<span>
+                                  <a href="javascript:void(0)" class="link assign_look_button" data-event-look-id="${result.data.event_looks[i].look_id}">Assign look</a>
+                                  <div class="tooltip-main slider-tooltip">
+                                    <i class="fas fa-info information"></i>
+                                    <p class="information_content" style="display: none;">
+                                      Once you assign this look, you cannot make changes to the look
+                                    </p>
+                                  </div>
+                                </span>`;
+                
+              
+              eventLooksHtml += `<div class="look-container slider-lr-spacing-inner" data-look-id="${result.data.event_looks[i].look_id}">
+                <div class="img-container product-slider-img">
+                  <img src="${favorite_look_image}" alt="${result.data.event_looks[i].name}" />
+                </div>
+                <div class="look-img-title product-slider-title h3">
+                  <span>${result.data.event_looks[i].name}</span>
+                </div>
+                <div class="look-changes product-slider-detail-edit">
+                  ${assignLookBtn}
+                  ${editButton}
+                  ${deleteButton}
+                </div>
+              </div>`;
+            }
+            eventLooksHtml += '</div>';
+            eventLooksHtml += `<button class="button  button--secondary add-new-look-button"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 19 18" style="enable-background:new 0 0 19 18;" xml:space="preserve"> <style type="text/css"> .plus-icon{fill:#1075BC;}</style><g><g><path class="plus-icon" d="M9.6,1.5c4.1,0,7.5,3.3,7.5,7.5s-3.4,7.5-7.5,7.5S2.1,13.1,2.1,9S5.5,1.5,9.6,1.5 M9.6,0c-5,0-9,4-9,9 s4,9,9,9s9-4,9-9S14.6,0,9.6,0L9.6,0z"/></g><g><rect x="8.6" y="5" class="plus-icon" width="2" height="8.1"/><rect x="8.6" y="5" transform="matrix(6.123234e-17 -1 1 6.123234e-17 0.6405 18.6186)" class="plus-icon" width="2" height="8.1"/></g></g></svg>Add New Look</button>`;
+            $('.event-details-looks-wrap .section-bottom-button').removeClass('hidden');
+            $('.event-details-looks-wrap').find(".Squer-radio-button-big").hide();
+            $('.event-details-looks-wrap .event-look-wrapper').html(eventLooksHtml);
+          } else {
+            $('.event-details-looks-wrap').find(".Squer-radio-button-big").show();
+          }
+          if (result.data.event_reminders) {
+            if (result.data.event_reminders.length > 0) {
+              $('.account-event-step.schedule_reminders_step').addClass('active');
+            }
+          }
+          // $('.profile-pic-part img').attr("src",result.data.eventImage);
+          const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+          ];
+          let getDateFormat = result.data.event_date.replace(/-/g, "/");
+          const d = new Date(getDateFormat);
+          var dateformat = monthNames[d.getMonth()] + " " + d.getDate() + "," + " " + d.getFullYear();
+          var getMonth = d.getMonth() + 1,
+            getDate = d.getDate();
+          var eventDate = getMonth + '/' + getDate + '/' + d.getFullYear();
+          $('#weddingeventdate').html(dateformat).attr("data-event-date", eventDate);
+          $('.event-edit-hosted .user-name').html(localStorage.getItem("hosted-by"));
+          // suggested reminder Showing accordion to left event date
+          var getEventDate = new Date($("#weddingeventdate").attr("data-event-date"));
+          var todayDate = new Date();
+          var WeekDate = theme_custom.daysdifference(todayDate, getEventDate);
+          if (WeekDate >= 7 || WeekDate >= 30) {
+            if (WeekDate >= 30) {
+              var getEventDateMonth = new Date($("#weddingeventdate").attr("data-event-date"));
+              var getMonthDiffDate = getEventDateMonth.setMonth(getEventDateMonth.getMonth() - 1),
+                monthDate = new Date(getMonthDiffDate),
+                monthDateDD = String(monthDate.getDate()).padStart(2, '0'),
+                monthDateMM = String(monthDate.getMonth() + 1).padStart(2, '0'),
+                monthYYYY = monthDate.getFullYear(),
+                getEventNewMonthDate = monthYYYY + '-' + monthDateMM + '-' + monthDateDD;
+              $(`.suggested-reminders-wrapper .reminder-box-wrapper[data-reminder-type="one-month-before-reminder"]`).removeClass("hidden");
+              $(`.suggested-reminders-wrapper .reminder-box-wrapper[data-reminder-type="one-month-before-reminder"]`).attr('data-date-value', getEventNewMonthDate);
+              $(`.suggested-reminders-wrapper .reminder-box-wrapper[data-reminder-type="time-to-order-one-month-before"]`).removeClass("hidden");
+              $(`.suggested-reminders-wrapper .reminder-box-wrapper[data-reminder-type="time-to-order-one-month-before"]`).attr('data-date-value', getEventNewMonthDate);
+              $(`.suggested-reminders-wrapper`).removeClass("hidden");
+            }
+            if (WeekDate >= 7) {
+              var getEventDateWeek = new Date($("#weddingeventdate").attr("data-event-date"));
+              var getWeekDiffDate = getEventDateWeek.setDate(getEventDateWeek.getDate() - 7),
+                weekDate = new Date(getWeekDiffDate),
+                weekDateDD = String(weekDate.getDate()).padStart(2, '0'),
+                weekDateMM = String(weekDate.getMonth() + 1).padStart(2, '0'),
+                weekDateYYYY = weekDate.getFullYear(),
+                getEventNewWeekDate = weekDateYYYY + '-' + weekDateMM + '-' + weekDateDD;
+              $(`.suggested-reminders-wrapper .reminder-box-wrapper[data-reminder-type="final-reminder"]`).removeClass("hidden");
+              $(`.suggested-reminders-wrapper .reminder-box-wrapper[data-reminder-type="final-reminder"]`).attr('data-date-value', getEventNewWeekDate);
+              $(`.suggested-reminders-wrapper`).removeClass("hidden");
+            }
+            if(todayDate){
+              var weekDateDD = String(todayDate.getDate()).padStart(2, '0'),
+              weekDateMM = String(todayDate.getMonth() + 1).padStart(2, '0'),
+              weekDateYYYY = todayDate.getFullYear(),
+              getEventNewWeekDate = weekDateYYYY + '-' + weekDateMM + '-' + weekDateDD;
+              $(`.suggested-reminders-wrapper .reminder-box-wrapper[data-reminder-type="event-creation-date1"]`).removeClass("hidden");
+              $(`.suggested-reminders-wrapper .reminder-box-wrapper[data-reminder-type="event-creation-date1"]`).attr('data-date-value', getEventNewWeekDate);
+              $(`.suggested-reminders-wrapper .reminder-box-wrapper[data-reminder-type="event-creation-date2"]`).removeClass("hidden");
+              $(`.suggested-reminders-wrapper .reminder-box-wrapper[data-reminder-type="event-creation-date2"]`).attr('data-date-value', getEventNewWeekDate);
+              $(`.suggested-reminders-wrapper .reminder-box-wrapper[data-reminder-type="event-creation-date3"]`).removeClass("hidden");
+              $(`.suggested-reminders-wrapper .reminder-box-wrapper[data-reminder-type="event-creation-date3"]`).attr('data-date-value', getEventNewWeekDate);
+              $(`.suggested-reminders-wrapper .reminder-box-wrapper[data-reminder-type="event-creation-date4"]`).removeClass("hidden");
+              $(`.suggested-reminders-wrapper .reminder-box-wrapper[data-reminder-type="event-creation-date4"]`).attr('data-date-value', getEventNewWeekDate);
+              $(`.suggested-reminders-wrapper .reminder-box-wrapper[data-reminder-type="event-creation-date5"]`).removeClass("hidden");
+              $(`.suggested-reminders-wrapper .reminder-box-wrapper[data-reminder-type="event-creation-date5"]`).attr('data-date-value', getEventNewWeekDate);
+              $(`.suggested-reminders-wrapper`).removeClass("hidden");
+            }
+          } else {
+            $(`.suggested-reminders-wrapper,.suggested-reminders-wrapper`).addClass("hidden");
+          }
+          // suggested reminder Showing accordion to left event date
+          var weddingeventarray = result.data.event_members,
+            eventNewArray = [],
+            editEventData = '',
+            reminderEventArr = result.data.event_reminders,
+            reminderEventArray = [],
+            reminderEventData = '',
+            allMember = '',
+            purchasedDate = '',
+            guestCTA = '',
+            payInfo = ''
+          eventId = $("#weddingevent_id").val();
+          // $('.sendmobileno').val(weddingeventarray[0].phone);
+          for (var i = 0; i < weddingeventarray.length; i++) {
+            var looksOptions = look_name = '', indexVal = 'index-' + i;
+            if (weddingeventarray[i].payment_status == '0') {
+              guestCTA = `<span class="link remove-guest">Remove Guest</span><span href="javascript:void(0)" class="link save-guest">Save</span>`;
+            } else {
+              guestCTA = `<span class="link remove-guest">Remove Guest</span>`;
+            }
+
+            {% comment %}
+            if (weddingeventarray[i].look_name != '') {
+              if (weddingeventarray[i].look_name != 'Unassigned') {
+                guestCTA = `<span class="link remove-guest">Remove Guest</span>`;
+              } else {
+                if (result.data.event_looks.length > 0) {
+                  guestCTA = `<span class="link remove-guest">Remove Guest</span><span href="javascript:void(0)" class="link save-guest">Save</span>`;
+                }
+              }
+            }
+            if (weddingeventarray[i].look_name == 'Unassigned') {
+              guestCTA = `<span class="link remove-guest" style="margin-top: 10px">Remove Guest</span>`;
+              if (result.data.event_looks.length > 0) {
+                guestCTA = `<span class="link remove-guest">Remove Guest</span><span href="javascript:void(0)" class="link save-guest">Save</span>`;
+              }
+            }
+            {% endcomment %}
+            if (weddingeventarray[i].look_name != '') {
+              if (weddingeventarray[i].payment_status != '0') {
+                look_name += weddingeventarray[i].look_name;
+                looksOptions += `<p class="dropdwon"><span>Assigned Look </span><span class="look_select value">: &nbsp;${weddingeventarray[i].look_name} <span></p>`;
+              } else {
+                look_name += weddingeventarray[i].look_name;
+                if (result.data.event_looks.length > 0) {
+                  looksOptions += `<p class="dropdwon">Assign Look : <span class="look_select value"><select id="looks"><option value=''>Select Look</option>`;
+                  for (var lookId = 0; lookId < result.data.event_looks.length; lookId++) {
+                    if (result.data.event_looks[lookId].look_id == weddingeventarray[i].look_id) {
+                      looksOptions += `<option value="${result.data.event_looks[lookId].look_id}" selected>${result.data.event_looks[lookId].name}</option>`;
+                    } else {
+                      looksOptions += `<option value="${result.data.event_looks[lookId].look_id}">${result.data.event_looks[lookId].name}</option>`;
+                    }
+                  }
+                  looksOptions += `</select></span></p>`;
+                }
+              }
+            }
+
+            if (weddingeventarray[i].is_host_paying == 'Self') {
+              payInfo = 'I pay'
+            } else {
+              payInfo = 'They pay'
+            }
+            // var mobileNo = ''
+            // if(weddingeventarray[i].phone == ''){
+            //   mobileNo = '';
+            // }else{
+            //   mobileNo= 'data-member-phone="'+weddingeventarray[i].phone+'"'; 
+            // }
+            editEventData = '';
+            editEventData = '<div class="single-member-detail-part ' + indexVal + '" data-member-id="'+ weddingeventarray[i].event_member_id +'" data-host="'+ weddingeventarray[i].is_host +'"><span class="edit-icon wedding_event_icon"><i class="fas fa-info information"></i></span>';
+            editEventData += '<div class="normal-open background-part">';
+            editEventData += '<a href="/pages/the-party-guest-details?event_id=' + eventId + '&member_id=' + weddingeventarray[i].event_member_id + '" class="member-name"><span class="evntfirst_name"> ' + weddingeventarray[i].first_name + '</span> <span class="evntlast_name"> ' + weddingeventarray[i].last_name + '</span></a>';
+            editEventData += '<h3 class="secound-title h5">' + look_name + '</h3>';
+            editEventData += '<p class="status"> Status: &nbsp;<span class="in_prgress">' + weddingeventarray[i].look_name + '</span></p></div>';
+            editEventData += '<div class="hover-to-open background-part absolute-part">';
+            editEventData += '<a href="/pages/the-party-guest-details?event_id=' + eventId + '&member_id=' + weddingeventarray[i].event_member_id + '" class="member-name"><span class="evntfirst_name"> ' + weddingeventarray[i].first_name + '</span> <span class="evntlast_name"> ' + weddingeventarray[i].last_name + '</span></a>';
+            editEventData += '<div class="progress-part"><progress id="file2" value="' + weddingeventarray[i].progress_bar + '" max="100"> 70% </progress></div>';
+            editEventData += '<div class="reminder-part">';
+            if (weddingeventarray[i].purchased_date != '' && weddingeventarray[i].purchased_date != null) {
+              editEventData += '<p class="purchased"><i class="fas fa-check-circle"></i> purchased ' + weddingeventarray[i].purchased_date + '</p>';
+            }
+            if (weddingeventarray[i].last_reminder_send != '' && weddingeventarray[i].last_reminder_send != null) {
+              editEventData += '<p class="latest-reminder">Latest Reminder Sent ' + weddingeventarray[i].last_reminder_send + '</p>';
+            }
+            editEventData += '<a href="javascript:void(0)" class="link member-send-reminder"><i class="far fa-envelope"></i> Send Reminder</a>';
+            editEventData += '</div></div>';
+            editEventData += '<div class="member-info-list-edit edit-to-open background-part absolute-part">';
+            editEventData += '<div class="close_btns">×</div>';
+            editEventData += '<p>Name: <span class="evntfirst_name"> ' + weddingeventarray[i].first_name + '</span> <span class="evntlast_name">' + weddingeventarray[i].last_name + '</span></p>';
+            editEventData += '<p>Email: <span class="evntemail value">' + weddingeventarray[i].email + '</p>';
+            editEventData += '<div class="look-option-wrap">' + looksOptions + '</dv>';
+            editEventData += '<p class="dropdwon">&nbsp;Payment : &nbsp;<span class="value">&nbsp;' + payInfo + '&nbsp;</span></p>';
+            editEventData += '<div class="look-button">' + guestCTA + '</div>';
+            editEventData += '<input type="hidden" class="event_member_id" value="' + weddingeventarray[i].event_member_id + '">';
+            editEventData += '<input type="hidden" class="wedis_host_paying" value="' + weddingeventarray[i].is_host_paying + '">';
+            editEventData += '<input type="hidden" class="wedis_member_type" value="' + weddingeventarray[i].member_type + '">';
+            editEventData += '<div class="api_error form-error text_center"></div></div></div>';
+            eventNewArray.push(editEventData);
+          }
+          $(".party-invite-member-part").html(eventNewArray);
+
+          // Reminder Data
+          if (result.data.event_reminders) {
+            if (reminderEventArr.length > 0) {
+              if (weddingeventarray.length == reminderEventArr.length) {
+                allMember = `<span>All Members ${theme_custom.eventName} Party</span`;
+              } else {
+                allMember = `<span>${reminderEventArr.length} Members ${theme_custom.eventName} Party </span>`;
+              }
+              for (var r = 0; r < reminderEventArr.length; r++) {
+                var member = '';
+                if (reminderEventArr[r].members.length == 1) {
+                  member = 'Member';
+                } else {
+                  member = 'Members';
+                }
+                reminderEventData = `<div class="reminder-added-part border-reminder reminder-inner-list">
+                                      <input type="hidden" class="reminder-name" value="${reminderEventArr[r].name}" />
+                                      <input type="hidden" class="reminder-event-id" value="${reminderEventArr[r].id}" />
+                                      <input type="hidden" class="reminder-scheduled-date" value="${reminderEventArr[r].scheduled_date}" />
+                                      <input type="hidden" class="reminder-message" value="${reminderEventArr[r].message}" />
+                                      <input type="hidden" class="reminder-members" value="${reminderEventArr[r].members.length}" />
+                                      <div class="reminder-left">
+                                        <h5 class="reminder-title"><span class="number">${r + 1}.</span> <span class="title">${reminderEventArr[r].name}</span></h5>
+                                        <p class="reminder-date">${reminderEventArr[r].scheduled_date}</p>
+                                      </div>
+                                      <div class="reminder-right">
+                                        <p class="assign-reminder"><span>To:</span> <span>${reminderEventArr[r].members.length} ${member} ${theme_custom.eventName} Party  </span></p>
+                                        <div class="reminder-link">
+                                          <span class="edit-reminder link" data-event-id="${reminderEventArr[r].id}" data-index="${r}">Edit Reminder</span>
+                                        </div>
+                                        <div class="reminder-link">
+                                          <span class="delete-reminder link" data-reminder-id="${reminderEventArr[r].id}" data-index="${r}">Delete Reminder</span>
+                                        </div>
+                                      </div>
+                                    </div>`;
+                reminderEventArray.push(reminderEventData);
+                $(".edit-reminder-popup-wrapper").attr("data-reminder-id", reminderEventArr[r].id);
+              }
+              $(".reminder-schedule-part .reminder-added-part-main").html(reminderEventArray);
+              setTimeout(() => {
+                $(".reminder-inner-list").each(function () {
+                  var reminderType = $(this).find('.reminder-name').val();
+                  $(`.suggested-reminders-wrapper .reminder-box-wrapper[data-reminder-title="${reminderType}"]`).addClass('hidden');
+                });
+                if ($('.reminder-box-wrapper:visible').length == 0) {
+                  $(`.suggested-reminders-wrapper`).addClass("hidden");
+                }
+              }, 500);
+              $(".empty-reminder-msg").addClass("hidden");
+            } else {
+              $(".empty-reminder-msg").removeClass("hidden");
+            }
+          }
+
+          var single_member_detail_part = document.getElementsByClassName("single-member-detail-part");
+          for (var i = 0; i < single_member_detail_part.length; i++) {
+            var single_member_detail_parts = single_member_detail_part[i];
+            single_member_detail_parts.setAttribute("id", "wedding_event" + i);
+          }
+          $('.mywedding_api_call_loading').addClass('hidden');
+          $('.mywedding_section_wrap').removeClass('hidden');
+          theme_custom.featureLooksSlider();
+          // theme_custom.getEventMember
+          theme_custom.getEventMember();
+          // theme_custom.getProfileImage
+          theme_custom.getProfileImage(result);
+          theme_custom.paymentInfo(result);
+          theme_edit_reminder_array = result.data.event_reminders;
+
+          theme_custom.homeTryOnInfo(result);
+        },
+        error: function (xhr, status, error) {
+          if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+            $('.mywedding_api_call_loading .loading-overlay').html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+              'text-align': 'center',
+              'color': 'red'
+            });
+            setTimeout(() => {
+              window.location.href = '/account/logout';
+            }, 5000);
+          } else {
+            var erroData = '';
+            erroData = '<p>' + xhr.responseJSON.message + '</p>';
+            // erroData += '<p>' + xhr.responseJSON.data.event_id + '</p>';
+            $('.mywedding_api_call_loading .loading-overlay').html(erroData);
+          }
+        }
+      });
+    } else {
+      alert('we are not able to find event');
+    }
+  }
+}
+
+theme_custom.chargePayment = function(data){
+  $.ajax({
+    url: `${theme_custom.base_url}/api/stripe/chargePament`,
+    method: "POST",
+    data: JSON.stringify(data),
+    dataType: "json",
+    contentType: 'application/json; charset=utf-8',
+    headers: {
+      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+    },
+    success: function (result) {
+      $(".schedule-sub").hide();
+      $('.api_error').addClass("success-event").show().html(result.message);
+      setTimeout(() => {
+        $('.api_error').removeClass("success-event").html('').hide();
+        $(".schedule-final-message").html('<h3 style="color: #28a745;">Thank You for the confirmation, Your Card will now be charged.</h3>');
+      }, 5000);
+    },
+    error: function (xhr, status, error) {
+      if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+        $('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+          'text-align': 'center',
+          'color': 'red'
+        });
+        setTimeout(() => {
+          window.location.href = '/account/logout';
+        }, 5000);
+      } else {
+        var event_date_msg = '';
+        $('.api_error').show().html(event_date_msg);
+        setTimeout(() => {
+          $(".api_error").html('').hide();
+        }, 10000);
+      }
+    }
+  });
+}
+
+theme_custom.getPaymentDetails =function(){
+  var searchParams = new URLSearchParams(window.location.search)
+  if (searchParams.has('event_id')) {
+    var event_id = searchParams.get('event_id');
+    var order_id = localStorage.getItem("order_id");
+    if (event_id && order_id) {
+      $.ajax({
+        url: `${theme_custom.base_url}/api/stripe/chargePament/${event_id}/${order_id}`,
+        method: "GET",
+        data: '',
+        dataType: "json",
+        headers: {
+          // "Authorization": 'Bearer BzuPQTFq84j4ZDX7EBpveJ0rzGo6Ljj1PQ4AXNMWtsnd5UsNn9kG1Pidd7EnFDVTadlI5eNpKOrfW5JoegG7FU3cXRQNjd0b3FMNA'
+          "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+        },
+        beforeSend: function () {
+
+        },
+        success: function (result) {
+          if(result.data.status == 1){
+            $(".schedule-final-message").html('<h3 style="color: #28a745;">Thank You for the confirmation, Your Card will now be charged.</h3>');
+            // $(".schedule-button-part").addClass("hidden");
+            $(".schedule-sub").addClass("hidden");
+            $(".schedule-success-messages h2").addClass("hidden");
+            $(".schedule-success-messages").removeClass("hidden");
+          }else{
+            $(".schedule-success-messages").removeClass("hidden");
+            // $(".schedule-button-part").show();
+            $(".schedule-sub").removeClass("hidden");
+            $(".schedule-success-messages h2").removeClass("hidden");
+          }
+        },
+        error: function (xhr, status, error) {
+          if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+            $('.mywedding_api_call_loading .loading-overlay').html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+              'text-align': 'center',
+              'color': 'red'
+            });
+            setTimeout(() => {
+              window.location.href = '/account/logout';
+            }, 5000);
+          } else {
+            // var erroData = '';
+            // erroData = '<p>' + xhr.responseJSON.message + '</p>';
+            // // erroData += '<p>' + xhr.responseJSON.data.event_id + '</p>';
+            // $('.mywedding_api_call_loading .loading-overlay').html(erroData);
+          }
+        }
+      });
+    }
+  }
+}
+
+// theme_custom.getEventMember
+theme_custom.getEventMember = function () {
+  var eventId = $("#weddingevent_id").val();
+  $.ajax({
+    url: `${theme_custom.base_url}/api/eventMembers/${eventId}`,
+    method: "GET",
+    data: '',
+    dataType: "json",
+    headers: {
+      // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
+      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+    },
+    beforeSend: function () {
+    },
+    success: function (result) {
+      var eventMemberArr = [],
+        eventMemebername = '';
+      var eventMemberArray = result.data.event_members;
+      for (i = 0; i < eventMemberArray.length; i++) {
+        if(!eventMemberArray[i].is_host){
+          eventMemebername = `<option value="${eventMemberArray[i].event_member_id}">${eventMemberArray[i].first_name} ${eventMemberArray[i].last_name}</option>`
+          eventMemberArr.push(eventMemebername);
+        }
+      }
+      $(".reminder-member").html(eventMemberArr);
+      $(".mywedding_api_call_loading").addClass("hidden");
+      $(".mywedding_section_wrap").removeClass("hidden");
+    },
+    error: function (xhr, status, error) {
+      if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+        $('.reminder-added-part .api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+          'text-align': 'center',
+          'color': 'red'
+        });
+        setTimeout(() => {
+          window.location.href = '/account/logout';
+        }, 5000);
+      } else {
+        var event_date_msg = '';
+        if (xhr.responseJSON.data) {
+          if (xhr.responseJSON.data.event_id != undefined) {
+            for (let i = 0; i < xhr.responseJSON.data.event_id.length; i++) {
+              event_date_msg += `<span>${xhr.responseJSON.data.event_id[i]}</span>`;
+            }
+          } else {
+            for (let i = 0; i < xhr.responseJSON.data.length; i++) {
+              var errorMsg = xhr.responseJSON.data[i];
+              var membererror = '';
+              $.each(errorMsg, function (key, value) {
+                membererror += `<p><b style="text-transform: uppercase;">${key}</b>: ${value}</p>`;
+              })
+              event_date_msg += `<div>${membererror}</div>`;
+            }
+          }
+        } else {
+          event_date_msg += `<span>${xhr.responseJSON.message}</span>`;
+        }
+        $('.reminder-added-part .api_error').show().html(event_date_msg);
+        setTimeout(() => {
+          $('.reminder-added-part .api_error').html('').hide();
+        }, 10000);
+      }
+    }
+  });
+}
+
+theme_custom.getMemberSelectedForReminder = function (reminderMemberArr, eidtindex) {
+  var eventId = $("#weddingevent_id").val();
+  theme_custom.reminderMemberArray = reminderMemberArr;
+  $.ajax({
+    url: `${theme_custom.base_url}/api/eventMembers/${eventId}`,
+    method: "GET",
+    data: '',
+    dataType: "json",
+    headers: {
+      // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
+      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+    },
+    beforeSend: function () {
+    },
+    success: function (result) {
+      var reminderMemberArray = theme_custom.reminderMemberArray,
+        eventMemberArray = result.data.event_members,
+        getMemberHtml = '', reminderMemberIdString = '';
+      var reminderSelectedMember = reminderMemberArray[eidtindex].members;
+      for (j = 0; j < reminderSelectedMember.length; j++) {
+        reminderMemberIdString += reminderSelectedMember[j].member_id + ',';
+      }
+      for (i = 0; i < eventMemberArray.length; i++) {
+        if (reminderMemberIdString.indexOf(eventMemberArray[i].event_member_id) > -1) {
+          getMemberHtml += `<li class="result-selected" data-option-array-index="${i}">${eventMemberArray[i].first_name} ${eventMemberArray[i].last_name}</li>`;
+        } else {
+          getMemberHtml += `<li class="active-result" data-option-array-index="${i}">${eventMemberArray[i].first_name} ${eventMemberArray[i].last_name}</li>`;
+        }
+      }
+      $(".edit-remider-outer-wrapper .chosen-drop .chosen-results").html(getMemberHtml);
+      $(".mywedding_api_call_loading").addClass("hidden");
+      $(".mywedding_section_wrap").removeClass("hidden");
+    },
+    error: function (xhr, status, error) {
+      if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+        $('.reminder-added-part .api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+          'text-align': 'center',
+          'color': 'red'
+        });
+        setTimeout(() => {
+          window.location.href = '/account/logout';
+        }, 5000);
+      } else {
+        var event_date_msg = '';
+        if (xhr.responseJSON.data) {
+          if (xhr.responseJSON.data.event_id != undefined) {
+            for (let i = 0; i < xhr.responseJSON.data.event_id.length; i++) {
+              event_date_msg += `<span>${xhr.responseJSON.data.event_id[i]}</span>`;
+            }
+          } else {
+            for (let i = 0; i < xhr.responseJSON.data.length; i++) {
+              var errorMsg = xhr.responseJSON.data[i];
+              var membererror = '';
+              $.each(errorMsg, function (key, value) {
+                membererror += `<p><b style="text-transform: uppercase;">${key}</b>: ${value}</p>`;
+              })
+              event_date_msg += `<div>${membererror}</div>`;
+            }
+          }
+        } else {
+          event_date_msg += `<span>${xhr.responseJSON.message}</span>`;
+        }
+        $('.reminder-added-part .api_error').show().html(event_date_msg);
+        setTimeout(() => {
+          $('.reminder-added-part .api_error').html('').hide();
+        }, 10000);
+      }
+    }
+  });
+}
+
+theme_custom.selectedOption = function (reminderMemberArr, eidtindex) {
+  var eventId = $("#weddingevent_id").val();
+  theme_custom.reminderMemberArray = reminderMemberArr;
+  $.ajax({
+    url: `${theme_custom.base_url}/api/eventMembers/${eventId}`,
+    method: "GET",
+    data: '',
+    dataType: "json",
+    headers: {
+      // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
+      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+    },
+    beforeSend: function () {
+    },
+    success: function (result) {
+      var reminderMemberArray = theme_custom.reminderMemberArray,
+        eventMemberArray = result.data.event_members,
+        getMemberHtml = '', reminderMemberIdString = '';
+      var reminderSelectedMember = reminderMemberArray[eidtindex].members;
+      for (j = 0; j < reminderSelectedMember.length; j++) {
+        reminderMemberIdString += reminderSelectedMember[j].member_id + ',';
+      }
+      for (i = 0; i < eventMemberArray.length; i++) {
+        if(!eventMemberArray[i].is_host){
+        if (reminderMemberIdString.indexOf(eventMemberArray[i].event_member_id) > -1) {
+          getMemberHtml += `<option value="${eventMemberArray[i].event_member_id}" selected>${eventMemberArray[i].first_name} ${eventMemberArray[i].last_name}</option>`;
+        } else {
+          getMemberHtml += `<option value="${eventMemberArray[i].event_member_id}">${eventMemberArray[i].first_name} ${eventMemberArray[i].last_name}</option>`;
+        }
+      }
+      }
+      $(".edit-remider-outer-wrapper #editReminderMember").html(getMemberHtml);
+    },
+    error: function (xhr, status, error) {
+      if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+        $('.reminder-added-part .api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+          'text-align': 'center',
+          'color': 'red'
+        });
+        setTimeout(() => {
+          window.location.href = '/account/logout';
+        }, 3000);
+      } else {
+        var event_date_msg = '';
+        if (xhr.responseJSON.data) {
+          if (xhr.responseJSON.data.event_id != undefined) {
+            for (let i = 0; i < xhr.responseJSON.data.event_id.length; i++) {
+              event_date_msg += `<span>${xhr.responseJSON.data.event_id[i]}</span>`;
+            }
+          } else {
+            for (let i = 0; i < xhr.responseJSON.data.length; i++) {
+              var errorMsg = xhr.responseJSON.data[i];
+              var membererror = '';
+              $.each(errorMsg, function (key, value) {
+                membererror += `<p><b style="text-transform: uppercase;">${key}</b>: ${value}</p>`;
+              })
+              event_date_msg += `<div>${membererror}</div>`;
+            }
+          }
+        } else {
+          event_date_msg += `<span>${xhr.responseJSON.message}</span>`;
+        }
+        $('.reminder-added-part .api_error').show().html(event_date_msg);
+        setTimeout(() => {
+          $('.reminder-added-part .api_error').html('').hide();
+        }, 10000);
+      }
+    }
+  });
+}
+
+$(document).ready(function () {
+  $(".Squer-radio-button-big").removeClass("open-popup");
+  // Get wedding api
+  const api_url = theme_custom.api_base_url;
+  // myWeddingClickEvent
+  theme_custom.myWeddingClickEvent();
+  // deleteTheLooks
+  theme_custom.deleteTheLooksItem();
+  // theme_custom.getEventDetails
+  theme_custom.getEventDetails();
+
+  theme_custom.getPaymentDetails();
+
+  // End wedding api
+  $('#reminderDate, #suggestedEditReminderDate').on('change', function () {
+    var error_count = 0;
+    error_count = error_count + theme_custom.datePicker($(this));
+  });
+
+  var reminderMemberOption = setInterval(function () {
+    if ($(".reminder-member").find("option").length > 0) {
+      $('.reminder-member').chosen();
+      clearInterval(reminderMemberOption);
+    }
+  }, 500);
+});
+
+// Alternative to load event
+// document.onreadystatechange = function () {
+//   if (document.readyState === 'complete') {
+//     theme_custom.getEventDetails();
+//   }
+// }
+ theme_custom.changeTimeZone = function (newDate, timeZone){
+  if (typeof newDate === 'string') {
+    return new Date(
+      new Date(newDate).toLocaleString('en-US', {
+        timeZone,
+      }),
+    );
+  }
+
+  return new Date(
+    newDate.toLocaleString('en-US', {
+      timeZone,
+    }),
+  );
+}
+
+$(document).on("change", "#reminderDate", function () {
+  var targetDate = $(this).val(),
+    newDate = new Date();
+  newDate.toLocaleString('en-US', {timeZone: 'America/New_York',});
+  var month = newDate.getMonth() + 1;
+  var day = newDate.getDate();
+  var output = newDate.getFullYear() + '-' +
+    (month < 10 ? '0' : '') + month + '-' +
+    (day < 10 ? '0' : '') + day;
+  var startDay = new Date(targetDate);
+  var endDay = new Date(output);
+  var millisBetween = startDay.getTime() - endDay.getTime();
+  var days = millisBetween / (1000 * 3600 * 24);
+  if (days <= 0) {
+    // $(this).closest(".field-wrap").find(".form-error").text("Please select date after current date!").css({
+    //   'margin-top': '15px',
+    //   'display': 'block'
+    // });
+    $(this).closest(".field-wrap").find(".schedule-check").prop('checked', true);
+  } else {
+    $(this).closest(".field-wrap").find(".form-error").text('').css({
+      'display': 'none'
+    });
+    $(this).closest(".field-wrap").find(".schedule-check").prop('checked', false);
+  }
+});
+
+$(document).on('change','.send-via',function(){
+
+  // Reminder schedule member popup
+  $('.add-reminder-popup-wrapper input.send-via[type=checkbox]').each(function () {
+    if($('.send-via:checked').length > 0){
+      $(this).closest('.add-reminder-popup-wrapper').find('.add-reminder-button').removeClass('disabled');
+      $(this).closest('.add-reminder-popup-wrapper').find('.send_via_error').text('').css('display','none');
+    }else{
+      $(this).closest('.add-reminder-popup-wrapper').find('.add-reminder-button').addClass('disabled');
+      $(this).closest('.add-reminder-popup-wrapper').find('.send_via_error').text("Please select any option").css('display','inline-block');
+    }
+  });
+
+  // send reminder to all popup
+  $('.send-reminder-popup-wrapper input.send-via[type=checkbox]').each(function () {
+    if($('.send-via:checked').length > 0){
+      $(this).closest('.send-reminder-popup-wrapper').find('.send-reminder').removeClass('disabled');
+      $(this).closest('.send-reminder-popup-wrapper').find('.send_via_error').text('').css('display','none');
+    }else{
+      $(this).closest('.send-reminder-popup-wrapper').find('.send-reminder').addClass('disabled');
+      $(this).closest('.send-reminder-popup-wrapper').find('.send_via_error').text("Please select any option").css('display','inline-block');
+    }
+  });
+
+    // single member popup
+    $('.member-send-reminder-popup-wrapper input.send-via[type=checkbox]').each(function () {
+      if($('.send-via:checked').length > 0){
+        $(this).closest('.member-send-reminder-popup-wrapper').find('.send-reminder').removeClass('disabled');
+        $(this).closest('.member-send-reminder-popup-wrapper').find('.send_via_error').text('').css('display','none');
+      }else{
+        $(this).closest('.member-send-reminder-popup-wrapper').find('.send-reminder').addClass('disabled');
+        $(this).closest('.member-send-reminder-popup-wrapper').find('.send_via_error').text("Please select any option").css('display','inline-block');
+      }
+    });
+
+    // suggested member popup
+    $('.suggested-edit-reminder-popup-wrapper input.send-via[type=checkbox]').each(function () {
+      if($('.send-via:checked').length > 0){
+        $(this).closest('.suggested-edit-reminder-popup-wrapper').find('.suggested-update-reminder-button').removeClass('disabled');
+        $(this).closest('.suggested-edit-reminder-popup-wrapper').find(".send_via_error").text('').css('display','none');
+      }else{
+        $(this).closest('.suggested-edit-reminder-popup-wrapper').find('.suggested-update-reminder-button').addClass('disabled');
+        $(this).closest('.suggested-edit-reminder-popup-wrapper').find(".send_via_error").text("Please select any option").css('display','inline-block');
+      }
+    });
+
+    // edit reminder member popup in reminder schedule section
+    $('.edit-reminder-popup-wrapper input.send-via[type=checkbox]').each(function () {
+      if($('.send-via:checked').length > 0){
+        $(this).closest('.edit-reminder-popup-wrapper').find('.update-reminder-button').removeClass('disabled');
+        $(this).closest('.edit-reminder-popup-wrapper').find(".send_via_error").text('').css('display','none');
+      }else{
+        $(this).closest('.edit-reminder-popup-wrapper').find('.update-reminder-button').addClass('disabled');
+        $(this).closest('.edit-reminder-popup-wrapper').find(".send_via_error").text("Please select any option").css('display','inline-block');
+      }
+    });
+
+
+});
+
+
+       // code for send reminder current date checkbox
+ $(document).on('change','.schedule-check-main .schedule-check',function(){
+        $(".schedule-check-main input.schedule-check[type=checkbox]").each(function () {
+          if($(this).prop('checked') == true){
+            var today = new Date(),
+            dd = String(today.getDate()).padStart(2, '0'),
+            mm = String(today.getMonth() + 1).padStart(2, '0'),
+            yyyy = today.getFullYear(),
+            today = yyyy + '-' + mm + '-' + dd;
+            var  reminderDate = today;
+            $("#reminderDate").val(reminderDate);
+          }
+        });
+});
+
+$('input[type=radio][name=is_host_paying]').change(function () {
+  $(this).closest(".custom-checkobx").find(".form-error").hide();
+  if($(this).closest(".custom-checkobx").find('[value="I Pay"]').prop('checked')){
+    $(".payment-confirmation-popup").addClass('model-open');
+    $('body').addClass("body_fixed");
+    $(".invite-another-member-popup-wrapper").css({'opacity':'0'});
+  }
+});
+
+$(document).on('click','.schedule-suit-link a.schedule-charge-link',function(){
+  var apiIdVal = window.location.search.replace('?','');
+  var eventId = apiIdVal.replace("event_id=",'');
+  var customer_id = $("#customer_id").val();
+  var order_id = localStorage.getItem("order_id");
+  var data = {
+     "customer_id":customer_id,
+     "order_id":order_id,
+     "event_id":eventId
+  }
+  theme_custom.chargePayment(data);
+});
+
+$(document).on('click','.schedule-suit-link a.return-suit-link',function(){
+  $(this).closest(".schedule-sub").hide();
+  $(".schedule-final-message").html('<h3 style="color: #dc3545;">Oops, You can reach out to us on <a href="mailto:info@groomsclub.com" class="link support-link">info@groomsclub.com</a></h3>');
+});

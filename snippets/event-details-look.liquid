@@ -1,0 +1,24 @@
+<div class="event-details-look-section">
+  <h2 class="looks-title text-center-heading border-heading title">{{section.settings.title}}</h2>
+  <div class="event-details-looks-wrap">
+    <div class="event-look-wrapper"></div>
+    <div class="Squer-radio-button-big">
+      {% for block in section.blocks %}
+        <a href="{{block.settings.url}}" class="Squer-radio-button-inner" id="{{block.id}}">
+          <span class="checkmark">
+              {% if block.settings.icon_image_svg!= blank %}
+                  <div class="icon-part">
+                    {{ block.settings.icon_image_svg }}
+                  </div>
+              {% endif %}
+              {% if block.settings.title != blank  %}
+                  <h2 class="icontext h4">
+                      {{ block.settings.title }}
+                  </h2>
+              {% endif %}
+          </span>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>

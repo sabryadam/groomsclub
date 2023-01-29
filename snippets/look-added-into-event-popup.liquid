@@ -1,0 +1,208 @@
+<!-- snippest/create-event  -->
+<section class="create-event-look" style="display: none;">
+  <div class="empty-error-msg hidden text_center">
+    {{ settings.empty_event_msg }}
+  </div>
+  <div class="look-assign-wrapper hidden">
+    <div class="field form-wrap">
+      <input type="text" name="look-name" class="custom-text-filed" id="look-name" placeholder="Enter Look name " />
+      <span class="form-error"></span>
+    </div>
+    <div class="field form-wrap">
+      <select name="event-id" id="event-id"></select>
+      <span class="form-error"></span>
+    </div>
+    <div class="field form-wrap">
+      <span class="look-api-message hidden"></span>
+    </div>
+    <div class="field form-wrap">
+      <button type="button" name="add-event" class="button button--full-width button--primary add-event-look-api-button" data-text="Add Look To event..">
+        {%- render 'loader-icon' -%}
+        <span class="button-title">Add Look</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .create-event-look {
+   max-width: 500px;
+   min-width: 500px; 
+  }
+
+  .create-event-look .look-api-message{
+    text-align: center;
+    width: 100%;
+    color: #D8000C;
+    background-color: #FFBABA;
+    padding: 15px;
+  }
+
+  .create-event-look .look-api-message.sucess-msg{
+    color: #4F8A10;
+    display: block;
+    background-color: #DFF2BF;
+  }
+
+  .create-event-look .form-wrap {
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+  }
+
+  .create-event-look .form-wrap .form-error{
+    margin-top: 10px;
+  }
+
+  .create-event-look #look-name{
+    background-color: #f5f5f5;
+    border: 0;
+    color: #001f49;
+    padding: 29px 32px;
+    font-size: 24px;
+    font-family: var(--font-body-family);
+    width: 100%;
+  }
+
+  .create-event-look #event-id{
+    height: 63px;
+    line-height: 63px;
+    border: 1px solid var(--light-gray-border);
+    background-color: var(--color-light-gray-background);
+    color: var(--color-primary);
+    text-align: left;
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-weight: var(--font-body-weight);
+    font-size: var(--font-size-body);
+    width: 100%;
+    text-align: left;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 0 60px 0 15px;
+    background-image: url(https://cdn.shopify.com/s/files/1/0585/3223/3402/files/select-down-arrow.png);
+    background-repeat: no-repeat;
+    background-position-x: 95%;
+    background-position-y: 50%;
+    background-size: 15px;
+  }
+
+  .look-image-wrap {
+    position: relative;
+    max-width: 100%;
+    width: 100%;
+    margin: 0px auto 15px;
+  }
+  
+  .look-image-wrap .look-image{
+    padding: 0 15px;
+  }
+
+  .look-image-wrap .look-image input {
+    background-color: #f5f5f5;
+    border: 0;
+    color: #001f49;
+    padding: 29px 32px;
+    font-size: 24px;
+    font-family: var(--font-body-family);
+    width: 100%;
+  }
+
+  .look-image-wrap .look-image-preview {
+    display: none;
+    width: 192px;
+    height: 192px;
+    position: relative;
+    border-radius: 100%;
+    border: 6px solid #F8F8F8;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+  }
+
+  .look-image-wrap .look-image-preview > div {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .look-image-wrap .look-image input+label {
+    display: none;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0;
+    border-radius: 100%;
+    background: #177fc1;
+    border: 1px solid transparent;
+    box-shadow: 0 2px 4px #0000001f;
+    cursor: pointer;
+    font-weight: 400;
+    transition: all .2s ease-in-out;
+    text-align: center;
+    position: relative;
+  }
+  
+  .look-image-wrap .look-image input+label svg {
+    width: 20px;
+    height: 20px;
+    margin: 0 auto;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;  
+  }
+
+  .look-image-wrap .look-image input+label:hover {
+    background: #f1f1f1;
+    border-color: #d6d6d6;
+  }
+
+  .look-image-wrap .look-image input+label svg line {
+    stroke: #fff;
+  }
+  .look-image-wrap.image-preview{
+    max-width: 205px;
+    margin: 0 auto 25px;
+  }
+  
+  .look-image-wrap.image-preview #lookImageUpload{
+    display: none;
+  } 
+  .look-image-wrap.image-preview .look-image-preview{
+    display: block;
+    margin: 0 auto;
+  }
+  .look-image-wrap.image-preview .look-image{
+    position: absolute;
+    right: 12px;
+    z-index: 1;
+    top: 10px;
+  }
+
+  .look-image-wrap.image-preview .look-image input+label{
+    display: inline-block;
+  }
+  .look-image-wrap.image-preview .look-image input+label svg path {
+    fill: #fff;
+  }
+  .look-image-wrap.image-preview .look-image input+label:hover {
+    background: #f1f1f1;
+    border-color: #d6d6d6;
+  }
+  @media (max-width:576px) {
+    .create-event-look{
+      max-width: 100%;
+      width: 100%;
+      min-width: auto;
+    }
+    .create-event-look #look-name{
+      padding: 20px 20px;
+      font-size: 15px;
+    }
+    .create-event-look .form-wrap{
+      margin-bottom: 20px;
+    }
+    .create-event-look .form-wrap:nth-child(2){
+      margin-bottom: 0;
+    }
+  }
+</style>

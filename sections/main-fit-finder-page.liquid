@@ -1,0 +1,1818 @@
+<!-- main-fit-finder -->
+{{ 'fit-finder-page.css' | asset_url | stylesheet_tag }}
+{{ 'fit-finder-page.js' | asset_url | script_tag }}
+
+<input type="hidden" id="customer_email" value="{{ customer.email }}" />
+<input type="hidden" id="customer_id" value="{{ customer.id }}">
+{%- if customer -%}
+  <input type="hidden" class="user-has-logged">
+{%- endif -%}
+<div class="page-width-big">
+  <div class="page-top-headpadding-flex">
+    <div class="breadcrumb">
+      <div class="breadcrumb-links">
+        <a href="/pages/how-it-works">How it works</a>
+        <span class="breadcrumb__sep">
+          <svg width="25" height="25" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 10 14" style="enable-background:new 0 0 10 14;" xml:space="preserve"><style type="text/css">.breadcrumb-arrow{fill:#FFFFFF;stroke:#001F49;stroke-width:2;stroke-miterlimit:10;}</style><polyline class="breadcrumb-arrow" points="0.9,0.7 8,7.3 0.9,13 "></polyline></svg></span>
+        <span class="active-page">Fit Finder</span>
+      </div>
+    </div>
+  </div> 
+</div>
+
+<div class="fit-finder-wrapper">
+  <div class="page-heading">
+    {% if section.settings.page_header != blank %}
+      <div class="page-header-title title h1 text-center">
+        <h1>{{ section.settings.page_header}}</h1>
+      </div>
+    {% else %}
+      <div class="page-header-title title h1 text-center">
+        <h1>{{ page.title }}</h1>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Height -->
+  <div class="page-width step-wrapper active" data-step-title="Height" data-step-handle="height">
+    <div class="fit-finder-main-wrapper">
+      <div class="page-content-wrapper" style="background-color: {{section.settings.size_content_bg_color}};">
+        {%- unless section.settings.step_1_heading == blank -%}
+          <div class="content-heading">
+            {{ section.settings.step_1_heading | escape}}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_1_svg == blank -%}
+          <div class="scale-svg">
+            {{ section.settings.step_1_svg }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_1_title == blank -%}
+          <h4 class="block-heading">
+            {{ section.settings.step_1_title | escape }}
+          </h4>
+        {%- endunless -%}
+        {%- unless section.settings.step_1_sub_title == blank -%}
+          <p class="sub-title text_center">
+            {{ section.settings.step_1_sub_title }}
+          </p>
+        {%- endunless -%}
+        <div class="custom-radio">
+          <ul class="height--wrap radio-wrap">
+            <li class="form-wrap">
+              <input type="radio" id='height-5`03"' name="height" value='5.03'>
+              <label class="size-select" for='height-5`03"'>
+                <span class="checkmark">5&prime;3&Prime;</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='height-5`04"' name="height" value='5.04'>
+              <label class="size-select" for='height-5`04"'>
+                <span class="checkmark">5&prime;4&Prime;</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='height-5`05"' name="height" value='5.05'>
+              <label class="size-select" for='height-5`05"'>
+                <span class="checkmark">5&prime;5&Prime;</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='height-5`06"' name="height" value='5.06'>
+              <label class="size-select" for='height-5`06"'>
+                <span class="checkmark">5&prime;6&Prime;</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='height-5`07"' name="height" value='5.07'>
+              <label class="size-select" for='height-5`07"'>
+                <span class="checkmark">5&prime;7&Prime;</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='height-5`08"' name="height" value='5.08'>
+              <label class="size-select" for='height-5`08"'>
+                <span class="checkmark">5&prime;8&Prime;</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='height-5`09"' name="height" value='5.09'>
+              <label class="size-select" for='height-5`09"'>
+                <span class="checkmark">5&prime;9&Prime;</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='height-5`10"' name="height" value='5.10'>
+              <label class="size-select" for='height-5`10"'>
+                <span class="checkmark">5&prime;10&Prime;</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='height-5`11"' name="height" value='5.11'>
+              <label class="size-select" for='height-5`11"'>
+                <span class="checkmark">5&prime;11&Prime;</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='height-6`0"' name="height" value='6.0'>
+              <label class="size-select" for='height-6`0"'>
+                <span class="checkmark">6&prime;</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='height-6`01"' name="height" value='6.01'>
+              <label class="size-select" for='height-6`01"'>
+                <span class="checkmark">6&prime;1&Prime;</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='height-6`02"' name="height" value='6.02'>
+              <label class="size-select" for='height-6`02"'>
+                <span class="checkmark">6&prime;2&Prime;</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='height-6`03"' name="height" value='6.03'>
+              <label class="size-select" for='height-6`03"'>
+                <span class="checkmark">6&prime;3&Prime;</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='height-6`04"' name="height" value='6.04'>
+              <label class="size-select" for='height-6`04"'>
+                <span class="checkmark">6&prime;4&Prime;</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='height-6`05"' name="height" value='6.05'>
+              <label class="size-select" for='height-6`05"'>
+                <span class="checkmark">6&prime;5&Prime;</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='height-6`06"' name="height" value='6.06'>
+              <label class="size-select" for='height-6`06"'>
+                <span class="checkmark">6&prime;6&Prime;</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+        <div class="custom-height">
+          <span class="field__label">Other:</span>
+          <input type="hidden" class="user-height" id="user-height" value=''>
+          <span class="fit-part custom-size">
+            <label for="input-feet">FT.</label>
+            <input type="text" name="custom-height" maxlength="1" pattern="[0-9]" class="input-ft height-feet" id="input-feet" />
+          </span>
+          <span class="inch-part custom-size">
+            <label for="input-inch">IN.</label>
+            <input type="text" name="custom-height" maxlength="2" pattern="[0-9]" class="input-in height-inche" id="input-inch" />
+          </span>
+        </div>
+        {%- if section.settings.video_mp4_link_1 != blank -%}
+          <div class="watch-tutorial">
+            <span class="link fit-finder-popup-link">Watch Tutorial <i class="fas fa-play"></i></span>
+          </div>
+          <div class="step-video-wrapper">
+            <div class="fluid-width-video-wrapper">
+              <video class="video lazyvideo" width="100%" poster="{{ section.settings.overlay_image_1 | img_url:'1920x' }}" style="max-height:500px" controls preload="auto">
+                <source type="video/mp4" src="{{ section.settings.video_mp4_link_1 }}">
+              </video>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="footer-btn-wrap">
+        <button type="button" class="button button--secondary next-button disabled">Next Step <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Weight -->
+  <div class="page-width step-wrapper" data-step-title="Weight" data-step-handle="weight">
+    <div class="fit-finder-main-wrapper">
+      <div class="page-content-wrapper" style="background-color: {{section.settings.size_content_bg_color}};">
+        {%- unless section.settings.step_2_heading == blank -%}
+          <div class="content-heading">
+            {{ section.settings.step_2_heading | escape }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_2_svg == blank -%}
+          <div class="scale-svg">
+            {{ section.settings.step_2_svg }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_2_title == blank -%}
+          <h4 class="block-heading">
+            {{ section.settings.step_2_title | escape }}
+          </h4>
+        {%- endunless -%}
+        {%- unless section.settings.step_2_sub_title == blank -%}
+          <p class="sub-title text_center">
+            {{ section.settings.step_2_sub_title }}
+          </p>
+        {%- endunless -%}
+        <div class="text-wrap weight-wrap field form-wrap">
+          <label class="hidden" for="weight">Weight</label>
+          <input type="text" id="weight" maxlength="4" pattern="[0-9]" class="field__input form_phone text-field weight-value" placeholder="Enter Weight..." />
+        </div>
+        {%- if section.settings.video_mp4_link_2 != blank -%}
+          <div class="watch-tutorial">
+            <span class="link fit-finder-popup-link">Watch Tutorial <i class="fas fa-play"></i></span>
+          </div>
+          <div class="step-video-wrapper">
+            <div class="fluid-width-video-wrapper">
+              <video class="video lazyvideo" width="100%" poster="{{ section.settings.overlay_image_2 | img_url:'1920x' }}" style="max-height:500px" controls preload="auto">
+                <source type="video/mp4" src="{{ section.settings.video_mp4_link_2 }}">
+              </video>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="button-wrap footer-btn-wrap">
+        <button type="button" class="btn-prev-step link prev-button"><i class="fas fa-arrow-left"></i> Back to Previous</button>
+        <button type="button" class="button button--secondary btn-next-step next-button">Next Step <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Age -->
+  <div class="page-width step-wrapper" data-step-title="Age" data-step-handle="age">
+    <div class="fit-finder-main-wrapper">
+      <div class="page-content-wrapper" style="background-color: {{section.settings.size_content_bg_color}};">
+        {%- unless section.settings.step_3_heading == blank -%}
+          <div class="content-heading">
+            {{ section.settings.step_3_heading }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_3_svg == blank -%}
+          <div class="scale-svg">
+            {{ section.settings.step_3_svg }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_3_title == blank -%}
+          <h4 class="block-heading">
+            {{ section.settings.step_3_title }}
+          </h4>
+        {%- endunless -%}
+        {%- unless section.settings.step_3_sub_title == blank -%}
+          <p class="sub-title text_center">
+            {{ section.settings.step_3_sub_title }}
+          </p>
+        {%- endunless -%}
+        <div class="text-wrap age-wrap">
+          <label class="hidden" for="age">Age</label>
+          <input id="age" type="text" maxlength="3" pattern="[0-9]" class="text-field" placeholder="Enter Age..." />
+        </div>
+        {%- if section.settings.video_mp4_link_3 != blank -%}
+        <div class="watch-tutorial">
+          <span class="link fit-finder-popup-link">Watch Tutorial <i class="fas fa-play"></i></span>
+        </div>
+        <div class="step-video-wrapper">
+          <div class="fluid-width-video-wrapper">
+            <video class="video lazyvideo" width="100%" poster="{{ section.settings.overlay_image_3 | img_url:'1920x' }}" style="max-height:500px" controls preload="auto">
+              <source type="video/mp4" src="{{ section.settings.video_mp4_link_3 }}">
+            </video>
+          </div>
+        </div>
+        {%- endif -%}
+      </div>
+      <div class="button-wrap footer-btn-wrap">
+        <button type="button" class="btn-prev-step link prev-button"><i class="fas fa-arrow-left"></i> Back to Previous</button>
+        <button type="button" class="button button--secondary btn-next-step next-button">Next Step <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Build -->
+  <div class="page-width step-wrapper" data-step-title="Build" data-step-handle="build">
+    <div class="fit-finder-main-wrapper">
+      <div class="page-content-wrapper" style="background-color: {{section.settings.size_content_bg_color}};">
+        {%- unless section.settings.step_4_heading == blank -%}
+          <div class="content-heading">
+            {{ section.settings.step_4_heading }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_4_svg == blank -%}
+          <div class="scale-svg">
+            {{ section.settings.step_4_svg }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_4_title == blank -%}
+          <h4 class="block-heading">
+            {{ section.settings.step_4_title }}
+          </h4>
+        {%- endunless -%}
+        {%- unless section.settings.step_4_sub_title == blank -%}
+          <p class="sub-title text_center">
+            {{ section.settings.step_4_sub_title }}
+          </p>
+        {%- endunless -%}
+        <div class="radio-wrap box-layout">
+          <div class="form-wrap">
+            <input type="radio" id="build-skinny" name="build" value="Skinny">
+            <label for="build-skinny">
+              {%- render 'svg-icons', svg_icons : 'build-slim-icon' -%}
+              <span>Skinny</span>
+            </label>
+          </div>
+          <div class="form-wrap">
+            <input type="radio" id="build-average" name="build" value="Average">
+            <label for="build-average">
+              {%- render 'svg-icons', svg_icons : 'build-regular-icon' -%}
+              <span>Average</span>
+            </label>
+          </div>
+          <div class="form-wrap">
+            <input type="radio" id="build-muscular" name="build" value="Muscular">
+            <label for="build-muscular">
+              {%- render 'svg-icons', svg_icons : 'build-muscular-icon' -%}
+              <span>Muscular</span></label>
+          </div>
+          <div class="form-wrap">
+            <input type="radio" id="build-rounder" name="build" value="Rounder">
+            <label for="build-rounder">
+              {%- render 'svg-icons', svg_icons : 'build-rounded' -%}
+              <span>Rounder</span></label>
+          </div>
+        </div>
+        {%- if section.settings.video_mp4_link_4 != blank -%}
+          <div class="watch-tutorial">
+            <span class="link fit-finder-popup-link">Watch Tutorial <i class="fas fa-play"></i></span>
+          </div>
+          <div class="step-video-wrapper">
+            <div class="fluid-width-video-wrapper">
+              <video class="video lazyvideo" width="100%" poster="{{ section.settings.overlay_image_4 | img_url:'1920x' }}" style="max-height:500px" controls preload="auto">
+                <source type="video/mp4" src="{{ section.settings.video_mp4_link_4 }}">
+              </video>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="button-wrap footer-btn-wrap">
+        <button type="button" class="btn-prev-step link prev-button"><i class="fas fa-arrow-left"></i> Back to Previous</button>
+        <button type="button" class="button button--secondary btn-next-step next-button">Next Step <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Stomach -->
+  <div class="page-width step-wrapper" data-step-title="Stomach" data-step-handle="stomach">
+    <div class="fit-finder-main-wrapper">
+      <div class="page-content-wrapper" style="background-color: {{section.settings.size_content_bg_color}};">
+        {%- unless section.settings.step_6_heading == blank -%}
+          <div class="content-heading">
+            {{ section.settings.step_6_heading }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_6_svg == blank -%}
+          <div class="scale-svg">
+            {{ section.settings.step_6_svg }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_6_title == blank -%}
+          <h4 class="block-heading">
+            {{ section.settings.step_6_title }}
+          </h4>
+        {%- endunless -%}
+        {%- unless section.settings.step_6_sub_title == blank -%}
+          <p class="sub-title text_center">
+            {{ section.settings.step_6_sub_title }}
+          </p>
+        {%- endunless -%}
+        <div class="radio-wrap box-layout">
+          <div class="form-wrap">
+            <input type="radio" id="stomach-flatter" name="stomach" value="Flatter">
+            <label for="stomach-flatter">
+              {%- render 'svg-icons', svg_icons : 'stomach-flatter' -%}
+              <span>Flatter</span>
+            </label>
+          </div>
+          <div class="form-wrap">
+            <input type="radio" id="stomach-average" name="stomach" value="Average">
+            <label for="stomach-average">
+              {%- render 'svg-icons', svg_icons : 'stomach-average' -%}
+              <span>Average</span>
+            </label>
+          </div>
+          <div class="form-wrap">
+            <input type="radio" id="stomach-rounder" name="stomach" value="Rounder">
+            <label for="stomach-rounder">
+              {%- render 'svg-icons', svg_icons : 'stomach-rounder' -%}
+              <span>Rounder</span>
+            </label>
+          </div> 
+        </div>
+        {%- if section.settings.video_mp4_link_6 != blank -%}
+          <div class="watch-tutorial">
+            <span class="link fit-finder-popup-link">Watch Tutorial <i class="fas fa-play"></i></span>
+          </div>
+          <div class="step-video-wrapper">
+            <div class="fluid-width-video-wrapper">
+              <video class="video lazyvideo" width="100%" poster="{{ section.settings.overlay_image_6 | img_url:'1920x' }}" style="max-height:500px" controls preload="auto">
+                <source type="video/mp4" src="{{ section.settings.video_mp4_link_6 }}">
+              </video>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="button-wrap footer-btn-wrap">
+        <button type="button" class="btn-prev-step link prev-button"><i class="fas fa-arrow-left"></i> Back to Previous</button>
+        <button type="button" class="button button--secondary btn-next-step next-button">Next Step <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+  
+  <!--  Shoes -->
+  <div class="page-width step-wrapper" data-step-title="Shoes" data-step-handle="shoe_size">
+    <div class="fit-finder-main-wrapper">
+      <div class="page-content-wrapper" style="background-color: {{section.settings.size_content_bg_color}};">
+        {%- unless section.settings.step_7_heading == blank -%}
+          <div class="content-heading">
+            {{ section.settings.step_7_heading }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_7_svg == blank -%}
+          <div class="scale-svg">
+            {{ section.settings.step_7_svg }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_7_title == blank -%}
+          <h4 class="block-heading">
+            {{ section.settings.step_7_title }}
+          </h4>
+        {%- endunless -%}
+        {%- unless section.settings.step_7_sub_title == blank -%}
+          <p class="sub-title text_center">
+            {{ section.settings.step_7_sub_title }}
+          </p>
+        {%- endunless -%}
+        <div class="custom-radio">
+          <ul class="radio-wrap">
+            <li class="form-wrap">
+              <input type="radio" id='shoes-07' name="shoes" value='7'>
+              <label class="size-select" for='shoes-07'>
+                <span class="checkmark">7</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='shoes-7.5' name="shoes" value='7.5'>
+              <label class="size-select" for='shoes-7.5'>
+                <span class="checkmark">7.5</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='shoes-08' name="shoes" value='8'>
+              <label class="size-select" for='shoes-08'>
+                <span class="checkmark">8</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='shoes-8.5' name="shoes" value='8.5'>
+              <label class="size-select" for='shoes-8.5'>
+                <span class="checkmark">8.5</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='shoes-09' name="shoes" value='9'>
+              <label class="size-select" for='shoes-09'>
+                <span class="checkmark">9</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='shoes-9.5' name="shoes" value='9.5'>
+              <label class="size-select" for='shoes-9.5'>
+                <span class="checkmark">9.5</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='shoes-10' name="shoes" value='10'>
+              <label class="size-select" for='shoes-10'>
+                <span class="checkmark">10</span>
+              </label>
+            </li>              
+            <li class="form-wrap">
+              <input type="radio" id='shoes-10.5' name="shoes" value='10.5'>
+              <label class="size-select" for='shoes-10.5'>
+                <span class="checkmark">10.5</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='shoes-11' name="shoes" value='11'>
+              <label class="size-select" for='shoes-11'>
+                <span class="checkmark">11</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='shoes-12' name="shoes" value='12'>
+              <label class="size-select" for='shoes-12'>
+                <span class="checkmark">12</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='shoes-13' name="shoes" value='13'>
+              <label class="size-select" for='shoes-13'>
+                <span class="checkmark">13</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id='shoes-14' name="shoes" value='14'>
+              <label class="size-select" for='shoes-14'>
+                <span class="checkmark">14</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+        {%- if section.settings.video_mp4_link_7 != blank -%}
+          <div class="watch-tutorial">
+            <span class="link fit-finder-popup-link">Watch Tutorial <i class="fas fa-play"></i></span>
+          </div>
+          <div class="step-video-wrapper">
+            <div class="fluid-width-video-wrapper">
+              <video class="video lazyvideo" width="100%" poster="{{ section.settings.overlay_image_7 | img_url:'1920x' }}" style="max-height:500px" controls preload="auto">
+                <source type="video/mp4" src="{{ section.settings.video_mp4_link_7 }}">
+              </video>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="footer-btn-wrap">
+        <button type="button" class="btn-prev-step link prev-button"><i class="fas fa-arrow-left"></i> Back to Previous</button>
+        <button type="button" class="button button--secondary btn-next-step next-button">Next Step <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Wast size -->
+  <div class="page-width step-wrapper" data-step-title="Wast size" data-step-handle="pants_waist">
+    <div class="fit-finder-main-wrapper">
+      <div class="page-content-wrapper" style="background-color: {{section.settings.size_content_bg_color}};">
+        {%- unless section.settings.step_8_heading == blank -%}
+          <div class="content-heading">
+            {{ section.settings.step_8_heading }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_8_svg == blank -%}
+          <div class="scale-svg">
+            {{ section.settings.step_8_svg }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_8_title == blank -%}
+          <h4 class="block-heading">
+            {{ section.settings.step_8_title }}
+          </h4>
+        {%- endunless -%}
+        {%- unless section.settings.step_8_sub_title == blank -%}
+          <p class="sub-title text_center">
+            {{ section.settings.step_8_sub_title }}
+          </p>
+        {%- endunless -%}
+        <div class="custom-radio">
+          <ul class="radio-wrap">
+            <li class="form-wrap">
+              <input type="radio" id="waist-26" name="waist" value="26">
+              <label class="size-select" for="waist-26">
+                <span class="checkmark">26</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="waist-28" name="waist" value="28">
+              <label class="size-select" for="waist-28">
+                <span class="checkmark">28</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="waist-30" name="waist" value="30">
+              <label class="size-select" for="waist-30">
+                <span class="checkmark">30</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="waist-32" name="waist" value="32">
+              <label class="size-select" for="waist-32">
+                <span class="checkmark">32</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="waist-34" name="waist" value="34">
+              <label class="size-select" for="waist-34">
+                <span class="checkmark">34</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="waist-36" name="waist" value="36">
+              <label class="size-select" for="waist-36">
+                <span class="checkmark">36</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="waist-38" name="waist" value="38">
+              <label class="size-select" for="waist-38">
+                <span class="checkmark">38</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="waist-40" name="waist" value="40">
+              <label class="size-select" for="waist-40">
+                <span class="checkmark">40</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="waist-42" name="waist" value="42">
+              <label class="size-select" for="waist-42">
+                <span class="checkmark">42</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="waist-44" name="waist" value="44">
+              <label class="size-select" for="waist-44">
+                <span class="checkmark">44</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="waist-46" name="waist" value="46">
+              <label class="size-select" for="waist-46">
+                <span class="checkmark">46</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="waist-48" name="waist" value="48">
+              <label class="size-select" for="waist-48">
+                <span class="checkmark">48</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="waist-50" name="waist" value="50">
+              <label class="size-select" for="waist-50">
+                <span class="checkmark">50</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="waist-52" name="waist" value="52">
+              <label class="size-select" for="waist-52">
+                <span class="checkmark">52</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="waist-54" name="waist" value="54">
+              <label class="size-select" for="waist-54">
+                <span class="checkmark">54</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+        {%- if section.settings.video_mp4_link_8 != blank -%}
+          <div class="watch-tutorial">
+            <span class="link fit-finder-popup-link">Watch Tutorial <i class="fas fa-play"></i></span>
+          </div>
+          <div class="step-video-wrapper">
+            <div class="fluid-width-video-wrapper">
+              <video class="video lazyvideo" width="100%" poster="{{ section.settings.overlay_image_8 | img_url:'1920x' }}" style="max-height:500px" controls preload="auto">
+                <source type="video/mp4" src="{{ section.settings.video_mp4_link_8 }}">
+              </video>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="button-wrap footer-btn-wrap">
+        <button type="button" class="btn-prev-step link prev-button"><i class="fas fa-arrow-left"></i> Back to Previous</button>
+        <button type="button" class="button button--secondary btn-next-step next-button">Next Step <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Inseam -->
+  <div class="page-width step-wrapper" data-step-title="Inseam" data-step-handle="pants_hight">
+    <div class="fit-finder-main-wrapper">
+      <div class="page-content-wrapper" style="background-color: {{section.settings.size_content_bg_color}};">
+        {%- unless section.settings.step_9_heading == blank -%}
+          <div class="content-heading">
+            {{ section.settings.step_9_heading }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_9_svg == blank -%}
+          <div class="scale-svg">
+            {{ section.settings.step_9_svg }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_9_title == blank -%}
+          <h4 class="block-heading">
+            {{ section.settings.step_9_title }}
+          </h4>
+        {%- endunless -%}
+        {%- unless section.settings.step_9_sub_title == blank -%}
+          <p class="sub-title text_center">
+            {{ section.settings.step_9_sub_title }}
+          </p>
+        {%- endunless -%}
+        <div class="custom-radio">
+          <ul class="radio-wrap">
+            <li class="form-wrap">
+              <input type="radio" id="inseam-30" name="inseam" value="30">
+              <label class="size-select" for="inseam-30">
+                <span class="checkmark">30</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="inseam-32" name="inseam" value="32">
+              <label class="size-select" for="inseam-32">
+                <span class="checkmark">32</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="inseam-34" name="inseam" value="34">
+              <label class="size-select" for="inseam-34">
+                <span class="checkmark">34</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+        {%- if section.settings.video_mp4_link_9 != blank -%}
+          <div class="watch-tutorial">
+            <span class="link fit-finder-popup-link">Watch Tutorial <i class="fas fa-play"></i></span>
+          </div>
+          <div class="step-video-wrapper">
+            <div class="fluid-width-video-wrapper">
+              <video class="video lazyvideo" width="100%" poster="{{ section.settings.overlay_image_9 | img_url:'1920x' }}" style="max-height:500px" controls preload="auto">
+                <source type="video/mp4" src="{{ section.settings.video_mp4_link_9 }}">
+              </video>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="button-wrap footer-btn-wrap">
+        <button type="button" class="btn-prev-step link prev-button"><i class="fas fa-arrow-left"></i> Back to Previous</button>
+        <button type="button" class="button button--secondary btn-next-step next-button">Next Step <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Neck -->
+  <div class="page-width step-wrapper" data-step-title="Neck" data-step-handle="shirt_neck">
+    <div class="fit-finder-main-wrapper">
+      <div class="page-content-wrapper" style="background-color: {{section.settings.size_content_bg_color}};">
+        {%- unless section.settings.step_10_heading == blank -%}
+          <div class="content-heading">
+            {{ section.settings.step_10_heading }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_10_svg == blank -%}
+          <div class="scale-svg">
+            {{ section.settings.step_10_svg }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_10_title == blank -%}
+          <h4 class="block-heading">
+            {{ section.settings.step_10_title }}
+          </h4>
+        {%- endunless -%}
+        {%- unless section.settings.step_10_sub_title == blank -%}
+          <p class="sub-title text_center">
+            {{ section.settings.step_10_sub_title }}
+          </p>
+        {%- endunless -%}
+        <div class="custom-radio">
+          <ul class="radio-wrap">
+            <li class="form-wrap">
+              <input type="radio" id="neck-13.5" name="neck" value="13.5">
+              <label class="size-select" for="neck-13.5">
+                <span class="checkmark">13.5</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-14.5" name="neck" value="14.5">
+              <label class="size-select" for="neck-14.5">
+                <span class="checkmark">14.5</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-15" name="neck" value="15">
+              <label class="size-select" for="neck-15">
+                <span class="checkmark">15</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-15.5" name="neck" value="15.5">
+              <label class="size-select" for="neck-15.5">
+                <span class="checkmark">15.5</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-16" name="neck" value="16">
+              <label class="size-select" for="neck-16">
+                <span class="checkmark">16</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-16.5" name="neck" value="16.5">
+              <label class="size-select" for="neck-16.5">
+                <span class="checkmark">16.5</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-17" name="neck" value="17">
+              <label class="size-select" for="neck-17">
+                <span class="checkmark">17</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-17.5" name="neck" value="17.5">
+              <label class="size-select" for="neck-17.5">
+                <span class="checkmark">17.5</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-18" name="neck" value="18">
+              <label class="size-select" for="neck-18">
+                <span class="checkmark">18</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-18.5" name="neck" value="18.5">
+              <label class="size-select" for="neck-18.5">
+                <span class="checkmark">18.5</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-19.5" name="neck" value="19.5">
+              <label class="size-select" for="neck-19.5">
+                <span class="checkmark">19.5</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="neck-20.5" name="neck" value="20.5">
+              <label class="size-select" for="neck-20.5">
+                <span class="checkmark">20.5</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+        {%- if section.settings.video_mp4_link_10 != blank -%}
+          <div class="watch-tutorial">
+            <span class="link fit-finder-popup-link">Watch Tutorial <i class="fas fa-play"></i></span>
+          </div>
+          <div class="step-video-wrapper">
+            <div class="fluid-width-video-wrapper">
+              <video class="video lazyvideo" width="100%" poster="{{ section.settings.overlay_image_10 | img_url:'1920x' }}" style="max-height:500px" controls preload="auto">
+                <source type="video/mp4" src="{{ section.settings.video_mp4_link_10 }}">
+              </video>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="button-wrap footer-btn-wrap">
+        <button type="button" class="btn-prev-step link prev-button"><i class="fas fa-arrow-left"></i> Back to Previous</button>
+        <button type="button" class="button button--secondary btn-next-step next-button">Next Step <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Sleeve Length -->
+  <div class="page-width step-wrapper" data-step-title="Shirt Sleeve Length" data-step-handle="shirt_sleeve">
+    <div class="fit-finder-main-wrapper">
+      <div class="page-content-wrapper" style="background-color: {{section.settings.size_content_bg_color}};">
+        {%- unless section.settings.step_11_heading == blank -%}
+          <div class="content-heading">
+            {{ section.settings.step_11_heading }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_11_svg == blank -%}
+          <div class="scale-svg">
+            {{ section.settings.step_11_svg }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_11_title == blank -%}
+          <h4 class="block-heading">
+            {{ section.settings.step_11_title }}
+          </h4>
+        {%- endunless -%}
+        {%- unless section.settings.step_11_sub_title == blank -%}
+          <p class="sub-title text_center">
+            {{ section.settings.step_11_sub_title }}
+          </p>
+        {%- endunless -%}
+        <div class="custom-radio">
+          <ul class="radio-wrap">
+            <li class="form-wrap">
+              <input type="radio" id="shirt-sleeve-short" name="shirt-sleeve-length" value="32/33">
+              <label class="size-select" for="shirt-sleeve-short">
+                {%- comment -%}{%- render 'svg-icons', svg_icons : 'shirt-sleeve-short' -%}{%- endcomment -%}
+                <span class="checkmark">Short (32/33)</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="shirt-sleeve-average" name="shirt-sleeve-length" value="34/35">
+              <label class="size-select" for="shirt-sleeve-average">
+                {%- comment -%}{%- render 'svg-icons', svg_icons : 'shirt-sleeve-average' -%}{%- endcomment -%}
+                <span class="checkmark">Average (34/35)</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="shirt-sleeve-long" name="shirt-sleeve-length" value="36/37">
+              <label class="size-select" for="shirt-sleeve-long">
+                {%- comment -%}{%- render 'svg-icons', svg_icons : 'shirt-sleeve-long' -%}{%- endcomment -%}
+                <span class="checkmark">Long (36/37)</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+        {%- if section.settings.video_mp4_link_11 != blank -%}
+          <div class="watch-tutorial">
+            <span class="link fit-finder-popup-link">Watch Tutorial <i class="fas fa-play"></i></span>
+          </div>
+          <div class="step-video-wrapper">
+            <div class="fluid-width-video-wrapper">
+              <video class="video lazyvideo" width="100%" poster="{{ section.settings.overlay_image_11 | img_url:'1920x' }}" style="max-height:500px" controls preload="auto">
+                <source type="video/mp4" src="{{ section.settings.video_mp4_link_11 }}">
+              </video>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="button-wrap footer-btn-wrap">
+        <button type="button" class="btn-prev-step link prev-button"><i class="fas fa-arrow-left"></i> Back to Previous</button>
+        <button type="button" class="button button--secondary btn-next-step next-button">Next Step <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Jacket Size -->
+  <div class="page-width step-wrapper" data-step-title="Suit Jacket Size" data-step-handle="jacket_size">
+    <div class="fit-finder-main-wrapper">
+      <div class="page-content-wrapper" style="background-color: {{section.settings.size_content_bg_color}};">
+        {%- unless section.settings.step_12_heading == blank -%}
+          <div class="content-heading">
+            {{ section.settings.step_12_heading }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_12_svg == blank -%}
+          <div class="scale-svg">
+            {{ section.settings.step_12_svg }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_12_title == blank -%}
+          <h4 class="block-heading">
+            {{ section.settings.step_12_title }}
+          </h4>
+        {%- endunless -%}
+        {%- unless section.settings.step_12_sub_title == blank -%}
+          <p class="sub-title text_center">
+            {{ section.settings.step_12_sub_title }}
+          </p>
+        {%- endunless -%}
+        <div class="custom-radio">
+          <ul class="radio-wrap">
+            <li class="form-wrap">
+              <input type="radio" id="jacket_size-32" name="jacket_size" value="32">
+              <label class="size-select" for="jacket_size-32">
+                <span class="checkmark">32</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="jacket_size-34" name="jacket_size" value="34">
+              <label class="size-select" for="jacket_size-34">
+                <span class="checkmark">34</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="jacket_size-36" name="jacket_size" value="36">
+              <label class="size-select" for="jacket_size-36">
+                <span class="checkmark">36</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="jacket_size-38" name="jacket_size" value="38">
+              <label class="size-select" for="jacket_size-38">
+                <span class="checkmark">38</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="jacket_size-40" name="jacket_size" value="40">
+              <label class="size-select" for="jacket_size-40">
+                <span class="checkmark">40</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="jacket_size-42" name="jacket_size" value="42">
+              <label class="size-select" for="jacket_size-42">
+                <span class="checkmark">42</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="jacket_size-44" name="jacket_size" value="44">
+              <label class="size-select" for="jacket_size-44">
+                <span class="checkmark">44</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="jacket_size-46" name="jacket_size" value="46">
+              <label class="size-select" for="jacket_size-46">
+                <span class="checkmark">46</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="jacket_size-48" name="jacket_size" value="48">
+              <label class="size-select" for="jacket_size-48">
+                <span class="checkmark">48</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="jacket_size-50" name="jacket_size" value="50">
+              <label class="size-select" for="jacket_size-50">
+                <span class="checkmark">50</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="jacket_size-52" name="jacket_size" value="52">
+              <label class="size-select" for="jacket_size-52">
+                <span class="checkmark">52</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="jacket_size-54" name="jacket_size" value="54">
+              <label class="size-select" for="jacket_size-54">
+                <span class="checkmark">54</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="jacket_size-56" name="jacket_size" value="56">
+              <label class="size-select" for="jacket_size-56">
+                <span class="checkmark">56</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="jacket_size-58" name="jacket_size" value="58">
+              <label class="size-select" for="jacket_size-58">
+                <span class="checkmark">58</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="jacket_size-60" name="jacket_size" value="60">
+              <label class="size-select" for="jacket_size-60">
+                <span class="checkmark">60</span>
+              </label>
+            </li>
+          </ul>
+        </div>
+        {%- if section.settings.video_mp4_link_12 != blank -%}
+          <div class="watch-tutorial">
+            <span class="link fit-finder-popup-link">Watch Tutorial <i class="fas fa-play"></i></span>
+          </div>
+          <div class="step-video-wrapper">
+            <div class="fluid-width-video-wrapper">
+              <video class="video lazyvideo" width="100%" poster="{{ section.settings.overlay_image_12 | img_url:'1920x' }}" style="max-height:500px" controls preload="auto">
+                <source type="video/mp4" src="{{ section.settings.video_mp4_link_12 }}">
+              </video>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="button-wrap footer-btn-wrap">
+        <button type="button" class="btn-prev-step link prev-button"><i class="fas fa-arrow-left"></i> Back to Previous</button>
+        <button type="button" class="button button--secondary btn-next-step next-button">Next Step <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Jacket Length -->
+  <div class="page-width step-wrapper" data-step-title="Suit Jacket Length" data-step-handle="jacket_type">
+    <div class="fit-finder-main-wrapper">
+      <div class="page-content-wrapper" style="background-color: {{section.settings.size_content_bg_color}};">
+        {%- unless section.settings.step_13_heading == blank -%}
+          <div class="content-heading">
+            {{ section.settings.step_13_heading }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_13_svg == blank -%}
+          <div class="scale-svg">
+            {{ section.settings.step_13_svg }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_13_title == blank -%}
+          <h4 class="block-heading">
+            {{ section.settings.step_13_title }}
+          </h4>
+        {%- endunless -%}
+        {%- unless section.settings.step_13_sub_title == blank -%}
+          <p class="sub-title text_center">
+            {{ section.settings.step_13_sub_title }}
+          </p>
+        {%- endunless -%}
+        <div class="custom-radio">
+          <ul class="radio-wrap">
+            <li class="form-wrap">
+              <input type="radio" id="suit-jacket-short" name="suit-jacket-length" value="Short">
+              <label class="size-select" for="suit-jacket-short">
+                {%- comment -%}{%- render 'svg-icons', svg_icons : 'suit-jacket-short' -%}{%- endcomment -%}
+                <span class="checkmark">Short</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="suit-jacket-regular" name="suit-jacket-length" value="Regular">
+              <label class="size-select" for="suit-jacket-regular">
+                {%- comment -%}{%- render 'svg-icons', svg_icons : 'suit-jacket-regular' -%}{%- endcomment -%}
+                <span class="checkmark">Regular</span>
+              </label>
+            </li>
+            <li class="form-wrap">
+              <input type="radio" id="suit-jacket-long" name="suit-jacket-length" value="Long">
+              <label class="size-select" for="suit-jacket-long">
+                {%- comment -%}{%- render 'svg-icons', svg_icons : 'suit-jacket-long' -%}{%- endcomment -%}
+                <span class="checkmark">Long</span>
+              </label>
+            </li>
+            {%- comment -%}<div class="form-wrap">
+              <input type="radio" id="suit-jacket-skip" name="suit-jacket-length" value="NA">
+              <label for="suit-jacket-skip">
+                {%- render 'svg-icons', svg_icons : 'suit-jacket-long' -%}
+                <span>Skip Question</span>
+              </label>
+            </div>{%- endcomment -%}
+          </ul>
+        </div>
+        {%- if section.settings.video_mp4_link_13 != blank -%}
+          <div class="watch-tutorial">
+            <span class="link fit-finder-popup-link">Watch Tutorial <i class="fas fa-play"></i></span>
+          </div>
+          <div class="step-video-wrapper">
+            <div class="fluid-width-video-wrapper">
+              <video class="video lazyvideo" width="100%" poster="{{ section.settings.overlay_image_13 | img_url:'1920x' }}" style="max-height:500px" controls preload="auto">
+                <source type="video/mp4" src="{{ section.settings.video_mp4_link_13 }}">
+              </video>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="button-wrap footer-btn-wrap">
+        <button type="button" class="btn-prev-step link prev-button"><i class="fas fa-arrow-left"></i> Back to Previous</button>
+        <button type="button" class="button button--secondary btn-next-step next-button">Next Step <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Fit Length -->
+  <div class="page-width step-wrapper" data-step-title="Fit" data-step-handle="fit">
+    <div class="fit-finder-main-wrapper">
+      <div class="page-content-wrapper" style="background-color: {{section.settings.size_content_bg_color}};">
+        {%- unless section.settings.step_14_heading == blank -%}
+          <div class="content-heading">
+            {{ section.settings.step_14_heading }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_14_svg == blank -%}
+          <div class="scale-svg">
+            {{ section.settings.step_14_svg }}
+          </div>
+        {%- endunless -%}
+        {%- unless section.settings.step_14_title == blank -%}
+          <h4 class="block-heading">
+            {{ section.settings.step_14_title }}
+          </h4>
+        {%- endunless -%}
+        {%- unless section.settings.step_14_sub_title == blank -%}
+          <p class="sub-title text_center">
+            {{ section.settings.step_14_sub_title }}
+          </p>
+        {%- endunless -%}
+        <div class="radio-wrap box-layout">
+          <div class="form-wrap">
+            <input type="radio" id="fit-slim" name="fit" value="Slim">
+            <label for="fit-slim">
+              {%- render 'svg-icons', svg_icons : 'fit-slim-icon' -%}
+              <span>Slim</span>
+            </label>
+          </div>
+          <div class="form-wrap">
+            <input type="radio" id="fit-modern" name="fit" value="Modern">
+            <label for="fit-modern">
+              {%- render 'svg-icons', svg_icons : 'fit-modern-icon' -%}
+              <span>Modern</span>
+            </label>
+          </div>
+        </div>
+        {%- if section.settings.video_mp4_link_14 != blank -%}
+          <div class="watch-tutorial">
+            <span class="link fit-finder-popup-link">Watch Tutorial <i class="fas fa-play"></i></span>
+          </div>
+          <div class="step-video-wrapper">
+            <div class="fluid-width-video-wrapper">
+              <video class="video lazyvideo" width="100%" poster="{{ section.settings.overlay_image_14 | img_url:'1920x' }}" style="max-height:500px" controls preload="auto">
+                <source type="video/mp4" src="{{ section.settings.video_mp4_link_14 }}">
+              </video>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="button-wrap footer-btn-wrap">
+        <button type="button" class="btn-prev-step link prev-button"><i class="fas fa-arrow-left"></i> Back to Previous</button>
+        <button type="button" class="button button--secondary btn-next-step next-button">Next Step <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+    <div class="fit-finder-result hidden"></div>
+    <div class="fit-finder-pant-result hidden"></div>
+  </div>
+
+  <!-- Fit Fider Result Step  -->
+  <div class="step-sixteen step-wrapper" data-step-title="Result">
+    <div class="fit-finder-main-wrapper">
+      <div class="fit-finder-result-wrapper"></div>
+      <div class="button-wrap footer-btn-wrap">
+        <button type="button" class="btn-prev-step link prev-button previous-page-link" style="display: none;"><i class="fas fa-arrow-left"></i> Back to Previous</button>
+        <button type="button" class="button button--secondary edit-size-button hidden">{% render 'icon-size-rular' %} <span class="fit-finder-label">Edit Sizes</span></button>
+        {%- if section.settings.contiune_btn_link != blank -%}
+          <a type="button" href="{{ section.settings.contiune_btn_link }}" class="button link hidden continue-shopping-btn continue_shopping_fit_finder" style="display: none;">{{ section.settings.contiune_btn_title }} <i class="fas fa-arrow-right"></i></a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+$(document).ready(function(){
+  $(".continue_shopping_fit_finder").click(function(e){
+    e.preventDefault();
+    var collection_url = $(this).attr("href");
+    var bring_back_url = localStorage.getItem("bring_back_fit_finder_url");
+    if(bring_back_url){
+      window.location.href = bring_back_url;
+      localStorage.removeItem("bring_back_fit_finder_url");
+    }else{
+      window.location.href = collection_url;
+    }
+    
+  });
+});
+
+</script>
+
+{% schema %}
+{
+  "name": "Fit Finder",
+  "settings": [
+    {
+      "type":"text",
+      "id":"page_header",
+      "label":"Page Heading",
+      "default" : "Fit Finder"
+    },
+    {
+      "type":"header",
+      "content":"Step Content Wrapper Background Color"
+    },
+    {
+      "type":"color",
+      "id":"size_content_bg_color",
+      "label":"Background Color for Size Content",
+      "default" : "#f5f5f5"
+    },
+
+    {
+      "type" : "header",
+      "content" : "Continue shopping Button"
+    },
+    {
+      "type":"text",
+      "id":"contiune_btn_title",
+      "label":"Button text",
+      "default" : "Continue Shopping"
+    },
+    {
+      "type":"url",
+      "id":"contiune_btn_link",
+      "label":"Button Link",
+      "default" : "/collections/all"
+    },
+
+    {
+      "type" : "header",
+      "content" : "Step 1"
+    },
+    {
+      "type":"text",
+      "id":"step_1_heading",
+      "label":"Heading",
+      "default":"Step one"
+    },
+    {
+      "type":"html",
+      "id":"step_1_svg",
+      "label":"SVG",
+      "info":"SVG code*"
+    },
+    {
+      "type":"text",
+      "id":"step_1_title",
+      "label":"Title",
+      "default":"How tall are you?"
+    },
+    {
+      "type":"text",
+      "id":"step_1_sub_title",
+      "label":"Sub title",
+      "default":"How tall are you?"
+    },
+    {
+      "type":"image_picker",
+      "id":"overlay_image_1",
+      "label":"Background Image"
+    },
+    {
+      "type": "text",
+      "id": "video_mp4_link_1",
+      "label": "Video link",
+      "info": "Just Paste Video Link ( Remove the Image)",
+      "default" : "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/Web_Banner_Video_Updated_Use_Smaller.mp4"
+    },
+    
+    {
+      "type" : "header",
+      "content" : "Step 2"
+    },
+    {
+      "type":"text",
+      "id":"step_2_heading",
+      "label":"Heading",
+      "default":"Step Second"
+    },
+    {
+      "type":"html",
+      "id":"step_2_svg",
+      "label":"SVG",
+      "info":"SVG code*"
+    },
+    {
+      "type":"text",
+      "id":"step_2_title",
+      "label":"Title",
+      "default":"What is your weight? (No one else needs to know, just the tailors)"
+    },
+    {
+      "type":"text",
+      "id":"step_2_sub_title",
+      "label":"Sub Title",
+      "default":"(No one else needs to know, just the tailors)"
+    },
+    {
+      "type":"image_picker",
+      "id":"overlay_image_2",
+      "label":"Background Image"
+    },
+    {
+      "type": "text",
+      "id": "video_mp4_link_2",
+      "label": "Video link",
+      "info": "Just Paste Video Link ( Remove the Image)",
+      "default" : "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/Web_Banner_Video_Updated_Use_Smaller.mp4"
+    },
+
+    {
+      "type" : "header",
+      "content" : "Step 3"
+    },
+    {
+      "type":"text",
+      "id":"step_3_heading",
+      "label":"Heading",
+      "default":"Step Thired"
+    },
+    {
+      "type":"html",
+      "id":"step_3_svg",
+      "label":"SVG",
+      "info":"SVG code*"
+    },
+    {
+      "type":"text",
+      "id":"step_3_title",
+      "label":"Title",
+      "default":"How old are you?"
+    },
+    {
+      "type":"text",
+      "id":"step_3_sub_title",
+      "label":"Sub Title"
+    },
+    {
+      "type":"image_picker",
+      "id":"overlay_image_3",
+      "label":"Background Image"
+    },
+    {
+      "type": "text",
+      "id": "video_mp4_link_3",
+      "label": "Video link",
+      "info": "Just Paste Video Link ( Remove the Image)",
+      "default" : "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/Web_Banner_Video_Updated_Use_Smaller.mp4"
+    },
+
+    {
+      "type" : "header",
+      "content" : "Step 4"
+    },
+    {
+      "type":"text",
+      "id":"step_4_heading",
+      "label":"Heading",
+      "default":"Step Fourth"
+    },
+    {
+      "type":"html",
+      "id":"step_4_svg",
+      "label":"SVG",
+      "info":"SVG code*"
+    },
+    {
+      "type":"text",
+      "id":"step_4_title",
+      "label":"Title",
+      "default":"Describe your build."
+    },
+    {
+      "type":"text",
+      "id":"step_4_sub_title",
+      "label":"Sub Title"
+    },
+    {
+      "type":"image_picker",
+      "id":"overlay_image_4",
+      "label":"Background Image"
+    },
+    {
+      "type": "text",
+      "id": "video_mp4_link_4",
+      "label": "Video link",
+      "info": "Just Paste Video Link ( Remove the Image)",
+      "default" : "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/Web_Banner_Video_Updated_Use_Smaller.mp4"
+    },
+
+    {
+      "type" : "header",
+      "content" : "Step 5"
+    },
+    {
+      "type":"text",
+      "id":"step_6_heading",
+      "label":"Heading",
+      "default":"Step Six"
+    },
+    {
+      "type":"html",
+      "id":"step_6_svg",
+      "label":"SVG",
+      "info":"SVG code*"
+    },
+    {
+      "type":"text",
+      "id":"step_6_title",
+      "label":"Title",
+      "default":"What shape is your stomach?"
+    },
+    {
+      "type":"text",
+      "id":"step_6_sub_title",
+      "label":"Sub Title",
+      "default":"Be honest, but if you're not sure go with average"
+    },
+    {
+      "type":"image_picker",
+      "id":"overlay_image_6",
+      "label":"Background Image"
+    },
+    {
+      "type": "text",
+      "id": "video_mp4_link_6",
+      "label": "Video link",
+      "info": "Just Paste Video Link ( Remove the Image)",
+      "default" : "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/Web_Banner_Video_Updated_Use_Smaller.mp4"
+    },
+
+    {
+      "type" : "header",
+      "content" : "Step 6"
+    },
+    {
+      "type":"text",
+      "id":"step_7_heading",
+      "label":"Heading",
+      "default":"Step Seven"
+    },
+    {
+      "type":"html",
+      "id":"step_7_svg",
+      "label":"SVG",
+      "info":"SVG code*"
+    },
+    {
+      "type":"text",
+      "id":"step_7_title",
+      "label":"Title",
+      "default":"What is your shoe size? (No half sizes, but if you're in the middle size down)"
+    },
+    {
+      "type":"text",
+      "id":"step_7_sub_title",
+      "label":"Sub Title",
+      "default":"No half sizes, but if you're in the middle size down"
+    },
+    {
+      "type":"image_picker",
+      "id":"overlay_image_7",
+      "label":"Background Image"
+    },
+    {
+      "type": "text",
+      "id": "video_mp4_link_7",
+      "label": "Video link",
+      "info": "Just Paste Video Link ( Remove the Image)",
+      "default" : "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/Web_Banner_Video_Updated_Use_Smaller.mp4"
+    },
+
+    {
+      "type" : "header",
+      "content" : "Step 7"
+    },
+    {
+      "type":"text",
+      "id":"step_8_heading",
+      "label":"Heading",
+      "default":"Step Eight"
+    },
+    {
+      "type":"html",
+      "id":"step_8_svg",
+      "label":"SVG",
+      "info":"SVG code*"
+    },
+    {
+      "type":"text",
+      "id":"step_8_title",
+      "label":"Title",
+      "default":"What is your waist size?"
+    },
+    {
+      "type":"text",
+      "id":"step_8_sub_title",
+      "label":"Sub Title",
+      "default":"Have a favorite pair of pants? It's the first number on the tag"
+    },
+    {
+      "type":"image_picker",
+      "id":"overlay_image_8",
+      "label":"Background Image"
+    },
+    {
+      "type": "text",
+      "id": "video_mp4_link_8",
+      "label": "Video link",
+      "info": "Just Paste Video Link ( Remove the Image)",
+      "default" : "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/Web_Banner_Video_Updated_Use_Smaller.mp4"
+    },
+
+    {
+      "type" : "header",
+      "content" : "Step 8"
+    },
+    {
+      "type":"text",
+      "id":"step_9_heading",
+      "label":"Heading",
+      "default":"Step Nine"
+    },
+    {
+      "type":"html",
+      "id":"step_9_svg",
+      "label":"SVG",
+      "info":"SVG code*"
+    },
+    {
+      "type":"text",
+      "id":"step_9_title",
+      "label":"Title",
+      "default":"What is your pant inseam length?"
+    },
+    {
+      "type":"text",
+      "id":"step_9_sub_title",
+      "label":"Sub Title",
+      "default":"Have a favorite pair of pants? Check the second number on the tag, that's it!"
+    },
+    {
+      "type":"image_picker",
+      "id":"overlay_image_9",
+      "label":"Background Image"
+    },
+    {
+      "type": "text",
+      "id": "video_mp4_link_9",
+      "label": "Video link",
+      "info": "Just Paste Video Link ( Remove the Image)",
+      "default" : "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/Web_Banner_Video_Updated_Use_Smaller.mp4"
+    },
+
+    {
+      "type" : "header",
+      "content" : "Step 9"
+    },
+    {
+      "type":"text",
+      "id":"step_10_heading",
+      "label":"Heading",
+      "default":"Step Ten"
+    },
+    {
+      "type":"html",
+      "id":"step_10_svg",
+      "label":"SVG",
+      "info":"SVG code*"
+    },
+    {
+      "type":"text",
+      "id":"step_10_title",
+      "label":"Title",
+      "default":"Know your dress shirt neck size?"
+    },
+    {
+      "type":"text",
+      "id":"step_10_sub_title",
+      "label":"Sub Title",
+      "default":"Have a favorite dress shirt? Check the tag, it''s the first number "
+    },
+    {
+      "type":"image_picker",
+      "id":"overlay_image_10",
+      "label":"Background Image"
+    },
+    {
+      "type": "text",
+      "id": "video_mp4_link_10",
+      "label": "Video link",
+      "info": "Just Paste Video Link ( Remove the Image)",
+      "default" : "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/Web_Banner_Video_Updated_Use_Smaller.mp4"
+    },
+
+    {
+      "type" : "header",
+      "content" : "Step 10"
+    },
+    {
+      "type":"text",
+      "id":"step_11_heading",
+      "label":"Heading",
+      "default":"Step Eleven"
+    },
+    {
+      "type":"html",
+      "id":"step_11_svg",
+      "label":"SVG",
+      "info":"SVG code*"
+    },
+    {
+      "type":"text",
+      "id":"step_11_title",
+      "label":"Title",
+      "default":"How long are your dress shirt sleeves?"
+    },
+    {
+      "type":"text",
+      "id":"step_11_sub_title",
+      "label":"Sub Title",
+      "default":"Have a favorite dress shirt? It's the second number on the tag "
+    },
+    {
+      "type":"image_picker",
+      "id":"overlay_image_11",
+      "label":"Background Image"
+    },
+    {
+      "type": "text",
+      "id": "video_mp4_link_11",
+      "label": "Video link",
+      "info": "Just Paste Video Link ( Remove the Image)",
+      "default" : "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/Web_Banner_Video_Updated_Use_Smaller.mp4"
+    },
+
+    {
+      "type" : "header",
+      "content" : "Step 11"
+    },
+    {
+      "type":"text",
+      "id":"step_12_heading",
+      "label":"Heading",
+      "default":"Step Twelve"
+    },
+    {
+      "type":"html",
+      "id":"step_12_svg",
+      "label":"SVG",
+      "info":"SVG code*"
+    },
+    {
+      "type":"text",
+      "id":"step_12_title",
+      "label":"Title",
+      "default":"What suit size do you usually wear? () (I don't know, skip)"
+    },
+    {
+      "type":"text",
+      "id":"step_12_sub_title",
+      "label":"Sub Title",
+      "default":"If you have a favorite fitting suit, double check the size and share with us "
+    },
+    {
+      "type":"image_picker",
+      "id":"overlay_image_12",
+      "label":"Background Image"
+    },
+    {
+      "type": "text",
+      "id": "video_mp4_link_12",
+      "label": "Video link",
+      "info": "Just Paste Video Link ( Remove the Image)",
+      "default" : "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/Web_Banner_Video_Updated_Use_Smaller.mp4"
+    },
+
+    {
+      "type" : "header",
+      "content" : "Step 12"
+    },
+    {
+      "type":"text",
+      "id":"step_13_heading",
+      "label":"Heading",
+      "default":"Step Thirteen"
+    },
+    {
+      "type":"html",
+      "id":"step_13_svg",
+      "label":"SVG",
+      "info":"SVG code*"
+    },
+    {
+      "type":"text",
+      "id":"step_13_title",
+      "label":"Title",
+      "default":"How long is your suit jacket?"
+    },
+    {
+      "type":"text",
+      "id":"step_13_sub_title",
+      "label":"Sub Title"
+    },
+    {
+      "type":"image_picker",
+      "id":"overlay_image_13",
+      "label":"Background Image"
+    },
+    {
+      "type": "text",
+      "id": "video_mp4_link_13",
+      "label": "Video link",
+      "info": "Just Paste Video Link ( Remove the Image)",
+      "default" : "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/Web_Banner_Video_Updated_Use_Smaller.mp4"
+    },
+
+    {
+      "type" : "header",
+      "content" : "Step 13"
+    },
+    {
+      "type":"text",
+      "id":"step_14_heading",
+      "label":"Heading",
+      "default":"Step Fourteen"
+    },
+    {
+      "type":"html",
+      "id":"step_14_svg",
+      "label":"SVG",
+      "info":"SVG code*"
+    },
+    {
+      "type":"text",
+      "id":"step_14_title",
+      "label":"Title",
+      "default":"How would you like it to fit?"
+    },
+    {
+      "type":"text",
+      "id":"step_14_sub_title",
+      "label":"Sub Title",
+      "default":"Slim: The trendy style... shorter sleeves, contours to your body more - Modern: More room to move but not baggy"
+    },
+    {
+      "type":"image_picker",
+      "id":"overlay_image_14",
+      "label":"Background Image"
+    },
+    {
+      "type": "text",
+      "id": "video_mp4_link_14",
+      "label": "Video link",
+      "info": "Just Paste Video Link ( Remove the Image)",
+      "default" : "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/Web_Banner_Video_Updated_Use_Smaller.mp4"
+    }
+  ]
+}
+{% endschema %}

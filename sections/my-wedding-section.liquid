@@ -1,0 +1,431 @@
+
+{%- comment -%} Capture the content for header containing the tracking data {%- endcomment -%}
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+
+{% comment %} Use string splitting to pull the value from content_for_header and apply some string clean up {% endcomment %}
+{%- assign pageUrl = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&' -%}
+{%- if customer -%}
+  {%- unless pageUrl contains 'event_id=' -%}
+    <script>window.location.href = '/account';</script>
+  {%- endunless -%}
+{%- else -%}
+  <script>window.location.href = '/account/login';</script>
+{%- endif -%}
+
+<script src="https://harvesthq.github.io/chosen/chosen.jquery.js" defer></script>
+<script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/1.1.2/css/bootstrap-multiselect.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{{ 'mywedding.js' | asset_url | script_tag }}
+{{ 'my-wedding.css' | asset_url | stylesheet_tag }}
+{{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
+<link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
+
+<div class="mywedding_section_wrap hidden">
+  <div class="page-top-head-background">
+    <div class="page-width-big">
+      <div class="page-top-headpadding-flex">
+        <div class="breadcrumb">
+          <div class="breadcrumb-links">
+            <a href="{{ routes.account_url }}">My Account</a>
+            <span class="breadcrumb__sep">{% include 'breadcrumb-arrow' %}</span>
+            <span class="active-page"></span>
+          </div>
+        </div>
+        <div class="page-back-link">
+          <a href="/account" class="link"><i class="fas fa-arrow-left"></i> Back to My Account</a>
+        </div>
+      </div>
+    </div>
+    <div class="page-width">
+      <input type="hidden" id="weddingevent_id">
+      <input type="hidden" id="customer_id" value="{{ customer.id }}">
+      <div class="account-profile-top-part">
+        <div class="profile-pic-part aa">
+          <!-- <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/field-6574455__480.jpg"> -->
+          <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/default-event-img.jpg?v=1654156190">
+        </div>
+        <div class="profile-info-part">
+          <div class="event-edit-hosted-wrap xs-show"><i class="fas fa-user-tie"></i> Hosted By Me</div>
+          <h1 class="text-center-heading border-heading page-title" id="weddingeventname"></h1>
+          <div class="event-detail-part">
+            <div class="event-date-part h4" id="weddingeventdate"></div>
+            <div class="event-edit-hosted"></div>
+          </div>
+        </div>
+        {%- include 'edit-profile-picture' -%}
+      </div>
+      <div class="event-process-part">
+        <div class="mobile-show">
+          <div class="process-part">
+            <label for="file" class="h5">Event Progress</label>
+            <span class="h4 progress-count">32%</span>
+            <progress id="file1" value="32" max="100"> 32% </progress>
+          </div>
+          <div class="mobile-event-detail-button">
+            <a href="#" class="link">
+              Show Details <i class="fas fa-arrow-down"></i><i class="fas fa-arrow-up hidden"></i>
+            </a>
+          </div>
+        </div>
+        <div class="create-event-step-checkbox">
+          <label class="account-event-step create_event_step active"> Create Event
+            <span class="checkmark"></span>
+          </label>
+          <label class="account-event-step invite_party_members_step"> Invite Party Members
+            <span class="checkmark"></span>
+          </label>
+          <label class="account-event-step choose_your_looks_step"> Choose Your Looks
+            <span class="checkmark"></span>
+          </label>
+          <label class="account-event-step schedule_reminders_step"> Schedule Reminders
+            <span class="checkmark"></span>
+          </label>
+          <label class="account-event-step sit_back_relax_step"> Sit Back & Relax
+            <span class="checkmark"></span>
+          </label>
+          {%- comment -%}
+          <label class="account-event-step">
+              Verified Fit
+              <span class="checkmark"></span>
+              <div class="tooltip-main">
+                  <i class="fas fa-info information"></i>
+                  <p class="information_content" style="display: none;">
+                      Free Home Try On is reservered for events created within your account.
+                  </p>
+              </div>
+          </label>
+          {%- endcomment -%}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-width">
+    <div class="schedule-button-part hidden">
+      <a href="/pages/home-try-on/" class="button button--secondary"> {% include 'icon-schedule' %} Schedule Home Try On</a>
+      <div class="tooltip-main">
+        <i class="fas fa-info information"></i>
+        <p class="information_content" style="display: none;">
+          Free Home Try On is reservered for events created within your account.
+        </p>
+      </div>
+    </div>
+    <div class="schedule-success-messages hidden">
+      <h2>Home Try On is already created for this event!</h2>
+      <div class="schedule-sub">
+        <div class="schedule-suit-link">
+          <a href="javascript:void(0)" class="schedule-charge-link link button button--primary">I am happy with the Fit, Please charge my card now.</a>
+        </div>
+        <div class="schedule-suit-link">
+          <a href="javascript:void(0)" class="return-suit-link link button button--primary">The suit doesn't Fit, Need to return it!</a>
+        </div>
+      </div>
+      <div class="schedule-final-message">
+        <div class="api_error form-error text_center"></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="the-party-part">
+    <div class="party-background-part">
+      <div class="page-width">
+        <div class="section-heading">
+          <h2 class="text-center-heading border-heading title">The Party</h2>
+        </div>
+        <div class="party-invite-member-part"></div>
+        <div class="section-bottom-button">
+          <div class="button  button--secondary invite-popup-button">Invite Another <i class="fas fa-arrow-right"></i></div>
+        </div>
+        {%- render 'account-party-invite-popup' -%}
+        <div class="reminder-and-schedule-link">
+          <span class="send-reminder-button link"><i class="far fa-envelope"></i> Send Reminder to all Party Members</span>
+        </div>
+      </div>
+    </div>
+    {%- render 'send-reminder-popup' -%}
+  </div>
+  <div class="page-width">
+    <div class="assign-look-product-slider-part slider-lr-spacing-main tooltip-in-slider">
+      {%- render 'event-details-look', section : section -%}
+    </div>
+  </div>
+  <div class="reminder-schedule-part">
+      <div class="page-width">
+          <div class="section-heading">
+            <h2 class="text-center-heading border-heading title">Reminder Schedule</h2>
+          </div>
+          <div class="reminder-small-width-part">
+              <div class="reminder-added-part-main"></div> 
+              <div class="empty-reminder-msg hidden">No reminders scheduled currently.</div>
+              <div class="section-bottom-button">
+                <span class="button button--secondary reminder-button"> {% include 'icon-schedule' %} Add Reminder</a>
+              </div>
+
+              <!-- suggested-reminders section start -->
+              <section class="suggested-reminders-wrapper hidden">
+                <h3 class="title">Suggested Reminders:</h3>
+                <div class="reminder-box-wrapper hidden" data-reminder-type="one-month-before-reminder" data-reminder-title="30 Days Before">
+                  <input type="hidden" class="default-reminder-message" value="One month before reminder sending">
+                  <div class="reminder-title">
+                    <h3 class="reminder-box-title">30 Days Before</h3>
+                  </div>
+                  <div class="reminder-data-wrap">
+                    <div class="top">
+                      <h4 class="title">
+                        <b>To:</b>
+                        <span>All Wedding Party Members</span>
+                      </h4>
+                    </div>
+                    <div class="reminder-buttons-wrap">
+                      <button type="button" class="link add-suggested-reminder-button" data-test="Adding...">
+                        Add Reminder
+                      </button>
+                      <button type="button" class="link edit-reminder-button">
+                        <span class="pipe">|</span>
+                        Edit
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="reminder-box-wrapper hidden" data-reminder-type="final-reminder" data-reminder-title="Final Reminder">
+                  <input type="hidden" class="default-reminder-message" value="Final reminder to inform you.">
+                  <div class="reminder-title">
+                    <h3 class="reminder-box-title">Final Reminder</h3>
+                  </div>
+                  <div class="reminder-data-wrap">
+                    <div class="top">
+                      <h4 class="title">
+                        <b>To:</b>
+                        <span>All Wedding Party Members</span>
+                      </h4>
+                    </div>
+                    <div class="reminder-buttons-wrap">
+                      <button type="button" class="link add-suggested-reminder-button" data-test="Adding...">
+                        Add Reminder
+                      </button>
+                      <button type="button" class="link edit-reminder-button">
+                        <span class="pipe">|</span>
+                        Edit
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="reminder-box-wrapper hidden" data-reminder-type="event-creation-date1" data-reminder-title="Your Look Was Assigned!">
+                  <input type="hidden" class="default-reminder-message" value="Hi, just a reminder that I assigned your look! Log in to view and complete next steps to order.">
+                  <div class="reminder-title">
+                    <h3 class="reminder-box-title">Your Look Was Assigned!</h3>
+                  </div>
+                  <div class="reminder-data-wrap">
+                    <div class="top">
+                      <h4 class="title">
+                        <b>To:</b>
+                        <span>All Wedding Party Members</span>
+                      </h4>
+                    </div>
+                    <div class="reminder-buttons-wrap">
+                      <button type="button" class="link add-suggested-reminder-button" data-test="Adding...">
+                        Add Reminder
+                      </button>
+                      <button type="button" class="link edit-reminder-button">
+                        <span class="pipe">|</span>
+                        Edit
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="reminder-box-wrapper hidden" data-reminder-type="time-to-order-one-month-before" data-reminder-title="Time To Order!">
+                  <input type="hidden" class="default-reminder-message" value="I want to make sure you get your suit in time! Log in to view and complete your order if you haven't already.">
+                  <div class="reminder-title">
+                    <h3 class="reminder-box-title">Time To Order!</h3>
+                  </div>
+                  <div class="reminder-data-wrap">
+                    <div class="top">
+                      <h4 class="title">
+                        <b>To:</b>
+                        <span>All Wedding Party Members</span>
+                      </h4>
+                    </div>
+                    <div class="reminder-buttons-wrap">
+                      <button type="button" class="link add-suggested-reminder-button" data-test="Adding...">
+                        Add Reminder
+                      </button>
+                      <button type="button" class="link edit-reminder-button">
+                        <span class="pipe">|</span>
+                        Edit
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="reminder-box-wrapper hidden" data-reminder-type="event-creation-date2" data-reminder-title="Did it Fit?">
+                  <input type="hidden" class="default-reminder-message" value="It looks like your suit was sent; can you confirm that it fits?">
+                  <div class="reminder-title">
+                    <h3 class="reminder-box-title">Did it Fit?</h3>
+                  </div>
+                  <div class="reminder-data-wrap">
+                    <div class="top">
+                      <h4 class="title">
+                        <b>To:</b>
+                        <span>All Wedding Party Members</span>
+                      </h4>
+                    </div>
+                    <div class="reminder-buttons-wrap">
+                      <button type="button" class="link add-suggested-reminder-button" data-test="Adding...">
+                        Add Reminder
+                      </button>
+                      <button type="button" class="link edit-reminder-button">
+                        <span class="pipe">|</span>
+                        Edit
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="reminder-box-wrapper hidden" data-reminder-type="event-creation-date3" data-reminder-title="I paid for you, just place the order!">
+                  <input type="hidden" class="default-reminder-message" value="Your look has been paid for! Simply log in and complete the final steps to have your suit shipped!">
+                  <div class="reminder-title">
+                    <h3 class="reminder-box-title">I paid for you, just place the order!</h3>
+                  </div>
+                  <div class="reminder-data-wrap">
+                    <div class="top">
+                      <h4 class="title">
+                        <b>To:</b>
+                        <span>All Wedding Party Members</span>
+                      </h4>
+                    </div>
+                    <div class="reminder-buttons-wrap">
+                      <button type="button" class="link add-suggested-reminder-button" data-test="Adding...">
+                        Add Reminder
+                      </button>
+                      <button type="button" class="link edit-reminder-button">
+                        <span class="pipe">|</span>
+                        Edit
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="reminder-box-wrapper hidden" data-reminder-type="event-creation-date4" data-reminder-title="Exchange Progress?">
+                  <input type="hidden" class="default-reminder-message" value="How did your exchange go? Does the suit fit now? Follow up with your event owner to confirm.">
+                  <div class="reminder-title">
+                    <h3 class="reminder-box-title">Exchange Progress?</h3>
+                  </div>
+                  <div class="reminder-data-wrap">
+                    <div class="top">
+                      <h4 class="title">
+                        <b>To:</b>
+                        <span>All Wedding Party Members</span>
+                      </h4>
+                    </div>
+                    <div class="reminder-buttons-wrap">
+                      <button type="button" class="link add-suggested-reminder-button" data-test="Adding...">
+                        Add Reminder
+                      </button>
+                      <button type="button" class="link edit-reminder-button">
+                        <span class="pipe">|</span>
+                        Edit
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="reminder-box-wrapper hidden" data-reminder-type="event-creation-date5" data-reminder-title="Find Your Fit!">
+                  <input type="hidden" class="default-reminder-message" value="Please complete the fit finder so Grooms Club can prepare your sizes.">
+                  <div class="reminder-title">
+                    <h3 class="reminder-box-title">Find Your Fit!</h3>
+                  </div>
+                  <div class="reminder-data-wrap">
+                    <div class="top">
+                      <h4 class="title">
+                        <b>To:</b>
+                        <span>All Wedding Party Members</span>
+                      </h4>
+                    </div>
+                    <div class="reminder-buttons-wrap">
+                      <button type="button" class="link add-suggested-reminder-button" data-test="Adding...">
+                        Add Reminder
+                      </button>
+                      <button type="button" class="link edit-reminder-button">
+                        <span class="pipe">|</span>
+                        Edit
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <!-- suggested-reminders section end -->
+              {% render 'add-reminder-popup' %}
+          </div>
+      </div>
+  </div>
+  <div class="payment-info hidden">
+      <div class="page-width">
+          <div class="payment-title">
+              <h2 class="text-center-heading border-heading title">Payment Information</h2>
+          </div>
+          <div class="order-list-main-wrapper"></div>
+      </div>
+  </div>
+  <div class="page-back-link page-last-link">
+    <div class="page-width-big">
+      <a href="/account" class="link"><i class="fas fa-arrow-left"></i> Back to My Account</a>
+    </div>
+  </div>
+  {% render 'assign-member-look' %}
+  {% render 'edit-reminder-popup' %}
+  {% render 'suggested-edit-reminder-popup' %}
+</div>
+<div class="mywedding_api_call_loading">
+  <div class="loading-overlay">
+    <div class="loading-overlay__spinner">
+      <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+        <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- member-send-reminder-popup -->
+{%- render 'member-send-reminder-popup' -%}
+
+<!-- virtual product added in hidden -->
+{%- if settings.virtual_product != blank -%}
+  {%- assign virtualProduct = all_products[settings.virtual_product] -%}
+  <div class="virtual-product-wrapper" style="display: none;">
+    <input class="var-id" type="text" value="{{ virtualProduct.selected_or_first_available_variant.id }}" />
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Event Details Look",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Looks heading",
+      "default": "The Looks"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icontext",
+      "name": "Icon Text",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "html",
+          "label": "Icon svg ",
+          "id" :"icon_image_svg" 
+        },
+        {
+          "type": "text",
+          "label": "Title",
+          "id" :"title"
+        },
+        {
+          "type": "url",
+          "label": "URL",
+          "id" :"url"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

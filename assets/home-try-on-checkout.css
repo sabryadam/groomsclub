@@ -1,0 +1,425 @@
+.rich-text.rich-text--full-width.home-try-on-checkout-content h2 {
+  color: #fff;
+  text-transform: capitalize;
+}
+.rich-text.rich-text--full-width.home-try-on-checkout-content h4.sub-heading.wedding-date {
+  color: #fff;
+  font-weight: 300;
+  font-size: 23px;
+}
+.rich-text.rich-text--full-width.home-try-on-checkout-content .border-heading:before {
+  background-color: #fff;
+}
+.rich-text.rich-text--full-width.home-try-on-checkout-content h3.sub-heading.wedding-date {
+    color: #fff;
+}
+.page-top-spacing {
+  padding: 15px 0;
+}
+.rich-text.rich-text--full-width.contact-info-heading h2 {
+  text-align: left;
+}
+.rich-text.rich-text--full-width.contact-info-heading .border-heading:before {
+  margin: unset;
+}
+.home-try-on-checkout-info-main {
+  display: grid;
+  grid-template-columns: 50.5% auto;
+  grid-column-gap: 11.2%;
+}
+.contact-information-left-side.customer .form-half-main {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
+}
+.contact-information-left-side.customer .form-half-main .field.form-wrap {
+  -webkit-flex:0 0 50%;
+  -ms-flex:0 0 50%;
+  flex: 0 0 50%;
+}
+.contact-information-left-side.customer .field.form-wrap select {
+  height: 63px;
+  line-height: 63px;
+  border: 1px solid var(--light-gray-border);
+  background-color: #fff;
+  color: var(--color-primary);
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-weight: var(--font-body-weight);
+  font-size: var(--font-size-body);
+  width: 100%;
+  text-align: left;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 0 60px 0 15px;
+  background-image: url(https://cdn.shopify.com/s/files/1/0585/3223/3402/files/select-down-arrow.png);
+  background-repeat: no-repeat;
+  background-position-x: 95%;
+  background-position-y: 50%;
+  background-size: 15px;
+}
+.contact-information-left-side.customer .csz-main {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
+}
+.contact-information-left-side.customer .csz-main .field.form-wrap {
+  -webkit-flex:0 0 33.33%;
+  -ms-flex:0 0 33.33%;
+  flex: 0 0 33.33%;
+}
+.contact-information-left-side.customer .field.form-wrap {
+  padding-bottom: 15px;
+}
+.contact-information-left-side.customer .field.form-wrap label {
+  font-size: calc(var(--font-size-body) - 1px);
+}
+.proceed-to-shipping-main {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 100px;
+  margin-top: 40px;
+}
+body.template-page-home-try-on-checkout #MainContent {
+  background-color: #f5f5f5;
+}
+body.template-page-home-try-on-checkout .sub-breadcrumb-list{
+  padding-top: 15px;
+}
+.right-side-product-data .horizontal-product-part-big[data-product-type=jacket]{
+  order: 1;
+}
+.right-side-product-data .horizontal-product-part-big {
+  width: 100%;
+}
+.horizontal-product-part-big {
+  grid-template-columns: 66px auto 140px;
+}
+.right-side-product-data .horizontal-product-part-big {
+  margin-bottom: 26px;
+  min-height: 100px;
+}
+.right-side-product-data .info-stickey-note {
+  max-width: 100%;
+}
+.right-side-product-data {
+  padding-top: 4.7rem;
+}
+.right-side-product-data .order-subtotal {
+  display: inline-block;
+}
+.order-flex {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content:space-between;
+  padding-bottom: 15px;
+}
+.order-flex h3.right-sub-detail {
+  margin: 0 0 0 60px;
+  font-weight: var(--font-weight-custom-medium);
+  font-size: calc(var(--font-h3) - 15px);
+}
+.order-flex h3.total-price {
+  font-weight: var(--font-weight-custom-medium);
+  font-size: calc(var(--font-h3) - 7px);
+}
+.order-flex div {
+  font-size: calc(var(--font-h3) - 14px);
+}
+.contact-information-left-side h3.contact-sub-heading.title{
+  text-align: left;
+  font-weight: 300;
+  font-size: calc(var(--font-h3) - 5px);
+  margin-bottom: 0;
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-weight: var(--font-body-weight);
+}
+body.template-page-home-try-on-checkout .sub-breadcrumb-list .breadcrumb-links a {
+  color: var(--color-primary);
+}
+.right-side-product-data.border-heading{
+  order: 0;
+}
+.right-side-product-data .horizontal-product-part-big[data-product-type="jacket"]{
+  order: 1;
+}
+.right-side-product-data .horizontal-product-part-big[data-product-type="pants"]{
+  order: 2;
+}
+.right-side-product-data .horizontal-product-part-big[data-product-type="vest"]{
+  order: 3;
+}
+.right-side-product-data .horizontal-product-part-big[data-product-type="shirt"]{
+  order: 4;
+}
+.right-side-product-data .horizontal-product-part-big[data-product-type="neckties"],
+.right-side-product-data .horizontal-product-part-big[data-product-type="bow-ties"]{
+  order: 5;
+}
+.right-side-product-data .horizontal-product-part-big[data-product-type="hanky"]{
+  order: 6;
+}
+.right-side-product-data .horizontal-product-part-big[data-product-type="belts"]{
+  order: 7;
+}
+.right-side-product-data .horizontal-product-part-big[data-product-type="shoes"]{
+  order: 8;
+}
+.right-side-product-data .look-product-block {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 380px;
+  overflow: auto;
+}
+.right-side-product-data .look-product-block::-webkit-scrollbar {
+  width: 7px
+}
+
+.right-side-product-data .look-product-block::-webkit-scrollbar-track {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, .3)
+}
+
+.right-side-product-data .look-product-block::-webkit-scrollbar-thumb {
+  background: #58595b;
+  border-radius: 10px
+}
+.order-summary {
+  display: none;
+}
+button.pay-now-btn {
+  width: 100%;
+  margin-top: 20px;
+}
+.exp-cvv-main {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.exp-cvv-main .field-wrap.form-wrap {
+  -webkit-flex:0 0 47%;
+  -ms-flex:0 0 47%;
+  flex: 0 0 47%;
+}
+.right-side-product-data .loader-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(0, -50%);
+}
+.right-side-product-data{
+  position: relative;
+}
+.home-try-on-checkout-info-main .look-product-wrapper {
+  grid-template-columns: 66px auto 0px;
+}
+.home-try-on-checkout-info-main .product-size-type-exchange-wrapper{
+  display: inline-block;
+  width: auto;
+}
+
+@media (min-width:768px) and (max-width:991px){
+  .home-try-on-checkout-info-main{
+    grid-template-columns: 44.5% auto;
+    grid-column-gap: 10.2%;
+  }
+  .contact-information-left-side.customer .form-half-main .field.form-wrap{
+    -webkit-flex: 0 0 100%;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+  }
+  .contact-information-left-side.customer .csz-main .field.form-wrap{
+    -webkit-flex: 0 0 100%;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+  }
+  .horizontal-product-part-big{
+    grid-template-columns: 50px auto 40px;
+  }
+  .rich-text.rich-text--full-width.contact-info-heading h2{
+    font-size: calc(var(--font-h1) - 20px);
+  }
+  .contact-information-left-side h3.contact-sub-heading.title{
+    font-size: calc(var(--font-h3) - 11px);
+  }
+  .rich-text.rich-text--full-width.contact-info-heading{
+    padding-bottom: 2.7rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-try-on-checkout-info-main{
+    grid-template-columns: 100% auto;
+    grid-column-gap: 100%;
+  }
+  .contact-information-left-side.customer .form-half-main .field.form-wrap{
+    -webkit-flex: 0 0 100%;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+  }
+  .rich-text.rich-text--full-width.contact-info-heading {
+    padding-top: 2.7rem;
+    padding-bottom: 0;
+  }
+  .rich-text.rich-text--full-width.contact-info-heading h2{
+    font-size: calc(var(--font-h1) - 22px);
+    margin-bottom: 2rem;
+  }
+  .contact-information-left-side.customer .csz-main .field.form-wrap{
+    -webkit-flex: 0 0 100%;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+  }
+  .proceed-to-shipping-main{
+    justify-content: center;
+    margin-bottom: 80px;
+    margin-top: 40px;
+  }
+  .contact-information-left-side.customer{
+    grid-row-start: 2;
+  }
+  .right-side-product-data{
+    grid-row-start: 1;
+    display: none;
+  }
+  .right-side-product-data.active {
+    display: block;
+  }
+  .left-summary h3.active::before {
+    transform: rotateX(-180deg);
+    right: -25px;
+  }
+  .rich-text.rich-text--full-width.home-try-on-checkout-content {
+    padding-bottom: 0;
+    padding-top: 0.7rem;
+  }
+  .rich-text.rich-text--full-width.home-try-on-checkout-content h2{
+    font-size: calc(var(--font-h1) - 20px);
+  }
+  .rich-text.rich-text--full-width.home-try-on-checkout-content h4.sub-heading.wedding-date{
+    font-size: calc(var(--font-h4) - 5px);
+  }
+  .contact-information-left-side h3.contact-sub-heading.title{
+    font-size: calc(var(--font-h3) - 13px);
+    margin-bottom: 2rem;
+  }
+  .mywedding_section_wrap .page-top-head-background {
+    padding-bottom: 10px;
+  }
+  .order-summary {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .left-summary{
+    -webkit-flex: 0 0 45%;
+    -ms-flex: 0 0 45%;
+    flex: 0 0 45%;
+  }
+  .left-summary h3{
+    font-size: calc(var(--font-h3) - 12px);
+    position: relative;
+  }
+  .left-summary h3:before {
+    content: "";
+    height: 22px;
+    width: 100%;
+    text-align: left;
+    -moz-appearance: none;
+    background-image: url(https://cdn.shopify.com/s/files/1/0585/3223/3402/files/select-down-arrow.png);
+    background-repeat: no-repeat;
+    background-position-x: 95%;
+    background-position-y: 50%;
+    background-size: 13px;
+    position: absolute;
+    top: 0;
+    right: -22px;
+    z-index: 5;
+  }
+  .right-summary-total{
+    -webkit-flex: 0 0 48%;
+    -ms-flex: 0 0 48%;
+    flex: 0 0 48%;
+    text-align: right;
+  }
+  .right-summary-total h3 {
+    font-size: calc(var(--font-h3) - 12px);
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .horizontal-product-part {
+    grid-template-columns: 60px auto 65px;
+  }
+
+  .horizontal-product-part .product-size-type {
+    font-size: calc(var(--font-size-body) - 4px);
+  }
+
+  .horizontal-product-part .product-info h4 {
+    font-size: calc(var(--font-h4) - 5px);
+  }
+
+  .horizontal-product-part .user-name {
+    font-size: calc(var(--font-size-body) - 4px);
+    margin-top: 6px;
+  }
+
+  .product-slider-detail-edit .tooltip-main .information_content {
+    width: 162px;
+  }
+
+  .order-footer .button {
+    font-size: calc(var(--font-button) - 2px);
+  }
+
+  /*my wedding*/
+
+  /*invited*/
+  .horizontal-product-part-big {
+    grid-template-columns: 66px auto;
+  }
+
+  .horizontal-product-part-big .product-price {
+    grid-column-start: 2;
+    grid-column-end: 2;
+    text-align: left;
+  }
+
+  .question-tooltip .information_content {
+    width: 225px;
+  }
+
+  /*invited*/
+
+  /*home try on*/
+  .choose-event-part {
+    width: 260px;
+  }
+}
+@media screen and (max-width: 590px){
+  .horizontal-product-part-big {
+    grid-template-columns: 66px auto 60px;
+  }
+}
