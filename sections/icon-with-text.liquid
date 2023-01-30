@@ -1,0 +1,106 @@
+<div
+  class="icon-with-title-wrapper icontext_container {% if section.settings.custom_class != blank %} {{ section.settings.custom_class }} {% endif %} "
+  id="icontext{{section.id}}">
+  <div class="page-width-big">
+    <div class="icontext_section">
+      {% if section.settings.title %}
+      <h2 class="sectiontitle">{{section.settings.title}}</h2>
+      {% endif %}
+      {% if section.settings.title %}
+      <h2 class="sectionsubtitle">{{section.settings.subtitle}}</h2>
+      {% endif %}
+    </div>
+    <div class="icontextblock_container">
+      {% for block in section.blocks %}
+      {% assign indexNumber = forloop.index %}
+      {%- assign iconimage = 'information_icon_' | append: indexNumber -%}
+      {%- assign iconContent = 'information_content_' | append: indexNumber -%}
+      <div class="blockicontext_loop" id="{{block.id}}">
+        {% if block.settings.icon_image %}
+        <div class="icontext_icon_image">
+          {%- if product.metafields.my_fields[iconimage] != blank -%}
+          <img
+            srcset="{% if product.metafields.my_fields[iconimage].width >= 50 %}{{ product.metafields.my_fields[iconimage] | img_url: '288x' }} 50w,{% endif %}
+                                          {% if product.metafields.my_fields[iconimage].width >= 100 %}{{ product.metafields.my_fields[iconimage] | img_url: '576x' }} 100w,{% endif %}
+                                          {% if product.metafields.my_fields[iconimage].width >= 150 %}{{ product.metafields.my_fields[iconimage] | img_url: '550x' }} 150w,{% endif %}
+                                          {% if product.metafields.my_fields[iconimage].width >= 200 %}{{ product.metafields.my_fields[iconimage] | img_url: '1100x' }} 200w{% endif %}"
+            src="{{ product.metafields.my_fields[iconimage] | img_url: 'master' }}" loading="lazy" width="50"
+            height="50" alt="{{ product.metafields.my_fields[iconTitle] }}  | escape }}">
+          {%- else -%}
+          <img
+            srcset="{% if block.settings.icon_image.width >= 50 %}{{ block.settings.icon_image | img_url: '288x' }} 50w,{% endif %}
+                                          {% if block.settings.icon_image.width >= 100 %}{{ block.settings.icon_image | img_url: '576x' }} 100w,{% endif %}
+                                          {% if block.settings.icon_image.width >= 150 %}{{ block.settings.icon_image | img_url: '550x' }} 150w,{% endif %}
+                                          {% if block.settings.icon_image.width >= 200 %}{{ block.settings.icon_image | img_url: '1100x' }} 200w{% endif %}"
+            src="{{ block.settings.icon_image | img_url: 'master' }}" loading="lazy" width="50" height="50"
+            alt="{{ block.settings.icon_image.alt | escape }}">
+          {%- endif -%}
+        </div>
+        {% endif %}
+        {% if block.settings.title %}
+        <h2 class="icontext_title h4">
+          {{block.settings.title}}
+        </h2>
+        {% endif %}
+        {% if block.settings.subtitle %}
+        <div class="icontext_subtitle">
+          <p>{{block.settings.subtitle}}</p>
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+"name": "Icon With Text",
+"settings": [
+{
+"type": "text",
+"label": "Title",
+"id" :"title"
+},
+{
+"type": "text",
+"label": "Sub Title",
+"id" :"subtitle"
+},
+{
+"type": "text",
+"label": "Custom Class",
+"id" :"custom_class"
+}
+],
+"blocks": [
+{
+"type": "icontext",
+"name": "Icon Text",
+"settings": [
+{
+"type": "image_picker",
+"label": "Icon (Image) ",
+"id" :"icon_image"
+},
+{
+"type": "richtext",
+"label": "Title",
+"id" :"title"
+},
+{
+"type": "text",
+"label": "Subtitle ",
+"id" :"subtitle"
+}
+
+]
+}
+],
+"presets": [
+{
+"name": "Icon With Text",
+"category": "slider"
+}]
+}
+{% endschema %}

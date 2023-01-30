@@ -539,3 +539,65 @@ select.suit_attr + .icon {
 	display: flex;
 	column-gap: 10px;
 }
+
+/* virtual-consultant style start */
+.template-page-virtual-consultant .icon-with-title-wrapper .icontext_title a{
+	font-family: var(--font-heading-family);
+	font-style: var(--font-heading-style);
+	letter-spacing: normal;
+	color: var(--color-primary);
+	line-height: 1.3;
+	text-decoration: none;
+}
+.template-page-virtual-consultant .icontextblock_container .icontext_icon_image img{
+	max-width: 75px;
+	min-height: 75px;
+}
+.template-page-virtual-consultant .icon-with-title-wrapper{
+	background: #F6F5F4;
+	margin-bottom: 0;
+	padding-top: 75px;
+	padding-bottom: 73px;
+}
+.template-page-virtual-consultant .icontexthover_container .information_title{
+	font-size: 18px;
+}
+/* virtual-consultant style end */
+
+/* Return and exchange pahe style start */
+#AppFrameMain .form__wrapper .title{
+	font-family: var(--font-heading-family);
+	font-style: var(--font-heading-style);
+	font-weight: 400;
+	letter-spacing: normal;
+	line-height: 1.3;
+}
+#AppFrameMain .form__wrapper .title,
+.returnprime .title__small,
+.returnprime .sub__title,
+.returnprime .title,
+.returnprime .customer .sidenav__nav .sub__title,
+.returnprime .return__order .select__reasons .reason__field label,
+.returnprime h1, 
+.returnprime h2, 
+.returnprime h3, 
+.returnprime h4, 
+.returnprime label, 
+.returnprime p, 
+.returnprime select, 
+.returnprime strong{
+	color: var(--color-primary) !important;
+}
+.returnprime #AppFrameMain .customer .exchange__btn{
+	background: transparent !important; 
+	color: var(--color-button-light-blue) !important;
+	border: 1px solid var(--color-button-light-blue) !important;
+}
+.returnprime #AppFrameMain .customer .exchange__btn svg path{
+	fill: var(--color-button-light-blue);
+}
+.returnprime .customer .action__btns .back__btn{
+	display: flex !important;
+	align-items: center;
+}
+/* Return and exchange pahe style end */
