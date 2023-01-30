@@ -881,6 +881,13 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
             localStorage.setItem("save-fit-finder-flag-replace", "false");
             $("#tab-1").find(".my-size-title").after(`<p class="sucess-message">Save My Sizes!</p>`);
             getsizedata();
+
+            var bring_back_url = localStorage.getItem("bring_back_fit_finder_url");
+            if(bring_back_url){
+                window.location.href = bring_back_url;
+                localStorage.removeItem("bring_back_fit_finder_url");
+            }
+
             if (localStorage.getItem("previous-page-link", "true")) {
                 window.location.href = localStorage.getItem("page-link")
             }

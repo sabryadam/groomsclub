@@ -107,7 +107,9 @@
             {%- assign customizeProductBlockTitle = collections[customizeCollectionHandle].title -%}
           {%- endif -%}
           {%- assign customizeProductType = customizeBlockData.settings.product_type | downcase | handleize -%}
-              <li class="mobile-tab-content-title{% if forloop.first %} active{% endif %}" data-target="{{ customizeProductType }}">{{customizeProductBlockTitle}}</li>
+            {%- if customizeProductType != "" -%}
+              <li class="mobile-tab-content-title{% if forloop.first %} hidden{% endif %} {% if forloop.index == 2 %} active{% endif %}" data-target="{{ customizeProductType }}">{{customizeProductBlockTitle}}</li>
+            {%- endif -%}
           {% endfor %}
           
           
@@ -137,7 +139,7 @@
           {%- for customizeBlockData in _customizeBlock -%}
             {%- if customizeBlockData.settings.product != blank -%}
               {% assign collectionProducts = '' %}
-              <div class="product-block-outer-wrapper {% if forloop.first %}active{% endif %}">
+              <div class="product-block-outer-wrapper {% if forloop.first %} hidden{% endif %} {% if forloop.index == 2 %} active{% endif %}">
                 {%- assign customizeCollectionHandle = customizeBlockData.settings.product | strip -%}
                 {% assign collectionProducts = all_products[customizeCollectionHandle] %}
                 {%- assign customizeProductType = customizeBlockData.settings.product_type | downcase | handleize -%}
@@ -157,10 +159,11 @@
                 </div>
               </div>
             {%- else -%}
-              <div class="product-block-outer-wrapper {% if forloop.first %}active{% endif %}">
-                {%- assign customizeCollectionHandle = customizeBlockData.settings.collection | strip -%}
-                {% assign collectionProducts = collections[customizeCollectionHandle].products %}
-                {%- assign customizeProductType = customizeBlockData.settings.product_type | downcase | handleize -%}
+              {%- assign customizeCollectionHandle = customizeBlockData.settings.collection | strip -%}
+              {% assign collectionProducts = collections[customizeCollectionHandle].products %}
+              {%- assign customizeProductType = customizeBlockData.settings.product_type | downcase | handleize -%}
+              <div class="product-block-outer-wrapper {% if forloop.first %}active{% endif %}" data-product-type="{{ customizeProductType }}">
+                
                 {%- if customizeBlockData.settings.title-%}
                   {%- assign customizeProductBlockTitle = customizeBlockData.settings.title -%}
                 {%- else -%}
@@ -316,7 +319,7 @@
                 </div>
               {%- endif -%}
             {%- else -%}
-              <div class="product-block-outer-wrapper {% if forloop.first %}active {% endif %}">
+              <div class="product-block-outer-wrapper {% if forloop.first %}active {% endif %}" data-product-type="{{ accessoriesProductType }}">
                 {%- assign accessoriesCollectionHandle = accessoriesBlockData.settings.collection | strip -%}
                 {% assign collectionProducts = collections[accessoriesCollectionHandle].products %}
                 {%- assign accessoriesProductType = accessoriesBlockData.settings.product_type | downcase | handleize -%}
@@ -864,6 +867,8 @@ $(".ff-top-box a").click(function(e){
 $("#suit_fit_finder a").click(function(e){
   e.preventDefault();
   var fit_finder_url = $(this).attr("href");
+  var bring_back_url = window.location.href;
+  localStorage.setItem("bring_back_fit_finder_url", bring_back_url);
   localStorage.setItem("open_recomm_size", '1');
   window.location.href = fit_finder_url;
 });

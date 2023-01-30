@@ -28,6 +28,18 @@ theme_custom.priceUpdate = function () {
   }
 }
 
+function fixVestSelect(){
+  if($(`.mobile-tab-content-title[data-target="vest"]`).hasClass("active")){
+    $(`.mobile-tab-content-title[data-target="vest"]`).addClass("hidden");
+    $(`.mobile-tab-content-title[data-target="vest"]`).removeClass("active");
+    $(`.mobile-tab-content-title[data-target="shirt"]`).addClass("active");
+
+    $(`.product-block-outer-wrapper[data-product-type="vest"]`).addClass("hidden");
+    $(`.product-block-outer-wrapper[data-product-type="vest"]`).removeClass("active");
+    $(`.product-block-outer-wrapper[data-product-type="shirt"]`).addClass("active");
+  }
+}
+
 // theme_custom.productDataFromURL function
 theme_custom.productDataFromURL = function () {
   var getUrl = window.location.href;
@@ -1211,6 +1223,7 @@ theme_custom.customize_product_clickEvent = function () {
       }, 900);
     }
 
+    fixVestSelect();
   });
 
   /*$(`.tabbed-content-block-inner-wrapper[data-tab-content="find-your-fit"] .next-step`).click(function () {
@@ -1240,6 +1253,7 @@ theme_custom.customize_product_clickEvent = function () {
       $(this).closest(".tabbed-content-block-outer-wrapper").find(".continue-button").show();
       $(this).parent(".mobile-next-tab-btn-main").hide();
    }
+   fixVestSelect();
   });
 
   $(".prev-step").click(function (e) {

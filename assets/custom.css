@@ -137,9 +137,14 @@ select#exampleFormControlSelect1, select#exampleFormControlSelect2 {
     display: none;
 }
 
-.product__info-container .product-form__input--dropdown:nth-child(3) {
-    display: none;
+.product-form__input.product-form__input--dropdown[data-option="Color"] {
+	display: none;
 }
+
+.product__title.h2 {
+	margin-top: -5px;
+}
+
 .completefit a {
  
   list-style: none;
@@ -193,8 +198,20 @@ select#exampleFormControlSelect1, select#exampleFormControlSelect2 {
   padding:0px;
 }
 
-.product-block-wrap-suit-wrapper {
+.suit_page_body .product-block-wrap-suit-wrapper {
 	display: none !important;
+}
+
+.suit_page_body .product-block-wrap-suit-wrappertwo {
+	display: block;
+}
+
+.product-block-wrap-suit-wrappertwo {
+	display: none;
+}
+
+body:not(.suit_page_body) .product-block-wrap-suit-wrapper {
+	margin-top: 24px;
 }
 
 .tabbed-content-block-outer-wrapper .product-info-wrap .tabbed-content-block-inner-wrapper .product-info-top-block {
@@ -522,9 +539,10 @@ select.suit_attr + .icon {
 }
 
 
-.product__info-wrapper .edit-item-popup {
+.suit_page_body .product__info-wrapper .edit-item-popup {
 	display: block !important;
 }
+
 .product__info-wrapper .edit-item-popup .swatch-wrapper, 
 .product__info-wrapper .single-option-selector, .product__info-wrapper .edit-item-popup .header,
 .product__info-wrapper .swatch-wrapper-options .swatch.swatch-wrap>.swatch-product-wrapper.swatch-element,
@@ -532,7 +550,7 @@ select.suit_attr + .icon {
 .product__info-wrapper .edit-item-popup .cta-button-wrap .edit-item-btn.btn{
 	display: none !important;
 }
-.product__info-wrapper .product-data-card.product-data-card-wrap[data-product-type="jacket"], .product__info-wrapper .product-data-card.product-data-card-wrap[data-product-type="pants"] {
+.suit_page_body .product__info-wrapper .product-data-card.product-data-card-wrap[data-product-type="jacket"], .suit_page_body .product__info-wrapper .product-data-card.product-data-card-wrap[data-product-type="pants"] {
 	display: block;
 }
 .product__info-wrapper .edit-item-popup .swatch-wrapper-options {

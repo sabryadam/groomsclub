@@ -2,6 +2,17 @@
 {{ 'product-page.js' |  asset_url | script_tag  }}
 {{ 'product-top-looks-pdp.js' |  asset_url | script_tag }}
 
+<script>
+
+$(document).ready(function(){
+  var cur_url = window.location.href;
+  if(cur_url.indexOf('collections/suit') != -1){
+    $("body").addClass("suit_page_body");
+  }
+});
+
+</script>
+
 <input type="hidden" class="product-type" value="{{ product.type }}" />
 <input type="hidden" class="product-first-image" value="{{ product.images[0] | img_url : '900x' }}" />
 <img id="imageid" src="{{ product.images[0] | img_url : 'master' }}" class="hidden" />
@@ -37,7 +48,7 @@
   body .product__info-container .product-form {
     margin-top: 0;
   }
-  body .product-form .product-data-card-wrap {
+  body.suit_page_body .product-form .product-data-card-wrap {
     margin: 0;
   }
   div pickup-availability[available] {
@@ -97,21 +108,39 @@
   .bundle-product-wrapper [data-product-type="shirt"]{
     order: 2;
   }
-  div.product-data-card.product-data-card-wrap {
-    background-color: transparent;
-  }
-  div.product-data-card.product-data-card-wrap .product-block-wrap {
-    padding: 0;
-  }
-  div.product-data-card.product-data-card-wrap .product-block-wrap .product-image,
-  div.product-data-card.product-data-card-wrap .product-block-wrap .product-price.desktop-small,
-  div.product-data-card.product-data-card-wrap .product-block-wrap .product-info .variant-title,
-  div.product-data-card.product-data-card-wrap .product-block-wrap .product-info .cta-button-wrap,
-  div.product-data-card.product-data-card-wrap .product-block-wrap .product-info .product-price.mobile-small {
+
+  .product-data-card.product-data-card-wrap[data-product-type="shirt"] .variant-title,
+  .product-data-card.product-data-card-wrap[data-product-type="vest"] .variant-title,
+  .product-data-card.product-data-card-wrap[data-product-type="shoes"] .variant-title {
     display: none;
   }
 
-  div.product-data-card.product-data-card-wrap .product-block-wrap .product-info {
+  .suit_page_body div.product-data-card.product-data-card-wrap {
+    background-color: transparent;
+  }
+  .suit_page_body div.product-data-card.product-data-card-wrap .product-block-wrap {
+    padding: 0;
+  }
+
+  .suit_page_body div.product-data-card.product-data-card-wrap .product-block-wrap .product-image,
+  .suit_page_body div.product-data-card.product-data-card-wrap .product-block-wrap .product-price.desktop-small,
+  .suit_page_body div.product-data-card.product-data-card-wrap .product-block-wrap .product-info .variant-title,
+  .suit_page_body div.product-data-card.product-data-card-wrap .product-block-wrap .product-info .cta-button-wrap,
+  .suit_page_body div.product-data-card.product-data-card-wrap .product-block-wrap .product-info .product-price.mobile-small {
+    display: none;
+  }
+
+  .var-select-custom,
+  .var-select-custom + .icon.icon-caret{
+    display: none;
+  }
+
+  .suit_page_body .var-select-custom,
+  .suit_page_body .var-select-custom + .icon.icon-caret{
+    display: block;
+  }
+
+  .suit_page_body div.product-data-card.product-data-card-wrap .product-block-wrap .product-info {
     padding: 0;
   }
   .product-data-card.product-data-card-wrap .edit-item-popup {
@@ -683,6 +712,28 @@
                             {%- endunless -%}
                           {%- endfor -%}
                         {%- endcapture -%}
+
+                        <div id="suit_fit_finder" class="completefit product_fit_finder" style="display: none;">
+                          <a href="https://www.groomsclub.com/pages/fit-finder">
+                        <div>
+                            <h4>Try the fit finder</h4>
+                          <p>Get a better fit! Take three minutes to get a fit recommendation using machine learning.</p>
+                        </div>
+                                                  <i class="fas fa-chevron-right"></i>
+
+                        </a>
+                        </div>
+
+                        <div id="fit_finder_data_auto" style="display: none;">
+                          <div class="ff-top-box">
+                            <h3>Your Sizes</h3>
+                            <span>Calculated based on your fit responses.</span>
+                            <a href="https://www.groomsclub.com/pages/fit-finder">Retry fit finder</a>
+                          </div>
+                          <div id="ff-data-box">
+                          </div>
+                        </div>
+
                         <div class="product-block-wrap-suit-wrapper">
                           <div class="product-image">
                             <img srcset="{{ product.featured_media.image.src | img_url: 'medium' }} 1x, {{ product.featured_media.image.src | img_url: 'medium', scale: 2 }} 2x"
@@ -713,27 +764,6 @@
                             </span>
                           </div>
                         </div> 
-
-                       <div id="suit_fit_finder" class="completefit product_fit_finder" style="display: none;">
-                          <a href="https://www.groomsclub.com/pages/fit-finder">
-                        <div>
-                            <h4>Try the fit finder</h4>
-                          <p>Get a better fit! Take three minutes to get a fit recommendation using machine learning.</p>
-                        </div>
-                                                  <i class="fas fa-chevron-right"></i>
-
-                        </a>
-                        </div>
-
-                        <div id="fit_finder_data_auto" style="display: none;">
-                          <div class="ff-top-box">
-                            <h3>Your Sizes</h3>
-                            <span>Calculated based on your fit responses.</span>
-                            <a href="https://www.groomsclub.com/pages/fit-finder">Retry fit finder</a>
-                          </div>
-                          <div id="ff-data-box">
-                          </div>
-                        </div>
 
                         
                         {%- assign jacket_pant_data = product.metafields.custom_look.products-0 -%}
@@ -1572,6 +1602,7 @@ $(document).ready(function(){
     $(".add_suite_btn").show();
     $(".add_suite_btn_old").hide();
     //$(".customize-button-customize-look").hide();
+    //$("body").addClass("suit_page_body");
   }else{
     $(".add_suite_btn").hide();
     $(".add_suite_btn_old").show();
