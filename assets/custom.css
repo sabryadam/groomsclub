@@ -11,6 +11,10 @@ select.select__select {
   
 }
 
+.template-cart .edit-item-popup[data-product-type="vest"] .swatch-wrapper-options .swatch.swatch-wrap.clearfix.swatch-color {
+	display: none;
+}
+
 
 .product-form__buttons .favorite-event-cart-wrapper {
     justify-content: flex-start !important;
@@ -569,6 +573,26 @@ div.tab-top-border {
 .template-index.homepage .before-after-button.section-bottom-button {
 	margin-top: 35px;
 	margin-bottom: 35px;
+}
+
+#suit_fit_finder {
+	padding: 0 20px;
+}
+
+#suit_fit_finder h4 {
+	margin-top: 17px;
+}
+
+#overview_ff_box h4 {
+	font-size: 17px;
+}
+
+#overview_ff_box p {
+	font-size: 15px;
+}
+
+.template-cart .edit-item-popup .swatch-wrapper-options + .swatch-wrapper {
+	display: none;
 }
 
 @media screen and (max-width: 991px) {
