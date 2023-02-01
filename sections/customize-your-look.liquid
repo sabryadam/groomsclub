@@ -49,6 +49,11 @@
                     {%- endif -%}
                     {%- render 'customize-product-data' product: productData, vest_product_flag: vest_product_flag, vest_product_handle: vest_product_handle -%}
                   {%- endfor -%}
+                  {%- if personalizeProductType == 'vest' -%}
+                    <div class="product-block product-item-wrap no-vest" data-title="No Vest">
+                      <label><span>No Vest</span></label>                        
+                    </div>
+                  {%- endif -%}
                 </div>
                 <div class="custom-tab-paddles">
                   <button class="left-paddle paddle hidden" aria-label="left-arrow">
@@ -108,7 +113,7 @@
           {%- endif -%}
           {%- assign customizeProductType = customizeBlockData.settings.product_type | downcase | handleize -%}
             {%- if customizeProductType != "" -%}
-              <li class="mobile-tab-content-title{% if forloop.first %} hidden{% endif %} {% if forloop.index == 2 %} active{% endif %}" data-target="{{ customizeProductType }}">{{customizeProductBlockTitle}}</li>
+              <li class="mobile-tab-content-title{% if forloop.first %} active{% endif %}" data-target="{{ customizeProductType }}">{{customizeProductBlockTitle}}</li>
             {%- endif -%}
           {% endfor %}
           
@@ -139,7 +144,7 @@
           {%- for customizeBlockData in _customizeBlock -%}
             {%- if customizeBlockData.settings.product != blank -%}
               {% assign collectionProducts = '' %}
-              <div class="product-block-outer-wrapper {% if forloop.first %} hidden{% endif %} {% if forloop.index == 2 %} active{% endif %}">
+              <div class="product-block-outer-wrapper {% if forloop.first %} active{% endif %}">
                 {%- assign customizeCollectionHandle = customizeBlockData.settings.product | strip -%}
                 {% assign collectionProducts = all_products[customizeCollectionHandle] %}
                 {%- assign customizeProductType = customizeBlockData.settings.product_type | downcase | handleize -%}
@@ -903,6 +908,31 @@ $(document).on("change", ".product-block-wrapper[data-product-type=vest] input",
   $(".no-vest label").removeClass("active");
 });
 
+setTimeout(function(){
+  var currShirt = $('input[name="customizer-suit"]:checked').val();
+  if(currShirt){
+    var vestHandle = $(".tabbed-content-block-inner-wrapper[data-tab-content='personalize']").find("input:radio:checked").closest(".product-block.product-item-wrap").attr("data-vest-handle");
+    $(`.product-block-wrapper[data-product-type="vest"]`).find(".product-block.product-item-wrap").hide();
+    if ($(`.product-block-wrapper[data-product-type="vest"]`).find(".product-block.product-item-wrap[data-product-handle='" + vestHandle + "']").length > 0) {
+      $(`.product-block-outer-wrapper.product-block-wrapper[data-product-type="vest"]`).show();
+      $(`.product-block-wrapper[data-product-type="vest"]`).find(".product-block.product-item-wrap[data-product-handle='" + vestHandle + "']").show();
+    } else {
+      $(`.product-block-outer-wrapper.product-block-wrapper[data-product-type="vest"]`).hide();
+    }
+  }
+}, 500);
+
+$(document).on("change", "input[name=customizer-suit]", function () {
+  var vestHandle = $(".tabbed-content-block-inner-wrapper[data-tab-content='personalize']").find("input:radio:checked").closest(".product-block.product-item-wrap").attr("data-vest-handle");
+  $(`.product-block-wrapper[data-product-type="vest"]`).find(".product-block.product-item-wrap").hide();
+  if ($(`.product-block-wrapper[data-product-type="vest"]`).find(".product-block.product-item-wrap[data-product-handle='" + vestHandle + "']").length > 0) {
+    $(`.product-block-outer-wrapper.product-block-wrapper[data-product-type="vest"]`).show();
+    $(`.product-block-wrapper[data-product-type="vest"]`).find(".product-block.product-item-wrap[data-product-handle='" + vestHandle + "']").show();
+  } else {
+    $(`.product-block-outer-wrapper.product-block-wrapper[data-product-type="vest"]`).hide();
+  }
+});
+
 var openOverviewTab = localStorage.getItem("openOverviewTab");
 if(openOverviewTab){
   // $(".tabbed-content-title").removeClass("active");
@@ -1284,7 +1314,7 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
     {
       "type": "personalize_products",
       "name": "Personalize collection",
-      "limit": 3,
+      "limit": 4,
       "settings": [
         {
           "type" : "header",

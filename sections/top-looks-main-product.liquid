@@ -112,7 +112,7 @@ $(document).ready(function(){
   .product-data-card.product-data-card-wrap[data-product-type="shirt"] .variant-title,
   .product-data-card.product-data-card-wrap[data-product-type="vest"] .variant-title,
   .product-data-card.product-data-card-wrap[data-product-type="shoes"] .variant-title {
-    display: none;
+    /* display: none; */
   }
 
   .suit_page_body div.product-data-card.product-data-card-wrap {
@@ -1095,7 +1095,7 @@ $(document).ready(function(){
                                     <div class="product-info">
                                       <h4 class="product-title">{{ productHandle.title }}</h4>
                                       {%- assign productSelectedType  = productHandle.type | downcase -%}
-                                      <span class="variant-title{% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %} hidden{% endif %}">
+                                      <span class="variant-title">
                                         {% for option in productHandle.options_with_values  %}
                                           {% assign outer_forloop = forloop %}
                                           {% if variantAvailavle  %}
@@ -1113,7 +1113,7 @@ $(document).ready(function(){
                                           {%- unless forloop.last -%},{%- endunless -%}
                                         {% endfor %}
                                       </span>
-                                      <div class="cta-button-wrap hidden"{% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %} style="margin-top : 10px" {% endif %}>
+                                      <div class="cta-button-wrap"{% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %} style="margin-top : 10px" {% endif %}>
                                         {% if productHandle.variants.size > 1 %}
                                           <span class="edit-item-btn btn">
                                             {%- if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' -%}

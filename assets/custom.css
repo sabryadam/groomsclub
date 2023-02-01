@@ -443,36 +443,6 @@ select.suit_attr + .icon {
 	width: 100%;
 }
 
-.tabbed-content-block-inner-wrapper[data-tab-content="customize"] .scroll-part.right-scroll-spcing .product-block-outer-wrapper:nth-child(1) {
-	order: 1;
-  display:none;
-}
-
-.tabbed-content-block-inner-wrapper[data-tab-content="customize"] .scroll-part.right-scroll-spcing .product-block-outer-wrapper:nth-child(2) {
-	order: 2;
-}
-
-.tabbed-content-block-inner-wrapper[data-tab-content="customize"] .scroll-part.right-scroll-spcing .product-block-outer-wrapper:nth-child(3) {
-	order: 3;
-}
-
-.tabbed-content-block-inner-wrapper[data-tab-content="customize"] .scroll-part.right-scroll-spcing .product-block-outer-wrapper:nth-child(4) {
-	order: 4;
-}
-
-.tabbed-content-block-inner-wrapper[data-tab-content="customize"] .scroll-part.right-scroll-spcing .product-block-outer-wrapper:nth-child(5) {
-	order: 5;
-}
-
-.tabbed-content-block-inner-wrapper[data-tab-content="customize"] .scroll-part.right-scroll-spcing .product-block-outer-wrapper:nth-child(6) {
-	order: 6;
-	display: none;
-}
-
-.tabbed-content-block-inner-wrapper[data-tab-content="customize"] .scroll-part.right-scroll-spcing .product-block-outer-wrapper:nth-child(7) {
-	order: 3;
-}
-
 #suit_fit_finder .fas.fa-chevron-right {
 	color: #fff;
 }
@@ -488,6 +458,123 @@ select.suit_attr + .icon {
 
 .product-block-wrap-suit-wrappertwo .row {
 	margin-bottom: 20px;
+}
+
+.product__info-container variant-selects .product-form__input--dropdown label.form__label {
+	width: 100%;
+	max-width: 100%;
+	margin-bottom: 13px !important;
+}
+
+.product__info-container variant-selects {
+	margin: 0 -15px;
+}
+
+.product__info-container variant-selects .product-form__input--dropdown {
+	gap: 0;
+	flex-wrap: wrap;
+	padding: 0 15px;
+}
+
+.product__info-container variant-selects div.select {
+	width: 100%;
+	max-width: 100%;
+}
+
+variant-radios fieldset.swatch-chest.size {
+	display: none;
+}
+
+.product-form__buttons .customize-cart-wrapper button.product-form__submit{
+	margin-left: 0;
+}
+
+.my-acc-head-span {
+	display: block;
+	margin-bottom: 10px;
+	font-size: 20px;
+}
+
+div.tab-top-border {
+	margin-top: 2px;
+}
+
+.user-info-top.page-top-headpadding-flex {
+	align-items: center;
+}
+
+#acc-tabs-wr .page-top-head-background {
+	margin-bottom: 40px;
+}
+
+#acc-tabs-wr .my-size-block-main {
+	min-height: 0;
+	margin-top: 25px;
+}
+
+#acc-tabs-wr .my-size-wrapper {
+	margin-bottom: 50px;
+}
+
+#acc-tabs-wr .my-event-wrapper .my-event-inner .left-side-content {
+	padding-top: 45px;
+	padding-bottom: 50px;
+}
+
+#acc-tabs-wr .favorite-looks-wrapper {
+	margin-top: 45px;
+	margin-bottom: 45px;
+}
+
+#acc-tabs-wr .order-history-wrapper {
+	padding-top: 45px;
+	padding-bottom: 50px;
+}
+
+.product-block.product-item-wrap.no-vest::after {
+	content: attr(data-title);
+	display: block;
+	position: absolute;
+	top: 100%;
+	font-size: 12px;
+	width: 60px;
+	text-align: center;
+	transform: translateX(-50%);
+	left: 50%;
+	font-weight: 400;
+	line-height: 1;
+}
+
+#product_info_box .custom-tabs-scroll .product-block-wrapper[data-product-type="vest"] {
+	padding-bottom: 25px;
+}
+
+#acc-tabs-wr .user-info-top.page-top-headpadding-flex {
+	align-items: center;
+	justify-content: center;
+	position: relative;
+}
+
+#acc-tabs-wr .account-logout-btn.same-design {
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+#acc-tabs-wr .user-name.same-design {
+	text-align: center;
+}
+
+.template-index.homepage .before-after-button.section-bottom-button {
+	margin-top: 35px;
+	margin-bottom: 35px;
+}
+
+@media screen and (max-width: 991px) {
+	#acc-tabs-wr .events-main-container {
+		min-height: 0;
+	}
 }
 
 @media screen and (max-width: 960px) {
@@ -518,6 +605,9 @@ select.suit_attr + .icon {
 	}
 	.customize-button-customize-look.mobile {
 		margin-top: 30px;
+	}
+	#acc-tabs-wr .page-top-head-background {
+		padding-bottom: 0;
 	}
 }
 
@@ -585,41 +675,3 @@ select.suit_attr + .icon {
 	font-size: 18px;
 }
 /* virtual-consultant style end */
-
-/* Return and exchange pahe style start */
-#AppFrameMain .form__wrapper .title{
-	font-family: var(--font-heading-family);
-	font-style: var(--font-heading-style);
-	font-weight: 400;
-	letter-spacing: normal;
-	line-height: 1.3;
-}
-#AppFrameMain .form__wrapper .title,
-.returnprime .title__small,
-.returnprime .sub__title,
-.returnprime .title,
-.returnprime .customer .sidenav__nav .sub__title,
-.returnprime .return__order .select__reasons .reason__field label,
-.returnprime h1, 
-.returnprime h2, 
-.returnprime h3, 
-.returnprime h4, 
-.returnprime label, 
-.returnprime p, 
-.returnprime select, 
-.returnprime strong{
-	color: var(--color-primary) !important;
-}
-.returnprime #AppFrameMain .customer .exchange__btn{
-	background: transparent !important; 
-	color: var(--color-button-light-blue) !important;
-	border: 1px solid var(--color-button-light-blue) !important;
-}
-.returnprime #AppFrameMain .customer .exchange__btn svg path{
-	fill: var(--color-button-light-blue);
-}
-.returnprime .customer .action__btns .back__btn{
-	display: flex !important;
-	align-items: center;
-}
-/* Return and exchange pahe style end */

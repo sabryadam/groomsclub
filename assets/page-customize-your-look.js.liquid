@@ -29,7 +29,7 @@ theme_custom.priceUpdate = function () {
 }
 
 function fixVestSelect(){
-  if($(`.mobile-tab-content-title[data-target="vest"]`).hasClass("active")){
+  /*if($(`.mobile-tab-content-title[data-target="vest"]`).hasClass("active")){
     $(`.mobile-tab-content-title[data-target="vest"]`).addClass("hidden");
     $(`.mobile-tab-content-title[data-target="vest"]`).removeClass("active");
     $(`.mobile-tab-content-title[data-target="shirt"]`).addClass("active");
@@ -37,7 +37,7 @@ function fixVestSelect(){
     $(`.product-block-outer-wrapper[data-product-type="vest"]`).addClass("hidden");
     $(`.product-block-outer-wrapper[data-product-type="vest"]`).removeClass("active");
     $(`.product-block-outer-wrapper[data-product-type="shirt"]`).addClass("active");
-  }
+  }*/
 }
 
 // theme_custom.productDataFromURL function
@@ -941,6 +941,7 @@ theme_custom.variantDataGet = function (input) {
 theme_custom.setFinderData = function () {
 
   var getFitFinderData = JSON.parse(getCookie("fit-finder-data"));
+  console.log(getFitFinderData);
   var jacketType = getFitFinderData.jacketSize.split(":");
   var jacketTypeVal = '';
   if (jacketType[1] == "S") {
@@ -957,6 +958,21 @@ theme_custom.setFinderData = function () {
   // Pants Size
   theme_custom.pantsWaist = getFitFinderData.pants_waist;
   theme_custom.pantsLength = getFitFinderData.pants_hight;
+
+  // Set Shirt Default Sizes
+  if(theme_custom.shirt_neck == '00' || !theme_custom.shirt_neck){
+    theme_custom.shirt_neck = "13.5";
+  }
+
+  if(theme_custom.shirt_sleeve == '00' || !theme_custom.shirt_sleeve){
+    theme_custom.shirt_sleeve = "32/33";
+  }
+
+  if(theme_custom.shirt_sleeve_fit == '00' || !theme_custom.shirt_sleeve_fit ){
+    theme_custom.shirt_sleeve_fit = "Slim";
+  }
+
+  //alert(theme_custom.shirt_neck + ' | ' + theme_custom.shirt_sleeve + ' | ' + theme_custom.shirt_sleeve_fit);
 
   if ($(`.product-block-wrapper[data-product-type="jacket"]`).length > 0) {
     $(`.product-block-wrapper[data-product-type="jacket"]`).find(`[data-option-name="chest-size"]`).val(theme_custom.jacketSize);

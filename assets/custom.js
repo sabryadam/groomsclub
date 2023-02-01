@@ -1698,4 +1698,10 @@ $(document).on('change', '.swatch-wrapper-options .swatch.swatch-wrap select', f
               $(this).closest('.edit-item-popup').find('.pdp-updates-button button').trigger('click');
         }
     })
-})
+});
+
+$(document).on('change', 'variant-selects select.select__select', function () {
+  var select_name = $(this).closest(".product-form__input--dropdown").attr('data-option');
+  var select_value = $(this).val();
+  $(`input[name="${select_name}"][value="${select_value}"]`).prop('checked', true);
+});
