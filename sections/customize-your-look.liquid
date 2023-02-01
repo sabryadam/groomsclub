@@ -701,7 +701,7 @@ function suitSizeData() {
       },
       success: function (result) {
           if (result.success) {
-              //console.log(result);
+              console.log(result);
 
               var jacket_size = 'NA';
               var jacket_type = 'NA';
@@ -719,14 +719,18 @@ function suitSizeData() {
                   jacket_type = 'Long'
                 }
               }
-
               var ff_html = '';
               if (result.data.length > 0) {
-                $(`select[name="properties[Jacket Chest Size]"]`).val(jacket_size);
-                $(`select[name="properties[Jacket Length]"]`).val(jacket_type);
 
-                $(`select[name="properties[Pant Waist Size]"]`).val(result.data[0].pants_waist);
-                $(`select[name="properties[Pant Length]"]`).val(result.data[0].pants_hight);
+                setTimeout(function(){
+
+                  $(`select[name="properties[Jacket Chest Size]"]`).val(jacket_size);
+                  $(`select[name="properties[Jacket Length]"]`).val(jacket_type);
+
+                  $(`select[name="properties[Pant Waist Size]"]`).val(result.data[0].pants_waist);
+                  $(`select[name="properties[Pant Length]"]`).val(result.data[0].pants_hight);
+
+                }, 200);
 
                 //$(`select[name="properties[Vest Size]"]`).val(result.data[0].pants_waist);
                 //$(`select[name="properties[Vest Length]"]`).val(result.data[0].pants_hight);
@@ -734,7 +738,7 @@ function suitSizeData() {
                 ff_html += `<div class="ff-data">
                                 <strong>Jacket/Vest</strong>
                                 <span>Chest: ${jacket_size}</span>
-                                <span>Length: ${result.data[0].jacket_type}</span>
+                                <span>Length: ${jacket_type}</span>
                                 
                             </div>`;
                 
@@ -804,11 +808,15 @@ function suitSizeDataNonLogged(){
       }
     }
 
-    $(`select[name="properties[Jacket Chest Size]"]`).val(jacket_size);
-    $(`select[name="properties[Jacket Length]"]`).val(jacket_type);
+    setTimeout(function(){
 
-    $(`select[name="properties[Pant Waist Size]"]`).val(getFitFinder.pants_waist);
-    $(`select[name="properties[Pant Length]"]`).val(getFitFinder.pants_hight);
+      $(`select[name="properties[Jacket Chest Size]"]`).val(jacket_size);
+      $(`select[name="properties[Jacket Length]"]`).val(jacket_type);
+
+      $(`select[name="properties[Pant Waist Size]"]`).val(getFitFinder.pants_waist);
+      $(`select[name="properties[Pant Length]"]`).val(getFitFinder.pants_hight);
+
+    }, 200);
 
     //$(`select[name="properties[Vest Size]"]`).val(getFitFinder.pants_waist);
     //$(`select[name="properties[Vest Length]"]`).val(getFitFinder.pants_hight);

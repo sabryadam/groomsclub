@@ -1494,6 +1494,14 @@ theme_custom.customize_product_clickEvent = function () {
     
   });
 
+  var checkSuitDefaultVest = localStorage.getItem("suit_addDefault_vest");
+  if(checkSuitDefaultVest){
+    setTimeout(function(){
+      $('.product-block-wrapper[data-product-type="suit"] .swatch-wrap input[type=radio]:checked').trigger("click");
+      localStorage.removeItem("suit_addDefault_vest");
+    }, 500)
+ }
+
   var customizerlookUrl = localStorage.getItem("customizerlookUrl");
   if(customizerlookUrl){
     //alert(customizerlookUrl);

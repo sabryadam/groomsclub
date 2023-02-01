@@ -210,6 +210,10 @@ select#exampleFormControlSelect1, select#exampleFormControlSelect2 {
 	display: none;
 }
 
+#cust-size-chart {
+	display: block;
+}
+
 body:not(.suit_page_body) .product-block-wrap-suit-wrapper {
 	margin-top: 24px;
 }

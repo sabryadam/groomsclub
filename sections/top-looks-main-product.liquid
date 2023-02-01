@@ -1463,14 +1463,20 @@ function suitSizeData() {
 
               var ff_html = '';
               if (result.data.length > 0) {
-                $(`.edit-item-popup[data-product-type="jacket"] select[data-name="chest size"]`).val(jacket_size);
-                $(`.edit-item-popup[data-product-type="jacket"] select[data-name="style"]`).val(jacket_type);
 
-                $(`.edit-item-popup[data-product-type="vest"] select[data-name="chest size"]`).val(jacket_size);
-                $(`.edit-item-popup[data-product-type="vest"] select[data-name="style"]`).val(jacket_type);
+                setTimeout(() => {
+      
+                  $(`.edit-item-popup[data-product-type="jacket"] select[data-name="chest size"]`).val(jacket_size);
+                  $(`.edit-item-popup[data-product-type="jacket"] select[data-name="style"]`).val(jacket_type);
 
-                $(`.edit-item-popup[data-product-type="waist"] select[data-name="chest size"]`).val(result.data[0].pants_waist);
-                $(`.edit-item-popup[data-product-type="length"] select[data-name="style"]`).val(result.data[0].pants_hight);
+                  $(`.edit-item-popup[data-product-type="vest"] select[data-name="chest size"]`).val(jacket_size);
+                  $(`.edit-item-popup[data-product-type="vest"] select[data-name="style"]`).val(jacket_type);
+
+                  $(`.edit-item-popup[data-product-type="waist"] select[data-name="chest size"]`).val(result.data[0].pants_waist);
+                  $(`.edit-item-popup[data-product-type="length"] select[data-name="style"]`).val(result.data[0].pants_hight);
+
+                },200);
+                
 
                 ff_html += `<div class="ff-data">
                                 <strong>Jacket</strong>
@@ -1544,14 +1550,18 @@ function suitSizeDataNonLogged(){
       }
     }
 
-    $(`.edit-item-popup[data-product-type="jacket"] select[data-name="chest size"]`).val(jacket_size);
-    $(`.edit-item-popup[data-product-type="jacket"] select[data-name="style"]`).val(jacket_type);
+    setTimeout(() => {
+      
+      $(`.edit-item-popup[data-product-type="jacket"] select[data-name="chest size"]`).val(jacket_size);
+      $(`.edit-item-popup[data-product-type="jacket"] select[data-name="style"]`).val(jacket_type);
 
-    $(`.edit-item-popup[data-product-type="vest"] select[data-name="chest size"]`).val(jacket_size);
-    $(`.edit-item-popup[data-product-type="vest"] select[data-name="style"]`).val(jacket_type);
+      $(`.edit-item-popup[data-product-type="vest"] select[data-name="chest size"]`).val(jacket_size);
+      $(`.edit-item-popup[data-product-type="vest"] select[data-name="style"]`).val(jacket_type);
 
-    $(`.edit-item-popup[data-product-type="pants"] select[data-name="waist"]`).val(getFitFinder.pants_waist);
-    $(`.edit-item-popup[data-product-type="pants"] select[data-name="length"]`).val(getFitFinder.pants_hight);
+      $(`.edit-item-popup[data-product-type="pants"] select[data-name="waist"]`).val(getFitFinder.pants_waist);
+      $(`.edit-item-popup[data-product-type="pants"] select[data-name="length"]`).val(getFitFinder.pants_hight);
+
+    },200);
 
     ff_html += `<div class="ff-data">
                     <strong>Jacket</strong>
@@ -1601,8 +1611,13 @@ $(document).ready(function(){
   if(cur_url.indexOf('collections/suit') != -1){
     $(".add_suite_btn").show();
     $(".add_suite_btn_old").hide();
-    //$(".customize-button-customize-look").hide();
+    //$(".customize-button-customize-look").hide("");
     //$("body").addClass("suit_page_body");
+
+    $(".customize-button-customize-look").click(function(){
+      localStorage.setItem("suit_addDefault_vest", "1");
+    });
+
   }else{
     $(".add_suite_btn").hide();
     $(".add_suite_btn_old").show();
