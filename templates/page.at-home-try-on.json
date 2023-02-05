@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "39b6271c-d360-46c7-9585-f10563cb6bf2": {
+      "type": "at-home-try-on",
+      "blocks": {
+        "a74bfcc5-9f72-4e41-ac49-965b424aed0a": {
+          "type": "at_home_try_on",
+          "settings": {
+            "title": "How It Works",
+            "description": "We offer free shipping and returns! Money back guaranteed within 30 days of purchase."
+          }
+        }
+      },
+      "block_order": [
+        "a74bfcc5-9f72-4e41-ac49-965b424aed0a"
+      ],
+      "settings": {
+        "product-title": "At Home Try On",
+        "product-desc": "<p>Reserved for our Grooms and Event Owners.<\/p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "39b6271c-d360-46c7-9585-f10563cb6bf2"
+  ]
+}

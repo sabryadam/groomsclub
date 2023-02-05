@@ -100,9 +100,9 @@
         
               <select id="exampleFormControlSelect2" class="var-select-custom" data-name="{{ downcased_option }}">
                 {%- if swatch == 'Style' -%}
-                  <option value="{{ swatch }}" disabled selected>Choose Length</option>
+                  <option value="">Choose Length</option>
                 {% else %}
-                  <option value="{{ swatch }}" disabled selected>Choose {{ swatch }}</option>
+                  <option value="">Choose {{ swatch }}</option>
                 {% endif %}
                 {% for value in option.values %}
                   <option value="{{ value }}">{{ value }}</option>

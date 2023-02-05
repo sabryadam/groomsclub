@@ -131,6 +131,7 @@ theme_custom.getVariantData = function (parentEl) {
   var variantDataGetArr = [];
   var parent = parentEl,
     productId = parent.find(".looks-product-id").val();
+var producttyped = parent.attr('data-product-type');
 
   var varintTitle = '', variantId, variantImage, variantPrice, selectedOption;
   if (parent.find('.option-1').length > 0) {
@@ -140,7 +141,14 @@ theme_custom.getVariantData = function (parentEl) {
     varintTitle = varintTitle + ' / ' + parent.find('.option-2').text();
   }
   if (parent.find('.option-3').length > 0) {
-    varintTitle = varintTitle + ' / ' + parent.find('.option-3').text();
+      if(producttyped == 'vest'){
+           var option3 = parent.find('[data-option-index="2"] input:checked').val();
+
+            varintTitle = varintTitle + ' / ' + option3;
+     }else{
+            varintTitle = varintTitle + ' / ' + parent.find('.option-3').text();
+
+      }
   }
   selectedOption = parent.find(`[data-product-id="${productId}"][data-var-title="${varintTitle}"]`);
   $(`[data-product-id="${productId}"]`).attr('selected', false);

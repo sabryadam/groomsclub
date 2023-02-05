@@ -11,6 +11,37 @@ select.select__select {
   
 }
 
+.required-box::after {
+	content: "This field is required";
+	font-size: 13px;
+	color: red;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	margin-top: 5px;
+}
+
+.required-box {
+	position: relative;
+	margin-bottom: 40px !important;
+}
+
+.template-product-jacket-pant-combination .edit-item-popup .swatch-wrapper-options + .swatch-wrapper {
+	display: none;
+}
+
+.suit-select-box.required-select::after {
+	content: "This field is required";
+	color: red;
+	font-size: 12px;
+	position: absolute;
+	top: 45px;
+}
+
+.suit-select-box.required-select {
+	margin-bottom: 40px;
+}
+
 .template-cart .edit-item-popup[data-product-type="vest"] .swatch-wrapper-options .swatch.swatch-wrap.clearfix.swatch-color {
 	display: none;
 }

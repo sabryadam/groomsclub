@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "3510fd2e-ff42-48d4-920f-82a02f70ff82": {
+      "type": "fit-and-sizing",
+      "blocks": {
+        "1267be5e-bf1a-42e7-98cb-3d89637425a0": {
+          "type": "fit_and_Sizing",
+          "settings": {
+            "title": "Fit Finder",
+            "description": "Meet our fit finder fit finder. Answer a few questions to find the perfect fit."
+          }
+        }
+      },
+      "block_order": [
+        "1267be5e-bf1a-42e7-98cb-3d89637425a0"
+      ],
+      "settings": {
+        "product-title": "Fit and Sizing",
+        "product-desc": "<p>Our Fit Finder makes sure you have the perfect fitting suit for your body. Learn more about how we can find your precise measurements.<\/p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "3510fd2e-ff42-48d4-920f-82a02f70ff82"
+  ]
+}

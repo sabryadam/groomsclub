@@ -1,0 +1,48 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-404",
+      "disabled": true,
+      "settings": {}
+    },
+    "2e496aa7-fa77-405d-955e-20a7a4592f1f": {
+      "type": "group-management",
+      "blocks": {
+        "cb37d5ef-f25f-46ad-bc0e-361f00bbbe5a": {
+          "type": "group_and_management",
+          "settings": {
+            "title": "Inviting Members",
+            "description": "Once you create an event, simply add members in your dashboard. You can assign each individual a look, and send reminders to make sure they are suited up in time for the big day!"
+          }
+        },
+        "2079f933-a8f0-42ee-854a-f920a1a84f3c": {
+          "type": "group_and_management",
+          "settings": {
+            "title": "Creating an Event",
+            "description": "Creating an event is a great way to manage your groomsmen. Simply fill out an event details form from your dashboard with contact information for each individual. An email will be sent to them so they can set up an account."
+          }
+        },
+        "d224fbc6-ab46-47dc-b190-8fd33d93c1f8": {
+          "type": "group_and_management",
+          "settings": {
+            "title": "Sending Reminders",
+            "description": "Keeping your group on track is key! Automatic reminders are set up for each of your members, but you can edit and send your own via text message and email."
+          }
+        }
+      },
+      "block_order": [
+        "cb37d5ef-f25f-46ad-bc0e-361f00bbbe5a",
+        "2079f933-a8f0-42ee-854a-f920a1a84f3c",
+        "d224fbc6-ab46-47dc-b190-8fd33d93c1f8"
+      ],
+      "settings": {
+        "product-title": "Group Management",
+        "product-desc": "<p>Learn how to make the most of your Grooms Club experience.<\/p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "2e496aa7-fa77-405d-955e-20a7a4592f1f"
+  ]
+}

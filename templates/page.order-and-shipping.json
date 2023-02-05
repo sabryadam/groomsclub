@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "a3f9c0fc-0602-42c9-b339-a75984556122": {
+      "type": "order-shipping",
+      "blocks": {
+        "7c9774b9-6469-4712-92d8-aee8f03ecd40": {
+          "type": "order_and_shipping",
+          "settings": {
+            "title": "Shipping",
+            "description": "We offer free shipping and free returns to all of the United States! Expedited shipping rates are calculated at checkout if needed."
+          }
+        }
+      },
+      "block_order": [
+        "7c9774b9-6469-4712-92d8-aee8f03ecd40"
+      ],
+      "settings": {
+        "product-title": "Orders and Shipping",
+        "product-desc": "<p>Learn how to track your orders and know our shipping options.<\/p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "a3f9c0fc-0602-42c9-b339-a75984556122"
+  ]
+}
