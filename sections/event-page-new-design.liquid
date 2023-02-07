@@ -22,15 +22,16 @@
       <span class="label">Final Summary</span>
     </div>
   </div>
-  <div class="step-content-wrapper" data-step-content-wrap="1">
+  <div class="step-content-wrapper active" data-step-content-wrap="1">
     <div class="page-width-inner-wrapper">
+      <h4 class="section-title xs-show">Create an Event</h4>
       <div class="event-block-wrap">
         {% if section.settings.event_name_heading != blank %}
           <h1 class="heading">{{ section.settings.event_name_heading }}</h1>
         {% endif %}
         <div class="field form-wrap">     
-          <input class="custom-event-reminder-name event-form-inpt" type="text" name="event_name" id="EventForm-EventName" autocomplete="given-name" placeholder="{{ section.settings.event_name_placeholder }}" maxlength="100">
-          <span class="form-error"></span>
+          <input class="event-name" type="text" name="event_name" id="EventForm-EventName" autocomplete="given-name" placeholder="{{ section.settings.event_name_placeholder }}" maxlength="100" />
+          <p class="form-error"></p>
         </div>
       </div>
       <div class="event-type_section_wrap event-block-wrap event-radio-box-section">
@@ -41,7 +42,7 @@
           {%- for block in section.blocks -%}
             {%- if block.type == 'event_type' -%}
               <label class="Squer-radio-button-inner box-inner-wrap">
-                <input type="radio" name="event-type" value="{{ block.settings.event_type_title }}">
+                <input type="radio" name="event-type" value="{{ block.settings.event_type_title }}" />
                 <span class="checkmark">
                   {% if block.settings.event_type_icon != blank %}
                     <div class="event-type-icon icon-wrap">
@@ -58,7 +59,8 @@
             {%- endif -%}
           {%- endfor -%}
         </div>
-        <p class="event-type-error form-error">Please select Event type.</p>
+        <!-- <p class="event-type-error form-error"></p> -->
+        <p class="form-error">Please select Event type.</p>
       </div>
       <div class="event-role_section_wrap event-block-wrap">
         {% if section.settings.when_is_your_event_heading != blank %}
@@ -71,21 +73,9 @@
               <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/calendar_1.png?v=1675597220" width="22" height="22" alt="Calendar icon" />
             </span>
           </div>     
-          <input id="date_picker" type="date" name="input1" placeholder="MM-DD-YYYY" required pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" title="Enter a date in this formart MM-DD-YYYY"/>
-          <span class="form-error"></span>
-          <script language="javascript">
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0');
-            var yyyy = today.getFullYear();        
-            today = yyyy + '-' + mm + '-' + dd;
-            $('#date_picker').attr('min',today);
-            // get new date
-            var selectedDate = $("#date_picker").val();
-            var new_date = selectedDate.split('-'); 
-            var create_new_date = new_date[1] + '-' +  new_date[2] + '-' + new_date[0]
-          </script>
+          <input id="date_picker" type="date" name="input1" placeholder="MM-DD-YYYY" required pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" title="Enter a date in this formart MM-DD-YYYY" />
         </div>
+        <p class="form-error">Please select Event Date.</p>
       </div>
       <div class="event-block-wrap event-radio-box-section role-in-event-wrap">
         {% if section.settings.when_is_your_role_in_event_heading != blank %}
@@ -95,7 +85,7 @@
           {%- for block in section.blocks -%}
             {%- if block.type == 'event_role' -%}
               <label class="Squer-radio-button-inner box-inner-wrap">
-                <input type="radio" name="event-role" value="{{ block.settings.event_type_title }}">
+                <input type="radio" name="event-role" value="{{ block.settings.event_role_title }}" />
                 <span class="checkmark">
                   {% if block.settings.event_role_icon != blank %}
                     <div class="event-role-icon icon-wrap">
@@ -112,6 +102,7 @@
             {%- endif -%}
           {%- endfor -%}
         </div>
+        <p class="form-error">Please select Event Role.</p>
       </div>
       <div class="event-block-wrap event-radio-box-section border-bottom-none">
         {% if section.settings.phone_number_title != blank %}
@@ -119,31 +110,81 @@
         {% endif %}
         <div class="field form-wrap">  
           <div class="phone-number-and-icon">
-            <input class="event_owner_number form_phone event-form-inpt" type="text" name="event_name" id="EventForm-EventOwnerContactNumber"  placeholder="{{ section.settings.phone_number_placeholder }}" maxlength="14" minlength="10" />
+            <input class="phone-number form_phone" type="text" name="event_name" id="EventForm-EventOwnerContactNumber"  placeholder="{{ section.settings.phone_number_placeholder }}" maxlength="14" minlength="10" required />
             <span class="call-icon">
               <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/telephone_1.png?v=1675597289" width="22" height="22" alt="Phone icon" />
             </span>
           </div>   
-          <span class="form-error"></span>
+          <p class="form-error"></p>
         </div>
       </div>
       {% render 'event-page-button' %}
     </div>
   </div>
-  {%- comment -%}
-  <div class="step-content-wrapper" data-step-content-wrap="2">
-    {% render 'event-page-button' %}
+  <div class="step-content-wrapper create-event-look" data-step-content-wrap="2">
+    <div class="page-width-inner-wrapper">
+      <h4 class="section-title xs-show">Create Look</h4>
+      <div class="event-type_section_wrap event-block-wrap event-radio-box-section">
+        {% if section.settings.create_look_title != blank %}
+          <h3 class="heading">{{ section.settings.create_look_title }}</h3>
+        {% endif %}
+        <div class="box-wrap">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'event_look' -%}
+              {% if block.settings.create_look_url != blank %}
+                <a class="Squer-radio-button-inner box-inner-wrap" href="{{ block.settings.create_look_url }}" tabindex="0">
+                  <input type="radio" name="event-type" value="{{ block.settings.create_look_title }}" style="cursor: none;pointer-events: none;" />
+                  <span class="checkmark">
+                    {% if block.settings.create_look_icon != blank %}
+                      <div class="event-type-icon icon-wrap">
+                        <img src="{{ block.settings.create_look_icon | img_url : 'master' }}" alt="{{ block.settings.create_look_title }}" />
+                      </div>
+                    {% endif %}
+                    {% if block.settings.create_look_title != blank  %}
+                      <h3 class="event-type-title">
+                        {{ block.settings.create_look_title }}
+                      </h3>
+                    {% endif %}
+                  </span>
+                </a>
+              {% else %}
+                <label class="Squer-radio-button-inner box-inner-wrap">
+                  <input type="radio" name="event-type" value="{{ block.settings.create_look_title }}" />
+                  <span class="checkmark">
+                    {% if block.settings.create_look_icon != blank %}
+                      <div class="event-type-icon icon-wrap">
+                        <img src="{{ block.settings.create_look_icon | img_url : 'master' }}" alt="{{ block.settings.create_look_title }}" />
+                      </div>
+                    {% endif %}
+                    {% if block.settings.create_look_title != blank  %}
+                      <h3 class="event-type-title">
+                        {{ block.settings.create_look_title }}
+                      </h3>
+                    {% endif %}
+                  </span>
+                </label>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        <p class="event-type-error form-error">Please select Event type.</p>
+      </div>
+      {% render 'event-page-button' %}
+    </div>
   </div>
   <div class="step-content-wrapper" data-step-content-wrap="3">
-    {% render 'event-page-button' %}
+    <div class="page-width-inner-wrapper">
+      {% render 'event-page-button' %}
+    </div>
   </div>
   <div class="step-content-wrapper" data-step-content-wrap="4">
-    {% render 'event-page-button' %}
+    <div class="page-width-inner-wrapper">
+      {% render 'event-page-button' %}
+    </div>
   </div>
   <div class="step-content-wrapper" data-step-content-wrap="5">
     {% render 'event-page-button' %}
   </div>
-  {%- endcomment -%}
 </section>
 
 {% schema %}
@@ -222,6 +263,16 @@
       "type" : "html",
       "id" : "phone_icon",
       "label" : "Phone Svg Icon"
+    },
+    {
+      "type" : "header",
+      "content" : "Create Look"
+    },
+    {
+      "type" : "text",
+      "id" : "create_look_title",
+      "label" : "Title",
+      "default" : "Create Look"
     }
   ],
   "blocks": [
@@ -254,6 +305,27 @@
           "type": "text",
           "id" :"event_role_title", 
           "label": "Event Role Title"
+        }
+      ]
+    },
+    {
+      "type": "event_look",
+      "name": "Event Look",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id" :"create_look_icon", 
+          "label": "Create Look icon"
+        },
+        {
+          "type": "text",
+          "id" :"create_look_title", 
+          "label": "Create Look Title"
+        },
+        {
+          "type": "url",
+          "id" :"create_look_url", 
+          "label": "Create Look url"
         }
       ]
     }
