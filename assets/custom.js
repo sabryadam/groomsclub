@@ -148,14 +148,20 @@ theme_custom.getVariantData = function (parentEl) {
       varintTitle = varintTitle + ' / ' + parent.find('.option-3').text();
     }
   }
+  setTimeout(function(){
+    parent.find(`.single-option-selector option[data-var-title="${varintTitle}"]`).attr('selected','selected');
+
+  },100);
   if(varintTitle.includes("00")){
     checkSizeIsNotSelect = true;
   } else {
     checkSizeIsNotSelect = false;
   }
-  selectedOption = parent.find(`[data-product-id="${productId}"][data-var-title="${varintTitle}"]`);
-  $(`[data-product-id="${productId}"]`).attr('selected', false);
-  selectedOption.attr('selected', true);
+   //$(".product-form .bundle-product-wrapper").find(".product-data-card[data-product-type="+producttyped+"]").find(".single-option-selector option[data-var-title="+varintTitle+"]").attr("selected",true);
+  selectedOption = parent.find(`.single-option-selector option[data-var-title="${varintTitle}"]`);
+ // $(`[data-product-id="${productId}"]`).attr('selected', false);
+// console.log($(".product-data-card[data-product-type="+producttyped+"]"));
+  //selectedOption.attr('selected', true);
   variantPrice = selectedOption.attr('data-variant-price');
   variantId = selectedOption.attr('value');
   variantImage = selectedOption.attr('data-variant-img');

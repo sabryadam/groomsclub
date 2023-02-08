@@ -1132,7 +1132,7 @@ $(document).ready(function(){
                                     <div class="product-info">
                                       <h4 class="product-title">{{ productHandle.title }}</h4>
                                       {%- assign productSelectedType  = productHandle.type | downcase -%}
-                                      <span class="variant-title">
+                                      <span class="variant-title hidden">
                                         {% for option in productHandle.options_with_values  %}
                                           {% assign outer_forloop = forloop %}
                                           {% if variantAvailavle  %}
@@ -1216,7 +1216,7 @@ $(document).ready(function(){
                                       <div class="product-info">
                                         <h4 class="product-title">{{ productHandle.title }}</h4>
                                         {%- assign productSelectedType  = productHandle.type | downcase -%}
-                                        <span class="variant-title">
+                                        <span class="variant-title hidden">
                                           {% for option in productHandle.options_with_values  %}
                                             {% assign outer_forloop = forloop %}
                                               {%- if productSelectedType == 'pants' and  forloop.first %}
@@ -1225,9 +1225,7 @@ $(document).ready(function(){
                                               {%- if productSelectedType == 'jacket' and  forloop.first %}
                                                 Jacket&nbsp;
                                               {%- endif -%}
-                                              {%- if productSelectedType == 'vest' and  forloop.first %}
-                                                
-                                              {%- endif -%}
+                                            
                                               {%- unless productSelectedType == 'pants' or productSelectedType == 'jacket' or productSelectedType == 'vest' %}
                                                 {%- unless forloop.last  -%}
                                                   {{ option }}

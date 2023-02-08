@@ -730,3 +730,17 @@ div.tab-top-border {
 	font-size: 18px;
 }
 /* virtual-consultant style end */
+.product-form__buttons .product-data-card.product-data-card-wrap[data-product-type=vest] .product-info {
+    padding: 0 10px;
+}
+@media(max-width:768px){
+  .swatch-wrapper.swatch-wrapper-options .swatch {
+    width: 100%!important;
+    display: inline-table;
+}.product-form__buttons .product-data-card.product-data-card-wrap[data-product-type=vest] .product-info {
+    padding: 0 16px;
+}.edit-item-popup .swatch.suit-select-box {
+    width: 100%!important;
+    display: inline-table;
+}
+}

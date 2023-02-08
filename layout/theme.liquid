@@ -173,7 +173,6 @@
   {% endstyle %}
   {{ 'base.css' | asset_url | stylesheet_tag }}
   {{ 'custom.css' | asset_url | stylesheet_tag }}
-  {{ 'event-page-new-design.css' | asset_url | stylesheet_tag }}
 
   
   {%- unless settings.type_body_font.system? -%}
@@ -308,9 +307,7 @@
   <script src="{{ 'variants.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
   <script src="{{ 'custom.js' | asset_url }}" defer></script>
-  {%- if page.handle == 'create-event' -%}
-  <script src="{{ 'event-new-development.js' | asset_url }}" defer></script>
-  {%- endif -%}
+
   
   <script>
     {%- if customer -%}
