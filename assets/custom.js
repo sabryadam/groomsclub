@@ -129,9 +129,9 @@ theme_custom.cvvValidation = function ($this) {
 // Get Variant Data
 theme_custom.getVariantData = function (parentEl) {
   var variantDataGetArr = [];
-  var parent = parentEl,
+  var parent = parentEl, checkSizeIsNotSelect = false,
     productId = parent.find(".looks-product-id").val();
-var producttyped = parent.attr('data-product-type');
+  var producttyped = parent.attr('data-product-type');
 
   var varintTitle = '', variantId, variantImage, variantPrice, selectedOption;
   if (parent.find('.option-1').length > 0) {
@@ -141,14 +141,17 @@ var producttyped = parent.attr('data-product-type');
     varintTitle = varintTitle + ' / ' + parent.find('.option-2').text();
   }
   if (parent.find('.option-3').length > 0) {
-      if(producttyped == 'vest'){
-           var option3 = parent.find('[data-option-index="2"] input:checked').val();
-
-            varintTitle = varintTitle + ' / ' + option3;
-     }else{
-            varintTitle = varintTitle + ' / ' + parent.find('.option-3').text();
-
-      }
+    if(producttyped == 'vest'){
+      var option3 = parent.find('[data-option-index="2"] input:checked').val();
+      varintTitle = varintTitle + ' / ' + option3;
+    }else{
+      varintTitle = varintTitle + ' / ' + parent.find('.option-3').text();
+    }
+  }
+  if(varintTitle.includes("00")){
+    checkSizeIsNotSelect = true;
+  } else {
+    checkSizeIsNotSelect = false;
   }
   selectedOption = parent.find(`[data-product-id="${productId}"][data-var-title="${varintTitle}"]`);
   $(`[data-product-id="${productId}"]`).attr('selected', false);
@@ -168,7 +171,11 @@ var producttyped = parent.attr('data-product-type');
   parent.find('.looks-product-var-id').val(variantId);
   if (selectedOption.length == 0) {
     parent.find('.pdp-updates-button button').addClass('disabled');
-    parent.find(".error-message").text('Product is not available for that specific size!').show();
+    if(checkSizeIsNotSelect){
+      parent.find(".error-message").text('Please select the size!').show();
+    } else {
+      parent.find(".error-message").text('Product is not available for that specific size!').show();
+    }
   } else {
     parent.find('.pdp-updates-button button').removeClass('disabled');
     parent.find(".error-message").text('').hide();

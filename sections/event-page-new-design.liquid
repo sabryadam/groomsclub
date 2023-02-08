@@ -25,7 +25,7 @@
   <div class="step-content-wrapper active" data-step-content-wrap="1">
     <div class="page-width-inner-wrapper">
       <h4 class="section-title xs-show">Create an Event</h4>
-      <div class="event-block-wrap">
+      <div class="event-block-wrap event-type-block-wrap">
         {% if section.settings.event_name_heading != blank %}
           <h1 class="heading">{{ section.settings.event_name_heading }}</h1>
         {% endif %}
@@ -34,15 +34,15 @@
           <p class="form-error"></p>
         </div>
       </div>
-      <div class="event-type_section_wrap event-block-wrap event-radio-box-section">
+      <div class="event-type-section-wrap event-block-wrap event-radio-box-section">
         {% if section.settings.event_type_heading != blank %}
           <h2 class="heading">{{ section.settings.event_type_heading }}</h2>
         {% endif %}
         <div class="box-wrap">
           {%- for block in section.blocks -%}
             {%- if block.type == 'event_type' -%}
-              <label class="Squer-radio-button-inner box-inner-wrap">
-                <input type="radio" name="event-type" value="{{ block.settings.event_type_title }}" />
+              <label class="Squer-radio-button-inner box-inner-wrap" data-event-type-box="{{ block.settings.event_type_title }}" id="{{block.id}}">
+                <input type="radio" name="event-type" data-event-type-id="{{forloop.index}}" value="{{ block.settings.event_type_title }}" />
                 <span class="checkmark">
                   {% if block.settings.event_type_icon != blank %}
                     <div class="event-type-icon icon-wrap">
@@ -62,18 +62,18 @@
         <!-- <p class="event-type-error form-error"></p> -->
         <p class="form-error">Please select Event type.</p>
       </div>
-      <div class="event-role_section_wrap event-block-wrap">
+      <div class="event-block-wrap event-date-wrap">
         {% if section.settings.when_is_your_event_heading != blank %}
           <h3 class="heading">{{ section.settings.when_is_your_event_heading }}</h3>
         {% endif %}
         <div class="field form-wrap">
-          <div class="fake-calender">
+          <!-- <div class="fake-calender">
             <span class="selected_date">MM/DD/YYYY</span>
             <span class="date-icon">
               <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/calendar_1.png?v=1675597220" width="22" height="22" alt="Calendar icon" />
             </span>
-          </div>     
-          <input id="date_picker" type="date" name="input1" placeholder="MM-DD-YYYY" required pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" title="Enter a date in this formart MM-DD-YYYY" />
+          </div>      -->
+          <input id="event_date" type="date" name="input1" placeholder="MM-DD-YYYY" required pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" title="Enter a date in this formart MM-DD-YYYY" />
         </div>
         <p class="form-error">Please select Event Date.</p>
       </div>
@@ -83,9 +83,10 @@
         {% endif %}
         <div class="box-wrap">
           {%- for block in section.blocks -%}
+            {%- assign event_type_text = block.settings.event_type | downcase  -%}
             {%- if block.type == 'event_role' -%}
-              <label class="Squer-radio-button-inner box-inner-wrap">
-                <input type="radio" name="event-role" value="{{ block.settings.event_role_title }}" />
+              <label class="Squer-radio-button-inner box-inner-wrap {% if event_type_text == 'special events' %} hidden{% endif %}{% if event_type_text == 'other' %} show{% endif %}"  id="{{block.id}}" data-class="{{ event_type_text }}">
+                <input type="radio" name="event-role" data-event-role-id="{{forloop.index}}" value="{{forloop.index}}" />
                 <span class="checkmark">
                   {% if block.settings.event_role_icon != blank %}
                     <div class="event-role-icon icon-wrap">
@@ -104,7 +105,7 @@
         </div>
         <p class="form-error">Please select Event Role.</p>
       </div>
-      <div class="event-block-wrap event-radio-box-section border-bottom-none">
+      <div class="event-block-wrap event-radio-box-section border-bottom-none event-phone-number">
         {% if section.settings.phone_number_title != blank %}
           <h3 class="heading">{{ section.settings.phone_number_title }}</h3>
         {% endif %}
@@ -115,16 +116,26 @@
               <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/telephone_1.png?v=1675597289" width="22" height="22" alt="Phone icon" />
             </span>
           </div>   
-          <p class="form-error"></p>
+          <p class="form-error">Please Enter This Filled.</p>
         </div>
       </div>
-      {% render 'event-page-button' %}
+      <div class="button-wrapper">
+        <button type="button" class="btn-wrap button--secondary next-button">
+          <span class="label">
+            Next
+          </span>
+          <span class="icon">
+            <img class="blue-icon" src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/next-blue-icon.png?v=1675601344" width="22" height="22" alt="Next Arrow" />
+            <img class="white-icon" src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/next-white-icon.png?v=1675601344" width="22" height="22" alt="Next Arrow" />
+          </span>
+        </button>
+      </div>
     </div>
   </div>
-  <div class="step-content-wrapper create-event-look" data-step-content-wrap="2">
+  <div class="step-content-wrapper create-event-look active" data-step-content-wrap="2">
     <div class="page-width-inner-wrapper">
       <h4 class="section-title xs-show">Create Look</h4>
-      <div class="event-type_section_wrap event-block-wrap event-radio-box-section">
+      <div class="event-block-wrap">
         {% if section.settings.create_look_title != blank %}
           <h3 class="heading">{{ section.settings.create_look_title }}</h3>
         {% endif %}
@@ -133,24 +144,22 @@
             {%- if block.type == 'event_look' -%}
               {% if block.settings.create_look_url != blank %}
                 <a class="Squer-radio-button-inner box-inner-wrap" href="{{ block.settings.create_look_url }}" tabindex="0">
-                  <input type="radio" name="event-type" value="{{ block.settings.create_look_title }}" style="cursor: none;pointer-events: none;" />
-                  <span class="checkmark">
+                  <div class="checkmark">
                     {% if block.settings.create_look_icon != blank %}
                       <div class="event-type-icon icon-wrap">
                         <img src="{{ block.settings.create_look_icon | img_url : 'master' }}" alt="{{ block.settings.create_look_title }}" />
                       </div>
                     {% endif %}
                     {% if block.settings.create_look_title != blank  %}
-                      <h3 class="event-type-title">
+                      <h3 class="event-type-title" data-title="{{ block.settings.create_look_title | downcase | handleize }}">
                         {{ block.settings.create_look_title }}
                       </h3>
                     {% endif %}
-                  </span>
+                  </div>
                 </a>
               {% else %}
-                <label class="Squer-radio-button-inner box-inner-wrap">
-                  <input type="radio" name="event-type" value="{{ block.settings.create_look_title }}" />
-                  <span class="checkmark">
+                <div class="Squer-radio-button-inner box-inner-wrap popup-button" data-title="{{ block.settings.create_look_title | downcase | handleize }}">
+                  <div class="checkmark">
                     {% if block.settings.create_look_icon != blank %}
                       <div class="event-type-icon icon-wrap">
                         <img src="{{ block.settings.create_look_icon | img_url : 'master' }}" alt="{{ block.settings.create_look_title }}" />
@@ -161,13 +170,52 @@
                         {{ block.settings.create_look_title }}
                       </h3>
                     {% endif %}
-                  </span>
-                </label>
+                  </div>
+                </div>
               {%- endif -%}
             {%- endif -%}
           {%- endfor -%}
         </div>
-        <p class="event-type-error form-error">Please select Event type.</p>
+      </div>
+      <div class="">
+        
+      </div>
+      <div class="modal-wrapper" data-target="choose-from-favourites">
+        <div class="choose-form-favorite modal-wrapper-inner-wrapper" id="choose-form-favorite">
+          <span class="close-icon">
+            <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/close_1.png" alt="close-icon" />
+          </span>
+          <h4 class="title">
+            Choose from favorite
+          </h4>
+          <div class="product-wrapper"></div>
+        </div>
+      </div>
+      <div class="modal-wrapper" data-target="browse-top-looks">
+        <div class="browse-top-looks modal-wrapper-inner-wrapper" id="browser-top-looks">
+          <span class="close-icon">
+            <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/close_1.png" alt="close-icon" />
+          </span>
+          <h4 class="title">
+            BROWSE TOP LOOKS
+          </h4>
+          <div class="product-wrapper">
+            {%- assign top_look_collection = collections[section.settings.top_look_collections ]-%}
+            {%- for product in top_look_collection.products -%}
+              <div class="product-card">
+                <div class="img">
+                  <img src="{{ product.featured_image | product_img_url : 'master' }}" alt="{{ product.title }}" />
+                </div>
+                <div class="product-info">
+                  <h4 class="product-title">{{ product.title }}</h4>
+                  <p class="product-price">Starting at {{ product.price | money }}</p>
+                  <p class="taxes-text">Price includes suit jacket and pants</p>
+                  <a class="button button--secondary" tabindex="-1" title="More Details" href="{{ product.url | within : collection  }}">More Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
       </div>
       {% render 'event-page-button' %}
     </div>
@@ -273,6 +321,11 @@
       "id" : "create_look_title",
       "label" : "Title",
       "default" : "Create Look"
+    },
+    {
+      "type" : "collection",
+      "id" : "top_look_collections",
+      "label" : "Top look collections"
     }
   ],
   "blocks": [
@@ -281,14 +334,14 @@
       "name": "Event Type",
       "settings": [
         {
-          "type": "html",
-          "id" :"event_type_icon", 
-          "label": "Event Type icon"
-        },
-        {
           "type": "text",
           "id" :"event_type_title", 
           "label": "Event Type Title"
+        },
+        {
+          "type": "html",
+          "id" :"event_type_icon", 
+          "label": "Event Type icon"
         }
       ]
     },
@@ -297,14 +350,19 @@
       "name": "Event Role",
       "settings": [
         {
+          "type": "text",
+          "id" :"event_role_title", 
+          "label": "Event Role Title"
+        },
+        {
           "type": "html",
           "id" :"event_role_icon", 
           "label": "Event Role icon"
         },
         {
           "type": "text",
-          "id" :"event_role_title", 
-          "label": "Event Role Title"
+          "label": "Event Type",
+          "id" :"event_type"
         }
       ]
     },
@@ -313,14 +371,14 @@
       "name": "Event Look",
       "settings": [
         {
-          "type": "image_picker",
-          "id" :"create_look_icon", 
-          "label": "Create Look icon"
-        },
-        {
           "type": "text",
           "id" :"create_look_title", 
           "label": "Create Look Title"
+        },
+        {
+          "type": "image_picker",
+          "id" :"create_look_icon", 
+          "label": "Create Look icon"
         },
         {
           "type": "url",
