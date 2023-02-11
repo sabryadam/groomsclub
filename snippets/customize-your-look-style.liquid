@@ -3,7 +3,7 @@
     background: #fff;
   }
   .tabbed-content-block-outer-wrapper .product-info-wrap .customize_product_title_wrap {
-    border-top: 1px solid var(--light-gray-border);
+    /* border-top: 1px solid var(--light-gray-border); */
     padding: 12px 0 0;
   }
   .customize_product_title_wrap .customize_product_title{
@@ -26,7 +26,7 @@
   }
   .tabbed-content-block-outer-wrapper .product-info-wrap .product-block-wrapper {
     display: flex;
-    border-top: 1px solid var(--light-gray-border);
+    /* border-top: 1px solid var(--light-gray-border); */
     /* border-bottom: 1px solid var(--light-gray-border); */
     padding: 12px 15px;
     flex-wrap: wrap;
@@ -34,8 +34,12 @@
   .tabbed-content-block-outer-wrapper .product-info-wrap .product-title{
     display: flex;
     justify-content: space-between;
-    margin-bottom : 15px;
-  } 
+    margin-bottom : 0;
+  }
+
+  .tabbed-content-block-outer-wrapper .product-info-wrap .product-block-wrapper[data-product-type="vest"] .product-item-wrap{
+    display: none;
+  }
 
   .tabbed-content-block-outer-wrapper .product-info-wrap .product-title .product-title-wrap{
     color: var(--color-primary);
@@ -835,8 +839,11 @@ background-color: var(--color-light-gray-background); padding: 20px 10px 25px; m
   z-index : 33
 }
 
+.tabbed-content-block-inner-wrapper .scroll-part.right-scroll-spcing .product-block-outer-wrapper,
 .tabbed-content-block-inner-wrapper.personalize .product-block-outer-wrapper{
   display: block;
+  border-top: 1px solid var(--light-gray-border);
+  margin-top: 15px;
 }
 
 .tabbed-content-block-inner-wrapper.personalize .product-block-outer-wrapper:first-child {

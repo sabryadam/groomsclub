@@ -22,7 +22,7 @@
   {%- capture personalizeProductData -%}
     <div class="tabbed-content-block-inner-wrapper personalize active" data-tab-content="personalize">
       <div class="product-info-top-block">
-        <h3 class="section-heading right-scroll-spcing">Personalize</h3>
+        <h3 class="section-heading right-scroll-spcing">Select Color</h3>
         <div class="scroll-part right-scroll-spcing">
           {%- for personalizeBlockData in _personalizeBlock -%}
             {%- assign personalizeCollectionHandle = personalizeBlockData.settings.collection | strip -%}
@@ -400,95 +400,24 @@
           <div class="row">
             <h4>SELECT SIZES:</h4>
           </div>
-          <div class="row">
-          <h5>Jacket/Vest</h5>
-            <div class="form-row">
-              <div class="form-group">
-                <select class="form-control suit_attr recomm_select" id="exampleFormControlSelect1" name="properties[Jacket Chest Size]" data-row="jacket_size" form="product-form-{{ section.id }}">
-                  <option value="">Chest Size</option>
-                  <option value="32">32</option>
-                  <option value="34">34</option>
-                  <option value="36">36</option>
-                  <option value="38">38</option>
-                  <option value="40">40</option>
-                  <option value="42">42</option>
-                  <option value="44">44</option>
-                  <option value="46">46</option>
-                  <option value="48">48</option>
-                  <option value="50">50</option>
-                  <option value="52">52</option>
-                  <option value="54">54</option>
-                  <option value="56">56</option>
-                  <option value="58">58</option>
-                  <option value="60">60</option>
-                </select>
-                {% render 'icon-caret' %}
-              </div>
-              <div class="form-group">
-                <select class="form-control suit_attr recomm_select" data-row="jacket_type" id="exampleFormControlSelect1" name="properties[Jacket Length]" form="product-form-{{ section.id }}">
-                  <option value="">Length</option>          
-                  <option value="Short">Short</option>
-                  <option value="Regular">Regular</option>
-                  <option value="Long">Long</option>
-                </select>
-                {% render 'icon-caret' %}
-              </div>
+          <div id="overview_ff_box">
+            <div id="suit_fit_finder" class="completefit product_fit_finder" style="display: none;">
+              <a href="https://www.groomsclub.com/pages/fit-finder">
+                <div>
+                    <h4>Not sure of your size? Try our fit finder</h4>
+                  <p>Answer a few simple questions to help you find the perfect fit</p>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+              </a>
             </div>
-          </div>
-         <div class="row">
-         <h5>Pants</h5>
-            <div class="form-row">
-              <div class="form-group">
-                <select class="form-control suit_attr recomm_select" data-row="pants_waist" id="exampleFormControlSelect2" name="properties[Pant Waist Size]">
-                  <option value="">Waist Size</option>
-                  <option value="26">26</option>
-                  <option value="28">28</option>
-                  <option value="30">30</option>
-                  <option value="32">32</option>
-                  <option value="34">34</option>
-                  <option value="36">36</option>
-                  <option value="38">38</option>
-                  <option value="40">40</option>
-                  <option value="42">42</option>
-                  <option value="44">44</option>
-                  <option value="46">46</option>
-                  <option value="48">48</option>
-                  <option value="50">50</option>
-                  <option value="52">52</option>
-                  <option value="54">54</option>
-                </select>
-                {% render 'icon-caret' %}
+            <div id="fit_finder_data_auto" style="display: none;">
+              <div class="ff-top-box">
+                <h3>Your Sizes</h3>
+                <span>Calculated based on your fit responses.</span>
+                <a href="https://www.groomsclub.com/pages/fit-finder">Retry fit finder</a>
               </div>
-              <div class="form-group">
-                <select class="form-control suit_attr recomm_select" data-row="pants_hight" id="exampleFormControlSelect1" name="properties[Pant Length]">
-                  <option value="">Length</option>          
-                  <option value="30">30</option>
-                  <option value="32">32</option>
-                  <option value="34">34</option>
-                </select>
-                {% render 'icon-caret' %}
+              <div id="ff-data-box">
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="overview_ff_box">
-          <div id="suit_fit_finder" class="completefit product_fit_finder" style="display: none;">
-            <a href="https://www.groomsclub.com/pages/fit-finder">
-              <div>
-                  <h4>Not sure of your size? Try our fit finder</h4>
-                <p>Answer a few simple questions to help you find the perfect fit</p>
-              </div>
-              <i class="fas fa-chevron-right"></i>
-            </a>
-          </div>
-          <div id="fit_finder_data_auto" style="display: none;">
-            <div class="ff-top-box">
-              <h3>Your Sizes</h3>
-              <span>Calculated based on your fit responses.</span>
-              <a href="https://www.groomsclub.com/pages/fit-finder">Retry fit finder</a>
-            </div>
-            <div id="ff-data-box">
             </div>
           </div>
         </div>
@@ -627,7 +556,7 @@
   <div class="tabbed-content-header">
     <div class="page-width">
       <ul class="tabbed-content-header-ul">
-        <li class="tabbed-content-title active" data-target="personalize">Personalize</li>
+        <li class="tabbed-content-title active" data-target="personalize">Select Color</li>
         <li class="tabbed-content-title" data-target="customize">customize</li>
         <li class="tabbed-content-title" data-target="accessories">accessories</li>
         <li class="tabbed-content-title" data-target="find-your-fit">Recommended Sizes</li>
@@ -694,96 +623,135 @@ function suitSizeData() {
   var shirt_image = "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/shirt-display-img.png?v=1641880242";
   var shoe_image = "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/shoes-display-img.png?v=1641880242";
   $.ajax({
-      url: size_api_url,
-      method: "GET",
-      data: '',
-      dataType: "json",
-      headers: {
-          "Authorization": APP_Token
-      },
-      beforeSend: function () {
-          
-      },
-      success: function (result) {
-          if (result.success) {
-              console.log(result);
-
-              var jacket_size = 'NA';
-              var jacket_type = 'NA';
-              var jacket_allsizes = result.data[0].jacketSize;
-
-              if(jacket_allsizes){
-                jacketType = jacket_allsizes.split(":");
-                jacket_size = jacketType[0];
-
-                if (jacketType[1] == "S") {
-                  jacket_type = 'Short'
-                } else if (jacketType[1] == "R") {
-                  jacket_type = 'Regular'
-                } else if (jacketType[1] == "L") {
-                  jacket_type = 'Long'
-                }
-              }
-              var ff_html = '';
-              if (result.data.length > 0) {
-
-                setTimeout(function(){
-
-                  $(`select[name="properties[Jacket Chest Size]"]`).val(jacket_size);
-                  $(`select[name="properties[Jacket Length]"]`).val(jacket_type);
-
-                  $(`select[name="properties[Pant Waist Size]"]`).val(result.data[0].pants_waist);
-                  $(`select[name="properties[Pant Length]"]`).val(result.data[0].pants_hight);
-
-                }, 200);
-
-                //$(`select[name="properties[Vest Size]"]`).val(result.data[0].pants_waist);
-                //$(`select[name="properties[Vest Length]"]`).val(result.data[0].pants_hight);
-
-                ff_html += `<div class="ff-data">
-                                <strong>Jacket/Vest</strong>
-                                <span>Chest: ${jacket_size}</span>
-                                <span>Length: ${jacket_type}</span>
-                                
-                            </div>`;
-                
-
-                if( result.data[0].pants_waist || result.data[0].pants_hight ){
-                  ff_html += `<div class="ff-data">
-                                  <strong>Pants</strong>
-                                  <span>Waist: ${result.data[0].pants_waist}</span>
-                                  <span>Length: ${result.data[0].pants_hight}</span>
-                              </div>`;
-                }
-
-                /*if( result.data[0].shirt_neck || result.data[0].shirt_sleeve ){
-                  ff_html += `<div class="ff-data">
-                                  <strong>${result.data[0].shirt_neck}N | ${result.data[0].shirt_sleeve}S</strong>
-                                  <span>Shirt</span>
-                              </div>`;
-                }
-
-                if( result.data[0].shoe_size ){
-                  ff_html += `<div class="ff-data">
-                                  <strong>${result.data[0].shoe_size}</strong>
-                                  <span>Shoes</span>
-                              </div>`;
-                }*/
-
-                $("#suit_fit_finder").hide();
-                $("#ff-data-box").html(ff_html);
-                $("#fit_finder_data_auto").show();
-              }
-          }else{
-            $("#suit_fit_finder").show();
-            $("#fit_finder_data_auto").hide();
+    url: size_api_url,
+    method: "GET",
+    data: '',
+    dataType: "json",
+    headers: {
+      "Authorization": APP_Token
+    },
+    beforeSend: function () {},
+    success: function (result) {
+      if (result.success) {
+        var jacket_size = 'NA';
+        var jacket_type = 'NA';
+        var jacket_allsizes = result.data[0].jacketSize;
+        if(jacket_allsizes){
+          jacketType = jacket_allsizes.split(":");
+          jacket_size = jacketType[0];
+          if (jacketType[1] == "S") {
+            jacket_type = 'Short'
+          } else if (jacketType[1] == "R") {
+            jacket_type = 'Regular'
+          } else if (jacketType[1] == "L") {
+            jacket_type = 'Long'
           }
-      },
-      error: function (xhr, status, error) {
+        }
+        var ff_html = '';
+        if (result.data.length > 0) {
+          setTimeout(function(){
+            console.log("User has logged In");
+            if(jacket_size == '00' ){
+              $(".select-sizes-wrapper .jacket-sizes-wrap .error-message").show();
+            } else {
+              $(".select-sizes-wrapper .jacket-sizes-wrap .error-message").hide();
+              $(".select-sizes-wrapper .jacket-sizes-wrap .size-value, .select-sizes-wrapper .vest-sizes-wrap .size-value").text(`Jacket size : ${jacket_size}, ${jacket_type}`);
+            }
+            if(result.data[0].pants_waist == '00' && result.data[0].pants_hight == '00'){
+              $(".select-sizes-wrapper .pant-sizes-wrap .error-message").show();
+            } else {
+              $(".select-sizes-wrapper .pant-sizes-wrap .error-message").hide();
+              $(".select-sizes-wrapper .pant-sizes-wrap .size-value").text(`${result.data[0].pants_waist}, ${result.data[0].pants_hight}`);
+            }
+            if(result.data[0].shirt_neck == '00' && result.data[0].shirt_sleeve == '00'){
+              $(".select-sizes-wrapper .shirt-size-wrapper .error-message").show();
+            } else {
+              $(".select-sizes-wrapper .shirt-size-wrapper .error-message").hide();
+              $(".select-sizes-wrapper .shirt-size-wrapper .size-value .neck-size").text(`${result.data[0].shirt_neck}`);
+              $(".select-sizes-wrapper .shirt-size-wrapper .size-value .sleeve-size").text(`, ${result.data[0].shirt_sleeve}`);
+            }
+            if(result.data[0].shoe_size == '00' ){
+              $(".select-sizes-wrapper .shoes-size-wrapper .error-message").show();
+            } else {
+              $(".select-sizes-wrapper .shoes-size-wrapper .error-message").hide();
+              $(".select-sizes-wrapper .shoes-sizes-wrap .size-value .shoes-size").text(`result.data[0].shoe_size`);
+            }
+          }, 200);
+          if(jacket_size == '00'){
+            jacket_size = 'NA'
+          } else {
+            jacket_size = jacket_size;
+          }
+          if(jacket_type == '00'){
+            jacket_type = 'NA'
+          } else {
+            jacket_type = jacket_type;
+          }
+          ff_html += `<div class="ff-data">
+                          <strong>Jacket/Vest</strong>
+                          <span>Chest: ${jacket_size}</span>
+                          <span>Length: ${jacket_type}</span>
+                      </div>`;
+                      
+          var pants_waist  = pant_hight =  shirt_sleeve =  shirt_neck =  shoe_size = '' 
+          if(result.data[0].pants_waist == '00' ){
+            pants_waist = 'NA';
+          } else {
+            pants_waist = result.data[0].pants_waist; 
+          }
+          if(result.data[0].pants_hight == '00' ){
+            pant_hight = 'NA';
+          } else {
+            pant_hight = result.data[0].pants_hight; 
+          }
+          ff_html += `<div class="ff-data">
+                          <strong>Pants</strong>
+                          <span>Waist: ${pants_waist}</span>
+                          <span>Length: ${pant_hight}</span>
+                      </div>`;
+          
+          if(result.data[0].shirt_neck == '00'){
+            shirt_neck = 'NA'
+          } else {
+            shirt_neck = result.data[0].shirt_neck;
+          }
+          if(result.data[0].shirt_sleeve == '00'){
+            shirt_sleeve = 'NA'
+          } else {
+            shirt_sleeve = result.data[0].shirt_sleeve;
+          }
+          if(result.data[0].fit == '00'){
+            shirt_fit = 'NA'
+          } else {
+            shirt_fit = result.data[0].fit;
+          }
+          ff_html += `<div class="ff-data">
+                        <strong>Shirt</strong>
+                        <span>Size: ${shirt_neck} ${shirt_sleeve} / ${shirt_fit}</span>
+                      </div>`;
+          if(result.data[0].shoe_size == '00' ){
+            shoe_size = 'NA';
+          } else {
+            shoe_size = result.data[0].shoe_size;
+          }
+          ff_html += `<div class="ff-data">
+                        <strong>Shoe</strong>
+                        <span>Size: ${shoe_size}</span>
+                      </div>`;
+          $("#suit_fit_finder").hide();
+          $("#ff-data-box").html(ff_html);
+          $("#fit_finder_data_auto").show();
+        }
+      }else{
         $("#suit_fit_finder").show();
         $("#fit_finder_data_auto").hide();
-        //window.location.href = '/account/logout';
       }
+    },
+    error: function (xhr, status, error) {
+      $("#suit_fit_finder").show();
+      $("#fit_finder_data_auto").hide();
+      //window.location.href = '/account/logout';
+    }
   });
 
 }
@@ -831,30 +799,52 @@ function suitSizeDataNonLogged(){
                     <span>Chest: ${jacket_size}</span>
                     <span>Length: ${jacket_type}</span>
                 </div>`;
+                
+    var pants_waist = pant_hight =  shirt_sleeve =  shirt_neck =  shoe_size = '' 
+    if(getFitFinder.pants_waist == '00' ){
+      pants_waist = 'NA';
+    } else {
+      pants_waist = getFitFinder.pants_waist; 
+    }
+    if(getFitFinder.pants_hight == '00' ){
+      pant_hight = 'NA';
+    } else {
+      pant_hight = getFitFinder.pants_hight; 
+    }
+    ff_html += `<div class="ff-data">
+                    <strong>Pants</strong>
+                    <span>Waist: ${pants_waist}</span>
+                    <span>Length: ${pant_hight}</span>
+                </div>`;
     
-
-    if( getFitFinder.pants_waist || getFitFinder.pants_hight ){
-      ff_html += `<div class="ff-data">
-                      <strong>Pants</strong>
-                      <span>Waist: ${getFitFinder.pants_waist}</span>
-                      <span>Length: ${getFitFinder.pants_hight}</span>
-                  </div>`;
+    if(getFitFinder.shirt_neck == '00'){
+      shirt_neck = 'NA'
+    } else {
+      shirt_neck = getFitFinder.shirt_neck;
     }
-
-    /*if( getFitFinder.shirt_neck || getFitFinder.shirt_sleeve ){
-      ff_html += `<div class="ff-data">
-                      <strong>${getFitFinder.shirt_neck}N | ${getFitFinder.shirt_sleeve}S</strong>
-                      <span>Shirt</span>
-                  </div>`;
+    if(getFitFinder.shirt_sleeve == '00'){
+      shirt_sleeve = 'NA'
+    } else {
+      shirt_sleeve = getFitFinder.shirt_sleeve;
     }
-
-    if( getFitFinder.shoe_size ){
-      ff_html += `<div class="ff-data">
-                      <strong>${getFitFinder.shoe_size}</strong>
-                      <span>Shoes</span>
-                  </div>`;
-    }*/
-
+    if(getFitFinder.fit == '00'){
+      shirt_fit = 'NA'
+    } else {
+      shirt_fit = getFitFinder.fit;
+    }
+    ff_html += `<div class="ff-data">
+                  <strong>Shirt</strong>
+                  <span>Size: ${shirt_neck} ${shirt_sleeve} / ${shirt_fit}</span>
+                </div>`;
+    if(getFitFinder.shoe_size == '00' ){
+      shoe_size = 'NA';
+    } else {
+      shoe_size = getFitFinder.shoe_size;
+    }
+    ff_html += `<div class="ff-data">
+                  <strong>Shoe</strong>
+                  <span>Size: ${shoe_size}</span>
+                </div>`;
     $("#suit_fit_finder").hide();
     $("#ff-data-box").html(ff_html);
     $("#fit_finder_data_auto").show();
@@ -935,21 +925,9 @@ $(document).on("change", "input[name=customizer-suit]", function () {
 
 var openOverviewTab = localStorage.getItem("openOverviewTab");
 if(openOverviewTab){
-  // $(".tabbed-content-title").removeClass("active");
-  // $(".tabbed-content-block-inner-wrapper").hide();
-  // $(`.tabbed-content-title[data-target="overview"]`).addClass("active");
-  // $(".tabbed-content-block-inner-wrapper.overview-tab").show();
-
-  // setTimeout(() => {
-  //   $(`.tabbed-content-block-inner-wrapper[data-tab-content="accessories"] .next-step`).trigger("click");
-  //   localStorage.removeItem("openOverviewTab"); 
-  // }, 500);
-
-  theme_custom.fitFinderData();
-  
+  theme_custom.fitFinderData();    
   $(".tabbed-content-block-inner-wrapper").removeClass("active");
-  $(".tabbed-content-block-inner-wrapper[data-tab-content='overview']").addClass("active");
-  
+  $(".tabbed-content-block-inner-wrapper[data-tab-content='overview']").addClass("active");    
   $(".tabbed-content-wrapper .tabbed-content-header li").removeClass("active");
   $(".tabbed-content-title[data-target='overview']").addClass("active");
   // $('html, body').stop().animate({
@@ -1033,7 +1011,7 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
           if($(`select[name="properties[Jacket Length]"]`).val()){
             //getFitFinder.jacket_type = $(`select[name="properties[Jacket Length]"]`).val();
             var jacketType = $(`select[name="properties[Jacket Length]"]`).val();
-            
+
             if (jacketType == "Short") {
               jacketTypeSize = 'S'
             } else if (jacketType == "Regular") {
@@ -1120,7 +1098,7 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
           var pantLength = '';
 
           jacketChest = $(`select[name="properties[Jacket Chest Size]"]`).val();
-          
+
           var jacketType = $(`select[name="properties[Jacket Length]"]`).val();
           if (jacketType == "Short") {
             jacketTypeSize = 'S'

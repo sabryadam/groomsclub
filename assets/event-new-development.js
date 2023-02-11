@@ -121,7 +121,6 @@ theme_custom.eventValidation = function(){
       "event_role_id": event_role,
       "owner_phone_number":event_phone
     }
-    debugger;
     $.ajax({
       url: `${theme_custom.base_url}/api/event/create`,
       method: "POST",
