@@ -257,7 +257,14 @@ theme_custom.fitFinderChangeEvent = function () {
     $(".step-wrapper[data-step-title='Height']").find(".height-feet").val(selectedValueArr[0]);
     $(".step-wrapper[data-step-title='Height']").find(".height-inche").val(selectedValueArr[1]);
     $(".step-wrapper[data-step-title='Height']").find(".user-height").val(selectedVal);
+    $(this).closest('.step-wrapper').find('.next-button').click();
   });
+
+  $('.go-next-step-wrapper input[type="radio"]').on('change',function(e){
+    let parent = $(this).closest('.go-next-step-wrapper');
+    let nextButton = $('.next-button',parent);
+    nextButton.click();
+  })
 }
 
 theme_custom.jacketSizefunction = function (jacketSize, jacketSizeVal, jacketPantVal, fitFinder) {
@@ -329,6 +336,10 @@ theme_custom.windowScrolTop = function () {
   }, 900);
 }
 
+theme_custom.goToNext = function() {
+  
+}
+
 // Fit Finder All Click Event 
 theme_custom.fitFinderClickEvent = function () {
   var fitFinder = [],
@@ -386,6 +397,9 @@ theme_custom.fitFinderClickEvent = function () {
       theme_custom.windowScrolTop();
     }
   });
+
+
+
 
   // Next button Click Event
   $(document).on("click", ".next-button", function () {

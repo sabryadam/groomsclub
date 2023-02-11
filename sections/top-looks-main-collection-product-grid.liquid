@@ -384,7 +384,7 @@
 </div>
 
 <script src="{{ 'collection-filters-form.js' | asset_url }}" defer="defer"></script>
-{%- assign products_per_page = section.settings.products_per_page -%}
+{%- assign products_per_page = 9 -%}
 <div id="CollectionProductGrid">
   {%- paginate collection.products by products_per_page -%}
     {%- if collection.products.size == 0 -%}
@@ -427,15 +427,12 @@
         </p>
 
         <div class="main-collection-product-grid" data-id="{{ section.id }}">
-          {%- for product in collection.products reversed  limit: 7 -%}
-            {% if forloop.index == 1 %} 
-              <div class="product-grid-outer-wrapper">
-                <div class="page-width">
-            {%- endif -%}
-            {% if forloop.index == 2 or forloop.index == 5 %} 
+          {%- for product in collection.products reversed  limit: 9 -%}
+            
+            {% if forloop.index == 1 or forloop.index == 4 or forloop.index == 7 %} 
               <div class="product-grid-outer-wrapper outer-padding-product top-looks-side-part">
             {%- endif -%}
-            {% if forloop.index == 2 or forloop.index == 3 or forloop.index == 5 or forloop.index == 6  %} 
+            {% if forloop.index == 1 or forloop.index == 2 or forloop.index == 4 or forloop.index == 5 or forloop.index == 7 or forloop.index == 8  %} 
               <div class="product-grid-inner-wrapper">
             {%- endif -%}
             <div class="plp-top-looks-product-grid" data-index="{{ forloop.index }}">
@@ -447,14 +444,10 @@
                 show_vendor: section.settings.show_vendor
               %}
             </div>
-            {% if forloop.index == 1 %} 
-                </div>
+            {% if forloop.index == 1 or forloop.index == 3 or forloop.index == 4 or forloop.index == 6 or forloop.index == 7 or forloop.index == 9 %} 
               </div>
             {%- endif -%}
-            {% if forloop.index == 2 or forloop.index == 4 or forloop.index == 5 or forloop.index == 7 or forloop.last %} 
-              </div>
-            {%- endif -%}
-            {% if forloop.index == 4 or forloop.index == 7  or forloop.last %} 
+            {% if forloop.index == 3 or forloop.index == 6  or forloop.last %} 
               </div>
             {%- endif -%}
           {%- endfor -%}
@@ -466,17 +459,7 @@
         {% if collection.products_count < 4 %} grid--{{ collection.products_count }}-col-tablet{% else %}
           {% if collection.products_count == 4 %} grid--4-col-desktop{% else %} grid--3-col-tablet grid--one-third-max grid--3-col-desktop grid--quarter-max{% endif %}
         {% endif %} negative-margin">
-          {%- for product in collection.products offset: 7 -%}
-            <div class="grid__item" data-index="{{ forloop.index }}">
-              {% render 'product-card',
-                product_card_product: product,
-                media_size: section.settings.image_ratio,
-                show_secondary_image: section.settings.show_secondary_image,
-                add_image_padding: section.settings.add_image_padding,
-                show_vendor: section.settings.show_vendor
-              %}
-            </div>
-          {%- endfor -%}
+          
           </div>
 
           {%- if paginate.pages > 1 -%}
@@ -493,15 +476,6 @@
   "name": "t:sections.main-collection-product-grid.name",
   "class": "spaced-section collection-grid-section",
   "settings": [
-    {
-      "type": "range",
-      "id": "products_per_page",
-      "min": 7,
-      "max": 27,
-      "step": 2,
-      "default": 7,
-      "label": "t:sections.main-collection-product-grid.settings.products_per_page.label"
-    },
     {
       "type": "header",
       "content": "t:sections.main-collection-product-grid.settings.header__3.content"
