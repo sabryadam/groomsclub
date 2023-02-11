@@ -3912,10 +3912,9 @@ details-disclosure>details {
 }
 
 .header__menu-item-wrap.how-it-works:hover .header__submenu {
-  min-width: 600px;
+  min-width: 730px;
   display: flex;
   top: 100%;
-  padding: 2rem 0;
 }
 .header__menu-item-wrap.how-it-works{
   display: flex;
@@ -3924,10 +3923,15 @@ details-disclosure>details {
 
 .header__menu-item-wrap.how-it-works .list-menu{
   width: 200px;
+  padding: 2rem 0;
 }
 .header__menu-item-wrap.how-it-works .contact-us-header-menu{
-  width: 400px;
-  padding: 15px;
+  background: var(--color-light-gray-background);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 530px;
+  padding: 15px 20px;
 }
 .header__menu-item-wrap:hover .header__submenu.menu-item-above-five {
   min-width: 500px;
