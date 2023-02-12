@@ -337,9 +337,9 @@ select.suit_attr + .icon {
 
 .ff-top-box {
 	position: relative;
-	border-bottom: 1px solid #BEBEBE;
+	/* border-bottom: 1px solid #BEBEBE; */
 	padding-bottom: 8px;
-	margin-bottom: 20px;
+	/* margin-bottom: 20px; */
 }
 
 .ff-top-box h3 {
@@ -369,6 +369,7 @@ select.suit_attr + .icon {
 #ff-data-box {
 	display: flex;
 	flex-wrap: wrap;
+	display: none;
 }
 
 .ff-data {
@@ -743,4 +744,58 @@ div.tab-top-border {
     width: 100%!important;
     display: inline-table;
 }
+}
+.product-swatches-main .swatches{
+	margin-bottom: 15px;
+}
+.product-swatches-main .swatches .swatch-title{
+	text-align: left;
+	margin: 0;
+	margin-bottom: 10px;
+}
+
+.product-swatches-main .swatches .swatch{
+	display: flex;
+	display: flex;
+    max-width: 550px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+
+.product-swatches-main .swatches .swatch .swatch-element-item{
+	padding: 6px 12px;
+	display: inline-block;
+	margin-right: 8px;
+	border: 1px solid #ccc;
+	margin-bottom: 8px;
+	cursor: pointer;
+}
+
+.product-swatches-main .swatches .swatch .swatch-element-item.color{
+	padding: 0;
+	display: inline-block;
+	cursor: pointer;
+	border: 3px solid transparent;
+	border-radius: 100%;
+}
+.product-swatches-main .swatches .swatch .swatch-element-item.color.active{
+	border: 3px solid var(--color-button-light-blue);
+}
+
+.product-swatches-main .swatches .swatch .swatch-element-item.color label{
+	display: block;
+	width: 40px;
+	height: 40px;
+	border-radius: 100%;
+	cursor: pointer;
+}
+.product-swatches-main .swatches .swatch .swatch-element-item.active{
+	background: var(--color-light-gray-background);
+}
+.product-swatch-option .product-swatches-main{
+	display: none;
+}
+.fancybox-is-open .product-swatch-option .product-swatches-main{
+	display: block;
 }

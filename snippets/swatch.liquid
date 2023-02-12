@@ -1,0 +1,47 @@
+{% assign file_extension = 'png' %}
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% if swatch == blank %}
+{% else %}
+{% assign found_option = false %}
+{% assign is_color = false %}
+{% assign option_index = -1 %}
+{% for option in product.options %}
+{% if option == swatch %}
+{% assign found_option = true %}
+{% assign option_index = forloop.index0 %}
+{% assign downcased_option = swatch | handle %}
+{% if downcased_option contains 'color' or downcased_option contains 'colour' %}
+{% assign is_color = true %}
+{% endif %}
+{% endif %}
+{% endfor %}
+{% if option_index != -1 %}
+<div class="swatches text-center {% if size <= 1 %} hidden{% endif %}">
+  <p class="swatch-title">{{ swatch }}</p>
+  <div class="swatch {{ swatch }} {{ swatch | handle }}" data-option-swatch-index="{{ option_index }}">
+    {% assign values = '' %}
+    {% for variant in product.variants %}
+    {% assign value = variant.options[option_index] %}
+    {% unless values contains value %}
+    {% assign values = values | join: ',' %}
+    {% assign values = values | append: ',' | append: value %} 
+    {% assign values = values | split: ',' %}
+    {% assign bg_img = value | handle | append:'.png' %}
+    {% assign bg_img = bg_img| prepend:'color_' %}
+    <div data-title="{{ value }}" data-value="{{ value | handleize }}" class="swatch-element-item {% if is_color %}color {% endif %}{{ value | handle }} {% if variant.id == current_variant.id %} active{% endif %}">
+      {% if is_color %}
+      <label style="background-image:url({{bg_img | file_img_url:'master'}})" for="swatch-{{ option_index }}-{{ value | handle }}">
+        
+      </label>
+      {% else %}
+      <span>
+        {{ value | escape }}
+      </span>
+      {% endif %}
+    </div>
+    {% endunless %}
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+{% endif %}
