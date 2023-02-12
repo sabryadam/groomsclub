@@ -33,7 +33,7 @@
         "bf225404-9b75-47e0-bf50-b21aa5bc12ea": {
           "type": "block",
           "settings": {
-            "links-pages": "shopify:\/\/pages\/returns-and-exchanges",
+            "links-pages": "https:\/\/groomsclub.returnly.com\/",
             "text-heading": "Returns and Exchanges",
             "text-para": "We make returns & exchanges easy."
           }

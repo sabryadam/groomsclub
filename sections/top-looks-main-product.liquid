@@ -6,13 +6,12 @@
 
 $(document).ready(function(){
   var cur_url = window.location.href;
-  if(cur_url.indexOf('collections/suit') != -1){
+  if(cur_url.indexOf('collections/suit') != -1 || cur_url.indexOf('collections/looks') != -1){
     //$("body").addClass("suit_page_body");
 
     if( $(`.product-data-card.product-data-card-wrap[data-product-type="vest"] .edit-item-btn.btn`).text() == 'Select Size' ){
       $(`.product-data-card.product-data-card-wrap[data-product-type="vest"]`).find(".variant-title span").html("");
     }
-
     $(".suit_btn_add_to_cart").click(function(){
       var varCount = 0;
 
@@ -26,6 +25,9 @@ $(document).ready(function(){
       if( $(`.product-data-card.product-data-card-wrap[data-product-type="vest"] .edit-item-btn.btn`).text() == 'Select Size' ){
         varCount = 1;
         $(`.product-data-card.product-data-card-wrap[data-product-type="vest"] `).addClass("required-box");
+        $('html, body').animate({
+          scrollTop: $(".product-form").offset().top
+        }, 2000);
       }else{
         $(`.product-data-card.product-data-card-wrap[data-product-type="vest"] `).removeClass("required-box");
       }

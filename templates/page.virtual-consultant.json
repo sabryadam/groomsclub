@@ -63,7 +63,7 @@
         "template--16031272861882__5ffd682c-aab2-401e-ba09-8053152b2a20-16750289736e3e406a-1": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>Risk-Free<\/strong><\/p><p><a href=\"https:\/\/www.groomsclub.com\/apps\/return_prime\" title=\"https:\/\/www.groomsclub.com\/apps\/return_prime\">Returns and exchanges <\/a>on unaltered items are always free. Our team has and will continue to provide support to couples whose plans have been affected by COVID-19. Our stylists are more than happy to set up a free trial so you can see the fit and quality for yourself before committing to purchase.<br\/><br\/><strong>Wedding Groups<br\/><\/strong>We know it’s difficult to get your entire wedding party’s fittings and orders completed in one showroom! That’s why we’re happy to manage your wedding group’s ordering process, including reminding everyone to order the right products and on time. Ask your stylist for more information.<\/p>"
+            "text": "<p><strong>Risk-Free<\/strong><\/p><p><a href=\"https:\/\/groomsclub.returnly.com\/\" target=\"_blank\" title=\"https:\/\/groomsclub.returnly.com\/\">Returns and exchanges <\/a>on unaltered items are always free. Our team has and will continue to provide support to couples whose plans have been affected by COVID-19. Our stylists are more than happy to set up a free trial so you can see the fit and quality for yourself before committing to purchase.<br\/><br\/><strong>Wedding Groups<br\/><\/strong>We know it’s difficult to get your entire wedding party’s fittings and orders completed in one showroom! That’s why we’re happy to manage your wedding group’s ordering process, including reminding everyone to order the right products and on time. Ask your stylist for more information.<\/p>"
           }
         },
         "template--16031272861882__5ffd682c-aab2-401e-ba09-8053152b2a20-16750289736e3e406a-2": {
@@ -71,6 +71,7 @@
           "settings": {
             "button_label": "Book Personalized Appointment",
             "button_link": "https:\/\/calendly.com\/thegroomssuitstore01\/30min",
+            "open_new_tab": true,
             "button_style_secondary": false
           }
         }
@@ -97,7 +98,6 @@
         "8f606f26-a5a1-467b-83a6-066f369aa785": {
           "type": "icontext",
           "settings": {
-            "icon_image": "shopify:\/\/shop_images\/Screenshot_44.png",
             "title": "<p><a href=\"tel:201-559-9715\" target=\"_blank\" title=\"tel:201-559-9715\">201-559-9715<\/a><\/p>",
             "subtitle": "Call us from 9am-7pm EST (Mon-Fri)."
           }
@@ -105,17 +105,15 @@
         "14000608-56fe-4cab-b958-bf04595d6acf": {
           "type": "icontext",
           "settings": {
-            "icon_image": "shopify:\/\/shop_images\/Screenshot_45.png",
-            "title": "<p><a href=\"mailto:info@groomsclub.com.com\" target=\"_blank\" title=\"mailto:info@groomsclub.com.com\">info@gtoomsclub.com<\/a><\/p>",
+            "title": "<p><a href=\"mailto:info@groomsclub.com.com\" target=\"_blank\" title=\"mailto:info@groomsclub.com.com\">info@groomsclub.com<\/a><\/p>",
             "subtitle": "Our team typically answers within 24 hrs."
           }
         },
         "b81e2017-1de9-4553-860b-c3a0fde0115c": {
           "type": "icontext",
           "settings": {
-            "icon_image": "shopify:\/\/shop_images\/Screenshot_46.png",
-            "title": "<p>Service Center<\/p>",
-            "subtitle": "Get answers for common questions."
+            "title": "<p>Store Address<\/p>",
+            "subtitle": "318 Route 4 East, Paramus New Jersey 07652, United States"
           }
         }
       },

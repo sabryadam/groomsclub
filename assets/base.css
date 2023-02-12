@@ -3911,7 +3911,28 @@ details-disclosure>details {
   min-width: 200px;
   display: block;
 }
+.header__menu-item-wrap.how-it-works{
+  display: flex;
+  justify-content: space-between;
+}
 
+.header__menu-item-wrap.how-it-works .list-menu{
+  width: 200px;
+  padding: 2rem 0;
+}
+.header__menu-item-wrap.how-it-works .contact-us-header-menu{
+  background: var(--color-light-gray-background);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 530px;
+  padding: 15px 20px;
+}
+.header__menu-item-wrap.how-it-works:hover .header__submenu {
+  min-width: 730px;
+  display: flex;
+  top: 100%;
+}
 .header__menu-item-wrap:hover .header__submenu.menu-item-above-five {
   min-width: 500px;
   vertical-align: top;
