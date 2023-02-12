@@ -337,9 +337,9 @@ select.suit_attr + .icon {
 
 .ff-top-box {
 	position: relative;
-	/* border-bottom: 1px solid #BEBEBE; */
+	border-bottom: 1px solid #BEBEBE;
 	padding-bottom: 8px;
-	/* margin-bottom: 20px; */
+	margin-bottom: 20px;
 }
 
 .ff-top-box h3 {
@@ -369,7 +369,7 @@ select.suit_attr + .icon {
 #ff-data-box {
 	display: flex;
 	flex-wrap: wrap;
-	display: none;
+	/* display: none; */
 }
 
 .ff-data {

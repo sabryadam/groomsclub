@@ -1120,6 +1120,11 @@ theme_custom.customize_product_clickEvent = function () {
         $(`select`,parent).val(optionValue);
         $(btn).removeClass('disabled');
         $(btn).text('Update');
+
+        let error = $(`.customize-look-overview-product[data-product-handle="${parent.attr('data-product-handle')}"] .error-msg`);
+        if(error.length > 0){
+          error.hide();
+        }
       }
     }else{
       $(btn).addClass('disabled');
