@@ -764,12 +764,14 @@ div.tab-top-border {
 
 
 .product-swatches-main .swatches .swatch .swatch-element-item{
-	padding: 6px 12px;
+	padding: 8px 16px;
 	display: inline-block;
 	margin-right: 8px;
-	border: 1px solid #ccc;
 	margin-bottom: 8px;
 	cursor: pointer;
+	border: 3px solid var(--light-gray-border);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
 }
 
 .product-swatches-main .swatches .swatch .swatch-element-item.color{
@@ -791,7 +793,9 @@ div.tab-top-border {
 	cursor: pointer;
 }
 .product-swatches-main .swatches .swatch .swatch-element-item.active{
-	background: var(--color-light-gray-background);
+	background-color: var(--color-foreground);
+    color: var(--color-background);
+    border-color: var(--color-light-blue);
 }
 .product-swatch-option .product-swatches-main{
 	display: none;
