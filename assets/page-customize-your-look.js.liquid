@@ -116,7 +116,7 @@ theme_custom.productDataFromURL = function () {
           productPrice = getVarPrice / 100,
           getProductHandle = currentOption.closest('.product-item-wrap').find('.swatch-wrap:first-child').attr('data-product-handle'),
           productType = currentOption.closest('.product-block-wrapper').attr("data-product-type").toLowerCase(),
-          getProductvarQty = currentOption.attr("data-variant-inventory")
+          getProductvarQty = parseInt(currentOption.attr("data-variant-inventory")),
         editRemoveBtnWrap = inputHiddenVal = productBlockVarData = editItem = removeItem = variantTitle = variantTitleWithOption = optionFirstName = optionFirstVal = optionSecondName = optionSecondVal = optionThirdName = optionThirdval = '';
         if (getProductvarQty == 0) {
           variantNotFoundMessage = `<p class="error-msg">${theme_custom.productNotFoundError}</p>`
@@ -944,7 +944,6 @@ theme_custom.variantDataGet = function (input) {
 
 // theme_custom.setFinderData
 theme_custom.setFinderData = function () {
-
   var getFitFinderData = JSON.parse(getCookie("fit-finder-data"));
   console.log(getFitFinderData);
   var jacketType = getFitFinderData.jacketSize.split(":");
@@ -1045,7 +1044,11 @@ theme_custom.setFitFinderData = function(){
       let item = $(`.swatch-element-item[data-value="${jacketStyle}"]`,jacketStyle).click();
     }
     if(jacketChestSize.length > 0 || jacketStyle.length > 0){
-      let btn = $(`.exchange-look-item`,jacket).click();
+      let btn = $(`.exchange-look-item`,jacket);
+      if(btn.hasClass('disabled')){
+      }else{
+        btn.click();
+      }
     }
 
 
@@ -1062,7 +1065,10 @@ theme_custom.setFitFinderData = function(){
     }
     if(paintWaist.length > 0 || paintLength.length > 0){
       let btn = $(`.exchange-look-item`,pants);
-      btn.click();
+      if(btn.hasClass('disabled')){
+      }else{
+        btn.click();
+      }
     }
 
 
@@ -1075,7 +1081,10 @@ theme_custom.setFitFinderData = function(){
     }
     if(shirtDiv.length > 0){
       let btn = $(`.exchange-look-item`,shirts);
-      btn.click();
+      if(btn.hasClass('disabled')){
+      }else{
+        btn.click();
+      }
     }
 
     let shoeSize = data.shoe_size;
@@ -1084,7 +1093,10 @@ theme_custom.setFitFinderData = function(){
     if(shoesSize.length > 0){
       let item = $(`.swatch-element-item[data-value="${shoeSize}"]`,shoesSize).click();
       let btn = $(`.exchange-look-item`,shoes);
-      btn.click();
+      if(btn.hasClass('disabled')){
+      }else{
+        btn.click();
+      }
     }
 
   }
@@ -1121,10 +1133,7 @@ theme_custom.customize_product_clickEvent = function () {
         $(btn).removeClass('disabled');
         $(btn).text('Update');
 
-        let error = $(`.customize-look-overview-product[data-product-handle="${parent.attr('data-product-handle')}"] .error-msg`);
-        if(error.length > 0){
-          error.hide();
-        }
+        
       }
     }else{
       $(btn).addClass('disabled');
@@ -1194,6 +1203,11 @@ theme_custom.customize_product_clickEvent = function () {
       $(`.customize-look-overview-product[data-product-type="suit"] .pant_option .option1`).text(targetVarTitleArr[0]+'W');
       $(`.customize-look-overview-product[data-product-type="suit"] .pant_option .option2`).text(targetVarTitleArr[1]+'H');
     }
+    let parent = $(this).closest('.product-swatch-option');
+    let error = $(`.customize-look-overview-product[data-product-handle="${parent.attr('data-product-handle')}"] .error-msg`);
+      if(error.length > 0){
+        error.hide();
+      }
     button.text("Updated");
     $(".fancybox-button").click();
   })

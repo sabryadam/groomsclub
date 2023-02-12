@@ -28,7 +28,9 @@
     {% assign values = values | split: ',' %}
     {% assign bg_img = value | handle | append:'.png' %}
     {% assign bg_img = bg_img| prepend:'color_' %}
-    <div data-title="{{ value }}" data-value="{{ value | handleize }}" class="swatch-element-item {% if is_color %}color {% endif %}{{ value | handle }} {% if variant.id == current_variant.id %} active{% endif %}">
+    {% assign optIndx = option_index | plus: 1 %}
+    {% assign opt = 'option' | append:optIndx %}
+    <div data-title="{{ value }}" data-value="{{ value | handleize }}" class="swatch-element-item {% if is_color %}color {% endif %}{{ value | handle }} {% if current_variant[opt] == value %} active{% endif %}">
       {% if is_color %}
       <label style="background-image:url({{bg_img | file_img_url:'master'}})" for="swatch-{{ option_index }}-{{ value | handle }}">
         
