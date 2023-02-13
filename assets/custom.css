@@ -638,11 +638,9 @@ div.tab-top-border {
 		display: inline-block !important;
 		position: relative;
 		top: 0;
-/* 		height: 35px;
-		width: 35px; */
 	}
 	.product-block.product-item-wrap.no-vest label {
-/* 		height: 35px;
+		/* height: 35px;
 		width: 35px; */
 	}
 	.product-block.product-item-wrap.no-vest span {
