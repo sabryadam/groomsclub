@@ -449,10 +449,50 @@
   <div class="tabbed-content-block-inner-wrapper overview-tab"  data-tab-content="overview">
     <div class="product-info-top-block">
       <h3 class="section-heading right-scroll-spcing">Overview</h3>
+
+      <div class="product-info-top-block">
+        <h3 class="section-heading right-scroll-spcing" style="display: none;">Find Your Fit</h3>
+        <div class="scroll-part right-scroll-spcing">
+  
+          <div id="cust-size-chart" class="product-block-wrap-suit-wrappertwo">
+            <div class="row">
+              <h4>SELECT SIZES:</h4>
+            </div>
+            <div id="overview_ff_box">
+              <div id="suit_fit_finder" class="completefit product_fit_finder" style="display: none;">
+                <a href="https://www.groomsclub.com/pages/fit-finder">
+                  <div>
+                      <h4>Not sure of your size? Try our fit finder</h4>
+                    <p>Answer a few simple questions to help you find the perfect fit</p>
+                  </div>
+                  <i class="fas fa-chevron-right"></i>
+                </a>
+              </div>
+              <div id="fit_finder_data_auto" style="display: none;">
+                <div class="ff-top-box">
+                  <h3>Your Sizes</h3>
+                  <span>Calculated based on your fit responses.</span>
+                  <a href="https://www.groomsclub.com/pages/fit-finder">Retry fit finder</a>
+                </div>
+                <div id="ff-data-box">
+                </div>
+              </div>
+            </div>
+            <div class="fit-finder-data" style="disaply: none !important;"></div>
+          </div>
+  
+          <button type="button" data-href="/pages/fit-finder" class="button button--secondary button--full-width fit-finder-button">
+            {% include 'icon-size-rular'%}
+            <span>Try out Fit Finder</span>
+          </button>
+        </div>
+      </div>
+
       <div class="scroll-part right-scroll-spcing overview-product no-product-in-overview">
         <h5 class="no-product-has-overview">{{ section.settings.no_product_has_overview | escape }}</h5>
       </div> 
     </div>
+    
     <div class="product-info-footer right-scroll-spcing">
       <div class="product-price">
         <span class="title">Subtotal : </span>
@@ -559,7 +599,6 @@
         <li class="tabbed-content-title active" data-target="personalize">Select Color</li>
         <li class="tabbed-content-title" data-target="customize">customize</li>
         <li class="tabbed-content-title" data-target="accessories">accessories</li>
-        <li class="tabbed-content-title" data-target="find-your-fit">Recommended Sizes</li>
         <li class="tabbed-content-title" data-target="overview">Overview</li>
       </ul>
     </div>
@@ -599,7 +638,6 @@
         {{ personalizeProductData }}
         {{ customizeProductData }}
         {{ accessoriesProductData }}
-        {{ fitFinderData }}
         {{ productOverViewData }}
       </div>
     </div>
@@ -880,11 +918,10 @@ $("#suit_fit_finder a").click(function(e){
 setTimeout(function(){
   $("#product_info_box .next-step").removeClass("disabled");
 }, 2000);
-
 var check_recomm = localStorage.getItem("open_recomm_size");
 if(check_recomm){
   setTimeout(function(){
-    $(`.tabbed-content-title.tab-header[data-target="find-your-fit"]`).trigger("click");
+    $(`.tabbed-content-title.tab-header[data-target="overview"]`).trigger("click");
     localStorage.removeItem("open_recomm_size");
   }, 2000);
 }
