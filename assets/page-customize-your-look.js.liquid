@@ -1034,7 +1034,7 @@ theme_custom.setFitFinderData = function(){
   let getData = getCookie('fit-finder-data');
   if(getData){
     const data = JSON.parse(getData);
-    <!-- chest-size style -->
+    // <!-- chest-size style -->
 
     let jacketSize = data.jacket_size;
     let jacketType = data.jacket_type;
@@ -1117,7 +1117,12 @@ theme_custom.setFitFinderData = function(){
       let shirtVal = theme_custom.handleize(`${shirtNeck} ${shirtSleeve}`);
       let item = $(`.swatch-element-item[data-value="${shirtVal}"]`,shirtDiv).click();
     }
-    if(shirtDiv.length > 0){
+    let shirtStyleDiv = $('.swatch.style',shirts);
+    if(shirtStyleDiv.length > 0){
+      let shirtStyleVal= theme_custom.handleize(`${data.fit}`);
+      let item = $(`.swatch-element-item[data-value="${shirtStyleVal}"]`,shirtStyleDiv ).click();
+    }
+    if(shirtDiv.length > 0 && shirtStyleDiv.length > 0){
       let btn = $(`.exchange-look-item`,shirts);
       if(btn.hasClass('disabled')){
       }else{
