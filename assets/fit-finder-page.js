@@ -259,13 +259,24 @@ theme_custom.fitFinderChangeEvent = function () {
     $(".step-wrapper[data-step-title='Height']").find(".user-height").val(selectedVal);
     $(this).closest('.step-wrapper').find('.next-button').click();
   });
-  $('.go-next-step-wrapper input[type="radio"]').on('change',function(e){
-    setTimeout(() => {
-      let parent = $(this).closest('.go-next-step-wrapper');
-      let nextButton = $('.next-button',parent);
-      nextButton.click();
-    }, 300);
-  })
+  if(localStorage.getItem("edit-fit-finder")){
+    $('.go-next-step-wrapper .form-wrap label').on('click',function(e){
+      setTimeout(() => {
+        $(this).parent().find(`[type="radio"]`).attr("checked",true);
+        let parent = $(this).closest('.go-next-step-wrapper');
+        let nextButton = $('.next-button',parent);
+        nextButton.click();
+      }, 300);
+    })
+  } else {
+    $('.go-next-step-wrapper input[type="radio"]').on('change',function(e){
+      setTimeout(() => {
+        let parent = $(this).closest('.go-next-step-wrapper');
+        let nextButton = $('.next-button',parent);
+        nextButton.click();
+      }, 300);
+    })
+  }
 }
 
 theme_custom.jacketSizefunction = function (jacketSize, jacketSizeVal, jacketPantVal, fitFinder) {
