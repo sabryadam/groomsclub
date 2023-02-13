@@ -333,7 +333,6 @@
   margin-top: 0;
 }
 
-.product-grid-outer-wrapper:first-child, 
 .product-grid-outer-wrapper .product-grid-inner-wrapper .plp-top-looks-product-grid{
   background-color: var(--color-light-gray-background);
   margin-bottom: 30px;

@@ -260,9 +260,11 @@ theme_custom.fitFinderChangeEvent = function () {
     $(this).closest('.step-wrapper').find('.next-button').click();
   });
   $('.go-next-step-wrapper input[type="radio"]').on('change',function(e){
-    let parent = $(this).closest('.go-next-step-wrapper');
-    let nextButton = $('.next-button',parent);
-    nextButton.click();
+    setTimeout(() => {
+      let parent = $(this).closest('.go-next-step-wrapper');
+      let nextButton = $('.next-button',parent);
+      nextButton.click();
+    }, 300);
   })
 }
 
