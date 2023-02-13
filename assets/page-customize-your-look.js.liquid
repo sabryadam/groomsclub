@@ -1246,7 +1246,10 @@ theme_custom.customize_product_clickEvent = function () {
       $(`.customize-look-overview-product[data-product-type="suit"] .pant_option .option1`).text(targetVarTitleArr[0]+'W');
       $(`.customize-look-overview-product[data-product-type="suit"] .pant_option .option2`).text(targetVarTitleArr[1]+'H');
     }
-    let parent = $(this).closest('.product-swatch-option');
+    if(productType == 'pants'){
+      $('.customize-look-overview-product[data-product-type="shirt"]').addClass("product-block-var-data")
+    }
+    let parent = $(this).closest('.product-swatch-option'); 
     let error = $(`.customize-look-overview-product[data-product-handle="${parent.attr('data-product-handle')}"] .error-msg`);
       if(error.length > 0){
         error.hide();
