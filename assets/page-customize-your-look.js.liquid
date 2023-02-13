@@ -1134,7 +1134,7 @@ theme_custom.setFitFinderData = function(){
     let shoes = $('.customize-look-overview-product[data-product-type="shoes"]',parent);
     let shoesSize = $('.swatch.size',shirts);
     if(shoesSize.length > 0){
-      let item = $(`.swatch-element-item[data-value="${shoeSize}"]`,shoesSize).click();
+      let item = $(`.swatch-element-item[data-value="${shoeSize}"]`,shoes).click();
       let btn = $(`.exchange-look-item`,shoes);
       if(btn.hasClass('disabled')){
       }else{
