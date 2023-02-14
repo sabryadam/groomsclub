@@ -119,7 +119,7 @@ theme_custom.productDataFromURL = function () {
           getProductvarQty = parseInt(currentOption.attr("data-variant-inventory")),
         editRemoveBtnWrap = inputHiddenVal = productBlockVarData = editItem = removeItem = variantTitle = variantTitleWithOption = optionFirstName = optionFirstVal = optionSecondName = optionSecondVal = optionThirdName = optionThirdval = '';
         if (getProductvarQty == 0) {
-          variantNotFoundMessage = `<p class="error-msg">${theme_custom.productNotFoundError}</p>`
+          variantNotFoundMessage = `<p class="error-msg active">${theme_custom.productNotFoundError}</p>`
         } else {
           variantNotFoundMessage = '';
         }
@@ -1247,13 +1247,28 @@ theme_custom.customize_product_clickEvent = function () {
       $(`.customize-look-overview-product[data-product-type="suit"] .pant_option .option1`).text(targetVarTitleArr[0]+'W');
       $(`.customize-look-overview-product[data-product-type="suit"] .pant_option .option2`).text(targetVarTitleArr[1]+'H');
     }
-    let parent = $(this).closest('.product-swatch-option');
+    let parent = $(this).closest('.product-swatch-option'); 
     let error = $(`.customize-look-overview-product[data-product-handle="${parent.attr('data-product-handle')}"] .error-msg`);
-      if(error.length > 0){
-        error.hide();
+    if(error.length > 0){
+      error.hide();
+      var target = $(this).closest(".product-swatch-option").attr("data-product-handle");
+      $(`.customize-look-overview-product[data-product-handle="${target}"]`).addClass("product-block-var-data")
+      $(`.customize-look-overview-product[data-product-handle="${target}"]`).find(".error-msg").removeClass("active");
+      if($(".error-msg.active").length > 0){
+        $(`[data-tab-content="overview"]`).find(".add-to-cart-button").addClass("disabled");
+      } else {
+        $(`[data-tab-content="overview"]`).find(".add-to-cart-button").removeClass("disabled");
       }
+    }
+    if($(".error-msg").hasClass("active")){
+      $(`[data-tab-content="overview"]`).find(".add-to-cart-button").addClass("disabled");
+    } else {
+      $(`[data-tab-content="overview"]`).find(".add-to-cart-button").removeClass("disabled");
+    }
+    
     button.text("Updated");
     $(".fancybox-button").click();
+    
   })
 
   // product option popup open
@@ -1345,7 +1360,8 @@ theme_custom.customize_product_clickEvent = function () {
         nextstep.find(".button-wrapper .continue-button:last-child").hide();
         nextstep.find(".button-wrapper .continue-button.mobile-next-tab-btn-main").show();
       }
-
+      
+      
       if( targetElm.nextAll().attr("data-target") == 'overview' && getCookie("fit-finder-data") == "" ){
         $('.overview-tab .overview-product.no-product-in-overview').hide();
         $('.overview-tab .product-info-footer .add-to-cart-button').addClass('disabled');
@@ -1735,6 +1751,16 @@ theme_custom.customize_product_clickEvent = function () {
 //  Init Function
 theme_custom.customize_product_init = function () {
   theme_custom.customize_product_clickEvent();
+  var check_recomm = localStorage.getItem("open_recomm_size");
+  console.log("check_recomm",check_recomm)
+  if(check_recomm){
+    setTimeout(function(){
+      // $(`.tabbed-content-block-inner-wrapper[data-tab-content="accessories"]`).find(".next-step").trigger("click");
+      $(`.tabbed-content-block-inner-wrapper[data-tab-content="overview"]`).addClass("active")
+      $(`.tabbed-content-title.tab-header[data-target="overview"]`).click();
+      localStorage.removeItem("open_recomm_size");
+    }, 3000);
+  }
 }
 
 // theme_custom.fitFinderData
@@ -1905,7 +1931,7 @@ $(document).ready(function () {
       targetQty = $(this).closest(".product-swatch-option").find(`.prod-variant-option option[value='${targetVal}']`).attr("data-variant-inventory"),
       productHandle = $(this).closest(".product-swatch-option").attr("data-product-handle");
     if (targetQty == 0) {
-      $(this).closest(".product-swatch-option").append("<p clas='error-wrap' style='color:red; text-align:center'>" + theme_custom.productNotFoundError + "</p>");
+      $(this).closest(".product-swatch-option").append("<p clas='error-wrap active' style='color:red; text-align:center'>" + theme_custom.productNotFoundError + "</p>");
       $(this).closest(".product-swatch-option").find(".exchange-look-item").addClass("disabled");
     } else {
       $(`.customize-look-overview-product[data-product-handle='${productHandle}']`).find(".error-msg").addClass("hidden");

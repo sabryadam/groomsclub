@@ -801,3 +801,11 @@ div.tab-top-border {
 .fancybox-is-open .product-swatch-option .product-swatches-main{
 	display: block;
 }
+@media(max-width : 767px){
+	.template-page-virtual-consultant .index-icon-with-text-slider .icontexthover_container{
+		padding: 0 25px;
+	}
+}
+.calendly-badge-widget .calendly-badge-content{
+  display: none !important;
+}
