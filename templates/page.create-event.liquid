@@ -3,6 +3,8 @@
     window.location.href = '/account/login';
 </script>
 {%- endunless -%}
+{%- section 'event-page-new-design' -%}
+{%- comment -%}
 <!-- page.create-event -->
 {%- style -%}
   .not-logged{
@@ -62,3 +64,4 @@
 <script>
   $(".calendar-body").find("li.active").prevAll().addClass("disabled");
 </script>
+{%- endcomment -%}
