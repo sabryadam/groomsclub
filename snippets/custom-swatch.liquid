@@ -15,19 +15,32 @@
   {% assign found_option = false %}
   {% assign is_color = false %}
   {% assign option_index = 0 %}
+{% assign current_option = '' %}
 
   {% for option in product.options %}
+    
     {% if option == swatch %}
       {% assign found_option = true %}
       {% assign optionName = swatch %}
       {% assign option_index = forloop.index0 %}
       {% assign downcased_option = swatch | downcase %}
       {% if downcased_option contains 'color' or downcased_option contains 'colour' or downcased_option contains 'Color' %}
+      {% for variant in product.variants %}
+{% assign current_option = variant.options[option_index] %}
+{% unless current_options contains current_option %}
+{% if how_many_options > 0 %}
+{% assign current_options = current_options | join: '|' | append: '|' %}
+{% endif %}
+{% assign current_options = current_options | append: current_option %}
+{% assign current_options = current_options | split: '|' | sort %}
+{% assign how_many_options = current_options | size %}
+{% endunless %}
+
+        {% endfor %}
         {% assign is_color = true %}
       {% endif %}
     {% endif %}
   {% endfor %}
-
   {% unless found_option %}
     <div class="swatch error swatch-wrap">
       <p>You included the snippet swatch.liquid with the name of a product option — <code>'{{ swatch }}'</code> — that does not belong to your product.</p>
@@ -48,54 +61,11 @@
         data-s_value="{{ s_value | downcase }}"
       {%- endcapture -%}
     {%- endif -%}
-    {% if is_color %}
-      <div class="swatch swatch-wrap clearfix swatch-{{ downcased_option }}" data-option-index="{{ option_index }}" {{ selected-value }}>
-        {%- unless template contains 'customize-your-look' -%}
-          {%- if swatch == 'Style' -%}
-            <div class="header">Length : </div>
-          {%- else -%}
-            <div class="header">{{ swatch }} : </div>
-          {%- endif -%}
-        {%- endunless -%}
-        {% for variant in product.variants %}
-          {% assign value = variant.options[option_index] %}
-          {% unless values contains value %}
-            {% assign values = values | join: ',' %}
-            {% assign values = values | append: ',' | append: value %} 
-            {% assign values = values | split: ',' %}
-            <div data-value="{{ value | handleize}}" class="swatch-product-wrapper swatch-element swatch-option-{{ option_index }} {% if is_color %}color {% endif %}{{ value | handle }} {% if variant.available %}available{% else %}soldout{% endif %}">
-              <input id="{% if template contains 'cart' %}{{ product.handle }}-option-{{ option_index }}-{{variantId}}-{{ value | handle }}{% else %}{{ product.handle }}{{ option_index }}-{{ value | handle }}{% endif %}" type="radio" data-name="{{ optionName }}" name="{% if template contains 'cart' %}{{product.handle}}-{{ variantId }}-option-{{ option_index }}{% else %}{{product.handle}}-option-{{ option_index }}{%- endif -%}" value="{{ value | escape }}" {{ selected-value }} data-value="{{ value | downcase }}" {% if s_value == value %} checked="checked"{% endif %} {% unless variant.available %}disabled{% endunless %} data-var-id="{{ variant.id }}" />
-              <label data-option-value="{{ value }}" data-product-id="{{product.id}}" for="{% if template contains 'cart' %}{{ product.handle }}-option-{{ option_index }}-{{variantId}}-{{ value | handle }}{% else %}{{ product.handle }}{{ option_index }}-{{ value | handle }}{% endif %}" style="background-color: {{ value | split: ' ' | last | handle }}; background-image: url({{ value | handle | prepend : 'color_' | append: '.' | append: file_extension | file_img_url : '50x' }})">
-                <span>{{ value }}</span>
-              </label>
-            </div>
-          {% endunless %}
-        {% endfor %}
-      </div>
+    
+    {% if is_color and current_options.size > 1 %}
+      
     {%- else -%}
-      <div class="swatch swatch-wrap clearfix swatch-{{ downcased_option }}" data-option-index="{{ option_index }}" {{ selected-value }}>
-        {%- unless template contains 'customize-your-look' -%}
-          {%- if swatch == 'Style' -%}
-            <div class="header">Length : </div>
-          {%- else -%}
-            <div class="header">{{ swatch }} : </div>
-          {%- endif -%}
-        {%- endunless -%}
-        {% for variant in product.variants %}
-          {% assign value = variant.options[option_index] %}
-          {% unless values contains value %}
-            {% assign values = values | join: ',' %}
-            {% assign values = values | append: ',' | append: value %} 
-            {% assign values = values | split: ',' %}
-            <div data-value="{{ value | handleize }}" class="swatch-product-wrapper swatch-element swatch-option-{{ option_index }} {% if is_color %}color {% endif %}{{ value | handle }} {% if variant.available %}available{% else %}soldout{% endif %}">
-              <input id="{% if template contains 'cart' %}{{currentItemTitle}}-{{ product.handle }}-option-{{ option_index }}-{{variantId}}-{{ value | handle }}{% else %}{{ product.handle }}{{ option_index }}-{{ value | handle }}{% endif %}" type="radio" data-name="{{ optionName }}" name="{% if template contains 'cart' %}{{product.handle}}-{{ variantId }}-option-{{ option_index }}{% else %}{{product.handle}}-option-{{ option_index }}{%- endif -%}" value="{{ value | escape }}" {{ selected-value }} data-value="{{ value | downcase }}" {% if s_value == value %} checked="checked"{% endif %} {% unless variant.available %}disabled{% endunless %} data-var-id="{{ variant.id }}" />
-              <label data-option-value="{{ value }}" for="{% if template contains 'cart' %}{{currentItemTitle}}-{{ product.handle }}-option-{{ option_index }}-{{variantId}}-{{ value | handle }}{% else %}{{ product.handle }}{{ option_index }}-{{ value | handle }}{% endif %}">
-                {{ value }}
-              </label>
-            </div>
-          {% endunless %}
-        {% endfor %}
-      </div>
+    
     {%- endif -%}
   {% endunless %}
 {% endif %}

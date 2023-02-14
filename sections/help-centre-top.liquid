@@ -1,0 +1,43 @@
+{{ 'help-centre.css' | asset_url | stylesheet_tag }}
+
+<div class="body-centre-top">
+  
+  <div class="inner-body-centre">
+    <h1>{{ section.settings.title }}</h1> 
+    <div class="search-bar-center">
+<!--       <span class="search-bar-icon"><img src="{{ 'Vector_1.png' | file_url }}" alt="icon"></span> -->
+      <input type="text" placeholder="search" class="input-field-center">
+    </div>
+  </div>
+  
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "Help Centre",
+    "settings": [
+       {
+                "type": "text",
+                "label": "Title",
+                "id" :"title",
+                 "default":"Hi, how can we help you?"
+            }
+    ],
+    "presets": [
+    {
+      "name": "Helpcentre-top",
+      "settings": {
+      
+      }
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

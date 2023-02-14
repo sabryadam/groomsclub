@@ -321,20 +321,17 @@
     {%- endif -%}
 
     {%- if section.settings.menu != blank -%}
-      <nav class="header__inline-menu ">
+      <nav class="header__inline-menu">
         <ul class="list-menu list-menu--inline" role="list">
           {%- for link in section.settings.menu.links -%}
             <li>
               {%- if link.links != blank -%}
-                <div class="header__menu-item-wrap {% if link.title == 'How It Works' %} how-it-works{% endif %}">
+                <div class="header__menu-item-wrap">
                   <a href="{{ link.url }}"  class="{{link.title | downcase | handleize }} header__menu-item list-menu__item link focus-inset{% if link.active or link.child_active  %} active{% endif %}">
                     <span {%- if link.child_active %} class="header__active-menu-item"{% endif %}>{{ link.title | escape }}</span>
                     {% render 'icon-caret' %}
                   </a>
-                  {% if link.title == 'How It Works' %}
-                    <div class="header__submenu list-menu--disclosure">
-                  {% endif %}
-                  <ul class="{% if link.title != 'How It Works' %}header__submenu list-menu list-menu--disclosure{% endif %} list-menu caption-large motion-reduce{% if link.links.size > 5 %} menu-item-above-five{% endif %}" role="list" tabindex="-1">
+                  <ul class="header__submenu list-menu list-menu--disclosure caption-large motion-reduce{% if link.links.size > 5 %} menu-item-above-five{% endif %}" role="list" tabindex="-1">
                     {%- for childlink in link.links -%}
                       <li>
                         {%- if childlink.links == blank -%}
@@ -361,24 +358,6 @@
                       </li>
                     {%- endfor -%}
                   </ul>
-                  {% if link.title == 'How It Works' %} 
-                  <div class="contact-us-header-menu caption-large motion-reduce{% if link.links.size > 5 %} menu-item-above-five{% endif %}" role="list" tabindex="-1">
-                    <h3>Contact us</h3>
-                    <ul class="contact-us-header-menu-inner">
-                      <li>
-                        <p><a href="tel:201-559-9715" target="_blank" title="tel:201-559-9715">201-559-9715</a></p>
-                        <p>Call us from 9am-7pm EST (Mon-Fri).</p>
-                      </li>
-                      <li>
-                        <p><a href="mailto:info@groomsclub.com.com" target="_blank" title="mailto:info@groomsclub.com.com">info@groomsclub.com</a></p>
-                        <p>Our team typically answers within 24 hrs.</p>
-                      </li>
-                    </ul>
-                  </div>
-                  {% endif %}
-                  {% if link.title == 'How It Works' %}
-                    </div>
-                  {% endif %}
                 </details-disclosure>
               {%- else -%}
                 <a href="{{ link.url }}" class="header__menu-item header__menu-item list-menu__item link link--text focus-inset{% if link.active %} active{% endif %}"{% if link.current %} aria-current="page"{% endif %}>
@@ -388,7 +367,6 @@
             </li>
           {%- endfor -%}
         </ul>
-       
       </nav>
     {%- endif -%}
     <div class="header__icons">

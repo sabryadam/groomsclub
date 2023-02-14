@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {}
+    },
+    "6a592c2f-13c6-4a83-a5f1-457a10187a9f": {
+      "type": "return-and-exchange",
+      "blocks": {
+        "b7135c25-3414-4316-ac54-fd3008cbe18a": {
+          "type": "return_and_exchange",
+          "settings": {
+            "title": "Refund Policy",
+            "description": "All unworn, unaltered, unwashed items with original tags attached are eligible for return within 30 days of delivery. If you have questions, please contact us at info@groomsclub.com thank you!"
+          }
+        }
+      },
+      "block_order": [
+        "b7135c25-3414-4316-ac54-fd3008cbe18a"
+      ],
+      "settings": {
+        "product-title": "Returns and Exchanges",
+        "product-desc": "<p>We make returns & exchanges easy.<\/p>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "6a592c2f-13c6-4a83-a5f1-457a10187a9f"
+  ]
+}

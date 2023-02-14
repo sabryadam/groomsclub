@@ -49,6 +49,11 @@
                     {%- endif -%}
                     {%- render 'customize-product-data' product: productData, vest_product_flag: vest_product_flag, vest_product_handle: vest_product_handle -%}
                   {%- endfor -%}
+                  {%- if personalizeProductType == 'vest' -%}
+                    <div class="product-block product-item-wrap no-vest" data-title="No Vest">
+                      <label><span>No Vest</span></label>                        
+                    </div>
+                  {%- endif -%}
                 </div>
                 <div class="custom-tab-paddles">
                   <button class="left-paddle paddle hidden" aria-label="left-arrow">
@@ -107,7 +112,9 @@
             {%- assign customizeProductBlockTitle = collections[customizeCollectionHandle].title -%}
           {%- endif -%}
           {%- assign customizeProductType = customizeBlockData.settings.product_type | downcase | handleize -%}
+            {%- if customizeProductType != "" -%}
               <li class="mobile-tab-content-title{% if forloop.first %} active{% endif %}" data-target="{{ customizeProductType }}">{{customizeProductBlockTitle}}</li>
+            {%- endif -%}
           {% endfor %}
           
           
@@ -137,7 +144,7 @@
           {%- for customizeBlockData in _customizeBlock -%}
             {%- if customizeBlockData.settings.product != blank -%}
               {% assign collectionProducts = '' %}
-              <div class="product-block-outer-wrapper {% if forloop.first %}active{% endif %}">
+              <div class="product-block-outer-wrapper {% if forloop.first %} active{% endif %}">
                 {%- assign customizeCollectionHandle = customizeBlockData.settings.product | strip -%}
                 {% assign collectionProducts = all_products[customizeCollectionHandle] %}
                 {%- assign customizeProductType = customizeBlockData.settings.product_type | downcase | handleize -%}
@@ -157,10 +164,11 @@
                 </div>
               </div>
             {%- else -%}
-              <div class="product-block-outer-wrapper {% if forloop.first %}active{% endif %}">
-                {%- assign customizeCollectionHandle = customizeBlockData.settings.collection | strip -%}
-                {% assign collectionProducts = collections[customizeCollectionHandle].products %}
-                {%- assign customizeProductType = customizeBlockData.settings.product_type | downcase | handleize -%}
+              {%- assign customizeCollectionHandle = customizeBlockData.settings.collection | strip -%}
+              {% assign collectionProducts = collections[customizeCollectionHandle].products %}
+              {%- assign customizeProductType = customizeBlockData.settings.product_type | downcase | handleize -%}
+              <div class="product-block-outer-wrapper {% if forloop.first %}active{% endif %}" data-product-type="{{ customizeProductType }}">
+                
                 {%- if customizeBlockData.settings.title-%}
                   {%- assign customizeProductBlockTitle = customizeBlockData.settings.title -%}
                 {%- else -%}
@@ -309,14 +317,14 @@
                     <span class="price-wrap desk-tab-price" data-product-price="0000" style="display: none;">$00.00</span>
                     <span class="mobile-tab-icon">{% include 'icon-plus' %}</span>
                   </p>
-                  <div class="product-block-wrapper one_product_swatch" data-product-type="{{ accessoriesProductType }}">
+                  <div class="product-block-wrapper one_product_swatch" data-product-type="{{ accessoriesBlockData.settings.title | downcase | handleize }}">
                     {%- render 'customize-product-data' product: accessoriesCollectionProducts, selectProduct: true -%}
                     <span class="price-wrap mob-tab-price" data-product-price="0000" style="display: none;">$00.00</span>
                   </div>
                 </div>
               {%- endif -%}
             {%- else -%}
-              <div class="product-block-outer-wrapper {% if forloop.first %}active {% endif %}">
+              <div class="product-block-outer-wrapper {% if forloop.first %}active {% endif %}" data-product-type="{{ accessoriesBlockData.settings.title  | downcase | handleize }}">
                 {%- assign accessoriesCollectionHandle = accessoriesBlockData.settings.collection | strip -%}
                 {% assign collectionProducts = collections[accessoriesCollectionHandle].products %}
                 {%- assign accessoriesProductType = accessoriesBlockData.settings.product_type | downcase | handleize -%}
@@ -468,8 +476,8 @@
           <div id="suit_fit_finder" class="completefit product_fit_finder" style="display: none;">
             <a href="https://www.groomsclub.com/pages/fit-finder">
               <div>
-                  <h4>Try the fit finder</h4>
-                <p>Get a better fit! Take three minutes to get a fit recommendation using machine learning.</p>
+                  <h4>Not sure of your size? Try our fit finder</h4>
+                <p>Answer a few simple questions to help you find the perfect fit</p>
               </div>
               <i class="fas fa-chevron-right"></i>
             </a>
@@ -698,7 +706,7 @@ function suitSizeData() {
       },
       success: function (result) {
           if (result.success) {
-              //console.log(result);
+              console.log(result);
 
               var jacket_size = 'NA';
               var jacket_type = 'NA';
@@ -716,14 +724,18 @@ function suitSizeData() {
                   jacket_type = 'Long'
                 }
               }
-
               var ff_html = '';
               if (result.data.length > 0) {
-                $(`select[name="properties[Jacket Chest Size]"]`).val(jacket_size);
-                $(`select[name="properties[Jacket Length]"]`).val(jacket_type);
 
-                $(`select[name="properties[Pant Waist Size]"]`).val(result.data[0].pants_waist);
-                $(`select[name="properties[Pant Length]"]`).val(result.data[0].pants_hight);
+                setTimeout(function(){
+
+                  $(`select[name="properties[Jacket Chest Size]"]`).val(jacket_size);
+                  $(`select[name="properties[Jacket Length]"]`).val(jacket_type);
+
+                  $(`select[name="properties[Pant Waist Size]"]`).val(result.data[0].pants_waist);
+                  $(`select[name="properties[Pant Length]"]`).val(result.data[0].pants_hight);
+
+                }, 200);
 
                 //$(`select[name="properties[Vest Size]"]`).val(result.data[0].pants_waist);
                 //$(`select[name="properties[Vest Length]"]`).val(result.data[0].pants_hight);
@@ -731,7 +743,7 @@ function suitSizeData() {
                 ff_html += `<div class="ff-data">
                                 <strong>Jacket/Vest</strong>
                                 <span>Chest: ${jacket_size}</span>
-                                <span>Length: ${result.data[0].jacket_type}</span>
+                                <span>Length: ${jacket_type}</span>
                                 
                             </div>`;
                 
@@ -801,11 +813,15 @@ function suitSizeDataNonLogged(){
       }
     }
 
-    $(`select[name="properties[Jacket Chest Size]"]`).val(jacket_size);
-    $(`select[name="properties[Jacket Length]"]`).val(jacket_type);
+    setTimeout(function(){
 
-    $(`select[name="properties[Pant Waist Size]"]`).val(getFitFinder.pants_waist);
-    $(`select[name="properties[Pant Length]"]`).val(getFitFinder.pants_hight);
+      $(`select[name="properties[Jacket Chest Size]"]`).val(jacket_size);
+      $(`select[name="properties[Jacket Length]"]`).val(jacket_type);
+
+      $(`select[name="properties[Pant Waist Size]"]`).val(getFitFinder.pants_waist);
+      $(`select[name="properties[Pant Length]"]`).val(getFitFinder.pants_hight);
+
+    }, 200);
 
     //$(`select[name="properties[Vest Size]"]`).val(getFitFinder.pants_waist);
     //$(`select[name="properties[Vest Length]"]`).val(getFitFinder.pants_hight);
@@ -864,6 +880,8 @@ $(".ff-top-box a").click(function(e){
 $("#suit_fit_finder a").click(function(e){
   e.preventDefault();
   var fit_finder_url = $(this).attr("href");
+  var bring_back_url = window.location.href;
+  localStorage.setItem("bring_back_fit_finder_url", bring_back_url);
   localStorage.setItem("open_recomm_size", '1');
   window.location.href = fit_finder_url;
 });
@@ -890,6 +908,63 @@ $(document).on("change", ".product-block-wrapper[data-product-type=vest] input",
   $(".no-vest label").removeClass("active");
 });
 
+setTimeout(function(){
+  var currShirt = $('input[name="customizer-suit"]:checked').val();
+  if(currShirt){
+    var vestHandle = $(".tabbed-content-block-inner-wrapper[data-tab-content='personalize']").find("input:radio:checked").closest(".product-block.product-item-wrap").attr("data-vest-handle");
+    $(`.product-block-wrapper[data-product-type="vest"]`).find(".product-block.product-item-wrap").hide();
+    if ($(`.product-block-wrapper[data-product-type="vest"]`).find(".product-block.product-item-wrap[data-product-handle='" + vestHandle + "']").length > 0) {
+      $(`.product-block-outer-wrapper.product-block-wrapper[data-product-type="vest"]`).show();
+      $(`.product-block-wrapper[data-product-type="vest"]`).find(".product-block.product-item-wrap[data-product-handle='" + vestHandle + "']").show();
+    } else {
+      $(`.product-block-outer-wrapper.product-block-wrapper[data-product-type="vest"]`).hide();
+    }
+  }
+}, 500);
+
+$(document).on("change", "input[name=customizer-suit]", function () {
+  var vestHandle = $(".tabbed-content-block-inner-wrapper[data-tab-content='personalize']").find("input:radio:checked").closest(".product-block.product-item-wrap").attr("data-vest-handle");
+  $(`.product-block-wrapper[data-product-type="vest"]`).find(".product-block.product-item-wrap").hide();
+  if ($(`.product-block-wrapper[data-product-type="vest"]`).find(".product-block.product-item-wrap[data-product-handle='" + vestHandle + "']").length > 0) {
+    $(`.product-block-outer-wrapper.product-block-wrapper[data-product-type="vest"]`).show();
+    $(`.product-block-wrapper[data-product-type="vest"]`).find(".product-block.product-item-wrap[data-product-handle='" + vestHandle + "']").show();
+  } else {
+    $(`.product-block-outer-wrapper.product-block-wrapper[data-product-type="vest"]`).hide();
+  }
+});
+
+var openOverviewTab = localStorage.getItem("openOverviewTab");
+if(openOverviewTab){
+  // $(".tabbed-content-title").removeClass("active");
+  // $(".tabbed-content-block-inner-wrapper").hide();
+  // $(`.tabbed-content-title[data-target="overview"]`).addClass("active");
+  // $(".tabbed-content-block-inner-wrapper.overview-tab").show();
+
+  // setTimeout(() => {
+  //   $(`.tabbed-content-block-inner-wrapper[data-tab-content="accessories"] .next-step`).trigger("click");
+  //   localStorage.removeItem("openOverviewTab"); 
+  // }, 500);
+
+  theme_custom.fitFinderData();
+  
+  $(".tabbed-content-block-inner-wrapper").removeClass("active");
+  $(".tabbed-content-block-inner-wrapper[data-tab-content='overview']").addClass("active");
+  
+  $(".tabbed-content-wrapper .tabbed-content-header li").removeClass("active");
+  $(".tabbed-content-title[data-target='overview']").addClass("active");
+  // $('html, body').stop().animate({
+  //   'scrollTop': $(".tabbed-content-wrapper").offset().top - $("#shopify-section-header").height() + 30
+  // }, 900);
+  // theme_custom.setFinderData();
+  // setTimeout(() => {
+  //   theme_custom.productDataFromURL();
+  // }, 500);
+  
+
+  localStorage.removeItem("openOverviewTab");
+  
+}
+
 if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-flag-replace") == 'true') {
   $("#suit_fit_finder").show();
   $("#fit_finder_data_auto").hide();
@@ -904,6 +979,35 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
     $(document).on("change", ".recomm_select", function () {
       var select_name = $(this).attr("data-row");
       var select_data = $(this).val();
+      
+      if( $(`select[name="properties[Jacket Chest Size]"]`).val() && $(`select[name="properties[Jacket Length]"]`).val() && $(`select[name="properties[Pant Waist Size]"]`).val() && $(`select[name="properties[Pant Length]"]`).val()  ){
+        $(`.tabbed-content-block-inner-wrapper[data-tab-content="find-your-fit"] .next-step`).removeClass("disabled");
+      }else{
+        $(`.tabbed-content-block-inner-wrapper[data-tab-content="find-your-fit"] .next-step`).addClass("disabled");
+      }
+
+
+      /*var jack_chest_size = $(`select[name="properties[Jacket Chest Size]"]`).val();
+      var jack_type = $(`select[name="properties[Jacket Chest Size]"]`).val();
+      if(jack_chest_size && jack_type){
+        var jac_var = jack_chest_size + ' / ' + jack_type;
+        $(".product-swatch-option").each(function(){
+          var dataText = $(this).data("prod-handle");
+
+          if(dataText.indexOf("jacket") != -1){
+            $(this).find('select.prod-variant-option option').each(function(){
+              var titleData = $(this).data("variant-title");
+              if(titleData.indexOf(jac_var) != -1){
+                var dataOption = $(this).val();
+                $(this).parent("select").val(dataOption);
+              }
+            });
+          }
+
+        });
+      }*/
+      
+
       if(select_data){
         //alert(select_name + ' | ' + select_data);
         var getFitFinder = getCookie("fit-finder-data");
@@ -913,20 +1017,50 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
 
           console.log(getFitFinder);
 
+          var jacketFullSize = '';
+          var jacketChest = '';
+          var jacketTypeSize = '';
+
+          var pantFullSize = '';
+          var pantWaist = '';
+          var pantLength = '';
+
           if($(`select[name="properties[Jacket Chest Size]"]`).val()){
-            getFitFinder.jacket_size = $(`select[name="properties[Jacket Chest Size]"]`).val();
+            //getFitFinder.jacket_size = $(`select[name="properties[Jacket Chest Size]"]`).val();
+            jacketChest = $(`select[name="properties[Jacket Chest Size]"]`).val();
           }
 
           if($(`select[name="properties[Jacket Length]"]`).val()){
-            getFitFinder.jacket_type = $(`select[name="properties[Jacket Length]"]`).val();
+            //getFitFinder.jacket_type = $(`select[name="properties[Jacket Length]"]`).val();
+            var jacketType = $(`select[name="properties[Jacket Length]"]`).val();
+            
+            if (jacketType == "Short") {
+              jacketTypeSize = 'S'
+            } else if (jacketType == "Regular") {
+              jacketTypeSize = 'R'
+            } else if (jacketType == "Long") {
+              jacketTypeSize = 'L'
+            }
+          }
+
+          if(jacketChest || jacketTypeSize){
+            jacketFullSize = jacketChest + ':' + jacketTypeSize;
+            getFitFinder.jacketSize = jacketFullSize;
           }
 
           if($(`select[name="properties[Pant Waist Size]"]`).val()){
             getFitFinder.pants_waist = $(`select[name="properties[Pant Waist Size]"]`).val();
+            pantWaist = $(`select[name="properties[Pant Waist Size]"]`).val();
           }
 
           if($(`select[name="properties[Pant Length]"]`).val()){
             getFitFinder.pants_hight = $(`select[name="properties[Pant Length]"]`).val();
+            pantLength = $(`select[name="properties[Pant Length]"]`).val();
+          }
+
+          if(pantWaist || pantLength){
+            pantFullSize = pantWaist + 'x' + pantLength;
+            getFitFinder.pantSize = pantFullSize;
           }
 
           console.log(getFitFinder);
@@ -975,7 +1109,61 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
             });
           {% endif %}
       
-        } 
+        }else{
+
+          var jacketFullSize = '';
+          var jacketChest = '';
+          var jacketTypeSize = '';
+
+          var pantFullSize = '';
+          var pantWaist = '';
+          var pantLength = '';
+
+          jacketChest = $(`select[name="properties[Jacket Chest Size]"]`).val();
+          
+          var jacketType = $(`select[name="properties[Jacket Length]"]`).val();
+          if (jacketType == "Short") {
+            jacketTypeSize = 'S'
+          } else if (jacketType == "Regular") {
+            jacketTypeSize = 'R'
+          } else if (jacketType == "Long") {
+            jacketTypeSize = 'L'
+          }
+
+          if(jacketChest && jacketTypeSize){
+            jacketFullSize = jacketChest + ':' + jacketTypeSize;
+          }
+
+          pantWaist = $(`select[name="properties[Pant Waist Size]"]`).val();
+          pantLength = $(`select[name="properties[Pant Length]"]`).val();
+
+          if(pantWaist && pantLength){
+            pantFullSize = pantWaist + 'x' + pantLength;
+          }
+
+          var defaultData = {
+            "height_qus":"How tall are you?",
+            "height":"",
+            "weight_qus":"What is your weight (lbs)?",
+            "weight":"",
+            "build":"00",
+            "stomach":"00",
+            "shoe_size":"00",
+            "shirt_neck":"00",
+            "shirt_sleeve":"00",
+            "jacket_size":"00",
+            "jacket_type":"00",
+            "jacketSize":jacketFullSize,
+            "pantSize":pantFullSize,
+            "pants_waist":pantWaist,
+            "pants_hight":pantLength,
+            "jacketSize_result":"Your Jacket size result",
+            "fit":"00"
+          };
+
+          setCookie("fit-finder-data", JSON.stringify(defaultData));
+          console.log(defaultData);
+        }
       }
     });
 
@@ -1126,7 +1314,7 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
     {
       "type": "personalize_products",
       "name": "Personalize collection",
-      "limit": 3,
+      "limit": 4,
       "settings": [
         {
           "type" : "header",

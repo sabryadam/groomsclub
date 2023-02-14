@@ -129,8 +129,9 @@ theme_custom.cvvValidation = function ($this) {
 // Get Variant Data
 theme_custom.getVariantData = function (parentEl) {
   var variantDataGetArr = [];
-  var parent = parentEl,
+  var parent = parentEl, checkSizeIsNotSelect = false,
     productId = parent.find(".looks-product-id").val();
+  var producttyped = parent.attr('data-product-type');
 
   var varintTitle = '', variantId, variantImage, variantPrice, selectedOption;
   if (parent.find('.option-1').length > 0) {
@@ -140,11 +141,27 @@ theme_custom.getVariantData = function (parentEl) {
     varintTitle = varintTitle + ' / ' + parent.find('.option-2').text();
   }
   if (parent.find('.option-3').length > 0) {
-    varintTitle = varintTitle + ' / ' + parent.find('.option-3').text();
+    if(producttyped == 'vest'){
+      var option3 = parent.find('[data-option-index="2"] input:checked').val();
+      varintTitle = varintTitle + ' / ' + option3;
+    }else{
+      varintTitle = varintTitle + ' / ' + parent.find('.option-3').text();
+    }
   }
-  selectedOption = parent.find(`[data-product-id="${productId}"][data-var-title="${varintTitle}"]`);
-  $(`[data-product-id="${productId}"]`).attr('selected', false);
-  selectedOption.attr('selected', true);
+  setTimeout(function(){
+    parent.find(`.single-option-selector option[data-var-title="${varintTitle}"]`).attr('selected','selected');
+
+  },100);
+  if(varintTitle.includes("00")){
+    checkSizeIsNotSelect = true;
+  } else {
+    checkSizeIsNotSelect = false;
+  }
+   //$(".product-form .bundle-product-wrapper").find(".product-data-card[data-product-type="+producttyped+"]").find(".single-option-selector option[data-var-title="+varintTitle+"]").attr("selected",true);
+  selectedOption = parent.find(`.single-option-selector option[data-var-title="${varintTitle}"]`);
+ // $(`[data-product-id="${productId}"]`).attr('selected', false);
+// console.log($(".product-data-card[data-product-type="+producttyped+"]"));
+  //selectedOption.attr('selected', true);
   variantPrice = selectedOption.attr('data-variant-price');
   variantId = selectedOption.attr('value');
   variantImage = selectedOption.attr('data-variant-img');
@@ -160,7 +177,11 @@ theme_custom.getVariantData = function (parentEl) {
   parent.find('.looks-product-var-id').val(variantId);
   if (selectedOption.length == 0) {
     parent.find('.pdp-updates-button button').addClass('disabled');
-    parent.find(".error-message").text('Product is not available for that specific size!').show();
+    if(checkSizeIsNotSelect){
+      parent.find(".error-message").text('Please select the size!').show();
+    } else {
+      parent.find(".error-message").text('Product is not available for that specific size!').show();
+    }
   } else {
     parent.find('.pdp-updates-button button').removeClass('disabled');
     parent.find(".error-message").text('').hide();
@@ -1698,4 +1719,10 @@ $(document).on('change', '.swatch-wrapper-options .swatch.swatch-wrap select', f
               $(this).closest('.edit-item-popup').find('.pdp-updates-button button').trigger('click');
         }
     })
-})
+});
+
+$(document).on('change', 'variant-selects select.select__select', function () {
+  var select_name = $(this).closest(".product-form__input--dropdown").attr('data-option');
+  var select_value = $(this).val();
+  $(`input[name="${select_name}"][value="${select_value}"]`).prop('checked', true);
+});
