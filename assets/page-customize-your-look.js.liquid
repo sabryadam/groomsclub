@@ -1217,6 +1217,7 @@ theme_custom.customize_product_clickEvent = function () {
 
   // exchange-look-item
   $(document).on("click", ".exchange-look-item", function () {
+    debugger;
     var button = $(this),
       targetVarID = $(this).closest(".product-swatch-option").find("select.prod-variant-option").val(),
       targetVarTitle = $(this).closest(".product-swatch-option").find("select.prod-variant-option option:selected").attr("data-variant-title"),
