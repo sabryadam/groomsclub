@@ -128,13 +128,12 @@
               "collection": "pants"
             }
           },
-          "8112d949-7c6a-406c-8819-63cc555e47c8": {
-            "type": "customize_products",
+          "be4ea2d1-0c83-432d-b186-33f3b249deed": {
+            "type": "personalize_products",
             "settings": {
               "title": "Vest",
               "product_type": "Vest",
-              "collection": "waist",
-              "product": ""
+              "collection": "waist"
             }
           },
           "510c4e40-5709-4336-b27a-bfe1220b88bb": {
@@ -155,8 +154,8 @@
               "product": "neckties-1"
             }
           },
-          "79972aa0-4e05-4395-be03-2f4dd82565bf": {
-            "type": "accessories_products",
+          "4a75d27c-90d3-4cf9-af03-c785f882ddd9": {
+            "type": "customize_products",
             "settings": {
               "title": "Pocket Square",
               "product_type": "Hanky",
@@ -213,32 +212,22 @@
               "collection": "",
               "product": "tie-bar"
             }
-          },
-          "1483e0ee-6543-4237-85d5-a73cce8fc667": {
-            "type": "customize_products",
-            "settings": {
-              "title": "",
-              "product_type": "",
-              "collection": "",
-              "product": ""
-            }
           }
         },
         "block_order": [
           "6bfe06f9-179e-41aa-9486-317bd65e6418",
           "48709491-b26f-4723-a091-027475f7b1c2",
           "06700161-9e43-4709-835d-29c3f3dc94fd",
-          "8112d949-7c6a-406c-8819-63cc555e47c8",
+          "be4ea2d1-0c83-432d-b186-33f3b249deed",
           "510c4e40-5709-4336-b27a-bfe1220b88bb",
           "a85dc47f-bf64-4a07-9c2a-a0b033af33be",
-          "79972aa0-4e05-4395-be03-2f4dd82565bf",
+          "4a75d27c-90d3-4cf9-af03-c785f882ddd9",
           "d4f9ab2a-71ea-4965-939d-ab0ef9fa432e",
           "6341f3c7-16b2-4f7a-9933-e9e93eb4d79d",
           "f0e37c74-11fe-4a58-a09d-fd87a5482716",
           "99a78a7b-c55a-407d-9312-182a29f1a3be",
           "5ddb6dd7-b286-4f0e-9aae-e1c1ba378831",
-          "e7758a1a-dc1a-45d5-95f5-5d1f11d36dc4",
-          "1483e0ee-6543-4237-85d5-a73cce8fc667"
+          "e7758a1a-dc1a-45d5-95f5-5d1f11d36dc4"
         ],
         "settings": {
           "heading": "Customize Your Look",

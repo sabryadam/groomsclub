@@ -19,7 +19,8 @@
           "settings": {
             "links-pages": "shopify:\/\/pages\/fit-and-sizing",
             "text-heading": "Fit and Sizing",
-            "text-para": "Our Fit Finder makes sure you have the perfect fitting suit for your body. Learn more about how we can find your precise measurements."
+            "text-para": "Our Fit Finder makes sure you have the perfect fitting suit for your body. Learn more about how we can find your precise measurements.",
+            "content": ""
           }
         },
         "f9e4dcba-6cee-4bb7-b143-e0504865eac4": {
@@ -27,15 +28,17 @@
           "settings": {
             "links-pages": "shopify:\/\/pages\/order-and-shipping",
             "text-heading": "Orders and Shipping",
-            "text-para": "Learn how to track your orders and know our shipping options."
+            "text-para": "Learn how to track your orders and know our shipping options.",
+            "content": ""
           }
         },
         "bf225404-9b75-47e0-bf50-b21aa5bc12ea": {
           "type": "block",
           "settings": {
-            "links-pages": "shopify:\/\/pages\/returns-and-exchanges",
+            "links-pages": "https:\/\/groomsclub.returnly.com\/",
             "text-heading": "Returns and Exchanges",
-            "text-para": "We make returns & exchanges easy."
+            "text-para": "We make returns & exchanges easy.",
+            "content": "<p><a href=\"https:\/\/groomsclub.returnly.com\/\" target=\"_blank\" title=\"https:\/\/groomsclub.returnly.com\/\">Initiate Return<\/a><\/p>"
           }
         },
         "15e88384-6bb7-49ca-acb8-c219151a7de3": {
@@ -43,7 +46,8 @@
           "settings": {
             "links-pages": "shopify:\/\/pages\/group-management",
             "text-heading": "Group Management",
-            "text-para": "Learn how to make the most of your Grooms Club experience."
+            "text-para": "Learn how to make the most of your Grooms Club experience.",
+            "content": ""
           }
         },
         "a743bd95-27c7-4cb4-94bf-5970bd19675c": {
@@ -51,7 +55,8 @@
           "settings": {
             "links-pages": "shopify:\/\/pages\/at-home-try-on",
             "text-heading": "At Home Try On",
-            "text-para": "Reserved for our Grooms and Event Owners."
+            "text-para": "Reserved for our Grooms and Event Owners.",
+            "content": ""
           }
         },
         "a5dc4494-3adb-4c42-b1f9-d6a16e4e54e4": {
@@ -59,7 +64,8 @@
           "settings": {
             "links-pages": "shopify:\/\/pages\/faqs",
             "text-heading": "FAQ's",
-            "text-para": "You've got questions? We've got answers!"
+            "text-para": "You've got questions? We've got answers!",
+            "content": ""
           }
         }
       },

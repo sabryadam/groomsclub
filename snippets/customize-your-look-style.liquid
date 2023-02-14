@@ -3,7 +3,7 @@
     background: #fff;
   }
   .tabbed-content-block-outer-wrapper .product-info-wrap .customize_product_title_wrap {
-    border-top: 1px solid var(--light-gray-border);
+    /* border-top: 1px solid var(--light-gray-border); */
     padding: 12px 0 0;
   }
   .customize_product_title_wrap .customize_product_title{
@@ -26,7 +26,7 @@
   }
   .tabbed-content-block-outer-wrapper .product-info-wrap .product-block-wrapper {
     display: flex;
-    border-top: 1px solid var(--light-gray-border);
+    /* border-top: 1px solid var(--light-gray-border); */
     /* border-bottom: 1px solid var(--light-gray-border); */
     padding: 12px 15px;
     flex-wrap: wrap;
@@ -34,8 +34,12 @@
   .tabbed-content-block-outer-wrapper .product-info-wrap .product-title{
     display: flex;
     justify-content: space-between;
-    margin-bottom : 15px;
-  } 
+    margin-bottom : 0;
+  }
+
+  .tabbed-content-block-outer-wrapper .product-info-wrap .product-block-wrapper[data-product-type="vest"] .product-item-wrap{
+    display: none;
+  }
 
   .tabbed-content-block-outer-wrapper .product-info-wrap .product-title .product-title-wrap{
     color: var(--color-primary);
@@ -302,7 +306,9 @@
 }
 .product-info-top-block .filed-wrapper {margin-bottom: 22px;}
 .product-info-top-block .button {margin-top: 38px;}
-
+.fit-finder-data{
+  display: none;
+}
 .overview-product .customize-look-overview-product .error-msg{  
   margin: 0 15px 15px;
   color: red;
@@ -410,7 +416,8 @@ background-color: var(--color-light-gray-background); padding: 20px 10px 25px; m
 }
 
 .customize-look-overview-product[data-product-type="neckties"],
-.customize-look-overview-product[data-product-type="bow-ties"]{
+.customize-look-overview-product[data-product-type="bow-ties"],
+.customize-look-overview-product[data-product-type="tie-bar"]{
   order: 3;
   width: 100%;
 }
@@ -835,8 +842,11 @@ background-color: var(--color-light-gray-background); padding: 20px 10px 25px; m
   z-index : 33
 }
 
+.tabbed-content-block-inner-wrapper .scroll-part.right-scroll-spcing .product-block-outer-wrapper,
 .tabbed-content-block-inner-wrapper.personalize .product-block-outer-wrapper{
   display: block;
+  border-top: 1px solid var(--light-gray-border);
+  margin-top: 15px;
 }
 
 .tabbed-content-block-inner-wrapper.personalize .product-block-outer-wrapper:first-child {
@@ -1421,7 +1431,7 @@ background-color: var(--color-light-gray-background); padding: 20px 10px 25px; m
   
 }
 @media(max-width : 499px){
-  .mobile-customize-tab{width: calc(100% + 30px);margin: 0 -15px;} 
+  
   .tabbed-content-block-outer-wrapper .product-info-wrap .tabbed-content-block-inner-wrapper.overview-tab .scroll-part{
     max-height: 350px !important;
     height: 100%;

@@ -32,15 +32,16 @@
 }
 .contact-us-header-menu ul li p{
   font-size: 12px;
-    text-align: left;
-    line-height: 20px;
-    margin: 0;
+  text-align: left;
+  line-height: 20px;
+  margin: 0;
 }
 
 .contact-us-header-menu ul li p a{
   text-decoration: none;
   color: inherit;
 }
+
 .list-menu--disclosure:focus {
   outline: none;
 }

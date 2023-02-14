@@ -410,7 +410,7 @@
               {%- elsif block.settings.picker_type == 'dropdown' -%}
                 <variant-selects class="no-js-hidden" data-section="{{ section.id }}" data-url="{{ product.url }}">
                   {%- for option in product.options_with_values -%}
-                    <div class="product-form__input product-form__input--dropdown">
+                    <div class="product-form__input product-form__input--dropdown" data-option="{{ option.name | escape }}">
                       <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
                         {{ option.name }}
                       </label>
@@ -1110,7 +1110,7 @@
           if(result.data.length > 0){
             fitFinderDataHTML += `<h5 class="heading">Sizing & Fit</h5>`;
             for(var i=0; i<result.data.length; i++){
-              console.log("result.data[i]",result.data[i]);
+              // console.log("result.data[i]",result.data[i]);
               fitFinderDataHTML +=`<input class="size_customer_id" type="hidden" value="${result.data[i].customer_id}">`;
               // if(result.data[i].jacket_size && result.data[i].jacket_type) {
               //   var jacketType = result.data[i].jacketSize.split(":");

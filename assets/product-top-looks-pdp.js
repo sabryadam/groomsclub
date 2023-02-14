@@ -385,7 +385,7 @@ theme_custom.favoriteLookImageCustomizer = function(lookID,button){
       form_data = new FormData(),
       fileVal = theme_custom.ImageURL,
       imageType = /image.*/;
-console.log('theme_custom.ImageURL',theme_custom.ImageURL);
+// console.log('theme_custom.ImageURL',theme_custom.ImageURL);
   if (!fileVal.type.match(imageType)){
     return;
   } else {
@@ -622,7 +622,7 @@ theme_custom.tlpclickEvent = function(){
   });
 
   $(document).on("click", ".favorite-event-button", function(){
-    console.log("favorutie working");
+    // console.log("favorutie working");
     $(`[name="look-name"]`).val('');
     $(".page-loader").removeClass("hidden");
     var target = $(".favourite-look-wrapper");
@@ -638,7 +638,7 @@ theme_custom.tlpclickEvent = function(){
         "type": "looks"
       }
       theme_custom.prodArray.push(dataObj);
-      console.log(" theme_custom.prodArray", theme_custom.prodArray);
+      // console.log(" theme_custom.prodArray", theme_custom.prodArray);
     });
     setTimeout(() => {
       $(".page-loader").addClass("hidden");

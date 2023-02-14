@@ -1,0 +1,96 @@
+{% capture group_and_management %}
+  {% if section.settings.product-title %}
+	<h1>{{section.settings.product-title}}</h1>
+  {% endif %}
+  {% if section.settings.product-desc %}
+	{{section.settings.product-desc}}
+  {% endif %}	
+  {% if section.blocks.size > 0 %}
+	<ul class="item-ul">
+      {% for block in section.blocks %}
+            {% if block.type == 'group_and_management' %}
+              <li class="item-li" data-title="{{block.settings.title | replace:' ','-' | remove:'?' | replace:'.',''}}">
+                <h2 class="item-title">{{ block.settings.title }}</h2>
+                <div class="item-description">{{ block.settings.description }}</div>
+              </li>
+            {% endif %}
+      {% endfor %}
+	</ul>
+  {% endif %}
+{% endcapture %}
+
+
+
+<div class="page-width help-component">
+   <div class="container">
+     <div class="breadcrumbs">
+          <ul>
+              <li><a href="https://www.groomsclub.com/">
+                
+              </a><img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/Vector.png?v=1673870904"></li>
+              <li><a href="https://www.groomsclub.com/pages/help-center">
+                <svg width="60" height="24" viewBox="0 0 24 24" fill="#6A6A6A" xmlns="http://www.w3.org/2000/svg" facing="right" class="ecpqs3l1 css-1vt6q91 e18qeao70"><path d="M9.29006 15.8805L13.1701 12.0005L9.29006 8.12047C8.90006 7.73047 8.90006 7.10047 9.29006 6.71047C9.68006 6.32047 10.3101 6.32047 10.7001 6.71047L15.2901 11.3005C15.6801 11.6905 15.6801 12.3205 15.2901 12.7105L10.7001 17.3005C10.3101 17.6905 9.68006 17.6905 9.29006 17.3005C8.91006 16.9105 8.90006 16.2705 9.29006 15.8805Z"></path></svg>
+                All articles</a></li>
+              <li><a href="#">
+                <svg width="60" height="24" viewBox="0 0 24 24" fill="#6A6A6A" xmlns="http://www.w3.org/2000/svg" facing="right" class="ecpqs3l1 css-1vt6q91 e18qeao70"><path d="M9.29006 15.8805L13.1701 12.0005L9.29006 8.12047C8.90006 7.73047 8.90006 7.10047 9.29006 6.71047C9.68006 6.32047 10.3101 6.32047 10.7001 6.71047L15.2901 11.3005C15.6801 11.6905 15.6801 12.3205 15.2901 12.7105L10.7001 17.3005C10.3101 17.6905 9.68006 17.6905 9.29006 17.3005C8.91006 16.9105 8.90006 16.2705 9.29006 15.8805Z"></path></svg>
+                Group Management</a></li>
+            
+          </ul>
+     </div>
+     
+  <div class="container">
+    <div class="col">
+      <div class="">
+        {{ group_and_management }}
+      </div>
+    </div>
+  </div>
+</div>
+{% render 'help-components-style' %}
+{% schema %}
+  {
+    "name": "Group and Management",
+    "settings": [
+		{
+            "type": "header",
+            "content": "Section Layout"
+        },
+        {	
+			"type": "text",
+			"id": "product-title",
+			"label": "Title",
+          	"default": "Help"
+		},
+		{
+            "type": "richtext",
+            "id": "product-desc",
+            "label": "Description"
+		}
+	],
+    "blocks": [
+        {
+            "type": "group_and_management",
+            "name": "Group and Management",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title",
+                    "default": "Heading"
+                },
+                {
+                    "type": "html",
+                    "id": "description",
+                    "label": "Description"
+				}
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Group and Management",
+            "category": "group-and-management"
+        }
+    ]
+  }
+{% endschema %}

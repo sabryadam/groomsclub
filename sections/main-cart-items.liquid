@@ -146,11 +146,11 @@
                               {%- else -%}
                                 <div class="suit-product-info" data-item-product-type="{{ lineItemType }}" data-variant-id="{{ item.id }}">
                               {%- endif -%}
-                                <span class="option-wrap">
+                                <span class="option-wrap product_var_cart">
                                   {%- for option in item.options_with_values -%}
-                                    <div class="product-option">
+                                    <div class="product-option" data-name="{{option.name}}">
                                       <div>{{ option.name }}: </div>
-                                      <div>{{ option.value }}</div>
+                                      <div class="product-option-val">{{ option.value }}</div>
                                     </div>
                                   {%- endfor -%}
                                 </span>
@@ -411,6 +411,51 @@
 </cart-items>
 
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
+
+<script>
+  $(document).ready(function(){
+
+    if( $(".template-cart .edit-item-popup .swatch.swatch-wrap.swatch-color").length ){
+      $(".template-cart .edit-item-popup .swatch.swatch-wrap.swatch-color").each(function(){
+        if( $(this).find(".swatch-element").length < 2 ){
+          $(this).hide();
+        }
+      });
+    }
+
+    if( $(".product_var_cart").length ){
+      $(".product_var_cart").each(function(){
+        $(this).find(".product-option").each(function(){
+          var data_name = $(this).data("name");
+          
+          var data_value = $(this).find(".product-option-val").text();
+          // console.log(data_name + " | " + data_value);
+          $(`input[type="radio"][data-name="${data_name}"][value="${data_value}"]`).prop('checked', true);
+          $(`input[type="radio"][data-name="${data_name}"][value="${data_value}"] + label`).trigger("click");
+          
+        });
+      });
+    }
+
+  });
+</script>
+
+<style>
+
+/* .edit-item-popup,
+.edit-item-popup .single-option-selector {
+	display: block !important;
+}
+
+.edit-item-popup .swatch-product-wrapper input[type="radio"] {
+	clip: unset;
+	overflow: visible;
+	display: block;
+	height: auto;
+	width: auto;
+} */
+
+</style>
 
 {% schema %}
 {

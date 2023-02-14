@@ -72,8 +72,12 @@ color-scheme-{{ section.settings.color_scheme }}" {% if section.settings.color_s
             {%- when 'text' -%}
               <div class="image-with-text__text rte h5 {% if heading_count %} count-right-content {% endif %}">{{ block.settings.text }}</div>
             {%- when 'button' -%}
-              {%- if block.settings.button_label != blank -%}
-                <a href="{{ block.settings.button_link }}" class="button {% if block.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %} {% if heading_count %} count-right-content {% endif %}"{% if block.settings.button_link == blank %} aria-disabled="true"{% endif %}>{{ block.settings.button_label | escape }} <i class="fas fa-arrow-right"></i></a>
+              {%- if template contains 'virtual-consultant' -%}
+                <button type="button" class="button {% if block.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %} {% if heading_count %} count-right-content {% endif %} appointment-button">{{ block.settings.button_label | escape }} <i class="fas fa-arrow-right"></i></button>
+              {%- else -%}
+                {%- if block.settings.button_label != blank -%}
+                  <a href="{{ block.settings.button_link }}" {%- if block.settings.open_new_tab -%}target="_blank"{% endif %} class="button {% if block.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %} {% if heading_count %} count-right-content {% endif %}"{% if block.settings.button_link == blank %} aria-disabled="true"{% endif %}>{{ block.settings.button_label | escape }} <i class="fas fa-arrow-right"></i></a>
+                {%- endif -%}
               {%- endif -%}
             {% when 'subcontent' %}
               <div class="image-with-text__sub-content {% if heading_count %} count-right-content {% endif %}">
@@ -269,6 +273,11 @@ color-scheme-{{ section.settings.color_scheme }}" {% if section.settings.color_s
           "type": "url",
           "id": "button_link",
           "label": "t:sections.image-with-text.blocks.button.settings.button_link.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_new_tab",
+          "label": "Open in new Tab"
         },
         {
           "type": "checkbox",

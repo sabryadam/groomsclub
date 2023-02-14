@@ -1,0 +1,81 @@
+{{ 'help-centre.css' | asset_url | stylesheet_tag }}
+
+<div class="bottom-box-body">
+<div class="page-width">
+  <div class="bottom-box centre-bottom">
+    <h2 class="head-top">
+      {{ section.settings.title }}
+    </h2>
+    <div class="outter-link-box">
+      {% for block in section.blocks %}
+        <div class="link-box help-center-wrapper">
+          {% if block.settings.links-pages != blank %}<a href="{{ block.settings.links-pages }}" class="link-bottom"></a>{% endif %}
+          <h3>{{ block.settings.text-heading }} </h3>
+          <p>{{ block.settings.text-para | truncatewords: 12 }}</p>
+          {%- if block.settings.content != blank -%}<div class="content">{{ block.settings.content}}</div>{% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "Help Centre Bottom",
+    "settings": [
+       {
+                "type": "text",
+                "label": "Title",
+                "id" :"title",
+                 "default":"Get more information"
+            }
+    ],
+    	"max_blocks": 6,
+    	"blocks": [
+     {
+       "name": "inner-block",
+       "type": "block",
+       "settings": [
+         {
+           "type": "url",
+           "id": "links-pages",
+           "label": "Link page from here"
+         },
+         {
+           "type": "text",
+           "id": "text-heading",
+           "label": "heading",
+           "default":"Fit and Sizing"
+         },
+          {
+           "type": "text",
+           "id": "text-para",
+           "label": "Paragraph",
+           "default":"Our Fit Finder makes sure you have the perfect fitting suit for your body. Learn more about how we can find your precise measurements."
+         },
+        {
+          "type" : "richtext",
+          "id" : "content",
+          "label" : "Content"
+        }
+       ]
+     }
+   ],
+     "presets": [
+    {
+      "name": "Help-Centre-Bottom",
+      "settings": {
+      
+      }
+    }
+  ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
