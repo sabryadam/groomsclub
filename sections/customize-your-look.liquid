@@ -688,7 +688,7 @@ function suitSizeData() {
         var ff_html = '';
         if (result.data.length > 0) {
           setTimeout(function(){
-            console.log("User has logged In");
+            // console.log("User has logged In");
             if(jacket_size == '00' ){
               $(".select-sizes-wrapper .jacket-sizes-wrap .error-message").show();
             } else {
@@ -799,7 +799,7 @@ function suitSizeDataNonLogged(){
   var getFitFinder = getCookie("fit-finder-data");
   if(getFitFinder){
     getFitFinder = JSON.parse(getCookie("fit-finder-data"));
-    console.log(getFitFinder);
+    // console.log(getFitFinder);
     var ff_html = '';
 
     var jacket_size = 'NA';
@@ -1030,7 +1030,7 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
         if(getFitFinder){
           getFitFinder = JSON.parse(getCookie("fit-finder-data"));
 
-          console.log(getFitFinder);
+          // console.log(getFitFinder);
 
           var jacketFullSize = '';
           var jacketChest = '';
@@ -1078,7 +1078,7 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
             getFitFinder.pantSize = pantFullSize;
           }
 
-          console.log(getFitFinder);
+          // console.log(getFitFinder);
           setCookie("fit-finder-data", '');
           setCookie("fit-finder-data", JSON.stringify(getFitFinder), 365);
 
@@ -1177,7 +1177,7 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
           };
 
           setCookie("fit-finder-data", JSON.stringify(defaultData));
-          console.log(defaultData);
+          // console.log(defaultData);
         }
       }
     });

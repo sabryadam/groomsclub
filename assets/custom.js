@@ -498,7 +498,7 @@ theme_custom.Shopify = {
 theme_custom.IconWithTextSlider = function () {
   if ($(window).width() < 768) {
     $('.icontextblock_container').on('init', function (event, slick) {
-      console.log("slick initialized");
+      // console.log("slick initialized");
        // set this slider as const for use in set time out
       const slider = this;
         
@@ -1440,7 +1440,7 @@ theme_custom.clickEvent = function () {
           $(this).addClass("disable");
         },
         success: function (result) {
-          console.log('create event result',result);
+          // console.log('create event result',result);
           if (result.success) {
             $('.api_error').addClass("success-event").show().html(result.message);
             setTimeout(function () {
@@ -1450,7 +1450,7 @@ theme_custom.clickEvent = function () {
           }
         },
         error: function (xhr, status, error) {
-          console.log('create event error',error);
+          // console.log('create event error',error);
           button.removeClass("disable");
           if (xhr.responseJSON.message == 'Token is invalid or expired.') {
             $('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({

@@ -46,7 +46,7 @@
     theme_custom.shop_url = {{ shop.url | json}};
     theme_custom.shop_name = {{ shop.name | json}};
     theme_custom.productNotFoundError = `Some product is not available for that specific size`;
-    theme_custom.fitFinderEmptyMsg = '';
+    theme_custom.fitFinderEmptyMsg = 'Please use the Fit Finder below for sizing to Continue';
     theme_custom.order_tax = {{ settings.tax_percentage | json }};
     {%- unless customer -%}
     if (localStorage.getItem("customerToken")) {
