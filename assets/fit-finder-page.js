@@ -249,7 +249,7 @@ theme_custom.nextElmShow = function (parent) {
 
 // Fit Finder Change Event
 theme_custom.fitFinderChangeEvent = function () {
-  $('input[type=radio][name=height]').on('change', function () {
+  $('input[type=radio][name=height]').on('click', function () {
     $(".required-error").remove();
     $(".button").removeClass("disabled");
     var selectedVal = $(this).val(),
@@ -269,7 +269,7 @@ theme_custom.fitFinderChangeEvent = function () {
       }, 300);
     })
   } else {
-    $('.go-next-step-wrapper input[type="radio"]').on('change',function(e){
+    $('.go-next-step-wrapper input[type="radio"]').on('click',function(e){
       setTimeout(() => {
         let parent = $(this).closest('.go-next-step-wrapper');
         let nextButton = $('.next-button',parent);

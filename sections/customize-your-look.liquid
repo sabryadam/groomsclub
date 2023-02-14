@@ -918,14 +918,7 @@ $("#suit_fit_finder a").click(function(e){
 setTimeout(function(){
   $("#product_info_box .next-step").removeClass("disabled");
 }, 2000);
-var check_recomm = localStorage.getItem("open_recomm_size");
-if(check_recomm){
-  setTimeout(function(){
-    $(`.tabbed-content-block-inner-wrapper[data-tab-content="accessories"]`).find(".next-step").trigger("click");
-    $(`.tabbed-content-block-inner-wrapper[data-tab-content="overview"]`).addClass("active")
-    localStorage.removeItem("open_recomm_size");
-  }, 3000);
-}
+
 
 $(document).on("click", ".no-vest label", function () {
   $(this).addClass("active");

@@ -1359,7 +1359,8 @@ theme_custom.customize_product_clickEvent = function () {
         nextstep.find(".button-wrapper .continue-button:last-child").hide();
         nextstep.find(".button-wrapper .continue-button.mobile-next-tab-btn-main").show();
       }
-
+      
+      
       if( targetElm.nextAll().attr("data-target") == 'overview' && getCookie("fit-finder-data") == "" ){
         $('.overview-tab .overview-product.no-product-in-overview').hide();
         $('.overview-tab .product-info-footer .add-to-cart-button').addClass('disabled');
@@ -1749,6 +1750,16 @@ theme_custom.customize_product_clickEvent = function () {
 //  Init Function
 theme_custom.customize_product_init = function () {
   theme_custom.customize_product_clickEvent();
+  var check_recomm = localStorage.getItem("open_recomm_size");
+  console.log("check_recomm",check_recomm)
+  if(check_recomm){
+    setTimeout(function(){
+      // $(`.tabbed-content-block-inner-wrapper[data-tab-content="accessories"]`).find(".next-step").trigger("click");
+      $(`.tabbed-content-block-inner-wrapper[data-tab-content="overview"]`).addClass("active")
+      $(`.tabbed-content-title.tab-header[data-target="overview"]`).click();
+      localStorage.removeItem("open_recomm_size");
+    }, 3000);
+  }
 }
 
 // theme_custom.fitFinderData
