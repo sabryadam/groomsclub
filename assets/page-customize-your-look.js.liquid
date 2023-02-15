@@ -136,8 +136,8 @@ theme_custom.productDataFromURL = function () {
             optionThirdval = currentOption.closest(".product-block.product-item-wrap").find("input[data-option-index='2']").val();
         }
         if (currentOption.closest(".product-block-wrapper[data-product-type='suit']").length > 0) {
-          variantTitle = `<p class="jacket_option" style="line-height: 25px;">Jacket <span class="option1">${theme_custom.jacketSize}</span> <span class="option2">${theme_custom.jacketType}</span> <span class="link edit-item" data-variant-id="${getProductvarID}" data-product-handle="jacket-product"> | Edit Item </span></p>
-                          <p class="pant_option" style="line-height: 25px;">Pants <span class="option1">${theme_custom.pantsWaist}W</span> <span class="option2">${theme_custom.pantsLength}H</span> <span class="link edit-item" data-variant-id="${getProductvarID}" data-product-handle="pant-product"> | Edit Item </span></p>`;
+          variantTitle = `<p class="jacket_option" style="line-height: 25px;">Jacket <span class="option1">${theme_custom.jacketSize ? theme_custom.jacketSize : "" }</span> <span class="option2">${theme_custom.jacketType ? theme_custom.jacketType : ""}</span> <span class="link edit-item" data-variant-id="${getProductvarID}" data-product-handle="jacket-product"> | ${theme_custom.jacketSize && theme_custom.jacketType ? "Edit Item" :"Selected size"} </span></p>
+                          <p class="pant_option" style="line-height: 25px;">Pants <span class="option1">${theme_custom.pantsWaist ? theme_custom.pantsWaist + "W" : ""}</span> <span class="option2">${theme_custom.pantsLength ? theme_custom.pantsLength + "H" : ""}</span> <span class="link edit-item" data-variant-id="${getProductvarID}" data-product-handle="pant-product"> | ${theme_custom.pantsWaist && theme_custom.pantsLength ? "Edit Item" :"Selected size"} </span></p>`;
         } else if (currentOption.closest(".product-block-wrapper[data-product-type='shirt']").length > 0) {
           variantTitleWithOption = '';
           if (optionFirstName && optionFirstVal) {
@@ -1344,6 +1344,13 @@ theme_custom.customize_product_clickEvent = function () {
   })
 
   $(".next-step").click(function () {
+    if($(this).closest(`.tabbed-content-block-inner-wrapper[data-tab-content="accessories"]`).length > 0){
+      var currentURL = window.location.href;
+      var domainData = currentURL.split('?')[0];
+      var newURL = domainData + '?' + localStorage.getItem('customizerlookUrl')
+      window.history.pushState({}, '', newURL);
+      theme_custom.productDataFromURL();
+    }
     if ($(this).closest(".tabbed-content-block-inner-wrapper[data-tab-content='personalize']").length > 0 || $(this).closest(".tabbed-content-block-inner-wrapper[data-tab-content='customize']").length > 0) {
       $(".custom-look-image").addClass("image-zoom");
     } else {
@@ -1362,10 +1369,10 @@ theme_custom.customize_product_clickEvent = function () {
       
       
       if( targetElm.nextAll().attr("data-target") == 'overview' && getCookie("fit-finder-data") == "" ){
-        $('.overview-tab .overview-product.no-product-in-overview').hide();
+        //$('.overview-tab .overview-product.no-product-in-overview').hide();
         $('.overview-tab .product-info-footer .add-to-cart-button').addClass('disabled');
       }else{
-        $('.overview-tab .overview-product.no-product-in-overview').show();
+        //$('.overview-tab .overview-product.no-product-in-overview').show();
         $('.overview-tab .product-info-footer .add-to-cart-button').removeClass('disabled');
       }
 
