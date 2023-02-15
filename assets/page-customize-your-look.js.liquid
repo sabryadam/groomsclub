@@ -1351,6 +1351,7 @@ theme_custom.customize_product_clickEvent = function () {
       var newURL = domainData + '?' + localStorage.getItem('customizerlookUrl')
       window.history.pushState({}, '', newURL);
       theme_custom.productDataFromURL();
+      theme_custom.setNoramlProductVariants();
     }
     if ($(this).closest(".tabbed-content-block-inner-wrapper[data-tab-content='personalize']").length > 0 || $(this).closest(".tabbed-content-block-inner-wrapper[data-tab-content='customize']").length > 0) {
       $(".custom-look-image").addClass("image-zoom");
@@ -2075,3 +2076,15 @@ $(document).ready(function () {
         blankSpace = 19.5;
       }
     });
+
+    theme_custom.setNoramlProductVariants = function(){
+      const ties = $('.product-block-wrapper[data-product-type="neckties"] .product-var-dropdown.select__select');
+      const pocketSquare = $('.product-block-wrapper[data-product-type="pocket-square"] .product-var-dropdown.select__select');
+      const bowTies = $('.product-block-wrapper[data-product-type="bow-ties"] .product-var-dropdown.select__select');
+      const tieBar = $('.product-block-wrapper[data-product-type="tie-bar"] .product-var-dropdown.select__select');
+
+      const belt = $('.product-block-wrapperdata-product-type="belt"] .product-var-dropdown.select__select');
+      const shoes = $('.product-block-wrapper[data-product-type="shoes"] .swatch-outer-wrapper .swatch-wrap.unchecked-product .product-var-dropdown.select__select');
+
+
+    }
