@@ -139,7 +139,21 @@ theme_custom.productDataFromURL = function () {
           variantTitle = `<p class="jacket_option" style="line-height: 25px;">Jacket <span class="option1">${theme_custom.jacketSize ? theme_custom.jacketSize : "" }</span> <span class="option2">${theme_custom.jacketType ? theme_custom.jacketType : ""}</span> <span class="link edit-item" data-variant-id="${getProductvarID}" data-product-handle="jacket-product"> | ${theme_custom.jacketSize && theme_custom.jacketType ? "Edit Item" :"Select size"} </span></p>
                           <p class="pant_option" style="line-height: 25px;">Pants <span class="option1">${theme_custom.pantsWaist ? theme_custom.pantsWaist + "W" : ""}</span> <span class="option2">${theme_custom.pantsLength ? theme_custom.pantsLength + "H" : ""}</span> <span class="link edit-item" data-variant-id="${getProductvarID}" data-product-handle="pant-product"> | ${theme_custom.pantsWaist && theme_custom.pantsLength ? "Edit Item" :"Select size"} </span></p>`;
         } else if (currentOption.closest(".product-block-wrapper[data-product-type='shirt']").length > 0) {
+          var productVariantLink = ''; 
+          if(optionFirstVal != '' ){
+            productVariantLink = `display: none"`;
+          } else {
+            productVariantLink = ''
+          }
           variantTitleWithOption = '';
+          var productVariantLink = buttonLabel =  ''; 
+          if(optionFirstVal != '' && optionSecondVal != ''){
+            productVariantLink = `display: none"`;
+            buttonLabel = 'Select Size'
+          } else {
+            productVariantLink = ''
+            buttonLabel = 'Edit Item'
+          }
           if (optionFirstName && optionFirstVal) {
             variantTitleWithOption = `${optionFirstName} <span class="option1">${optionFirstVal}</span>`;
           }
@@ -149,24 +163,60 @@ theme_custom.productDataFromURL = function () {
           if (optionThirdval) {
             variantTitleWithOption += ` - <span class="option3">${optionThirdval}</span>`;
           }
-          variantTitle = `<p style="line-height: 25px;"> ${variantTitleWithOption} </p>`;
+          variantTitle = `<p class="variant-title" style="line-height: 25px;${productVariantLink}"> ${variantTitleWithOption} </p>`;
           inputHiddenVal = `<input type="hidden" class="overview-variant-id" data-variant-id="${getProductvarID}">`;
           if (getProductvarQty == 0) {
             productBlockVarData = '';
           } else {
             productBlockVarData = 'product-block-var-data';
           }
-          editItem = `<span class="link edit-item" data-variant-id="${getProductvarID}" data-product-handle="${getProductHandle}">Edit Item | </span>`;
+          editItem = `<span class="link edit-item" data-variant-id="${getProductvarID}" data-product-handle="${getProductHandle}">${buttonLabel} | </span>`;
+          removeItem = `<span class="link remove-item" data-variant-id="${getProductvarID}" data-product-handle="${getProductHandle}">Remove</span>`;
+        } else if (currentOption.closest(".product-block-wrapper[data-product-type='vest']").length > 0) {
+          var productVariantLink = buttonLabel = ''; 
+          if(optionFirstVal != '' ){
+            productVariantLink = `display: none"`;
+            buttonLabel = 'Select Size'
+          } else {
+            productVariantLink = ''
+            buttonLabel = 'Edit Item'
+          } 
+          variantTitleWithOption = '';
+          if (optionFirstName && optionFirstVal) {
+            variantTitleWithOption = `${optionFirstName} <span class="option1">${optionFirstVal}</span>`;
+          }
+          if (optionSecondName && optionSecondVal) {
+            variantTitleWithOption += `, ${optionSecondName} <span class="option2">${optionSecondVal}</span>`
+          }
+          if (optionThirdval) {
+            variantTitleWithOption += ` - <span class="option3">${optionThirdval}</span>`;
+          }        
+          variantTitle = `<p class="variant-title" style="line-height: 25px;${productVariantLink}"> ${variantTitleWithOption} </p>`;
+          inputHiddenVal = `<input type="hidden" class="overview-variant-id" data-variant-id="${getProductvarID}">`;
+          if (getProductvarQty == 0) {
+            productBlockVarData = '';
+          } else {
+            productBlockVarData = 'product-block-var-data';
+          }
+          editItem = `<span class="link edit-item" data-variant-id="${getProductvarID}" data-product-handle="${getProductHandle}">${buttonLabel} | </span>`;
           removeItem = `<span class="link remove-item" data-variant-id="${getProductvarID}" data-product-handle="${getProductHandle}">Remove</span>`;
         } else if (currentOption.closest(".product-block-wrapper[data-product-type='shoes']").length > 0) {
-          variantTitle = `<p style="line-height: 25px;">${optionFirstName} <span class="option1">${optionFirstVal}</span>, <span class="option2">${optionSecondVal}</span> </p>`;
+          var productVariantLink = buttonLabel = ''; 
+          if(optionSecondVal == '' ){
+            productVariantLink = `display: none"`;
+            buttonLabel = 'Select Size'
+          } else {
+            productVariantLink = ''
+            buttonLabel = 'Edit Item'
+          }          
+          variantTitle = `<p class="variant-title" style="line-height: 25px;${productVariantLink}">${optionFirstName} <span class="option1">${optionFirstVal}</span>, <span class="option2">${optionSecondVal}</span> </p>`;
           inputHiddenVal = `<input type="hidden" class="overview-variant-id" data-variant-id="${getProductvarID}">`;
           if (getProductvarQty == 0) {
             productBlockVarData = '';
           } else {
             productBlockVarData = 'product-block-var-data';
           }
-          editItem = `<span class="link edit-item" data-variant-id="${getProductvarID}" data-product-handle="${getProductHandle}">Edit Item | </span>`;
+          editItem = `<span class="link edit-item" data-variant-id="${getProductvarID}" data-product-handle="${getProductHandle}">${buttonLabel} | </span>`;
           removeItem = `<span class="link remove-item" data-variant-id="${getProductvarID}" data-product-handle="${getProductHandle}">Remove</span>`;
         } else {
           variantTitleWithOption = '';
@@ -1147,7 +1197,8 @@ theme_custom.setFitFinderData = function(){
 
 // theme_custom.customize_product_clickEvent function
 theme_custom.customize_product_clickEvent = function () {
-  $(document).on("click", ".product-swatches-main .swatch-element-item", function () {
+  var clickEvent = document.ontouchstart !== null ? 'click' : 'touchstart';
+  $(document).on(clickEvent, ".product-swatches-main .swatch-element-item", function() {
     let parent = $(this).closest('.product-swatch-option');
     let select = $('.prod-variant-option',parent);
     let subParent = $(this).closest('.swatch');
@@ -1241,10 +1292,26 @@ theme_custom.customize_product_clickEvent = function () {
     if(productType == 'jacket'){
       $(`.customize-look-overview-product[data-product-type="suit"] .jacket_option .option1`).text(targetVarTitleArr[0]);
       $(`.customize-look-overview-product[data-product-type="suit"] .jacket_option .option2`).text(targetVarTitleArr[1]);
-      targetVarTitleArr[0]
+      targetVarTitleArr[0];
+      $(`.customize-look-overview-product[data-product-type="suit"] .jacket_option`).find(".edit-item").text("| Edit Item");
     }else if(productType == 'pants'){
       $(`.customize-look-overview-product[data-product-type="suit"] .pant_option .option1`).text(targetVarTitleArr[0]+'W');
       $(`.customize-look-overview-product[data-product-type="suit"] .pant_option .option2`).text(targetVarTitleArr[1]+'H');
+      $(`.customize-look-overview-product[data-product-type="suit"] .pant_option`).find(".edit-item").text("| Edit Item");
+    } else if(productType == 'vest'){
+      $(`.customize-look-overview-product[data-product-type="vest"] .product-variant-link .option1`).text(targetVarTitleArr[0]);
+      $(`.customize-look-overview-product[data-product-type="vest"] .product-variant-link .option2`).text(targetVarTitleArr[1]);
+      $(`.customize-look-overview-product[data-product-type="vest"] .product-variant-link`).find(".variant-title").show();
+      $(`.customize-look-overview-product[data-product-type="vest"] .edit-remove-link`).find(".edit-item").text("Edit Item | ");
+    } else if(productType == 'shirt'){
+      $(`.customize-look-overview-product[data-product-type="shirt"] .product-variant-link .option1`).text(targetVarTitleArr[0]);
+      $(`.customize-look-overview-product[data-product-type="shirt"] .product-variant-link .option2`).text(targetVarTitleArr[1]);
+      $(`.customize-look-overview-product[data-product-type="shirt"] .product-variant-link`).find(".variant-title").show();
+      $(`.customize-look-overview-product[data-product-type="shirt"] .edit-remove-link`).find(".edit-item").text("Edit Item | ");
+    }  else if(productType == 'shoes'){
+      $(`.customize-look-overview-product[data-product-type="shoes"] .product-variant-link .option2`).text(targetVarTitleArr[1]);
+      $(`.customize-look-overview-product[data-product-type="shoes"] .edit-remove-link`).find(".edit-item").text("Edit Item | ");
+      $(`.customize-look-overview-product[data-product-type="shoes"] .product-variant-link`).find(".variant-title").show();
     }
     let parent = $(this).closest('.product-swatch-option'); 
     let error = $(`.customize-look-overview-product[data-product-handle="${parent.attr('data-product-handle')}"] .error-msg`);
