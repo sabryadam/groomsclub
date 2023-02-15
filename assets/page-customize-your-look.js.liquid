@@ -1149,9 +1149,11 @@ theme_custom.setFitFinderData = function(){
     }
 
   }
-  if($('.tab-header.active[data-target="overview"]').length > 0){
-    theme_custom.setNoramlProductVariants();
-  }
+  setTimeout(() => {
+    if($('.tabbed-content-title.active[data-target="overview"]').length > 0){
+      theme_custom.setNoramlProductVariants();
+    }  
+  }, 1000);
 }
 
 // theme_custom.customize_product_clickEvent function
