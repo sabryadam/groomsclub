@@ -261,16 +261,6 @@ theme_custom.fitFinderChangeEvent = function () {
       $(this).closest('.step-wrapper').find('.next-button').click();
     }, 300)
   });
-  if(localStorage.getItem("edit-fit-finder")){
-    $('.go-next-step-wrapper .form-wrap label').on('click',function(e){
-      setTimeout(() => {
-        $(this).parent().find(`[type="radio"]`).attr("checked",true);
-        let parent = $(this).closest('.go-next-step-wrapper');
-        let nextButton = $('.next-button',parent);
-        nextButton.click();
-      }, 300);
-    })
-  } else {
     $('.go-next-step-wrapper input[type="radio"]').on('click',function(e){
       setTimeout(() => {
         let parent = $(this).closest('.go-next-step-wrapper');
@@ -278,7 +268,6 @@ theme_custom.fitFinderChangeEvent = function () {
         nextButton.click();
       }, 300);
     })
-  }
 }
 
 theme_custom.jacketSizefunction = function (jacketSize, jacketSizeVal, jacketPantVal, fitFinder) {
