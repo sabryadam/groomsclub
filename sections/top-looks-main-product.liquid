@@ -1479,7 +1479,7 @@ function suitSizeData() {
       },
       success: function (result) {
           if (result.success) {
-              console.log(result);
+              // console.log(result);
 
               var jacket_size = 'NA';
               var jacket_type = 'NA';
@@ -1567,7 +1567,7 @@ function suitSizeDataNonLogged(){
   var getFitFinder = getCookie("fit-finder-data");
   if(getFitFinder){
     getFitFinder = JSON.parse(getCookie("fit-finder-data"));
-    console.log(getFitFinder);
+    // console.log(getFitFinder);
     var ff_html = '';
 
     var jacket_size = 'NA';
@@ -1697,7 +1697,7 @@ $(document).ready(function(){
       box.find(".single-option-selector option").each(function(){
         var title = $(this).data("var-title");
         if(title.indexOf(attr) != -1){
-          console.log(title);
+          // console.log(title);
           var optionValue = $(this).attr("value");
           box.find(".single-option-selector").val(optionValue);
           box.find(".pdp-updates-button .button.button--primary").removeClass("disabled");
