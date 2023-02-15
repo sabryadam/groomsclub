@@ -192,8 +192,8 @@ select#exampleFormControlSelect1, select#exampleFormControlSelect2 {
 .completefit {
     padding: 0px 30px;
     border-radius: 4px;
-    max-width: 80%;
     width: 100%;
+    max-width: 100% ;
 }
 
 
@@ -808,4 +808,12 @@ div.tab-top-border {
 }
 .calendly-badge-widget .calendly-badge-content{
   display: none !important;
+}
+@media(max-width : 767px){
+  #overview_ff_box h4{
+    font-size: 14px;
+  }
+  #overview_ff_box p{
+    font-size : 12px
+  }
 }
