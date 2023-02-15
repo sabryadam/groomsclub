@@ -77,7 +77,7 @@ theme_custom.saveFitFinder = function (fitFinderJson, button) {
     "jacketSize": jacketSize
   }
   // console.log("Fit finder fitFinderJsonData",fitFinderJsonData);
-  console.warn("Fit Finder Data",fitFinder);
+  // console.warn("Fit Finder Data",fitFinder);
   header = {
     // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
     "Authorization": 'Bearer ' + localStorage.getItem("customerToken")

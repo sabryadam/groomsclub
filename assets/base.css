@@ -9654,6 +9654,9 @@ main#MainContent {
   color: red;
   width: 100%;
 }
+.error-message.error-show{
+  display: block;
+}
 
 .edit-size-popup .error-message{
   margin-top: 0;

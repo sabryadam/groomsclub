@@ -2,56 +2,6 @@
 {{ 'product-page.js' |  asset_url | script_tag  }}
 {{ 'product-top-looks-pdp.js' |  asset_url | script_tag }}
 
-<script>
-
-$(document).ready(function(){
-  var cur_url = window.location.href;
-  if(cur_url.indexOf('collections/suit') != -1 || cur_url.indexOf('collections/looks') != -1){
-    //$("body").addClass("suit_page_body");
-
-    if( $(`.product-data-card.product-data-card-wrap[data-product-type="vest"] .edit-item-btn.btn`).text() == 'Select Size' ){
-      $(`.product-data-card.product-data-card-wrap[data-product-type="vest"]`).find(".variant-title span").html("");
-    }
-    $(".suit_btn_add_to_cart").click(function(){
-      var varCount = 0;
-
-      $(".product-block-wrap-suit-wrapper .edit-size-title").each(function(){
-        if( !$(this).hasClass("hidden") ){
-          $(".product-block-wrap-suit-wrapper").addClass("required-box");
-          varCount = 1;
-        }
-      });
-
-      if( $(`.product-data-card.product-data-card-wrap[data-product-type="vest"] .edit-item-btn.btn`).text() == 'Select Size' ){
-        varCount = 1;
-        $(`.product-data-card.product-data-card-wrap[data-product-type="vest"] `).addClass("required-box");
-        $('html, body').animate({
-          scrollTop: $(".product-form").offset().top
-        }, 2000);
-      }else{
-        $(`.product-data-card.product-data-card-wrap[data-product-type="vest"] `).removeClass("required-box");
-      }
-
-      if(varCount > 0){
-        return false;
-      }else{
-        $(".product-block-wrap-suit-wrapper").removeClass("required-box");
-        $(`.product-data-card.product-data-card-wrap[data-product-type="vest"] `).removeClass("required-box");
-      }
-
-    });
-
-    $(".var-select-custom").change(function(){
-      if($(this).val()){
-        $(this).parent(".swatch-wrap").removeClass("required-select");
-      }
-    });
-
-  }
-});
-
-</script>
-
 <input type="hidden" class="product-type" value="{{ product.type }}" />
 <input type="hidden" class="product-first-image" value="{{ product.images[0] | img_url : '900x' }}" />
 <img id="imageid" src="{{ product.images[0] | img_url : 'master' }}" class="hidden" />
@@ -703,7 +653,7 @@ $(document).ready(function(){
                             {%- assign productSelectedType  = productHandle.type | downcase -%}
                             {%- unless productHandle == blank -%}
                               {%- if productSelectedType == "jacket" or productSelectedType == "pants"  -%}
-                                <div class="variant-title variant-info-wrap" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
+                                <div class="variant-title variant-info-wrap product-variant-wrap" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
                                   <div class="option-title">
                                     {%- if productSelectedType == 'jacket' %}
                                       <span class="edit-size-title">Jacket Size </span>
@@ -1152,7 +1102,7 @@ $(document).ready(function(){
                                           {%- unless forloop.last -%},{%- endunless -%}
                                         {% endfor %}
                                       </span>
-                                      <div class="cta-button-wrap"{% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %} style="margin-top : 10px" {% endif %}>
+                                      <div class="cta-button-wrap product-variant-wrap"{% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %} style="margin-top : 10px" {% endif %}>
                                         {% if productHandle.variants.size > 1 %}
                                           <span class="edit-item-btn btn">
                                             {%- if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' -%}

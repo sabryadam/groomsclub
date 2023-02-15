@@ -762,7 +762,7 @@ theme_custom.tlpclickEvent = function(){
             data: data,
             dataType: 'json',
             success: function() {
-              button.find(".btn-title").text("Added");
+              button.find(".btn-title").text("Added to Cart");
               setTimeout(() => {
                 button.removeClass("custom-top-look-disable");
                 window.location.href = "/cart";
@@ -783,7 +783,7 @@ theme_custom.tlpclickEvent = function(){
         data: data,
         dataType: 'json',
         success: function() {
-          button.find(".btn-title").text("Added");
+          button.find(".btn-title").text("Added to Cart");
           setTimeout(() => {
             button.removeClass("custom-top-look-disable");
             window.location.href = "/cart";
@@ -849,7 +849,7 @@ theme_custom.tlpclickEvent = function(){
       data: data,
       dataType: 'json',
       success: function() {
-        button.find(".btn-title").text("Added");
+        button.find(".btn-title").text("Added to Cart");
         setTimeout(() => {
           button.removeClass("custom-top-look-disable");
           window.location.href = "/cart";
@@ -919,6 +919,7 @@ theme_custom.tlpclickEvent = function(){
         $(`.variant-info-wrap[data-product-type='${productType}']`).find(".edit-size-title").addClass("hidden");
         $(`.variant-info-wrap[data-product-type='${productType}']`).find(".product-variant-value").removeClass("hidden");
         $(`.variant-info-wrap[data-product-type='${productType}']`).find(".edit-item-button").text("Edit Item");
+        $(`.variant-info-wrap[data-product-type='${productType}']`).find(".error-message").removeClass("error-show");
         parent.find(".edit-size-title").addClass("hidden");
       } else {
         $(`.product-data-card[data-product-handle='${dataHandle}']`).find('.error-message').text('').hide();
@@ -927,6 +928,7 @@ theme_custom.tlpclickEvent = function(){
         $(`.product-data-card[data-product-handle='${dataHandle}']`).find(".variant-title").removeClass("hidden");
         $(`.product-data-card[data-product-handle='${dataHandle}']`).find(".edit-item-btn").text("Edit Item");
         $(`.product-data-card[data-product-handle='${dataHandle}']`).find(".cta-button-wrap").css('margin-top','0');
+        $(`.product-data-card[data-product-handle='${dataHandle}']`).find(".error-message").removeClass("error-show");
       }
       parent.find(".error-message").text('').hide();
       if($(".error-message").text() == '' && getCookie("fit-finder-data") != ''){
@@ -936,6 +938,12 @@ theme_custom.tlpclickEvent = function(){
       }
       parent.find(".fancybox-close-small").click();
       parent.find(".pdp-updates-button").find(".button").addClass("disabled");
+    }
+
+    if($('.error-message.error-show').length > 0){
+      $(`.suit_btn_add_to_cart`).addClass('disabled');
+    } else {
+      $(`.suit_btn_add_to_cart`).removeClass('disabled');
     }
   })
 
@@ -986,4 +994,36 @@ $(document).ready(function(){
   });
 
   theme_custom.priceCalculator();
+});
+
+$(document).ready(function(){
+  var currentUrl = window.location.href;
+  if(currentUrl.indexOf('collections/suit') != -1 || currentUrl.indexOf('collections/looks') != -1){
+    console.log("Check suit / top look product")
+    $(`.suit_btn_add_to_cart`).addClass('disabled');
+    if(getCookie("fit-finder-data") != ''){
+      var fitFinder = JSON.parse(getCookie("fit-finder-data"));
+      console.log("fitFinder",fitFinder);
+      setTimeout(function(){
+        $( ".product-data-card.product-data-card-wrap" ).each(function() {
+          var parent = $(this),
+              productType = parent.attr("data-product-type"),
+              varintTitle = productColor ='';
+          var productVariantTitle = [];
+          var selectOptionVar = $(`[data-product-type="${productType}"]`).find('.single-option-selector option');
+          selectOptionVar.each(function(){
+            productVariantTitle.push($(this).attr("data-var-title"));    
+          });
+          
+        });
+      }, 2000)
+    } else {
+      var errorMsg = `Please Select Size!`;
+      $(`.product-variant-wrap[data-product-type="jacket"]`).find('.error-message').text(`${errorMsg}`).addClass('error-show');
+      $(`.product-variant-wrap[data-product-type="pants"]`).find('.error-message').text(`${errorMsg}`).addClass('error-show');
+      $(`[data-product-type="vest"] .product-block-wrap`).find('.error-message').text(`${errorMsg}`).addClass('error-show');
+      $(`[data-product-type="shirt"] .product-block-wrap`).find('.error-message').text(`${errorMsg}`).addClass('error-show');
+      $(`[data-product-type="shoes"] .product-block-wrap`).find('.error-message').text(`${errorMsg}`).addClass('error-show');
+    }
+  }
 });
