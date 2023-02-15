@@ -296,6 +296,9 @@ theme_custom.productDataFromURL = function () {
     }
     theme_custom.priceUpdate();
     theme_custom.setFitFinderData();
+    if (getCookie("fit-finder-data") == ""){
+      $(`[data-product-type="vest"] .variant-title, [data-product-type="shirt"] .variant-title, [data-product-type="shoes"] .variant-title`).addClass('hidden');
+    }
   }
 }
 
@@ -1303,15 +1306,18 @@ theme_custom.customize_product_clickEvent = function () {
       $(`.customize-look-overview-product[data-product-type="vest"] .product-variant-link .option2`).text(targetVarTitleArr[1]);
       $(`.customize-look-overview-product[data-product-type="vest"] .product-variant-link`).find(".variant-title").show();
       $(`.customize-look-overview-product[data-product-type="vest"] .edit-remove-link`).find(".edit-item").text("Edit Item | ");
+      $(`[data-product-type="vest"] .variant-title`).removeClass('hidden');
     } else if(productType == 'shirt'){
       $(`.customize-look-overview-product[data-product-type="shirt"] .product-variant-link .option1`).text(targetVarTitleArr[0]);
       $(`.customize-look-overview-product[data-product-type="shirt"] .product-variant-link .option2`).text(targetVarTitleArr[1]);
       $(`.customize-look-overview-product[data-product-type="shirt"] .product-variant-link`).find(".variant-title").show();
+      $(`[data-product-type="shirt"] .variant-title`).removeClass('hidden');
       $(`.customize-look-overview-product[data-product-type="shirt"] .edit-remove-link`).find(".edit-item").text("Edit Item | ");
     }  else if(productType == 'shoes'){
       $(`.customize-look-overview-product[data-product-type="shoes"] .product-variant-link .option2`).text(targetVarTitleArr[1]);
       $(`.customize-look-overview-product[data-product-type="shoes"] .edit-remove-link`).find(".edit-item").text("Edit Item | ");
       $(`.customize-look-overview-product[data-product-type="shoes"] .product-variant-link`).find(".variant-title").show();
+      $(`[data-product-type="shoes"] .variant-title`).removeClass('hidden');
     }
     let parent = $(this).closest('.product-swatch-option'); 
     let error = $(`.customize-look-overview-product[data-product-handle="${parent.attr('data-product-handle')}"] .error-msg`);
@@ -1918,6 +1924,7 @@ theme_custom.fitFinderData = function () {
       localStorage.removeItem("gotoFitFinder");
     }
   } else {
+    $(`[data-product-type="vest"] .variant-title, [data-product-type="shirt"] .variant-title, [data-product-type="shoes"] .variant-title`).addClass('hidden');
     fitFinderDataHtml = `<div class='my-size-outer-wrapper'>
                           <p>${theme_custom.emptyFitFinderMsg}</p>
                         </div>`
