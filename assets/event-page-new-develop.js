@@ -226,10 +226,27 @@ theme_custom.calender = function(){
   $('#event_date').attr('min',today);
 }
 
+theme_custom.eventLookSlider = function(){
+  $('.create-event-look .event-look-inner-wrapper').slick({
+    slidesToShow: 2,
+    slidesToScroll: 2,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      }
+    ]
+  });
+}
+
 theme_custom.event_init_page = function(){
   theme_custom.eventPageClickEvent();
   theme_custom.calender();
   theme_custom.favoriteLooks();
+  theme_custom.eventLookSlider();
   $('.event-page-new-design-wrapper .event-name').bind("keypress keyup keydown", function (e) {
     theme_custom.eventReminderTitleValidation($(this));
   });
