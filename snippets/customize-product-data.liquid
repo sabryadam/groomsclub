@@ -35,8 +35,8 @@
         {%- endcapture -%}
         <option
           {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %}
-          {% unless variant.available %}disabled{% endunless %}
           value="{{ variant.id }}"
+          data-available="{{variant.available}}"
           data-product-id="{{product.id }}"
           data-variant-price="{{ variant.price}}"
           data-variant-title="{{ variant.title}}"
