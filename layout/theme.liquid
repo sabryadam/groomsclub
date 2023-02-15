@@ -26,6 +26,10 @@
       let expires = "expires=" + d.toUTCString();
       document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
+    if(window.location.pathname != "/pages/fit-finder"){
+      setCookie('lastpage',window.location.pathname,1);
+    }
+    
     function getCookie(cname) {
       let name = cname + "=";
       let ca = document.cookie.split(';');

@@ -806,3 +806,6 @@ div.tab-top-border {
 		padding: 0 25px;
 	}
 }
+.calendly-badge-widget .calendly-badge-content{
+  display: none !important;
+}
