@@ -8893,16 +8893,21 @@ img.crossed-out.hide {
 }
 
 .edit-item-popup::-webkit-scrollbar-track {
-  background-color: #F5F5F5;
+  border-radius: 10px;
 }
 
 .edit-item-popup::-webkit-scrollbar {
-  width: 5px;
-  background-color: #F5F5F5;
+  width: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  border-left: 15px solid #fff;
 }
 
 .edit-item-popup::-webkit-scrollbar-thumb {
   background-color: var(--color-light-blue);
+  border-left: 15px solid transparent;
+  border-radius: 10px;
+  background-clip: content-box;
 }
 
 .edit-item-popup .single-option-selector {
