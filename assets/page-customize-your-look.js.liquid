@@ -307,8 +307,8 @@ theme_custom.productDataFromURL = function () {
       var fitFinderData = JSON.parse(getCookie('fit-finder-data')),
           shoe_size = fitFinderData.shoe_size; 
       $(`[data-product-type="shoes"]`).find('.option2').text(shoe_size);
-      $(`.customize-look-overview-product.product-block-var-data[data-product-type="shoes"] .product-swatches-main`).find('.swatch-element-item').removeClass("active");
-      $(`.customize-look-overview-product.product-block-var-data[data-product-type="shoes"] .product-swatches-main`).find(`.swatch-element-item[data-title="${shoe_size}"]`).addClass("active")
+      $(`.customize-look-overview-product.product-block-var-data[data-product-type="shoes"] .product-swatches-main .swatch.size`).find('.swatch-element-item').removeClass("active");
+      $(`.customize-look-overview-product.product-block-var-data[data-product-type="shoes"] .product-swatches-main .swatch.size`).find(`.swatch-element-item[data-title="${shoe_size}"]`).addClass("active")
     }
   }
 }
