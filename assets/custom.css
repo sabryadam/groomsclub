@@ -47,10 +47,6 @@ select.select__select {
 }
 
 
-.product-form__buttons .favorite-event-cart-wrapper {
-    justify-content: flex-start !important;
-}
-
 .product-block-wrap-suit-wrapper {
 /*     display: none !important; */
 }
@@ -479,8 +475,25 @@ select.suit_attr + .icon {
 	width: 100%;
 }
 
+.completefit a{
+	width: 100%;
+	min-width: 100%;
+	display: block;
+	position: relative;
+}
+
 #suit_fit_finder .fas.fa-chevron-right {
 	color: #fff;
+	position: absolute;
+	right: 35px;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 26px;
+}
+@media(max-width : 767px){
+	#suit_fit_finder .fas.fa-chevron-right{
+		right: 5px;
+	}
 }
 
 #product_info_box .button.button--secondary.button--full-width.fit-finder-button.edit-fit-finder,
@@ -608,7 +621,11 @@ div.tab-top-border {
 }
 
 #suit_fit_finder {
-	padding: 0 20px;
+	padding:20px;
+}
+
+#suit_fit_finder .fit-finder-info-block {
+	max-width: calc(100% - 50px);
 }
 
 #suit_fit_finder h4 {
