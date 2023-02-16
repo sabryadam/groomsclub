@@ -693,7 +693,7 @@
                                     </div>
                                   </div>
                                   <div class="cta-button-wrap ">
-                                    <span class="edit-item-button btn select"> <span style="color:var(--color-gray-text);">-</span> Select Sizes</span>
+                                    <span class="edit-item-button btn select" data-button-label='select-size'> <span style="color:var(--color-gray-text);">-</span> Select Sizes</span>
                                   </div>
                                   <span class="error-message"></span>
                                 </div>
@@ -704,7 +704,7 @@
 
                         <div id="suit_fit_finder" class="completefit product_fit_finder" style="display: none;">
                           <a href="https://www.groomsclub.com/pages/fit-finder">
-                        <div>
+                        <div class="fit-finder-info-block">
                             <h4>Not sure of your size? Try our fit finder</h4>
                           <p>Answer a few simple questions to help you find the perfect fit</p>
                         </div>
@@ -1104,7 +1104,7 @@
                                       </span>
                                       <div class="cta-button-wrap product-variant-wrap"{% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %} style="margin-top : 10px" {% endif %}>
                                         {% if productHandle.variants.size > 1 %}
-                                          <span class="edit-item-btn btn">
+                                          <span class="edit-item-btn btn {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}" {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}data-button-label="select-size"{% endif %}>
                                             {%- if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' -%}
                                               Select Size
                                             {%- else -%}
@@ -1200,7 +1200,7 @@
                                         </span>
                                         <div class="cta-button-wrap">
                                           {% if productHandle.variants.size > 1 %}
-                                            <span class="edit-item-btn btn">
+                                            <span class="edit-item-btn btn {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}" {% if productSelectedType == 'vest' or productSelectedType == 'shoes' %}data-button-label="select-size"{% endif %}>
                                               {%- if productSelectedType == 'vest' or productSelectedType == 'shoes' -%}
                                                 Select Size
                                               {%- else -%}
@@ -1279,7 +1279,7 @@
                           </a>
                         </div>
                       {%- endif -%}
-                      <button type="submit" name="add" class="product-form__submit button button--full-width button--primary custom-top-look-disable --add_suite_btn_old suit_btn_add_to_cart">
+                      <button type="button"  name="add" class="product-form__submit button button--full-width button--primary custom-top-look-disable --add_suite_btn_old suit_btn_add_to_cart">
                         <span class="btn-title" data-text="Adding...">{{ 'products.product.add_to_cart' | t }}</span>
                         <i class="fas fa-shopping-cart"></i>
                       </button>
@@ -1480,7 +1480,7 @@ function suitSizeData() {
                               </div>`;
                 }
 
-                /*if( result.data[0].shirt_neck || result.data[0].shirt_sleeve ){
+                if( result.data[0].shirt_neck || result.data[0].shirt_sleeve ){
                   ff_html += `<div class="ff-data">
                                   <strong>Shirt</strong>
                                   <span>Neck: ${result.data[0].shirt_neck}</span>
@@ -1493,7 +1493,7 @@ function suitSizeData() {
                                   <strong>Shoes</strong>
                                   <span>Size: ${result.data[0].shoe_size}</span>
                               </div>`;
-                }*/
+                }
 
                 $("#suit_fit_finder").hide();
                 $("#ff-data-box").html(ff_html);
@@ -1564,20 +1564,20 @@ function suitSizeDataNonLogged(){
                   </div>`;
     }
 
-    /*if( getFitFinder.shirt_neck || getFitFinder.shirt_sleeve ){
+    if( getFitFinder.shirt_neck || getFitFinder.shirt_sleeve ){
       ff_html += `<div class="ff-data">
                       <strong>Shirt</strong>
                       <span>Neck: ${getFitFinder.shirt_neck}</span>
                       <span>Sleeve: ${getFitFinder.shirt_sleeve}</span> 
                   </div>`;
-    }*/
+    }
 
-    /*if( getFitFinder.shoe_size ){
+    if( getFitFinder.shoe_size ){
       ff_html += `<div class="ff-data">
                       <strong>Shoes</strong>
                       <span>Size: ${getFitFinder.shoe_size}</span>
                   </div>`;
-    }*/
+    }
 
     $("#suit_fit_finder").hide();
     $("#ff-data-box").html(ff_html);
