@@ -10464,3 +10464,7 @@ p.removing-combine-message
 {
   display:none;
 } */
+
+.template-page-virtual-consultant #MainContent{
+  margin-top: 80px;
+}
