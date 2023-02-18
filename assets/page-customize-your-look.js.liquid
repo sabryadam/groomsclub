@@ -119,7 +119,10 @@ theme_custom.productDataFromURL = function () {
           productType = currentOption.closest('.product-block-wrapper').attr("data-product-type").toLowerCase(),
           getProductvarQty = parseInt(currentOption.attr("data-variant-inventory")),
         editRemoveBtnWrap = inputHiddenVal = productBlockVarData = editItem = removeItem = variantTitle = variantTitleWithOption = optionFirstName = optionFirstVal = optionSecondName = optionSecondVal = optionThirdName = optionThirdval = '';
-        const fitData = JSON.parse(getCookie('fit-finder-data'));
+        let fitData = {};
+        if(getCookie('fit-finder-data')){
+          fitData = JSON.parse(getCookie('fit-finder-data'))
+        }
         if (getProductvarQty == 0) {
           allProductsAvailable = false;
           variantNotFoundMessage = `<p class="error-msg active">${theme_custom.productNotFoundError}</p>`
