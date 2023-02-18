@@ -199,6 +199,7 @@
   margin-bottom:9px !important;
   margin-top: 0px;
   display: flex;
+  justify-content: center;
 }
 
 .sub-heading {

@@ -10466,7 +10466,12 @@ p.removing-combine-message
 } */
 
 .template-page-virtual-consultant #MainContent{
-  margin-top: 80px;
+  margin-top: 50px;
+}
+@media(max-width:767px){
+  .template-page-virtual-consultant #MainContent{
+    margin-top: 20px;
+  } 
 }
 .product-image-wrap .customiser-download-img-btn{
   border-radius: 100%;

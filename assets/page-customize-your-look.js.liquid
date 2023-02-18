@@ -119,10 +119,14 @@ theme_custom.productDataFromURL = function () {
           productType = currentOption.closest('.product-block-wrapper').attr("data-product-type").toLowerCase(),
           getProductvarQty = parseInt(currentOption.attr("data-variant-inventory")),
         editRemoveBtnWrap = inputHiddenVal = productBlockVarData = editItem = removeItem = variantTitle = variantTitleWithOption = optionFirstName = optionFirstVal = optionSecondName = optionSecondVal = optionThirdName = optionThirdval = '';
+        const fitData = JSON.parse(getCookie('fit-finder-data'));
         if (getProductvarQty == 0) {
           allProductsAvailable = false;
           variantNotFoundMessage = `<p class="error-msg active">${theme_custom.productNotFoundError}</p>`
         } else {
+          variantNotFoundMessage =  `<p class="error-msg hidden">${theme_custom.productNotFoundError}</p>`;;
+        }
+        if(currentOption.closest(".product-block-wrapper[data-product-type='shirt']").length > 0 && fitData.shirt_sleeve == "00" && fitData.shirt_neck == "00"){
           variantNotFoundMessage =  `<p class="error-msg hidden">${theme_custom.productNotFoundError}</p>`;;
         }
         if (currentOption.closest(".product-block.product-item-wrap").find("input[data-option-index='0']").length > 0) {
@@ -154,11 +158,16 @@ theme_custom.productDataFromURL = function () {
           } else {
             buttonLabel = 'Edit Item'
           }
-          if (optionFirstName && optionFirstVal) {
+          
+          if (optionFirstName && optionFirstVal && fitData.shirt_sleeve != "00" && fitData.shirt_neck != "00") {
             variantTitleWithOption = `${optionFirstName} <span class="option1">${optionFirstVal}</span>`;
+          }else{
+            variantTitleWithOption = `${optionFirstName} <span class="option1">NA</span>`;
           }
-          if (optionSecondName && optionSecondVal) {
+          if (optionSecondName && optionSecondVal && fitData.shirt_sleeve != "00" && fitData.shirt_neck != "00") {
             variantTitleWithOption += `, ${optionSecondName} <span class="option2">${optionSecondVal}</span>`
+          }else{
+            variantTitleWithOption += `, ${optionSecondName} <span class="option2">NA</span>`;
           }
           if (optionThirdval) {
             variantTitleWithOption += ` - <span class="option3">${optionThirdval}</span>`;
@@ -170,6 +179,9 @@ theme_custom.productDataFromURL = function () {
             productBlockVarData = '';
           } else {
             productBlockVarData = 'product-block-var-data';
+          }
+          if (optionSecondName && optionSecondVal && fitData.shirt_sleeve == "00" && fitData.shirt_neck == "00") {
+            allProductsAvailable = true;
           }
           editItem = `<span class="link edit-item" data-variant-id="${getProductvarID}" data-product-handle="${getProductHandle}">${buttonLabel} | </span>`;
           removeItem = `<span class="link remove-item" data-variant-id="${getProductvarID}" data-product-handle="${getProductHandle}">Remove</span>`;
@@ -291,6 +303,9 @@ theme_custom.productDataFromURL = function () {
       $(".customize-look-overview-product[data-product-type='jacket']").hide();
       $(".customize-look-overview-product[data-product-type='pants']").hide();
     }
+    
+    
+
     if(!allProductsAvailable){
       $("[data-tab-content='overview'] .add-to-cart-button").addClass('disabled');
     }
@@ -1370,9 +1385,11 @@ theme_custom.customize_product_clickEvent = function () {
       // } else {
       //   $(`[data-tab-content="overview"]`).find(".add-to-cart-button").removeClass("disabled");
       // }
+      
     }else{
       error.addClass('hidden');
       $(`[data-tab-content="overview"]`).find(".add-to-cart-button").removeClass("disabled");
+      $(`.customize-look-overview-product[data-product-type="${productType}"]`).addClass('product-block-var-data');
     }
     if($(".error-msg").hasClass("active") || $(`[data-button-target="select-size"]`).length > 0){
       $(`[data-tab-content="overview"]`).find(".add-to-cart-button").addClass("disabled");
