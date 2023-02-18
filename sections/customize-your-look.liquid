@@ -606,6 +606,9 @@
   <div class="tabbed-content-wrap page-width-big">
     <div class="tabbed-content-block-outer-wrapper" >
       <div class="product-image-wrap">
+        <button class="download-img-btn customiser-download-img-btn">
+          {% render 'image-download-icon' %}
+        </button>
         <div class="custom-look-image image-zoom">
           {%- if variant.metafields.my_fields.color_image_one != blank -%}
             <link rel="preload" as="image" href="{{ section.settings.shirt_image | img_url : '1400x'}}">
@@ -649,7 +652,7 @@
     <img crossorigin="anonymous" src="" alt="Look Image" />
   </a>
 </div>
-
+<div class="hidden download-element-div"></div>
 <script>
 
 const API_URL = theme_custom.api_base_url;

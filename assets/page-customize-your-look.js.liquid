@@ -1216,6 +1216,7 @@ theme_custom.setFitFinderData = function(){
 
 // theme_custom.customize_product_clickEvent function
 theme_custom.customize_product_clickEvent = function () {
+ 
   var clickEvent = document.ontouchstart !== null ? 'click' : 'touchstart';
   $(document).on(clickEvent, ".product-swatches-main .swatch-element-item", function () {
     let parent = $(this).closest('.product-swatch-option');
@@ -2277,3 +2278,31 @@ theme_custom.updatePreviousSwatch = function(productType){
     }
   }
 }
+$(document).on('click', ".product-image-wrap .download-img-btn", function () {
+  theme_custom.saveImage();
+});
+theme_custom.saveImage = function(){
+  let b64data = '';
+    let finalCoverImage = document.querySelector(".custom-look-image.image-zoom");
+    let newCanvas = document.createElement("CANVAS");
+    let newCanvasContext = newCanvas.getContext("2d");
+    newCanvasContext.canvas.height= 800;
+    newCanvasContext.canvas.width= 830;
+    html2canvas(finalCoverImage, { canvas:newCanvas, width: 1200,height: 1200, useCORS: true, allowTaint: true,
+     }).then(canvas => {
+      b64data = canvas.toDataURL();
+      console.log(b64data)
+      theme_custom.downloadBase64File(b64data, 'image/png', 'test.png');
+    });
+}
+
+
+theme_custom.downloadBase64File = function(base64Data, contentType, fileName) {
+  const linkSource = base64Data;
+  const downloadLink = document.createElement("a");
+  console.log('linkSource',linkSource);
+  downloadLink.href = linkSource;
+  downloadLink.download = fileName;
+  downloadLink.click();
+}
+ 
