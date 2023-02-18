@@ -1,4 +1,4 @@
-class creteEventPage{
+class creteEventPageStep1{
   constructor(){
     this.base_url = theme_custom.api_base_url;
     this.appToken = 'Bearer ' + localStorage.getItem("customerToken");
@@ -17,6 +17,27 @@ class creteEventPage{
   }
   clickEvent = () =>{
 
+  }
+  phoneValidation = (eventPhoneNumber) => {
+    let error = ""
+    let targetEl = $(eventPhoneNumber).val().length;
+    var numbers = /^[0-9]+$/  ;
+    var thisValue = $(eventPhoneNumber).val().replace(' ','').replace(')','').replace('(','').replace('-','');
+    var thisValueLength = thisValue.length;
+    if (targetEl == 0) {
+      error = 'This field is required'
+    } else {
+      if ($(eventPhoneNumber).val() != "") {
+        if (!thisValue.match(numbers)) {
+          error = 'Please enter only number';
+        } else {
+          if (thisValueLength <= 9) {
+            error = 'Please enter minimum 10 number';
+          }
+        }
+      }
+    }
+    return error;
   }
   createEventValidation = (parent) =>{
     let errorFound = false;
@@ -78,9 +99,11 @@ class creteEventPage{
     }
     
     let eventPhoneNumberParent = $('.event-phone-number',parent)
-    let eventPhoneNumber = $('.phone-number',eventPhoneNumberParent).val();
+    let eventPhoneNumber = $('.phone-number',eventPhoneNumberParent);
     let eventPhoneNumberError = $(".form-error",eventPhoneNumberParent);
-    if (!eventPhoneNumber) {
+    let phoneError = this.phoneValidation(eventPhoneNumber)
+    if (phoneError) {
+      eventPhoneNumberError.text(phoneError)
       eventPhoneNumberError.addClass('active');
       this.moveToElemet(eventPhoneNumberParent);
       errorFound = true;
@@ -91,15 +114,46 @@ class creteEventPage{
 
     return errorFound;
   }
+  createEvent = async(parent) =>{
+    var event_name = $('.event-name',parent).val();
+    var event_type = $('[name="event-type"]:checked',parent).attr('data-event-type-id');
+    var event_date = $('#event_date',parent).val();
+    var event_role = $('[name="event-role"]:checked',parent).attr('data-event-role-id');
+    var event_phone = $('.phone-number',parent).val().replace('(','').replace(' ','').replace(')','').replace('-','');
+    var event_data = {
+      "name": event_name,
+      "event_type_id": event_type,
+      "event_date": event_date,
+      "event_role_id": event_role,
+      "owner_phone_number":event_phone
+    }
+    try{
+      const data = await fetch(`${this.base_url}/api/event/create`,{
+        method: "POST",
+        body: JSON.stringify(event_data),
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization": this.appToken
+        }
+      })
+      const res = await data.json();
+      console.log("res",res);
+    }catch(e){
+      console.log(e)
+    }
+    
+  }
   changeEvent = () =>{
     const that = this;
     const createEventBtn = document.querySelector('.create-event-button');
     createEventBtn.addEventListener('click',function(e){
       const parent = $(this).closest('.step-content-wrapper');
       const errorFound = that.createEventValidation(parent);
-      if(!errorFound){
+      if(errorFound){
         return;
       }
+      $(createEventBtn).text('Creating Event...')
+      that.createEvent(parent);
     })
   }
   initDate = () =>{
@@ -111,4 +165,4 @@ class creteEventPage{
     this.initDate();
   }
 }
-new creteEventPage();
+new creteEventPageStep1();
