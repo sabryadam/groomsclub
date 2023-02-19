@@ -1,0 +1,110 @@
+<div class="step-content-wrapper event-step-1 active" data-step-content-wrap="1">
+    <div class="page-width-inner-wrapper">
+      <h4 class="section-title xs-show">Create an Event</h4>
+      <div class="event-block-wrap event-type-block-wrap">
+        {% if section.settings.event_name_heading != blank %}
+          <h1 class="heading">{{ section.settings.event_name_heading }}</h1>
+        {% endif %}
+        <div class="field form-wrap">     
+          <input class="event-name" type="text" name="event_name" id="EventForm-EventName" autocomplete="given-name" placeholder="{{ section.settings.event_name_placeholder }}" maxlength="100" />
+          <p class="form-error"></p>
+        </div>
+      </div>
+      <div class="event-type-section-wrap event-block-wrap event-radio-box-section">
+        {% if section.settings.event_type_heading != blank %}
+          <h2 class="heading">{{ section.settings.event_type_heading }}</h2>
+        {% endif %}
+        <div class="box-wrap">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'event_type' -%}
+              <label class="Squer-radio-button-inner box-inner-wrap" data-event-type-box="{{ block.settings.event_type_title }}" id="{{block.id}}">
+                <input type="radio" name="event-type" data-event-type-id="{{forloop.index}}" value="{{ block.settings.event_type_title }}" />
+                <span class="checkmark">
+                  {% if block.settings.event_type_icon != blank %}
+                    <div class="event-type-icon icon-wrap">
+                      {{ block.settings.event_type_icon }}
+                    </div>
+                  {% endif %}
+                  {% if block.settings.event_type_title != blank  %}
+                    <h3 class="event-type-title">
+                      {{ block.settings.event_type_title }}
+                    </h3>
+                  {% endif %}
+                </span>
+              </label>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        <!-- <p class="event-type-error form-error"></p> -->
+        <p class="form-error">Please select Event type.</p>
+      </div>
+      <div class="event-block-wrap event-date-wrap">
+        {% if section.settings.when_is_your_event_heading != blank %}
+          <h3 class="heading">{{ section.settings.when_is_your_event_heading }}</h3>
+        {% endif %}
+        <div class="field form-wrap">
+          <!-- <div class="fake-calender">
+            <span class="selected_date">MM/DD/YYYY</span>
+            <span class="date-icon">
+              <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/calendar_1.png?v=1675597220" width="22" height="22" alt="Calendar icon" />
+            </span>
+          </div>      -->
+          <input id="event_date" type="date" name="input1" placeholder="MM-DD-YYYY" required pattern="[0-9]{2}-[0-9]{2}-[0-9]{4}" title="Enter a date in this formart MM-DD-YYYY" />
+        </div>
+        <p class="form-error">Please select Event Date.</p>
+      </div>
+      <div class="event-block-wrap event-radio-box-section role-in-event-wrap">
+        {% if section.settings.when_is_your_role_in_event_heading != blank %}
+          <h3 class="heading">{{ section.settings.when_is_your_role_in_event_heading }}</h3>
+        {% endif %}
+        <div class="box-wrap">
+          {%- for block in section.blocks -%}
+            {%- assign event_type_text = block.settings.event_type | downcase  -%}
+            {%- if block.type == 'event_role' -%}
+              <label class="Squer-radio-button-inner box-inner-wrap {% if event_type_text == 'special events' %} hidden{% endif %}{% if event_type_text == 'other' %} show{% endif %}"  id="{{block.id}}" data-class="{{ event_type_text }}">
+                <input type="radio" name="event-role" data-event-role-id="{{forloop.index}}" value="{{forloop.index}}" />
+                <span class="checkmark">
+                  {% if block.settings.event_role_icon != blank %}
+                    <div class="event-role-icon icon-wrap">
+                      {{ block.settings.event_role_icon }}
+                    </div>
+                  {% endif %}
+                  {% if block.settings.event_role_title != blank  %}
+                    <h3 class="event-type-title">
+                      {{ block.settings.event_role_title }}
+                    </h3>
+                  {% endif %}
+                </span>
+              </label>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        <p class="form-error">Please select Event Role.</p>
+      </div>
+      <div class="event-block-wrap event-radio-box-section border-bottom-none event-phone-number">
+        {% if section.settings.phone_number_title != blank %}
+          <h3 class="heading">{{ section.settings.phone_number_title }}</h3>
+        {% endif %}
+        <div class="field form-wrap">  
+          <div class="phone-number-and-icon">
+            <input class="phone-number form_phone" type="text" name="event_name" id="EventForm-EventOwnerContactNumber"  placeholder="{{ section.settings.phone_number_placeholder }}" maxlength="14" minlength="10" required />
+            <span class="call-icon">
+              <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/telephone_1.png?v=1675597289" width="22" height="22" alt="Phone icon" />
+            </span>
+          </div>   
+          <p class="form-error">Please Enter This Filled.</p>
+        </div>
+      </div>
+      <div class="button-wrapper">
+        <button type="button" class="btn-wrap button--secondary create-event-button">
+          <span class="label">
+            Next
+          </span>
+          <span class="icon">
+            <img class="blue-icon" src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/next-blue-icon.png?v=1675601344" width="22" height="22" alt="Next Arrow" />
+            <img class="white-icon" src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/next-white-icon.png?v=1675601344" width="22" height="22" alt="Next Arrow" />
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>

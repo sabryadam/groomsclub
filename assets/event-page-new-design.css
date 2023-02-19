@@ -92,31 +92,28 @@
 .event-page-new-design-wrapper .step-header-wrap .step-wrap[data-step-label-wrap="5"]{
   margin-right: 0;
 }
+.event-page-new-design-wrapper .step-header-wrap .step-wrap{
+  color: #ADADAD;
+  font-size: 14px;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1;
+  text-transform: uppercase;
+}
 .event-page-new-design-wrapper .step-header-wrap .step-wrap .count{
-  width: 40px;
+  width: 30px;
   height: 30px;
   background: #F0F0F0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 18px;
-  color: rgba(0, 0, 0, 0.2);
   border-radius: 50%;
+  font-size: 12px;
   margin-right: 10px;
 }
-.event-page-new-design-wrapper .step-header-wrap .step-wrap .label{
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 18px;
-  color: rgba(6, 0, 0, 0.31);
-}
-.event-page-new-design-wrapper .step-header-wrap .step-wrap.active .count,
-.event-page-new-design-wrapper .step-header-wrap .step-wrap.active .label{
-  color : #1075BC;
+
+.event-page-new-design-wrapper .step-header-wrap .step-wrap.active {
+  color : #000;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper{
   max-width: 800px;
@@ -127,7 +124,7 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 24px;
-  color: #1075BC;
+  color: #000;
   text-align: center;
   text-transform: uppercase;
 }
@@ -149,7 +146,6 @@
 .event-page-new-design-wrapper .page-width-inner-wrapper .form-wrap #EventForm-EventName,
 .event-page-new-design-wrapper .page-width-inner-wrapper .form-wrap #EventForm-EventOwnerContactNumber{
   background: #F5F5F5;
-  border: 1px solid rgba(6, 0, 0, 0.14);
   height: 50px;
   width: 100%;
   max-width: 100%;
@@ -157,8 +153,14 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
-  color: #000000;
+  color: #ADADAD;
   padding: 0 15px;
+  border: 1px solid #C1CAC8;
+  border-radius: 2px;
+}
+.event-page-new-design-wrapper .page-width-inner-wrapper .form-wrap #EventForm-EventName::placeholder,
+.event-page-new-design-wrapper .page-width-inner-wrapper .form-wrap #EventForm-EventOwnerContactNumber::placeholder{
+  color: #ADADAD;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .form-wrap #EventForm-EventName{
   text-align: center;
