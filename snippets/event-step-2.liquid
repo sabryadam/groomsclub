@@ -1,153 +1,167 @@
-<div class="step-content-wrapper create-event-look active" data-step-content-wrap="2">
-    <div class="page-width-inner-wrapper">
-      <h4 class="section-title xs-show">Create Look</h4>
-      <div class="event-block-wrap">
-        {% if section.settings.create_look_title != blank %}
-          <h3 class="heading">{{ section.settings.create_look_title }}</h3>
-        {% endif %}
-        <div class="box-wrap">
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'event_look' -%}
-              {% if block.settings.create_look_url != blank %}
-                <a class="Squer-radio-button-inner box-inner-wrap" href="{{ block.settings.create_look_url }}" tabindex="0">
-                  <div class="checkmark">
-                    {% if block.settings.create_look_icon != blank %}
-                      <div class="event-type-icon icon-wrap">
-                        <img src="{{ block.settings.create_look_icon | img_url : 'master' }}" alt="{{ block.settings.create_look_title }}" />
-                      </div>
-                    {% endif %}
-                    {% if block.settings.create_look_title != blank  %}
-                      <h3 class="event-type-title" data-title="{{ block.settings.create_look_title | downcase | handleize }}">
-                        {{ block.settings.create_look_title }}
-                      </h3>
-                    {% endif %}
-                  </div>
-                </a>
-              {% else %}
-                <div class="Squer-radio-button-inner box-inner-wrap popup-button" data-title="{{ block.settings.create_look_title | downcase | handleize }}">
-                  <div class="checkmark">
-                    {% if block.settings.create_look_icon != blank %}
-                      <div class="event-type-icon icon-wrap">
-                        <img src="{{ block.settings.create_look_icon | img_url : 'master' }}" alt="{{ block.settings.create_look_title }}" />
-                      </div>
-                    {% endif %}
-                    {% if block.settings.create_look_title != blank  %}
-                      <h3 class="event-type-title">
-                        {{ block.settings.create_look_title }}
-                      </h3>
-                    {% endif %}
-                  </div>
+<div class="step-content-wrapper create-event-look" data-step-content-wrap="2">
+  <div class="page-width-inner-wrapper">
+    <h4 class="section-title xs-show">Create Look</h4>
+    <div class="event-block-wrap">
+      {% if section.settings.create_look_title != blank %}
+        <h3 class="heading">{{ section.settings.create_look_title }}</h3>
+      {% endif %}
+      <div class="box-wrap">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'event_look' -%}
+            {% if block.settings.create_look_url != blank %}
+              <a
+                class="Squer-radio-button-inner box-inner-wrap"
+                href="{{ block.settings.create_look_url }}"
+                tabindex="0">
+                <div class="checkmark">
+                  {% if block.settings.create_look_icon != blank %}
+                    <div class="event-type-icon icon-wrap">
+                      <img src="{{ block.settings.create_look_icon | img_url : 'master' }}" alt="{{ block.settings.create_look_title }}" />
+                    </div>
+                  {% endif %}
+                  {% if block.settings.create_look_title != blank %}
+                    <h3 class="event-type-title" data-title="{{ block.settings.create_look_title | downcase | handleize }}">
+                      {{ block.settings.create_look_title }}
+                    </h3>
+                  {% endif %}
                 </div>
-              {%- endif -%}
+              </a>
+            {% else %}
+              <div class="Squer-radio-button-inner box-inner-wrap popup-button" data-title="{{ block.settings.create_look_title | downcase | handleize }}">
+                <div class="checkmark">
+                  {% if block.settings.create_look_icon != blank %}
+                    <div class="event-type-icon icon-wrap">
+                      <img src="{{ block.settings.create_look_icon | img_url : 'master' }}" alt="{{ block.settings.create_look_title }}" />
+                    </div>
+                  {% endif %}
+                  {% if block.settings.create_look_title != blank %}
+                    <h3 class="event-type-title">
+                      {{ block.settings.create_look_title }}
+                    </h3>
+                  {% endif %}
+                </div>
+              </div>
             {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+    <div class="show-look-from-event-wrapper">
+      <header>
+        <button class="add-loo-wrapper">+ Add New Look</button>
+      </header>
+      <div class="event-look-inner-wrapper">
+        <div class="look-card-block">
+          <div class="look-title-and-price">
+            <div class="look-title">Deserst Sun</div>
+            <div class="look-price-wrap">
+              <span class="text-lable">Starting at</span>
+              <span class="look-price">$199.99</span>
+            </div>
+          </div>
+          <div class="look-image">
+            <img src="https://app.groomsclub.com/storage/looks/NFPBNG5yGT8yIDxm4ml0VNVUh4kFKicZOK2Suz7C.png" alt="Deserst Sun" />
+            <button class="button button--secondary customise-look">Customise look</button>
+          </div>
+        </div>
+        <div class="look-card-block">
+          <div class="look-title-and-price">
+            <div class="look-title">Deserst Sun</div>
+            <div class="look-price-wrap">
+              <span class="text-lable">Starting at</span>
+              <span class="look-price">$199.99</span>
+            </div>
+          </div>
+          <div class="look-image">
+            <img src="https://app.groomsclub.com/storage/looks/NFPBNG5yGT8yIDxm4ml0VNVUh4kFKicZOK2Suz7C.png" alt="Deserst Sun" />
+            <button class="button button--secondary customise-look">Customise look</button>
+          </div>
+        </div>
+        <div class="look-card-block">
+          <div class="look-title-and-price">
+            <div class="look-title">Deserst Sun</div>
+            <div class="look-price-wrap">
+              <span class="text-lable">Starting at</span>
+              <span class="look-price">$199.99</span>
+            </div>
+          </div>
+          <div class="look-image">
+            <img src="https://app.groomsclub.com/storage/looks/NFPBNG5yGT8yIDxm4ml0VNVUh4kFKicZOK2Suz7C.png" alt="Deserst Sun" />
+            <button class="button button--secondary customise-look">Customise look</button>
+          </div>
+        </div>
+        <div class="look-card-block">
+          <div class="look-title-and-price">
+            <div class="look-title">Deserst Sun</div>
+            <div class="look-price-wrap">
+              <span class="text-lable">Starting at</span>
+              <span class="look-price">$199.99</span>
+            </div>
+          </div>
+          <div class="look-image">
+            <img src="https://app.groomsclub.com/storage/looks/NFPBNG5yGT8yIDxm4ml0VNVUh4kFKicZOK2Suz7C.png" alt="Deserst Sun" />
+            <button class="button button--secondary customise-look">Customise look</button>
+          </div>
+        </div>
+        <div class="look-card-block">
+          <div class="look-title-and-price">
+            <div class="look-title">Deserst Sun</div>
+            <div class="look-price-wrap">
+              <span class="text-lable">Starting at</span>
+              <span class="look-price">$199.99</span>
+            </div>
+          </div>
+          <div class="look-image">
+            <img src="https://app.groomsclub.com/storage/looks/NFPBNG5yGT8yIDxm4ml0VNVUh4kFKicZOK2Suz7C.png" alt="Deserst Sun" />
+            <button class="button button--secondary customise-look">Customise look</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-wrapper" data-target="choose-from-favourites">
+      <div class="choose-form-favorite modal-wrapper-inner-wrapper" id="choose-form-favorite">
+        <span class="close-icon">
+          <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/close_1.png" alt="close-icon" />
+        </span>
+        <h4 class="title">
+          Choose from favorite
+        </h4>
+        <div class="product-wrapper"></div>
+      </div>
+    </div>
+    <div class="modal-wrapper" data-target="browse-top-looks">
+      <div class="browse-top-looks modal-wrapper-inner-wrapper" id="browser-top-looks">
+        <span class="close-icon">
+          <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/close_1.png" alt="close-icon" />
+        </span>
+        <h4 class="title">
+          BROWSE TOP LOOKS
+        </h4>
+        <div class="product-wrapper">
+          {%- assign top_look_collection = collections[section.settings.top_look_collections] -%}
+          {%- for product in top_look_collection.products -%}
+            <div class="product-card">
+              <div class="img">
+                <img src="{{ product.featured_image | product_img_url : 'master' }}" alt="{{ product.title }}" />
+              </div>
+              <div class="product-info">
+                <h4 class="product-title">{{ product.title }}</h4>
+                <p class="product-price">Starting at {{ product.price | money }}</p>
+                <p class="taxes-text">Price includes suit jacket and pants</p>
+                <a
+                  class="button button--secondary"
+                  tabindex="-1"
+                  title="More Details"
+                  href="{{ product.url | within : collection  }}">More Details
+                  <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
           {%- endfor -%}
         </div>
       </div>
-      <div class="show-look-from-event-wrapper">
-        <header>
-          <button class="add-loo-wrapper">+ Add New Look</button>
-        </header>
-        <div class="event-look-inner-wrapper">
-          <div class="look-card-block">
-            <div class="look-title-and-price">
-              <div class="look-title">Deserst Sun</div>
-              <div class="look-price-wrap">
-                <span class="text-lable">Starting at</span>
-                <span class="look-price">$199.99</span>
-              </div>
-            </div>
-            <div class="look-image">
-              <img src="https://app.groomsclub.com/storage/looks/NFPBNG5yGT8yIDxm4ml0VNVUh4kFKicZOK2Suz7C.png" alt="Deserst Sun" />
-            </div>
-          </div>
-          <div class="look-card-block">
-            <div class="look-title-and-price">
-              <div class="look-title">Deserst Sun</div>
-              <div class="look-price-wrap">
-                <span class="text-lable">Starting at</span>
-                <span class="look-price">$199.99</span>
-              </div>
-            </div>
-            <div class="look-image">
-              <img src="https://app.groomsclub.com/storage/looks/NFPBNG5yGT8yIDxm4ml0VNVUh4kFKicZOK2Suz7C.png" alt="Deserst Sun" />
-            </div>
-          </div>
-          <div class="look-card-block">
-            <div class="look-title-and-price">
-              <div class="look-title">Deserst Sun</div>
-              <div class="look-price-wrap">
-                <span class="text-lable">Starting at</span>
-                <span class="look-price">$199.99</span>
-              </div>
-            </div>
-            <div class="look-image">
-              <img src="https://app.groomsclub.com/storage/looks/NFPBNG5yGT8yIDxm4ml0VNVUh4kFKicZOK2Suz7C.png" alt="Deserst Sun" />
-            </div>
-          </div>
-          <div class="look-card-block">
-            <div class="look-title-and-price">
-              <div class="look-title">Deserst Sun</div>
-              <div class="look-price-wrap">
-                <span class="text-lable">Starting at</span>
-                <span class="look-price">$199.99</span>
-              </div>
-            </div>
-            <div class="look-image">
-              <img src="https://app.groomsclub.com/storage/looks/NFPBNG5yGT8yIDxm4ml0VNVUh4kFKicZOK2Suz7C.png" alt="Deserst Sun" />
-            </div>
-          </div>
-          <div class="look-card-block">
-            <div class="look-title-and-price">
-              <div class="look-title">Deserst Sun</div>
-              <div class="look-price-wrap">
-                <span class="text-lable">Starting at</span>
-                <span class="look-price">$199.99</span>
-              </div>
-            </div>
-            <div class="look-image">
-              <img src="https://app.groomsclub.com/storage/looks/NFPBNG5yGT8yIDxm4ml0VNVUh4kFKicZOK2Suz7C.png" alt="Deserst Sun" />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-wrapper" data-target="choose-from-favourites">
-        <div class="choose-form-favorite modal-wrapper-inner-wrapper" id="choose-form-favorite">
-          <span class="close-icon">
-            <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/close_1.png" alt="close-icon" />
-          </span>
-          <h4 class="title">
-            Choose from favorite
-          </h4>
-          <div class="product-wrapper"></div>
-        </div>
-      </div>
-      <div class="modal-wrapper" data-target="browse-top-looks">
-        <div class="browse-top-looks modal-wrapper-inner-wrapper" id="browser-top-looks">
-          <span class="close-icon">
-            <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/close_1.png" alt="close-icon" />
-          </span>
-          <h4 class="title">
-            BROWSE TOP LOOKS
-          </h4>
-          <div class="product-wrapper">
-            {%- assign top_look_collection = collections[section.settings.top_look_collections ]-%}
-            {%- for product in top_look_collection.products -%}
-              <div class="product-card">
-                <div class="img">
-                  <img src="{{ product.featured_image | product_img_url : 'master' }}" alt="{{ product.title }}" />
-                </div>
-                <div class="product-info">
-                  <h4 class="product-title">{{ product.title }}</h4>
-                  <p class="product-price">Starting at {{ product.price | money }}</p>
-                  <p class="taxes-text">Price includes suit jacket and pants</p>
-                  <a class="button button--secondary" tabindex="-1" title="More Details" href="{{ product.url | within : collection  }}">More Details <i class="fas fa-arrow-right"></i></a>
-                </div>
-              </div>
-            {%- endfor -%}
-          </div>
-        </div>
-      </div>
-      {% render 'browse-top-looks' %}
-      {% render 'event-page-button' %}
     </div>
+    {% render 'browse-top-looks' %}
+    {% render 'event-page-button' %}
   </div>
+</div>
