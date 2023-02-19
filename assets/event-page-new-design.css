@@ -16,8 +16,8 @@
   margin-top: 50px;
 }
 .event-page-new-design-wrapper .button-wrapper .btn-wrap{
-  width: 200px;
-  height: 40px;
+  width: 240px;
+  height: 48px;
   border: 1px solid;
   text-align: center;
   vertical-align: middle;
@@ -127,6 +127,7 @@
   color: #000;
   text-align: center;
   text-transform: uppercase;
+  margin:  0 0 15px;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .form-wrap{
   max-width: 410px;
@@ -136,8 +137,9 @@
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .event-block-wrap,
 .event-page-new-design-wrapper .page-width-inner-wrapper .show-look-from-event-wrapper{
-  padding-bottom: 38px;
-  border-bottom: 1px solid rgba(6, 0, 0, 0.14);
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #DFDFDF;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .event-block-wrap.border-bottom-none{
   border : none;
@@ -145,7 +147,7 @@
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .form-wrap #EventForm-EventName,
 .event-page-new-design-wrapper .page-width-inner-wrapper .form-wrap #EventForm-EventOwnerContactNumber{
-  background: #F5F5F5;
+  background: #fafafa;
   height: 50px;
   width: 100%;
   max-width: 100%;
@@ -173,7 +175,7 @@
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .event-radio-box-section .box-wrap .box-inner-wrap,
 .event-page-new-design-wrapper .create-event-look .page-width-inner-wrapper .box-wrap .box-inner-wrap{
-  margin: 15px;
+  margin: 0 15px 15px;
 }
 .event-page-new-design-wrapper .create-event-look .page-width-inner-wrapper .box-wrap a.box-inner-wrap{
   text-decoration: none;
@@ -183,10 +185,10 @@
   min-height: auto;
   padding: initial;
   border: none;
-  width: 190px;
-  height: 118px;
+  width: 200px;
+  height: 132px;
   background: #FFFFFF;
-  border: 1px solid rgba(6, 0, 0, 0.14);
+  border: 1px solid #E7E7E7;
 }
 .event-page-new-design-wrapper .create-event-look .page-width-inner-wrapper .event-radio-box-section .box-wrap .box-inner-wrap .checkmark{
   width: 200px;
@@ -194,8 +196,8 @@
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .event-radio-box-section .box-wrap .box-inner-wrap .checkmark .icon-wrap,
 .event-page-new-design-wrapper .create-event-look .page-width-inner-wrapper .box-wrap .box-inner-wrap .checkmark .icon-wrap{
-  max-width: 50px;
-  max-height: 50px;
+  max-width: 60px;
+  max-height: 60px;
   margin: 0 auto;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .event-radio-box-section .box-wrap .box-inner-wrap .checkmark .icon-wrap svg,
@@ -205,6 +207,7 @@
   width: 100%;
   height: 100%;
   max-width: 100%;
+  width: 60px;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .event-radio-box-section .box-wrap .box-inner-wrap [type="radio"]:checked + .checkmark,
 .event-page-new-design-wrapper .page-width-inner-wrapper .event-radio-box-section .box-wrap a.box-inner-wrap:hover .checkmark,
@@ -219,7 +222,7 @@
   line-height: 22px;
   color: #000000;
   margin-bottom: 0;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .event-radio-box-section .box-wrap .box-inner-wrap [type="radio"]:checked + .checkmark .event-type-title,
 .event-page-new-design-wrapper .page-width-inner-wrapper .event-radio-box-section .box-wrap a.box-inner-wrap:hover .checkmark .event-type-title{
@@ -235,19 +238,30 @@
   transform: translateY(-50%);
   line-height: 0;
 }
+.event-date-wrap{
+  position: relative;
+}
 .event-page-new-design-wrapper .page-width-inner-wrapper .event-date-wrap .form-wrap #event_date{
   width: 100%;
-  height: 40px;
+  height: 46px;
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 22px;
-  color: #000;
+  color: #ADADAD;
   margin-bottom: 0;
-  margin-top: 10px;
-  background: #F5F5F5;
-  border: 1px solid rgba(6,0,0,.14);
+  margin-top: 0;
+  background: #fafafa;
+  border: 1px solid #C1CAC8;
   padding: 0 15px;
+}
+.event-date-wrap .event-date-icon{
+  position: absolute;
+  right: 12px;
+  top: 7.5px;
+}
+.event-page-new-design-wrapper .page-width-inner-wrapper .event-date-wrap .form-wrap #event_date::placeholder{
+  color: #ADADAD;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .form-wrap .fake-calender{
   background: #F5F5F5;
@@ -452,6 +466,7 @@
     line-height: 14px;
     min-width: 120px;
     text-align: left;
+    margin:  0 0 15px;
   }
   .event-page-new-design-wrapper .page-width-inner-wrapper .form-wrap #EventForm-EventName,
   .event-page-new-design-wrapper .page-width-inner-wrapper .form-wrap #EventForm-EventOwnerContactNumber,
