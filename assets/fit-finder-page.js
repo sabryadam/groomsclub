@@ -77,7 +77,7 @@ theme_custom.saveFitFinder = function (fitFinderJson, button) {
     "jacketSize": jacketSize
   }
   // console.log("Fit finder fitFinderJsonData",fitFinderJsonData);
-  console.warn("Fit Finder Data",fitFinder);
+  // console.warn("Fit Finder Data",fitFinder);
   header = {
     // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
     "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
@@ -249,34 +249,25 @@ theme_custom.nextElmShow = function (parent) {
 
 // Fit Finder Change Event
 theme_custom.fitFinderChangeEvent = function () {
-  $('input[type=radio][name=height]').on('change', function () {
-    $(".required-error").remove();
-    $(".button").removeClass("disabled");
-    var selectedVal = $(this).val(),
-      selectedValueArr = selectedVal.split(".");
-    $(".step-wrapper[data-step-title='Height']").find(".height-feet").val(selectedValueArr[0]);
-    $(".step-wrapper[data-step-title='Height']").find(".height-inche").val(selectedValueArr[1]);
-    $(".step-wrapper[data-step-title='Height']").find(".user-height").val(selectedVal);
-    $(this).closest('.step-wrapper').find('.next-button').click();
+  $('input[type=radio][name=height]').on('click', function () {
+    setTimeout(() => {
+      $(".required-error").remove();
+      $(".button").removeClass("disabled");
+      var selectedVal = $(this).val(),
+        selectedValueArr = selectedVal.split(".");
+      $(".step-wrapper[data-step-title='Height']").find(".height-feet").val(selectedValueArr[0]);
+      $(".step-wrapper[data-step-title='Height']").find(".height-inche").val(selectedValueArr[1]);
+      $(".step-wrapper[data-step-title='Height']").find(".user-height").val(selectedVal);
+      $(this).closest('.step-wrapper').find('.next-button').click();
+    }, 300)
   });
-  if(localStorage.getItem("edit-fit-finder")){
-    $('.go-next-step-wrapper .form-wrap label').on('click',function(e){
-      setTimeout(() => {
-        $(this).parent().find(`[type="radio"]`).attr("checked",true);
-        let parent = $(this).closest('.go-next-step-wrapper');
-        let nextButton = $('.next-button',parent);
-        nextButton.click();
-      }, 300);
-    })
-  } else {
-    $('.go-next-step-wrapper input[type="radio"]').on('change',function(e){
+    $('.go-next-step-wrapper input[type="radio"]').on('click',function(e){
       setTimeout(() => {
         let parent = $(this).closest('.go-next-step-wrapper');
         let nextButton = $('.next-button',parent);
         nextButton.click();
       }, 300);
     })
-  }
 }
 
 theme_custom.jacketSizefunction = function (jacketSize, jacketSizeVal, jacketPantVal, fitFinder) {
@@ -653,7 +644,7 @@ theme_custom.fitFinderClickEvent = function () {
                                 <div class="form-wrap">
                                   <h4 class="title">Time to save your fit!</h4>  
                                   <div class="button-outer-wrapper" style="align-items: end;">
-                                    <div class="button-wrapper"><button type="button" class="button button--primary previous-page-link" onclick="history.back()">Continue Shopping</button></div>
+                                    <div class="button-wrapper"><button type="button" class="button button--primary previous-page-link" onclick="window.moveToLastPage()">Continue Shopping</button></div>
                                     <div class="button-wrapper"><button type="button" class="button button--primary save-fit-finder-flag" data-target-link="/account/login">Log In/Sign Up</button></div>
                                   </div>
                                   <span class="form-error"></span>
@@ -905,3 +896,10 @@ $(document).ready(function () {
   theme_custom.NumberErrorMsg = `<div class="required-error text_center"><p>Please enter number only</p></div>`;
   theme_custom.heightScroll = $("#shopify-section-header").height() + $(".breadcrumb").height() + 30;
 })
+window.moveToLastPage = function(){
+  if(getCookie('lastpage')){
+    window.location.href = getCookie('lastpage'); 
+  }else{
+    window.history.back();
+  }
+}

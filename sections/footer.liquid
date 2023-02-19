@@ -71,7 +71,7 @@
       {% if block.type == 'link_list'%}
       {%- if block.settings.menu != blank and block.settings.heading != blank -%}
       <div class="question footer-blocks-mobile-inner">
-        <div class="footer-block__heading footer-block-menu-heading h4"
+        <div class="footer-block__heading phone-number footer-block-menu-heading h4"
           style="color:{{ block.settings.header_color }};">{{ block.settings.heading }}</div>
         <ul class="footer-block__details-content list-unstyled">
           {%- for link in block.settings.menu.links -%}

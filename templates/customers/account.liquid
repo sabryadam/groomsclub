@@ -130,6 +130,7 @@
                     <div role="table" class="order-history">
                         <div role="rowgroup" class="transection-list-main">
                           {%- for order in customer.orders -%}
+                          
                             {%- comment -%}<p>transactions-{{ order.transactions.payment_details.credit_card_company }}</p>{%- endcomment -%}
                             <div class="row-wrapper" data-index="{{ forloop.index}}">
                               <div class="transaction-history-title" data-test="{{ order.transactions.payment_details.credit_card_company }}">
@@ -196,6 +197,9 @@
                                           </div>
                                         </div>
                                       {%- endif -%}
+                                      <div class="return-item">
+                                        <a target="_blank" class="return-item-btn button button--primary" href="https://groomsclub.returnly.com/">Return Item</a>
+                                      </div>
                                     </div>                              
                                     <div class="order-item-info">
                                       {%- for item in order.line_items -%}
@@ -219,6 +223,7 @@
                                         {%- endunless -%}
                                       {%- endfor -%}
                                     </div>
+                                    
                                   </div>
                                 </div>
                               </div>

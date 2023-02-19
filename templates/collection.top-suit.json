@@ -1,0 +1,196 @@
+{
+    "sections": {
+      "banner": {
+        "type": "main-collection-banner",
+        "settings": {
+          "show_collection_description": true,
+          "show_collection_image": false
+        }
+      },
+      "product-grid": {
+        "type": "top-suit",
+        "settings": {
+          "products_per_page": 7,
+          "image_ratio": "adapt",
+          "show_secondary_image": false,
+          "add_image_padding": false,
+          "show_vendor": false
+        }
+      },
+      "16372094347baae41f": {
+        "type": "image-with-text",
+        "blocks": {
+          "16372094343ade45e4-0": {
+            "type": "heading",
+            "settings": {
+              "heading": "Sizing & Fit",
+              "heading_count": ""
+            }
+          },
+          "16372094343ade45e4-1": {
+            "type": "text",
+            "settings": {
+              "text": "<p>Use our quick sizing accessment tool to tailor your suit to the perfect fit.<\/p>"
+            }
+          },
+          "16372094343ade45e4-2": {
+            "type": "button",
+            "settings": {
+              "button_label": "Find Your Fit",
+              "button_link": "shopify:\/\/pages\/fit-finder",
+              "button_style_secondary": true
+            }
+          }
+        },
+        "block_order": [
+          "16372094343ade45e4-0",
+          "16372094343ade45e4-1",
+          "16372094343ade45e4-2"
+        ],
+        "settings": {
+          "check_width": false,
+          "image": "shopify:\/\/shop_images\/homw-how-it-work-2x.png",
+          "video_mp4_link": "",
+          "image_mobile": "shopify:\/\/shop_images\/homw-how-it-work-2x.png",
+          "height": "adapt",
+          "color_scheme": "background-1",
+          "background_color": "#ffffff",
+          "layout": "text_first",
+          "custom_class": "top-look"
+        }
+      },
+      "1637210711c34d4210": {
+        "type": "image-with-text",
+        "blocks": {
+          "16372107114fe98658-0": {
+            "type": "heading",
+            "settings": {
+              "heading": "Customize Your Look",
+              "heading_count": ""
+            }
+          },
+          "16372107114fe98658-1": {
+            "type": "text",
+            "settings": {
+              "text": "<p>Dress it up, however you like! Choose your color,accessories and more!<\/p>"
+            }
+          },
+          "16372107114fe98658-2": {
+            "type": "button",
+            "settings": {
+              "button_label": "Try Our Customizer",
+              "button_link": "shopify:\/\/pages\/customize-your-look",
+              "button_style_secondary": true
+            }
+          }
+        },
+        "block_order": [
+          "16372107114fe98658-0",
+          "16372107114fe98658-1",
+          "16372107114fe98658-2"
+        ],
+        "settings": {
+          "check_width": true,
+          "image": "shopify:\/\/shop_images\/New-sequence-6-16.gif",
+          "video_mp4_link": "",
+          "image_mobile": "shopify:\/\/shop_images\/New-sequence-6-16.gif",
+          "height": "adapt",
+          "color_scheme": "custom_color",
+          "background_color": "#f5f5f5",
+          "layout": "image_first",
+          "custom_class": "customize-look"
+        }
+      },
+      "1637211120e90ee699": {
+        "type": "collection-list",
+        "blocks": {
+          "16372111202d44f879-0": {
+            "type": "featured_collection",
+            "settings": {
+              "collection": "suit"
+            }
+          },
+          "0e560a21-d053-4f78-9336-cc772de1ed64": {
+            "type": "featured_collection",
+            "settings": {
+              "collection": "looks"
+            }
+          },
+          "a4e71386-a36b-4b28-af7b-a9034d8c235e": {
+            "type": "featured_collection",
+            "settings": {
+              "collection": "shirt"
+            }
+          },
+          "0fafbb81-d18b-4cbc-bf7a-e2374ccee9ef": {
+            "type": "featured_collection",
+            "settings": {
+              "collection": "bow-ties"
+            }
+          },
+          "083efab5-fc36-4414-9387-876d0a6d7a1f": {
+            "type": "featured_collection",
+            "settings": {
+              "collection": "neckties"
+            }
+          },
+          "4f888897-0939-4b31-b230-5c8003298604": {
+            "type": "featured_collection",
+            "settings": {
+              "collection": "pocket-square"
+            }
+          },
+          "0418f087-2798-4fdb-bd24-f0ebad117038": {
+            "type": "featured_collection",
+            "settings": {
+              "collection": "shoes"
+            }
+          },
+          "aecab2f2-438e-4492-9a17-4d45439cb723": {
+            "type": "featured_collection",
+            "settings": {
+              "collection": "socks"
+            }
+          },
+          "f4c1faab-f6d0-415f-ab1a-44419cb1f003": {
+            "type": "featured_collection",
+            "disabled": true,
+            "settings": {
+              "collection": "all"
+            }
+          }
+        },
+        "block_order": [
+          "16372111202d44f879-0",
+          "0e560a21-d053-4f78-9336-cc772de1ed64",
+          "a4e71386-a36b-4b28-af7b-a9034d8c235e",
+          "0fafbb81-d18b-4cbc-bf7a-e2374ccee9ef",
+          "083efab5-fc36-4414-9387-876d0a6d7a1f",
+          "4f888897-0939-4b31-b230-5c8003298604",
+          "0418f087-2798-4fdb-bd24-f0ebad117038",
+          "aecab2f2-438e-4492-9a17-4d45439cb723",
+          "f4c1faab-f6d0-415f-ab1a-44419cb1f003"
+        ],
+        "settings": {
+          "background_color": "#ffffff",
+          "title": "Shop Essentials",
+          "image_ratio": "portrait",
+          "color_scheme": "background-1",
+          "swipe_on_mobile": false,
+          "image_padding": false,
+          "show_view_all": false,
+          "autoplay": false,
+          "arrowprev": true,
+          "dots": false,
+          "loop": true
+        }
+      }
+    },
+    "order": [
+      "banner",
+      "product-grid",
+      "16372094347baae41f",
+      "1637210711c34d4210",
+      "1637211120e90ee699"
+    ]
+  }

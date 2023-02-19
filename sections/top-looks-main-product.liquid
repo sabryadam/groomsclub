@@ -2,56 +2,6 @@
 {{ 'product-page.js' |  asset_url | script_tag  }}
 {{ 'product-top-looks-pdp.js' |  asset_url | script_tag }}
 
-<script>
-
-$(document).ready(function(){
-  var cur_url = window.location.href;
-  if(cur_url.indexOf('collections/suit') != -1 || cur_url.indexOf('collections/looks') != -1){
-    //$("body").addClass("suit_page_body");
-
-    if( $(`.product-data-card.product-data-card-wrap[data-product-type="vest"] .edit-item-btn.btn`).text() == 'Select Size' ){
-      $(`.product-data-card.product-data-card-wrap[data-product-type="vest"]`).find(".variant-title span").html("");
-    }
-    $(".suit_btn_add_to_cart").click(function(){
-      var varCount = 0;
-
-      $(".product-block-wrap-suit-wrapper .edit-size-title").each(function(){
-        if( !$(this).hasClass("hidden") ){
-          $(".product-block-wrap-suit-wrapper").addClass("required-box");
-          varCount = 1;
-        }
-      });
-
-      if( $(`.product-data-card.product-data-card-wrap[data-product-type="vest"] .edit-item-btn.btn`).text() == 'Select Size' ){
-        varCount = 1;
-        $(`.product-data-card.product-data-card-wrap[data-product-type="vest"] `).addClass("required-box");
-        $('html, body').animate({
-          scrollTop: $(".product-form").offset().top
-        }, 2000);
-      }else{
-        $(`.product-data-card.product-data-card-wrap[data-product-type="vest"] `).removeClass("required-box");
-      }
-
-      if(varCount > 0){
-        return false;
-      }else{
-        $(".product-block-wrap-suit-wrapper").removeClass("required-box");
-        $(`.product-data-card.product-data-card-wrap[data-product-type="vest"] `).removeClass("required-box");
-      }
-
-    });
-
-    $(".var-select-custom").change(function(){
-      if($(this).val()){
-        $(this).parent(".swatch-wrap").removeClass("required-select");
-      }
-    });
-
-  }
-});
-
-</script>
-
 <input type="hidden" class="product-type" value="{{ product.type }}" />
 <input type="hidden" class="product-first-image" value="{{ product.images[0] | img_url : '900x' }}" />
 <img id="imageid" src="{{ product.images[0] | img_url : 'master' }}" class="hidden" />
@@ -703,7 +653,7 @@ $(document).ready(function(){
                             {%- assign productSelectedType  = productHandle.type | downcase -%}
                             {%- unless productHandle == blank -%}
                               {%- if productSelectedType == "jacket" or productSelectedType == "pants"  -%}
-                                <div class="variant-title variant-info-wrap" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
+                                <div class="variant-title variant-info-wrap product-variant-wrap" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
                                   <div class="option-title">
                                     {%- if productSelectedType == 'jacket' %}
                                       <span class="edit-size-title">Jacket Size </span>
@@ -743,7 +693,7 @@ $(document).ready(function(){
                                     </div>
                                   </div>
                                   <div class="cta-button-wrap ">
-                                    <span class="edit-item-button btn select"> <span style="color:var(--color-gray-text);">-</span> Select Sizes</span>
+                                    <span class="edit-item-button btn select" data-button-label='select-size'> <span style="color:var(--color-gray-text);">-</span> Select Sizes</span>
                                   </div>
                                   <span class="error-message"></span>
                                 </div>
@@ -754,7 +704,7 @@ $(document).ready(function(){
 
                         <div id="suit_fit_finder" class="completefit product_fit_finder" style="display: none;">
                           <a href="https://www.groomsclub.com/pages/fit-finder">
-                        <div>
+                        <div class="fit-finder-info-block">
                             <h4>Not sure of your size? Try our fit finder</h4>
                           <p>Answer a few simple questions to help you find the perfect fit</p>
                         </div>
@@ -773,7 +723,7 @@ $(document).ready(function(){
                           </div>
                         </div>
 
-                        <div class="product-block-wrap-suit-wrapper">
+                        <div class="product-block-wrap-suit-wrapper product-block-item">
                           <div class="product-image">
                             <img srcset="{{ product.featured_media.image.src | img_url: 'medium' }} 1x, {{ product.featured_media.image.src | img_url: 'medium', scale: 2 }} 2x"
                               src="{{ product.featured_media.image.src | img_url: image_size }}"
@@ -810,7 +760,7 @@ $(document).ready(function(){
 
                         {%- assign jacket_pant_data_arr = jacket_pant_data | split : ',' -%}
 
-                        <div class="product-block-wrap-suit-wrappertwo">
+                        <div class="product-block-wrap-suit-wrappertwo product-block-item">
                           <div class="row">
                             <h4>SELECT SIZES:</h4>
                           </div>
@@ -1094,7 +1044,7 @@ $(document).ready(function(){
                               {%- assign accessoriesProdVarId = producthandleitem | split: '?' | last | remove: 'variant=' | plus: 0 -%}
                               {%- assign productHandle = all_products[accessoriesProdHandle] -%}
                               {% unless productHandle == blank %}
-                                <div class="product-data-card product-data-card-wrap" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
+                                <div class="product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
                                   <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
                                   <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ accessoriesProdVarId }}">
                                   <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
@@ -1152,9 +1102,9 @@ $(document).ready(function(){
                                           {%- unless forloop.last -%},{%- endunless -%}
                                         {% endfor %}
                                       </span>
-                                      <div class="cta-button-wrap"{% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %} style="margin-top : 10px" {% endif %}>
+                                      <div class="cta-button-wrap product-variant-wrap"{% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %} style="margin-top : 10px" {% endif %}>
                                         {% if productHandle.variants.size > 1 %}
-                                          <span class="edit-item-btn btn">
+                                          <span class="edit-item-btn btn {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}" {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}data-button-label="select-size"{% endif %}>
                                             {%- if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' -%}
                                               Select Size
                                             {%- else -%}
@@ -1188,7 +1138,7 @@ $(document).ready(function(){
                                 {% assign productData = producthandleData | split: '_' | last %}
                                 {%- assign productHandle = all_products[productData] -%}
                                 {%- unless productHandle == blank -%}
-                                  <div class="product-data-card product-data-card-wrap" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
+                                  <div class="product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
                                     <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
                                     <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ productHandle.selected_or_first_available_variant.id }}">
                                     <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
@@ -1250,7 +1200,7 @@ $(document).ready(function(){
                                         </span>
                                         <div class="cta-button-wrap">
                                           {% if productHandle.variants.size > 1 %}
-                                            <span class="edit-item-btn btn">
+                                            <span class="edit-item-btn btn {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}" {% if productSelectedType == 'vest' or productSelectedType == 'shoes' %}data-button-label="select-size"{% endif %}>
                                               {%- if productSelectedType == 'vest' or productSelectedType == 'shoes' -%}
                                                 Select Size
                                               {%- else -%}
@@ -1329,7 +1279,7 @@ $(document).ready(function(){
                           </a>
                         </div>
                       {%- endif -%}
-                      <button type="submit" name="add" class="product-form__submit button button--full-width button--primary custom-top-look-disable --add_suite_btn_old suit_btn_add_to_cart">
+                      <button type="button"  name="add" class="product-form__submit button button--full-width button--primary custom-top-look-disable --add_suite_btn_old suit_btn_add_to_cart">
                         <span class="btn-title" data-text="Adding...">{{ 'products.product.add_to_cart' | t }}</span>
                         <i class="fas fa-shopping-cart"></i>
                       </button>
@@ -1530,7 +1480,7 @@ function suitSizeData() {
                               </div>`;
                 }
 
-                /*if( result.data[0].shirt_neck || result.data[0].shirt_sleeve ){
+                if( result.data[0].shirt_neck || result.data[0].shirt_sleeve ){
                   ff_html += `<div class="ff-data">
                                   <strong>Shirt</strong>
                                   <span>Neck: ${result.data[0].shirt_neck}</span>
@@ -1543,7 +1493,7 @@ function suitSizeData() {
                                   <strong>Shoes</strong>
                                   <span>Size: ${result.data[0].shoe_size}</span>
                               </div>`;
-                }*/
+                }
 
                 $("#suit_fit_finder").hide();
                 $("#ff-data-box").html(ff_html);
@@ -1614,20 +1564,20 @@ function suitSizeDataNonLogged(){
                   </div>`;
     }
 
-    /*if( getFitFinder.shirt_neck || getFitFinder.shirt_sleeve ){
+    if( getFitFinder.shirt_neck || getFitFinder.shirt_sleeve ){
       ff_html += `<div class="ff-data">
                       <strong>Shirt</strong>
                       <span>Neck: ${getFitFinder.shirt_neck}</span>
                       <span>Sleeve: ${getFitFinder.shirt_sleeve}</span> 
                   </div>`;
-    }*/
+    }
 
-    /*if( getFitFinder.shoe_size ){
+    if( getFitFinder.shoe_size ){
       ff_html += `<div class="ff-data">
                       <strong>Shoes</strong>
                       <span>Size: ${getFitFinder.shoe_size}</span>
                   </div>`;
-    }*/
+    }
 
     $("#suit_fit_finder").hide();
     $("#ff-data-box").html(ff_html);

@@ -1271,7 +1271,7 @@ a.product__text {
   margin-left: 28px;
 }
 .when-customer-logged .favorite-event-cart-wrapper .product-form__submit{
-  margin-bottom: 0;  max-width: 210px; margin-left: 32px;
+  margin-bottom: 0;  max-width: 250px; margin-left: 32px;
 }
 
 @media(max-width : 767px) {

@@ -414,6 +414,7 @@ function favoritelooks() {
                     var append_fav_html = "";
                     $('.feature-looks-slider').html(append_fav_html);
                     var edit_link = '';
+                    result.data = result.data.reverse();
                     for (var i = 0; i < result.data.length; i++) {                        
                         if (result.data[i].look_image) {
                             favorite_look_image = result.data[i].look_image;
