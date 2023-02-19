@@ -932,7 +932,6 @@ theme_custom.imageMagnifier = function (imagePopUp) {
     html2canvas(document.querySelector(".custom-look-image"), {
       allowTaint: true,
       useCORS: true,
-      backgroundColor:"#f5f5f5"
     })
       .then(function (canvas) {
         theme_custom.image_url_val = canvas.toDataURL("image/png", 3.0);
@@ -2304,12 +2303,8 @@ $(document).on('click', ".product-image-wrap .download-img-btn", function () {
 });
 theme_custom.saveImage = function(){
   let b64data = '';
-    let finalCoverImage = document.querySelector(".custom-look-image.image-zoom");
-    let newCanvas = document.createElement("CANVAS");
-    let newCanvasContext = newCanvas.getContext("2d");
-    newCanvasContext.canvas.height= 800;
-    newCanvasContext.canvas.width= 830;
-    html2canvas(finalCoverImage, { canvas:newCanvas, width: 1200,height: 1200, useCORS: true, allowTaint: true,
+    let finalCoverImage = document.querySelector(".custom-look-image");
+    html2canvas(finalCoverImage, {useCORS: true, allowTaint: true, backgroundColor:"#f5f5f5"
      }).then(canvas => {
       b64data = canvas.toDataURL();
       console.log(b64data)
