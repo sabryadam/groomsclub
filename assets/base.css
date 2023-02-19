@@ -10464,3 +10464,30 @@ p.removing-combine-message
 {
   display:none;
 } */
+
+.template-page-virtual-consultant #MainContent{
+  margin-top: 50px;
+}
+@media(max-width:767px){
+  .template-page-virtual-consultant #MainContent{
+    margin-top: 20px;
+  } 
+}
+.product-image-wrap .customiser-download-img-btn{
+  border-radius: 100%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 1;
+  right: 15px;
+  top: 15px;
+  cursor: pointer;
+  border: 2px solid var(--color-button-light-blue);
+}
+.product-image-wrap .customiser-download-img-btn svg{
+  width: 25px;
+  height: 25px;
+}
