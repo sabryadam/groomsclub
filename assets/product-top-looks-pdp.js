@@ -686,9 +686,22 @@ theme_custom.tlpclickEvent = function(){
     e.preventDefault();
     if($(`[data-button-label="select-size"]`).length > 0 ){
       $('.error-message').show();
-      $('html, body').stop().animate({
-        'scrollTop': $('#suit_fit_finder').offset().top - $("#shopify-section-header").height() + 10
-      }, "slow");
+
+      let errors = $(".product-form__buttons.display-login .error-message:visible");
+      let firstError;
+      for(let i=0;i<errors.length;i++){
+        let item = errors[i];
+        if(!$(item).is(':empty')){
+          firstError = item;
+          break;
+        }
+      }
+      if(firstError){
+        let parent = $(firstError).closest('.product-block-item');
+        $('html, body').stop().animate({
+          'scrollTop': $(parent).offset().top - $("#shopify-section-header").height() - 20
+        }, "slow");
+      }
       return false;
     }
     if($(".error-message.error-show").length > 0) {

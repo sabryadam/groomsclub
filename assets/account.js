@@ -414,6 +414,7 @@ function favoritelooks() {
                     var append_fav_html = "";
                     $('.feature-looks-slider').html(append_fav_html);
                     var edit_link = '';
+                    result.data = result.data.reverse();
                     for (var i = 0; i < result.data.length; i++) {                        
                         if (result.data[i].look_image) {
                             favorite_look_image = result.data[i].look_image;
@@ -878,17 +879,15 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
         beforeSend: function () {
         },
         success: function (result) {
-            debugger;
             localStorage.setItem("save-fit-finder-flag-replace", "false");
             $("#tab-1").find(".my-size-title").after(`<p class="sucess-message">Save My Sizes!</p>`);
             getsizedata();
 
             var bring_back_url = localStorage.getItem("bring_back_fit_finder_url");
             if(bring_back_url){
-                debugger;
                 window.location.href = bring_back_url;
                 localStorage.removeItem("bring_back_fit_finder_url");
-            } 
+            }
 
             if (localStorage.getItem("previous-page-link", "true")) {
                 window.location.href = localStorage.getItem("page-link")
