@@ -267,7 +267,6 @@
 </head>
 {%- capture body_class -%}
 {%- if template.name == 'product' -%}
-template-gift-card-product
 {%- if template.suffix != blank -%}
 {{--}}|template-{{ template | replace: '.', '-' | replace: '/', '-' -}}
 {%- else -%}
@@ -282,7 +281,7 @@ template-gift-card-product
 {%- endcapture -%}
 
 <body
-  class="{{ body_class | strip | strip_newlines | split: '|' | join: ' '}}{% if template == 'index' %} homepage{% endif %}{% unless customer %} customer-has-not-logged{% endunless %}">
+  class="{{ body_class | strip | strip_newlines | split: '|' | join: ' '}}{% if template == 'index' %} homepage{% endif %}{% unless customer %} customer-has-not-logged{% endunless %} template-{{ product.handle}}">
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WPZ3HG7" height="0" width="0"
       style="display:none;visibility:hidden"></iframe></noscript>

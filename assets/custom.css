@@ -870,18 +870,49 @@ header.header.header--middle-left.page-width-big.header--has-menu {
 	background-color: var(--color-light-gray-background);
 	padding-right: 15px;
 }
-.template-gift-card-product .product__info-container .product__title{
+.template-groomsclub-gift-card .product__info-container .product__title{
 	text-align: left;
 }
-.template-gift-card-product .product__info-container .price{
+.template-groomsclub-gift-card .product__info-container .price{
 	justify-content: flex-start;
 }
-.template-gift-card-product .product__info-container variant-selects{
+.template-groomsclub-gift-card .product__info-container variant-selects{
 	display: none;	
 }
-.template-gift-card-product .product__info-container .csutomswatch .swatch-product-form .form__label{
+.template-groomsclub-gift-card .product__info-container .csutomswatch .swatch-product-form .form__label{
 	text-align: left;
 }
-.template-gift-card-product .product__info-container .csutomswatch .swatch-product-form{
+.template-groomsclub-gift-card .product__info-container .csutomswatch .swatch-product-form{
 	justify-content: flex-start;
+}
+.template-groomsclub-gift-card .product .product-main-image .media{
+	padding: 0 !important;
+}
+.template-groomsclub-gift-card .grid__item.product__media-wrapper .slick-slide img{
+	position: static;
+	width: 100%;
+	height: auto;
+	max-width: 100%;
+	display: block;
+}
+@media screen and (min-width: 991px){
+	.template-groomsclub-gift-card .product:not(.product--no-media) .product__media-wrapper{
+		max-width: 50% !important;
+		width: calc(50% - 15px) !important;
+		padding-right: 15px !important;
+	}
+	.template-groomsclub-gift-card  .product:not(.product--no-media) .product__info-wrapper{
+		max-width: 50% !important;
+		width: calc(50% - 15px) !important;
+		padding-left: 15px !important;
+	}
+}
+@media(max-width : 767px){
+  .template-collection-top-collection .product-grid-inner-wrapper{
+    width: 100%;
+  }
+  .template-collection-top-collection .plp-top-looks-product-grid .card-wrapper{
+    text-align: center;
+    padding: 15px;
+  }
 }
