@@ -326,15 +326,15 @@
           {%- for link in section.settings.menu.links -%}
             <li>
               {%- if link.links != blank -%}
-                <div class="header__menu-item-wrap {% if link.title == 'How It Works' %} how-it-works{% endif %}">
+                <div class="header__menu-item-wrap {% if link.title == 'Help Center' %} how-it-works{% endif %}">
                   <a href="{{ link.url }}"  class="{{link.title | downcase | handleize }} header__menu-item list-menu__item link focus-inset{% if link.active or link.child_active  %} active{% endif %}">
                     <span {%- if link.child_active %} class="header__active-menu-item"{% endif %}>{{ link.title | escape }}</span>
                     {% render 'icon-caret' %}
                   </a>
-                  {% if link.title == 'How It Works' %}
+                  {% if link.title == 'Help Center' %}
                     <div class="header__submenu list-menu--disclosure">
                   {% endif %}
-                  <ul class="{% if link.title != 'How It Works' %}header__submenu list-menu list-menu--disclosure{% endif %} list-menu caption-large motion-reduce{% if link.links.size > 5 %} menu-item-above-five{% endif %}" role="list" tabindex="-1">
+                  <ul class="{% if link.title != 'Help Center' %}header__submenu list-menu list-menu--disclosure{% endif %} list-menu caption-large motion-reduce{% if link.links.size > 5 %} menu-item-above-five{% endif %}" role="list" tabindex="-1">
                     {%- for childlink in link.links -%}
                       <li>
                         {%- if childlink.links == blank -%}
@@ -361,7 +361,7 @@
                       </li>
                     {%- endfor -%}
                   </ul>
-                  {% if link.title == 'How It Works' %} 
+                  {% if link.title == 'Help Center' %} 
                   <div class="contact-us-header-menu caption-large motion-reduce{% if link.links.size > 5 %} menu-item-above-five{% endif %}" role="list" tabindex="-1">
                     <h3>Contact us</h3>
                     <ul class="contact-us-header-menu-inner">
@@ -376,7 +376,7 @@
                     </ul>
                   </div>
                   {% endif %}
-                  {% if link.title == 'How It Works' %}
+                  {% if link.title == 'Help Center' %}
                     </div>
                   {% endif %}
                 </details-disclosure>
