@@ -3935,6 +3935,7 @@ details-disclosure>details {
   min-width: 730px;
   display: flex;
   top: 100%;
+  left: -25%;
 }
 .header__menu-item-wrap:hover .header__submenu.menu-item-above-five {
   min-width: 500px;

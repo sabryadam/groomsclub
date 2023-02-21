@@ -860,3 +860,28 @@ header.header.header--middle-left.page-width-big.header--has-menu {
     height: 20px;
   }
 }
+.template-collection-top-collection .main-collection-product-grid{
+	display: flex;
+	flex-wrap: wrap;
+}
+.template-collection-top-collection .product-grid-inner-wrapper {
+	width: calc(50% - 20px);
+	margin: 10px;
+	background-color: var(--color-light-gray-background);
+	padding-right: 15px;
+}
+.template-gift-card-product .product__info-container .product__title{
+	text-align: left;
+}
+.template-gift-card-product .product__info-container .price{
+	justify-content: flex-start;
+}
+.template-gift-card-product .product__info-container variant-selects{
+	display: none;	
+}
+.template-gift-card-product .product__info-container .csutomswatch .swatch-product-form .form__label{
+	text-align: left;
+}
+.template-gift-card-product .product__info-container .csutomswatch .swatch-product-form{
+	justify-content: flex-start;
+}
