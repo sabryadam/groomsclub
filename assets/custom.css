@@ -834,3 +834,29 @@ div.tab-top-border {
     font-size : 12px
   }
 }
+header.header.header--middle-left.page-width-big.header--has-menu {
+  max-width: 1520px;
+}
+@media(min-width : 1200px) and (max-width : 1440px){
+  header.header.header--middle-left.page-width-big.header--has-menu .list-menu__item{
+    font-size: 12px;
+  }
+  .svg_logo_header{
+    width: 120px;
+  }
+  .header--middle-left .header__inline-menu{
+    padding-left: 25px;
+    text-align: left;
+  }
+  .header__icons .btn-small{
+    padding: 10px 20px;
+    height: 40px;
+    display: block;
+    min-width: auto;
+    font-size: 12px;
+  }
+  .header__icons .link svg, .header__icons .customer a svg{
+    width: 20px;
+    height: 20px;
+  }
+}
