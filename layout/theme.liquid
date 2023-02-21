@@ -26,6 +26,10 @@
       let expires = "expires=" + d.toUTCString();
       document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
+    if(window.location.pathname != "/pages/fit-finder"){
+      setCookie('lastpage',window.location.pathname,1);
+    }
+    
     function getCookie(cname) {
       let name = cname + "=";
       let ca = document.cookie.split(';');
@@ -240,6 +244,26 @@
   
   </script>
 
+  {%- if template contains 'virtual-consultant' -%}
+    <!-- Calendly badge widget begin -->
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+    <script type="text/javascript">window.onload = function() { Calendly.initBadgeWidget({ url: 'https://calendly.com/groomsclubappointment/30min', text: 'Schedule time with me', color: '#0069ff', textColor: '#ffffff', branding: true }); }</script>
+    <!-- Calendly badge widget end -->
+    <script>
+      $(document).on("click", ".image-with-text__content .appointment-button", function(){
+        $(".calendly-badge-content").click()
+      })
+    </script>
+    <style>
+      .template-page-virtual-consultant .text-with-img-custom .image-with-text__content a.button{
+        opacity: 1 !important;
+        cursor: auto !important;
+        pointer-events: all !important;
+      }
+    </style>
+  {%- endif -%}
+
 </head>
 {%- capture body_class -%}
 {%- if template.name == 'product' -%}
@@ -257,7 +281,7 @@
 {%- endcapture -%}
 
 <body
-  class="{{ body_class | strip | strip_newlines | split: '|' | join: ' '}}{% if template == 'index' %} homepage{% endif %}{% unless customer %} customer-has-not-logged{% endunless %}">
+  class="{{ body_class | strip | strip_newlines | split: '|' | join: ' '}}{% if template == 'index' %} homepage{% endif %}{% unless customer %} customer-has-not-logged{% endunless %} template-{{ product.handle}}">
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WPZ3HG7" height="0" width="0"
       style="display:none;visibility:hidden"></iframe></noscript>
@@ -350,6 +374,7 @@
     });
 
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 
 </html>

@@ -10,6 +10,15 @@
 {%- endfor -%}
 <div class="product-block product-item-wrap" data-product-handle="{{ product.handle }}" data-product-type-handle="{{ product.title | handle }}" data-var-id="{{ product.selected_or_first_available_variant.id }}"{% if vest_product_flag %} data-vest-handle="{{ vest_product_handle | strip | split : '?' | first}}"{% endif %}>
   <div class="no-js-hidden swatches-wrapper" >
+    <div class="product-swatches-main hidden">
+      {% unless product.variants[0].title == 'Default Title' %}
+        {% for option in product.options_with_values %}
+        {% assign swatch = option.name %}
+        {% assign size = option.values.size %}
+        {% render 'swatch' with swatch:swatch, product:product, size:size  %}
+        {% endfor %}
+      {% endunless %}
+    </div>
     <select class="product-var-dropdown select__select hidden">
       {%- for variant in product.variants -%}
         {%- capture preloadImage -%}
@@ -26,8 +35,9 @@
         {%- endcapture -%}
         <option
           {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %}
-          {% unless variant.available %}disabled{% endunless %}
+          {% comment %}{% unless variant.available %}disabled{% endunless %}{% endcomment %}
           value="{{ variant.id }}"
+          data-available="{{variant.available}}"
           data-product-id="{{product.id }}"
           data-variant-price="{{ variant.price}}"
           data-variant-title="{{ variant.title}}"

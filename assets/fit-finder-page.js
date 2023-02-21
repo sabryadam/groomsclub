@@ -76,8 +76,8 @@ theme_custom.saveFitFinder = function (fitFinderJson, button) {
     "jacketSize_result": jacketSize_result,
     "jacketSize": jacketSize
   }
-  console.log("Fit finder fitFinderJsonData",fitFinderJsonData);
-  console.warn("Fit Finder Data",fitFinder);
+  // console.log("Fit finder fitFinderJsonData",fitFinderJsonData);
+  // console.warn("Fit Finder Data",fitFinder);
   header = {
     // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
     "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
@@ -114,7 +114,7 @@ theme_custom.saveFitFinder = function (fitFinderJson, button) {
         } else if (localStorage.getItem("invited-event-fit-finder-button")) {
           var getHometryOnEventUrl = localStorage.getItem("home-try-on-event-url");
           window.location.href = '/pages/my-event?' + getHometryOnEventUrl;
-          console.log("Home try on event url",getHometryOnEventUrl);
+          // console.log("Home try on event url",getHometryOnEventUrl);
         }
          else {
           $(".edit-size-button").removeClass("hidden").show();
@@ -249,15 +249,25 @@ theme_custom.nextElmShow = function (parent) {
 
 // Fit Finder Change Event
 theme_custom.fitFinderChangeEvent = function () {
-  $('input[type=radio][name=height]').on('change', function () {
-    $(".required-error").remove();
-    $(".button").removeClass("disabled");
-    var selectedVal = $(this).val(),
-      selectedValueArr = selectedVal.split(".");
-    $(".step-wrapper[data-step-title='Height']").find(".height-feet").val(selectedValueArr[0]);
-    $(".step-wrapper[data-step-title='Height']").find(".height-inche").val(selectedValueArr[1]);
-    $(".step-wrapper[data-step-title='Height']").find(".user-height").val(selectedVal);
+  $('input[type=radio][name=height]').on('click', function () {
+    setTimeout(() => {
+      $(".required-error").remove();
+      $(".button").removeClass("disabled");
+      var selectedVal = $(this).val(),
+        selectedValueArr = selectedVal.split(".");
+      $(".step-wrapper[data-step-title='Height']").find(".height-feet").val(selectedValueArr[0]);
+      $(".step-wrapper[data-step-title='Height']").find(".height-inche").val(selectedValueArr[1]);
+      $(".step-wrapper[data-step-title='Height']").find(".user-height").val(selectedVal);
+      $(this).closest('.step-wrapper').find('.next-button').click();
+    }, 300)
   });
+    $('.go-next-step-wrapper input[type="radio"]').on('click',function(e){
+      setTimeout(() => {
+        let parent = $(this).closest('.go-next-step-wrapper');
+        let nextButton = $('.next-button',parent);
+        nextButton.click();
+      }, 300);
+    })
 }
 
 theme_custom.jacketSizefunction = function (jacketSize, jacketSizeVal, jacketPantVal, fitFinder) {
@@ -267,7 +277,7 @@ theme_custom.jacketSizefunction = function (jacketSize, jacketSizeVal, jacketPan
   $(".fit-finder-pant-result").attr("data-fit-finder-pant-result", jacketPantVal).text(jacketPantVal);
   fitFinder["jacketSize"] = $(".fit-finder-result").attr("data-fit-finder-result");
   fitFinder["pantSize"] = $(".fit-finder-pant-result").attr("data-fit-finder-pant-result");
-  console.log("fitfinder size",fitFinder["pantSize"] = $(".fit-finder-pant-result").attr("data-fit-finder-pant-result"));
+  // console.log("fitfinder size",fitFinder["pantSize"] = $(".fit-finder-pant-result").attr("data-fit-finder-pant-result"));
   fitFinder["jacketSize_result"] = "Your Jacket size result";
 }
 
@@ -440,7 +450,7 @@ theme_custom.fitFinderClickEvent = function () {
       if (parent.find("input[type='radio']").is(':checked')) {
         $(".required-error").removeClass("active");
         selectedVal = parent.find("input[type='radio']:checked").val();
-        console.log("selected value",selectedVal);
+        // console.log("selected value",selectedVal);
         selectedQuestion = parent.find(".block-heading").text();
         fitFinder[stepTitle + '_qus'] = selectedQuestion.trim();
         fitFinder[stepTitle] = selectedVal;
@@ -517,7 +527,7 @@ theme_custom.fitFinderClickEvent = function () {
         userNewHeight = userHeight.replace('"', ''),
         userWeight = parseInt(fitFinderJson.weight),
         userNewHeight = userNewHeight.replace('`', '.');
-        console.log("fitFinderJson",fitFinderJson);
+        // console.log("fitFinderJson",fitFinderJson);
       if ((userNewHeight >= 1.0 && userNewHeight <= 5.09) && (userWeight >= 1 && userWeight <= 124)) {
         theme_custom.jacketSizefunction("32:S", "32S", "26x30", fitFinder);
       } else if ((userNewHeight >= 1.0 && userNewHeight <= 5.09) && (userWeight >= 125 && userWeight <= 140)) {
@@ -604,7 +614,7 @@ theme_custom.fitFinderClickEvent = function () {
       var pantSizeArr = fitFinderJson.pantSize.split('x'),
         pants_waist = pantSizeArr[0],
         pants_hight = pantSizeArr[1];
-        console.log("pantSizeArr",pantSizeArr);
+        // console.log("pantSizeArr",pantSizeArr);
       fitFinderJson.pants_waist = pants_waist;
       fitFinderJson.pants_hight = pants_hight;
       setCookie("fit-finder-data", JSON.stringify(fitFinderJson), 365);
@@ -634,7 +644,7 @@ theme_custom.fitFinderClickEvent = function () {
                                 <div class="form-wrap">
                                   <h4 class="title">Time to save your fit!</h4>  
                                   <div class="button-outer-wrapper" style="align-items: end;">
-                                    <div class="button-wrapper"><button type="button" class="button button--primary previous-page-link" onclick="history.back()">Continue Shopping</button></div>
+                                    <div class="button-wrapper"><button type="button" class="button button--primary previous-page-link" onclick="window.moveToLastPage()">Continue Shopping</button></div>
                                     <div class="button-wrapper"><button type="button" class="button button--primary save-fit-finder-flag" data-target-link="/account/login">Log In/Sign Up</button></div>
                                   </div>
                                   <span class="form-error"></span>
@@ -847,7 +857,7 @@ theme_custom.editFitFinder = function () {
     jacket_size = jacketType[0],
     jacket_type = jacketTypeVal,
     fit = getFitFinder.fit;
-    console.log("pantSize",pantSize);
+    // console.log("pantSize",pantSize);
   $(".step-wrapper[data-step-title='Height']").find(".height-feet").val(heightArr[0]);
   $(".step-wrapper[data-step-title='Height']").find(".height-inche").val(heightArr[1]);
   $(".step-wrapper[data-step-title='Height']").find(".user-height").val($("#user-height").val());
@@ -886,3 +896,10 @@ $(document).ready(function () {
   theme_custom.NumberErrorMsg = `<div class="required-error text_center"><p>Please enter number only</p></div>`;
   theme_custom.heightScroll = $("#shopify-section-header").height() + $(".breadcrumb").height() + 30;
 })
+window.moveToLastPage = function(){
+  if(getCookie('lastpage')){
+    window.location.href = getCookie('lastpage'); 
+  }else{
+    window.history.back();
+  }
+}

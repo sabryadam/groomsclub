@@ -47,9 +47,31 @@ select.select__select {
 }
 
 
-.product-form__buttons .favorite-event-cart-wrapper {
-    justify-content: flex-start !important;
+.required-box {
+	position: relative;
+	margin-bottom: 40px !important;
 }
+
+.template-product-jacket-pant-combination .edit-item-popup .swatch-wrapper-options + .swatch-wrapper {
+	display: none;
+}
+
+.suit-select-box.required-select::after {
+	content: "This field is required";
+	color: red;
+	font-size: 12px;
+	position: absolute;
+	top: 45px;
+}
+
+.suit-select-box.required-select {
+	margin-bottom: 40px;
+}
+
+.template-cart .edit-item-popup[data-product-type="vest"] .swatch-wrapper-options .swatch.swatch-wrap.clearfix.swatch-color {
+	display: none;
+}
+
 
 .product-block-wrap-suit-wrapper {
 /*     display: none !important; */
@@ -192,8 +214,8 @@ select#exampleFormControlSelect1, select#exampleFormControlSelect2 {
 .completefit {
     padding: 0px 30px;
     border-radius: 4px;
-    max-width: 80%;
     width: 100%;
+    max-width: 100% ;
 }
 
 
@@ -284,7 +306,7 @@ body:not(.suit_page_body) .product-block-wrap-suit-wrapper {
 }
 
 #product_info_box .scroll-part.right-scroll-spcing .product-block-outer-wrapper p.product-title {
-	margin-top: 0;
+	margin-top: 10px;
 }
 
 #product_info_box .scroll-part.right-scroll-spcing .product-block-outer-wrapper:first-child p.product-title {
@@ -369,6 +391,7 @@ select.suit_attr + .icon {
 #ff-data-box {
 	display: flex;
 	flex-wrap: wrap;
+	/* display: none; */
 }
 
 .ff-data {

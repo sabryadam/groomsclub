@@ -185,6 +185,7 @@ theme_custom.getVariantData = function (parentEl) {
   } else {
     parent.find('.pdp-updates-button button').removeClass('disabled');
     parent.find(".error-message").text('').hide();
+    parent.find('.product-block-wrap .error-message').removeClass("error-show");
   }
   return variantDataGetArr;
 }
@@ -256,6 +257,9 @@ theme_custom.loadEvent = function () {
   if ($(".looks-product").length > 0) {
     if (getCookie("fit-finder-data") != "") {
       var getFitFinderData = JSON.parse(getCookie("fit-finder-data"));
+      setTimeout(function(){
+        $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="jacket"], .product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="pants"]`).find(".error-message ").removeClass('error-show')
+      },500)
       $(".product-data-card").each(function () {
         var parentEl = $(this);
         var productType = $(this).data("product-type").toLowerCase();
@@ -263,7 +267,9 @@ theme_custom.loadEvent = function () {
           parentEl.find(`.swatch-wrapper input[data-name='Size']:checked`).removeAttr("checked");
           parentEl.find(`.swatch-wrapper input[data-name='Size'][value="${getFitFinderData.shoe_size}"]`).attr("checked", "checked");
           parentEl.find(".option-name[data-option-title='Size']").text(`${getFitFinderData.shoe_size}`).attr("data-variant-val", getFitFinderData.shoe_size);
-          theme_custom.getVariantData(parentEl);
+          setTimeout(function(){
+            theme_custom.getVariantData(parentEl);
+          },1000)
         }
         if (getFitFinderData.shirt_neck && getFitFinderData.shirt_sleeve && getFitFinderData.fit && productType == 'shirt') {
           // var shirt_size =  getFitFinderData.shirt_sleeve + ' | ' + getFitFinderData.shirt_neck;
@@ -275,7 +281,9 @@ theme_custom.loadEvent = function () {
           parentEl.find(`.swatch-wrapper input[data-name='Style']:checked`).removeAttr("checked");
           parentEl.find(`.swatch-wrapper input[data-name='Style'][value="${shirt_fit}"]`).attr("checked", "checked");
           parentEl.find(".option-name[data-option-title='Style']").text(`${shirt_fit}`).attr("data-variant-val", shirt_fit);
-          theme_custom.getVariantData(parentEl);
+          setTimeout(function(){
+            theme_custom.getVariantData(parentEl);
+          },1000)
         }
         if (getFitFinderData.jacketSize && productType == 'jacket' || getFitFinderData.jacketSize && productType == 'vest') {
           var jacketType = getFitFinderData.jacketSize.split(":");
@@ -293,7 +301,9 @@ theme_custom.loadEvent = function () {
           parentEl.find(`.swatch-wrapper input[data-name='Style']:checked`).removeAttr("checked");
           parentEl.find(`.swatch-wrapper input[data-name='Style'][value="${jacketTypeVal}"]`).attr("checked", "checked");
           parentEl.find(`.option-name[data-option-title='Style']`).text(`${jacketTypeVal}`).attr("data-variant-val", jacketTypeVal);
-          theme_custom.getVariantData(parentEl);
+          setTimeout(function(){
+            theme_custom.getVariantData(parentEl);
+          },1000)
         }
         if (getFitFinderData.pants_waist && getFitFinderData.pants_hight && productType == 'pants') {
           var pants_waist = getFitFinderData.pants_waist;
@@ -306,7 +316,9 @@ theme_custom.loadEvent = function () {
           parentEl.find(`.option-name[data-option-title='Length']`).text(`${pants_hight}`).attr("data-variant-val", pants_hight);
           if (parentEl.find(`.swatch-wrapper input[data-name='Length'][value="${pants_hight}"]`).length > 0) {
           }
-          theme_custom.getVariantData(parentEl);
+          setTimeout(function(){
+            theme_custom.getVariantData(parentEl);
+          },1000)
         }
       })
       // product-block-wrap-suit-wrapper
@@ -498,7 +510,7 @@ theme_custom.Shopify = {
 theme_custom.IconWithTextSlider = function () {
   if ($(window).width() < 768) {
     $('.icontextblock_container').on('init', function (event, slick) {
-      console.log("slick initialized");
+      // console.log("slick initialized");
        // set this slider as const for use in set time out
       const slider = this;
         
@@ -1440,7 +1452,7 @@ theme_custom.clickEvent = function () {
           $(this).addClass("disable");
         },
         success: function (result) {
-          console.log('create event result',result);
+          // console.log('create event result',result);
           if (result.success) {
             $('.api_error').addClass("success-event").show().html(result.message);
             setTimeout(function () {
@@ -1450,7 +1462,7 @@ theme_custom.clickEvent = function () {
           }
         },
         error: function (xhr, status, error) {
-          console.log('create event error',error);
+          // console.log('create event error',error);
           button.removeClass("disable");
           if (xhr.responseJSON.message == 'Token is invalid or expired.') {
             $('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({

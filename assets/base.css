@@ -959,17 +959,20 @@ body.compensate-for-scrollbar {
 }
 
 /* Derived from base colors (theme settings) */
-body::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track,
+.tabbed-content-block-outer-wrapper .product-info-wrap .tabbed-content-block-inner-wrapper .product-info-top-block::-webkit-scrollbar-track{
   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
   background-color: #F5F5F5;
 }
 
-body::-webkit-scrollbar {
+body::-webkit-scrollbar ,
+.tabbed-content-block-outer-wrapper .product-info-wrap .tabbed-content-block-inner-wrapper .product-info-top-block::-webkit-scrollbar{
   width: 5px;
   background-color: #F5F5F5;
 }
 
-body::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb,
+.tabbed-content-block-outer-wrapper .product-info-wrap .tabbed-content-block-inner-wrapper .product-info-top-block::-webkit-scrollbar-thumb{
   background-color: var(--color-button-light-blue);
   border: 2px solid var(--color-button-light-blue);
 }
@@ -8869,16 +8872,21 @@ img.crossed-out.hide {
 }
 
 .edit-item-popup::-webkit-scrollbar-track {
-  background-color: #F5F5F5;
+  border-radius: 10px;
 }
 
 .edit-item-popup::-webkit-scrollbar {
-  width: 5px;
-  background-color: #F5F5F5;
+  width: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  border-left: 15px solid #fff;
 }
 
 .edit-item-popup::-webkit-scrollbar-thumb {
   background-color: var(--color-light-blue);
+  border-left: 15px solid transparent;
+  border-radius: 10px;
+  background-clip: content-box;
 }
 
 .edit-item-popup .single-option-selector {
@@ -9629,6 +9637,9 @@ main#MainContent {
   line-height: 26px;
   color: red;
   width: 100%;
+}
+.error-message.error-show{
+  display: block;
 }
 
 .edit-size-popup .error-message{
@@ -10432,3 +10443,30 @@ p.removing-combine-message
 {
   display:none;
 } */
+
+.template-page-virtual-consultant #MainContent{
+  margin-top: 50px;
+}
+@media(max-width:767px){
+  .template-page-virtual-consultant #MainContent{
+    margin-top: 20px;
+  } 
+}
+.product-image-wrap .customiser-download-img-btn{
+  border-radius: 100%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 100;
+  right: 15px;
+  top: 15px;
+  cursor: pointer;
+  border: 2px solid var(--color-button-light-blue);
+}
+.product-image-wrap .customiser-download-img-btn svg{
+  width: 25px;
+  height: 25px;
+}
