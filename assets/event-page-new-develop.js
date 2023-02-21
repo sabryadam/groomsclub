@@ -166,3 +166,13 @@ class creteEventPageStep1{
   }
 }
 new creteEventPageStep1();
+
+
+class creteEventPageStep2{
+  constructor(){
+    this.init()
+  }
+  init = () =>{
+    
+  }
+}
