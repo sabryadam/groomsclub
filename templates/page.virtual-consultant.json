@@ -7,6 +7,7 @@
     },
     "362452f0-a1b1-4b56-afd2-bcf3a656399a": {
       "type": "icon-text",
+      "disabled": true,
       "blocks": {
         "521adba8-3eea-40b2-95e8-2ac710e78b10": {
           "type": "icontext",
@@ -57,13 +58,14 @@
           "type": "heading",
           "settings": {
             "heading": "Our Virtual Experience",
-            "heading_count": ""
+            "heading_count": "",
+            "show_icon": true
           }
         },
         "template--16031272861882__5ffd682c-aab2-401e-ba09-8053152b2a20-16750289736e3e406a-1": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>Risk-Free<\/strong><\/p><p><a href=\"https:\/\/groomsclub.returnly.com\/\" target=\"_blank\" title=\"https:\/\/groomsclub.returnly.com\/\">Returns and exchanges <\/a>on unaltered items are always free. Our team has and will continue to provide support to couples whose plans have been affected by COVID-19. Our stylists are more than happy to set up a free trial so you can see the fit and quality for yourself before committing to purchase.<br\/><br\/><strong>Wedding Groups<br\/><\/strong>We know it’s difficult to get your entire wedding party’s fittings and orders completed in one showroom! That’s why we’re happy to manage your wedding group’s ordering process, including reminding everyone to order the right products and on time. Ask your stylist for more information.<\/p>"
+            "text": "<p><strong>Book a Virtual Consultation<\/strong><br\/>Say “I Do” to Style! Book a virtual appointment with one of our expert fashion consultants to find your perfect suit. With their expert style advice and keen attention to detail, you'll be ready to walk down the aisle with confidence. Book an appointment, chat with your stylist, then sit back and relax while we take care of the rest.  <br\/><br\/><strong>Chat With Your Personal Stylist <\/strong><br\/>Talk colors, sizes, and preferences with your personal stylist about your wedding suit. <br\/><br\/><strong>Sit Back, Relax, and Suit Up <\/strong><br\/>Let us do the work. We’re here to make your big day as seamless as possible.<\/p>"
           }
         },
         "template--16031272861882__5ffd682c-aab2-401e-ba09-8053152b2a20-16750289736e3e406a-2": {

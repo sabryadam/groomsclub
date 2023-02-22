@@ -723,7 +723,7 @@
                           </div>
                         </div>
 
-                        <div class="product-block-wrap-suit-wrapper">
+                        <div class="product-block-wrap-suit-wrapper product-block-item">
                           <div class="product-image">
                             <img srcset="{{ product.featured_media.image.src | img_url: 'medium' }} 1x, {{ product.featured_media.image.src | img_url: 'medium', scale: 2 }} 2x"
                               src="{{ product.featured_media.image.src | img_url: image_size }}"
@@ -760,7 +760,7 @@
 
                         {%- assign jacket_pant_data_arr = jacket_pant_data | split : ',' -%}
 
-                        <div class="product-block-wrap-suit-wrappertwo">
+                        <div class="product-block-wrap-suit-wrappertwo product-block-item">
                           <div class="row">
                             <h4>SELECT SIZES:</h4>
                           </div>
@@ -1044,7 +1044,7 @@
                               {%- assign accessoriesProdVarId = producthandleitem | split: '?' | last | remove: 'variant=' | plus: 0 -%}
                               {%- assign productHandle = all_products[accessoriesProdHandle] -%}
                               {% unless productHandle == blank %}
-                                <div class="product-data-card product-data-card-wrap" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
+                                <div class="product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
                                   <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
                                   <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ accessoriesProdVarId }}">
                                   <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
@@ -1138,7 +1138,7 @@
                                 {% assign productData = producthandleData | split: '_' | last %}
                                 {%- assign productHandle = all_products[productData] -%}
                                 {%- unless productHandle == blank -%}
-                                  <div class="product-data-card product-data-card-wrap" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
+                                  <div class="product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
                                     <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
                                     <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ productHandle.selected_or_first_available_variant.id }}">
                                     <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
