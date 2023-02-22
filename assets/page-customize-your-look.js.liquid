@@ -1456,7 +1456,10 @@ theme_custom.customize_product_clickEvent = function () {
     button.find(".loading-overlay").removeClass("hidden");
     button.addClass("disabled");
     button.find('.button-title').text(button.attr("data-text"));
-    theme_custom.favoriteButtonEvent(button);
+    if(localStorage.getItem("editLookName")!='' && localStorage.getItem("editLookId")!=''){
+    } else {
+      theme_custom.favoriteButtonEvent(button);
+    }
   })
 
   // add-to-cart-button Click Event 
@@ -2006,9 +2009,22 @@ theme_custom.fitFinderData = function () {
   }
 }
 
+theme_custom.checkEditLook = function(){
+  if(localStorage.getItem("editLookName")!='' && localStorage.getItem("editLookId")!=''){
+    $(`[data-tab-content='overview']`).find(".add-to-cart-button").addClass("update-look").addClass("favorite-event-button").removeClass("add-to-cart-button");
+    $(`[data-tab-content='overview']`).find(".update-look .btn-title").text("Update Look");
+    $(`[data-tab-content='overview']`).find('.fa-shopping-cart, .wishlist-icon-wrap').hide();
+    $(`.favourite-look-wrapper`).find('.favorite-event-api-button .button-title').text('Update Favorite Look');
+  }
+
+  $(document).on("click",".update-look",function(){
+    $(".favourite-look-wrapper").find('.custom-text-filed').val(`${localStorage.getItem("editLookName")}`);
+  })
+}
 
 //  DOM Ready function
 $(document).ready(function () {
+  theme_custom.checkEditLook();
   theme_custom.customize_product_init();
   $(".product-block.product-item-wrap").each(function () {
     var parentBlock = $(this).closest(".product-block.product-item-wrap"),

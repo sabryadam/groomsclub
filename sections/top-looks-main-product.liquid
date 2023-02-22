@@ -1430,7 +1430,7 @@ function suitSizeData() {
       success: function (result) {
           if (result.success) {
               // console.log(result);
-
+            if (result.data.length > 0) {
               var jacket_size = 'NA';
               var jacket_type = 'NA';
               var jacket_allsizes = result.data[0].jacketSize;
@@ -1499,6 +1499,7 @@ function suitSizeData() {
                 $("#ff-data-box").html(ff_html);
                 $("#fit_finder_data_auto").show();
               }
+            }
           }else{
             $("#suit_fit_finder").show();
             $("#fit_finder_data_auto").hide();

@@ -421,7 +421,7 @@ function favoritelooks() {
                         }
 
                         if (result.data[i].url) {
-                            edit_link = `<span data-href="${result.data[i].url}" class="link edit-favorite-look-button">Edit look</span><span class="break"> | </span>`;
+                            edit_link = `<span data-href="${result.data[i].url}" edit-look-id="${result.data[i].id}" edit-look-name="${result.data[i].name}" class="link edit-favorite-look-button">Edit look</span><span class="break"> | </span>`;
                         } else {
                             edit_link = ``;
                         }
@@ -551,6 +551,8 @@ $(document).on("click", ".edit-favorite-look-button", function () {
     window.location.href = getRediectUrl;
     localStorage.setItem("customizerlookFrom", "exiting-looks");
     localStorage.setItem("customizerlookUrl", getRediectUrl.split("?")[1]);
+    localStorage.setItem("editLookId",$(this).attr("edit-look-id"));
+    localStorage.setItem("editLookName",$(this).attr("edit-look-name"));
 });
 
 $(document).on('click', '.delete_favorites', function () {
