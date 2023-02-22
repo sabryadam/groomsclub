@@ -895,6 +895,9 @@ header.header.header--middle-left.page-width-big.header--has-menu {
 	max-width: 100%;
 	display: block;
 }
+.template-collection-top-collection .card-information__wrapper{
+	text-align: left;
+}
 @media screen and (min-width: 991px){
 	.template-groomsclub-gift-card .product:not(.product--no-media) .product__media-wrapper{
 		max-width: 50% !important;
@@ -914,5 +917,8 @@ header.header.header--middle-left.page-width-big.header--has-menu {
   .template-collection-top-collection .plp-top-looks-product-grid .card-wrapper{
     text-align: center;
     padding: 15px;
+  }
+  .template-collection-top-collection .card-information__wrapper{
+    text-align: center;
   }
 }

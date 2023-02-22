@@ -3932,10 +3932,10 @@ details-disclosure>details {
   padding: 15px 20px;
 }
 .header__menu-item-wrap.how-it-works:hover .header__submenu {
-  min-width: 730px;
+  min-width: 500px;
   display: flex;
   top: 100%;
-  left: -25%;
+  left: 25px;
 }
 .header__menu-item-wrap:hover .header__submenu.menu-item-above-five {
   min-width: 500px;
