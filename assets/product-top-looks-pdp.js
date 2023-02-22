@@ -511,7 +511,6 @@ theme_custom.favoriteButtonEvent = function(button,productArray,lookURL){
     var lookName = button.closest(".favourite-look-wrapper").find("#look-name").val(),
         lookUrl = `/pages/customize-your-look?${lookURL}`;
         produArray = productArray;
-    debugger;
     theme_custom.favouriteLookApi(lookName,lookUrl,produArray,button);
   }
 }

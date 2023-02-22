@@ -1420,8 +1420,6 @@ theme_custom.customize_product_clickEvent = function () {
       $(`.customize-look-overview-product[data-product-type="shirt"]`).find(`.error-msg`).removeClass("active");
       $(`.customize-look-overview-product[data-product-type="shirt"] .edit-remove-link`).find(".edit-item").text("Edit Item | ").attr('data-button-target','edit-item');
     }  else if(productType == 'shoes'){
-      debugger;
-      console.log("targetVarTitleArr",targetVarTitleArr);
       $(`.customize-look-overview-product[data-product-type="shoes"] .product-variant-link .option2`).text(targetVarTitleArr[1]);
       $(`.customize-look-overview-product[data-product-type="shoes"] .edit-remove-link`).find(".edit-item").text("Edit Item | ").attr('data-button-target','edit-item');
       $(`.customize-look-overview-product[data-product-type="shoes"] .product-variant-link`).find(".variant-title").show();
