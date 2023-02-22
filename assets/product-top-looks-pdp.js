@@ -642,6 +642,7 @@ theme_custom.tlpclickEvent = function(){
       // console.log(" theme_custom.prodArray", theme_custom.prodArray);
     });
     theme_custom.customizeURLData  = '';
+    theme_custom.customizeURLData += $(`.product-data-card-wrap[data-product-type="looks"]`).find(".looks-product-handle").val() + '=' + $(`.product-data-card-wrap[data-product-type="looks"]`).find(".looks-product-var-id").val() + '&';
     $.each(productDataCardArr, function(index, value) {
       var customizeURL = ''
       var isLastElement = index == productDataCardArr.length -1;

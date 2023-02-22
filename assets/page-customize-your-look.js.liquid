@@ -536,14 +536,25 @@ theme_custom.favoriteLookImageCustomizer = function (lookID, button) {
 
     },
     success: function (result) {
-      $(".favourite-look-api-message").text("Look added successfully to Favorite").addClass("sucess-msg").removeClass("hidden").show();
-      setTimeout(() => {
-        button.removeClass("disabled");
-        button.find(".button-title").text("Added in Favorite");
-        button.find(".loading-overlay").addClass("hidden");
-        $(".favourite-look-api-message").addClass("hidden");
-        window.location.href = `/account#tab-3`
-      }, 3000);
+      if(localStorage.getItem('editLookId')!='' && localStorage.getItem('editLookName')!=''){
+        $(".favourite-look-api-message").text("Look Updated successfully to Favorite").addClass("sucess-msg").removeClass("hidden").show();
+        setTimeout(() => {
+          button.removeClass("disabled");
+          button.find(".button-title").text("Look Updated");
+          button.find(".loading-overlay").addClass("hidden");
+          $(".favourite-look-api-message").addClass("hidden");
+          window.location.href = `/account#tab-3`
+        }, 3000);
+      } else {
+        $(".favourite-look-api-message").text("Look added successfully to Favorite").addClass("sucess-msg").removeClass("hidden").show();
+        setTimeout(() => {
+          button.removeClass("disabled");
+          button.find(".button-title").text("Added in Favorite");
+          button.find(".loading-overlay").addClass("hidden");
+          $(".favourite-look-api-message").addClass("hidden");
+          window.location.href = `/account#tab-3`
+        }, 3000);
+      }      
     },
     error: function (xhr, status, error) {
       if (xhr.responseJSON.message == 'Token is invalid or expired.') {
@@ -2068,7 +2079,8 @@ theme_custom.checkEditLook = function(){
     $(`[data-tab-content='overview']`).find(".add-to-cart-button").addClass("update-look").addClass("favorite-event-button").removeClass("add-to-cart-button");
     $(`[data-tab-content='overview']`).find(".update-look .btn-title").text("Update Look");
     $(`[data-tab-content='overview']`).find('.fa-shopping-cart, .wishlist-icon-wrap').hide();
-    $(`.favourite-look-wrapper`).find('.favorite-event-api-button .button-title').text('Update Favorite Look');
+    $(`.favourite-look-wrapper`).find('.favorite-event-api-button').attr('data-text','Updating Look');
+    $(`.favourite-look-wrapper`).find('.favorite-event-api-button .button-title').text('Update Look');
   }
 
   $(document).on("click",".update-look",function(){
