@@ -382,10 +382,21 @@
     </div>
   {%- endif -%}
 </div>
-
+<style>
+    .collection-section-{{section.id}} .product-grid-outer-wrapper:first-child {
+    margin-top: 38px;
+}
+.collection-section-{{section.id}} .product-grid-outer-wrapper:first-child, .collection-section-{{section.id}} .product-grid-outer-wrapper .product-grid-inner-wrapper .plp-top-looks-product-grid {
+    background-color: var(--color-light-gray-background);
+    margin-bottom: 30px;
+}
+.collection-section-{{section.id}} .collection-product-count{
+    padding: 0 15px;
+}
+</style>
 <script src="{{ 'collection-filters-form.js' | asset_url }}" defer="defer"></script>
-{%- assign products_per_page = 9 -%}
-<div id="CollectionProductGrid">
+{%- assign products_per_page = section.settings.products_per_page -%}
+<div id="CollectionProductGrid" class="collection-section-{{section.id}}">
   {%- paginate collection.products by products_per_page -%}
     {%- if collection.products.size == 0 -%}
       <div class="collection collection--empty page-width" id="main-collection-product-grid" data-id="{{ section.id }}">
@@ -427,18 +438,36 @@
         </p>
 
         <div class="main-collection-product-grid" data-id="{{ section.id }}">
-          {%- for product in collection.products reversed  limit: 9 -%}
-            <div class="product-grid-inner-wrapper">
-              <div class="plp-top-looks-product-grid" data-index="{{ forloop.index }}">
-                {% render 'product-card-top-plp',
-                  product_card_product: product,
-                  media_size: section.settings.image_ratio,
-                  show_secondary_image: section.settings.show_secondary_image,
-                  add_image_padding: section.settings.add_image_padding,
-                  show_vendor: section.settings.show_vendor
-                %}
-              </div>
+          {%- for product in collection.products reversed  limit: 7 -%}
+            {% if forloop.index == 1 %} 
+              <div class="product-grid-outer-wrapper">
+                <div class="page-width">
+            {%- endif -%}
+            {% if forloop.index == 2 or forloop.index == 5 %} 
+              <div class="product-grid-outer-wrapper outer-padding-product top-looks-side-part">
+            {%- endif -%}
+            {% if forloop.index == 2 or forloop.index == 3 or forloop.index == 5 or forloop.index == 6  %} 
+              <div class="product-grid-inner-wrapper">
+            {%- endif -%}
+            <div class="plp-top-looks-product-grid" data-index="{{ forloop.index }}">
+              {% render 'product-card-top-plp',
+                product_card_product: product,
+                media_size: section.settings.image_ratio,
+                show_secondary_image: section.settings.show_secondary_image,
+                add_image_padding: section.settings.add_image_padding,
+                show_vendor: section.settings.show_vendor
+              %}
             </div>
+            {% if forloop.index == 1 %} 
+                </div>
+              </div>
+            {%- endif -%}
+            {% if forloop.index == 2 or forloop.index == 4 or forloop.index == 5 or forloop.index == 7 or forloop.last %} 
+              </div>
+            {%- endif -%}
+            {% if forloop.index == 4 or forloop.index == 7  or forloop.last %} 
+              </div>
+            {%- endif -%}
           {%- endfor -%}
         </div>
 
@@ -448,6 +477,17 @@
         {% if collection.products_count < 4 %} grid--{{ collection.products_count }}-col-tablet{% else %}
           {% if collection.products_count == 4 %} grid--4-col-desktop{% else %} grid--3-col-tablet grid--one-third-max grid--3-col-desktop grid--quarter-max{% endif %}
         {% endif %} negative-margin">
+          {%- for product in collection.products offset: 7 -%}
+            <div class="grid__item" data-index="{{ forloop.index }}">
+              {% render 'product-card',
+                product_card_product: product,
+                media_size: section.settings.image_ratio,
+                show_secondary_image: section.settings.show_secondary_image,
+                add_image_padding: section.settings.add_image_padding,
+                show_vendor: section.settings.show_vendor
+              %}
+            </div>
+          {%- endfor -%}
           </div>
 
           {%- if paginate.pages > 1 -%}
@@ -464,6 +504,15 @@
   "name": "t:sections.main-collection-product-grid.name",
   "class": "spaced-section collection-grid-section",
   "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 7,
+      "max": 27,
+      "step": 2,
+      "default": 7,
+      "label": "t:sections.main-collection-product-grid.settings.products_per_page.label"
+    },
     {
       "type": "header",
       "content": "t:sections.main-collection-product-grid.settings.header__3.content"

@@ -8,7 +8,6 @@
   theme_custom.defaultmage = '{{ section.settings.skeleton_image }}';
   theme_custom.emptyFitFinderMsg = "{{ section.settings.emptyFitFinderMsg }}";
 </script>
-<script type="text/javascript" src="{{ 'htmltocanvas.js' | asset_url }}"></script>
 
 {%- render 'customize-your-look-style' -%}
 
@@ -402,7 +401,7 @@
           <div id="overview_ff_box">
             <div id="suit_fit_finder" class="completefit product_fit_finder" style="display: none;">
               <a href="https://www.groomsclub.com/pages/fit-finder">
-                <div>
+                <div class="fit-finder-info-block">
                     <h4>Not sure of your size? Try our fit finder</h4>
                   <p>Answer a few simple questions to help you find the perfect fit</p>
                 </div>
@@ -448,7 +447,7 @@
 {%- capture productOverViewData -%}
   <div class="tabbed-content-block-inner-wrapper overview-tab"  data-tab-content="overview">
     <div class="product-info-top-block">
-      <h3 class="section-heading right-scroll-spcing">Overview</h3>
+      <h3 class="section-heading right-scroll-spcing" style="display:none">Overview</h3>
 
       <div class="product-info-top-block">
         <h3 class="section-heading right-scroll-spcing" style="display: none;">Find Your Fit</h3>
@@ -461,7 +460,7 @@
             <div id="overview_ff_box">
               <div id="suit_fit_finder" class="completefit product_fit_finder" style="display: none;">
                 <a href="https://www.groomsclub.com/pages/fit-finder">
-                  <div>
+                  <div class="fit-finder-info-block">
                       <h4>Not sure of your size? Try our fit finder</h4>
                     <p>Answer a few simple questions to help you find the perfect fit</p>
                   </div>
@@ -606,6 +605,9 @@
   <div class="tabbed-content-wrap page-width-big">
     <div class="tabbed-content-block-outer-wrapper" >
       <div class="product-image-wrap">
+        <button class="download-img-btn customiser-download-img-btn hidden">
+          {% render 'image-download-icon' %}
+        </button>
         <div class="custom-look-image image-zoom">
           {%- if variant.metafields.my_fields.color_image_one != blank -%}
             <link rel="preload" as="image" href="{{ section.settings.shirt_image | img_url : '1400x'}}">
@@ -649,7 +651,7 @@
     <img crossorigin="anonymous" src="" alt="Look Image" />
   </a>
 </div>
-
+<div class="hidden download-element-div"></div>
 <script>
 
 const API_URL = theme_custom.api_base_url;
@@ -688,7 +690,7 @@ function suitSizeData() {
         var ff_html = '';
         if (result.data.length > 0) {
           setTimeout(function(){
-            console.log("User has logged In");
+            // console.log("User has logged In");
             if(jacket_size == '00' ){
               $(".select-sizes-wrapper .jacket-sizes-wrap .error-message").show();
             } else {
@@ -799,7 +801,7 @@ function suitSizeDataNonLogged(){
   var getFitFinder = getCookie("fit-finder-data");
   if(getFitFinder){
     getFitFinder = JSON.parse(getCookie("fit-finder-data"));
-    console.log(getFitFinder);
+    // console.log(getFitFinder);
     var ff_html = '';
 
     var jacket_size = 'NA';
@@ -1024,7 +1026,7 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
         if(getFitFinder){
           getFitFinder = JSON.parse(getCookie("fit-finder-data"));
 
-          console.log(getFitFinder);
+          // console.log(getFitFinder);
 
           var jacketFullSize = '';
           var jacketChest = '';
@@ -1072,7 +1074,7 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
             getFitFinder.pantSize = pantFullSize;
           }
 
-          console.log(getFitFinder);
+          // console.log(getFitFinder);
           setCookie("fit-finder-data", '');
           setCookie("fit-finder-data", JSON.stringify(getFitFinder), 365);
 
@@ -1171,7 +1173,7 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
           };
 
           setCookie("fit-finder-data", JSON.stringify(defaultData));
-          console.log(defaultData);
+          // console.log(defaultData);
         }
       }
     });
