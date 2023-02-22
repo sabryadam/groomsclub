@@ -6,9 +6,9 @@
 .event-page-new-design-wrapper .form-error{
   text-align: center;
 } 
-.step-content-wrapper:not(.active){
+/* .step-content-wrapper:not(.active){
   display: none;
-}
+} */
 .event-page-new-design-wrapper .button-wrapper{
   display: flex;
   align-items: center;
