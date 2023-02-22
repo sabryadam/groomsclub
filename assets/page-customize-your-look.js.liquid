@@ -900,7 +900,61 @@ theme_custom.addLookToEvent = function (eventButton) {
     theme_custom.customizeLookAPI(lookName, eventId, lookUrl, produArray, button);
   }
 }
+// Favorite Look Update
+theme_custom.favoriteLookUpdate = function (eventButton) {
+  var error_count = 0,
+    button = eventButton;
+  error_count = error_count + theme_custom.textValidationWithSpacialChar(button.closest(".favourite-look-wrapper").find('[name="look-name"'));
+  if (error_count > 0) {
+    button.removeClass("disabled");
+    button.find(".loading-overlay").addClass("hidden");
+    button.find(".button-title").text("Add to Favorite");
+    return false;
+  } else {
+    button.find(".loading-overlay").removeClass("hidden");
+    button.find(".button-title").text(button.attr("data-text"));
+    var lookName = button.closest(".favourite-look-wrapper").find("#look-name").val(),
+      lookUrl = window.location.href;
+    produArray = theme_custom.prodArray;
+    if(localStorage.getItem('editLookId')!='' && localStorage.getItem('editLookName')!=''){
+      var favid = localStorage.getItem('editLookId');
+      favorite_api_url = `${theme_custom.base_url}/api/look/removeFromFavourite/${favid}`;  
+      $.ajax({
+        url: favorite_api_url,
+        method: "DELETE",
+        data: '',
+        dataType: "json",
+        headers: {
+          "Authorization": APP_Token
+        },
+        beforeSend: function () {},
+        success: function (result) {
+          console.log("Look Update");
+          theme_custom.favouriteLookApi(lookName, lookUrl, produArray, button);
+          localStorage.removeItem('editLookId');
+          localStorage.removeItem('editLookName');
+        },
+        error: function (xhr, status, error) {
+          if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+            $('.feature-looks-slider').html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+              'text-align': 'center',
+              'color': 'red'
+            });
+            setTimeout(() => {
+              window.location.href = '/account/logout';
+            }, 5000);
+          } else {
+            $('.feature-looks-slider').html(xhr.responseJSON.message);
+          }
+        }
+      });
+    } else {
+      theme_custom.favouriteLookApi(lookName, lookUrl, produArray, button);
+    }
+  }
+} 
 
+// Favorite Look added
 theme_custom.favoriteButtonEvent = function (eventButton) {
   var error_count = 0,
     button = eventButton;
@@ -1445,6 +1499,7 @@ theme_custom.customize_product_clickEvent = function () {
       });
     setTimeout(() => {
       $(".page-loader").addClass("hidden");
+      $(".favourite-look-wrapper").find('.custom-text-filed').val(`${localStorage.getItem("editLookName")}`);
       $.fancybox.open(target);
     }, 1500);
     theme_custom.createLookImage();
@@ -1457,6 +1512,7 @@ theme_custom.customize_product_clickEvent = function () {
     button.addClass("disabled");
     button.find('.button-title').text(button.attr("data-text"));
     if(localStorage.getItem("editLookName")!='' && localStorage.getItem("editLookId")!=''){
+      theme_custom.favoriteLookUpdate(button);
     } else {
       theme_custom.favoriteButtonEvent(button);
     }
