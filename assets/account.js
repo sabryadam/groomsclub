@@ -1,3 +1,5 @@
+// const { ready } = require("jquery");
+
 // constant define
 const API_URL = theme_custom.api_base_url;
 // const APP_Token = "Bearer XtkRwrz3zIljk6FsH74pnGAIwPkgQouqz9kM4XOEm3MsP6F0FwtaVc3oKxQbGdxbAF9uD1lYj3HnDvst22Z1SnAycTBYT0RHRA";
@@ -1245,3 +1247,9 @@ $('.edit-size-popup .step-wrapper input[type=radio]').on('change', function () {
     $(this).closest('.step-wrapper').find(".error-message").remove();
     $(this).closest('.edit-size-popup').find(".update-my-size").removeClass("disabled");
 });
+
+if(localStorage.getItem("event-or-fav-when-user-has-not-logged")=='true'){
+    debugger;
+    localStorage.removeItem("event-or-fav-when-user-has-not-logged");
+    theme_custom.checkProductLinkAvailable();
+}
