@@ -46,8 +46,9 @@ theme_custom.favoriteLooks = function(){
           }
           $('#choose-form-favorite .product-wrapper').html(append_fav_html);
         } else {
-          var html = `<div class="empty_message sizeempty_msg text_center"> You haven't saved any Favorite Looks yet.</div>`;
-          $('.feature-looks-slider').html(html);
+          var html = `<div class="empty-message text_center"> You haven't saved any Favorite Looks yet.</div>`;
+          $('#choose-form-favorite .product-wrapper').html(html);
+          $("#choose-form-favorite").addClass("empty-fav-look-wrapper")
         }
       } else {
         // alert(result.data.success);
@@ -190,13 +191,26 @@ theme_custom.eventPageClickEvent = function(){
     target.closest(".step-content-wrapper").next().addClass("active");
     var nextTarget = target.closest(".step-content-wrapper").next().attr("data-step-content-wrap");
     $(`.event-page-new-design-wrapper .step-header-wrap .step-wrap[data-step-label-wrap="${nextTarget}"]`).addClass("active");
+    if($(this).closest(".step-content-wrapper").next(".create-event-look").length>0){
+      theme_custom.eventLookSlider()
+    }
+    if($(this).closest(".step-content-wrapper").next(".event-guest-look").length>0){
+      theme_custom.guestLooksSlider()
+    }
   });
+
   $(document).on("click", ".event-page-new-design-wrapper .previous-button", function(){
     var target = $(this);
     target.closest(".step-content-wrapper").removeClass("active");
     target.closest(".step-content-wrapper").prev().addClass("active");
     var prevTarget = target.closest(".step-content-wrapper").attr("data-step-content-wrap");
     $(`.event-page-new-design-wrapper .step-header-wrap .step-wrap[data-step-label-wrap="${prevTarget}"]`).removeClass("active");
+    if($(this).closest(".step-content-wrapper").prev(".create-event-look").length>0){
+      theme_custom.eventLookSlider()
+    }
+    if($(this).closest(".step-content-wrapper").prev(".event-guest-look").length>0){
+      theme_custom.guestLooksSlider()
+    }
   })
   
   $(document).on("click", ".event-type-section-wrap .Squer-radio-button-inner", function () {
@@ -215,6 +229,17 @@ theme_custom.eventPageClickEvent = function(){
   $(".modal-wrapper .close-icon").click(function(){
     $(this).closest(".modal-wrapper").removeClass("active");
   })
+
+  $(document).on("click",".show-look-from-event-wrapper .add-look-wrapper",function(){
+    $(this).closest(".step-content-wrapper.create-event-look").find(".event-block-wrap").hide()
+    $(this).closest(".show-look-from-event-wrapper").show();
+  })
+
+  $(document).on("click",".add-guest-button", function(){
+    $(`.modal-wrapper[data-target="add-guest-popup"]`).addClass("active");
+    $(`[name="is_host_paying"]`).prop('checked', false);
+    $(`[type="text"],[type="tel"]`).val('');
+  })
 }
 
 theme_custom.calender = function(){
@@ -227,26 +252,53 @@ theme_custom.calender = function(){
 }
 
 theme_custom.eventLookSlider = function(){
-  $('.create-event-look .event-look-inner-wrapper').slick({
-    slidesToShow: 2,
-    slidesToScroll: 2,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        }
-      }
-    ]
-  });
+  if($('.create-event-look .event-look-inner-wrapper .look-card-block').length > 2){
+    setTimeout(() => {
+      $('.create-event-look .event-look-inner-wrapper').slick({
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        infinite: false,
+        speed: 300,
+        responsive: [
+          {
+            breakpoint: 768,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+            }
+          }
+        ]
+      });
+    }, 200);
+  }
+}
+theme_custom.guestLooksSlider = function(){
+  if($('.guest-top-looks .event-look-inner-wrapper .look-card-block').length > 2){
+    setTimeout(() => {
+      $('.guest-top-looks .event-look-inner-wrapper').slick({
+        adaptiveHeight: true,
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        infinite: false,
+        speed: 300,
+        responsive: [
+          {
+            breakpoint: 768,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+            }
+          }
+        ]
+      });
+    }, 200);
+  }
 }
 
 theme_custom.event_init_page = function(){
   theme_custom.eventPageClickEvent();
   theme_custom.calender();
   theme_custom.favoriteLooks();
-  theme_custom.eventLookSlider();
   $('.event-page-new-design-wrapper .event-name').bind("keypress keyup keydown", function (e) {
     theme_custom.eventReminderTitleValidation($(this));
   });
