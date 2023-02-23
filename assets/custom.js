@@ -1132,7 +1132,7 @@ theme_custom.clickEvent = function () {
     localStorage.setItem("event-or-fav-when-user-has-not-logged","true");
     localStorage.setItem("previous-page-link","true");
     localStorage.setItem("previous-page-link",window.location.href);
-    window.location.href = $(this).attr("data-href");
+    window.location.href = `${$(this).attr("data-href")}?checkout_url=${window.location.href}`;
   }); 
 
   // event page 
