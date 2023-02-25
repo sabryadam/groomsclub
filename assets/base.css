@@ -2787,6 +2787,7 @@ input[type="submit"] {
   height: 50px;
   display: block;
   min-width: auto;
+  display: flex;
 }
 
 .btn-small svg {
@@ -4005,16 +4006,21 @@ details-disclosure>details {
   letter-spacing: normal;
   margin-top: 0;
   margin-bottom: 12px;
+  font-size: 18px;
 }
 
 .icontextblock_container .icontext_subtitle {
-  font-size: var(--font-size-body-big);
+  font-size: 14px;
   line-height: 1.6;
   margin-top: 0;
   color: var(--color-gray-text);
   margin-bottom: 8px;
 }
-
+@media(max-width:767px){
+  .icontextblock_container .icontext_title {
+    font-size: 16px;
+  }
+}
 .tooltip-main {
   position: relative;
   display: inline;
@@ -4157,6 +4163,14 @@ details-disclosure>details {
   font-weight: var(--font-body-weight);
 }
 
+.custom-collection-section .title{
+  font-size: 24px;
+}
+@media(max-width:767px){
+  .custom-collection-section .title{
+    font-size: 20px;
+  } 
+}
 .how-work {
   margin-top: 105px;
 }
@@ -4301,6 +4315,13 @@ details-disclosure>details {
 .beforeafter_section .before-after-list li {
   list-style-type: none;
   margin-bottom: 26px;
+  font-size: 20px;
+}
+
+@media(max-width:767px){
+  .beforeafter_section .before-after-list li {
+    font-size: 10px;
+  } 
 }
 
 .beforeafter_section .before-after-list li:last-child {
@@ -9535,7 +9556,14 @@ main#MainContent {
 
 .beforeafter_section .before-after-list li.left-content-svg-text {
   color: var(--color-darkgray-text);
+  font-size: 20px;
 }
+@media only screen and (max-width: 767px) {
+  .beforeafter_section .before-after-list li.left-content-svg-text {
+    font-size: 12px;
+  }
+}
+
 
 .svg_logo_header {
   width: 168px;

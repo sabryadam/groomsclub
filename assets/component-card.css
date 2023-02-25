@@ -176,8 +176,24 @@
   display: block;
   padding-right: 0rem;
   font-weight: var(--font-weight-custom-book);
+  font-size: 18px;
 }
 
+.custom-collection-section .card-information__wrapper .full-unstyled-link{
+  font-size: 14px;
+}
+
+@media(max-width:767px){
+  .custom-collection-section .title{
+    font-size: 20px;
+  }
+  .custom-collection-section .card-information__text {
+    font-size: 16px;
+  }
+  .custom-collection-section .card-information__text .full-unstyled-link{
+    font-size: 14px;
+  }
+}
 .collection .card-wrapper .card.card--product .media {
   padding-bottom: 124.4% !important;
   overflow: hidden;
