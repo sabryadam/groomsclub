@@ -174,8 +174,19 @@ select#exampleFormControlSelect1, select#exampleFormControlSelect2 {
 
 .product__title.h2 {
 	margin-top: -5px;
+	font-size: 32px;
 }
-
+.price.price--large{
+	font-size: 24px;
+}
+@media(max-width:767px){
+	.product__title.h2 {
+		font-size: 24px;
+	}	
+	.price.price--large{
+		font-size: 20px;
+	}
+}
 .completefit a {
  
   list-style: none;
