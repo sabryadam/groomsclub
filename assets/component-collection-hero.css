@@ -51,7 +51,7 @@
 
 .collection-hero__title {
   margin: 0rem 0 0;
-  font-size: 32px;
+  font-size: 24px;
 }
 @media screen and (min-width: 767px) {
   .collection-hero__title {

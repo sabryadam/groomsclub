@@ -454,7 +454,7 @@ body .collection .plp-top-looks-product-grid .card-wrapper .card__inner .media{
 
 @media screen and (max-width:1580px) and (min-width:1321px){
   .plp-top-looks-product-grid .card-information__wrapper .card-information__text {
-      font-size: calc(var(--font-h2) - 7px);
+      font-size: calc(var(--font-h2) - 11px);
   }
   .plp-top-looks-product-grid .card-information__wrapper .price {
     font-size: calc(var(--font-h3) - 8px);
@@ -502,7 +502,7 @@ body .collection .plp-top-looks-product-grid .card-wrapper .card__inner .media{
 }
 
 @media screen and (max-width:767px){
-  .plp-top-looks-product-grid .card-information__wrapper .card-information__text {font-size: calc(var(--font-h2) - 10px);}
+  .plp-top-looks-product-grid .card-information__wrapper .card-information__text {font-size: calc(var(--font-h2) - 15px);}
   .plp-top-looks-product-grid .card-information__wrapper .price {font-size: calc(var(--font-h3) - 8px);}
   .plp-top-looks-product-grid .card-information .button{font-size: calc(var(--font-button) + 0px);}
   .plp-top-looks-product-grid .product-metafield-wrap {font-size: calc(var(--font-h5) - 2px);}

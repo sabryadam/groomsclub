@@ -1838,6 +1838,13 @@ h6,
   font-weight: var(--font-body-weight);
   margin: 21px 0 0 0;
   line-height: 28px;
+  font-size: 16px;
+}
+@media screen and (max-width: 767px) {
+  .main-heading-part .description--primary {
+    font-size: 14px;
+    line-height: 1.6;
+  }
 }
 
 .main-heading-part .description--primary p {
@@ -1846,8 +1853,14 @@ h6,
 
 .text-center-heading {
   text-align: center;
+  font-size: 32px;
 }
+@media screen and (max-width: 767px) {
 
+  .text-center-heading {
+    font-size: 24px;
+  }
+}
 .text-center-heading:before {
   left: 0;
   right: 0;
