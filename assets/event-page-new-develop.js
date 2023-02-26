@@ -71,8 +71,47 @@ theme_custom.favoriteLooks = function(){
   });
 } 
 
+theme_custom.checkLooks = (id) =>{
+  fetch(`${theme_custom.base_url}/api/event/${id}`,{
+    method: "GET",
+    headers: {
+      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+    },
+  }).then((data)=> data.json())
+  .then((data)=>{
+    debugger;
+    const step = $(`.step-content-wrapper[data-step-content-wrap="2"]`)
+    if(data.data.event_looks && data.data.event_looks.length > 0){
+      $('.event-block-wrap',step).hide();
+      const looksDiv = $('.event-look-inner-wrapper',step);
+      looksDiv.empty();
+      for(let i = 0; i<data.data.event_looks.length;i++){
+        let item = data.data.event_looks[i];
+        theme_custom.createLookHtml(looksDiv, item);
+      }
+    }else{
+      $('.show-look-from-event-wrapper',step).hide();
+    }
+  });
+}
 
-theme_custom.eventValidation = function(){
+theme_custom.changeStep = (index) =>{
+  localStorage.setItem("created-event-step", index);
+  $('.step-content-wrapper').removeClass('active');
+  $('.step-wrap').removeClass('active');
+
+  $(`.step-wrap[data-step-label-wrap="${index}"]`).addClass('active');
+  $(`.step-content-wrapper[data-step-content-wrap="${index}"]`).addClass('active');
+
+    if($(`.step-content-wrapper[data-step-content-wrap="${index}"].create-event-look`).length>0){
+      theme_custom.eventLookSlider()
+    }
+    if($(`.step-content-wrapper[data-step-content-wrap="${index}"].event-guest-look`).length>0){
+      theme_custom.guestLooksSlider()
+    }
+}
+
+theme_custom.eventValidation = function(btn){
   var error_count = 0,
   error_count = error_count +  theme_custom.eventReminderTitleValidation($(".event-page-new-design-wrapper").find(".event-name"));
   if (error_count > 0) {
@@ -137,7 +176,10 @@ theme_custom.eventValidation = function(){
       success: function (result) {
         console.log('create event result',result);
         if (result.success) {
-          console.log("Event Created Successfully!")
+          localStorage.setItem("created-event", JSON.stringify(result));
+          theme_custom.checkLooks(result.data.createdEvent);
+          theme_custom.changeStep(2);
+          btn.removeClass('loading');
         }
       },
       error: function (xhr, status, error) {
@@ -182,36 +224,22 @@ theme_custom.eventValidation = function(){
 }
 theme_custom.eventPageClickEvent = function(){
   $(document).on("click", ".event-page-new-design-wrapper .create-event-button", function(){
-    theme_custom.eventValidation();
+    $(this).addClass('loading')
+    theme_custom.eventValidation( $(this));
   });
   
   $(document).on("click", ".event-page-new-design-wrapper .next-button", function(){
     var target = $(this);
-    target.closest(".step-content-wrapper").removeClass("active");
-    target.closest(".step-content-wrapper").next().addClass("active");
-    var nextTarget = target.closest(".step-content-wrapper").next().attr("data-step-content-wrap");
-    $(`.event-page-new-design-wrapper .step-header-wrap .step-wrap[data-step-label-wrap="${nextTarget}"]`).addClass("active");
-    if($(this).closest(".step-content-wrapper").next(".create-event-look").length>0){
-      theme_custom.eventLookSlider()
-    }
-    if($(this).closest(".step-content-wrapper").next(".event-guest-look").length>0){
-      theme_custom.guestLooksSlider()
-    }
+    var nextTarget = target.closest(".step-content-wrapper").attr("data-step-content-wrap");
+    theme_custom.changeStep(nextTarget);
   });
 
   $(document).on("click", ".event-page-new-design-wrapper .previous-button", function(){
     var target = $(this);
-    target.closest(".step-content-wrapper").removeClass("active");
-    target.closest(".step-content-wrapper").prev().addClass("active");
     var prevTarget = target.closest(".step-content-wrapper").attr("data-step-content-wrap");
-    $(`.event-page-new-design-wrapper .step-header-wrap .step-wrap[data-step-label-wrap="${prevTarget}"]`).removeClass("active");
-    if($(this).closest(".step-content-wrapper").prev(".create-event-look").length>0){
-      theme_custom.eventLookSlider()
-    }
-    if($(this).closest(".step-content-wrapper").prev(".event-guest-look").length>0){
-      theme_custom.guestLooksSlider()
-    }
-  })
+    prevTarget = parseInt(prevTarget) - 1;
+    theme_custom.changeStep(prevTarget);
+    })
   
   $(document).on("click", ".event-type-section-wrap .Squer-radio-button-inner", function () {
     var selectEventType = $(this).find(`[name="event-type"]`).val();
@@ -315,4 +343,32 @@ theme_custom.event_init_page = function(){
 
 $(document).ready(function() {
   theme_custom.event_init_page(); 
+  let lastStep = localStorage.getItem('created-event-step');
+  if(lastStep){
+    theme_custom.changeStep(lastStep);
+
+    if(lastStep == '2'){
+        let createdEvent = localStorage.getItem('created-event');
+        if(createdEvent){
+          createdEvent = JSON.parse(createdEvent);
+          theme_custom.checkLooks(createdEvent.data.eventId);
+        }
+    }
+  }
 })
+
+theme_custom.createLookHtml = (div,item) =>{
+  div.append(`<div class="look-card-block">
+  <div class="look-title-and-price">
+    <div class="look-title">${item.name}</div>
+    <div class="look-price-wrap">
+      <span class="text-lable">Starting at</span>
+      <span class="look-price">$199.99</span>
+    </div>
+  </div>
+  <div class="look-image">
+    <img src="${item.look_image}" alt="${item.name}" />
+    <button class="button button--secondary customise-look">Customise look</button>
+  </div>
+</div>`)
+}

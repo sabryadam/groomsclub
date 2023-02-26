@@ -1207,3 +1207,29 @@
 .event-btn-continue:hover .icon .blue-icon{
   display: inline-block;
 }
+
+@keyframes btnSpinner {
+  to {transform: rotate(360deg);}
+}
+.step-content-wrapper .button-wrapper button.loading{
+  color: transparent;
+  position: relative;
+  pointer-events: none;
+  border-color: var(--color-button-light-blue);
+  pointer-events: none;
+}
+.step-content-wrapper .button-wrapper button.loading:after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  margin-top: -15px;
+  margin-left: -15px;
+  border-radius: 50%;
+  border: 2px solid var(--color-button-light-blue);;
+  border-top-color: #000;
+  animation: btnSpinner 0.6s linear infinite;
+ }
