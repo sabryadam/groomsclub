@@ -4,7 +4,7 @@
 
 .product {
   margin: 0;
-  padding-bottom: 3.5rem;
+  padding-bottom: 0;
 }
 
 .product-section .product {
@@ -1155,6 +1155,7 @@ a.product__text {
 .when-customer-logged .bundle-product-wrapper .product-block-wrap .product-info .product-title,
 .when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-info .product-title{
   margin: 0;
+  font-size: 18px;
 }
 
 .when-customer-logged .bundle-product-wrapper .product-block-wrap .product-info .cta-button-wrap,

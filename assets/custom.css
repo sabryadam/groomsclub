@@ -154,7 +154,7 @@ select#exampleFormControlSelect1, select#exampleFormControlSelect2 {
     background: #e4eaf0;
 }
 
-.completefit h4 {font-size: 20px;margin-bottom: 0px;color: #000000;}
+.completefit h4 {font-size: 16px;margin-bottom: 0px;color: #000000;}
 
 .completefit p {
     color: #000000;
@@ -174,10 +174,10 @@ select#exampleFormControlSelect1, select#exampleFormControlSelect2 {
 
 .product__title.h2 {
 	margin-top: -5px;
-	font-size: 32px;
+	font-size: 24px;
 }
 .price.price--large{
-	font-size: 24px;
+	font-size: 20px;
 }
 @media(max-width:767px){
 	.product__title.h2 {
@@ -350,7 +350,7 @@ select.suit_attr + .icon {
 }
 
 .ff-top-box h3 {
-	font-size: 20px;
+	font-size: 18px;
 	margin: 0 0 2px;
 	color: #fff;
 	line-height: 1.1;
@@ -467,7 +467,12 @@ select.suit_attr + .icon {
 #suit_fit_finder h4, #suit_fit_finder p {
 	color: #fff;
 }
-
+#suit_fit_finder p {
+	font-size: 14px;
+}
+.product__text.subtitle{
+	margin: 0;
+}
 .fit-finder-result-wrapper .button-outer-wrapper .button {
 	padding-left: 10px;
 	padding-right: 10px;

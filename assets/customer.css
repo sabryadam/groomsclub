@@ -5,6 +5,13 @@
   text-align: center;
 }
 
+.customer h1{
+  font-size: 24px;
+  margin: 0 0 20px;
+}
+.customer .field__label, .customer .field label{
+  font-size: 14px;
+}
 @media screen and (min-width: 750px) {
   .template-customers-register .customer.register {
     max-width: 60rem;
@@ -12,7 +19,7 @@
 
   .customer:not(.account, .order) {
     max-width: 47.8rem;
-    margin: 8rem auto 8rem;
+    margin: 5rem auto 8rem;
   }
 }
 
