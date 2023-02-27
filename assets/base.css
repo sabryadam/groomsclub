@@ -1473,7 +1473,7 @@ body,
 }
 
 .breadcrumb .breadcrumb-links * {
-  font-size: calc(var(--font-size-body) - 3px);
+  font-size: calc(var(--font-size-body) - 4px);
   line-height: normal;
   text-decoration: none;
 }
@@ -10561,7 +10561,7 @@ p.removing-combine-message
   
   .custom-collection-section.collection-list-section .collection-list-wrapper.page-width{
     max-width: 1520px;
-    padding: 0 15x;
+    padding: 0 30px;
   }
 
   .custom-collection-section.collection-list-section .collection-list-wrapper.page-width .slider_collectionlist{
