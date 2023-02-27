@@ -61,8 +61,9 @@
           {%- for block in section.blocks -%}
             {%- assign event_type_text = block.settings.event_type | downcase  -%}
             {%- if block.type == 'event_role' -%}
+              {% assign  forloopIndex = forloop.index | minus : 2 %}
               <label class="Squer-radio-button-inner box-inner-wrap {% if event_type_text == 'special events' %} hidden{% endif %}{% if event_type_text == 'other' %} show{% endif %}"  id="{{block.id}}" data-class="{{ event_type_text }}">
-                <input type="radio" name="event-role" data-event-role-id="{{forloop.index}}" value="{{forloop.index}}" />
+                <input type="radio" name="event-role" data-event-role-id="{{forloopIndex}}" value="{{forloopIndex}}" />
                 <span class="checkmark">
                   {% if block.settings.event_role_icon != blank %}
                     <div class="event-role-icon icon-wrap">
