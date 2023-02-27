@@ -529,8 +529,7 @@
       },
       "payment-confirmation-modal": {
         "type": "payment-confirmation-modal",
-        "settings": {
-        }
+        "settings": {}
       },
       "update-event-owner-contact-number": {
         "type": "update-event-owner-contact-number",
@@ -649,16 +648,14 @@
           "when_is_your_event_icon": "Svg Icon",
           "when_is_your_role_in_event_heading": "What is your role in the event?",
           "phone_number_title": "Phone Number",
-          "phone_number_placeholder": "(123)456-7890",
+          "phone_number_placeholder": "(123) 456-7890",
           "phone_icon": "",
           "create_look_title": "Create Look",
           "top_look_collections": "looks"
         }
       }
     },
-    "content_for_index": [
-
-    ]
+    "content_for_index": []
   },
   "presets": {
     "Default": {
@@ -685,8 +682,7 @@
           "block_order": [
             "announcement-bar-0"
           ],
-          "settings": {
-          }
+          "settings": {}
         }
       }
     },
@@ -706,8 +702,7 @@
           "blocks": {
             "menu": {
               "type": "link_list",
-              "settings": {
-              }
+              "settings": {}
             },
             "text": {
               "type": "text",
