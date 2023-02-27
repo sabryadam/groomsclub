@@ -2397,7 +2397,7 @@ summary::-webkit-details-marker {
 /* component-title */
 .title,
 .title-wrapper-with-link {
-  margin: 0rem 0 4rem;
+  margin: 0rem 0 2rem;
 }
 
 .title-wrapper-with-link .title {
