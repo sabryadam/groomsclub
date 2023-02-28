@@ -57,6 +57,7 @@ theme_custom.removeLocalStorage = function(){
   localStorage.removeItem("created-event-step");
   localStorage.removeItem("created-event");
   localStorage.removeItem("selectedMemberIds");
+  localStorage.removeItem("created-event-id");
 }
 // DatePicker
 theme_custom.datePicker = function ($this) {

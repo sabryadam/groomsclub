@@ -100,6 +100,7 @@ theme_custom.checkLooks = (id) =>{
         let item = data.data.event_looks[i];
         theme_custom.createLookHtml(looksDiv, item);
       }
+      $(".close-icon").click();
       $('.show-look-from-event-wrapper',step).show();
       theme_custom.eventLookSlider();
     }else{
@@ -116,12 +117,6 @@ theme_custom.changeStep = (index) =>{
   $(`.step-wrap[data-step-label-wrap="${index}"]`).addClass('active');
   $(`.step-content-wrapper[data-step-content-wrap="${index}"]`).addClass('active');
 
-    // if($(`.step-content-wrapper[data-step-content-wrap="${index}"].create-event-look`).length>0){
-    //   theme_custom.eventLookSlider()
-    // }
-    // if($(`.step-content-wrapper[data-step-content-wrap="${index}"].event-guest-look`).length>0){
-    //   theme_custom.guestLooksSlider()
-    // }
 }
 
 theme_custom.eventValidation = function(btn){
@@ -190,6 +185,7 @@ theme_custom.eventValidation = function(btn){
         if (result.success) {
           localStorage.setItem("created-event", JSON.stringify(result));
           localStorage.setItem("created-event-id", result.data.eventId);
+          $(".event-page-new-design-wrapper").find("#event-id").val(result.data.eventId);
           theme_custom.checkLooks(result.data.eventId);
           theme_custom.changeStep(2);
           btn.removeClass('loading');
@@ -273,7 +269,7 @@ theme_custom.lookImage = function (look_image, lookID, button) {
           //     $('.add-event-success-msg').remove();
           //     $('.addevent-popup .close-btn').click();
           // }, 3000);
-          theme_custom.getEventLook();
+          theme_custom.checkLooks(localStorage.getItem("created-event-id"))
       },
       error: function (xhr, status, error) {
           if (xhr.responseJSON.message == 'Token is invalid or expired.') {
@@ -478,21 +474,25 @@ theme_custom.calender = function(){
 }
 
 theme_custom.eventLookSlider = function(){
-  $('.create-event-look .event-look-inner-wrapper').slick({
-    slidesToShow: 2,
-    slidesToScroll: 2,
-    infinite: false,
-    speed: 300,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        }
-      }
-    ]
-  });
+  if($('.create-event-look .event-look-inner-wrapper .look-card-block').length > 2){
+    setTimeout(() => {
+      $('.create-event-look .event-look-inner-wrapper').slick({
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        infinite: false,
+        speed: 300,
+        responsive: [
+          {
+            breakpoint: 768,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+            }
+          }
+        ]
+      });
+    }, 200);
+  }
 }
 theme_custom.guestLooksSlider = function(){
   if($('.guest-top-looks .event-look-inner-wrapper .look-card-block').length > 2){
@@ -542,13 +542,14 @@ $(document).ready(function() {
     theme_custom.changeStep(lastStep);
 
     if(lastStep == '2'){
-        let createdEvent = localStorage.getItem('created-event');
-        if(createdEvent){
-          createdEvent = JSON.parse(createdEvent);
-        }
+      let createdEvent = localStorage.getItem('created-event');
+      if(createdEvent){
+        createdEvent = JSON.parse(createdEvent);
+        theme_custom.checkLooks(localStorage.getItem('created-event-id'));
+        $(".event-page-new-design-wrapper").find("#event-id").val(localStorage.getItem('created-event-id'));
+      }
     }
   }
-  theme_custom.checkLooks(762);
 })
 
 theme_custom.createLookHtml = (div,item) =>{

@@ -493,6 +493,7 @@
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .show-look-from-event-wrapper .look-card-block .look-image{
   position: relative;
+  background: #f6f6f6;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .show-look-from-event-wrapper .look-card-block .look-image .customise-look{
   position: absolute;
@@ -518,6 +519,7 @@
   width: 100%;
   max-width: 100%;
   height: auto;
+  mix-blend-mode: darken;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .slick-arrow{
   position: absolute;

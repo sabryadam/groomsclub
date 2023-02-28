@@ -140,7 +140,45 @@
         <div class="product-wrapper">
           {%- assign top_look_collection = collections[section.settings.top_look_collections] -%}
           {%- for product in top_look_collection.products -%}
+            
             <div class="product-card">
+              {% if product.metafields.custom_look.products-0 != '' %}
+                {%- capture suitProductData -%}
+                  {%- assign suitProduct = product.metafields.custom_look.products-0 | split : ',' -%}
+                  {%- for suitProductItem in suitProduct -%}
+                    {%- assign suitProductItemData = all_products[suitProductItem] -%}
+                    <div class="product-data-card">
+                      <input type="hidden" class="looks-product-id" value="{{ suitProductItemData.id }}" />
+                      <input type="hidden" class="looks-product-var-id" value="{{ suitProductItemData.selected_or_first_available_variant.id }}" />
+                      <input type="hidden" class="looks-product-handle" value="{{ suitProductItemData.handle }}" />
+                    </div>
+                  {%- endfor -%}
+                {%- endcapture -%}
+              {% endif %}
+              {% assign customLookProducts = product.metafields.custom_look %}
+              {%- capture ProductData -%}
+                {%- for i in (i..customLookProducts.size) -%}
+                  {%- assign customLookProd = 'products-' | append : i -%}
+                  {% assign productHandleArr = product.metafields.custom_look[customLookProd] %}
+                  {%- if productHandleArr contains '?variant=' -%}
+                    {%- assign productHandleVal = productHandleArr | split : ',' -%}
+                    {%- for producthandleitem in productHandleVal -%}
+                      {%- assign prodHandle = producthandleitem | split: '?' | first -%}
+                      {%- assign prodVarId = producthandleitem | split: '?' | last | remove: 'variant=' | plus: 0 -%}
+                      {%- assign getProduct = all_products[prodHandle] -%}
+                      <div class="product-data-card">
+                        <input type="hidden" class="looks-product-id" value="{{ getProduct.id }}" />
+                        <input type="hidden" class="looks-product-var-id" value="{{ prodVarId }}" />
+                        <input type="hidden" class="looks-product-handle" value="{{ prodHandle }}" />
+                      </div>
+                    {%- endfor -%}
+                  {%- endif -%} 
+                {%- endfor -%}
+              {%- endcapture -%}
+              <div class="item-data-wrapper">
+                {{ suitProductData }}
+                {{ ProductData }}
+              </div>
               <div class="img">
                 <img src="{{ product.featured_image | product_img_url : 'master' }}" alt="{{ product.title }}" />
               </div>
@@ -148,13 +186,7 @@
                 <h4 class="product-title">{{ product.title }}</h4>
                 <p class="product-price">Starting at {{ product.price | money }}</p>
                 <p class="taxes-text">Price includes suit jacket and pants</p>
-                <a
-                  class="button button--secondary"
-                  tabindex="-1"
-                  title="More Details"
-                  href="{{ product.url | within : collection  }}">More Details
-                  <i class="fas fa-arrow-right"></i>
-                </a>
+                <button class="button button--secondary look-added-into-event" data-text="Adding...">Add To Event</button>
               </div>
             </div>
           {%- endfor -%}
