@@ -10580,6 +10580,12 @@ p.removing-combine-message
   .collection-list-section .slick-list{
     width: calc(100% - 60px);
   }
+  .banner-slider_container .slick-prev.pull-left.slick-arrow{
+    left: -8.1%;
+  }
+  .banner-slider_container .slick-next.pull-right.slick-arrow{
+    right: -8.1%;
+  }
 }
 .rich-text .rich-text__text.rte{
   font-size: 16px;
