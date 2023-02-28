@@ -1100,7 +1100,8 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
                             'color': 'red'
                         });
                         setTimeout(() => {
-                            window.location.href = '/account/logout';
+                          theme_custom.removeLocalStorage();
+                          window.location.href = '/account/logout';
                         }, 3000);
                     } else {
                         var event_date_msg = '';

@@ -198,6 +198,7 @@ function getsizedata() {
                     'color': 'red'
                 });
                 setTimeout(() => {
+                    theme_custom.removeLocalStorage();
                     window.location.href = '/account/logout';
                 }, 5000);
             } else {
@@ -333,6 +334,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                     'color': 'red'
                 });
                 setTimeout(() => {
+                    theme_custom.removeLocalStorage();
                     window.location.href = '/account/logout';
                 }, 5000);
             } else {
@@ -491,6 +493,7 @@ function favoritelooks() {
                     'color': 'red'
                 });
                 setTimeout(() => {
+                    theme_custom.removeLocalStorage();
                     window.location.href = '/account/logout';
                 }, 5000);
             } else {
@@ -533,6 +536,7 @@ function deletefavoritelooks(looksoid) {
                         'color': 'red'
                     });
                     setTimeout(() => {
+                        theme_custom.removeLocalStorage();
                         window.location.href = '/account/logout';
                     }, 5000);
                 } else {
@@ -704,6 +708,7 @@ theme_custom.LookImageCustomizer = function (look_image, lookID, button) {
                     'color': 'red'
                 });
                 setTimeout(() => {
+                    theme_custom.removeLocalStorage();
                     window.location.href = '/account/logout';
                 }, 5000);
             } else {
@@ -769,6 +774,7 @@ $(document).on('click', '#addeventfav_btn', function () {
                     'color': 'red'
                 });
                 setTimeout(() => {
+                    theme_custom.removeLocalStorage();
                     window.location.href = '/account/logout';
                 }, 5000);
             } else {
@@ -907,6 +913,7 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
                     'color': 'red'
                 });
                 setTimeout(() => {
+                    theme_custom.removeLocalStorage();
                     window.location.href = '/account/logout';
                 }, 3000);
             } else {
@@ -1148,6 +1155,7 @@ theme_custom.updateMySize = function (fitFinderJson, button) {
             'color': 'red'
           });
           setTimeout(() => {
+            theme_custom.removeLocalStorage();
             window.location.href = '/account/logout';
           }, 5000);
         } else {

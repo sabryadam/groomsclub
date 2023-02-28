@@ -23,7 +23,16 @@ theme_custom.favoriteLooks = function(){
             var append_fav_html = "";
             $('#choose-form-favorite .product-wrapper').html(append_fav_html);
             var edit_link = '';
-            for (var i = 0; i < result.data.length; i++) {                        
+            for (var i = 0; i < result.data.length; i++) {   
+              var productArray = result.data[i].items;
+              var itemData = '';
+              for(var items = 0; items < productArray.length ; items++){
+                itemData += `<div class="product-data-card">
+                  <input type="hidden" class="looks-product-id" value="${productArray[items].product_id}" />
+                  <input type="hidden" class="looks-product-var-id" value="${productArray[items].variant_id}" />
+                  <input type="hidden" class="looks-product-handle" value="${productArray[items].handle}" />
+                </div>`
+              }        
               if (result.data[i].look_image) {
                 favorite_look_image = result.data[i].look_image;
               }
@@ -33,6 +42,7 @@ theme_custom.favoriteLooks = function(){
                 edit_link = ``;
               }
               append_fav_html += `<div class="product-card">
+              <div class="item-data-wrapper">${itemData}</div>
               <div class="img">
                 <img src="${favorite_look_image}" alt="favourite-look-img">
               </div>
@@ -40,7 +50,7 @@ theme_custom.favoriteLooks = function(){
                 <h4 class="product-title">${result.data[i].name}</h4>
                 <p class="product-price">Starting at $199.99</p>
                 <p class="taxes-text">Price includes suit jacket and pants</p>
-                <a class="button button--secondary" tabindex="-1" title="More Details" href="${result.data[i].url}">More Details <i class="fas fa-arrow-right"></i></a>
+                <button class="button button--secondary look-added-into-event" data-text="Adding...">Add To Event</button>
               </div>
             </div>`;
           }
@@ -62,6 +72,7 @@ theme_custom.favoriteLooks = function(){
           'color': 'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -79,8 +90,8 @@ theme_custom.checkLooks = (id) =>{
     },
   }).then((data)=> data.json())
   .then((data)=>{
-    debugger;
     const step = $(`.step-content-wrapper[data-step-content-wrap="2"]`)
+    console.log("data.data.event_looks",data.data.event_looks);
     if(data.data.event_looks && data.data.event_looks.length > 0){
       $('.event-block-wrap',step).hide();
       const looksDiv = $('.event-look-inner-wrapper',step);
@@ -89,6 +100,8 @@ theme_custom.checkLooks = (id) =>{
         let item = data.data.event_looks[i];
         theme_custom.createLookHtml(looksDiv, item);
       }
+      $('.show-look-from-event-wrapper',step).show();
+      theme_custom.eventLookSlider();
     }else{
       $('.show-look-from-event-wrapper',step).hide();
     }
@@ -103,12 +116,12 @@ theme_custom.changeStep = (index) =>{
   $(`.step-wrap[data-step-label-wrap="${index}"]`).addClass('active');
   $(`.step-content-wrapper[data-step-content-wrap="${index}"]`).addClass('active');
 
-    if($(`.step-content-wrapper[data-step-content-wrap="${index}"].create-event-look`).length>0){
-      theme_custom.eventLookSlider()
-    }
-    if($(`.step-content-wrapper[data-step-content-wrap="${index}"].event-guest-look`).length>0){
-      theme_custom.guestLooksSlider()
-    }
+    // if($(`.step-content-wrapper[data-step-content-wrap="${index}"].create-event-look`).length>0){
+    //   theme_custom.eventLookSlider()
+    // }
+    // if($(`.step-content-wrapper[data-step-content-wrap="${index}"].event-guest-look`).length>0){
+    //   theme_custom.guestLooksSlider()
+    // }
 }
 
 theme_custom.eventValidation = function(btn){
@@ -161,7 +174,6 @@ theme_custom.eventValidation = function(btn){
       "event_role_id": event_role,
       "owner_phone_number":event_phone
     }
-    debugger;
     $.ajax({
       url: `${theme_custom.base_url}/api/event/create`,
       method: "POST",
@@ -177,7 +189,8 @@ theme_custom.eventValidation = function(btn){
         console.log('create event result',result);
         if (result.success) {
           localStorage.setItem("created-event", JSON.stringify(result));
-          theme_custom.checkLooks(result.data.createdEvent);
+          localStorage.setItem("created-event-id", result.data.eventId);
+          theme_custom.checkLooks(result.data.eventId);
           theme_custom.changeStep(2);
           btn.removeClass('loading');
         }
@@ -190,6 +203,7 @@ theme_custom.eventValidation = function(btn){
             'color': 'red'
           });
           setTimeout(() => {
+            theme_custom.removeLocalStorage();
             window.location.href = '/account/logout';
           }, 5000);
         } else {
@@ -222,7 +236,191 @@ theme_custom.eventValidation = function(btn){
     });
   }
 }
+
+theme_custom.lookImage = function (look_image, lookID, button) {
+  var button = button,
+      form_data = new FormData(),
+      fileVal = theme_custom.ImageURL,
+      imageType = /image.*/;
+
+  if (!fileVal.type.match(imageType)) {
+      return;
+  } else {
+      form_data.append('lookImage', fileVal);
+  }
+  $.ajax({
+      url: `${theme_custom.base_url}/api/look/picture/${lookID}`,
+      method: "POST",
+      timeout: "0",
+      data: form_data,
+      dataType: "json",
+      "processData": false,
+      "mimeType": "multipart/form-data",
+      "contentType": false,
+      headers: {
+          // "Authorization": 'Bearer BzuPQTFq84j4ZDX7EBpveJ0rzGo6Ljj1PQ4AXNMWtsnd5UsNn9kG1Pidd7EnFDVTadlI5eNpKOrfW5JoegG7FU3cXRQNjd0b3FMNA'
+          "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+      },
+      beforeSend: function () {
+
+      },
+      success: function (result) {
+          button.removeClass("disabled").text("Added Look");
+          console.log("Look added into Current Event");
+          // $('.pop-up-content-wrap').append('<p class="text-center add-event-success-msg">' + result.message + '</p>');
+          // setTimeout(function () {
+          //     button.removeClass("disabled");
+          //     $('.add-event-success-msg').remove();
+          //     $('.addevent-popup .close-btn').click();
+          // }, 3000);
+          theme_custom.getEventLook();
+      },
+      error: function (xhr, status, error) {
+          if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+              $(".look-api-message").html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+                  'text-align': 'center',
+                  'color': 'red'
+              });
+              setTimeout(() => {
+                  theme_custom.removeLocalStorage();
+                  window.location.href = '/account/logout';
+              }, 5000);
+          } else {
+              button.addClass("disabled").css("margin-top", "15px");
+              button.removeClass("disabled").text("Add Look");
+              $(".look-api-message").html(xhr.responseJSON.message).removeClass("look-api-message");
+              setTimeout(() => {
+                  $('.update-profile-image-popup-wrapper .api_error').hide();
+                  $(".look-api-message").removeClass("look-api-message");
+              }, 3000);
+          }
+      }
+  });
+}
+
+theme_custom.createLookAPI = function(lookName,eventId,lookUrl,produArray,button){
+  var getEventId = eventId;
+  eventData = {
+    "look_name": lookName,
+    "event_id": eventId,
+    "url": lookUrl,
+    "items": produArray
+  }
+  button.addClass("disabled");
+  $.ajax({
+    url: `${theme_custom.api_base_url}/api/look/createLook`,
+    method: "POST",
+    data: eventData,
+    dataType: "json",
+    headers: {
+      "Authorization": 'Bearer '+localStorage.getItem("customerToken")
+    },
+    beforeSend: function() {
+    }, 
+    success: function(result){
+      var lookID = result.data.lookId;
+      theme_custom.lookImage(getEventId,lookID,button);
+    },
+    error:function(xhr,status,error){
+      if(xhr.responseJSON.message=='Token is invalid or expired.'){
+        $(".look-api-message").text('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+          'text-align':'center',
+          'color':'red'
+        });
+        setTimeout(() => {
+          theme_custom.removeLocalStorage();
+          window.location.href = '/account/logout';
+        }, 5000);
+      } else {
+        button.removeClass("disabled").text("Add Event");
+        $(".look-api-message").text(xhr.responseJSON.message).removeClass("hidden");
+        setTimeout(() => {
+          $(".look-api-message").addClass("hidden");
+        }, 3000);
+      }
+    }
+  });
+}
+
+theme_custom.toDataURL = function(url, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function() {
+    var reader = new FileReader();
+    reader.onloadend = function() {
+      callback(reader.result);
+    }
+    reader.readAsDataURL(xhr.response);
+  };
+  xhr.open('GET', url);
+  xhr.responseType = 'blob';
+  xhr.send();
+}
+
+theme_custom.dataURLtoFile = function (dataurl, filename) {
+  var arr = dataurl.split(','),
+    mime = arr[0].match(/:(.*?);/)[1],
+    bstr = atob(arr[1]),
+    n = bstr.length,
+    u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], filename, { type: mime });
+}
+
+theme_custom.lookAddedIntoEvent = function(){
+  $(document).on("click", ".look-added-into-event", function(e){
+    e.preventDefault();
+    var button = $(this);
+    button.text($(this).data("text"));
+    var lookName = $(this).closest(".product-card").find(".product-title").text(),
+        eventId = $(this).closest(".event-page-new-design-wrapper").find("#event-id").val();
+    var custom_look_new_url = '/pages/customize-your-look?';
+    $(this).closest(".product-card").find(`.item-data-wrapper .product-data-card`).each(function(){
+      var productHandle = $(this).find(".looks-product-handle").val();
+      var productVarId = $(this).find(".looks-product-var-id").val();
+      if($(this).closest(".product-card").find(`.item-data-wrapper .product-data-card`).length > 1) {
+        if(custom_look_new_url.indexOf("=") > -1) {
+          custom_look_new_url += "&"+productHandle+'='+productVarId;
+        }else{
+          custom_look_new_url += productHandle+'='+productVarId;
+        }
+      } else {
+        custom_look_new_url += productHandle+'='+productVarId;
+      }
+    });
+    lookUrl = custom_look_new_url;
+    var productDataCardArr = $(this).closest(".product-card").find(`.item-data-wrapper .product-data-card`),
+        dataObj = {};
+    theme_custom.newArray = [],
+    productDataCardArr.each(function(){
+      if($(this).closest(".product-card").find(`.item-data-wrapper .product-data-card .looks-product-var-id`).val() != ''){
+        dataObj = {
+          "product_id": $(this).find(".looks-product-id").val(),
+          "variant_id": $(this).find(".looks-product-var-id").val(),
+          "product_handle": $(this).find(".looks-product-handle").val(),
+          "type": "looks"
+        }
+        theme_custom.newArray.push(dataObj);
+      }
+    })
+    produArray = theme_custom.newArray;
+    var productImageUrl = $(this).closest(".product-card").find(".img img").attr("src");
+    theme_custom.toDataURL(productImageUrl, function(dataUrl) {
+      theme_custom.image_url = dataUrl;
+      theme_custom.ImageURL = theme_custom.dataURLtoFile(theme_custom.image_url,'custom-look.png');
+    })
+    theme_custom.createLookAPI(lookName,eventId,lookUrl,produArray,button);
+  })
+}
 theme_custom.eventPageClickEvent = function(){
+
+  // customise-look-button 
+  $(document).on("click", ".customise-look-button", function(){
+    localStorage.setItem("customizerlookUrl",$(this).attr("data-href").split('?')[1]);
+    window.location.href = '/pages/customize-your-look?';
+  })
+  theme_custom.lookAddedIntoEvent()
   $(document).on("click", ".event-page-new-design-wrapper .create-event-button", function(){
     $(this).addClass('loading')
     theme_custom.eventValidation( $(this));
@@ -259,8 +457,8 @@ theme_custom.eventPageClickEvent = function(){
   })
 
   $(document).on("click",".show-look-from-event-wrapper .add-look-wrapper",function(){
-    $(this).closest(".step-content-wrapper.create-event-look").find(".event-block-wrap").hide()
-    $(this).closest(".show-look-from-event-wrapper").show();
+    $(this).closest(".show-look-from-event-wrapper").hide();
+    $(this).closest(".step-content-wrapper").find(".event-block-wrap").show();
   })
 
   $(document).on("click",".add-guest-button", function(){
@@ -280,25 +478,21 @@ theme_custom.calender = function(){
 }
 
 theme_custom.eventLookSlider = function(){
-  if($('.create-event-look .event-look-inner-wrapper .look-card-block').length > 2){
-    setTimeout(() => {
-      $('.create-event-look .event-look-inner-wrapper').slick({
-        slidesToShow: 2,
-        slidesToScroll: 2,
-        infinite: false,
-        speed: 300,
-        responsive: [
-          {
-            breakpoint: 768,
-            settings: {
-              slidesToShow: 1,
-              slidesToScroll: 1,
-            }
-          }
-        ]
-      });
-    }, 200);
-  }
+  $('.create-event-look .event-look-inner-wrapper').slick({
+    slidesToShow: 2,
+    slidesToScroll: 2,
+    infinite: false,
+    speed: 300,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      }
+    ]
+  });
 }
 theme_custom.guestLooksSlider = function(){
   if($('.guest-top-looks .event-look-inner-wrapper .look-card-block').length > 2){
@@ -351,13 +545,14 @@ $(document).ready(function() {
         let createdEvent = localStorage.getItem('created-event');
         if(createdEvent){
           createdEvent = JSON.parse(createdEvent);
-          theme_custom.checkLooks(createdEvent.data.eventId);
         }
     }
   }
+  theme_custom.checkLooks(762);
 })
 
 theme_custom.createLookHtml = (div,item) =>{
+  console.log("item",item);
   div.append(`<div class="look-card-block">
   <div class="look-title-and-price">
     <div class="look-title">${item.name}</div>
@@ -368,7 +563,7 @@ theme_custom.createLookHtml = (div,item) =>{
   </div>
   <div class="look-image">
     <img src="${item.look_image}" alt="${item.name}" />
-    <button class="button button--secondary customise-look">Customise look</button>
+    <button data-href="${item.url}" class="button button--secondary customise-look customise-look-button">Customise look</button>
   </div>
 </div>`)
 }

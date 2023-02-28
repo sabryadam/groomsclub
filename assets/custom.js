@@ -52,6 +52,12 @@
 
 
 theme_custom.base_url = theme_custom.api_base_url;
+
+theme_custom.removeLocalStorage = function(){
+  localStorage.removeItem("created-event-step");
+  localStorage.removeItem("created-event");
+  localStorage.removeItem("selectedMemberIds");
+}
 // DatePicker
 theme_custom.datePicker = function ($this) {
   var count = 0;
@@ -411,6 +417,7 @@ theme_custom.updateProfileImage = function (that) {
           'color': 'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -1343,6 +1350,7 @@ theme_custom.clickEvent = function () {
           localStorage.removeItem("edit-fit-finder");
           localStorage.removeItem("save-fit-finder-flag-replace");
           localStorage.removeItem("userHasLogged");
+          theme_custom.removeLocalStorage();          
           window.location.href = '/account/logout';
         }, 100);
       },
@@ -1472,6 +1480,7 @@ theme_custom.clickEvent = function () {
               'color': 'red'
             });
             setTimeout(() => {
+              theme_custom.removeLocalStorage();
               window.location.href = '/account/logout';
             }, 5000);
           } else {
