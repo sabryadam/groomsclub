@@ -1128,6 +1128,15 @@ theme_custom.submitEvent = function () {
 // theme_custom.clickEvent
 theme_custom.clickEvent = function () {
 
+
+  $(document).on("click",".event-or-fav-when-user-has-not-logged", function(e){
+    e.preventDefault();
+    // localStorage.setItem("event-or-fav-when-user-has-not-logged","true");
+    // localStorage.setItem("previous-page-link","true");
+    // localStorage.setItem("previous-page-link",window.location.href);
+    window.location.href = `${$(this).attr("href")}?prev_url=${window.location.href}`;
+  }); 
+
   // event page 
   $(document).on("click", "#eventevent-type .Squer-radio-button-inner, #eventupdate-event-type .Squer-radio-button-inner ", function () {
     var selectEventType = $(this).find(`[name="event-type"]`).val();
@@ -1741,11 +1750,3 @@ $(document).on('change', 'variant-selects select.select__select', function () {
   $(`input[name="${select_name}"][value="${select_value}"]`).prop('checked', true);
 });
 
-// var urlParams = new URLSearchParams(window.location.search);
-//   var redirect_url = urlParams.get('checkout_url');
-//   var formElement = $('<input type="hidden" name="return_to">');
-//   formElement.attr('value', redirect_url); // Shopify will use this value as the redirect destination
-//   if (redirect_url) {
-//     var registerForm = jQuery('#customer_login');
-//     registerForm.append(formElement); // Add the element to the form.
-//   }

@@ -27,7 +27,8 @@
           autocorrect="off"
           autocapitalize="off"
           autocomplete="email"
-          {% if form.errors %}aria-invalid="true"aria-describedby="RecoverEmail-email-error"autofocus{% endif %}placeholder="{{ 'customer.login_page.email' | t }}">
+          {% if form.errors %}aria-invalid="true"aria-describedby="RecoverEmail-email-error"autofocus{% endif %}
+          placeholder="{{ 'customer.login_page.email' | t }}">
         <span class="form-error"></span>
       </div>
       {%- if form.errors -%}
@@ -205,4 +206,13 @@
 
 <script>
   localStorage.removeItem("customerToken");
+  var urlParams = new URLSearchParams(window.location.search);
+  var redirect_url = urlParams.get('prev_url');
+  var formElement = $('<input type="hidden" name="return_to">');
+  formElement.attr('value', `https://www.groomsclub.com/account?checkout_url=${redirect_url}`); // Shopify will use this value as the redirect destination
+  console.log('formElement', formElement[0]);
+  if (redirect_url) {
+    var registerForm = jQuery('#customer_login');
+    registerForm.append(formElement); // Add the element to the form.
+  }
 </script>
