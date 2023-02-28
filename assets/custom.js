@@ -1404,10 +1404,10 @@ theme_custom.clickEvent = function () {
       }, 1000);
       return false;
     }
-    if ($('.blockemail_wrap').length == 0) {
-      $('.api_error.create-event-error').text("Please add at least one member.").addClass('active');
-      return false;
-    }
+    // if ($('.blockemail_wrap').length == 0) {
+    //   $('.api_error.create-event-error').text("Please add at least one member.").addClass('active');
+    //   return false;
+    // }
     if (error_count == 0) {
       var event_name = $('#EventForm-EventName').val();
       var event_type = $('[name="event-type"]:checked').data('event_type_id');
