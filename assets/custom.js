@@ -1740,3 +1740,12 @@ $(document).on('change', 'variant-selects select.select__select', function () {
   var select_value = $(this).val();
   $(`input[name="${select_name}"][value="${select_value}"]`).prop('checked', true);
 });
+
+// var urlParams = new URLSearchParams(window.location.search);
+//   var redirect_url = urlParams.get('checkout_url');
+//   var formElement = $('<input type="hidden" name="return_to">');
+//   formElement.attr('value', redirect_url); // Shopify will use this value as the redirect destination
+//   if (redirect_url) {
+//     var registerForm = jQuery('#customer_login');
+//     registerForm.append(formElement); // Add the element to the form.
+//   }
