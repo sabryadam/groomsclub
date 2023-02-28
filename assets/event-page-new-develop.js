@@ -92,6 +92,7 @@ theme_custom.checkLooks = (id) =>{
   .then((data)=>{
     const step = $(`.step-content-wrapper[data-step-content-wrap="2"]`)
     console.log("data.data.event_looks",data.data.event_looks);
+    data.data.event_looks = data.data.event_looks.reverse();
     if(data.data.event_looks && data.data.event_looks.length > 0){
       $('.event-block-wrap',step).hide();
       const looksDiv = $('.event-look-inner-wrapper',step);
@@ -120,7 +121,7 @@ theme_custom.changeStep = (index) =>{
 }
 
 theme_custom.eventValidation = function(btn){
-  var error_count = 0,
+  var error_count = 0, button = btn,
   error_count = error_count +  theme_custom.eventReminderTitleValidation($(".event-page-new-design-wrapper").find(".event-name"));
   if (error_count > 0) {
     $('html, body').animate({
@@ -157,6 +158,7 @@ theme_custom.eventValidation = function(btn){
     return false;
   }
   if (error_count == 0) {
+    button.addClass('loading')
     var event_name = $('.event-page-new-design-wrapper .event-name').val();
     var event_type = $('.event-page-new-design-wrapper [name="event-type"]:checked').attr('data-event-type-id');
     var event_date = $('.event-page-new-design-wrapper #event_date').val();
@@ -414,11 +416,12 @@ theme_custom.eventPageClickEvent = function(){
   // customise-look-button 
   $(document).on("click", ".customise-look-button", function(){
     localStorage.setItem("customizerlookUrl",$(this).attr("data-href").split('?')[1]);
-    window.location.href = '/pages/customize-your-look?';
+    // window.location.href = '/pages/customize-your-look?';
+    window.location.href = $(this).attr("data-href");
+    localStorage.setItem("customize-from-event","bak-to-event");
   })
   theme_custom.lookAddedIntoEvent()
   $(document).on("click", ".event-page-new-design-wrapper .create-event-button", function(){
-    $(this).addClass('loading')
     theme_custom.eventValidation( $(this));
   });
   
