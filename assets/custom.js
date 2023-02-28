@@ -1143,6 +1143,15 @@ theme_custom.clickEvent = function () {
     window.location.href = `${$(this).attr("data-href")}?checkout_url=${window.location.href}`;
   }); 
 
+
+  $(document).on("click",".event-or-fav-when-user-has-not-logged", function(e){
+    e.preventDefault();
+    // localStorage.setItem("event-or-fav-when-user-has-not-logged","true");
+    // localStorage.setItem("previous-page-link","true");
+    // localStorage.setItem("previous-page-link",window.location.href);
+    window.location.href = `${$(this).attr("href")}?prev_url=${window.location.href}`;
+  }); 
+
   // event page 
   $(document).on("click", "#eventevent-type .Squer-radio-button-inner, #eventupdate-event-type .Squer-radio-button-inner ", function () {
     var selectEventType = $(this).find(`[name="event-type"]`).val();
@@ -1420,10 +1429,10 @@ theme_custom.clickEvent = function () {
       }, 1000);
       return false;
     }
-    if ($('.blockemail_wrap').length == 0) {
-      $('.api_error.create-event-error').text("Please add at least one member.").addClass('active');
-      return false;
-    }
+    // if ($('.blockemail_wrap').length == 0) {
+    //   $('.api_error.create-event-error').text("Please add at least one member.").addClass('active');
+    //   return false;
+    // }
     if (error_count == 0) {
       var event_name = $('#EventForm-EventName').val();
       var event_type = $('[name="event-type"]:checked').data('event_type_id');
@@ -1757,3 +1766,4 @@ $(document).on('change', 'variant-selects select.select__select', function () {
   var select_value = $(this).val();
   $(`input[name="${select_name}"][value="${select_value}"]`).prop('checked', true);
 });
+

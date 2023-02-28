@@ -451,3 +451,12 @@ ul#tabs-nav li {
 {%- comment -%}
 {{ 'account.js' | asset_url | script_tag }}
 {%- endcomment -%}
+
+<script>
+  // localStorage.removeItem("customerToken");
+  var urlParams = new URLSearchParams(window.location.search);
+  var redirect_url = urlParams.get('checkout_url');
+  if (redirect_url) {
+    window.location.href = redirect_url;
+  }
+</script>

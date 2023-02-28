@@ -508,7 +508,7 @@ theme_custom.productVariantSeledtUpdate = function(){
       $(this).removeClass("product-card-wrap")
       $(this).find(".product-info").append("<p class='error-msg' style='color:red; font-size : 14px; margin-top:5px'>"+theme_custom.productNotFoundError+"</p>");
     } else {
-      $(this).find('.prod-variant-option option').removeAttr('selected').filter('[data-variant-title="'+varintTitle+'"]').attr('selected', true);
+      $(this).find('.prod-variant-option option').removeAttr('selected').filter('[data-variant-title="'+varintTitle+'"]').prop('selected', true);
       var selectedvarId = $(this).find('.prod-variant-option').val();
       $(this).find(".prod-variant-data").attr("data-var-id",selectedvarId).val(selectedvarId);
     }
