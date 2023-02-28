@@ -1135,6 +1135,13 @@ theme_custom.submitEvent = function () {
 }
 // theme_custom.clickEvent
 theme_custom.clickEvent = function () {
+  // Top look fav and event click on user has not logged 
+  $(document).on("click",".event-or-fav-when-user-has-not-logged", function(){
+    localStorage.setItem("event-or-fav-when-user-has-not-logged","true");
+    localStorage.setItem("previous-page-link","true");
+    localStorage.setItem("previous-page-link",window.location.href);
+    window.location.href = `${$(this).attr("data-href")}?checkout_url=${window.location.href}`;
+  }); 
 
   // event page 
   $(document).on("click", "#eventevent-type .Squer-radio-button-inner, #eventupdate-event-type .Squer-radio-button-inner ", function () {
@@ -1351,7 +1358,7 @@ theme_custom.clickEvent = function () {
           localStorage.removeItem("edit-fit-finder");
           localStorage.removeItem("save-fit-finder-flag-replace");
           localStorage.removeItem("userHasLogged");
-          theme_custom.removeLocalStorage();          
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 100);
       },

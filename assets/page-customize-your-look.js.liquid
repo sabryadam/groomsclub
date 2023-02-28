@@ -537,14 +537,25 @@ theme_custom.favoriteLookImageCustomizer = function (lookID, button) {
 
     },
     success: function (result) {
-      $(".favourite-look-api-message").text("Look added successfully to Favorite").addClass("sucess-msg").removeClass("hidden").show();
-      setTimeout(() => {
-        button.removeClass("disabled");
-        button.find(".button-title").text("Added in Favorite");
-        button.find(".loading-overlay").addClass("hidden");
-        $(".favourite-look-api-message").addClass("hidden");
-        window.location.href = `/account#tab-3`
-      }, 3000);
+      if(localStorage.getItem('editLookId')!=null && localStorage.getItem('editLookName')!=null){
+        $(".favourite-look-api-message").text("Look Updated successfully to Favorite").addClass("sucess-msg").removeClass("hidden").show();
+        setTimeout(() => {
+          button.removeClass("disabled");
+          button.find(".button-title").text("Look Updated");
+          button.find(".loading-overlay").addClass("hidden");
+          $(".favourite-look-api-message").addClass("hidden");
+          window.location.href = `/account#tab-3`
+        }, 3000);
+      } else {
+        $(".favourite-look-api-message").text("Look added successfully to Favorite").addClass("sucess-msg").removeClass("hidden").show();
+        setTimeout(() => {
+          button.removeClass("disabled");
+          button.find(".button-title").text("Added in Favorite");
+          button.find(".loading-overlay").addClass("hidden");
+          $(".favourite-look-api-message").addClass("hidden");
+          window.location.href = `/account#tab-3`
+        }, 3000);
+      }      
     },
     error: function (xhr, status, error) {
       if (xhr.responseJSON.message == 'Token is invalid or expired.') {
@@ -905,7 +916,61 @@ theme_custom.addLookToEvent = function (eventButton) {
     theme_custom.customizeLookAPI(lookName, eventId, lookUrl, produArray, button);
   }
 }
+// Favorite Look Update
+theme_custom.favoriteLookUpdate = function (eventButton) {
+  var error_count = 0,
+    button = eventButton;
+  error_count = error_count + theme_custom.textValidationWithSpacialChar(button.closest(".favourite-look-wrapper").find('[name="look-name"'));
+  if (error_count > 0) {
+    button.removeClass("disabled");
+    button.find(".loading-overlay").addClass("hidden");
+    button.find(".button-title").text("Add to Favorite");
+    return false;
+  } else {
+    button.find(".loading-overlay").removeClass("hidden");
+    button.find(".button-title").text(button.attr("data-text"));
+    var lookName = button.closest(".favourite-look-wrapper").find("#look-name").val(),
+      lookUrl = window.location.href;
+    produArray = theme_custom.prodArray;
+    if(localStorage.getItem('editLookId')!='' && localStorage.getItem('editLookName')!=''){
+      var favid = localStorage.getItem('editLookId');
+      favorite_api_url = `${theme_custom.base_url}/api/look/removeFromFavourite/${favid}`;  
+      $.ajax({
+        url: favorite_api_url,
+        method: "DELETE",
+        data: '',
+        dataType: "json",
+        headers: {
+          "Authorization": APP_Token
+        },
+        beforeSend: function () {},
+        success: function (result) {
+          console.log("Look Update");
+          theme_custom.favouriteLookApi(lookName, lookUrl, produArray, button);
+          localStorage.removeItem('editLookId');
+          localStorage.removeItem('editLookName');
+        },
+        error: function (xhr, status, error) {
+          if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+            $('.feature-looks-slider').html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+              'text-align': 'center',
+              'color': 'red'
+            });
+            setTimeout(() => {
+              window.location.href = '/account/logout';
+            }, 5000);
+          } else {
+            $('.feature-looks-slider').html(xhr.responseJSON.message);
+          }
+        }
+      });
+    } else {
+      theme_custom.favouriteLookApi(lookName, lookUrl, produArray, button);
+    }
+  }
+} 
 
+// Favorite Look added
 theme_custom.favoriteButtonEvent = function (eventButton) {
   var error_count = 0,
     button = eventButton;
@@ -1371,8 +1436,6 @@ theme_custom.customize_product_clickEvent = function () {
       $(`.customize-look-overview-product[data-product-type="shirt"]`).find(`.error-msg`).removeClass("active");
       $(`.customize-look-overview-product[data-product-type="shirt"] .edit-remove-link`).find(".edit-item").text("Edit Item | ").attr('data-button-target','edit-item');
     }  else if(productType == 'shoes'){
-      debugger;
-      console.log("targetVarTitleArr",targetVarTitleArr);
       $(`.customize-look-overview-product[data-product-type="shoes"] .product-variant-link .option2`).text(targetVarTitleArr[1]);
       $(`.customize-look-overview-product[data-product-type="shoes"] .edit-remove-link`).find(".edit-item").text("Edit Item | ").attr('data-button-target','edit-item');
       $(`.customize-look-overview-product[data-product-type="shoes"] .product-variant-link`).find(".variant-title").show();
@@ -1434,6 +1497,9 @@ theme_custom.customize_product_clickEvent = function () {
   // favorite-event-button 
   $(document).on("click", ".favorite-event-button", function () {
     $(`[name="look-name"]`).val('');
+    if(localStorage.getItem("editLookName") != null && localStorage.getItem("editLookId") != null){
+      $(`[name="look-name"]`).val(localStorage.getItem("editLookName"));
+    }
     $(".page-loader").removeClass("hidden");
     var target = $(this).closest(".customize-your-look-page").find(".favourite-look-wrapper");
     var productDataCardArr = $(".customize-look-overview-product.product-block-var-data"),
@@ -1461,7 +1527,11 @@ theme_custom.customize_product_clickEvent = function () {
     button.find(".loading-overlay").removeClass("hidden");
     button.addClass("disabled");
     button.find('.button-title').text(button.attr("data-text"));
-    theme_custom.favoriteButtonEvent(button);
+    if(localStorage.getItem("editLookName")!=null && localStorage.getItem("editLookId")!=null){
+      theme_custom.favoriteLookUpdate(button);
+    } else {
+      theme_custom.favoriteButtonEvent(button);
+    }
   })
 
   // add-to-cart-button Click Event 
@@ -2011,9 +2081,19 @@ theme_custom.fitFinderData = function () {
   }
 }
 
+theme_custom.checkEditLook = function(){
+  if(localStorage.getItem("editLookName") != null && localStorage.getItem("editLookId") != null){
+    $(`[data-tab-content='overview']`).find(".add-to-cart-button").addClass("update-look").addClass("favorite-event-button").removeClass("add-to-cart-button");
+    $(`[data-tab-content='overview']`).find('.wishlist-icon-wrap .favorite-event-button').addClass("update-look");
+    $(`[data-tab-content='overview']`).find('.wishlist-icon-wrap .favorite-event-button span').text("Update Look")
+    $(`.favourite-look-wrapper`).find('.favorite-event-api-button').attr('data-text','Updating Look');
+    $(`.favourite-look-wrapper`).find('.favorite-event-api-button .button-title').text('Update Look');
+  }
+}
 
 //  DOM Ready function
 $(document).ready(function () {
+  theme_custom.checkEditLook();
   theme_custom.customize_product_init();
   $(".product-block.product-item-wrap").each(function () {
     var parentBlock = $(this).closest(".product-block.product-item-wrap"),
