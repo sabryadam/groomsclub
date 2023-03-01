@@ -222,7 +222,7 @@
 
 @media(max-width:767px){
   .image-with-text__heading{
-    font-size: 20px;
+    font-size: 18px;
   } 
   .sub-heading h3 {
     font-size: 14px;   
@@ -397,7 +397,7 @@
 }
 @media screen and (max-width:767px) {
   .beforeafter_section .beforeafter_title{
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 

@@ -1842,7 +1842,7 @@ h6,
 }
 @media screen and (max-width: 767px) {
   .main-heading-part .description--primary {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.6;
   }
 }
@@ -2765,6 +2765,15 @@ deferred-media {
   height: 52px;
 }
 
+@media (max-width:767px){
+  .button,
+  .shopify-challenge__button,
+  .customer button {
+    height: 44px;
+    min-width: 140px;
+    padding: 12px 15px;
+  }
+}
 
 .button i {
   margin-left: 9px;
@@ -4188,7 +4197,7 @@ details-disclosure>details {
 }
 @media(max-width:767px){
   .custom-collection-section .title{
-    font-size: 20px;
+    font-size: 18px;
   } 
 }
 .how-work {
@@ -10550,8 +10559,11 @@ p.removing-combine-message
 .image-with-text .image-with-text__text {
   font-size: 16px;
 }
-
-
+@media screen and (max-width: 767px){
+.image-with-text .image-with-text__text {
+  font-size: 14px;
+}
+}
 @media screen and (min-width: 1025px){
 
   .custom-collection-section.page-width{

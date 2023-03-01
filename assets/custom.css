@@ -155,11 +155,21 @@ select#exampleFormControlSelect1, select#exampleFormControlSelect2 {
 }
 
 .completefit h4 {font-size: 16px;margin-bottom: 0px;color: #000000;}
-
 .completefit p {
     color: #000000;
     list-style: none;
 }
+#suit_fit_finder p {
+	font-size: 14px;
+}
+@media(max-width:767px){
+	.completefit h4 {font-size: 14px;margin-bottom: 0px;color: #000000;
+	line-height: 1.4;}
+	#suit_fit_finder p{
+		font-size: 12px;
+	}
+}
+
 .csutomswatch .swatch-size {
     display: none;
 }
@@ -181,7 +191,7 @@ select#exampleFormControlSelect1, select#exampleFormControlSelect2 {
 }
 @media(max-width:767px){
 	.product__title.h2 {
-		font-size: 24px;
+		font-size: 18px;
 	}	
 	.price.price--large{
 		font-size: 20px;
@@ -467,9 +477,7 @@ select.suit_attr + .icon {
 #suit_fit_finder h4, #suit_fit_finder p {
 	color: #fff;
 }
-#suit_fit_finder p {
-	font-size: 14px;
-}
+
 .product__text.subtitle{
 	margin: 0;
 }
