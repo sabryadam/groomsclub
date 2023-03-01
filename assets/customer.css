@@ -789,4 +789,14 @@ li[data-address]>h2 {
   .feature-looks-slider-loader {
     min-height: 300px;
   }
+  .customer:not(.account,.order){
+    margin: 2.5rem auto;
+  }
+  .customer h1{
+    font-size: 18px;
+    margin: 0;
+  }
+  .customer form{
+    margin-top: 1.5rem;
+  }
 }

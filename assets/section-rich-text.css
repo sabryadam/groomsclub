@@ -37,13 +37,13 @@
 }
 @media(max-width:767px){
   .rich-text__blocks .title,.blog_section_title,.placeholder h2{
-    font-size: 20px;
+    font-size: 18px;
   }
   .rich-text__blocks .sub-heading{
-    font-size: 16px;
+    font-size: 14px;
   }
   .section-question-title{
-    font-size: 24px;
+    font-size: 18px;
   }
 }
 

@@ -3500,6 +3500,8 @@ input[type='checkbox'] {
     grid-template-areas: 'heading navigation icons';
     grid-template-columns: auto 1fr auto;
     column-gap: 3.2rem;
+    display: flex;
+    justify-content: space-between;
   }
 
   .header--top-center {
@@ -3790,7 +3792,7 @@ details[open]>.header__icon--menu .icon-hamburger {
   margin-left: -1.2rem;
   grid-area: navigation;
   display: none;
-  text-align: left;
+  text-align: center;
 }
 
 .header--top-center .header__inline-menu,
@@ -5215,8 +5217,13 @@ details-disclosure>details {
 
 .my-event-wrapper .my-event-title {
   margin-bottom: 26px;
+  font-size: 24px;
 }
-
+@media(max-width: 767px){
+  .my-event-wrapper .my-event-title{
+    font-size: 18px;
+  }
+}
 .my-event-wrapper .events-container {
   display: grid;
   border: 2px solid var(--color-light-blue);
@@ -5255,7 +5262,7 @@ details-disclosure>details {
   line-height: normal;
   display: inline-block;
   width: 100%;
-  font-size: calc(var(--font-h2) - 3px);
+  font-size: calc(var(--font-h2) - 8px);
   font-weight: var(--font-weight-custom-medium);
   color: var(--color-light-blue);
 }
@@ -6553,7 +6560,7 @@ progress[value]::-webkit-progress-value {
 
   /*my account*/
   .my-event-wrapper .events-container .event-title {
-    font-size: var(--font-h4);
+    font-size: calc(var(--font-h4)) - 3px;
   }
 
   /*my account*/
@@ -7043,11 +7050,16 @@ progress[value]::-webkit-progress-value {
 }
 
 @media screen and (max-width: 767px) {
-
+  .transection-list-main .transaction-history-title .toggle-button{
+    font-size: 14px;
+  }
   .member-info-list-edit.edit-to-open .close_btns {
     right: 5px;
     top: 5px;
     line-height: 25px;
+  }
+  .favourite-look-wrapper #look-name{
+    font-size: 16px;
   }
 
   .page-top-head-background .main-heading-part {
@@ -7212,8 +7224,8 @@ progress[value]::-webkit-progress-value {
   }
 
   .main-heading-part {
-    margin-top: 3.4rem;
-    margin-bottom: 3.8rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
   }
 
   .card-information__wrapper>:not(.visually-hidden:first-child)+* {
@@ -8150,7 +8162,7 @@ progress[value]::-webkit-progress-value {
   }
 
   .full-unstyled-link {
-    font-size: calc(var(--font-size-body) - 3px);
+    font-size: calc(var(--font-size-body));
   }
 
   .template-page-create-event .section-bottom-button .button {
@@ -10608,4 +10620,24 @@ p.removing-combine-message
 }
 .shopify-policy__title h1{
   font-size: 24px;
+}
+@media screen and (max-width: 767px){
+ .image-with-text .count{
+    font-size: 22px;
+    line-height: 1;
+    margin-bottom: 0;
+ }
+}
+
+@media(min-width:1025px){
+  .header__heading{
+    width: 18%;
+  }
+  .header__inline-menu {
+    width: 64%;
+  }
+  .header__icons{
+    width: 18%;
+    justify-content: right;
+  }
 }

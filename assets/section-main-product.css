@@ -1255,7 +1255,8 @@ a.product__text {
 .when-customer-logged  .product-form__buttons {
   margin-bottom: 34px;
 }
-.when-customer-logged .favorite-event-cart-wrapper{
+
+.product__info-wrapper .when-customer-logged .favorite-event-cart-wrapper{
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -1462,4 +1463,12 @@ a.product__text {
 .icontextblock_container .icontext_icon_image img{
   max-width: 50px;
   min-height: 50px;
+}
+@media only screen and (max-width: 767px) {
+  .when-customer-logged  .product-form__buttons {
+    margin-bottom: 15px;
+  } 
+  .product__info-wrapper .when-customer-logged .favorite-event-cart-wrapper{
+    margin-top: 0;
+  }
 }

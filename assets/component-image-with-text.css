@@ -348,7 +348,7 @@
   .image-with-text__grid.image-with-text__grid--reverse {flex-direction: column-reverse;}
   .image-with-text__grid.image-with-text__grid--reverse .grid__item:last-child {width: 100%; max-width: 100%;}
 
-  .video_part .videexternal_videoo1{ padding-top: 56%;}
+  .video_part .videexternal_videoo1{ padding-top: 0;}
 
   .top-look .image-with-text__grid {flex-direction: column-reverse;}
   .image-with-text__grid .grid__item:last-child {width: 100%; max-width: 100%;}
@@ -359,7 +359,6 @@
   .small-width-img-text .image-with-text__grid--reverse .video_part {
     padding-top: 0px !important;  padding-bottom: 40px !important;
   }
-  .small-width-img-text .video_part {padding-top: 40px !important;}
   
   .mobile-reverse .image-with-text__grid {flex-direction: column !important;}
 

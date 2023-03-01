@@ -28,7 +28,7 @@
           class="image-with-text__media image-with-text__media--{{ section.settings.height }} {% if section.settings.image != blank %}media{% else %}image-with-text__media--placeholder placeholder{% endif %} {%- if section.settings.video_mp4_link != blank -%} video_part {% endif%}">
           {%- if section.settings.image != blank or section.settings.image != blank -%}
             <img
-              srcset='{% if section.settings.image.width >= 288 %}
+              srcset="{% if section.settings.image.width >= 288 %}
               {{ section.settings.image | img_url: '288x' }} 288w,{% endif %}
             {% if section.settings.image.width >= 400 %}
               {{ section.settings.image | img_url: '400x' }} 400w,{% endif %}
@@ -46,7 +46,7 @@
             height="auto"
             alt="{{ section.settings.image.alt | default : 'image with text' | escape }}">
             <img
-              srcset='{% if section.settings.image_mobile.width >= 288 %}
+              srcset="{% if section.settings.image_mobile.width >= 288 %}
               {{ section.settings.image_mobile | img_url: '288x' }} 288w,{% endif %}
             {% if section.settings.image_mobile.width >= 400 %}
               {{ section.settings.image_mobile | img_url: '400x' }} 400w,{% endif %}

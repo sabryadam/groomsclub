@@ -219,6 +219,11 @@
 .card-information__wrapper > *:not(.visually-hidden:first-child) + * {
   margin-top: 1.1rem;
 }
+@media(max-width: 767px){
+  .card-information__wrapper > *:not(.visually-hidden:first-child) + * {
+    margin-top: 0;
+  } 
+}
 
 .card-information__wrapper .caption {
   letter-spacing: 0.07rem;
@@ -502,7 +507,7 @@ body .collection .plp-top-looks-product-grid .card-wrapper .card__inner .media{
 }
 
 @media screen and (max-width:767px){
-  .plp-top-looks-product-grid .card-information__wrapper .card-information__text {font-size: calc(var(--font-h2) - 17px);}
+  .plp-top-looks-product-grid .card-information__wrapper .card-information__text {font-size: calc(var(--font-h2) - 19px);}
   .plp-top-looks-product-grid .card-information__wrapper .price {font-size: calc(var(--font-h3) - 8px);}
   .plp-top-looks-product-grid .card-information .button{font-size: calc(var(--font-button) + 0px);}
   .plp-top-looks-product-grid .product-metafield-wrap {font-size: calc(var(--font-h5) - 2px);}
@@ -513,8 +518,8 @@ body .collection .plp-top-looks-product-grid .card-wrapper .card__inner .media{
 }
 
 @media screen and (max-width:590px){
-  .plp-top-looks-product-grid .card-information__wrapper .card-information__text {font-size: calc(var(--font-h2) - 17px);}
-  .plp-top-looks-product-grid .card-information__wrapper .price {font-size: calc(var(--font-h3) - 12px);}
+  .plp-top-looks-product-grid .card-information__wrapper .card-information__text {font-size: calc(var(--font-h2) - 19px);}
+  .plp-top-looks-product-grid .card-information__wrapper .price {font-size: calc(var(--font-h3) - 14px);}
   .plp-top-looks-product-grid .product-metafield-wrap {font-size: calc(var(--font-h5) - 4px);}
   .plp-top-looks-product-grid .card-information .button {font-size: calc(var(--font-button));  padding: 12px 15px; min-width: 140px; height: 44px;}
 }
@@ -545,7 +550,7 @@ body .collection .plp-top-looks-product-grid .card-wrapper .card__inner .media{
 
 @media screen and (max-width:400px) {
   .card-information__text {
-      font-size: calc( var(--font-h3) - 8px);
+      font-size: calc( var(--font-h3) - 12px);
   } 
 }
 
