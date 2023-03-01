@@ -1,5 +1,5 @@
-<div class="step-content-wrapper event-step-1 active" data-step-content-wrap="1">
-  <input type="hidden" value="762" id="event-id" />
+<div class="step-content-wrapper event-step-1" data-step-content-wrap="1">
+  <input type="hidden" value="" id="event-id" />
     <div class="page-width-inner-wrapper">
       <h4 class="section-title xs-show">Create an Event</h4>
       <div class="event-block-wrap event-type-block-wrap">
@@ -11,14 +11,14 @@
           <p class="form-error"></p>
         </div>
       </div>
-      <div class="event-type-section-wrap event-block-wrap event-radio-box-section">
+      <div class="event-block-wrap event-type-section-wrap event-radio-box-section">
         {% if section.settings.event_type_heading != blank %}
           <h2 class="heading">{{ section.settings.event_type_heading }}</h2>
         {% endif %}
         <div class="box-wrap">
           {%- for block in section.blocks -%}
             {%- if block.type == 'event_type' -%}
-              <label class="Squer-radio-button-inner box-inner-wrap" data-event-type-box="{{ block.settings.event_type_title }}" id="{{block.id}}">
+              <label class="Squer-radio-button-inner box-inner-wrap" data-class="{{ block.settings.event_type_title | downcase }}" data-event-type-box="{{ block.settings.event_type_title | downcase }}" id="{{block.id}}">
                 <input type="radio" name="event-type" data-event-type-id="{{forloop.index}}" value="{{ block.settings.event_type_title }}" />
                 <span class="checkmark">
                   {% if block.settings.event_type_icon != blank %}
@@ -63,8 +63,8 @@
             {%- assign event_type_text = block.settings.event_type | downcase  -%}
             {%- if block.type == 'event_role' -%}
               {% assign  forloopIndex = forloop.index | minus : 2 %}
-              <label class="Squer-radio-button-inner box-inner-wrap {% if event_type_text == 'special events' %} hidden{% endif %}{% if event_type_text == 'other' %} show{% endif %}"  id="{{block.id}}" data-class="{{ event_type_text }}">
-                <input type="radio" name="event-role" data-event-role-id="{{forloopIndex}}" value="{{forloopIndex}}" />
+              <label class="Squer-radio-button-inner box-inner-wrap {% if event_type_text == 'special event' %} hidden{% endif %}{% if event_type_text == 'other' %} show{% endif %}"  id="{{block.id}}" data-class="{{ event_type_text }}">
+                <input type="radio" name="event-role" data-event-role-id="{{forloopIndex}}" data-value="{{block.settings.event_role_title}}" value="{{forloopIndex}}" />
                 <span class="checkmark">
                   {% if block.settings.event_role_icon != blank %}
                     <div class="event-role-icon icon-wrap">

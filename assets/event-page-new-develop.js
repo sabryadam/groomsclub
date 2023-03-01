@@ -2,6 +2,22 @@
 theme_custom.base_url = theme_custom.api_base_url;
 const APP_Token = 'Bearer ' + localStorage.getItem("customerToken");
 
+theme_custom.createLookHtml = (div,item) =>{
+  div.append(`<div class="look-card-block">
+    <div class="look-title-and-price">
+      <div class="look-title">${item.name}</div>
+      <div class="look-price-wrap">
+        <span class="text-lable">Starting at</span>
+        <span class="look-price">$199.99</span>
+      </div>
+    </div>
+    <div class="look-image">
+      <img src="${item.look_image}" alt="${item.name}" />
+      <button data-href="${item.url}" class="button button--secondary customise-look customise-look-button">Customise look</button>
+    </div>
+  </div>`)
+}
+
 // Get Favorite Looks
 theme_custom.favoriteLooks = function(){
   var favorite_api_url = `${theme_custom.base_url}/api/look/favouriteLooks`;
@@ -17,7 +33,6 @@ theme_custom.favoriteLooks = function(){
     beforeSend: function () {
     },
     success: function (result) {
-      console.log("result",result);
       if (result.success) {
           if (result.data.length > 0) {
             var append_fav_html = "";
@@ -83,6 +98,7 @@ theme_custom.favoriteLooks = function(){
 } 
 
 theme_custom.checkLooks = (id) =>{
+  debugger;
   fetch(`${theme_custom.base_url}/api/event/${id}`,{
     method: "GET",
     headers: {
@@ -90,28 +106,28 @@ theme_custom.checkLooks = (id) =>{
     },
   }).then((data)=> data.json())
   .then((data)=>{
-    const step = $(`.step-content-wrapper[data-step-content-wrap="2"]`)
-    console.log("data.data.event_looks",data.data.event_looks);
+    debugger;
     data.data.event_looks = data.data.event_looks.reverse();
     if(data.data.event_looks && data.data.event_looks.length > 0){
-      $('.event-block-wrap',step).hide();
-      const looksDiv = $('.event-look-inner-wrapper',step);
+      const looksDiv = $('.event-look-inner-wrapper');
       looksDiv.empty();
       for(let i = 0; i<data.data.event_looks.length;i++){
         let item = data.data.event_looks[i];
         theme_custom.createLookHtml(looksDiv, item);
       }
       $(".close-icon").click();
-      $('.show-look-from-event-wrapper',step).show();
+      $(".event-block-wrap").hide();
+      $('.show-look-from-event-wrapper').show();
       theme_custom.eventLookSlider();
     }else{
-      $('.show-look-from-event-wrapper',step).hide();
+      $(".event-block-wrap").show();
+      $('.show-look-from-event-wrapper').hide();
     }
   });
 }
 
 theme_custom.changeStep = (index) =>{
-  localStorage.setItem("created-event-step", index);
+  // localStorage.setItem("created-event-step", index);
   $('.step-content-wrapper').removeClass('active');
   $('.step-wrap').removeClass('active');
 
@@ -183,18 +199,18 @@ theme_custom.eventValidation = function(btn){
         $(this).addClass("disable");
       },
       success: function (result) {
-        console.log('create event result',result);
         if (result.success) {
           localStorage.setItem("created-event", JSON.stringify(result));
-          localStorage.setItem("created-event-id", result.data.eventId);
+          localStorage.setItem("set-event-id", result.data.eventId);
+          $("#event-id").val(result.data.eventId);
           $(".event-page-new-design-wrapper").find("#event-id").val(result.data.eventId);
           theme_custom.checkLooks(result.data.eventId);
-          theme_custom.changeStep(2);
+          $(`.step-wrap[data-step-label-wrap="2"]`).addClass("active");
+          $(`.step-content-wrapper[data-step-label-wrap="2"]`).addClass("active");
           btn.removeClass('loading');
         }
       },
       error: function (xhr, status, error) {
-        console.log('create event error',error);
         if (xhr.responseJSON.message == 'Token is invalid or expired.') {
           $('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
             'text-align': 'center',
@@ -263,15 +279,8 @@ theme_custom.lookImage = function (look_image, lookID, button) {
 
       },
       success: function (result) {
-          button.removeClass("disabled").text("Added Look");
-          console.log("Look added into Current Event");
-          // $('.pop-up-content-wrap').append('<p class="text-center add-event-success-msg">' + result.message + '</p>');
-          // setTimeout(function () {
-          //     button.removeClass("disabled");
-          //     $('.add-event-success-msg').remove();
-          //     $('.addevent-popup .close-btn').click();
-          // }, 3000);
-          theme_custom.checkLooks(localStorage.getItem("created-event-id"))
+        button.removeClass("disabled").text("Look Added");
+        theme_custom.checkLooks(localStorage.getItem("set-event-id"));
       },
       error: function (xhr, status, error) {
           if (xhr.responseJSON.message == 'Token is invalid or expired.') {
@@ -427,16 +436,16 @@ theme_custom.eventPageClickEvent = function(){
   
   $(document).on("click", ".event-page-new-design-wrapper .next-button", function(){
     var target = $(this);
-    var nextTarget = target.closest(".step-content-wrapper").attr("data-step-content-wrap");
+    var nextTarget = target.closest(".step-content-wrapper").next(".step-content-wrapper").attr("data-step-content-wrap");
     theme_custom.changeStep(nextTarget);
   });
 
   $(document).on("click", ".event-page-new-design-wrapper .previous-button", function(){
     var target = $(this);
-    var prevTarget = target.closest(".step-content-wrapper").attr("data-step-content-wrap");
-    prevTarget = parseInt(prevTarget) - 1;
+    var prevTarget = target.closest(".step-content-wrapper").prev(".step-content-wrapper").attr("data-step-content-wrap");
+    prevTarget = parseInt(prevTarget);
     theme_custom.changeStep(prevTarget);
-    })
+  })
   
   $(document).on("click", ".event-type-section-wrap .Squer-radio-button-inner", function () {
     var selectEventType = $(this).find(`[name="event-type"]`).val();
@@ -538,36 +547,69 @@ theme_custom.event_init_page = function(){
   });
 }
 
-$(document).ready(function() {
-  theme_custom.event_init_page(); 
-  let lastStep = localStorage.getItem('created-event-step');
-  if(lastStep){
-    theme_custom.changeStep(lastStep);
-
-    if(lastStep == '2'){
-      let createdEvent = localStorage.getItem('created-event');
-      if(createdEvent){
-        createdEvent = JSON.parse(createdEvent);
-        theme_custom.checkLooks(localStorage.getItem('created-event-id'));
-        $(".event-page-new-design-wrapper").find("#event-id").val(localStorage.getItem('created-event-id'));
+theme_custom.getEventDetails = function(){
+  $(".step-content-wrapper").removeClass("active");
+  var eventId = localStorage.getItem("set-event-id");
+  $("#event-id").val(localStorage.getItem("set-event-id"));
+  $.ajax({
+    url: `${theme_custom.base_url}/api/event/${eventId}`,
+    method: "GET",
+    data: '',
+    dataType: "json",
+    headers: {
+      // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
+      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+    },
+    beforeSend: function () {
+    },
+    success: function (result) {
+      console.log("Rsult",result);
+      $('#EventForm-EventName').val(result.data.event_name);
+      $('#EventForm-id').val(result.data.event_id);
+      if(result.data.event_type == 'Special Event'){
+        $(`.role-in-event-wrap .Squer-radio-button-inner[data-class="special event"]`).removeClass("hidden");
+        $(`.role-in-event-wrap .Squer-radio-button-inner[data-class="wedding"]`).addClass("hidden");
+      }else{
+        $(`.role-in-event-wrap .Squer-radio-button-inner[data-class="wedding"]`).removeClass("hidden");
+        $(`.role-in-event-wrap .Squer-radio-button-inner[data-class="special event"]`).addClass("hidden");
+      }
+      $(`.Squer-radio-button-inner:not(.hidden) input[name="event-type"][value="${result.data.event_type}"]`).prop('checked', true);
+      $(`.Squer-radio-button-inner:not(.hidden) input[name="event-role"][data-value="${result.data.event_role}"]`).prop('checked', true);
+      $('#event_date').val(result.data.event_date);
+      $.each(result.data.event_members,function(index,value){
+        if(value.is_host == "1"){
+          $('#EventForm-EventOwnerContactNumber').val(value.phone.replace("+1","")).trigger("keyup");
+        }
+      });  
+      $(".create-event-button").addClass("next-button").removeClass("create-event-button");    
+      $(".loader-wrapper").addClass("hidden");
+      $(`.step-wrap[data-step-label-wrap="1"],.step-content-wrapper[data-step-content-wrap="1"]`).addClass("active");
+      // theme_custom.checkLooks(eventId);
+    },
+    error: function (xhr, status, error) {
+      if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+        $('.getapi_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+          'text-align': 'center',
+          'color': 'red'
+        });
+        setTimeout(() => {
+          theme_custom.removeLocalStorage();
+          window.location.href = '/account/logout';
+        }, 5000);
+      } else {
+        var erroData = '';
+        erroData = '<p>' + xhr.responseJSON.message + '</p>';
+        $('.getapi_error').show().html(erroData);
       }
     }
+  });
+}
+
+$(document).ready(function() {
+  theme_custom.event_init_page(); 
+  if(localStorage.getItem("set-event-id") != null) {
+    theme_custom.getEventDetails();
+  } else {
+    $(`.step-wrap[data-step-label-wrap="1"],.step-content-wrapper[data-step-content-wrap="1"]`).addClass("active");
   }
 })
-
-theme_custom.createLookHtml = (div,item) =>{
-  console.log("item",item);
-  div.append(`<div class="look-card-block">
-  <div class="look-title-and-price">
-    <div class="look-title">${item.name}</div>
-    <div class="look-price-wrap">
-      <span class="text-lable">Starting at</span>
-      <span class="look-price">$199.99</span>
-    </div>
-  </div>
-  <div class="look-image">
-    <img src="${item.look_image}" alt="${item.name}" />
-    <button data-href="${item.url}" class="button button--secondary customise-look customise-look-button">Customise look</button>
-  </div>
-</div>`)
-}

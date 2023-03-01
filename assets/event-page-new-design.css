@@ -1,4 +1,15 @@
 /* event-page-new-design style start */
+.loader-wrapper {
+  min-height: 500px;
+  min-width: 500px;
+  position: relative;
+}
+.loader-wrapper .loading-overlay__spinner{
+  position: absolute;
+  transform: translate(-50%,-50%);
+  top: 50%;
+  left: 50%;
+}
 .event-page-new-design-wrapper {
   margin-top: 50px;
   margin-bottom: 50px;
@@ -165,7 +176,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
-  color: #ADADAD;
+  /* color: #ADADAD; */
   padding: 0 15px;
   background: #F5F5F5;
   border: 1px solid rgba(6, 0, 0, 0.14);
@@ -264,7 +275,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 22px;
-  color: #ADADAD;
+  /* color: #ADADAD; */
   margin-bottom: 0;
   margin-top: 0;
   background: #F5F5F5;

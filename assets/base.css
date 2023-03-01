@@ -10492,3 +10492,6 @@ p.removing-combine-message
   width: 25px;
   height: 25px;
 }
+.events-main-link {
+  cursor: pointer;
+}
