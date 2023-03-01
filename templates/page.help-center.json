@@ -3,8 +3,7 @@
     "main": {
       "type": "main-page",
       "disabled": true,
-      "settings": {
-      }
+      "settings": {}
     },
     "529fcfe4-58ba-46e5-a684-faac80d6484e": {
       "type": "help-centre-top",
@@ -15,6 +14,15 @@
     "631a2495-2074-4c77-9ad8-fab1e71d2a86": {
       "type": "help-centre-bottom",
       "blocks": {
+        "bf225404-9b75-47e0-bf50-b21aa5bc12ea": {
+          "type": "block",
+          "settings": {
+            "links-pages": "https:\/\/groomsclub.returnly.com\/",
+            "text-heading": "Returns and Exchanges",
+            "text-para": "We make returns & exchanges easy.",
+            "content": "<p><a href=\"https:\/\/groomsclub.returnly.com\/\" target=\"_blank\" title=\"https:\/\/groomsclub.returnly.com\/\">Initiate Return<\/a><\/p>"
+          }
+        },
         "b3a02097-9bae-42bd-ae2f-5ed0d4d65731": {
           "type": "block",
           "settings": {
@@ -33,15 +41,6 @@
             "content": ""
           }
         },
-        "bf225404-9b75-47e0-bf50-b21aa5bc12ea": {
-          "type": "block",
-          "settings": {
-            "links-pages": "https:\/\/groomsclub.returnly.com\/",
-            "text-heading": "Returns and Exchanges",
-            "text-para": "We make returns & exchanges easy.",
-            "content": "<p><a href=\"https:\/\/groomsclub.returnly.com\/\" target=\"_blank\" title=\"https:\/\/groomsclub.returnly.com\/\">Initiate Return<\/a><\/p>"
-          }
-        },
         "15e88384-6bb7-49ca-acb8-c219151a7de3": {
           "type": "block",
           "settings": {
@@ -53,6 +52,7 @@
         },
         "a743bd95-27c7-4cb4-94bf-5970bd19675c": {
           "type": "block",
+          "disabled": true,
           "settings": {
             "links-pages": "shopify:\/\/pages\/at-home-try-on",
             "text-heading": "At Home Try On",
