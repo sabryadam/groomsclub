@@ -207,10 +207,9 @@
 <script>
   localStorage.removeItem("customerToken");
   var urlParams = new URLSearchParams(window.location.search);
-  var redirect_url = urlParams.get('prev_url');
+  var redirect_url = urlParams.get('checkout_url');
   var formElement = $('<input type="hidden" name="return_to">');
-  formElement.attr('value', `https://www.groomsclub.com/account?checkout_url=${redirect_url}`); // Shopify will use this value as the redirect destination
-  console.log('formElement', formElement[0]);
+  formElement.attr('value', redirect_url); // Shopify will use this value as the redirect destination
   if (redirect_url) {
     var registerForm = jQuery('#customer_login');
     registerForm.append(formElement); // Add the element to the form.

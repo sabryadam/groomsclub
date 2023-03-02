@@ -12,6 +12,21 @@
 }
 
 .inner-body-centre h1{
+<<<<<<< HEAD
+  text-align: center;
+    letter-spacing: -0.4px;
+    color: #FFFFFF;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 34px;
+    line-height: 44px;
+}
+
+@media(max-width:767px){
+  .inner-body-centre h1{
+    font-size: 24px;
+  }
+=======
 text-align: center;
   letter-spacing: -0.4px;
   color: #FFFFFF;
@@ -25,6 +40,7 @@ text-align: center;
 .inner-body-centre h1{
   font-size: 24px;
 }
+>>>>>>> 99725b6848a603ccec67a60458aa5b1489f30c21
 }
 .input-field-center{
     max-width: 520px;
@@ -105,27 +121,36 @@ width: 32%;
 }
 @media(max-width:767px){
   .link-box h3{
-    font-size: 16px;
+    color: var(--color-primary);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    margin: 0px 0 6px 0;
   }
-}
- .link-box p{
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 24px;
-  color: #6A6A6A;
-  letter-spacing: 0.01em;
-   margin-top: 10px;
-   margin-bottom: 0;
- }
- @media(max-width:767px){
-  .link-box p{
+  @media(max-width:767px){
+    .link-box h3{
+      font-size: 16px;
+    }
+  }
+   .link-box p{
+    font-style: normal;
+    font-weight: 400;
     font-size: 14px;
-  }
-  .link-box p a{
-    font-size: 12px;
-  }
- }
+    line-height: 24px;
+    color: #6A6A6A;
+    letter-spacing: 0.01em;
+     margin-top: 10px;
+     margin-bottom: 0;
+   }
+   @media(max-width:767px){
+    .link-box p{
+      font-size: 14px;
+    }
+    .link-box p a{
+      font-size: 12px;
+    }
+   }
 .inner-box-helpcentre .head-top{
 margin:0;
 }
@@ -203,6 +228,7 @@ display:none;
 }
 
 @media screen and (max-width: 1025px){
+
 /* .outter-link-box .link-bottom{
       width: 100%;
 } */
