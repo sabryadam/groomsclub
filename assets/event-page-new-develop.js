@@ -98,7 +98,6 @@ theme_custom.favoriteLooks = function(){
 } 
 
 theme_custom.checkLooks = (id) =>{
-  debugger;
   fetch(`${theme_custom.base_url}/api/event/${id}`,{
     method: "GET",
     headers: {
@@ -106,9 +105,10 @@ theme_custom.checkLooks = (id) =>{
     },
   }).then((data)=> data.json())
   .then((data)=>{
-    debugger;
+    console.log("data",data)
     data.data.event_looks = data.data.event_looks.reverse();
     if(data.data.event_looks && data.data.event_looks.length > 0){
+      debugger;
       const looksDiv = $('.event-look-inner-wrapper');
       looksDiv.empty();
       for(let i = 0; i<data.data.event_looks.length;i++){
@@ -116,7 +116,7 @@ theme_custom.checkLooks = (id) =>{
         theme_custom.createLookHtml(looksDiv, item);
       }
       $(".close-icon").click();
-      $(".event-block-wrap").hide();
+      $(".step-content-wrapper.create-event-look .event-block-wrap").hide();
       $('.show-look-from-event-wrapper').show();
       theme_custom.eventLookSlider();
     }else{
@@ -200,10 +200,8 @@ theme_custom.eventValidation = function(btn){
       },
       success: function (result) {
         if (result.success) {
-          localStorage.setItem("created-event", JSON.stringify(result));
           localStorage.setItem("set-event-id", result.data.eventId);
           $("#event-id").val(result.data.eventId);
-          $(".event-page-new-design-wrapper").find("#event-id").val(result.data.eventId);
           theme_custom.checkLooks(result.data.eventId);
           $(`.step-wrap[data-step-label-wrap="2"]`).addClass("active");
           $(`.step-content-wrapper[data-step-label-wrap="2"]`).addClass("active");
@@ -583,7 +581,7 @@ theme_custom.getEventDetails = function(){
       });  
       $(".create-event-button").addClass("next-button").removeClass("create-event-button");    
       $(".loader-wrapper").addClass("hidden");
-      $(`.step-wrap[data-step-label-wrap="1"],.step-content-wrapper[data-step-content-wrap="1"]`).addClass("active");
+      $(".event-step-wrapeper").removeClass("hidden");
       // theme_custom.checkLooks(eventId);
     },
     error: function (xhr, status, error) {
@@ -610,6 +608,9 @@ $(document).ready(function() {
   if(localStorage.getItem("set-event-id") != null) {
     theme_custom.getEventDetails();
   } else {
-    $(`.step-wrap[data-step-label-wrap="1"],.step-content-wrapper[data-step-content-wrap="1"]`).addClass("active");
+    setTimeout(() => {
+      $(".loader-wrapper").addClass("hidden");
+      $(".event-step-wrapeper").removeClass("hidden");
+    }, 1000);
   }
 })

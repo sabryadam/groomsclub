@@ -1138,6 +1138,9 @@ theme_custom.clickEvent = function () {
 
   // create-event-header-button 
   $(document).on("click",".create-event-header-button", function(){
+    if(localStorage.getItem("set-event-id")!= null){
+      localStorage.removeItem("set-event-id");
+    }
     var buttonLink = $(this).data("href");
     window.location.href = buttonLink;
   })
