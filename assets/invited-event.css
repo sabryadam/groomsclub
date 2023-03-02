@@ -238,3 +238,319 @@
     grid-template-columns: 66px auto 60px;
   }
 }
+
+.mywedding_section_wrap .invite-event-header .account-profile-top-part{
+  background: #f5f5f5;
+  margin-top: 25px;
+  padding: 28px 15px;
+  display: block;
+  text-align: center;
+}
+
+.mywedding_section_wrap .invite-event-header .account-profile-top-part .profile-pic-part{
+  display: none;
+}
+
+.mywedding_section_wrap .invite-event-header .account-profile-top-part .event-detail-part{
+  display: flex;
+  justify-content: center;
+}
+.mywedding_section_wrap .invite-event-header .account-profile-top-part .event-detail-part .event-date-part{
+  color: var(--color-gray-text);
+  font-size: 16px;
+  display: block;
+  margin: 0;
+  text-align: center;
+  padding-right: 15px;
+  border-right: 1px solid var(--color-gray-text);
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+.mywedding_section_wrap .invite-event-header .account-profile-top-part .event-detail-part .event-edit-hosted{
+  color: var(--color-gray-text);
+  font-size: 16px;
+  padding-left: 15px;
+  text-align: center;
+  height: 20px;
+    display: flex;
+    font-weight: 400;
+  align-items: center;
+}
+.mywedding_section_wrap .invite-event-header .account-profile-top-part .event-detail-part .event-edit-hosted .fas{
+  margin-right: 8px;
+}
+.mywedding_section_wrap .invite-event-header .account-profile-top-part .event-detail-part .event-edit-hosted .user-name{
+  font-weight: 600;
+  margin-left: 4px;
+}
+.mywedding_section_wrap  .event-process-part {
+  display: none;
+}
+.mywedding_section_wrap .invite-event-main-content{
+  margin-top: 35px;
+  padding: 0;
+  margin-bottom: 60px;
+}
+.mywedding_section_wrap .invite-event-main-content.assigned-look-back{
+  background: transparent;
+}
+.event-content-head{
+  text-align: center;
+  position: relative;
+  margin-bottom: 35px;
+}
+.event-content-head .border-heading.title{
+  font-size: 24px;
+  margin: 0;
+  padding: 0;
+}
+.event-content-head .border-heading.title::before{
+  display: none;
+}
+
+.event-content-head .review-fit-finder{
+  position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+}
+.event-content-head .review-fit-finder p{
+  margin: 0;
+  font-size: 14px;
+}
+
+.event-content-head .review-fit-finder .review-size{
+  color: var(--color-primary);
+  margin-right: 8px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.event-content-head .review-fit-finder .fit-finder-text{
+  color: var(--color-primary);
+  font-weight: 400;
+}
+.event-content-head .review-fit-finder .fit-finder-text a{
+  color: var(--color-primary);
+  font-weight: 500;
+  text-decoration: none;
+}
+.mywedding_section_wrap .invite-event-main-content .invited-assigned-look{
+  display: flex;
+  grid-column-gap: 0;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.mywedding_section_wrap .invite-event-main-content .invited-assigned-look .left-part-image-part{
+  max-width: 500px;
+  width: 100%;
+}
+.mywedding_section_wrap .invite-event-main-content .invited-assigned-look .left-part-image-part .look-name{
+  display: none;
+}
+.mywedding_section_wrap .invite-event-main-content .invited-assigned-look .right-assigned-look-list{
+  max-width: calc(100% - 535px);
+  width: 100%;
+}
+.mywedding_section_wrap .invite-event-main-content .invited-assigned-look .right-assigned-look-list .look-product-wrapper{
+  background-color: #f5f5f5;
+  padding: 20px;
+  margin-bottom: 10px;
+}  
+.mywedding_section_wrap .invite-event-main-content .invited-assigned-look .right-assigned-look-list .look-product-wrapper.pant-exist{
+    margin: 0;
+    padding-bottom: 0;
+}
+
+.mywedding_section_wrap .invite-event-main-content .invited-assigned-look .right-assigned-look-list .look-product-wrapper h4{  
+  font-size: 18px;
+}
+.mywedding_section_wrap .invite-event-main-content .invited-assigned-look .right-assigned-look-list .look-product-wrapper .product-size-type-exchange{
+  font-size: 16px;
+}
+.mywedding_section_wrap .invite-event-main-content .invited-assigned-look .right-assigned-look-list .look-product-wrapper .exchange-item-link.link{
+  font-weight: 400;
+}
+.mywedding_section_wrap .invite-event-main-content .invited-assigned-look .right-assigned-look-list .look-product-wrapper .product-price .price{
+  font-size: 16px;
+}
+
+.mywedding_section_wrap .invite-event-main-content .order-subtotal .subtotal-label{
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.mywedding_section_wrap .invite-event-main-content .order-subtotal .price-number{
+  font-size: 18px;
+  font-weight: 500;
+}
+.mywedding_section_wrap .invite-event-main-content .return-suit-checkout-button{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mywedding_section_wrap .invite-event-main-content .return-suit-checkout-button .proceed-to-cart{
+  font-size: 16px;
+  width: 300px;
+  max-width: 100%;
+}
+.mywedding_section_wrap .invite-event-main-content .return-suit-checkout-button .info-stickey-note{
+  border: 1px solid var(--light-gray-border);
+  padding: 15px;
+  font-size: 14px;
+  max-width: initial;
+}
+.mywedding_section_wrap .invite-event-main-content .return-suit-checkout-button .info-stickey-note .info-note-text{
+  margin: 0;
+}
+.mywedding_section_wrap .invite-event-main-content .return-suit-checkout-button .info-stickey-note .note-title{
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+.mywedding_section_wrap .invite-event-main-content .return-suit-checkout-button .info-stickey-note .note-title .info-icon{
+  display: flex;
+  align-items: center;
+}
+.mywedding_section_wrap .invite-event-main-content .return-suit-checkout-button .info-stickey-note .note-title .info-icon .fas{
+  position: static;
+  margin-right: 8px;
+}
+.mywedding_section_wrap .invite-event-main-content .return-suit-checkout-button .info-stickey-note .info-note-text p.note-title-info{
+  font-size: 14px;
+  display: flex;
+  margin-left: 21px;
+}
+.mywedding_section_wrap .invite-event-main-content .return-suit-checkout-button .info-stickey-note .info-note-text p.note-title-info a{
+  display: inline-block;
+  margin-left: 4px;
+}
+.the-party-part.invited-event-footer{
+  border-top: 1px solid var(--light-gray-border);
+  padding-top: 50px;
+}
+.the-party-part.invited-event-footer .party-background-part{
+  background: transparent;
+  padding: 0;
+  margin-bottom: 50px;
+}
+.the-party-part.invited-event-footer .party-background-part:before{
+  display: none;
+}
+.the-party-part.invited-event-footer .party-background-part .title{
+  font-size: 24px;
+  color: var(--color-primary);
+  margin: 0 0 35px;
+}
+.invited-event-footer .party-invite-member-part{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.the-party-part.invited-event-footer .party-background-part .single-member-detail-part{
+  min-height: auto;
+  width: calc(25% - 10px);
+}
+.the-party-part.invited-event-footer .party-background-part .single-member-detail-part .background-part{
+  min-height: auto;
+  border: 1px solid var(--light-gray-border);
+  border-radius: 4px;
+  padding: 25px 15px;
+}
+
+.the-party-part.invited-event-footer .party-background-part .single-member-detail-part .background-part .member-name{
+  margin: 0;
+}
+.the-party-part.invited-event-footer .party-background-part .single-member-detail-part .background-part .member-name .evntfirst_name{
+  font-size: 14px;
+  display: block;
+  margin-bottom: 8px;
+  color: var(--color-primary);
+}
+.the-party-part.invited-event-footer .party-background-part .single-member-detail-part .background-part .evntlast_email{
+  font-size: 14px;
+  margin: 0;
+  margin-bottom: 8px;
+  display: block;
+  color: var(--color-gray-text);
+}
+.the-party-part.invited-event-footer .party-background-part .single-member-detail-part .background-part .event_phone{
+  font-size: 14px;
+  margin: 0;
+  display: block;
+  color: var(--color-gray-text);
+}
+@media(max-width: 767px){
+  .mywedding_section_wrap .invite-event-header .account-profile-top-part .profile-info-part{
+    padding: 0;
+  }
+  .mywedding_section_wrap .invite-event-header .account-profile-top-part .profile-info-part .page-title{
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  .mywedding_section_wrap .invite-event-header .account-profile-top-part .profile-info-part .page-title:before{
+    margin-left: auto;
+  }
+  .mywedding_section_wrap .invite-event-header .account-profile-top-part .event-detail-part .event-date-part{
+    font-size: 14px;
+  }
+  .mywedding_section_wrap .invite-event-header .account-profile-top-part .event-detail-part .event-edit-hosted{
+    font-size: 14px;
+  }
+  .mywedding_section_wrap .invite-event-main-content.assigned-look-back{
+    margin-top: 15px;
+    margin-bottom: 25px;
+  }
+  .event-content-head .review-fit-finder{
+    position: static;
+    transform: translateY(0);
+    justify-content: center;
+  }
+  .event-content-head{
+    margin-bottom: 20px;
+  }
+  .event-content-head .border-heading.title{
+    font-size: 18px;
+  }
+  .mywedding_section_wrap .invite-event-main-content .invited-assigned-look .right-assigned-look-list{
+    width: 100%;
+    max-width: 100%;
+  }
+  .mywedding_section_wrap .invite-event-main-content .invited-assigned-look .right-assigned-look-list .look-product-wrapper{
+    grid-template-columns: 66px auto 20px;
+  }
+  .mywedding_section_wrap .invite-event-main-content .invited-assigned-look .right-assigned-look-list .look-product-wrapper h4{
+    font-size: 16px;
+  }
+  .mywedding_section_wrap .invite-event-main-content .invited-assigned-look .right-assigned-look-list .look-product-wrapper .product-size-type-exchange{
+    font-size: 14px;
+  }
+  .the-party-part.invited-event-footer{
+    padding-top: 25px;
+  }
+  .the-party-part.invited-event-footer .party-background-part{
+    margin: 0 0 25px;
+  }
+  .the-party-part.invited-event-footer .party-background-part .title{
+    font-size: 18px;
+    margin: 0 0 0;
+  }
+  .the-party-part.invited-event-footer .party-invite-member-part{
+    grid-row-gap: 0;
+  }
+  .the-party-part.invited-event-footer .party-background-part .single-member-detail-part{
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .the-party-part.invited-event-footer .party-background-part .single-member-detail-part .background-part{
+    width: 100%;
+    max-width: initial;
+    max-height: initial;
+    margin: 0;  
+  }
+  .the-party-part.invited-event-footer .party-background-part .single-member-detail-part .background-part .member-name{
+    font-size: 14px;
+  }
+}
