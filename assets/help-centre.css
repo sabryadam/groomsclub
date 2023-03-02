@@ -12,7 +12,6 @@
 }
 
 .inner-body-centre h1{
-<<<<<<< HEAD
   text-align: center;
     letter-spacing: -0.4px;
     color: #FFFFFF;
@@ -26,21 +25,6 @@
   .inner-body-centre h1{
     font-size: 24px;
   }
-=======
-text-align: center;
-  letter-spacing: -0.4px;
-  color: #FFFFFF;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 34px;
-  line-height: 44px;
-}
-
-@media(max-width:767px){
-.inner-body-centre h1{
-  font-size: 24px;
-}
->>>>>>> 99725b6848a603ccec67a60458aa5b1489f30c21
 }
 .input-field-center{
     max-width: 520px;
