@@ -3,7 +3,8 @@
     "main": {
       "type": "main-page",
       "disabled": true,
-      "settings": {}
+      "settings": {
+      }
     },
     "529fcfe4-58ba-46e5-a684-faac80d6484e": {
       "type": "help-centre-top",
