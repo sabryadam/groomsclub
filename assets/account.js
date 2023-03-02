@@ -1249,7 +1249,6 @@ $('.edit-size-popup .step-wrapper input[type=radio]').on('change', function () {
 });
 
 if(localStorage.getItem("event-or-fav-when-user-has-not-logged")=='true'){
-    debugger;
     localStorage.removeItem("event-or-fav-when-user-has-not-logged");
     theme_custom.checkProductLinkAvailable();
 }
