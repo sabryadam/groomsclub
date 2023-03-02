@@ -1,5 +1,5 @@
 .blog:not(.background-secondary) {
-  margin: 10rem 0;
+  margin: 5rem 0;
 }
 
 @media screen and (max-width:1199px) {

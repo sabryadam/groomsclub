@@ -26,6 +26,27 @@
   width: calc(100% - 3rem);
 }
 
+.rich-text__blocks .title,.blog_section_title,.placeholder h2{
+  font-size: 24px;
+}
+.rich-text__blocks .sub-heading{
+  font-size: 16px;
+}
+.section-question-title{
+  font-size: 28px;
+}
+@media(max-width:767px){
+  .rich-text__blocks .title,.blog_section_title,.placeholder h2{
+    font-size: 18px;
+  }
+  .rich-text__blocks .sub-heading{
+    font-size: 14px;
+  }
+  .section-question-title{
+    font-size: 18px;
+  }
+}
+
 .rich-text:not(.rich-text--full-width),
 .rich-text--full-width.color-background-1 {
   margin-top: 4.7rem;
