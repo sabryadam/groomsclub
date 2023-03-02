@@ -18,13 +18,11 @@ class VariantSelects extends HTMLElement {
     this.updateOptions();
     this.updateMasterId();
     this.toggleAddButton(true, '', false);
+    // this.updatePickupAvailability();
     try{
       this.updatePickupAvailability();
     }catch(e){
-
     }
-    
-
     if (!this.currentVariant) {
       this.toggleAddButton(true, '', true);
       this.setUnavailable();
@@ -32,8 +30,8 @@ class VariantSelects extends HTMLElement {
       try{
         $('.product-main-image').slick('slickGoTo', this.currentVariant.featured_media.position-1);
       }catch(e){
-
       }
+      // $('.product-main-image').slick('slickGoTo', this.currentVariant.featured_media.position-1);
       this.updateURL();
       this.updateVariantInput();
       this.renderProductInfo();
