@@ -103,9 +103,8 @@ function getsizedata() {
                                 <div class="block-info">
                                     <div class="block-title">Jacket</div>
                                     <div class="size-wrap">
-                                    <span class="size-number">Size ${jacketType[0]}</span> 
-                                    <span class="break">|</span>
-                                    <span class="size-type">${jacketTypeVal}</span>
+                                    <span class="size-number">Chest: ${jacketType[0]}</span> 
+                                    <span class="size-type">Length: ${jacketTypeVal}</span>
                                     </div>
                                     <div class="acc-edit-size-main">
                                     <a href="javascript:void(0)" data-popup="edit-jacket" class="acc-edit-mysize">Edit Size</a>
@@ -121,9 +120,8 @@ function getsizedata() {
                                 <div class="block-info">
                                     <div class="block-title">Pants</div>
                                     <div class="size-wrap">
-                                    <span class="size-number">Size ${result.data[i].pants_waist}W</span> 
-                                    <span class="break">|</span>
-                                    <span class="size-type">${result.data[i].pants_hight}H</span>
+                                    <span class="size-number">Waist: ${result.data[i].pants_waist}W</span> 
+                                    <span class="size-type">Length: ${result.data[i].pants_hight}H</span>
                                     </div>
                                     <div class="acc-edit-size-main">
                                     <a href="javascript:void(0)" data-popup="edit-pants" class="acc-edit-mysize">Edit Size</a>
@@ -139,9 +137,8 @@ function getsizedata() {
                                 <div class="block-info">
                                     <div class="block-title">Shirt</div>
                                     <div class="size-wrap">
-                                    <span class="size-number">Neck ${result.data[i].shirt_neck}</span> 
-                                    <span class="break">|</span>
-                                    <span class="size-type">Sleeve ${result.data[i].shirt_sleeve}</span>
+                                        <span class="size-number">Neck: ${result.data[i].shirt_neck}</span> 
+                                        <span class="size-type">Sleeve: ${result.data[i].shirt_sleeve}</span>
                                     </div>
                                     <div class="acc-edit-size-main">
                                     <a href="javascript:void(0)" data-popup="edit-shirt" class="acc-edit-mysize">Edit Size</a>
@@ -157,8 +154,7 @@ function getsizedata() {
                                 <div class="block-info">
                                     <div class="block-title">Shoes</div>
                                     <div class="size-wrap">
-                                    <span class="size-number">Size ${result.data[i].shoe_size}</span> 
-                                    
+                                        <span class="size-number">Size: ${result.data[i].shoe_size}</span> 
                                     </div>
                                     <div class="acc-edit-size-main">
                                     <a href="javascript:void(0)"data-popup="edit-shoes" class="acc-edit-mysize">Edit Size</a>
@@ -295,17 +291,29 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                         } else {
                             var pageLink = `/pages/invited?event_id=${result.data.events[i].event_id}+member_id=${result.data.events[i].member_id}`;
                         }
-                        append_event_html += `<a href="${pageLink}" class="events-main-link" data-hosted-by="${result.data.events[i].hostedBy}"><div class="events-container"> <div class="event-container-date"><span>${day}</span> ${month}</div>
+                        append_event_html += `<div class="events-container"> <div class="event-container-date"><span>${day}</span> ${month}</div>
                             <div class="event-container-image"><img src="${event_picture}" alt="default-event-image"></div>
-                            <div class="event-container-event-content"><div class="event-title"><span>${result.data.events[i].name}</span></div>
-                            <div class="event-hostedby"><i class="fas fa-user-tie"></i><span>Hosted by ${result.data.events[i].hostedBy}</span></div>
+                            <div class="event-container-event-content">
+                                <div class="event-title"><span>${result.data.events[i].name}</span></div>
+                                <div class="event-hostedby"><i class="fas fa-user-tie"></i><span>Hosted by ${result.data.events[i].hostedBy}</span></div>
+                                <div class="event-action-btns">
+                                    <a href="${pageLink}" class="events-main-link event-edit-btn" data-hosted-by="${result.data.events[i].hostedBy}">Edit</a>
+                                    <a href="${pageLink}" class="events-main-link event-delete-btn" data-hosted-by="${result.data.events[i].hostedBy}">Delete</a>
+                                </div>
                             </div>
-                            <div class="event-container-arrow"><span style="display:inline-block" class="custom-event-button" data-hosted-by="${result.data.events[i].hostedBy}"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 33 35" style="enable-background:new 0 0 33 35;" xml:space="preserve">
-                                <style type="text/css">.paginationarrow{fill:none;stroke:#1075BC;stroke-width:3;stroke-miterlimit:10;}.paginationarrow-one{fill:#1075BC;}</style><g>
-                                <polyline class="paginationarrow" points="15.7,2.4 30.7,18.4 15.7,33.4 	"/><rect x="1.2" y="16.4" transform="matrix(-1 -4.488999e-11 4.488999e-11 -1 30.4722 35.7375)" class="paginationarrow-one" width="28" height="3"/></g>
-                            </svg> </span>
+                            <div class="event-container-arrow"><a href="${pageLink}" style="display:inline-block" class="custom-event-button" data-hosted-by="${result.data.events[i].hostedBy}">
+                                <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <rect width="25" height="25" fill="url(#pattern0)"/>
+                                    <defs>
+                                    <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+                                    <use xlink:href="#image0_4_172" transform="scale(0.0078125)"/>
+                                    </pattern>
+                                    <image id="image0_4_172" width="128" height="128" xlink:href="data:image/png;base64,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"/>
+                                    </defs>
+                                </svg>
+                                </a>
                             </div>
-                        </div></a>`;
+                        </div>`;
                     }
                     append_event_html += `<div class="pagination-wrapper"></div>`;
                     // append_event_html += `<div class="event-pagination"><span class="event-pre ${pre_class}" data-page="${pre_page-1}">Pre</span> <span class="event-next ${next_class}" data-page="${next_page}">Next</span></div>`;
@@ -421,22 +429,24 @@ function favoritelooks() {
                         }
 
                         if (result.data[i].url) {
-                            edit_link = `<span data-href="${result.data[i].url}" class="link edit-favorite-look-button">Edit look</span><span class="break"> | </span>`;
+                            edit_link = `<span data-href="${result.data[i].url}" class=" button button--primary btn-1 link edit-favorite-look-button">Edit look</span>`;
                         } else {
                             edit_link = ``;
                         }
                         append_fav_html += `<div class="look-container slider-lr-spacing-inner">
                         <div class="img-container product-slider-img">
                           <img src="${favorite_look_image}" alt="favourite-look-img">
+                          <a class="btn-customiser button button--primary">CUSTOMIZE</a>
                         </div>
                         <div class="look-img-title product-slider-title h3">
                             <span>${result.data[i].name}</span>
                         </div>
-                        <div class="look-changes product-slider-detail-edit">
-                          <span><a href="javascript:void(0)" data-favid="${result.data[i].id}" class="link addevent_fav">Add to Event</a></span>
-                          <span class="break"> | </span>
+                        <div class="delete-fav-wrap">
+                        <span><a href="javascript:void(0)" class="link delete_favorites" data-favid="${result.data[i].id} " >Remove</a></span>
+                        </div>
+                        <div class="look-changes btn-wrapper product-slider-detail-edit">
+                          <a href="javascript:void(0)" data-favid="${result.data[i].id}" class="link addevent_fav button button--primary">Add to Event</a>
                           ${edit_link}
-                          <span><a href="javascript:void(0)" class="link delete_favorites" data-favid="${result.data[i].id} " >Delete</a></span>
                         </div>
                         <share-button class="product-share-button product-small-share-icon">
                           <span class="share-button_label">
@@ -639,8 +649,15 @@ $(document).on('click', '.addevent_fav', function () {
 });
 $(document).on('click', '.tabs-nav li a', function (e) {
     e.preventDefault();
-    var siteHeaderHeight = $('.header-wrapper').height() + 10;
-    $('html, body').animate({ scrollTop: $($(this).attr('href')).position().top - siteHeaderHeight }, '1000');
+    let mainParent = ('.main-account-page');
+    let parent = $(this).closest('.tabs-nav');
+    $('li',parent).removeClass('active');
+    $(this).closest('li').addClass('active');
+    $('#tabs-content .tab-content',mainParent).removeClass('active');
+    let id = $(this).attr('href');
+    $(mainParent).find(id).addClass('active');
+    // var siteHeaderHeight = $('.header-wrapper').height() + 10;
+    // $('html, body').animate({ scrollTop: $($(this).attr('href')).position().top - siteHeaderHeight }, '1000');
 });
 $(document).on('change', '.add_eventlist_select', function () {
     $('p.event-option-error').remove();

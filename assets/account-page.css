@@ -1,0 +1,387 @@
+.main-account-page .page-top-head-background{
+    padding-bottom: 0;
+    margin-bottom: 60px;
+}
+.main-account-page .main-account-page-container{
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}
+.main-account-page .account-header{
+    padding: 18px 15px 0;
+    display: flex;
+    justify-self: space-between;
+}
+
+.main-account-page .account-header .account-left-section{
+    width: 100%;
+    max-width: 70%;
+}
+
+.main-account-page .account-header .account-left-section .page-title{
+    font-size: 16px;
+    margin: 0 0 15px;
+}
+.main-account-page .account-header .account-left-section .tab-top-border{
+    border: none;
+}   
+.main-account-page .account-header .account-left-section .tab-top-border .page-width{
+    padding: 0;
+}
+.main-account-page .account-header .account-left-section .tab-top-border .tabs-nav{
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.main-account-page .account-header .account-left-section .tab-top-border .tabs-nav li{
+    margin-right: 10px;
+}
+.main-account-page .account-header .account-left-section .tab-top-border .tabs-nav li a{
+    display: block;
+    background: #2A83C0;
+    padding: 8px 17px;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+.main-account-page .account-header .account-left-section .tab-top-border .tabs-nav li.active a{
+    background: #fff;
+    color: var(--color-primary);
+    font-weight: 400;
+}
+
+.main-account-page .account-header .account-right-section{
+    width: 100%;
+    max-width: 30%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+.main-account-page .account-header .account-right-section  .user-profile-logo{
+    margin: 0;
+    background: #D2D1D1;
+    padding: 8px;
+    color: #001F49;
+    font-weight: bold;
+    font-size: 24px;
+}
+.main-account-page .account-header .account-right-section .user-info-top {
+    padding: 0;
+    margin-left: 10px;
+    display: block;
+}
+.main-account-page .account-header .account-right-section .user-info-top .user-name{
+    font-size: 16px;
+    margin: 6px 0 0;
+    font-weight: 300;
+}
+.main-account-page .account-header .account-right-section .user-info-top .user-name .user-full-name{
+    font-weight: 500;
+}
+#acc-tabs-wr.main-account-page .account-header .account-right-section .user-info-top  .account-logout-btn{
+    font-weight: 300;
+    font-size: 14px;
+    margin: 0;
+    position: static;
+    transform: translateY(0);
+}
+
+
+.main-account-page #tabs-content .tab-content{
+    display: none;
+}
+.main-account-page #tabs-content .tab-content.active{
+    display: block;
+}
+.main-account-page #tabs-content .tab-content .content-title{
+    font-size: 24px;
+    padding: 0;
+    margin-bottom: 40px;
+    text-align: center;
+}
+.main-account-page #tabs-content .tab-content .content-title:before{
+    display: none;
+}
+
+.main-account-page #tabs-content .tab-content .my-size-block-main .my-size-block .img-section{
+    padding: 0;
+    position: relative;
+    min-height: 350px;
+    background: #c4c4c4;
+    display: flex;
+    padding-top: 20px;
+    justify-content: center;
+    align-items: flex-start;
+}
+.main-account-page #tabs-content .tab-content .my-size-block-main .my-size-block .img-section img{
+    position: static;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+.main-account-page #tabs-content .tab-content .my-size-block-main .my-size-block .block-info{
+    background: linear-gradient(0deg, #FFFFFF, #FFFFFF);
+    bottom: 8PX;
+    background: linear-gradient(0deg,#FFFFFF,#FFFFFF);
+    bottom: 8PX;
+    max-width: calc(100% - 16px);
+    margin: 0 auto;
+    left: 50%;
+    padding: 15px;
+    transform: translateX(-50%);
+    min-height: 98px;
+}
+.main-account-page #tabs-content .tab-content .my-size-block-main .my-size-block .block-info .block-title{
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: var(--color-primary);
+    text-align: left;
+}
+.main-account-page #tabs-content .tab-content .my-size-block-main .my-size-block .block-info .size-wrap{
+    font-size: 14px;
+    color: var(--color-primary);
+    text-align: left;
+    font-weight: 400;
+}
+.main-account-page #tabs-content .tab-content .my-size-block-main .my-size-block .block-info .size-wrap span{
+    color: var(--color-primary);
+    display: block;
+    line-height: 1.4;
+}
+
+.main-account-page #tabs-content .tab-content .my-size-block-main .my-size-block .block-info .acc-edit-size-main{
+    display: none;
+}
+.main-account-page #tabs-content .tab-content .btn-wrapper{
+    margin: 0;
+    text-align: center;
+}
+.main-account-page #tabs-content .tab-content .btn-wrapper .button{
+    width: 214px;
+    max-width: 100%;
+    height: 50px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+.main-account-page #tabs-content .tab-content .btn-wrapper .btn-1 {
+    border-color: #001F49;
+    color: #001F49;
+    background: #fff;
+}   
+.main-account-page #tabs-content .tab-content .btn-wrapper .btn-1:hover{
+    background: #001F49;
+    color: #fff;
+}
+.main-account-page #tabs-content .tab-content .btn-wrapper .btn-1 svg{
+    display: none;
+}
+.main-account-page #tabs-content .tab-content  .btn-wrapper .continue-btn i{
+    display: none;
+}
+
+.main-account-page #tabs-content .tab-content .my-event-wrapper{
+    background: transparent;
+}
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner{
+    padding: 0;
+}
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .left-side-content{
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .event-types-btn-wrap{
+    font-size: 14px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 50px;
+}
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .event-types-btn-wrap span{
+    font-size: 14px;
+    border: 1px solid #001F49;
+    border-radius: 50px;
+    padding: 8px 18px;
+    color: #001F49;
+    font-weight: 400;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .event-types-btn-wrap span.active{
+    background: #001F49;
+    color: #fff;
+}
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .right-side-content{
+    display: none;
+}
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .event-list-top{
+    display: none;
+}
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container{
+    min-height: auto;
+    margin-bottom: 50px;
+}
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .events-container{
+    border: 1px solid #001F49;
+    padding: 10px 18px;
+    padding-right: 25px;
+    display: flex;
+}
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .events-container .event-container-date{
+    margin: 0;
+    background: #D2D1D1;
+    padding: 8px;
+    color: #001f49;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1;
+    width: 100%;
+    max-width: 72px;
+}
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .events-container .event-container-date span{
+    color: #001f49;
+    font-size: 16px;
+}
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .events-container .event-container-event-content{
+    width: 100%;
+    max-width: calc(100% - 72px - 25px - 20px);
+}
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .events-container .event-container-event-content .event-title{
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .events-container .event-container-event-content .event-action-btns{
+    line-height: 1;
+}
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .events-container .event-container-event-content .event-action-btns .events-main-link{
+    font-size: 14px;
+    line-height: 1;
+    margin-right: 12px;
+    padding-bottom: 2px;
+    text-decoration: underline;
+}
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .events-container .event-container-event-content .event-action-btns .event-edit-btn{
+    color: #001F49;
+}
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .events-container .event-container-event-content .event-action-btns .event-delete-btn{
+    color: #F50000;
+}
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .events-container .event-container-event-content .event-hostedby{
+    display: none;
+}
+
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .events-container .event-container-arrow{
+    width: 100%;
+    max-width: 25px;
+    margin: 0;
+    padding: 0;
+}
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .events-container .event-container-arrow svg{
+    width: 25px;
+    height: 25px;
+}
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .events-container .event-container-image{
+    display: none;
+}
+
+.main-account-page #tabs-content .tab-content .feature-looks-slider{
+    max-width: 960px;
+    margin: 0 auto;
+}
+.main-account-page #tabs-content .tab-content .feature-looks-slider .look-container{
+}
+
+.main-account-page #tabs-content .tab-content .feature-looks-slider .look-container .img-container{
+    padding: 0;
+    background: #f5f5f5;
+    position: relative;
+    margin-bottom: 12px;
+}
+.main-account-page #tabs-content .tab-content .feature-looks-slider .look-container .img-container .btn-customiser{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 214px;
+    width: 100%;
+    font-size: 14px;
+    height: 40px;
+}
+.main-account-page #tabs-content .tab-content .feature-looks-slider .look-container .img-container img{
+    position: static;
+}
+
+.main-account-page #tabs-content .tab-content .feature-looks-slider .look-container .look-img-title{
+    font-size: 18px;
+    margin: 0;
+    color: #001F49;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.main-account-page #tabs-content .tab-content .feature-looks-slider .look-container .delete-fav-wrap{
+    text-align: center;
+    margin-bottom: 15px;
+}
+.main-account-page #tabs-content .tab-content .feature-looks-slider .look-container .delete-fav-wrap a{
+    display: inline-block;
+    font-size: 14px;
+    padding-bottom: 2px;
+    text-decoration: underline;
+    color: #001F49;
+    font-weight: 400;
+    line-height: 1;
+    cursor: pointer;
+}
+.main-account-page #tabs-content .tab-content .feature-looks-slider .look-container .look-changes.product-slider-detail-edit{
+    display: flex;
+    justify-content: space-between;
+}
+.main-account-page #tabs-content .tab-content .feature-looks-slider .look-container .look-changes.product-slider-detail-edit .button{
+    width: calc(50% - 6px);
+    padding: 0;
+    min-width: auto;
+}
+.main-account-page #tabs-content .tab-content .feature-looks-slider .look-container  .product-share-button{
+    display: none;
+}
+
+@media(max-width:767px){
+    .main-account-page .account-header{
+        flex-direction: column-reverse;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .main-account-page .account-header .account-left-section,.main-account-page .account-header .account-right-section{
+        width: 100%;
+        max-width: 100%;
+        justify-content: center;
+    }
+    .main-account-page .account-header .account-right-section{
+        margin-bottom: 12px;
+    }
+    .main-account-page .account-header .account-left-section{
+        text-align: center;
+    }
+
+    .main-account-page .account-header .account-left-section .tab-top-border{
+        display: block;
+    }
+    .main-account-page .account-header .account-left-section .tab-top-border .tabs-nav{
+        display: block;
+        white-space: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        overflow-y: hidden;
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+    .main-account-page .account-header .account-left-section .tab-top-border .tabs-nav::-webkit-scrollbar {
+        display: none;
+    }
+    .main-account-page .account-header .account-left-section .tab-top-border .tabs-nav li{
+        display: inline-block;
+    }
+}
