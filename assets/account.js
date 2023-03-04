@@ -369,10 +369,10 @@ $(document).on("click", ".events-main-container .custom-event-button, .events-ma
 
 //event List pagination 
 $(document).on('click', '.count-number', function () {
-    $(".count-number").removeClass("current");
+    let parent = $(this).closest('.event-container-wrapper');
+    $(".count-number",parent).removeClass("current");
     $(this).addClass("current")
     let page = $(this).attr('data-page');
-    let parent = $(this).closest('.event-container-wrapper');
     $('.events-container',parent).removeClass('active');
     $(`.events-container[data-value="${page}"]`,parent).addClass('active');
     // var nextpage = $(this).data('page');
@@ -450,9 +450,12 @@ function favoritelooks() {
                     var edit_link = '';
                     // result.data[1] = result.data[0];
                     // result.data[2] = result.data[0];
-                    // result.data[3] = result.data[0];
-                    // result.data[4] = result.data[0];
+                    result.data[3] = result.data[0];
+                    result.data[4] = result.data[0];
+                    result.data[5] = result.data[0];
+                    result.data[6] = result.data[0];
                     result.data = result.data.reverse();
+                    debugger;
                     for (var i = 0; i < result.data.length; i++) {                        
                         if (result.data[i].look_image) {
                             favorite_look_image = result.data[i].look_image;
@@ -719,6 +722,7 @@ $(document).on('click', '.tabs-nav li a', function (e) {
     $('#tabs-content .tab-content',mainParent).removeClass('active');
     let id = $(this).attr('href');
     $(mainParent).find(id).addClass('active');
+    history.pushState({}, null, `${window.location.pathname}?tab=${id.replace('#','')}`);
     if(id == '#tab-3'){
         $('.feature-looks-slider').slick('refresh');
     }
@@ -1331,3 +1335,22 @@ if(localStorage.getItem("event-or-fav-when-user-has-not-logged")=='true'){
     localStorage.removeItem("event-or-fav-when-user-has-not-logged");
     theme_custom.checkProductLinkAvailable();
 }
+theme_custom.accountActiveTabs = function(){
+    var urlParams = new URLSearchParams(window.location.search);
+    var dataId = urlParams.get('tab');
+    if (dataId) {
+        dataId= "#" + dataId;
+        let mainParent = ('.main-account-page');
+        let parent = $('.tabs-nav');
+        $('li',parent).removeClass('active');
+        $(`a[href="${dataId}"]`).closest('li').addClass('active');
+        $('#tabs-content .tab-content',mainParent).removeClass('active');
+        $(mainParent).find(dataId).addClass('active');
+        if(dataId == '#tab-3'){
+            $('.feature-looks-slider').slick('refresh');
+        }
+    }
+}
+$(document).ready(function(){
+    theme_custom.accountActiveTabs()
+})

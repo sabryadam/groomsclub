@@ -1,3 +1,17 @@
+.main-account-page .loading-overlay__spinner{
+    min-height: 250px;
+    position: static;
+    transform: translate(0,0);
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.main-account-page .loading-overlay__spinner svg{
+    width: 3rem;
+}
+
+
 .main-account-page .page-top-head-background{
     padding-bottom: 0;
     margin-bottom: 60px;
@@ -381,6 +395,9 @@
 }
 .main-account-page #tabs-content .tab-content .feature-looks-slider .look-container  .product-share-button{
     display: none;
+}
+.main-account-page #tabs-content .tab-content .feature-looks-slider .slick-arrow.slick-disabled{
+    display: none !important;
 }
 .main-account-page-container .pagination-wrapper span.count-number.current{
     color: #001f49;
