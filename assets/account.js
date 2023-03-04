@@ -1,3 +1,5 @@
+// const { ready } = require("jquery");
+
 // constant define
 const API_URL = theme_custom.api_base_url;
 // const APP_Token = "Bearer XtkRwrz3zIljk6FsH74pnGAIwPkgQouqz9kM4XOEm3MsP6F0FwtaVc3oKxQbGdxbAF9uD1lYj3HnDvst22Z1SnAycTBYT0RHRA";
@@ -457,7 +459,11 @@ function favoritelooks() {
                         }
 
                         if (result.data[i].url) {
+<<<<<<< HEAD
                             edit_link = `<span data-href="${result.data[i].url}" class="btn-customiser button button--primary edit-favorite-look-button">CUSTOMIZE</span>`;
+=======
+                            edit_link = `<span data-href="${result.data[i].url}" edit-look-id="${result.data[i].id}" edit-look-name="${result.data[i].name}" class="link edit-favorite-look-button">Edit look</span><span class="break"> | </span>`;
+>>>>>>> e926c69d7ac767b0530f060d7be094e470257227
                         } else {
                             edit_link = ``;
                         }
@@ -589,6 +595,8 @@ $(document).on("click", ".edit-favorite-look-button", function () {
     window.location.href = getRediectUrl;
     localStorage.setItem("customizerlookFrom", "exiting-looks");
     localStorage.setItem("customizerlookUrl", getRediectUrl.split("?")[1]);
+    localStorage.setItem("editLookId",$(this).attr("edit-look-id"));
+    localStorage.setItem("editLookName",$(this).attr("edit-look-name"));
 });
 
 $(document).on('click', '.delete_favorites', function () {
@@ -1322,3 +1330,8 @@ $('.edit-size-popup .step-wrapper input[type=radio]').on('change', function () {
     $(this).closest('.step-wrapper').find(".error-message").remove();
     $(this).closest('.edit-size-popup').find(".update-my-size").removeClass("disabled");
 });
+
+if(localStorage.getItem("event-or-fav-when-user-has-not-logged")=='true'){
+    localStorage.removeItem("event-or-fav-when-user-has-not-logged");
+    theme_custom.checkProductLinkAvailable();
+}

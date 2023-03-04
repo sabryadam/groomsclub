@@ -642,7 +642,7 @@ theme_custom.themeSlider = function () {
     speed: 300,
     autoplaySpeed: 1000,
     cssEase: 'ease-in-out',
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 1,
     //fade: true,
     responsive: [{
@@ -687,12 +687,12 @@ theme_custom.themeSlider = function () {
     dots: dots,
     arrows: arrow,
     infinite: loop,
-    autoplay: autoplay,
+    autoplay: false,
     prevArrow: "<img alt='slider-prev'  class='slick-prev pull-left' src='https://cdn.shopify.com/s/files/1/0588/4700/2812/files/slider_arrow_left.png?v=1631874486'>",
     nextArrow: "<img alt='slider-next'  class='slick-next pull-right' src='https://cdn.shopify.com/s/files/1/0588/4700/2812/files/slider_arrow_right.png?v=1631874485'>",
     speed: 500,
     autoplaySpeed: 2000,
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 1,
     responsive: [{
       breakpoint: 768,
@@ -1127,6 +1127,13 @@ theme_custom.submitEvent = function () {
 }
 // theme_custom.clickEvent
 theme_custom.clickEvent = function () {
+  // Top look fav and event click on user has not logged 
+  $(document).on("click",".event-or-fav-when-user-has-not-logged", function(){
+    localStorage.setItem("event-or-fav-when-user-has-not-logged","true");
+    localStorage.setItem("previous-page-link","true");
+    localStorage.setItem("previous-page-link",window.location.href);
+    window.location.href = `${$(this).attr("data-href")}?checkout_url=${window.location.href}`;
+  }); 
 
 
   $(document).on("click",".event-or-fav-when-user-has-not-logged", function(e){
