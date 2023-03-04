@@ -1671,7 +1671,7 @@ theme_custom.getEventDetails = function () {
           $('#weddingevent_id').val(result.data.event_id);
 
           if(result.data.is_host == 1){
-            $(".schedule-button-part").removeClass("hidden");
+            // $(".schedule-button-part").removeClass("hidden");
             if($('.schedule-button-part a').attr('href').indexOf('event_id=') == -1){
               $('.schedule-button-part a').attr('href',$('.schedule-button-part a').attr('href')+'?event_id='+result.data.event_id);
             }
