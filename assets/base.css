@@ -10641,3 +10641,6 @@ p.removing-combine-message
     justify-content: right;
   }
 }
+.collection .collection-product-count{
+  display: none;
+}
