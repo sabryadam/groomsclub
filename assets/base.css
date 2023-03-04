@@ -10630,7 +10630,7 @@ p.removing-combine-message
 }
 
 @media(min-width:1025px){
-  .header__heading{
+  .header__heading,.header__heading-link{
     width: 18%;
   }
   .header__inline-menu {
