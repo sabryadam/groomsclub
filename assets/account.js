@@ -7,7 +7,7 @@ const loader_content = `<div class="loading-overlay__spinner">
                                 <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
                             </svg>
                         </div>`;
-
+theme_custom.favLooksData = [];
 theme_custom.checkProductLinkAvailable = function () {
     if (localStorage.getItem("previous-page-link") == "true") {
         var productLink = localStorage.getItem("page-link");
@@ -442,6 +442,8 @@ function favoritelooks() {
             $('.feature-looks-slider-loader').remove();
             if (result.success) {
                 if (result.data.length > 0) {
+                    theme_custom.favLooksData = result.data;
+                    console.log("result.data",result.data);
                     var append_fav_html = "";
                     $('.feature-looks-slider').html(append_fav_html);
                     var edit_link = '';
@@ -468,7 +470,7 @@ function favoritelooks() {
                         <span><a href="javascript:void(0)" class="link delete_favorites" data-favid="${result.data[i].id} " >Remove</a></span>
                         </div>
                         <div class="look-changes btn-wrapper product-slider-detail-edit">
-                          <a  class="button button--primary">Add to Cart</a>
+                          <a  class="button button--primary fav-look-add-to-cart" data-index="${i}">Add to Cart</a>
                           <a href="javascript:void(0)" data-favid="${result.data[i].id}" class="link addevent_fav button button--primary btn-1 link">ADD TO EVENT</a>
                         </div>
                         <share-button class="product-share-button product-small-share-icon">
@@ -595,6 +597,36 @@ $(document).on('click', '.delete_favorites', function () {
 
 });
 
+$(document).on('click','.feature-looks-slider .fav-look-add-to-cart',function(){
+    let index = parseInt($(this).attr('data-index'));
+    let data = theme_custom.favLooksData[index];
+    let lookItems = data.items;
+    let items = [];
+    lookItems.forEach((item)=>{
+        items.push({
+            'id':item.variant_id,
+             'quantity': 1
+        })
+    })
+
+    let formData = {items};
+    fetch(window.Shopify.routes.root + 'cart/add.js', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then((data)=>{
+        window.location.href = '/cart';
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+})
 // End Delete the favorite looks
 
 //Add to Event for favorite Looks
@@ -607,6 +639,7 @@ function addtoeventlist(favid) {
         "host": 0,
         "limit": 100
     };
+
     $.ajax({
         url: event_api_url,
         method: "POST",
@@ -679,6 +712,9 @@ $(document).on('click', '.tabs-nav li a', function (e) {
     $('#tabs-content .tab-content',mainParent).removeClass('active');
     let id = $(this).attr('href');
     $(mainParent).find(id).addClass('active');
+    if(id == '#tab-3'){
+        $('.feature-looks-slider').slick('refresh');
+    }
     // var siteHeaderHeight = $('.header-wrapper').height() + 10;
     // $('html, body').animate({ scrollTop: $($(this).attr('href')).position().top - siteHeaderHeight }, '1000');
 });

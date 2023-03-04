@@ -191,6 +191,7 @@
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
+    padding: 0;
 }
 .main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .event-types-btn-wrap{
     font-size: 14px;
