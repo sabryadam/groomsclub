@@ -616,6 +616,21 @@ theme_custom.tlpclickEvent = function(){
   });
 
   $(document).on("click", ".add-event-look", function(){
+    if($(".error-message.error-show").length > 0) {
+      let parent = $(".error-message.error-show").closest('.product-data-card');
+      if(parent.length>0){
+        $('html, body').stop().animate({
+          'scrollTop': $(parent).offset().top - $("#shopify-section-header").height() + 10
+        }, "slow");
+        return false;
+      }
+      else{
+        $('html, body').stop().animate({
+          'scrollTop': $(".error-message.error-show").offset().top - $("#shopify-section-header").height() + 10
+        }, "slow");
+        return false;    
+      }
+    } 
     $("html,body").css("overflow","hidden");
     $(".page-loader").removeClass("hidden");
     var modalTarget = $(this).closest(".product__info-container").find(".create-event-look");
