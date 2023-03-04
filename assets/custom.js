@@ -569,7 +569,7 @@ theme_custom.featureLooksSlider = function () {
       }
     },
     {
-      breakpoint: 300,
+      breakpoint: 767,
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1
