@@ -638,6 +638,21 @@ theme_custom.tlpclickEvent = function(){
   });
 
   $(document).on("click", ".favorite-event-button", function(){
+    if($(".error-message.error-show").length > 0) {
+      let parent = $(".error-message.error-show").closest('.product-data-card');
+      if(parent.length>0){
+        $('html, body').stop().animate({
+          'scrollTop': $(parent).offset().top - $("#shopify-section-header").height() + 10
+        }, "slow");
+        return false;
+      }
+      else{
+        $('html, body').stop().animate({
+          'scrollTop': $(".error-message.error-show").offset().top - $("#shopify-section-header").height() + 10
+        }, "slow");
+        return false;    
+      }
+    } 
     // console.log("favorutie working");
     $(`[name="look-name"]`).val('');
     $(".page-loader").removeClass("hidden");
@@ -720,10 +735,19 @@ theme_custom.tlpclickEvent = function(){
       return false;
     }
     if($(".error-message.error-show").length > 0) {
-      $('html, body').stop().animate({
-        'scrollTop': $('#suit_fit_finder').offset().top - $("#shopify-section-header").height() + 10
-      }, "slow");
-      return false;
+      let parent = $(".error-message.error-show").closest('.product-data-card');
+      if(parent.length>0){
+        $('html, body').stop().animate({
+          'scrollTop': $(parent).offset().top - $("#shopify-section-header").height() + 10
+        }, "slow");
+        return false;
+      }
+      else{
+        $('html, body').stop().animate({
+          'scrollTop': $(".error-message.error-show").offset().top - $("#shopify-section-header").height() + 10
+        }, "slow");
+        return false;    
+      }
     } 
     var button = $(this),
     orderType = $(".order-type").val();
