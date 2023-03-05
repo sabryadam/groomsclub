@@ -450,12 +450,12 @@ function favoritelooks() {
                     var edit_link = '';
                     // result.data[1] = result.data[0];
                     // result.data[2] = result.data[0];
-                    result.data[3] = result.data[0];
-                    result.data[4] = result.data[0];
-                    result.data[5] = result.data[0];
-                    result.data[6] = result.data[0];
+                    // result.data[3] = result.data[0];
+                    // result.data[4] = result.data[0];
+                    // result.data[5] = result.data[0];
+                    // result.data[6] = result.data[0];
                     result.data = result.data.reverse();
-                    debugger;
+                    // debugger;
                     for (var i = 0; i < result.data.length; i++) {                        
                         if (result.data[i].look_image) {
                             favorite_look_image = result.data[i].look_image;
@@ -471,6 +471,7 @@ function favoritelooks() {
                           <img src="${favorite_look_image}" alt="favourite-look-img">
                           ${edit_link}
                         </div>
+                        <div>
                         <div class="look-img-title product-slider-title h3">
                             <span>${result.data[i].name}</span>
                         </div>
@@ -480,6 +481,7 @@ function favoritelooks() {
                         <div class="look-changes btn-wrapper product-slider-detail-edit">
                           <a  class="button button--primary fav-look-add-to-cart" data-index="${i}">Add to Cart</a>
                           <a href="javascript:void(0)" data-favid="${result.data[i].id}" class="link addevent_fav button button--primary btn-1 link">ADD TO EVENT</a>
+                        </div>
                         </div>
                         <share-button class="product-share-button product-small-share-icon">
                           <span class="share-button_label">
