@@ -1,0 +1,67 @@
+{% layout none %}
+{%- paginate collection.products by 4 -%}
+  {%- for product in collection.products -%}
+    <div class="product-card">
+      <div class="img">
+        <a href="{{ product.url }}" target="_blank" tabindex="0" title="{{ product.title}}">
+          <img src="{{ product.featured_image | product_img_url : 'master' }}" alt="{{ product.title }}" />
+        </a>
+      </div>
+      <div class="product-info">
+        <div class="item-data-wrapper">
+          {% assign suitProductHandle = product.metafields.my_fields.jacket_pants_title | downcase | handleize | strip -%}
+          {% assign suitProductHandleData = all_products[suitProductHandle] %}
+          <div class="product-data-card" data-product-handle="{{ suitProductHandleData.handle }}" data-product-type="{{ suitProductHandleData.type }}">
+            <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ suitProductHandleData.selected_or_first_available_variant.id }}">
+            <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ suitProductHandleData.selected_or_first_available_variant.id }}">
+            <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ suitProductHandleData.handle}}">
+          </div>
+          {% assign customLookProducts = product.metafields.custom_look %}
+          {% assign metaDataSize =  customLookProducts.size | minus : 1 %}
+          {%- for i in (i..metaDataSize) -%}
+            {%- assign customLookProd = 'products-' | append : i -%}
+            {%- assign productHandleArr = product.metafields.custom_look[customLookProd] -%}
+            {%- if productHandleArr contains '?variant=' -%}
+              {%- assign productHandleVal = productHandleArr | split : ','  -%}
+              {%- for producthandleitem in productHandleVal -%}
+                {%- assign prodHandle = producthandleitem | split: '?' | first -%}
+                {%- assign prodVarId = producthandleitem | split: '?' | last | remove: 'variant=' | plus: 0 -%}
+                {%- assign getProduct = all_products[prodHandle] -%}
+                <div data-target="with-variant" class="product-data-card" data-product-handle="{{ getProduct.handle }}" data-product-type="{{ getProduct.type }}">
+                  <input type="hidden" class="looks-product-id" value="{{ getProduct.id }}" />
+                  <input type="hidden" class="looks-product-var-id" value="{{ getProduct.selected_or_first_available_variant.id }}" />
+                  <input type="hidden" class="looks-product-handle" value="{{ getProduct.handle }}" />
+                </div>
+              {%- endfor -%}
+            {%- else -%}
+              {%- assign productHandleVal = productHandleArr | split : ',' -%}
+              {%- for producthandleitem in productHandleVal -%}
+                {%- assign producthandleitemData = producthandleitem -%}
+                {%- assign suitGetProduct = all_products[producthandleitemData] -%}
+                <div data-target="with-out-variant" class="product-data-card" data-product-handle="test-{{ producthandleitemData }}" data-product-type="{{ suitGetProduct.type }}">
+                  <input type="hidden" class="looks-product-id" value="{{ suitGetProduct.id }}" />
+                  <input type="hidden" class="looks-product-var-id" value="{{ suitGetProduct.selected_or_first_available_variant.id }}" />
+                  <input type="hidden" class="looks-product-handle" value="{{ suitGetProduct.handle }}" />
+                </div>
+              {%- endfor -%}
+            {%- endif -%} 
+          {%- endfor -%}
+        </div>
+        <h4 class="product-title">{{ product.title }}</h4>
+        <p class="product-price">Starting at {{ product.price | money }}</p>
+        <p class="taxes-text">Price includes suit jacket and pants</p>
+        <button class="button button--secondary look-added-into-event" data-text="Adding...">Add To Event</button>
+      </div>
+    </div>
+  {%- endfor -%}
+  <div class="pagination-custom">
+    {% if paginate.previous %}
+      {% assign prev_page = paginate.previous.url | split : '?' | last  %}
+      <button class="button button--secondary custom-paginate-next" data-href="{{ collection.url }}?{{ prev_page }}" title="{{ paginate.prev.title }}">Previous</a>
+    {% endif %}
+    {% if paginate.next  %}
+      {% assign next_page = paginate.next.url | split : '?' | last  %}
+      <button class="button button--secondary custom-paginate-next" data-href="{{ collection.url }}?{{ next_page }}" title="{{ paginate.next.title }}">Next</button>
+    {% endif %}
+  </div>
+{%- endpaginate -%}

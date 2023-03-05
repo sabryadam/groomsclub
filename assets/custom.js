@@ -1372,11 +1372,7 @@ theme_custom.clickEvent = function () {
       success: function () {
         setTimeout(() => {
           setCookie("fit-finder-data", '');
-          localStorage.removeItem("save-fit-finder-flag");
-          localStorage.removeItem("edit-fit-finder");
-          localStorage.removeItem("save-fit-finder-flag-replace");
-          localStorage.removeItem("userHasLogged");
-          theme_custom.removeLocalStorage();
+          localStorage.clear();
           window.location.href = '/account/logout';
         }, 100);
       },

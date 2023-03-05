@@ -1,5 +1,10 @@
 <!-- Event page new design section -->
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
+{%- unless customer -%}
+<script>
+  window.location.href = '/account/login';
+</script>
+{%- endunless -%}
 <section class="event-page-new-design-wrapper page-width">
   <div class="loader-wrapper">
     <div class="loading-overlay__spinner">

@@ -560,6 +560,7 @@ $(document).on("click", ".edit-favorite-look-button", function () {
     localStorage.setItem("customizerlookUrl", getRediectUrl.split("?")[1]);
     localStorage.setItem("editLookId",$(this).attr("edit-look-id"));
     localStorage.setItem("editLookName",$(this).attr("edit-look-name"));
+    localStorage.setItem("look-for-favourite","look-for-favourite");
 });
 
 $(document).on('click', '.delete_favorites', function () {
