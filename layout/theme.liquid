@@ -118,7 +118,7 @@
   --color-button-primary: #001f49;
   --color-button-light-blue: #1075bc;
   --color-button-white:#fff;
-  --font-button: 1.6rem;
+  --font-button: 1.2rem;
   --color-base-text: {{ settings.colors_text }};
   --color-base-text-rgb: {{ settings.colors_text | color_to_rgb | remove: 'rgb(' | remove: ')' }};
   --color-base-background-1: {{ settings.colors_background_1 }};
@@ -170,6 +170,11 @@
   body {
   font-size:var(--font-size-body);
   }
+  }
+  @media only screen and (max-width: 767px) {
+    body {
+    font-size: calc(var(--font-size-body) - 2px);
+    }
   }
   @media screen and (max-width:1199px) and (min-width:768px) {
   body {font-size: calc(var(--font-h6) - 2px);}
