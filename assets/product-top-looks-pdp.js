@@ -497,7 +497,7 @@ theme_custom.favouriteLookApi = function(lookName,lookUrl,produArray,button){
   });
 }
 
-theme_custom.favoriteButtonEvent = function(button,productArray){
+theme_custom.favoriteButtonEvent = function(button,productArray,lookURL){
   var error_count = 0,
       button = button;
   error_count = error_count + theme_custom.textValidationWithSpacialChar(button.closest(".favourite-look-wrapper").find('[name="look-name"'));
@@ -509,7 +509,7 @@ theme_custom.favoriteButtonEvent = function(button,productArray){
     button.addClass("disabled");
     // button.text(button.data("text"));
     var lookName = button.closest(".favourite-look-wrapper").find("#look-name").val(),
-        lookUrl = $("#product-url").val();
+        lookUrl = `/pages/customize-your-look?${lookURL}`;
         produArray = productArray;
     theme_custom.favouriteLookApi(lookName,lookUrl,produArray,button);
   }
@@ -658,8 +658,8 @@ theme_custom.tlpclickEvent = function(){
     $(".page-loader").removeClass("hidden");
     var target = $(".favourite-look-wrapper");
     var productDataCardArr = $(".bundle-product-wrapper .product-data-card"),
-        dataObj = {};
-    theme_custom.prodArray = [],
+    dataObj = {};
+    theme_custom.prodArray = [];
     productDataCardArr.each(function(){
       dataObj = {
         "product_id": $(this).find(".looks-product-id").val(),
@@ -671,6 +671,28 @@ theme_custom.tlpclickEvent = function(){
       theme_custom.prodArray.push(dataObj);
       // console.log(" theme_custom.prodArray", theme_custom.prodArray);
     });
+    theme_custom.customizeURLData  = '';
+    theme_custom.customizeURLData += $(`.product-data-card-wrap[data-product-type="looks"]`).find(".looks-product-handle").val() + '=' + $(`.product-data-card-wrap[data-product-type="looks"]`).find(".looks-product-var-id").val() + '&';
+    $.each(productDataCardArr, function(index, value) {
+      var customizeURL = ''
+      var isLastElement = index == productDataCardArr.length -1;
+      if (isLastElement) {
+        customizeURL = $(this).find(".looks-product-handle").val() + '=' + $(this).find(".looks-product-var-id").val();
+      } else {
+        customizeURL = $(this).find(".looks-product-handle").val() + '=' + $(this).find(".looks-product-var-id").val() + '&';
+      }
+      theme_custom.customizeURLData += customizeURL;
+    });
+    // .each(function(index, value) {
+    //   var customizeURL = ''
+    //   if (productDataCardArr === index.length - 1){ 
+    //     console.log("isLastElement");
+    //     customizeURL = $(this).find(".looks-product-handle").val() + '=' + $(this).find(".looks-product-var-id").val();
+    //   } else {
+    //     customizeURL = $(this).find(".looks-product-handle").val() + '=' + $(this).find(".looks-product-var-id").val() + '&';
+    //   }
+    //   theme_custom.customizeURLData += customizeURL;
+    // });
     setTimeout(() => {
       $(".page-loader").addClass("hidden");
       $.fancybox.open(target);
@@ -683,7 +705,8 @@ theme_custom.tlpclickEvent = function(){
     button.addClass("disabled");
     button.find('.button-title').text(button.attr("data-text"));
     var productArray = theme_custom.prodArray;
-    theme_custom.favoriteButtonEvent(button,productArray);
+    var lookURL = theme_custom.customizeURLData;
+    theme_custom.favoriteButtonEvent(button,productArray,lookURL);
     
   })
 

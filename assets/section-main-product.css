@@ -4,7 +4,7 @@
 
 .product {
   margin: 0;
-  padding-bottom: 3.5rem;
+  padding-bottom: 0;
 }
 
 .product-section .product {
@@ -259,7 +259,7 @@ variant-selects {
 
 .product__info-container .product__description{
   margin: 2.2rem 0 2.4rem 0;
-  font-size: calc(var(--font-size-body) + 2px);
+  font-size: 16px;
   line-height: 28px;
 }
 
@@ -1096,7 +1096,7 @@ a.product__text {
 }
 
 @media screen and (max-width:590px) {
-  .product__info-container .product__description{font-size: var(--font-size-body);}
+  .product__info-container .product__description{font-size: var(--font-size-body) - 2px;}
 
   .product .product-main-image .slick-arrow {
     /* padding: 7px 7px; */
@@ -1155,8 +1155,16 @@ a.product__text {
 .when-customer-logged .bundle-product-wrapper .product-block-wrap .product-info .product-title,
 .when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-info .product-title{
   margin: 0;
+  font-size: 18px;
 }
 
+@media(max-width:767px){
+  .when-customer-logged .bundle-product-wrapper .product-block-wrap .product-info .product-title,
+  .when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-info .product-title{
+    margin: 0;
+    font-size: 16px;
+  } 
+}
 .when-customer-logged .bundle-product-wrapper .product-block-wrap .product-info .cta-button-wrap,
 .when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-info .cta-button-wrap{
   /* margin-top :  8px; */
@@ -1247,7 +1255,8 @@ a.product__text {
 .when-customer-logged  .product-form__buttons {
   margin-bottom: 34px;
 }
-.when-customer-logged .favorite-event-cart-wrapper{
+
+.product__info-wrapper .when-customer-logged .favorite-event-cart-wrapper{
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -1454,4 +1463,12 @@ a.product__text {
 .icontextblock_container .icontext_icon_image img{
   max-width: 50px;
   min-height: 50px;
+}
+@media only screen and (max-width: 767px) {
+  .when-customer-logged  .product-form__buttons {
+    margin-bottom: 15px;
+  } 
+  .product__info-wrapper .when-customer-logged .favorite-event-cart-wrapper{
+    margin-top: 0;
+  }
 }
