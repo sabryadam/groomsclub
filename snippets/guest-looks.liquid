@@ -165,6 +165,74 @@
   </div>
 </div>
 
+
+<div class="modal-wrapper" data-target="update-guest-popup">
+  <div class="modal-wrapper-inner-wrapper">
+    <h4 class="title">
+      <span class="heading">UPDATE GUEST</span>
+      <span class="close-icon">
+        <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/close_1.png" alt="close-icon" />
+      </span>
+    </h4>
+    <div class="add-guest-inner-wrapper invite-another-member-popup-wrapper">
+      <div class="grid_form">
+        <div class="form-outer-wrap">
+          <div class="field form-wrap">
+            <label class="hidden form-label field__label" for="personForm-FirstName">First name</label>
+            <input type="text" name="first_name" class="form_field field__input member-first-name" id="personForm-FirstName" autocomplete="given-name" placeholder="First name">
+            <input type="hidden" id="hiddenpersonForm_FirstName">
+            <span class="form-error"></span>
+          </div>
+  
+          <div class="field form-wrap">
+            <label class="hidden form-label field__label" for="personForm-LastName">Last name</label>
+            <input type="text" name="last_name" class="form_field field__input member-last-name" id="personForm-LastName" autocomplete="family-name" placeholder="Last name">
+            <input type="hidden" id="hiddenpersonForm_lastName">
+            <span class="form-error"></span>
+          </div>
+        </div>
+        <div class="form-outer-wrap hidden">
+          <div class="field form-wrap">
+            <label class="hidden form-label field__label" for="personForm-email">Email</label>
+            <input type="text" name="email" id="personForm-email" class="member-email form_email field__input" spellcheck="false" autocapitalize="off" autocomplete="email" aria-required="true" placeholder="Email">
+            <input type="hidden" id="hiddenpersonForm_email">
+            <span class="form-error"></span>
+          </div>
+
+          <div class="field form-wrap hidden">
+            <label class="hidden form-label field__label" for="personForm-telephone">
+              Phone
+            </label>
+            <input type="tel" name="phone" maxlength="14" minlength="10" id="personForm-telephone" class="member-phone field__input form_phone" spellcheck="false" autocapitalize="off" autocomplete="phone" aria-required="true" placeholder="Phone">
+            <input type="hidden" id="hiddenpersonForm_phone">
+            <span class="form-error"></span>
+          </div>
+        </div>
+      </div>
+      <div class="look-dropdown">
+        <h5>Selected Look : <span class="look-name"></span></h5>
+      </div>
+      <div class="field form-wrap custom-checkobx paying-wrap">
+        <label class="form-label field__label" for="personForm-email">
+          Are you paying for him?
+        </label>
+        <span class="custom_checkbox">
+          <input type="radio" id="yes" name="is_host_paying_update" value="I Pay" data-val="1">
+          <label class="checkbox-label" for="yes"> Yes</label>
+        </span>
+        <span class="custom_checkbox">
+          <input type="radio" id="No" name="is_host_paying_update" value="They Pay" data-val="0">
+          <label class="checkbox-label" for="No">No</label>
+        </span>
+        <span class="form-error">Please select</span>
+      </div>
+      <div class="field btn-fields">
+        <button class="button button--primary member-added-into-event update-guest">Update Guest</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="payment-confirmation-popup">
   <div class="custom-model-inner">
      <div class="close-btn">×</div>

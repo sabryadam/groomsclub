@@ -53,12 +53,23 @@ $(".member-added-into-event").click(function (e) {
   e.preventDefault();
   theme_custom.lookVal = $(this).closest(".add-guest-inner-wrapper").find(".look-name").attr("data-look-mapping-id")
   var parent = $(this).closest('.invite-another-member-popup-wrapper');
-
-  let isPay = 0;
-  if(parent.find('[name="is_host_paying"]:checked').length <= 0){
-    isPay = 1;
-    $('.paying-wrap .form-error').html('Please select who will pay').show();
+  var updateGuest = false;
+  if($(this).hasClass('update-guest')){
+    updateGuest = true
   }
+  let isPay = 0;
+  if(updateGuest){
+    if(parent.find('[name="is_host_paying_update"]:checked').length <= 0){
+      isPay = 1;
+      $('.paying-wrap .form-error').html('Please select who will pay').show();
+    }
+  }else{
+    if(parent.find('[name="is_host_paying"]:checked').length <= 0){
+      isPay = 1;
+      $('.paying-wrap .form-error').html('Please select who will pay').show();
+    }
+  }
+  
 
   var error_count = 0,
     eventId = localStorage.getItem("set-event-id"),
@@ -69,12 +80,12 @@ $(".member-added-into-event").click(function (e) {
   error_count = error_count + theme_custom.phoneValidation(parent.find('.member-phone'));
   error_count = error_count + isPay;
   if (error_count == 0) {
-    var memberFirstName = $(".member-first-name").val();
-    var memberLastName = $(".member-last-name").val();
-    var memberEmail = $(".member-email").val();
-    var memberPhone = $(".member-phone").val().replace('(','').replace(' ','').replace(')','').replace('-','');
+    var memberFirstName = $(".member-first-name",parent).val();
+    var memberLastName = $(".member-last-name",parent).val();
+    var memberEmail = $(".member-email",parent).val();
+    var memberPhone = $(".member-phone",parent).val().replace('(','').replace(' ','').replace(')','').replace('-','');
     // var InviteFormradio_val = $(".field.form-wrap.custom-checkobx span.custom_checkbox input[type=radio]:checked").val();
-    var hostPayInfo = $(".field.form-wrap.custom-checkobx span.custom_checkbox input[type=radio]:checked").data('val');
+    var hostPayInfo = $(".field.form-wrap.custom-checkobx span.custom_checkbox input[type=radio]:checked",parent).data('val');
   }
   var member_info_data = {
     "first_name": memberFirstName,
@@ -83,12 +94,19 @@ $(".member-added-into-event").click(function (e) {
     "phone": memberPhone,
     "is_host_paying": hostPayInfo
   }
-  console.log("member_info_data",member_info_data)
+  
+  let url = `${theme_custom.base_url}/api/event/addMember/${eventId}`;
+  let method = "POST"
+  if(updateGuest){
+    method = 'PUT';
+    url = `${theme_custom.base_url}/api/event/editMember/${eventId}/${$(this).attr('data-member-id')}`;
+  }
   if (error_count == 0) {
     $(this).addClass("disabled");
+    
     $.ajax({
-      url: `${theme_custom.base_url}/api/event/addMember/${eventId}`,
-      method: "POST",
+      url: url,
+      method: method,
       data: member_info_data,
       dataType: "json",
       crossDomain: true,
@@ -157,6 +175,7 @@ theme_custom.user = (user) =>{
       </div>
       <spa class="pay-status">${whoPay}</span>
     </div>
+    <script class='user-data-script'> ${JSON.stringify(user)} </script>
   </div>`
 }
 theme_custom.createLookHtml = (div,item, eventMembers, event_id) =>{
@@ -783,12 +802,48 @@ theme_custom.removeUserFromLook = (eventId,memberId) =>{
 }
 
 theme_custom.eventPageClickEvent = function(){
+  $(document).on('click', '.user-card-block .action-icon .edit-icon', function(event) {
+    let parent = $(this).closest('.look-card-block');
+    let data =$('.user-data-script',parent).html();
+    if(data){
+      data = JSON.parse(data);
+      let popup = $('[data-target="update-guest-popup"]');
+      let firstName = $('[name="first_name"]',popup);
+      let lastName = $('[name="last_name"]',popup);
+      let email = $('.member-email',popup);
+      let phone = $('.member-phone',popup);
+      let memberId = data.event_member_id;
+      let payHost = $('[name="is_host_paying_update"][data-val="1"]');
+      let payOther = $('[name="is_host_paying_update"][data-val="0"]');
+
+      firstName.val(data.first_name).trigger('change');
+      lastName.val(data.last_name).trigger('change');
+      email.val(data.email).trigger('change');
+      phone.val(data.phone.slice(2)).trigger('change');
+      if(data.is_host_paying.toLowerCase()=='self'){
+        $(payHost).prop('checked',true);
+      }else{
+        $(payOther).prop('checked',true);
+      }  
+      $(payHost).attr('id',`yes-${memberId}`);
+      $(payOther).attr('id',`no-${memberId}`);
+      $(payHost).closest('.custom_checkbox').find('label').attr('for',`yes-${memberId}`);
+      $(payOther).closest('.custom_checkbox').find('label').attr('for',`no-${memberId}`);
+      $('.update-guest',popup).attr('data-member-id',memberId)
+      popup.addClass('active');    
+    }
+    // let member_id = $(this).attr('data-member-id');
+    // let event_id = parent.attr('data-event-id');
+    // theme_custom.removeUserFromLook(event_id,member_id);
+  });
+
   $(document).on('click', '.user-card-block .action-icon .member-delete-icon', function(event) {
     let parent = $(this).closest('.look-card-block');
     let member_id = $(this).attr('data-member-id');
     let event_id = parent.attr('data-event-id');
     theme_custom.removeUserFromLook(event_id,member_id);
   });
+
   $(document).on('click', '.pay-info-confirmation-wrap .confirm-box-wrap .update-host-look', function(event) {
     let value = $(this).attr('data-value');
     let parent = $(this).closest('.look-card-block');
@@ -1017,6 +1072,7 @@ theme_custom.getEventDetails = function(){
       eventDataObj.eventType = result.data.event_type;
       eventDataObj.eventDate = result.data.event_date;
       eventDataObj.eventRole = result.data.event_role;
+
       // set Event Data
       $("#event-name").val(result.data.event_name);
       $("#event-type").val(result.data.event_type);
@@ -1034,7 +1090,9 @@ theme_custom.getEventDetails = function(){
       }
       $(`.Squer-radio-button-inner input[name="event-type"][value="${result.data.event_type}"]`).prop('checked', true);
       $(`.Squer-radio-button-inner input[name="event-role"][data-value="${result.data.event_role}"]`).prop('checked', true);
-      $('#event_date').val(result.data.event_date);
+      // $('#event_date').val(result.data.event_date);
+      $('.event-data-first-step').datepicker('setDate', new Date(result.data.event_date));
+
       $.each(result.data.event_members,function(index,value){
         if(value.is_host == "1"){
           eventDataObj.eventPhone = value.phone.replace("+1","");
@@ -1125,6 +1183,9 @@ theme_custom.checkUpdateEvent = function(checkEventData,value,selector){
 }
 $(document).ready(function() {
   // theme_custom.updateEvent();
+  window.eventDate = $( ".event-data-first-step" ).datepicker({
+    format: 'dd/mm/yyyy'
+  });
   window.eventDataObj = {};
   theme_custom.deleteTheLooksItem();
   theme_custom.event_init_page(); 

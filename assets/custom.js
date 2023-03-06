@@ -1564,20 +1564,41 @@ theme_custom.changeEvent = function () {
     }
   });
 
+  $('input[type=radio][name=is_host_paying_update]').change(function () {
+    $(this).closest(".custom-checkobx").find(".form-error").hide();
+    if($(this).closest(".custom-checkobx").find('[value="I Pay"]').prop('checked')){
+      $(".payment-confirmation-popup").addClass('model-open');
+      $('body').addClass("body_fixed");
+      // $.fancybox.close();
+      $('.fancybox-container').addClass('hidden');
+    }
+  });
+
   $(document).on('click', '.payment-confirm-btn-main #i-pay', function (e) {
     $('.fancybox-container').removeClass('hidden');
     $(".payment-confirmation-popup").removeClass('model-open');
     $('body').removeClass("body_fixed");
-    $(".invite-another-member-popup-wrapper").find(`input[name='is_host_paying'][value="I Pay"]`).prop('checked', true);
-    $(".event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying'][value="I Pay"]`).prop('checked', true);
+    if($('[data-target="update-guest-popup"]').hasClass('active')){
+      $("[data-target='update-guest-popup'] .invite-another-member-popup-wrapper").find(`input[name='is_host_paying_update'][value="I Pay"]`).prop('checked', true);
+      $("[data-target='update-guest-popup'] .event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying_update'][value="I Pay"]`).prop('checked', true);
+    }else{
+      $(".invite-another-member-popup-wrapper").find(`input[name='is_host_paying'][value="I Pay"]`).prop('checked', true);
+      $(".event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying'][value="I Pay"]`).prop('checked', true);
+    }
+    
   });
 
   $(document).on('click', '.payment-confirm-btn-main #they-pay', function (e) {
     $('.fancybox-container').removeClass('hidden');
     $(".payment-confirmation-popup").removeClass('model-open');
     $('body').removeClass("body_fixed");
-    $(".invite-another-member-popup-wrapper").find(`input[name='is_host_paying'][value="They Pay"]`).prop('checked', true);
-    $(".event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying'][value="They Pay"]`).prop('checked', true);
+    if($('[data-target="update-guest-popup"]').hasClass('active')){
+      $("[data-target='update-guest-popup'] .invite-another-member-popup-wrapper").find(`input[name='is_host_paying_update'][value="They Pay"]`).prop('checked', true);
+      $("[data-target='update-guest-popup'] .event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying_update'][value="They Pay"]`).prop('checked', true);
+    }else{
+      $(".invite-another-member-popup-wrapper").find(`input[name='is_host_paying'][value="They Pay"]`).prop('checked', true);
+      $(".event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying'][value="They Pay"]`).prop('checked', true);
+    }
   });
   $(document).on("change", "#imageUpload", function () {
     theme_custom.previewImage(this);

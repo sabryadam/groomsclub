@@ -293,11 +293,7 @@
   padding: 0 15px;
   font-family: 'Stolzl' !important;
 }
-.event-date-wrap .event-date-icon{
-  position: absolute;
-  right: 12px;
-  top: 7.5px;
-}
+
 .event-page-new-design-wrapper .page-width-inner-wrapper .event-date-wrap .form-wrap #event_date::placeholder{
   color: #ADADAD;
 }
@@ -367,15 +363,15 @@
   top: 50%;
   left: 50%;
 }
-.modal-wrapper[data-target="add-guest-popup"] .modal-wrapper-inner-wrapper{
+.modal-wrapper[data-target="add-guest-popup"] .modal-wrapper-inner-wrapper,.modal-wrapper[data-target="update-guest-popup"] .modal-wrapper-inner-wrapper{
   min-height: auto;
   padding-bottom: 50px;
 }
-.modal-wrapper[data-target="add-guest-popup"] .modal-wrapper-inner-wrapper .title{
+.modal-wrapper[data-target="add-guest-popup"] .modal-wrapper-inner-wrapper .title,.modal-wrapper[data-target="update-guest-popup"] .modal-wrapper-inner-wrapper .title{
   text-align: left;
   padding-left: 40px;
 }
-.modal-wrapper[data-target="add-guest-popup"] .modal-wrapper-inner-wrapper .title .heading{
+.modal-wrapper[data-target="add-guest-popup"] .modal-wrapper-inner-wrapper .title .heading,.modal-wrapper[data-target="update-guest-popup"] .modal-wrapper-inner-wrapper .title .heading{
   font-style: normal;
   font-weight: 400;
   font-size: 15px;
@@ -1336,4 +1332,21 @@
 .event-page-new-design-wrapper .page-width-inner-wrapper .form-wrap #EventForm-EventOwnerContactNumber,
 .event-page-new-design-wrapper .page-width-inner-wrapper .form-wrap .fake-calender .selected_date {
   font-family: 'Stolzl' !important;
+}
+
+.field.form-wrap.evemt-date{
+  position: relative;
+}
+.field.form-wrap.evemt-date .event-date-icon{
+  position: absolute;
+  right: 12px;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.field.form-wrap.evemt-date .event-date-icon svg{
+  width: 25px;
+  height: 25px;
 }
