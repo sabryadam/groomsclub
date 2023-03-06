@@ -8,7 +8,7 @@
       <div class="box-wrap"> 
         {%- for block in section.blocks -%}
           {%- if block.type == 'event_look' -%}
-            <div class="Squer-radio-button-inner box-inner-wrap popup-button {% if block.settings.create_look_title == 'Suit Customizer' %}customise-look-butto{% endif %}" data-href="/pages/customize-your-look?light-grey-suit=41097419653306&light-grey-jacket=41097359065274&light-grey-pants-1=41097369813178&light-grey-vest-1=41097382527162" data-title="{{ block.settings.create_look_title | downcase | handleize }}">
+            <div class="Squer-radio-button-inner box-inner-wrap popup-button {% if block.settings.create_look_title == 'Suit Customizer' %}customise-look-button-foradd-look-into-event{% endif %}" data-href="/pages/customize-your-look?light-grey-suit=41097419653306&light-grey-jacket=41097359065274&light-grey-pants-1=41097369813178&light-grey-vest-1=41097382527162" data-title="{{ block.settings.create_look_title | downcase | handleize }}">
               <div class="checkmark">
                 {% if block.settings.create_look_icon != blank %}
                   <div class="event-type-icon icon-wrap">
@@ -30,73 +30,7 @@
       <header>
         <button class="add-look-wrapper">+ Add New Look</button>
       </header>
-      <div class="event-look-inner-wrapper">
-        <div class="look-card-block">
-          <div class="look-title-and-price">
-            <div class="look-title">Deserst Sun</div>
-            <div class="look-price-wrap">
-              <span class="text-lable">Starting at</span>
-              <span class="look-price">$199.99</span>
-            </div>
-          </div>
-          <div class="look-image">
-            <img class="look-img" src="https://app.groomsclub.com/storage/looks/NFPBNG5yGT8yIDxm4ml0VNVUh4kFKicZOK2Suz7C.png" alt="Deserst Sun" />
-            <button class="button button--secondary customise-look">Customise look</button>
-          </div>
-        </div>
-        <div class="look-card-block">
-          <div class="look-title-and-price">
-            <div class="look-title">Deserst Sun</div>
-            <div class="look-price-wrap">
-              <span class="text-lable">Starting at</span>
-              <span class="look-price">$199.99</span>
-            </div>
-          </div>
-          <div class="look-image">
-            <img class="look-img" src="https://app.groomsclub.com/storage/looks/NFPBNG5yGT8yIDxm4ml0VNVUh4kFKicZOK2Suz7C.png" alt="Deserst Sun" />
-            <button class="button button--secondary customise-look">Customise look</button>
-          </div>
-        </div>
-        <div class="look-card-block">
-          <div class="look-title-and-price">
-            <div class="look-title">Deserst Sun</div>
-            <div class="look-price-wrap">
-              <span class="text-lable">Starting at</span>
-              <span class="look-price">$199.99</span>
-            </div>
-          </div>
-          <div class="look-image">
-            <img class="look-img" src="https://app.groomsclub.com/storage/looks/NFPBNG5yGT8yIDxm4ml0VNVUh4kFKicZOK2Suz7C.png" alt="Deserst Sun" />
-            <button class="button button--secondary customise-look">Customise look</button>
-          </div>
-        </div>
-        <div class="look-card-block">
-          <div class="look-title-and-price">
-            <div class="look-title">Deserst Sun</div>
-            <div class="look-price-wrap">
-              <span class="text-lable">Starting at</span>
-              <span class="look-price">$199.99</span>
-            </div>
-          </div>
-          <div class="look-image">
-            <img class="look-img" src="https://app.groomsclub.com/storage/looks/NFPBNG5yGT8yIDxm4ml0VNVUh4kFKicZOK2Suz7C.png" alt="Deserst Sun" />
-            <button class="button button--secondary customise-look">Customise look</button>
-          </div>
-        </div>
-        <div class="look-card-block">
-          <div class="look-title-and-price">
-            <div class="look-title">Deserst Sun</div>
-            <div class="look-price-wrap">
-              <span class="text-lable">Starting at</span>
-              <span class="look-price">$199.99</span>
-            </div>
-          </div>
-          <div class="look-image">
-            <img class="look-img" src="https://app.groomsclub.com/storage/looks/NFPBNG5yGT8yIDxm4ml0VNVUh4kFKicZOK2Suz7C.png" alt="Deserst Sun" />
-            <button class="button button--secondary customise-look">Customise look</button>
-          </div>
-        </div>
-      </div>
+      <div class="event-look-inner-wrapper"></div>
     </div>
     <div class="modal-wrapper" data-target="choose-from-favourites">
       <div class="choose-form-favorite modal-wrapper-inner-wrapper" id="choose-form-favorite">

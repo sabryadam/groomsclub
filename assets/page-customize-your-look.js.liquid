@@ -562,6 +562,11 @@ theme_custom.favoriteLookImageCustomizer = function (lookID, button) {
           button.find(".button-title").text("Look Updated");
           button.find(".loading-overlay").addClass("hidden");
           $(".favourite-look-api-message").addClass("hidden");
+          if(localStorage.getItem('editLookId') != null && localStorage.getItem('editLookName') != null && localStorage.getItem("look-for-favourite")){
+            localStorage.removeItem('editLookId');
+            localStorage.removeItem('editLookName');
+            localStorage.removeItem("look-for-favourite")
+          }
           window.location.href = `/account#tab-3`
         }, 3000);
       } else {
@@ -805,6 +810,9 @@ theme_custom.getEventData = function (modalTarget) {
           $(".create-event-look #event-id").val(localStorage.getItem("set-event-id")).change();
           $(".add-event-look-api-button").removeClass("add-event-look-api-button").addClass("update-event-look-api-button").attr("data-text","Look Updating...").find(".button-title").text("Update Look");
         }
+        if(localStorage.getItem("customise-look-button-foradd-look-into-event") != null){
+          $(".add-event-look-api-button").removeClass("add-event-look-api-button").attr("data-text","Look Addeding...").find(".button-title").text("Add Look and Contiune");
+        }
       } else {
         $(".page-loader").addClass("hidden");
         $("html,body").css("overflow", "visible");
@@ -970,8 +978,6 @@ theme_custom.favoriteLookUpdate = function (eventButton) {
         success: function (result) {
           console.log("Look Update");
           theme_custom.favouriteLookApi(lookName, lookUrl, produArray, button);
-          localStorage.removeItem('editLookId');
-          localStorage.removeItem('editLookName');
         },
         error: function (xhr, status, error) {
           if (xhr.responseJSON.message == 'Token is invalid or expired.') {
