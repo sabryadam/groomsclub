@@ -49,6 +49,13 @@ $(".member-added-into-event").click(function (e) {
   e.preventDefault();
   theme_custom.lookVal = $(this).closest(".add-guest-inner-wrapper").find(".look-name").attr("data-look-mapping-id")
   var parent = $(this).closest('.invite-another-member-popup-wrapper');
+
+  let isPay = 0;
+  if(parent.find('[name="is_host_paying"]:checked').length <= 0){
+    isPay = 1;
+    $('.paying-wrap .form-error').html('Please select who will pay').show();
+  }
+
   var error_count = 0,
     eventId = localStorage.getItem("set-event-id"),
     button = $(this);
@@ -56,6 +63,7 @@ $(".member-added-into-event").click(function (e) {
   error_count = error_count + theme_custom.textValidationWithSpacialChar(parent.find('.member-last-name'));
   error_count = error_count + theme_custom.emailValidation(parent.find('.member-email'));
   error_count = error_count + theme_custom.phoneValidation(parent.find('.member-phone'));
+  error_count = error_count + isPay;
   if (error_count == 0) {
     var memberFirstName = $(".member-first-name").val();
     var memberLastName = $(".member-last-name").val();
@@ -91,8 +99,9 @@ $(".member-added-into-event").click(function (e) {
         theme_custom.lookAssignToMember(result.data.id,theme_custom.lookVal);
       },
       error: function (xhr, status, error) {
+        let div = $('.invite-another-member-popup-wrapper .member-added-into-event').closest('.field');
         if (xhr.responseJSON.message == 'Token is invalid or expired.') {
-          $('.invite-another-member-popup-wrapper .api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+          $(div).prepend('<p class="error-member-added-into-event">Something went wrong <a class="try-again-link" href="/account/login">Please try again</a></p>').css({
             'text-align': 'center',
             'color': 'red'
           });
@@ -100,21 +109,69 @@ $(".member-added-into-event").click(function (e) {
             window.location.href = '/account/logout';
           }, 5000);
         } else {
-          $('.invite-another-member-popup-wrapper .api_error').show().html(xhr.responseJSON.message);
-          setTimeout(() => {
-            button.removeClass("disabled");
-            $('.invite-another-member-popup-wrapper .api_error').hide()
-          }, 10000);
+          $(div).prepend(`<p class="error-member-added-into-event">${xhr.responseJSON.message}</p>`);
         }
+        setTimeout(() => {
+          let error  = $('.invite-another-member-popup-wrapper .error-member-added-into-event')
+          if(error){
+            error.remove()
+          }
+        }, 5000);
       }
     });
   }
 });
 
-theme_custom.createLookHtml = (div,item) =>{
+theme_custom.user = (user) =>{
+    let {email, first_name, last_name, phone, status, is_host_paying} = user;
+    let whoPay = "";
+    if(is_host_paying.toLowerCase() == "self"){
+      whoPay = "Self";
+    }else{
+      whoPay = "They Pay";
+    }
+    return `<div class="user-card-block">
+    <div class="action-icon">
+      <span class="edit-icon">
+        <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/pencil_1.png?v=1677124389" alt="Edit Icon">
+      </span>
+      <div class="delete-icon">
+        <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/delete_1.png?v=1677118754" alt="delete icon" />
+      </div>
+    </div>
+    <h3 class="user-name">${first_name} ${last_name}</h3>
+    <div class="user-email-phone">
+      <span class="user-email">${email}</span>
+      <span class="user-phone"> | ${phone}</span>
+    </div>
+    <div class="size-selected-info">
+      <div class="size-selected-wrap">
+        <span class="size-select-check">status : ${status}</span>
+        <span class="reminder-wrap">REMINDER</span>
+      </div>
+      <spa class="pay-status">${whoPay}</span>
+    </div>
+  </div>`
+}
+theme_custom.createLookHtml = (div,item, eventMembers) =>{
+  // debugger;
   var deleteIconShow = '';
   if(item.assign == true){
     deleteIconShow = 'hidden';
+  }
+  if($('[data-step-content-wrap="3"]').hasClass('active')){
+
+  }
+  let users = "";
+  if(item.look_id){
+    for(let i =0; i<eventMembers.length; i++){
+      let user = eventMembers[i];
+      if(user.look_id){
+        if(parseInt(user.look_id) == item.look_id){
+          users = users + theme_custom.user(user);
+        }
+      }
+    }
   }
   div.append(`<div class="look-card-block" data-look-mapping-id="${item.mapping_id}" data-look-id="${item.look_id}">
     <div class="look-title-and-price">
@@ -138,7 +195,7 @@ theme_custom.createLookHtml = (div,item) =>{
         <span data-value="no">No</span>
       </div>
     </div>
-    <div class="assign-look-user-wrap"></div>
+    <div class="assign-look-user-wrap">${users}</div>
     <button class="add-guest-button">+ ADD GUEST</button>
   </div>`)
 }
@@ -231,12 +288,13 @@ theme_custom.checkLooks = (id) =>{
   }).then((data)=> data.json())
   .then((data)=>{
     data.data.event_looks = data.data.event_looks.reverse();
+    let eventMembers = data.data.event_members
     if(data.data.event_looks && data.data.event_looks.length > 0){
       const looksDiv = $('.show-look-from-event-wrapper .event-look-inner-wrapper, .guest-top-looks .event-look-inner-wrapper');
       looksDiv.empty();
       for(let i = 0; i<data.data.event_looks.length;i++){
         let item = data.data.event_looks[i];
-        theme_custom.createLookHtml(looksDiv, item);
+        theme_custom.createLookHtml(looksDiv, item, eventMembers);
       }
       $(".close-icon").click();
       if(looksDiv.hasClass("slick-initialized")){
@@ -260,7 +318,6 @@ theme_custom.checkLooks = (id) =>{
 
 theme_custom.changeStep = (index) =>{
   setTimeout(() => {
-    debugger;
     $('.event-step-wrapper').removeClass('hidden');
     $('.loader-wrapper').addClass('hidden')
     $(`.step-content-wrapper`).removeClass("acrive");

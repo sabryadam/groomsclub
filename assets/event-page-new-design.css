@@ -651,6 +651,24 @@
   margin: 0;
   margin-right: 10px;
 }
+.event-page-new-design-wrapper .page-width-inner-wrapper .add-guest-inner-wrapper .form-wrap.paying-wrap .form-error{
+  position: static;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+} 
+.invite-another-member-popup-wrapper .btn-fields{
+  display: flex;
+  flex-wrap: wrap;
+}
+.error-member-added-into-event .error-member-added-into-event{
+  display: block;
+    width: 100%;
+    margin: 0;
+    margin-top: 15px;
+    text-align: center;
+    color: red;
+}
 .event-page-new-design-wrapper .page-width-inner-wrapper .add-guest-inner-wrapper .field__input{
   height: 40px;
   line-height: inherit !important;
