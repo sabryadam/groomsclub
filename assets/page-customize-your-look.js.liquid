@@ -2127,9 +2127,10 @@ theme_custom.checkEditLook = function(){
   } 
   if(localStorage.getItem("editLookName") != null && localStorage.getItem("editLookId") != null && localStorage.getItem("look-for-favourite") != null){
     $(`[data-tab-content='overview']`).find('.wishlist-icon-wrap .favorite-event-button').addClass("update-look");
-    $(`[data-tab-content='overview']`).find('.wishlist-icon-wrap .favorite-event-button span').text("Update Look");
+    $(`[data-tab-content='overview']`).find('.wishlist-icon-wrap .favorite-event-button span').text("Update Look and Continue");
     $(`.favourite-look-wrapper`).find('.favorite-event-api-button').attr('data-text','Updating Look');
     $(`.favourite-look-wrapper`).find('.favorite-event-api-button .button-title').text('Update Look');
+    $(`[data-tab-content='overview']`).find(`.wishlist-add-event-part .add-to-event, .product-share-button, .button-wrapper`).hide();
   }
 }
 

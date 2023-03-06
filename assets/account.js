@@ -466,7 +466,7 @@ function favoritelooks() {
                         }
 
                         if (result.data[i].url) {
-                            edit_link = `<span data-href="${result.data[i].url}" class="btn-customiser button button--primary edit-favorite-look-button">CUSTOMIZE</span>`;
+                            edit_link = `<span data-href="${result.data[i].url}" edit-look-id="${result.data[i].id}" edit-look-name="${result.data[i].name}" class="btn-customiser button button--primary edit-favorite-look-button">CUSTOMIZE</span>`;
                         } else {
                             edit_link = ``;
                         }
@@ -599,12 +599,13 @@ function deletefavoritelooks(looksoid) {
 // edit-favorite-look-button page redirect 
 $(document).on("click", ".edit-favorite-look-button", function () {
     var getRediectUrl = $(this).attr("data-href");
-    window.location.href = getRediectUrl;
+    debugger;
     localStorage.setItem("customizerlookFrom", "exiting-looks");
     localStorage.setItem("customizerlookUrl", getRediectUrl.split("?")[1]);
     localStorage.setItem("editLookId",$(this).attr("edit-look-id"));
     localStorage.setItem("editLookName",$(this).attr("edit-look-name"));
     localStorage.setItem("look-for-favourite","look-for-favourite");
+    window.location.href = getRediectUrl;
 });
 
 $(document).on('click', '.delete_favorites', function () {
