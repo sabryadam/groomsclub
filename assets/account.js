@@ -9,7 +9,7 @@ const loader_content = `<div class="loading-overlay__spinner">
                                 <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
                             </svg>
                         </div>`;
-
+theme_custom.favLooksData = [];
 theme_custom.checkProductLinkAvailable = function () {
     if (localStorage.getItem("previous-page-link") == "true") {
         var productLink = localStorage.getItem("page-link");
@@ -105,9 +105,8 @@ function getsizedata() {
                                 <div class="block-info">
                                     <div class="block-title">Jacket</div>
                                     <div class="size-wrap">
-                                    <span class="size-number">Size ${jacketType[0]}</span> 
-                                    <span class="break">|</span>
-                                    <span class="size-type">${jacketTypeVal}</span>
+                                    <span class="size-number">Chest: ${jacketType[0]}</span> 
+                                    <span class="size-type">Length: ${jacketTypeVal}</span>
                                     </div>
                                     <div class="acc-edit-size-main">
                                     <a href="javascript:void(0)" data-popup="edit-jacket" class="acc-edit-mysize">Edit Size</a>
@@ -123,9 +122,8 @@ function getsizedata() {
                                 <div class="block-info">
                                     <div class="block-title">Pants</div>
                                     <div class="size-wrap">
-                                    <span class="size-number">Size ${result.data[i].pants_waist}W</span> 
-                                    <span class="break">|</span>
-                                    <span class="size-type">${result.data[i].pants_hight}H</span>
+                                    <span class="size-number">Waist: ${result.data[i].pants_waist}W</span> 
+                                    <span class="size-type">Length: ${result.data[i].pants_hight}H</span>
                                     </div>
                                     <div class="acc-edit-size-main">
                                     <a href="javascript:void(0)" data-popup="edit-pants" class="acc-edit-mysize">Edit Size</a>
@@ -141,9 +139,8 @@ function getsizedata() {
                                 <div class="block-info">
                                     <div class="block-title">Shirt</div>
                                     <div class="size-wrap">
-                                    <span class="size-number">Neck ${result.data[i].shirt_neck}</span> 
-                                    <span class="break">|</span>
-                                    <span class="size-type">Sleeve ${result.data[i].shirt_sleeve}</span>
+                                        <span class="size-number">Neck: ${result.data[i].shirt_neck}</span> 
+                                        <span class="size-type">Sleeve: ${result.data[i].shirt_sleeve}</span>
                                     </div>
                                     <div class="acc-edit-size-main">
                                     <a href="javascript:void(0)" data-popup="edit-shirt" class="acc-edit-mysize">Edit Size</a>
@@ -159,8 +156,7 @@ function getsizedata() {
                                 <div class="block-info">
                                     <div class="block-title">Shoes</div>
                                     <div class="size-wrap">
-                                    <span class="size-number">Size ${result.data[i].shoe_size}</span> 
-                                    
+                                        <span class="size-number">Size: ${result.data[i].shoe_size}</span> 
                                     </div>
                                     <div class="acc-edit-size-main">
                                     <a href="javascript:void(0)"data-popup="edit-shoes" class="acc-edit-mysize">Edit Size</a>
@@ -220,7 +216,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
     var eventType = eventtype;
     var page = pageno;
     var host = hostby;
-    var limit = 3;
+    var limit = 100;
 
     var data = {
         "eventType": eventType,
@@ -242,77 +238,98 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
 
         },
         success: function (result) {
+            // debugger;
             var eventBlockCount = result.data.totalEvents;
-            var pageCount = eventBlockCount / limit;
-            if (eventBlockCount > 3) {
-                var paginationBlock = setInterval(function () {
-                    if ($(".pagination-wrapper").length > 0) {
-                        for (var i = 0; i < pageCount; i++) {
-                            $(".pagination-wrapper").append('<span class="count-number" data-page="' + (i + 1) + '">' + (i + 1) + '</li> ');
-                            // if(i>limit){
-                            //     $(".pagination-wrapper span.count-number").eq(i).hide();
-                            // }
-                        }
-                        $(".pagination-wrapper .count-number").first().addClass("current");
-                        // console.log("result.data",result.data);
-                        if(result.data.nextPage == null){
-                            $(".pagination-wrapper .count-number").removeClass("current");
-                            $('.pagination-wrapper .count-number:last-child').addClass("current");
-                        }else{
-                            var currentPage = result.data.nextPage - 1;
-                            $(".pagination-wrapper .count-number").removeClass("current");
-                            $('.pagination-wrapper .count-number[data-page="' + currentPage + '"]').addClass("current");
-                        }
-                    }
-                    clearInterval(paginationBlock);
-                }, 500);
-            }
+            var allEvents = result.data.events;
+            var myEvents = allEvents.filter((event)=> event.hostedBy.toLowerCase() == 'me');
+            var otherEvents = allEvents.filter((event)=> event.hostedBy.toLowerCase() != 'me');
+            var eventsObj = [myEvents,otherEvents]
+            console.log("eventsObj",eventsObj);
 
-            var next_class = pre_class = "disable_class";
-            var pre_page = next_page = 0;
-            if (result.success) {
-                
-                var next_class = pre_class = "";
-                next_page = result.data.nextPage;
-                pre_page = page;
-                if (result.data.nextPage == null) {
-                    next_class = "disable_class";
-                }
-                if (page == 1) {
-                    pre_class = "disable_class";
-                }
+            var pageCount = eventBlockCount / limit;
+            if (result.success) {       
                 if (result.data.events.length > 0) {
-                    var append_event_html = `<input type="hidden" class="eventtype-hidden" value="${eventType}">`;
-                    result.data.events = result.data.events.reverse();
-                    for (var i = 0; i < result.data.events.length; i++) {
-                        var event_picture = result.data.events[i].picture;
-                        if (!event_picture) {
-                            event_picture = default_event_image;
+                    for(let i = 0;i<eventsObj.length;i++){
+                        let activeClass = "";
+                        if(i == 0){
+                            activeClass = 'active' 
                         }
-                        var month_name = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                        var date = new Date(result.data.events[i].event_date);
-                        let month = month_name[date.getMonth()];
-                        let day = date.getDate();
-                        if (result.data.events[i].hostedBy == 'Me' || result.data.events[i].hostedBy == 'me') {
-                            var pageLink = `/pages/my-event?event_id=${result.data.events[i].event_id}`;
-                        } else {
-                            var pageLink = `/pages/invited?event_id=${result.data.events[i].event_id}+member_id=${result.data.events[i].member_id}`;
+                        var append_event_html = `<input type="hidden" class="eventtype-hidden" value="${eventType}">`;
+                        let eventData = eventsObj[i];
+                        let count = 1;
+                        for(j=0;j<eventData.length;j++){
+                            let index = (j+1);
+                            index = index % 3
+                            let event = eventData[j];
+                            var event_picture = event.picture;
+                            if (!event_picture) {
+                                event_picture = default_event_image;
+                            }
+                            var month_name = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                            var date = new Date(event.event_date);
+                            let month = month_name[date.getMonth()];
+                            let day = date.getDate();
+                            let ownCreated = event.hostedBy.toLowerCase() == 'me' ? true : false;
+                            if (ownCreated) {
+                                var pageLink = `/pages/create-event`;
+                            } else {
+                                var pageLink = `/pages/invited?event_id=${event.event_id}+member_id=${event.member_id}`;
+                            }
+                            let eventActiveClass = "";
+                            if(count == 1){
+                                eventActiveClass = "active";
+                            }
+
+                            let btns = "";
+                            if(!ownCreated){
+                                btns = `<div class="event-hostedby"><span>Hosted by ${event.hostedBy}</span></div>`
+                            }else{
+                                btns = `<div class="event-action-btns">
+                                <span data-href="${pageLink}" class="events-main-link event-edit-btn " data-hosted-by="${event.hostedBy}" data-event-id="${event.event_id}">Edit</span>
+                                <span class="remove-event event-delete-btn" data-hosted-by="${event.hostedBy}">Delete</span>
+                            </div>`
+                            }
+                            append_event_html += `<div data-value="${count}" class="events-container ${eventActiveClass}"> <div class="event-container-date"><span>${day}</span> ${month}</div>
+                                <div class="event-container-image"><img src="${event_picture}" alt="default-event-image"></div>
+                                <div class="event-container-event-content">
+                                    <div class="event-title"><span>${event.name}</span></div>
+                                    ${btns}
+                                </div>
+                                <div class="event-container-arrow"><span data-href="${pageLink}" style="display:inline-block" class="events-main-link custom-event-button" data-hosted-by="${event.hostedBy}" data-event-id="${event.event_id}">
+                                   <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/next_1.png?v=1677956518" />
+                                </a>
+                                </div>
+                            </div>`;
+                            if(index == 0){
+                                count = count + 1;
+                            }
                         }
-                        append_event_html += `<div data-href="/pages/create-event" data-event-id="${result.data.events[i].event_id}" class="events-main-link" data-hosted-by="${result.data.events[i].hostedBy}"><div class="events-container"> <div class="event-container-date"><span>${day}</span> ${month}</div>
-                            <div class="event-container-image"><img src="${event_picture}" alt="default-event-image"></div>
-                            <div class="event-container-event-content"><div class="event-title"><span>${result.data.events[i].name}</span></div>
-                            <div class="event-hostedby"><i class="fas fa-user-tie"></i><span>Hosted by ${result.data.events[i].hostedBy}</span></div>
-                            </div>
-                            <div class="event-container-arrow"><span style="display:inline-block" class="custom-event-button" data-hosted-by="${result.data.events[i].hostedBy}"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 33 35" style="enable-background:new 0 0 33 35;" xml:space="preserve">
-                                <style type="text/css">.paginationarrow{fill:none;stroke:#1075BC;stroke-width:3;stroke-miterlimit:10;}.paginationarrow-one{fill:#1075BC;}</style><g>
-                                <polyline class="paginationarrow" points="15.7,2.4 30.7,18.4 15.7,33.4 	"/><rect x="1.2" y="16.4" transform="matrix(-1 -4.488999e-11 4.488999e-11 -1 30.4722 35.7375)" class="paginationarrow-one" width="28" height="3"/></g>
-                            </svg> </span>
-                            </div>
-                        </div></div>`;
+                        let paginationWrapper = $(`<div class="pagination-wrapper"></div>`);
+                        let paginateNumber = Math.ceil(eventData.length / 3);
+                        for(j=0;j<paginateNumber;j++){
+                            let pageActiveClass = j == 0 ? 'current':''
+                            paginationWrapper.append(`<span class="count-number ${pageActiveClass}" data-page="${j+1}"> ${(j + 1)}</span>`)
+                        }
+                        let containerDiv = $(`<div class="event-container-wrapper event-container-${i} ${activeClass}"></div>`)
+                        containerDiv.append(append_event_html);
+                        containerDiv.append(paginationWrapper);
+                        if(i == 0){
+                            containerDiv.append(`<div class="add-new-event-btn btn-wrapper">
+                            <a class="button button--primary continue-btn" href="/pages/create-event">CREATE NEW EVENT <i class="fas fa-arrow-right"></i></a>
+                        </div>`)
+                        }else{
+                            containerDiv.append(`<div class="add-new-event-btn btn-wrapper">
+                            <a class="button button--primary continue-btn" href="/pages/create-event">SHOP COLLECTION <i class="fas fa-arrow-right"></i></a>
+                          </div>`)
+                        }
+                        
+                                            
+                        // append_event_html += `<div class="event-pagination"><span class="event-pre ${pre_class}" data-page="${pre_page-1}">Pre</span> <span class="event-next ${next_class}" data-page="${next_page}">Next</span></div>`;
+                       if( i == 0){
+                        $('.events-main-container').html("");
+                       }
+                        $('.events-main-container').hide().append(containerDiv).slideDown('slow');
                     }
-                    append_event_html += `<div class="pagination-wrapper"></div>`;
-                    // append_event_html += `<div class="event-pagination"><span class="event-pre ${pre_class}" data-page="${pre_page-1}">Pre</span> <span class="event-next ${next_class}" data-page="${next_page}">Next</span></div>`;
-                    $('.events-main-container').hide().html(append_event_html).slideDown('slow');
                     $(".event-list-top").removeClass("hidden");
                    
                 } else {
@@ -326,8 +343,6 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
             } else {
                 // alert(result.data.success);
             }
-
-
         },
         error: function (xhr, status, error) {
             if (xhr.responseJSON.message == 'Token is invalid or expired.') {
@@ -354,19 +369,33 @@ $(document).on("click", ".events-main-container .custom-event-button, .events-ma
     localStorage.setItem("hosted-by", hostedBy);
     localStorage.setItem("set-event-id",$(this).data("event-id"));
     window.location.href = $(this).data("href");
-
 })
 
 //event List pagination 
 $(document).on('click', '.count-number', function () {
-    $(".count-number").removeClass("current");
+    let parent = $(this).closest('.event-container-wrapper');
+    $(".count-number",parent).removeClass("current");
     $(this).addClass("current")
-    var nextpage = $(this).data('page');
-    var eventtype = $('.eventtype-hidden').val();
-    if (nextpage) {
-        theme_custom.geteventslist(eventtype = eventtype, pageno = nextpage, hostby = 0);
-    }
+    let page = $(this).attr('data-page');
+    $('.events-container',parent).removeClass('active');
+    $(`.events-container[data-value="${page}"]`,parent).addClass('active');
+    // var nextpage = $(this).data('page');
+    // var eventtype = $('.eventtype-hidden').val();
+    // if (nextpage) {
+    //     theme_custom.geteventslist(eventtype = eventtype, pageno = nextpage, hostby = 0);
+    // }
 })
+
+//event List pagination 
+$(document).on('click', '.event-types-btn-wrap .event-types-btn', function () {
+    let parent = $(this).closest('.event-types-btn-wrap');
+    $(".event-types-btn",parent).removeClass("active");
+    $(this).addClass("active")
+    let page = $(this).attr('data-id');
+    $('.events-main-container .event-container-wrapper').removeClass('active');
+    $(`.events-main-container .event-container-wrapper.event-container-${page}`).addClass('active');
+})
+
 $(document).on('click', '.event-next', function () {
     var nextpage = $(this).data('page');
     var eventtype = $('.eventtype-hidden').val();
@@ -418,32 +447,45 @@ function favoritelooks() {
             $('.feature-looks-slider-loader').remove();
             if (result.success) {
                 if (result.data.length > 0) {
+                    theme_custom.favLooksData = result.data;
+                    console.log("result.data",result.data);
                     var append_fav_html = "";
                     $('.feature-looks-slider').html(append_fav_html);
                     var edit_link = '';
+                    // result.data[1] = result.data[0];
+                    // result.data[2] = result.data[0];
+                    // result.data[3] = result.data[0];
+                    // result.data[4] = result.data[0];
+                    // result.data[5] = result.data[0];
+                    // result.data[6] = result.data[0];
                     result.data = result.data.reverse();
+                    // debugger;
                     for (var i = 0; i < result.data.length; i++) {                        
                         if (result.data[i].look_image) {
                             favorite_look_image = result.data[i].look_image;
                         }
 
                         if (result.data[i].url) {
-                            edit_link = `<span data-href="${result.data[i].url}" edit-look-id="${result.data[i].id}" edit-look-name="${result.data[i].name}" class="link edit-favorite-look-button">Edit look</span><span class="break"> | </span>`;
+                            edit_link = `<span data-href="${result.data[i].url}" class="btn-customiser button button--primary edit-favorite-look-button">CUSTOMIZE</span>`;
                         } else {
                             edit_link = ``;
                         }
                         append_fav_html += `<div class="look-container slider-lr-spacing-inner">
                         <div class="img-container product-slider-img">
                           <img src="${favorite_look_image}" alt="favourite-look-img">
+                          ${edit_link}
                         </div>
+                        <div>
                         <div class="look-img-title product-slider-title h3">
                             <span>${result.data[i].name}</span>
                         </div>
-                        <div class="look-changes product-slider-detail-edit">
-                          <span><a href="javascript:void(0)" data-favid="${result.data[i].id}" class="link addevent_fav">Add to Event</a></span>
-                          <span class="break"> | </span>
-                          ${edit_link}
-                          <span><a href="javascript:void(0)" class="link delete_favorites" data-favid="${result.data[i].id} " >Delete</a></span>
+                        <div class="delete-fav-wrap">
+                        <span><a href="javascript:void(0)" class="link delete_favorites" data-favid="${result.data[i].id} " >Remove</a></span>
+                        </div>
+                        <div class="look-changes btn-wrapper product-slider-detail-edit">
+                          <a  class="button button--primary fav-look-add-to-cart" data-index="${i}">Add to Cart</a>
+                          <a href="javascript:void(0)" data-favid="${result.data[i].id}" class="link addevent_fav button button--primary btn-1 link">ADD TO EVENT</a>
+                        </div>
                         </div>
                         <share-button class="product-share-button product-small-share-icon">
                           <span class="share-button_label">
@@ -574,6 +616,36 @@ $(document).on('click', '.delete_favorites', function () {
 
 });
 
+$(document).on('click','.feature-looks-slider .fav-look-add-to-cart',function(){
+    let index = parseInt($(this).attr('data-index'));
+    let data = theme_custom.favLooksData[index];
+    let lookItems = data.items;
+    let items = [];
+    lookItems.forEach((item)=>{
+        items.push({
+            'id':item.variant_id,
+             'quantity': 1
+        })
+    })
+
+    let formData = {items};
+    fetch(window.Shopify.routes.root + 'cart/add.js', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        return response.json();
+    })
+    .then((data)=>{
+        window.location.href = '/cart';
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+})
 // End Delete the favorite looks
 
 //Add to Event for favorite Looks
@@ -586,6 +658,7 @@ function addtoeventlist(favid) {
         "host": 0,
         "limit": 100
     };
+
     $.ajax({
         url: event_api_url,
         method: "POST",
@@ -638,8 +711,8 @@ $(document).on("click", ".close-btn", function () {
     $("body").removeClass("body_fixed");
 })
 
-$(document).on('click', '.addevent_fav', function () {
-
+$(document).on('click', '.addevent_fav', function (e) {
+    e.preventDefault();
     var favid = $(this).data('favid');
 
 
@@ -651,8 +724,19 @@ $(document).on('click', '.addevent_fav', function () {
 });
 $(document).on('click', '.tabs-nav li a', function (e) {
     e.preventDefault();
-    var siteHeaderHeight = $('.header-wrapper').height() + 10;
-    $('html, body').animate({ scrollTop: $($(this).attr('href')).position().top - siteHeaderHeight }, '1000');
+    let mainParent = ('.main-account-page');
+    let parent = $(this).closest('.tabs-nav');
+    $('li',parent).removeClass('active');
+    $(this).closest('li').addClass('active');
+    $('#tabs-content .tab-content',mainParent).removeClass('active');
+    let id = $(this).attr('href');
+    $(mainParent).find(id).addClass('active');
+    history.pushState({}, null, `${window.location.pathname}?tab=${id.replace('#','')}`);
+    if(id == '#tab-3'){
+        $('.feature-looks-slider').slick('refresh');
+    }
+    // var siteHeaderHeight = $('.header-wrapper').height() + 10;
+    // $('html, body').animate({ scrollTop: $($(this).attr('href')).position().top - siteHeaderHeight }, '1000');
 });
 $(document).on('change', '.add_eventlist_select', function () {
     $('p.event-option-error').remove();
@@ -1264,3 +1348,22 @@ if(localStorage.getItem("event-or-fav-when-user-has-not-logged")=='true'){
     localStorage.removeItem("event-or-fav-when-user-has-not-logged");
     theme_custom.checkProductLinkAvailable();
 }
+theme_custom.accountActiveTabs = function(){
+    var urlParams = new URLSearchParams(window.location.search);
+    var dataId = urlParams.get('tab');
+    if (dataId) {
+        dataId= "#" + dataId;
+        let mainParent = ('.main-account-page');
+        let parent = $('.tabs-nav');
+        $('li',parent).removeClass('active');
+        $(`a[href="${dataId}"]`).closest('li').addClass('active');
+        $('#tabs-content .tab-content',mainParent).removeClass('active');
+        $(mainParent).find(dataId).addClass('active');
+        if(dataId == '#tab-3'){
+            $('.feature-looks-slider').slick('refresh');
+        }
+    }
+}
+$(document).ready(function(){
+    theme_custom.accountActiveTabs()
+})

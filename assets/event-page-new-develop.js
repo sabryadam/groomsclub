@@ -260,6 +260,10 @@ theme_custom.checkLooks = (id) =>{
 
 theme_custom.changeStep = (index) =>{
   setTimeout(() => {
+    debugger;
+    $('.event-step-wrapper').removeClass('hidden');
+    $('.loader-wrapper').addClass('hidden')
+    $(`.step-content-wrapper`).removeClass("acrive");
     $(`.step-content-wrapper[data-step-content-wrap="${index}"]`).addClass("active");
     $(`.step-wrap[data-step-label-wrap="${index}"]`).addClass("active");
   }, 2500);
@@ -712,6 +716,7 @@ theme_custom.eventPageClickEvent = function(){
   $(document).on("click", ".event-page-new-design-wrapper .next-button", function(){
     $(".event-step-wrapper").addClass("hidden");
     $(".loader-wrapper").removeClass("hidden");
+    $(".step-content-wrapper").removeClass("active");
     var target = $(this);
     var nextTarget = target.closest(".step-content-wrapper").next(".step-content-wrapper").attr("data-step-content-wrap");
     if($(this).closest(`.step-content-wrapper[data-step-content-wrap="1"]`).length > 0){
@@ -728,6 +733,7 @@ theme_custom.eventPageClickEvent = function(){
   $(document).on("click", ".event-page-new-design-wrapper .previous-button", function(){
     $(".event-step-wrapper").addClass("hidden");
     $(".loader-wrapper").removeClass("hidden");
+    $(".step-content-wrapper").removeClass("active");
     var target = $(this);
     var currentTabHead = target.closest(".step-content-wrapper").attr("data-step-content-wrap");
     var prevTarget = target.closest(".step-content-wrapper").prev(".step-content-wrapper").attr("data-step-content-wrap");

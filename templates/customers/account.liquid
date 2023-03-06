@@ -1,5 +1,6 @@
 {{ 'customer.css' | asset_url | stylesheet_tag }}
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
+{{'account-page.css' | asset_url | stylesheet_tag }}
 <input type="hidden" id="customer_email" value="{{ customer.email }}" />
 <input type="hidden" id="customer_id" value="{{ customer.id }}">
 {% render 'my-account-edit-size' %}
@@ -16,271 +17,279 @@
   </div> 
 </div>{% endcomment %}
   <!-- Tab heading -->
-  <div id="acc-tabs-wr" class="tabs">
+  <div id="acc-tabs-wr" class="tabs main-account-page">
     <div class="page-top-head-background">
-      <div class="page-width-big">
-        <div class="user-info-top page-top-headpadding-flex">
-          <span class="user-name same-design"><span class="my-acc-head-span">My Account</span> Welcome, {{ customer.name }}!</span>
-          <span class="account-logout-btn same-design">{% comment %} <a class="same-design logout-button" href="{{ routes.account_logout_url }}">
-            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" fill="none" viewBox="0 0 18 19">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M6 4.5a3 3 0 116 0 3 3 0 01-6 0zm3-4a4 4 0 100 8 4 4 0 000-8zm5.58 12.15c1.12.82 1.83 2.24 1.91 4.85H1.51c.08-2.6.79-4.03 1.9-4.85C4.66 11.75 6.5 11.5 9 11.5s4.35.26 5.58 1.15zM9 10.5c-2.5 0-4.65.24-6.17 1.35C1.27 12.98.5 14.93.5 18v.5h17V18c0-3.07-.77-5.02-2.33-6.15-1.52-1.1-3.67-1.35-6.17-1.35z" fill="currentColor">
-            </svg>
-          </a>{% endcomment %}
-          {{ 'customer.log_out' | t }}
-        </span>
-        </div>  
-      </div>
-      <div class="page-width hidden">
-          <div class="heading-tab-wrap">
-            {% comment %}<h1>{{ 'customer.account.title' | t }}</h1>{% endcomment %}
-            <h1 class="text-center-heading border-heading h1 margin-0 page-title">My Account</h1>
+      <div class="main-account-page-container">
+        <div class="account-header">
+        <div class="account-left-section">
+          <h1 class="page-title">MY ACCOUNT</h2>
+          <div class="tab-top-border">
+            <div class="page-width">
+                <ul class="tabs-nav page-inner-main-tabs">
+                  <li class="active"><a href="#tab-1">My Sizes</a></li>
+                  <li><a href="#tab-2">My Events</a></li>
+                  <li><a href="#tab-3">Favorite Looks</a></li>
+                  <li><a href="#tab-4">Order History</a></li>
+                </ul>
+            </div>
           </div>
-      </div>
-      <div class="tab-top-border">
-        <div class="page-width">
-            <ul class="tabs-nav page-inner-main-tabs">
-              <li><a href="#tab-1">My Sizes</a></li>
-              <li><a href="#tab-2">My Events</a></li>
-              <li><a href="#tab-3">Favorite Looks</a></li>
-              <li><a href="#tab-4">Order History</a></li>
-            </ul>
+        </div>
+        <div class="account-right-section">
+          <h2 class="user-profile-logo">
+            {{ customer.first_name | slice: 0 }}{{ customer.last_name | slice: 0 }}
+          </h2>
+          <div class="user-info-top">
+            <h4 class="user-name same-design">Hi, <span class="user-full-name">{{ customer.name }}</span></h4>
+            <p class="account-logout-btn same-design">
+            {{ 'customer.log_out' | t }}
+          </p>
+          </div>
+        </div>
         </div>
       </div>
     </div> 
-    <div id="tabs-content">
-      <div id="tab-1" class="tab-content">
-        <div class="my-size-wrapper">
-          <div class="my-size-title text-center-heading border-heading h2 margin-0">
-            My Sizes
+      <div class="main-account-page-container">
+        <div id="tabs-content">
+          <div id="tab-1" class="tab-content active">
+            <div class="my-size-wrapper">
+              <div class="my-size-title text-center-heading border-heading h2 margin-0 content-title">
+                My Sizes
+              </div>
+              <div class="my-size-block-main">
+              </div>
+              <div class="btn-my-size btn-wrapper">
+                <span class="edit-size-button button button--secondary btn-1"> {% render 'icon-size-rular' %} <span class="fit-finder-label">Edit Sizes</span></span>
+                <a class="button button--primary continue-btn" href="/collections/top-collections">CONTINUE SHOPPING <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
           </div>
-          <div class="my-size-block-main">
-          </div>
-          <div class="btn-my-size">
-            <span class="edit-size-button button button--secondary"> {% render 'icon-size-rular' %} <span class="fit-finder-label">Edit Sizes</span></span>
-            <a class="button button--secondary" href="/collections/top-collections">Choose Your Look <i class="fas fa-arrow-right"></i></a>
-          </div>
-        </div>
-      </div>
-      <div id="tab-2" class="tab-content">
-        <div class="my-event-wrapper">
-            <div class="my-event-inner">
-              <div class="left-side-content">
-                <div class="my-event-title border-heading h2">
-                   My Events
-                </div> 
-                <div class="event-list-top hidden">
-                  <span class="upcoming-event upcoming-event-tab event-tab-title active">Upcoming Events</span>
-                  <span class="events-link past-event-tab link event-tab-title" >See Past Events</span>
-                </div>
-                <div class="events-main-container">
+          <div id="tab-2" class="tab-content">
+            <div class="my-event-wrapper">
+                <div class="my-event-inner">
+                  <div class="left-side-content">
+                    <div class="my-event-title border-heading h2 content-title">
+                      My Events
+                    </div> 
+                    <div class="event-types-btn-wrap">
+                      <span class="hosted-by-me event-types-btn active" data-id="0">
+                        HOSTED BY ME
+                      </span>
+                      <span class="hosted-by-other event-types-btn" data-id="1">
+                        HOSTED BY OTHERS
+                      </span>
+                    </div>
+                    <div class="event-list-top hidden">
+                      <span class="upcoming-event upcoming-event-tab event-tab-title active">Upcoming Events</span>
+                      <span class="events-link past-event-tab link event-tab-title" >See Past Events</span>
+                    </div>
+                    <div class="events-main-container">
 
-                </div>
-                <div class="add-new-event-btn">
-                  <a class="button button--secondary" href="/pages/create-event">Add New Event <i class="fas fa-arrow-right"></i></a>
-                </div>
-              </div>
-              <div class="right-side-content">
-                <div class="event-rigth-side-img">  
-                    <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/my-event-account.png?v=1634896517">
+                    </div>
+
                   </div>
-              </div>
-            </div>
-        </div>
-      </div>
-      <div id="tab-3" class="tab-content">
-          <div class="favorite-looks-wrapper slider-lr-spacing-main slider-arrow-small">
-            <div class="page-width">
-              <div class="favorite-looks-title text-center-heading border-heading h2 title">
-                Favorite Looks
-              </div>
-              <div class="feature-looks-slider-loader"></div>
-              <div class="feature-looks-slider">
-              </div>
-            </div>
-          </div>
-        <!-- Popup AddEvent -->
-        <div class="custom-model-main addevent-popup" >
-          <div class="custom-model-inner">
-              <div class="close-btn">×</div>
-              <div class="custom-model-wrap">
-                <div class="pop-up-content-wrap">
-                  <div class="pop_error"></div>
-                    <div class="event-option">    
-                      <div class="field form-wrap">
-                          
+                  <div class="right-side-content">
+                    <div class="event-rigth-side-img">  
+                        <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/my-event-account.png?v=1634896517">
                       </div>
-                    </div>   
-                    <input type="hidden" id="fav-lookupid">
-                    <button class="button button--primary"  type="button" id="addeventfav_btn">Save</button>
-                    
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div id="tab-3" class="tab-content">
+              <div class="favorite-looks-wrapper slider-lr-spacing-main slider-arrow-small">
+                <div class="page-width">
+                  <div class="favorite-looks-title text-center-heading border-heading h2 title content-title">
+                    MY FAVORITE LOOKS
+                  </div>
+                  <div class="feature-looks-slider-loader"></div>
+                  <div class="feature-looks-slider">
                   </div>
                 </div>
               </div>
-              <div class="bg-overlay"></div>
-          </div>
-                          
-      </div>
-      <div id="tab-4" class="tab-content">
-          <div class="order-history-wrapper">
-            <div class="page-width">
-              <div>
-               <h2 class="text-center-heading border-heading margin-0 ">{{ 'customer.orders.title' | t }}</h2>
-                {% paginate customer.orders by 20 %}
-                  {%- if customer.orders.size > 0 -%}
-                    <div role="table" class="order-history">
-                        <div role="rowgroup" class="transection-list-main">
-                          {%- for order in customer.orders -%}
-                          
-                            {%- comment -%}<p>transactions-{{ order.transactions.payment_details.credit_card_company }}</p>{%- endcomment -%}
-                            <div class="row-wrapper" data-index="{{ forloop.index}}">
-                              <div class="transaction-history-title" data-test="{{ order.transactions.payment_details.credit_card_company }}">
-                                <span class="heading">Transactions</span>
-                                <span class="toggle-button{% if forloop.first %} active{% endif %}" data-text="{% if forloop.first %}Hide Details{% else %}Show Details{% endif %}">{% if forloop.first %}Hide Details{% else %}Show Details{% endif %}</span>
-                              </div>
-                              <div role="row" class="order-outer-wrapper">
-                                <div class="order-header-wrapper transection-list-inner">
-                                  <div class="order-info">
-                                    <h3 class="order-name">
-                                      order {{ order.name }}
-                                    </h3>
-                                  </div>
-                                  <div class="order-item-info">
-                                    {%- assign order_date = order.created_at | date : "%B %d, %Y" -%}
-                                    <p class="order-date">{{ order_date }}</p>
-                                  </div>
-                                  <div class="ordre-price">
-                                    {{ order.total_price | money }}
-                                  </div>
-                                </div>
-                                <div class="order-info-wrapper"{% if forloop.first %} style="display:block"{% endif %}>
-                                  <div class="order-info transection-list-inner">
-                                    <div class="order-address">
-                                      {%- if order.shipping_address != blank -%}
-                                        <div class="address">
-                                          <p class="heading">{{ 'customer.order.shipping_address' | t }}</p>
-                                          <div class="address-info">
-                                            {%- unless order.shipping_address.address1 == blank and order.shipping_address.city == blank -%}
-                                              <div class="address-text">
-                                                {%- unless order.shipping_address.address1 == blank %}
-                                                  {{ order.shipping_address.address1 }}
-                                                {%- endunless -%}
-                                                {%- unless order.shipping_address.city == blank %}
-                                                  {{ order.shipping_address.city }} 
-                                                {%- endunless -%}
-                                              </div>
-                                            {%- endunless -%}
-                                            {%- unless order.shipping_address.country_code == blank and unless order.shipping_address.zip == blank -%}
-                                            <div class="address-text">
-                                              {%- unless order.shipping_address.country_code == blank %}
-                                                {{ order.shipping_address.country_code }}
-                                              {%- endunless -%}
-                                              {%- unless order.shipping_address.zip == blank %}
-                                                {{ order.shipping_address.zip}}
-                                              {%- endunless -%}
-                                            </div>
-                                            {%- endunless -%}
-                                          </div>
-                                        </div>
-                                      {%- endif -%}
-                                      {%- if order.billing_address != blank -%}
-                                        <div class="address">
-                                          <p class="heading">{{ 'customer.order.billing_address' | t }}</p>
-                                          <div class="address-info">
-                                            <div class="address-text">
-                                              {{ order.billing_address.address1 }}
-                                              {{ order.billing_address.city }} 
-                                            </div>
-                                            <div class="address-text">
-                                              {{ order.billing_address.country_code}}
-                                              {{ order.billing_address.zip}}
-                                            </div>
-                                          </div>
-                                        </div>
-                                      {%- endif -%}
-                                      <div class="return-item">
-                                        <a target="_blank" class="return-item-btn button button--primary" href="https://groomsclub.returnly.com/">Return Item</a>
-                                      </div>
-                                    </div>                              
-                                    <div class="order-item-info">
-                                      {%- for item in order.line_items -%}
-                                        {%- unless item.title == blank and item.product.has_only_default_variant -%}
-                                          <div class="item-info">
-                                            {%- unless item.title == blank-%}
-                                              <p class="title">{{ item.title }}</p>
-                                            {%- endunless -%}
-                                            {% unless item.product.has_only_default_variant %}
-                                              <p class="variant-title">
-                                                {% for option in item.options_with_values %}
-                                                  <span>{{ option.name }} {{ option.value }}
-                                                    {%- unless forloop.last -%}
-                                                    , 
-                                                    {%- endunless -%}
-                                                  </span>
-                                                {% endfor %}
-                                              </p>
-                                            {% endunless %}
-                                          </div>
-                                        {%- endunless -%}
-                                      {%- endfor -%}
-                                    </div>
-                                    
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          {%- endfor -%}
-                        </div>
+            <!-- Popup AddEvent -->
+            <div class="custom-model-main addevent-popup" >
+              <div class="custom-model-inner">
+                  <div class="close-btn">×</div>
+                  <div class="custom-model-wrap">
+                    <div class="pop-up-content-wrap">
+                      <div class="pop_error"></div>
+                        <div class="event-option">    
+                          <div class="field form-wrap">
+                              
+                          </div>
+                        </div>   
+                        <input type="hidden" id="fav-lookupid">
+                        <button class="button button--primary"  type="button" id="addeventfav_btn">Save</button>
+                        
                       </div>
                     </div>
-                  {%- else -%}
-                    <p class="text-center">{{ 'customer.orders.none' | t }}</p>
-                  {%- endif -%}
-          
-                  {%- if paginate.pages > 1 -%}
-                    {%- if paginate.parts.size > 0 -%}
-                        <nav class="pagination" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
-                          <ul role="list">
-                          {%- if paginate.previous -%}
-                            <li>
-                              <a href="{{ paginate.previous.url }}" aria-label="{{ 'general.pagination.previous' | t }}">
-                                <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
-                                  <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
-                                </svg>
-                              </a>
-                            </li>
-                          {%- endif -%}
-          
-                          {%- for part in paginate.parts -%}
-                            <li>
-                              {%- if part.is_link -%}
-                                <a href="{{ part.url }}" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</a>
-                              {%- else -%}
-                                {%- if part.title == paginate.current_page -%}
-                                  <span aria-current="page" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</span>
-                                {%- else -%}
-                                  <span>{{ part.title }}</span>
-                                {%- endif -%}
-                              {%- endif -%}
-                            </li>
-                          {%- endfor -%}
-          
-                          {%- if paginate.next -%}
-                            <li>
-                              <a href="{{ paginate.next.url }}" aria-label="{{ 'general.pagination.next' | t }}" >
-                                <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
-                                  <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
-                                </svg>
-                              </a>
-                            </li>
-                          {%- endif -%}
-                          </ul>
-                        </nav>
-                    {%- endif -%}
-                  {%- endif -%}
-                {% endpaginate %}
+                  </div>
+                  <div class="bg-overlay"></div>
               </div>
-            </div>
+                              
           </div>
+          <div id="tab-4" class="tab-content">
+              <div class="order-history-wrapper">
+                <div class="page-width">
+                  <div>
+                  <h2 class="text-center-heading border-heading margin-0 ">{{ 'customer.orders.title' | t }}</h2>
+                    {% paginate customer.orders by 20 %}
+                      {%- if customer.orders.size > 0 -%}
+                        <div role="table" class="order-history">
+                            <div role="rowgroup" class="transection-list-main">
+                              {%- for order in customer.orders -%}
+                              
+                                {%- comment -%}<p>transactions-{{ order.transactions.payment_details.credit_card_company }}</p>{%- endcomment -%}
+                                <div class="row-wrapper" data-index="{{ forloop.index}}">
+                                  <div class="transaction-history-title" data-test="{{ order.transactions.payment_details.credit_card_company }}">
+                                    <span class="heading">Transactions</span>
+                                    <span class="toggle-button{% if forloop.first %} active{% endif %}" data-text="{% if forloop.first %}Hide Details{% else %}Show Details{% endif %}">{% if forloop.first %}Hide Details{% else %}Show Details{% endif %}</span>
+                                  </div>
+                                  <div role="row" class="order-outer-wrapper">
+                                    <div class="order-header-wrapper transection-list-inner">
+                                      <div class="order-info">
+                                        <h3 class="order-name">
+                                          order {{ order.name }}
+                                        </h3>
+                                      </div>
+                                      <div class="order-item-info">
+                                        {%- assign order_date = order.created_at | date : "%B %d, %Y" -%}
+                                        <p class="order-date">{{ order_date }}</p>
+                                      </div>
+                                      <div class="ordre-price">
+                                        {{ order.total_price | money }}
+                                      </div>
+                                    </div>
+                                    <div class="order-info-wrapper"{% if forloop.first %} style="display:block"{% endif %}>
+                                      <div class="order-info transection-list-inner">
+                                        <div class="order-address">
+                                          {%- if order.shipping_address != blank -%}
+                                            <div class="address">
+                                              <p class="heading">{{ 'customer.order.shipping_address' | t }}</p>
+                                              <div class="address-info">
+                                                {%- unless order.shipping_address.address1 == blank and order.shipping_address.city == blank -%}
+                                                  <div class="address-text">
+                                                    {%- unless order.shipping_address.address1 == blank %}
+                                                      {{ order.shipping_address.address1 }}
+                                                    {%- endunless -%}
+                                                    {%- unless order.shipping_address.city == blank %}
+                                                      {{ order.shipping_address.city }} 
+                                                    {%- endunless -%}
+                                                  </div>
+                                                {%- endunless -%}
+                                                {%- unless order.shipping_address.country_code == blank and unless order.shipping_address.zip == blank -%}
+                                                <div class="address-text">
+                                                  {%- unless order.shipping_address.country_code == blank %}
+                                                    {{ order.shipping_address.country_code }}
+                                                  {%- endunless -%}
+                                                  {%- unless order.shipping_address.zip == blank %}
+                                                    {{ order.shipping_address.zip}}
+                                                  {%- endunless -%}
+                                                </div>
+                                                {%- endunless -%}
+                                              </div>
+                                            </div>
+                                          {%- endif -%}
+                                          {%- if order.billing_address != blank -%}
+                                            <div class="address">
+                                              <p class="heading">{{ 'customer.order.billing_address' | t }}</p>
+                                              <div class="address-info">
+                                                <div class="address-text">
+                                                  {{ order.billing_address.address1 }}
+                                                  {{ order.billing_address.city }} 
+                                                </div>
+                                                <div class="address-text">
+                                                  {{ order.billing_address.country_code}}
+                                                  {{ order.billing_address.zip}}
+                                                </div>
+                                              </div>
+                                            </div>
+                                          {%- endif -%}
+                                          <div class="return-item">
+                                            <a target="_blank" class="return-item-btn button button--primary" href="https://groomsclub.returnly.com/">Return Item</a>
+                                          </div>
+                                        </div>                              
+                                        <div class="order-item-info">
+                                          {%- for item in order.line_items -%}
+                                            {%- unless item.title == blank and item.product.has_only_default_variant -%}
+                                              <div class="item-info">
+                                                {%- unless item.title == blank-%}
+                                                  <p class="title">{{ item.title }}</p>
+                                                {%- endunless -%}
+                                                {% unless item.product.has_only_default_variant %}
+                                                  <p class="variant-title">
+                                                    {% for option in item.options_with_values %}
+                                                      <span>{{ option.name }} {{ option.value }}
+                                                        {%- unless forloop.last -%}
+                                                        , 
+                                                        {%- endunless -%}
+                                                      </span>
+                                                    {% endfor %}
+                                                  </p>
+                                                {% endunless %}
+                                              </div>
+                                            {%- endunless -%}
+                                          {%- endfor -%}
+                                        </div>
+                                        
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              {%- endfor -%}
+                            </div>
+                          </div>
+                        </div>
+                      {%- else -%}
+                        <p class="text-center">{{ 'customer.orders.none' | t }}</p>
+                      {%- endif -%}
+              
+                      {%- if paginate.pages > 1 -%}
+                        {%- if paginate.parts.size > 0 -%}
+                            <nav class="pagination" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
+                              <ul role="list">
+                              {%- if paginate.previous -%}
+                                <li>
+                                  <a href="{{ paginate.previous.url }}" aria-label="{{ 'general.pagination.previous' | t }}">
+                                    <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                                      <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+                                    </svg>
+                                  </a>
+                                </li>
+                              {%- endif -%}
+              
+                              {%- for part in paginate.parts -%}
+                                <li>
+                                  {%- if part.is_link -%}
+                                    <a href="{{ part.url }}" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</a>
+                                  {%- else -%}
+                                    {%- if part.title == paginate.current_page -%}
+                                      <span aria-current="page" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</span>
+                                    {%- else -%}
+                                      <span>{{ part.title }}</span>
+                                    {%- endif -%}
+                                  {%- endif -%}
+                                </li>
+                              {%- endfor -%}
+              
+                              {%- if paginate.next -%}
+                                <li>
+                                  <a href="{{ paginate.next.url }}" aria-label="{{ 'general.pagination.next' | t }}" >
+                                    <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                                      <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+                                    </svg>
+                                  </a>
+                                </li>
+                              {%- endif -%}
+                              </ul>
+                            </nav>
+                        {%- endif -%}
+                      {%- endif -%}
+                    {% endpaginate %}
+                  </div>
+                </div>
+              </div>
+        </div>
       </div>
     </div>
   </div>

@@ -270,7 +270,7 @@ theme_custom.ProductData = function(productItemsArr){
         $(`.product-data-wrapper .look-product-block .pants-prod-data-wrap`).html(pantProductHTML);
         productSubTotalPrice = theme_custom.Shopify.formatMoney((subTotal)/100, theme_custom.money_format);
         $(`.product-data-wrapper .order-footer .price-number`).text(productSubTotalPrice);
-        $(`.product-data-wrapper .look-product-block`).prepend(`<h2 class="border-heading title">Your Assigned Look</h2>`);
+        // $(`.product-data-wrapper .look-product-block`).prepend(`<h2 class="border-heading title">Your Assigned Look</h2>`);
         $(".loader-icon").addClass("hidden");
         $(".product-data-wrapper").removeClass("hidden");
       },
@@ -458,8 +458,8 @@ theme_custom.getEventDetails = function(eventId) {
           editEventData = '';
           editEventData = '<div class="single-member-detail-part">';
           editEventData += '<div class="normal-open background-part">';
-          editEventData += '<h4 class="member-name"><span class="evntfirst_name"> ' + weddingeventarray[i].first_name + '</span> <span class="evntlast_name"> ' + weddingeventarray[i].last_name + '</span></h4>';
-          editEventData += '<h5 class="secound-title">' + weddingeventarray[i].look_name + '</h5>';
+          editEventData += '<h4 class="member-name"><span class="evntfirst_name"> ' + weddingeventarray[i].first_name + ' ' + weddingeventarray[i].last_name +  '</span> <p class="evntlast_email"> ' + weddingeventarray[i].email  +  '</p> <p class="event_phone"> ' + weddingeventarray[i].phone.substring(2) + '</p></h4>';
+          // editEventData += '<h5 class="secound-title">' + weddingeventarray[i].look_name + '</h5>';
           editEventData += '</div></div>';
           eventNewArray.push(editEventData);
         }
@@ -467,6 +467,8 @@ theme_custom.getEventDetails = function(eventId) {
         $('.mywedding_api_call_loading').addClass('hidden');
         $('.mywedding_section_wrap').removeClass('hidden');
         theme_custom.getProfileImage(result);
+
+
       },
       error: function (xhr, status, error) {
         if(xhr.responseJSON.message=='Token is invalid or expired.'){
@@ -688,7 +690,7 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
                                   <b>The Event Host has prepaid for your look!</b> Proceed to enter your shipping information.
                                 </p>
                               </div>
-                              <div>Subtotal:</div> <h3 class="price-number">$304.98</h3>
+                              <div class="subtotal-label">Subtotal:</div> <h3 class="price-number">$304.98</h3>
                             </div>
                             <div class="alerts-part fit-finder-alert-msg">
                               <div class="icon"><i class="fas fa-exclamation-triangle"></i></div>
@@ -699,10 +701,9 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
                             </div>
                             <div class="return-suit-checkout-button">
                               <div class="info-stickey-note">
-                                <span class="info-icon"><i class="fas fa-info"></i></span>
                                 <div class="info-note-text">
-                                  <p class="note-title">Need to return your suit? </p>
-                                  <p>Please review our <a href="/policies/refund-policy" class="link" target="_blank" tabindex="0" title="Return Policy">Return Policy.</a></p>
+                                  <p class="note-title"><span class="info-icon"><i class="fas fa-info"></i></span> Need to return your suit? </p>
+                                  <p class="note-title-info">Please review our <a href="/policies/refund-policy" class="link" target="_blank" tabindex="0" title="Return Policy">Return Policy.</a></p>
                                 </div> 
                               </div>
                             </div>
@@ -754,6 +755,15 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
       }      
       $('.mywedding_api_call_loading').addClass('hidden');
       $('.mywedding_section_wrap').removeClass('hidden');
+      
+      let itemInterval = setInterval(()=>{
+        if($('.invite-event-main-content [data-product-type="jacket"]').length > 0 && $('.invite-event-main-content [data-product-type="pants"]').length > 0){
+          $('.invite-event-main-content [data-product-type="jacket"]').addClass('pant-exist');
+          $('.invite-event-main-content [data-product-type="pants"]').addClass('jacket-exist');
+          clearInterval(itemInterval);
+        }
+      },500);
+      
     },
     error: function (xhr, status, error) {
       if(xhr.responseJSON.message=='Token is invalid or expired.'){

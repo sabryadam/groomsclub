@@ -561,7 +561,7 @@ theme_custom.featureLooksSlider = function () {
   $('.feature-looks-slider').slick({
     dots: false,
     arrows: true,
-    infinite: true,
+    infinite: false,
     autoplay: false,
     prevArrow: "<img alt='slider-prev' class='slick-prev pull-left' src='https://cdn.shopify.com/s/files/1/0588/4700/2812/files/slider_arrow_left.png?v=1631874486'>",
     nextArrow: "<img alt='slider-next' class='slick-next pull-right' src='https://cdn.shopify.com/s/files/1/0588/4700/2812/files/slider_arrow_right.png?v=1631874485'>",
@@ -577,7 +577,7 @@ theme_custom.featureLooksSlider = function () {
       }
     },
     {
-      breakpoint: 300,
+      breakpoint: 767,
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1

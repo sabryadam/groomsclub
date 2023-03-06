@@ -8845,7 +8845,7 @@ img.crossed-out.hide {
 .my-event-wrapper .pagination-wrapper span.count-number {
   font-size: 16px;
   color: var(--color-primary);
-  font-weight: 400;
+  font-weight: 300;
   display: inline-block;
   width: 30px;
   height: 30px;
@@ -10640,4 +10640,7 @@ p.removing-combine-message
     width: 18%;
     justify-content: right;
   }
+}
+.collection .collection-product-count{
+  display: none;
 }
