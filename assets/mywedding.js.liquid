@@ -29,6 +29,7 @@ theme_custom.reminder = function (sendReminderDataObj, button) {
           'color': 'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -91,6 +92,7 @@ theme_custom.updateReminder = function(reminderDataObj, button,reminderId){
             'color': 'red'
           });
           setTimeout(() => {
+            theme_custom.removeLocalStorage();
             window.location.href = '/account/logout';
           }, 5000);
         } else {
@@ -460,6 +462,7 @@ theme_custom.assignToMember = function (data, button) {
           'color': 'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -501,6 +504,7 @@ theme_custom.removeUserFromLook = function (eventId, memberId) {
           if (xhr.responseJSON.message == 'Token is invalid or expired.') {
             alert('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>');
             setTimeout(() => {
+              theme_custom.removeLocalStorage();
               window.location.href = '/account/logout';
             }, 5000);
           } else {
@@ -538,6 +542,7 @@ theme_custom.deleteReminder = function (reminderId) {
           if (xhr.responseJSON.message == 'Token is invalid or expired.') {
             alert('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>');
             setTimeout(() => {
+              theme_custom.removeLocalStorage();
               window.location.href = '/account/logout';
             }, 5000);
           } else {
@@ -668,6 +673,7 @@ theme_custom.getEventMemberList = function (eventId) {
           'color': 'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 3000);
       } else {
@@ -1079,6 +1085,7 @@ theme_custom.myWeddingClickEvent = function () {
             'color': 'red'
           });
           setTimeout(() => {
+            theme_custom.removeLocalStorage();
             window.location.href = '/account/logout';
           }, 5000);
         } else {
@@ -1168,6 +1175,7 @@ theme_custom.myWeddingClickEvent = function () {
               'color': 'red'
             });
             setTimeout(() => {
+              theme_custom.removeLocalStorage();
               window.location.href = '/account/logout';
             }, 5000);
           } else {
@@ -1412,6 +1420,7 @@ theme_custom.myWeddingClickEvent = function () {
             'color': 'red'
           });
           setTimeout(() => {
+            theme_custom.removeLocalStorage();
             window.location.href = '/account/logout';
           }, 5000);
         } else {
@@ -1496,6 +1505,7 @@ theme_custom.myWeddingClickEvent = function () {
             'color': 'red'
           });
           setTimeout(() => {
+            theme_custom.removeLocalStorage();
             window.location.href = '/account/logout';
           }, 5000);
         } else {
@@ -1585,6 +1595,7 @@ theme_custom.myWeddingClickEvent = function () {
             'color': 'red'
           });
           setTimeout(() => {
+            theme_custom.removeLocalStorage();
             window.location.href = '/account/logout';
           }, 5000);
         } else {
@@ -1626,6 +1637,7 @@ theme_custom.deleteTheLooksItem = function () {
             if (xhr.responseJSON.message == 'Token is invalid or expired.') {
               alert('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>');
               setTimeout(() => {
+                theme_custom.removeLocalStorage();
                 window.location.href = '/account/logout';
               }, 5000);
             } else {
@@ -1997,6 +2009,7 @@ theme_custom.getEventDetails = function () {
               'color': 'red'
             });
             setTimeout(() => {
+              theme_custom.removeLocalStorage();
               window.location.href = '/account/logout';
             }, 5000);
           } else {
@@ -2038,6 +2051,7 @@ theme_custom.chargePayment = function(data){
           'color': 'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -2090,6 +2104,7 @@ theme_custom.getPaymentDetails =function(){
               'color': 'red'
             });
             setTimeout(() => {
+              theme_custom.removeLocalStorage();
               window.location.href = '/account/logout';
             }, 5000);
           } else {
@@ -2139,6 +2154,7 @@ theme_custom.getEventMember = function () {
           'color': 'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -2210,6 +2226,7 @@ theme_custom.getMemberSelectedForReminder = function (reminderMemberArr, eidtind
           'color': 'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -2281,6 +2298,7 @@ theme_custom.selectedOption = function (reminderMemberArr, eidtindex) {
           'color': 'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 3000);
       } else {
