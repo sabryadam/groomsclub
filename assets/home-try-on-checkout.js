@@ -243,6 +243,7 @@ theme_custom.getEventDetails = function (eventId) {
               'color': 'red'
             });
             setTimeout(() => {
+              theme_custom.removeLocalStorage();
               window.location.href = '/account/logout';
             }, 5000);
           } else {
@@ -353,6 +354,7 @@ theme_custom.getFitFinderData = function(payBy){
           'color':'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -487,6 +489,7 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
           'color':'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -531,6 +534,7 @@ theme_custom.create_stripe_payment = function(shipping_info_data,stripe_card_dat
           'color': 'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -597,6 +601,7 @@ theme_custom.create_home_try_order = function(shipping_info_data,button){
           'color': 'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {

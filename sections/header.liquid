@@ -393,7 +393,11 @@
     {%- endif -%}
     <div class="header__icons">
       <div class="header_get_started_btn">
-        <a class="button button--secondary btn-small" href="{% if customer %}{{ settings.create_event_url }}{% else %}{{ routes.account_register_url }}{% endif %}">{% unless customer %}{{ settings.create_event_before_login_btn_text }}{% else %}{{ settings.create_event_after_login_btn_text }}{% endunless %}</a>
+        {% if customer %}
+          <span class="button button--secondary btn-small create-event-header-button" data-href="{{ settings.create_event_url }}">{{ settings.create_event_after_login_btn_text }}</span>
+        {% else %}
+          <a class="button button--secondary btn-small" href="{% if customer %}{{ settings.create_event_url }}{% else %}{{ routes.account_register_url }}{% endif %}">{{ settings.create_event_before_login_btn_text }}</a>
+        {% endif %}
       </div>
      {% comment %} <details-modal class="header__search">
         <details>

@@ -30,6 +30,7 @@ theme_custom.reminder = function (sendReminderDataObj, button, targetEvemtId, ta
           'margin': '15px 0'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -89,6 +90,7 @@ theme_custom.removeUserFromLook = function (eventId, memberId) {
           if (xhr.responseJSON.message == 'Token is invalid or expired.') {
             alert('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>');
             setTimeout(() => {
+              theme_custom.removeLocalStorage();
               window.location.href = '/account/logout';
             }, 5000);
           } else {
@@ -243,6 +245,7 @@ theme_custom.thePartyGuestDetails = function () {
               'color': 'red'
             });
             setTimeout(() => {
+              theme_custom.removeLocalStorage();
               window.location.href = '/account/logout';
             }, 5000);
           } else {
@@ -293,6 +296,7 @@ theme_custom.getEventMemberList = function (eventId, memberId) {
           'color': 'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 3000);
       } else {

@@ -52,6 +52,13 @@
 
 
 theme_custom.base_url = theme_custom.api_base_url;
+
+theme_custom.removeLocalStorage = function(){
+  localStorage.removeItem("created-event-step");
+  localStorage.removeItem("created-event");
+  localStorage.removeItem("selectedMemberIds");
+  localStorage.removeItem("created-event-id");
+}
 // DatePicker
 theme_custom.datePicker = function ($this) {
   var count = 0;
@@ -411,6 +418,7 @@ theme_custom.updateProfileImage = function (that) {
           'color': 'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -1135,6 +1143,22 @@ theme_custom.clickEvent = function () {
     window.location.href = `${$(this).attr("data-href")}?checkout_url=${window.location.href}`;
   }); 
 
+  // create-event-header-button 
+  $(document).on("click",".create-event-header-button", function(){
+    if(localStorage.getItem("set-event-id")!= null){
+      localStorage.removeItem("set-event-id");
+    }
+    var buttonLink = $(this).data("href");
+    window.location.href = buttonLink;
+  })
+  // Top look fav and event click on user has not logged 
+  $(document).on("click",".event-or-fav-when-user-has-not-logged", function(){
+    localStorage.setItem("event-or-fav-when-user-has-not-logged","true");
+    localStorage.setItem("previous-page-link","true");
+    localStorage.setItem("previous-page-link",window.location.href);
+    window.location.href = `${$(this).attr("data-href")}?checkout_url=${window.location.href}`;
+  }); 
+
 
   $(document).on("click",".event-or-fav-when-user-has-not-logged", function(e){
     e.preventDefault();
@@ -1355,10 +1379,7 @@ theme_custom.clickEvent = function () {
       success: function () {
         setTimeout(() => {
           setCookie("fit-finder-data", '');
-          localStorage.removeItem("save-fit-finder-flag");
-          localStorage.removeItem("edit-fit-finder");
-          localStorage.removeItem("save-fit-finder-flag-replace");
-          localStorage.removeItem("userHasLogged");
+          localStorage.clear();
           window.location.href = '/account/logout';
         }, 100);
       },
@@ -1488,6 +1509,7 @@ theme_custom.clickEvent = function () {
               'color': 'red'
             });
             setTimeout(() => {
+              theme_custom.removeLocalStorage();
               window.location.href = '/account/logout';
             }, 5000);
           } else {

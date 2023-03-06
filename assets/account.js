@@ -200,6 +200,7 @@ function getsizedata() {
                     'color': 'red'
                 });
                 setTimeout(() => {
+                    theme_custom.removeLocalStorage();
                     window.location.href = '/account/logout';
                 }, 5000);
             } else {
@@ -282,7 +283,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                 }
                 if (result.data.events.length > 0) {
                     var append_event_html = `<input type="hidden" class="eventtype-hidden" value="${eventType}">`;
-
+                    result.data.events = result.data.events.reverse();
                     for (var i = 0; i < result.data.events.length; i++) {
                         var event_picture = result.data.events[i].picture;
                         if (!event_picture) {
@@ -297,7 +298,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                         } else {
                             var pageLink = `/pages/invited?event_id=${result.data.events[i].event_id}+member_id=${result.data.events[i].member_id}`;
                         }
-                        append_event_html += `<a href="${pageLink}" class="events-main-link" data-hosted-by="${result.data.events[i].hostedBy}"><div class="events-container"> <div class="event-container-date"><span>${day}</span> ${month}</div>
+                        append_event_html += `<div data-href="/pages/create-event" data-event-id="${result.data.events[i].event_id}" class="events-main-link" data-hosted-by="${result.data.events[i].hostedBy}"><div class="events-container"> <div class="event-container-date"><span>${day}</span> ${month}</div>
                             <div class="event-container-image"><img src="${event_picture}" alt="default-event-image"></div>
                             <div class="event-container-event-content"><div class="event-title"><span>${result.data.events[i].name}</span></div>
                             <div class="event-hostedby"><i class="fas fa-user-tie"></i><span>Hosted by ${result.data.events[i].hostedBy}</span></div>
@@ -307,7 +308,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                                 <polyline class="paginationarrow" points="15.7,2.4 30.7,18.4 15.7,33.4 	"/><rect x="1.2" y="16.4" transform="matrix(-1 -4.488999e-11 4.488999e-11 -1 30.4722 35.7375)" class="paginationarrow-one" width="28" height="3"/></g>
                             </svg> </span>
                             </div>
-                        </div></a>`;
+                        </div></div>`;
                     }
                     append_event_html += `<div class="pagination-wrapper"></div>`;
                     // append_event_html += `<div class="event-pagination"><span class="event-pre ${pre_class}" data-page="${pre_page-1}">Pre</span> <span class="event-next ${next_class}" data-page="${next_page}">Next</span></div>`;
@@ -335,6 +336,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                     'color': 'red'
                 });
                 setTimeout(() => {
+                    theme_custom.removeLocalStorage();
                     window.location.href = '/account/logout';
                 }, 5000);
             } else {
@@ -350,6 +352,9 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
 $(document).on("click", ".events-main-container .custom-event-button, .events-main-link ", function () {
     var hostedBy = $(this).data("hosted-by");
     localStorage.setItem("hosted-by", hostedBy);
+    localStorage.setItem("set-event-id",$(this).data("event-id"));
+    window.location.href = $(this).data("href");
+
 })
 
 //event List pagination 
@@ -493,6 +498,7 @@ function favoritelooks() {
                     'color': 'red'
                 });
                 setTimeout(() => {
+                    theme_custom.removeLocalStorage();
                     window.location.href = '/account/logout';
                 }, 5000);
             } else {
@@ -535,6 +541,7 @@ function deletefavoritelooks(looksoid) {
                         'color': 'red'
                     });
                     setTimeout(() => {
+                        theme_custom.removeLocalStorage();
                         window.location.href = '/account/logout';
                     }, 5000);
                 } else {
@@ -555,6 +562,7 @@ $(document).on("click", ".edit-favorite-look-button", function () {
     localStorage.setItem("customizerlookUrl", getRediectUrl.split("?")[1]);
     localStorage.setItem("editLookId",$(this).attr("edit-look-id"));
     localStorage.setItem("editLookName",$(this).attr("edit-look-name"));
+    localStorage.setItem("look-for-favourite","look-for-favourite");
 });
 
 $(document).on('click', '.delete_favorites', function () {
@@ -708,6 +716,7 @@ theme_custom.LookImageCustomizer = function (look_image, lookID, button) {
                     'color': 'red'
                 });
                 setTimeout(() => {
+                    theme_custom.removeLocalStorage();
                     window.location.href = '/account/logout';
                 }, 5000);
             } else {
@@ -773,6 +782,7 @@ $(document).on('click', '#addeventfav_btn', function () {
                     'color': 'red'
                 });
                 setTimeout(() => {
+                    theme_custom.removeLocalStorage();
                     window.location.href = '/account/logout';
                 }, 5000);
             } else {
@@ -911,6 +921,7 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
                     'color': 'red'
                 });
                 setTimeout(() => {
+                    theme_custom.removeLocalStorage();
                     window.location.href = '/account/logout';
                 }, 3000);
             } else {
@@ -1152,6 +1163,7 @@ theme_custom.updateMySize = function (fitFinderJson, button) {
             'color': 'red'
           });
           setTimeout(() => {
+            theme_custom.removeLocalStorage();
             window.location.href = '/account/logout';
           }, 5000);
         } else {
