@@ -50,7 +50,9 @@
   }), e(t).on("click", "[data-fancybox-share]", function () { var t, o, i = e.fancybox.getInstance(), a = i.current || null; a && ("function" === e.type(a.opts.share.url) && (t = a.opts.share.url.apply(a, [i, a])), o = a.opts.share.tpl.replace(/\{\{media\}\}/g, "image" === a.type ? encodeURIComponent(a.src) : "").replace(/\{\{url\}\}/g, encodeURIComponent(t)).replace(/\{\{url_raw\}\}/g, n(t)).replace(/\{\{descr\}\}/g, i.$caption ? encodeURIComponent(i.$caption.text()) : ""), e.fancybox.open({ src: i.translate(i, o), type: "html", opts: { touch: !1, animationEffect: !1, afterLoad: function (t, e) { i.$refs.container.one("beforeClose.fb", function () { t.close(null, 0) }), e.$content.find(".fancybox-share__button").click(function () { return window.open(this.href, "Share", "width=550, height=450"), !1 }) }, mobile: { autoFocus: !1 } } })) })
 }(document, jQuery), function (t, e, n) { "use strict"; function o() { var e = t.location.hash.substr(1), n = e.split("-"), o = n.length > 1 && /^\+?\d+$/.test(n[n.length - 1]) ? parseInt(n.pop(-1), 10) || 1 : 1, i = n.join("-"); return { hash: e, index: o < 1 ? 1 : o, gallery: i } } function i(t) { "" !== t.gallery && n("[data-fancybox='" + n.escapeSelector(t.gallery) + "']").eq(t.index - 1).focus().trigger("click.fb-start") } function a(t) { var e, n; return !!t && (e = t.current ? t.current.opts : t.opts, "" !== (n = e.hash || (e.$orig ? e.$orig.data("fancybox") || e.$orig.data("fancybox-trigger") : "")) && n) } n.escapeSelector || (n.escapeSelector = function (t) { return (t + "").replace(/([\0-\x1f\x7f]|^-?\d)|^-$|[^\x80-\uFFFF\w-]/g, function (t, e) { return e ? "\0" === t ? "�" : t.slice(0, -1) + "\\" + t.charCodeAt(t.length - 1).toString(16) + " " : "\\" + t }) }), n(function () { !1 !== n.fancybox.defaults.hash && (n(e).on({ "onInit.fb": function (t, e) { var n, i; !1 !== e.group[e.currIndex].opts.hash && (n = o(), (i = a(e)) && n.gallery && i == n.gallery && (e.currIndex = n.index - 1)) }, "beforeShow.fb": function (n, o, i, s) { var r; i && !1 !== i.opts.hash && (r = a(o)) && (o.currentHash = r + (o.group.length > 1 ? "-" + (i.index + 1) : ""), t.location.hash !== "#" + o.currentHash && (s && !o.origHash && (o.origHash = t.location.hash), o.hashTimer && clearTimeout(o.hashTimer), o.hashTimer = setTimeout(function () { "replaceState" in t.history ? (t.history[s ? "pushState" : "replaceState"]({}, e.title, t.location.pathname + t.location.search + "#" + o.currentHash), s && (o.hasCreatedHistory = !0)) : t.location.hash = o.currentHash, o.hashTimer = null }, 300))) }, "beforeClose.fb": function (n, o, i) { i && !1 !== i.opts.hash && (clearTimeout(o.hashTimer), o.currentHash && o.hasCreatedHistory ? t.history.back() : o.currentHash && ("replaceState" in t.history ? t.history.replaceState({}, e.title, t.location.pathname + t.location.search + (o.origHash || "")) : t.location.hash = o.origHash), o.currentHash = null) } }), n(t).on("hashchange.fb", function () { var t = o(), e = null; n.each(n(".fancybox-container").get().reverse(), function (t, o) { var i = n(o).data("FancyBox"); if (i && i.currentHash) return e = i, !1 }), e ? e.currentHash === t.gallery + "-" + t.index || 1 === t.index && e.currentHash == t.gallery || (e.currentHash = null, e.close()) : "" !== t.gallery && i(t) }), setTimeout(function () { n.fancybox.getInstance() || i(o()) }, 50)) }) }(window, document, jQuery), function (t, e) { "use strict"; var n = (new Date).getTime(); e(t).on({ "onInit.fb": function (t, e, o) { e.$refs.stage.on("mousewheel DOMMouseScroll wheel MozMousePixelScroll", function (t) { var o = e.current, i = (new Date).getTime(); e.group.length < 2 || !1 === o.opts.wheel || "auto" === o.opts.wheel && "image" !== o.type || (t.preventDefault(), t.stopPropagation(), o.$slide.hasClass("fancybox-animated") || (t = t.originalEvent || t, i - n < 250 || (n = i, e[(-t.deltaY || -t.deltaX || t.wheelDelta || -t.detail) < 0 ? "next" : "previous"]()))) }) } }) }(document, jQuery);
 
-
+theme_custom.removeLocalStorage = function(){
+  localStorage.clear();
+}
 theme_custom.base_url = theme_custom.api_base_url;
 // DatePicker
 theme_custom.datePicker = function ($this) {
@@ -411,6 +413,7 @@ theme_custom.updateProfileImage = function (that) {
           'color': 'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -1131,17 +1134,8 @@ theme_custom.clickEvent = function () {
   $(document).on("click",".event-or-fav-when-user-has-not-logged", function(){
     localStorage.setItem("event-or-fav-when-user-has-not-logged","true");
     localStorage.setItem("previous-page-link","true");
-    localStorage.setItem("previous-page-link",window.location.href);
-    window.location.href = `${$(this).attr("data-href")}?checkout_url=${window.location.href}`;
-  }); 
-
-
-  $(document).on("click",".event-or-fav-when-user-has-not-logged", function(e){
-    e.preventDefault();
-    // localStorage.setItem("event-or-fav-when-user-has-not-logged","true");
-    // localStorage.setItem("previous-page-link","true");
-    // localStorage.setItem("previous-page-link",window.location.href);
-    window.location.href = `${$(this).attr("href")}?prev_url=${window.location.href}`;
+    localStorage.setItem("page-link",window.location.href);
+    window.location.href = $(this).attr("data-href");
   }); 
 
   // event page 
@@ -1355,10 +1349,7 @@ theme_custom.clickEvent = function () {
       success: function () {
         setTimeout(() => {
           setCookie("fit-finder-data", '');
-          localStorage.removeItem("save-fit-finder-flag");
-          localStorage.removeItem("edit-fit-finder");
-          localStorage.removeItem("save-fit-finder-flag-replace");
-          localStorage.removeItem("userHasLogged");
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 100);
       },
@@ -1488,6 +1479,7 @@ theme_custom.clickEvent = function () {
               'color': 'red'
             });
             setTimeout(() => {
+              theme_custom.removeLocalStorage();
               window.location.href = '/account/logout';
             }, 5000);
           } else {

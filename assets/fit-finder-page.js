@@ -131,6 +131,7 @@ theme_custom.saveFitFinder = function (fitFinderJson, button) {
           'color': 'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {

@@ -75,6 +75,7 @@ theme_custom.getEventData = function(modalTarget){
           'color':'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -184,6 +185,7 @@ theme_custom.getFitFinder = function(){
           'color':'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -309,6 +311,7 @@ theme_custom.lookImage = function(getEventId,lookID,button){
           'color':'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -352,6 +355,7 @@ theme_custom.createLookAPI = function(lookName,eventId,lookUrl,produArray,button
           'color':'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -425,6 +429,7 @@ theme_custom.favoriteLookImageCustomizer = function(lookID,button){
           'color':'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -473,6 +478,7 @@ theme_custom.favouriteLookApi = function(lookName,lookUrl,produArray,button){
           'color':'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
