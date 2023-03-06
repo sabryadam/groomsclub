@@ -24,6 +24,9 @@ theme_custom.lookAssignToMember = function(member_id,look_id){
     success: function (result) {
       console.log("result",result)
       console.log("Look Assign to current ")
+      theme_custom.checkLooks(localStorage.getItem("set-event-id"));
+      $('[data-target="add-guest-popup"]').removeClass('active');
+      $('.member-added-into-event').removeClass('disabled')
     },
     error: function (xhr, status, error) {
       $(this).removeClass("disabled");
@@ -41,6 +44,7 @@ theme_custom.lookAssignToMember = function(member_id,look_id){
           parent.find(".api_error").hide();
         }, 3000);
       }
+      theme_custom.globalLoaderhide();
     }
   });
 }
@@ -116,6 +120,7 @@ $(".member-added-into-event").click(function (e) {
           if(error){
             error.remove()
           }
+          $('.invite-another-member-popup-wrapper .member-added-into-event').removeClass('disabled')
         }, 5000);
       }
     });
@@ -130,14 +135,15 @@ theme_custom.user = (user) =>{
     }else{
       whoPay = "They Pay";
     }
+    const deleteIcon = `<div class="delete-icon">
+      <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/delete_1.png?v=1677118754" alt="delete icon" />
+    </div>`
     return `<div class="user-card-block">
     <div class="action-icon">
       <span class="edit-icon">
         <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/pencil_1.png?v=1677124389" alt="Edit Icon">
       </span>
-      <div class="delete-icon">
-        <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/delete_1.png?v=1677118754" alt="delete icon" />
-      </div>
+      ${user.is_host == 0 ? deleteIcon : ''}
     </div>
     <h3 class="user-name">${first_name} ${last_name}</h3>
     <div class="user-email-phone">
@@ -153,7 +159,7 @@ theme_custom.user = (user) =>{
     </div>
   </div>`
 }
-theme_custom.createLookHtml = (div,item, eventMembers) =>{
+theme_custom.createLookHtml = (div,item, eventMembers, event_id) =>{
   // debugger;
   var deleteIconShow = '';
   if(item.assign == true){
@@ -173,7 +179,23 @@ theme_custom.createLookHtml = (div,item, eventMembers) =>{
       }
     }
   }
-  div.append(`<div class="look-card-block" data-look-mapping-id="${item.mapping_id}" data-look-id="${item.look_id}">
+  let host = eventMembers.find((member) => member.is_host == 1);
+  let lookAssignedUser = false;
+
+  if(parseInt(host.look_id) == item.look_id){
+    lookAssignedUser = true;
+  }
+  
+
+  let hostLookHTML = `<div class="pay-info-confirmation-wrap">
+  <div class="title">Are you wearing this look?</div>
+  <div class="confirm-box-wrap">
+    <span class="update-host-look ${lookAssignedUser ? 'active':''}" data-value="yes">Yes</span>
+    <span class="update-host-look no ${!lookAssignedUser ? 'active':''}" data-value="no">No</span>
+  </div>
+</div>`
+
+  div.append(`<div class="look-card-block" data-event-id="${event_id}" data-host-id="${host.event_member_id}" data-look-mapping-id="${item.mapping_id}" data-look-id="${item.look_id}">
     <div class="look-title-and-price">
       <div class="look-title">${item.name}</div>
       <div class="look-price-wrap">
@@ -188,13 +210,7 @@ theme_custom.createLookHtml = (div,item, eventMembers) =>{
       <img class="look-img" src="${item.look_image}" alt="${item.name}" />
       <button data-href="${item.url}" edit-look-id="${localStorage.getItem("set-event-id")}" look-mapping-id="${item.mapping_id}" edit-look-name="${item.name}" class="button button--secondary customise-look customise-look-button">Customise look</button>
     </div>
-    <div class="pay-info-confirmation-wrap">
-      <div class="title">Are you wearing this look?</div>
-      <div class="confirm-box-wrap">
-        <span class="active" data-value="yes">Yes</span>
-        <span data-value="no">No</span>
-      </div>
-    </div>
+    ${hostLookHTML}
     <div class="assign-look-user-wrap">${users}</div>
     <button class="add-guest-button">+ ADD GUEST</button>
   </div>`)
@@ -294,7 +310,7 @@ theme_custom.checkLooks = (id) =>{
       looksDiv.empty();
       for(let i = 0; i<data.data.event_looks.length;i++){
         let item = data.data.event_looks[i];
-        theme_custom.createLookHtml(looksDiv, item, eventMembers);
+        theme_custom.createLookHtml(looksDiv, item, eventMembers, data.data.event_id);
       }
       $(".close-icon").click();
       if(looksDiv.hasClass("slick-initialized")){
@@ -313,6 +329,7 @@ theme_custom.checkLooks = (id) =>{
       $(".event-block-wrap").show();
       $('.show-look-from-event-wrapper').hide();
     }
+    theme_custom.globalLoaderhide();
   });
 }
 
@@ -726,8 +743,64 @@ theme_custom.lookAddedIntoEvent = function(){
     theme_custom.createLookAPI(lookName,eventId,lookUrl,produArray,button);
   })
 }
-theme_custom.eventPageClickEvent = function(){
+theme_custom.globalLoaderShow = () =>{
+  $('.site-global-loader').removeClass('hidden'); 
+}
+theme_custom.globalLoaderhide = () =>{
+  $('.site-global-loader').addClass('hidden'); 
+}
+theme_custom.removeUserFromLook = (eventId,memberId) =>{
+    confirms = confirm("Are you sure you want to remove this?");
+    if (eventId && confirms) {
+      theme_custom.globalLoaderShow();
+      if (eventId) {
+        $.ajax({
+          url: `${theme_custom.base_url}/api/event/removeMember/${eventId}/${memberId}`,
+          method: "DELETE",
+          data: '',
+          dataType: "json",
+          headers: {
+            "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+          },
+          success: function (result) {
+            theme_custom.checkLooks(localStorage.getItem("set-event-id"));
+          },
+          error: function (xhr, status, error) {
+            if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+              alert('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>');
+              setTimeout(() => {
+                theme_custom.removeLocalStorage();
+                window.location.href = '/account/logout';
+              }, 5000);
+            } else {
+              alert(xhr.responseJSON.message);
+            }
+            theme_custom.globalLoaderhide();
+          }
+        });
+      }
+    }
+}
 
+theme_custom.eventPageClickEvent = function(){
+  $(document).on('click', '.user-card-block .action-icon .delete-icon', function(event) {
+    let parent = $(this).closest('.look-card-block');
+    let member_id = parent.attr('data-host-id');
+    let event_id = parent.attr('data-event-id');
+    theme_custom.removeUserFromLook(event_id,member_id);
+  });
+  $(document).on('click', '.pay-info-confirmation-wrap .confirm-box-wrap .update-host-look', function(event) {
+    let value = $(this).attr('data-value');
+    let parent = $(this).closest('.look-card-block');
+    let look_id = parent.attr('data-look-id');
+    let member_id = parent.attr('data-host-id');
+    if(value == 'yes'){
+      theme_custom.globalLoaderShow();
+      theme_custom.lookAssignToMember(member_id,look_id)
+    }else{
+      // theme_custom.removeUserFromLook(eventId,member_id);
+    }
+  })
   $(document).on('click', '.custom-paginate-next', function(event) {
     event.preventDefault();
   
@@ -995,7 +1068,6 @@ theme_custom.getEventDetails = function(){
   });
 }
 theme_custom.deleteTheLooksItem = function () {
-  $(document).on('click', '.delete-icon', function() {
     var eventLookId = $(this).data('event-look-id'),
       confirms = confirm("Are you sure you want to remove this?"),
       removeSelectedLook = $(this).closest(`.look-card-block[data-look-mapping-id="${eventLookId}"]`);
@@ -1040,7 +1112,6 @@ theme_custom.deleteTheLooksItem = function () {
         });
       }
     }
-  });
 }
 theme_custom.checkUpdateEvent = function(checkEventData,value,selector){
   console.log("selector",selector, "value",value);
@@ -1053,7 +1124,7 @@ theme_custom.checkUpdateEvent = function(checkEventData,value,selector){
 $(document).ready(function() {
   // theme_custom.updateEvent();
   window.eventDataObj = {};
-  theme_custom.deleteTheLooksItem();
+  // theme_custom.deleteTheLooksItem();
   theme_custom.event_init_page(); 
   if(localStorage.getItem("set-event-id") != null) {
     theme_custom.getEventDetails();
