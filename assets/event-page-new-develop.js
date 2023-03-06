@@ -135,7 +135,7 @@ theme_custom.user = (user) =>{
     }else{
       whoPay = "They Pay";
     }
-    const deleteIcon = `<div class="delete-icon">
+    const deleteIcon = `<div class="delete-icon member-delete-icon" data-member-id="${user.event_member_id}">
       <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/delete_1.png?v=1677118754" alt="delete icon" />
     </div>`
     return `<div class="user-card-block">
@@ -783,9 +783,9 @@ theme_custom.removeUserFromLook = (eventId,memberId) =>{
 }
 
 theme_custom.eventPageClickEvent = function(){
-  $(document).on('click', '.user-card-block .action-icon .delete-icon', function(event) {
+  $(document).on('click', '.user-card-block .action-icon .member-delete-icon', function(event) {
     let parent = $(this).closest('.look-card-block');
-    let member_id = parent.attr('data-host-id');
+    let member_id = $(this).attr('data-member-id');
     let event_id = parent.attr('data-event-id');
     theme_custom.removeUserFromLook(event_id,member_id);
   });
@@ -1068,6 +1068,7 @@ theme_custom.getEventDetails = function(){
   });
 }
 theme_custom.deleteTheLooksItem = function () {
+  $(document).on('click', '.look-card-block .delete-icon', function() {
     var eventLookId = $(this).data('event-look-id'),
       confirms = confirm("Are you sure you want to remove this?"),
       removeSelectedLook = $(this).closest(`.look-card-block[data-look-mapping-id="${eventLookId}"]`);
@@ -1112,6 +1113,7 @@ theme_custom.deleteTheLooksItem = function () {
         });
       }
     }
+  });
 }
 theme_custom.checkUpdateEvent = function(checkEventData,value,selector){
   console.log("selector",selector, "value",value);
@@ -1124,7 +1126,7 @@ theme_custom.checkUpdateEvent = function(checkEventData,value,selector){
 $(document).ready(function() {
   // theme_custom.updateEvent();
   window.eventDataObj = {};
-  // theme_custom.deleteTheLooksItem();
+  theme_custom.deleteTheLooksItem();
   theme_custom.event_init_page(); 
   if(localStorage.getItem("set-event-id") != null) {
     theme_custom.getEventDetails();
