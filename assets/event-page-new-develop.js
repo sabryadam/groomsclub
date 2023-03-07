@@ -39,7 +39,7 @@ theme_custom.lookAssignToMember = function(member_id,look_id){
           window.location.href = '/account/logout';
         }, 5000);
       } else {
-        parent.find('.api_error').show().html(xhr.responseJSON.message).css("text-align", "center");
+        parent.find('.api_error').removeClass("hidden").show().html(xhr.responseJSON.message).css("text-align", "center");
         setTimeout(() => {
           parent.find(".api_error").hide();
         }, 3000);
@@ -102,7 +102,7 @@ $(".member-added-into-event").click(function (e) {
     url = `${theme_custom.base_url}/api/event/editMember/${eventId}/${$(this).attr('data-member-id')}`;
   }
   if (error_count == 0) {
-    $(this).addClass("disabled");
+    $(this).addClass("loading");
     
     $.ajax({
       url: url,
@@ -123,23 +123,23 @@ $(".member-added-into-event").click(function (e) {
       error: function (xhr, status, error) {
         let div = $('.invite-another-member-popup-wrapper .member-added-into-event').closest('.field');
         if (xhr.responseJSON.message == 'Token is invalid or expired.') {
-          $(div).prepend('<p class="error-member-added-into-event">Something went wrong <a class="try-again-link" href="/account/login">Please try again</a></p>').css({
+          $(div).prepend('<p class="error-member-added-into-event api_error" style="width: 100%;">Something went wrong <a class="try-again-link" href="/account/login">Please try again</a></p>').css({
             'text-align': 'center',
             'color': 'red'
           });
           setTimeout(() => {
             window.location.href = '/account/logout';
-          }, 5000);
+          }, 10000);
         } else {
-          $(div).prepend(`<p class="error-member-added-into-event">${xhr.responseJSON.message}</p>`);
+          $(div).prepend(`<p class="error-member-added-into-event api_error" style="width: 100%;">${xhr.responseJSON.message}</p>`);
         }
         setTimeout(() => {
           let error  = $('.invite-another-member-popup-wrapper .error-member-added-into-event')
           if(error){
-            error.remove()
+            error.fadeOut()
           }
-          $('.invite-another-member-popup-wrapper .member-added-into-event').removeClass('disabled')
-        }, 5000);
+          $(`.invite-another-member-popup-wrapper .member-added-into-event,[data-target="update-guest-popup"] .member-added-into-event,[data-target="add-guest-popup"] .member-added-into-event`).removeClass('loading')
+        }, 10000);
       }
     });
   }
@@ -153,7 +153,7 @@ theme_custom.user = (user) =>{
     }else{
       whoPay = "They Pay";
     }
-    const deleteIcon = `<div class="delete-icon member-delete-icon" data-member-id="${user.event_member_id}">
+    const deleteIcon = `<div class="member-delete-icon" data-member-id="${user.event_member_id}">
       <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/delete_1.png?v=1677118754" alt="delete icon" />
     </div>`
     return `<div class="user-card-block">
@@ -179,7 +179,6 @@ theme_custom.user = (user) =>{
   </div>`
 }
 theme_custom.createLookHtml = (div,item, eventMembers, event_id) =>{
-  // debugger;
   var deleteIconShow = '';
   if(item.assign == true){
     deleteIconShow = 'hidden';
@@ -214,7 +213,7 @@ theme_custom.createLookHtml = (div,item, eventMembers, event_id) =>{
   </div>
 </div>`
 
-  div.append(`<div class="look-card-block" data-event-id="${event_id}" data-host-id="${host.event_member_id}" data-look-mapping-id="${item.mapping_id}" data-look-id="${item.look_id}">
+  div.append(`<div class="look-card-block" data-event-id="${event_id}" data-look-name="${item.name}" data-host-id="${host.event_member_id}" data-look-mapping-id="${item.mapping_id}" data-look-id="${item.look_id}">
     <div class="look-title-and-price">
       <div class="look-title">${item.name}</div>
       <div class="look-price-wrap">
@@ -327,6 +326,7 @@ theme_custom.checkLooks = (id) =>{
     if(data.data.event_looks && data.data.event_looks.length > 0){
       const looksDiv = $('.show-look-from-event-wrapper .event-look-inner-wrapper, .guest-top-looks .event-look-inner-wrapper');
       looksDiv.empty();
+      $(`.invite-another-member-popup-wrapper .member-added-into-event,[data-target="update-guest-popup"] .member-added-into-event,[data-target="add-guest-popup"] .member-added-into-event`).removeClass('loading');
       for(let i = 0; i<data.data.event_looks.length;i++){
         let item = data.data.event_looks[i];
         theme_custom.createLookHtml(looksDiv, item, eventMembers, data.data.event_id);
@@ -374,6 +374,9 @@ theme_custom.updateEventAPI = function(btn){
   }
   if ($('[name="event-type"]:checked').length == 0) {
     $('.event-page-new-design-wrapper  .event-type-section-wrap .form-error').addClass('active');
+    setTimeout(() => {
+      $('.event-page-new-design-wrapper  .event-type-section-wrap .form-error').removeClass('active');
+    }, 500);
     $('html, body').animate({
       scrollTop: $('.event-type-section-wrap').offset().top - 120
     }, 1000);
@@ -381,6 +384,9 @@ theme_custom.updateEventAPI = function(btn){
   }
   if ($('.event-page-new-design-wrapper #event_date').val() == '' ) {
     $('.event-page-new-design-wrapper .event-date-wrap .form-error').addClass('active');
+    setTimeout(() => {
+      $('.event-page-new-design-wrapper  .event-type-section-wrap .form-error').removeClass('active');
+    }, 500);
     $('html, body').animate({
       scrollTop: $('.event-page-new-design-wrapper .event-date-wrap').offset().top - 120
     }, 1000);
@@ -388,6 +394,9 @@ theme_custom.updateEventAPI = function(btn){
   }
   if ($('[name="event-role"]:checked').length == 0) {
     $('.event-page-new-design-wrapper .role-in-event-wrap .form-error').addClass('active');
+    setTimeout(() => {
+      $('.event-page-new-design-wrapper  .event-type-section-wrap .form-error').removeClass('active');
+    }, 500);
     $('html, body').animate({
       scrollTop: $('.event-page-new-design-wrapper .role-in-event-wrap').offset().top - 120
     }, 1000);
@@ -395,6 +404,9 @@ theme_custom.updateEventAPI = function(btn){
   }
   if ($('.event-phone-number .phone-number').val() == '') {
     $('.event-page-new-design-wrapper .event-phone-number .form-error').addClass('active');
+    setTimeout(() => {
+      $('.event-page-new-design-wrapper  .event-type-section-wrap .form-error').removeClass('active');
+    }, 500);
     $('html, body').animate({
       scrollTop: $('.event-page-new-design-wrapper .event-phone-number').offset().top - 120
     }, 1000);
@@ -543,11 +555,11 @@ theme_custom.createEventAPI = function(btn){
       },
       success: function (result) {
         if (result.success) {
-          btn.removeClass('loading');
+          button.removeClass('loading');
           if(result.message == 'Event updated successfully.'){
-            btn.find(".label").text("Event Updated");
+            button.find(".label").text("Event Updated");
             setTimeout(() => {
-              btn.find(".label").text("Update Event");
+              button.find(".label").text("Update Event");
             }, 1000);
           } else {
             localStorage.setItem("set-event-id", result.data.eventId);
@@ -587,10 +599,10 @@ theme_custom.createEventAPI = function(btn){
           } else {
             event_date_msg += `<span>${xhr.responseJSON.message}</span>`;
           }
-          $('.api_error').show().html(event_date_msg);
+          $('.step-content-wrapper.event-step-1 .api_error').show().html(event_date_msg);
           setTimeout(function () {
-            $('.api_error').fadeOut();
-            button.removeClass("disable");
+            $('.step-content-wrapper.event-step-1 .api_error').fadeOut();
+            $(".step-content-wrapper.event-step-1 .button-wrapper").find("button").removeClass("loading");
           }, 10000);
         }
       }
@@ -769,8 +781,8 @@ theme_custom.globalLoaderhide = () =>{
   $('.site-global-loader').addClass('hidden'); 
 }
 theme_custom.removeUserFromLook = (eventId,memberId) =>{
-    confirms = confirm("Are you sure you want to remove this?");
-    if (eventId && confirms) {
+  //  confirms = confirm("Are you sure you want to remove this?");
+    if (eventId) {
       theme_custom.globalLoaderShow();
       if (eventId) {
         $.ajax({
@@ -810,6 +822,7 @@ theme_custom.eventPageClickEvent = function(){
       let popup = $('[data-target="update-guest-popup"]');
       let firstName = $('[name="first_name"]',popup);
       let lastName = $('[name="last_name"]',popup);
+      let lookName = $('.look-name',popup);
       let email = $('.member-email',popup);
       let phone = $('.member-phone',popup);
       let memberId = data.event_member_id;
@@ -820,6 +833,7 @@ theme_custom.eventPageClickEvent = function(){
       lastName.val(data.last_name).trigger('change');
       email.val(data.email).trigger('change');
       phone.val(data.phone.slice(2)).trigger('change');
+      lookName.text(data.look_name);
       if(data.is_host_paying.toLowerCase()=='self'){
         $(payHost).prop('checked',true);
       }else{
@@ -838,11 +852,42 @@ theme_custom.eventPageClickEvent = function(){
   });
 
   $(document).on('click', '.user-card-block .action-icon .member-delete-icon', function(event) {
+    event.preventDefault();
     let parent = $(this).closest('.look-card-block');
     let member_id = $(this).attr('data-member-id');
     let event_id = parent.attr('data-event-id');
-    theme_custom.removeUserFromLook(event_id,member_id);
+    $(`.modal-wrapper[data-target="remove-data-for-user"]`).find(".member_id").val(member_id);
+    $(`.modal-wrapper[data-target="remove-data-for-user"]`).find(".member_id").attr("data-type","member-block");
+    $(`.modal-wrapper[data-target="remove-data-for-user"]`).find(".event_id").val(event_id);
+    $(`.modal-wrapper[data-target="remove-data-for-user"]`).addClass("active");
+    // theme_custom.removeUserFromLook(event_id,member_id);
   });
+
+  $(document).on('click', '.look-card-block .delete-icon', function(event) {
+    event.preventDefault();
+    var eventLookId = $(this).data('event-look-id');
+    $(`.modal-wrapper[data-target="remove-data-for-user"]`).find(".look_id").val(eventLookId);
+    $(`.modal-wrapper[data-target="remove-data-for-user"]`).find(".member_id").attr("data-type","delete-look-block");
+    $(`.modal-wrapper[data-target="remove-data-for-user"]`).addClass("active");
+  });
+
+  $(document).on("click",`[data-target="remove-data-for-user"] button`,function(){
+    var target = $(this).attr('data-value');
+    var checkData = $(this).closest(".modal-wrapper-inner-wrapper").find(".member_id").attr("data-type");
+    if(target == 'yes'){ 
+      if(checkData == 'member-block') {
+        var event_id = $(this).closest(".modal-wrapper-inner-wrapper").find(".event_id").val();
+        var member_id = $(this).closest(".modal-wrapper-inner-wrapper").find(".member_id").val();
+        theme_custom.removeUserFromLook(event_id,member_id);
+      } 
+      if(checkData == 'delete-look-block') {
+        var eventLookId = $(this).closest(".modal-wrapper-inner-wrapper").find(".look_id").val();
+        theme_custom.deleteTheLooksItem(eventLookId);
+      }
+    } else {
+      $('.close-icon').click();
+    }
+  })
 
   $(document).on('click', '.pay-info-confirmation-wrap .confirm-box-wrap .update-host-look', function(event) {
     let value = $(this).attr('data-value');
@@ -880,10 +925,10 @@ theme_custom.eventPageClickEvent = function(){
     window.location.href = $(this).attr("data-href");
   })
 
-  // customise-look-button-foradd-look-into-event
-  $(document).on("click", ".customise-look-button-foradd-look-into-event", function(){
+  // customise-look-button-for-add-look-into-event
+  $(document).on("click", ".customise-look-button-for-add-look-into-event", function(){
     localStorage.setItem("customizerlookUrl",$(this).attr("data-href").split('?')[1]);
-    localStorage.setItem("customise-look-button-foradd-look-into-event","true");
+    localStorage.setItem("customise-look-button-for-add-look-into-event","true");
     window.location.href = $(this).attr("data-href");
   })
   
@@ -1067,17 +1112,10 @@ theme_custom.getEventDetails = function(){
     beforeSend: function () {
     },
     success: function (result) {
-      console.log("Rsult",result);
       eventDataObj.eventName = result.data.event_name;
       eventDataObj.eventType = result.data.event_type;
       eventDataObj.eventDate = result.data.event_date;
       eventDataObj.eventRole = result.data.event_role;
-
-      // set Event Data
-      $("#event-name").val(result.data.event_name);
-      $("#event-type").val(result.data.event_type);
-      $("#event-date").val(result.data.event_date);
-      $("#event-role").val(result.data.event_role);
 
       $('#EventForm-EventName').val(result.data.event_name);
       $('#EventForm-id').val(result.data.event_id);
@@ -1090,8 +1128,8 @@ theme_custom.getEventDetails = function(){
       }
       $(`.Squer-radio-button-inner input[name="event-type"][value="${result.data.event_type}"]`).prop('checked', true);
       $(`.Squer-radio-button-inner input[name="event-role"][data-value="${result.data.event_role}"]`).prop('checked', true);
-      // $('#event_date').val(result.data.event_date);
-      $('.event-data-first-step').datepicker('setDate', new Date(result.data.event_date));
+      $('#event_date').val(result.data.event_date);
+      // $('.event-data-first-step').datepicker('setDate', new Date(result.data.event_date));
 
       $.each(result.data.event_members,function(index,value){
         if(value.is_host == "1"){
@@ -1125,53 +1163,47 @@ theme_custom.getEventDetails = function(){
     }
   });
 }
-theme_custom.deleteTheLooksItem = function () {
-  $(document).on('click', '.look-card-block .delete-icon', function() {
-    var eventLookId = $(this).data('event-look-id'),
-      confirms = confirm("Are you sure you want to remove this?"),
-      removeSelectedLook = $(this).closest(`.look-card-block[data-look-mapping-id="${eventLookId}"]`);
-    if (eventLookId && confirms) {
-      if (eventLookId) {
-        $(".event-page-new-design-wrapper").find(".loader-wrapper").removeClass("hidden");
-        $(".event-page-new-design-wrapper").find(".event-step-wrapper").addClass("hidden");
-        $.ajax({
-          url: `${theme_custom.base_url}/api/look/removeFromEvent/${eventLookId}`,
-          method: "DELETE",
-          data: '',
-          dataType: "json",
-          headers: {
-            "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
-          },
-          beforeSend: function () {
-            // $('.favorite-looks-wrapper').css('cursor','not-allowed');
-          },
-          success: function () {
-            removeSelectedLook.remove();
-            if($(".show-look-from-event-wrapper").find(".look-card-block").length == 0){
-              $(".step-content-wrapper.create-event-look").find(".event-block-wrap").show();
-              $(".step-content-wrapper.create-event-look").find(".show-look-from-event-wrapper").hide();
-            }
-            setTimeout(() => {
-              $(".event-page-new-design-wrapper").find(".loader-wrapper").addClass("hidden");
-              $(".event-page-new-design-wrapper").find(".event-step-wrapper").removeClass("hidden");
-              theme_custom.checkLooks(localStorage.getItem("set-event-id"));
-            }, 1000);
-          },
-          error: function (xhr, status, error) {
-            if (xhr.responseJSON.message == 'Token is invalid or expired.') {
-              alert('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>');
-              setTimeout(() => {
-                theme_custom.removeLocalStorage();
-                window.location.href = '/account/logout';
-              }, 5000);
-            } else {
-              alert(xhr.responseJSON.message);
-            }
-          }
-        });
+theme_custom.deleteTheLooksItem = function (eventLookId) {
+  var removeSelectedLook = $(`.look-card-block[data-look-mapping-id="${eventLookId}"]`);
+  if (eventLookId) {
+    $(".event-page-new-design-wrapper").find(".loader-wrapper").removeClass("hidden");
+    $(".event-page-new-design-wrapper").find(".event-step-wrapper").addClass("hidden");
+    $.ajax({
+      url: `${theme_custom.base_url}/api/look/removeFromEvent/${eventLookId}`,
+      method: "DELETE",
+      data: '',
+      dataType: "json",
+      headers: {
+        "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+      },
+      beforeSend: function () {
+        // $('.favorite-looks-wrapper').css('cursor','not-allowed');
+      },
+      success: function () {
+        removeSelectedLook.remove();
+        if($(".show-look-from-event-wrapper").find(".look-card-block").length == 0){
+          $(".step-content-wrapper.create-event-look").find(".event-block-wrap").show();
+          $(".step-content-wrapper.create-event-look").find(".show-look-from-event-wrapper").hide();
+        }
+        setTimeout(() => {
+          $(".event-page-new-design-wrapper").find(".loader-wrapper").addClass("hidden");
+          $(".event-page-new-design-wrapper").find(".event-step-wrapper").removeClass("hidden");
+          theme_custom.checkLooks(localStorage.getItem("set-event-id"));
+        }, 1000);
+      },
+      error: function (xhr, status, error) {
+        if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+          alert('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>');
+          setTimeout(() => {
+            theme_custom.removeLocalStorage();
+            window.location.href = '/account/logout';
+          }, 5000);
+        } else {
+          alert(xhr.responseJSON.message);
+        }
       }
-    }
-  });
+    });
+  }
 }
 theme_custom.checkUpdateEvent = function(checkEventData,value,selector){
   console.log("selector",selector, "value",value);
@@ -1183,9 +1215,12 @@ theme_custom.checkUpdateEvent = function(checkEventData,value,selector){
 }
 $(document).ready(function() {
   // theme_custom.updateEvent();
-  window.eventDate = $( ".event-data-first-step" ).datepicker({
-    format: 'dd/mm/yyyy'
+  $( "#event_date" ).datepicker({ 
+    minDate: 1
   });
+  // window.eventDate = $( ".event-data-first-step" ).datepicker({
+  //   format: 'dd/mm/yyyy'
+  // });
   window.eventDataObj = {};
   theme_custom.deleteTheLooksItem();
   theme_custom.event_init_page(); 

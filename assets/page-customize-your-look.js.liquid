@@ -480,26 +480,37 @@ theme_custom.LookImageCustomizer = function (getEventId, lookID, button) {
         $(".look-api-message").text("Look successfully Updated").addClass("sucess-msg").removeClass("hidden").show();
         setTimeout(() => {
           $(".look-api-message").addClass("hidden");
-          button.removeClass("disabled");
-          button.find(".loading-overlay").addClass("hidden");
-          button.find(".button-title").text("Look Updated");
           localStorage.removeItem("customize-from-event");
           localStorage.removeItem("eventLookId");
-          localStorage.removeItem("editLookName");
+          localStorage.removeItem("eventLookName");
           localStorage.removeItem("customizerlookUrl");
+          button.removeClass("disabled");
+          button.find(".button-title").text("Look Updated");
+          button.find(".loading-overlay").addClass("hidden");
+          localStorage.setItem("back-to-event-page","true");
+          window.location.href = `/pages/create-event`;
+        }, 5000);
+      }else if(localStorage.getItem("customise-look-button-for-add-look-into-event") != null){
+        setTimeout(() => {
+          localStorage.removeItem("customise-look-button-for-add-look-into-event");
+          localStorage.removeItem("customizerlookUrl");
+          button.removeClass("disabled");
+          button.find(".button-title").text("Look Added");
+          button.find(".loading-overlay").addClass("hidden");
           localStorage.setItem("back-to-event-page","true");
           window.location.href = `/pages/create-event`;
         }, 5000);
       } else { 
         $(".look-api-message").text("Look successfully added to Event").addClass("sucess-msg").removeClass("hidden").show();
         setTimeout(() => {
+          localStorage.setItem("set-event-id",$("#event-id").val())
+          localStorage.setItem("set-event-id",getEventId);
+          localStorage.setItem("go-to-event-page","true")
+          localStorage.removeItem("customizerlookUrl");
           $(".look-api-message").addClass("hidden");
           button.removeClass("disabled");
           button.find(".loading-overlay").addClass("hidden");
           button.find(".button-title").text("Added To Event");
-          localStorage.removeItem("customizerlookUrl");
-          localStorage.setItem("set-event-id",getEventId);
-          localStorage.setItem("go-to-event-page","true")
           window.location.href = `/pages/create-event`;
         }, 5000);
       }
@@ -565,9 +576,9 @@ theme_custom.favoriteLookImageCustomizer = function (lookID, button) {
           if(localStorage.getItem('editLookId') != null && localStorage.getItem('editLookName') != null && localStorage.getItem("look-for-favourite")){
             localStorage.removeItem('editLookId');
             localStorage.removeItem('editLookName');
-            localStorage.removeItem("look-for-favourite")
+            localStorage.removeItem("look-for-favourite");
           }
-          window.location.href = `/account#tab-3`
+          window.location.href = `/account?tab=tab-3`
         }, 3000);
       } else {
         $(".favourite-look-api-message").text("Look added successfully to Favorite").addClass("sucess-msg").removeClass("hidden").show();
@@ -576,7 +587,7 @@ theme_custom.favoriteLookImageCustomizer = function (lookID, button) {
           button.find(".button-title").text("Added in Favorite");
           button.find(".loading-overlay").addClass("hidden");
           $(".favourite-look-api-message").addClass("hidden");
-          window.location.href = `/account#tab-3`
+          window.location.href = `/account?tab=tab-3`
         }, 3000);
       }      
     },
@@ -809,9 +820,6 @@ theme_custom.getEventData = function (modalTarget) {
           $(".create-event-look #look-name").val(localStorage.getItem("eventLookName"));
           $(".create-event-look #event-id").val(localStorage.getItem("set-event-id")).change();
           $(".add-event-look-api-button").removeClass("add-event-look-api-button").addClass("update-event-look-api-button").attr("data-text","Look Updating...").find(".button-title").text("Update Look");
-        }
-        if(localStorage.getItem("customise-look-button-foradd-look-into-event") != null){
-          $(".add-event-look-api-button").removeClass("add-event-look-api-button").attr("data-text","Look Addeding...").find(".button-title").text("Add Look and Contiune");
         }
       } else {
         $(".page-loader").addClass("hidden");
@@ -2132,6 +2140,10 @@ theme_custom.checkEditLook = function(){
     $(`.favourite-look-wrapper`).find('.favorite-event-api-button').attr('data-text','Updating Look');
     $(`.favourite-look-wrapper`).find('.favorite-event-api-button .button-title').text('Update Look');
     $(`[data-tab-content='overview']`).find(`.wishlist-add-event-part .add-to-event, .product-share-button, .button-wrapper`).hide();
+  }
+  if(localStorage.getItem("set-event-id") != null && localStorage.getItem("customise-look-button-for-add-look-into-event")){
+    $(`[data-tab-content='overview']`).find('.wishlist-add-event-part .add-to-event span').text("Add Look and Continue");
+    $(`[data-tab-content='overview']`).find(`.wishlist-add-event-part .wishlist-icon-wrap, .product-share-button, .button-wrapper`).hide();
   }
 }
 

@@ -719,7 +719,6 @@ theme_custom.tlpclickEvent = function(){
   });
 
   $(document).on("click", ".add-event-look-api-button", function(e){
-    debugger;
       var error_count = 0,
           button = $(this); 
       error_count = error_count + theme_custom.textValidationWithSpacialChar($(this).closest(".create-event-look").find('[name="look-name"'));
@@ -732,7 +731,6 @@ theme_custom.tlpclickEvent = function(){
         return false;
       } else {
         button.text($(this).data("text"));
-        debugger;
         var productDataCardArr = $(".product-data-card");
         theme_custom.customizeURLData  = '';
         theme_custom.customizeURLData += $(`.product-data-card-wrap[data-product-type="looks"]`).find(".looks-product-handle").val() + '=' + $(`.product-data-card-wrap[data-product-type="looks"]`).find(".looks-product-var-id").val() + '&';

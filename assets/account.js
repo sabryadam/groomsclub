@@ -238,7 +238,6 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
 
         },
         success: function (result) {
-            // debugger;
             var eventBlockCount = result.data.totalEvents;
             var allEvents = result.data.events;
             var myEvents = allEvents.filter((event)=> event.hostedBy.toLowerCase() == 'me');
@@ -459,7 +458,6 @@ function favoritelooks() {
                     // result.data[5] = result.data[0];
                     // result.data[6] = result.data[0];
                     result.data = result.data.reverse();
-                    // debugger;
                     for (var i = 0; i < result.data.length; i++) {                        
                         if (result.data[i].look_image) {
                             favorite_look_image = result.data[i].look_image;
@@ -599,7 +597,6 @@ function deletefavoritelooks(looksoid) {
 // edit-favorite-look-button page redirect 
 $(document).on("click", ".edit-favorite-look-button", function () {
     var getRediectUrl = $(this).attr("data-href");
-    debugger;
     localStorage.setItem("customizerlookFrom", "exiting-looks");
     localStorage.setItem("customizerlookUrl", getRediectUrl.split("?")[1]);
     localStorage.setItem("editLookId",$(this).attr("edit-look-id"));
@@ -853,7 +850,6 @@ $(document).on('click', '#addeventfav_btn', function () {
                 window.location.href = '/pages/my-event?event_id=' + eventid;
             }, 3000);
             // theme_custom.toDataURL(look_image_url, function(dataUrl) {
-            //     debugger;
             //     theme_custom.image_url = dataUrl;
             //     theme_custom.ImageURL = theme_custom.dataURLtoFile(theme_custom.image_url,'look-image.png');
             // });

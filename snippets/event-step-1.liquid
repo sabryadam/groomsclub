@@ -1,10 +1,23 @@
-<div class="step-content-wrapper event-step-1" data-step-content-wrap="1">
-  <input type="hidden" id="event-name" />
-  <input type="hidden" id="event-type" />
-  <input type="hidden" id="event-date" />
-  <input type="hidden" id="event-role" />
-  <input type="hidden" id="event-phone-number" />
-  
+<div class="modal-wrapper" data-target="remove-data-for-user">
+  <div class="modal-wrapper-inner-wrapper">
+    <h4 class="title">
+      <span class="heading">Are you sure you want to remove this?</span>
+      <span class="close-icon">
+        <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/close_1.png" alt="close-icon">
+      </span>
+    </h4>
+    <div class="add-guest-inner-wrapper inner-wrapper">
+      <input type="hidden" name="" class="event_id" />
+      <input type="hidden" name="" class="member_id" />
+      <input type="hidden" name="" class="look_id" />
+      <div class="text-center">
+        <button class="button button--primary" data-value="yes">yes</button>
+        <button class="button button--primary" data-value="no">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="step-content-wrapper event-step-1 active" data-step-content-wrap="1">
   <input type="hidden" value="" id="event-id" />
   <div class="page-width-inner-wrapper">
     <h4 class="section-title xs-show">Create an Event</h4>
@@ -49,7 +62,7 @@
       {% if section.settings.when_is_your_event_heading != blank %}
         <h3 class="heading">{{ section.settings.when_is_your_event_heading }}</h3>
       {% endif %}
-      <div class="field form-wrap evemt-date">
+      <div class="field form-wrap event-date">
         <!-- <div class="fake-calender">
           <span class="selected_date">MM/DD/YYYY</span>
           <span class="date-icon">
@@ -57,7 +70,7 @@
           </span>
         </div>      -->
         <span class="event-date-icon">{% render 'calendar-icon' %}</span>
-        <input id="event_date" class="event-data-first-step" type="text" name="input1" placeholder="Select Event Date" required title="Enter a date in this formart MM-DD-YYYY" />
+        <input id="event_date" class="event-data-first-step" type="text" name="input1" placeholder="Select Event Date" required title="Enter a date in this formart DD-MM-YYYY" />
       </div>
       <p class="form-error">Please select Event Date.</p>
     </div>
@@ -104,6 +117,7 @@
         <p class="form-error">Please Enter This Filled.</p>
       </div>
     </div>
+    <div class="api_error text-center" style="display: none"></div>
     <div class="button-wrapper">
       <button type="button" class="btn-wrap button--secondary event-update-button hidden">
       <!-- create-event-button -->
