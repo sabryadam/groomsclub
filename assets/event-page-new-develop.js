@@ -1129,7 +1129,7 @@ theme_custom.getEventDetails = function(){
       $(`.Squer-radio-button-inner input[name="event-type"][value="${result.data.event_type}"]`).prop('checked', true);
       $(`.Squer-radio-button-inner input[name="event-role"][data-value="${result.data.event_role}"]`).prop('checked', true);
       $('#event_date').val(result.data.event_date);
-      // $('.event-data-first-step').datepicker('setDate', new Date(result.data.event_date));
+      $('.event-data-first-step').datepicker('setDate', new Date(result.data.event_date));
 
       $.each(result.data.event_members,function(index,value){
         if(value.is_host == "1"){
@@ -1216,10 +1216,10 @@ theme_custom.checkUpdateEvent = function(checkEventData,value,selector){
 $(document).ready(function() {
   // theme_custom.updateEvent();
   $( "#event_date" ).datepicker({ 
-    minDate: 1
+    dateFormat: 'yy-mm-dd'
   });
   // window.eventDate = $( ".event-data-first-step" ).datepicker({
-  //   format: 'dd/mm/yyyy'
+  //   format: 'yyyy-mm-dd'
   // });
   window.eventDataObj = {};
   theme_custom.deleteTheLooksItem();
