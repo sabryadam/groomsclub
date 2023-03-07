@@ -991,9 +991,6 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
             if (localStorage.getItem("previous-page-link", "true")) {
                 window.location.href = localStorage.getItem("page-link")
             }
-            if (localStorage.getItem("previous-page-link", "true")) {
-                window.location.href = localStorage.getItem("page-link")
-            }
             if (localStorage.getItem("customizerlookPageFitFinder")) {
                 localStorage.setItem("gotoFitFinder", "true");
                 window.location.href = '/pages/customize-your-look';

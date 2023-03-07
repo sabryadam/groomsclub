@@ -490,7 +490,7 @@ theme_custom.LookImageCustomizer = function (getEventId, lookID, button) {
           localStorage.setItem("back-to-event-page","true");
           window.location.href = `/pages/create-event`;
         }, 5000);
-      } else {
+      } else { 
         $(".look-api-message").text("Look successfully added to Event").addClass("sucess-msg").removeClass("hidden").show();
         setTimeout(() => {
           $(".look-api-message").addClass("hidden");
@@ -986,6 +986,7 @@ theme_custom.favoriteLookUpdate = function (eventButton) {
               'color': 'red'
             });
             setTimeout(() => {
+              theme_custom.removeLocalStorage();
               window.location.href = '/account/logout';
             }, 5000);
           } else {
