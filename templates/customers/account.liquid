@@ -35,7 +35,7 @@
           </div>
         </div>
         <div class="account-right-section">
-          <h2 class="user-profile-logo">
+          <h2 class="user-profile-logo hidden">
             {{ customer.first_name | slice: 0 }}{{ customer.last_name | slice: 0 }}
           </h2>
           <div class="user-info-top">
@@ -52,7 +52,7 @@
         <div id="tabs-content">
           <div id="my-sizes" class="tab-content active">
             <div class="my-size-wrapper">
-              <div class="my-size-title text-center-heading border-heading h2 margin-0 content-title">
+              <div class="hidden my-size-title text-center-heading border-heading h2 margin-0 content-title">
                 My Sizes
               </div>
               <div class="my-size-block-main">
@@ -67,7 +67,7 @@
             <div class="my-event-wrapper">
                 <div class="my-event-inner">
                   <div class="left-side-content">
-                    <div class="my-event-title border-heading h2 content-title">
+                    <div class="hidden my-event-title border-heading h2 content-title">
                       My Events
                     </div> 
                     <div class="event-types-btn-wrap">
@@ -98,7 +98,7 @@
           <div id="favorite-look" class="tab-content">
               <div class="favorite-looks-wrapper slider-lr-spacing-main slider-arrow-small">
                 <div class="page-width">
-                  <div class="favorite-looks-title text-center-heading border-heading h2 title content-title">
+                  <div class="hidden favorite-looks-title text-center-heading border-heading h2 title content-title">
                     MY FAVORITE LOOKS
                   </div>
                   <div class="feature-looks-slider-loader"></div>
@@ -132,7 +132,7 @@
               <div class="order-history-wrapper">
                 <div class="page-width">
                   <div>
-                  <h2 class="text-center-heading border-heading margin-0 ">{{ 'customer.orders.title' | t }}</h2>
+                  <h2 class="text-center-heading border-heading margin-0 hidden">{{ 'customer.orders.title' | t }}</h2>
                     {% paginate customer.orders by 20 %}
                       {%- if customer.orders.size > 0 -%}
                         <div role="table" class="order-history">
