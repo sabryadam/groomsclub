@@ -7,7 +7,8 @@ theme_custom.removeTieBar = function () {
   $(`.product-block-wrapper[data-product-type="tie-bar"]`).closest(".product-block-outer-wrapper").hide();
   $(`.mobile-tab-content-title[data-target="tie-bar"]`).hide();
   $(`.tabbed-content-block-inner-wrapper[data-tab-content="customize"] .continue-button.mobile-next-tab-btn-main`).hide();
-        $(`.tabbed-content-block-inner-wrapper[data-tab-content="customize"] .continue-button:not(.mobile-next-tab-btn-main)`).show();
+  $(`.tabbed-content-block-inner-wrapper[data-tab-content="customize"] .continue-button:not(.mobile-next-tab-btn-main)`).show();
+  $(".product-block-wrapper[data-product-type='tie-bar']").closest(".product-block-outer-wrapper").find(".color-title").text('')
 }
 
 //  theme_custom.priceUpdate function
@@ -93,6 +94,7 @@ theme_custom.productDataFromURL = function () {
           if (currentInput.closest(".product-block-wrapper[data-product-type='suit']").length == 0) {
             currentInput.closest('.swatch-wrap').addClass("unchecked-product");
           }
+          currentInput.closest('.product-block-outer-wrapper').find(".color-title").text(varintTitle);
           currentInput.closest('.product-block-outer-wrapper').find('.price-wrap').attr('data-product-price', currentVarintPrice).text(theme_custom.Shopify.formatMoney(currentVarintPrice, theme_custom.money_format)).show();
         }
         if (productHandleTitle.indexOf('shoe') != -1) {
@@ -403,6 +405,7 @@ theme_custom.removeProductOnUncheck = function (productVarId, prodHandle, produc
           }
         }
         // }
+        currentInput.closest('.product-block-outer-wrapper').find(".color-title").text('');
         currentInput.closest('.swatch-wrap').removeClass("unchecked-product");
       }
       var dataTarget = currentOption.closest(".product-block-wrapper").attr("data-product-type").toLowerCase();
@@ -1766,6 +1769,7 @@ theme_custom.customize_product_clickEvent = function () {
     var colorVal = $(this).val(),
       parent = $(this).closest(".product-block-wrapper");
     $(".form-error").remove();
+    $(this).closest(".product-block-outer-wrapper").find(".product-title-wrap .color-title").text(colorVal);
     if ($(this).closest(".tabbed-content-block-inner-wrapper[data-tab-content='personalize']").length > 0) {
       $(".vest-customize-image").addClass("hide");
       if ($(".product-block-wrapper[data-product-type='jacket']")) {
@@ -1806,12 +1810,14 @@ theme_custom.customize_product_clickEvent = function () {
       $(".product-block-wrapper[data-product-type='neckties']").find('input[type="radio"]').prop("checked", false);
       $(".product-block-wrapper[data-product-type='neckties']").find('.swatch-wrap.unchecked-product').removeClass("unchecked-product");
       $(".product-block-wrapper[data-product-type='neckties']").closest(".product-block-outer-wrapper").find('.product-title .price-wrap').hide();
+      $(".product-block-wrapper[data-product-type='neckties']").closest(".product-block-outer-wrapper").find(".product-title-wrap .color-title").text('');
       $(".neckties-customize-image").addClass("hide");
       theme_custom.removeTieBar();
     } else if ($(this).closest(".product-block-wrapper[data-product-type='neckties']").length > 0) {
       $(".product-block-wrapper[data-product-type='bow-ties']").find('input[type="radio"]').prop("checked", false);
       $(".product-block-wrapper[data-product-type='bow-ties']").find('.swatch-wrap.unchecked-product').removeClass("unchecked-product");
       $(".product-block-wrapper[data-product-type='bow-ties']").closest(".product-block-outer-wrapper").find('.product-title .price-wrap').hide();
+      $(".product-block-wrapper[data-product-type='bow-ties']").closest(".product-block-outer-wrapper").find(".product-title-wrap .color-title").text('');
       $(".bow-ties-customize-image").addClass("hide");
       if (parent.find('.not-color input:checked').length == 0) {
         parent.find('.not-color .swatch-wrap:first-child input').prop('checked', true);
