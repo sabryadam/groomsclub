@@ -149,7 +149,9 @@
                                 <span class="option-wrap product_var_cart">
                                   {%- for option in item.options_with_values -%}
                                     <div class="product-option" data-name="{{option.name}}">
+                                      {% unless option.name == 'Denominations' %}
                                       <div>{{ option.name }}: </div>
+                                      {% endunless  %}
                                       <div class="product-option-val">{{ option.value }}</div>
                                     </div>
                                   {%- endfor -%}
