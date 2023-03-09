@@ -23,12 +23,13 @@ theme_custom.lookAssignToMember = function(member_id,look_id){
     },
     success: function (result) {
       console.log("result",result)
-      console.log("Look Assign to current ")
+      console.log("Look Assign to current ");
       theme_custom.checkLooks(localStorage.getItem("set-event-id"));
       $('[data-target="add-guest-popup"]').removeClass('active');
       $('.member-added-into-event').removeClass('disabled')
     },
     error: function (xhr, status, error) {
+      console.log("responseJSON",xhr.responseJSON)
       $(this).removeClass("disabled");
       if (xhr.responseJSON.message == 'Token is invalid or expired.') {
         parent.find('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
@@ -53,22 +54,22 @@ $(".member-added-into-event").click(function (e) {
   e.preventDefault();
   theme_custom.lookVal = $(this).closest(".add-guest-inner-wrapper").find(".look-name").attr("data-look-mapping-id")
   var parent = $(this).closest('.invite-another-member-popup-wrapper');
-  var updateGuest = false;
-  if($(this).hasClass('update-guest')){
-    updateGuest = true
-  }
-  let isPay = 0;
-  if(updateGuest){
-    if(parent.find('[name="is_host_paying_update"]:checked').length <= 0){
-      isPay = 1;
-      $('.paying-wrap .form-error').html('Please select who will pay').show();
-    }
-  }else{
-    if(parent.find('[name="is_host_paying"]:checked').length <= 0){
-      isPay = 1;
-      $('.paying-wrap .form-error').html('Please select who will pay').show();
-    }
-  }
+  // var updateGuest = false;
+  // if($(this).hasClass('update-guest')){
+  //   updateGuest = true
+  // }
+  // let isPay = 0;
+  // if(updateGuest){
+  //   if(parent.find('[name="is_host_paying_update"]:checked').length <= 0){
+  //     isPay = 1;
+  //     $('.paying-wrap .form-error').html('Please select who will pay').show();
+  //   }
+  // }else{
+  //   if(parent.find('[name="is_host_paying"]:checked').length <= 0){
+  //     isPay = 1;
+  //     $('.paying-wrap .form-error').html('Please select who will pay').show();
+  //   }
+  // }
   
 
   var error_count = 0,
@@ -121,6 +122,7 @@ $(".member-added-into-event").click(function (e) {
         theme_custom.lookAssignToMember(result.data.id,theme_custom.lookVal);
       },
       error: function (xhr, status, error) {
+        console.log("responseJSON",xhr.responseJSON)
         let div = $('.invite-another-member-popup-wrapper .member-added-into-event').closest('.field');
         if (xhr.responseJSON.message == 'Token is invalid or expired.') {
           $(div).prepend('<p class="error-member-added-into-event api_error" style="width: 100%;">Something went wrong <a class="try-again-link" href="/account/login">Please try again</a></p>').css({
@@ -296,6 +298,7 @@ theme_custom.favoriteLooks = function(){
       }
     },
     error: function (xhr, status, error) {
+      console.log("responseJSON",xhr.responseJSON)
       $('.feature-looks-slider-loader').hide();
       if (xhr.responseJSON.message == 'Token is invalid or expired.') {
         $('.feature-looks-slider').html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
@@ -324,6 +327,7 @@ theme_custom.checkLooks = (id) =>{
     data.data.event_looks = data.data.event_looks.reverse();
     let eventMembers = data.data.event_members
     if(data.data.event_looks && data.data.event_looks.length > 0){
+      $(`.modal-wrapper[data-target="remove-data-for-user"]`).removeClass("active");
       const looksDiv = $('.show-look-from-event-wrapper .event-look-inner-wrapper, .guest-top-looks .event-look-inner-wrapper');
       looksDiv.empty();
       $(`.invite-another-member-popup-wrapper .member-added-into-event,[data-target="update-guest-popup"] .member-added-into-event,[data-target="add-guest-popup"] .member-added-into-event`).removeClass('loading');
@@ -450,6 +454,7 @@ theme_custom.updateEventAPI = function(btn){
         }
       },
       error: function (xhr, status, error) {
+        console.log("responseJSON",xhr.responseJSON)
         if (xhr.responseJSON.message == 'Token is invalid or expired.') {
           $('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
             'text-align': 'center',
@@ -570,6 +575,7 @@ theme_custom.createEventAPI = function(btn){
         }
       },
       error: function (xhr, status, error) {
+        console.log("responseJSON",xhr.responseJSON)
         if (xhr.responseJSON.message == 'Token is invalid or expired.') {
           $('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
             'text-align': 'center',
@@ -641,6 +647,7 @@ theme_custom.lookImage = function (look_image, lookID, button) {
         theme_custom.checkLooks(localStorage.getItem("set-event-id"));
       },
       error: function (xhr, status, error) {
+        console.log("responseJSON",xhr.responseJSON)
           if (xhr.responseJSON.message == 'Token is invalid or expired.') {
               $(".look-api-message").html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
                   'text-align': 'center',
@@ -797,6 +804,7 @@ theme_custom.removeUserFromLook = (eventId,memberId) =>{
             theme_custom.checkLooks(localStorage.getItem("set-event-id"));
           },
           error: function (xhr, status, error) {
+            console.log("responseJSON",xhr.responseJSON)
             if (xhr.responseJSON.message == 'Token is invalid or expired.') {
               alert('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>');
               setTimeout(() => {
@@ -1146,6 +1154,7 @@ theme_custom.getEventDetails = function(){
       $(".event-step-wrapper").removeClass("hidden");
     },
     error: function (xhr, status, error) {
+      console.log("responseJSON",xhr.responseJSON)
       if (xhr.responseJSON.message == 'Token is invalid or expired.') {
         $('.getapi_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
           'text-align': 'center',
@@ -1192,6 +1201,7 @@ theme_custom.deleteTheLooksItem = function (eventLookId) {
         }, 1000);
       },
       error: function (xhr, status, error) {
+        console.log("responseJSON",xhr.responseJSON)
         if (xhr.responseJSON.message == 'Token is invalid or expired.') {
           alert('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>');
           setTimeout(() => {

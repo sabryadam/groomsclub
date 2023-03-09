@@ -314,7 +314,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                         containerDiv.append(paginationWrapper);
                         if(i == 0){
                             containerDiv.append(`<div class="add-new-event-btn btn-wrapper">
-                            <a class="button button--primary continue-btn" href="/pages/create-event">CREATE NEW EVENT <i class="fas fa-arrow-right"></i></a>
+                            <span class="button button--primary btn-small create-event-header-button" data-href="/pages/create-event" style="margin: 0 auto;">CREATE NEW EVENT</span>
                         </div>`)
                         }else{
                             containerDiv.append(`<div class="add-new-event-btn btn-wrapper">

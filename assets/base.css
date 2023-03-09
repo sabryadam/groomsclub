@@ -960,18 +960,21 @@ body.compensate-for-scrollbar {
 
 /* Derived from base colors (theme settings) */
 body::-webkit-scrollbar-track,
+.assign-look-user-wrap::-webkit-scrollbar-track,
 .tabbed-content-block-outer-wrapper .product-info-wrap .tabbed-content-block-inner-wrapper .product-info-top-block::-webkit-scrollbar-track{
   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
   background-color: #F5F5F5;
 }
 
 body::-webkit-scrollbar ,
+.assign-look-user-wrap::-webkit-scrollbar,
 .tabbed-content-block-outer-wrapper .product-info-wrap .tabbed-content-block-inner-wrapper .product-info-top-block::-webkit-scrollbar{
   width: 5px;
   background-color: #F5F5F5;
 }
 
 body::-webkit-scrollbar-thumb,
+.assign-look-user-wrap::-webkit-scrollbar-thumb,
 .tabbed-content-block-outer-wrapper .product-info-wrap .tabbed-content-block-inner-wrapper .product-info-top-block::-webkit-scrollbar-thumb{
   background-color: var(--color-button-light-blue);
   border: 2px solid var(--color-button-light-blue);

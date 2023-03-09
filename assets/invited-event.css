@@ -347,7 +347,8 @@
   width: 100%;
 }
 .mywedding_section_wrap .invite-event-main-content .invited-assigned-look .left-part-image-part .look-name{
-  display: none;
+  padding-top: 40px;
+  margin-bottom: 25px;
 }
 .mywedding_section_wrap .invite-event-main-content .invited-assigned-look .right-assigned-look-list{
   max-width: calc(100% - 535px);
@@ -388,7 +389,7 @@
 .mywedding_section_wrap .invite-event-main-content .return-suit-checkout-button{
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 .mywedding_section_wrap .invite-event-main-content .return-suit-checkout-button .proceed-to-cart{
   font-size: 16px;

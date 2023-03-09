@@ -96,7 +96,7 @@
                     	{% assign mobile_menu = section.settings.menu %}
                     {% endif %}{%- endcomment -%}
                     {%- for link in section.settings.menu.links -%}
-                    <li>
+                      <li>
                         {%- if link.links != blank -%}
                           <details>
                             <summary class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.current or link.child_active %} menu-drawer__menu-item--active{% endif %}"{% if link.current or link.child_active %} aria-current="page"{% endif %}>
@@ -156,6 +156,11 @@
                         {%- endif -%}
                       </li>
                     {%- endfor -%}
+                    <li>
+                       <a href="/pages/contact" class="menu-drawer__menu-item list-menu__item link link--text focus-inset"{% if link.current %} aria-current="page"{% endif %}>
+                          Contact Us
+                        </a>
+                    </li>
                   </ul>
                   {% if section.settings.header-url_title %}
                     <div class="header_get_started_btn mobile-button">
@@ -367,7 +372,7 @@
                     <ul class="contact-us-header-menu-inner">
                       <li>
                         <p><a href="tel:201-559-9715" target="_blank" title="tel:201-559-9715">201-559-9715</a></p>
-                        <p>Call us from 9am-7pm EST (Mon-Fri).</p>
+                        <p>Call us from 10am - 9pm EST (Mon-Sat).</p>
                       </li>
                       <li>
                         <p><a href="mailto:info@groomsclub.com.com" target="_blank" title="mailto:info@groomsclub.com.com">info@groomsclub.com</a></p>

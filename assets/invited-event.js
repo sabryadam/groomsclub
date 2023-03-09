@@ -700,7 +700,7 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
                               </div>
                             </div>
                             <div class="return-suit-checkout-button">
-                              <div class="info-stickey-note">
+                              <div class="info-stickey-note" style="display:none !important">
                                 <div class="info-note-text">
                                   <p class="note-title"><span class="info-icon"><i class="fas fa-info"></i></span> Need to return your suit? </p>
                                   <p class="note-title-info">Please review our <a href="/policies/refund-policy" class="link" target="_blank" tabindex="0" title="Return Policy">Return Policy.</a></p>

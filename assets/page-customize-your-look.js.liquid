@@ -578,7 +578,7 @@ theme_custom.favoriteLookImageCustomizer = function (lookID, button) {
             localStorage.removeItem('editLookName');
             localStorage.removeItem("look-for-favourite");
           }
-          window.location.href = `/account?tab=tab-3`
+          window.location.href = `/account?tab=favorite-look`
         }, 3000);
       } else {
         $(".favourite-look-api-message").text("Look added successfully to Favorite").addClass("sucess-msg").removeClass("hidden").show();
@@ -587,7 +587,7 @@ theme_custom.favoriteLookImageCustomizer = function (lookID, button) {
           button.find(".button-title").text("Added in Favorite");
           button.find(".loading-overlay").addClass("hidden");
           $(".favourite-look-api-message").addClass("hidden");
-          window.location.href = `/account?tab=tab-3`
+          window.location.href = `/account?tab=favorite-look`
         }, 3000);
       }      
     },
@@ -818,8 +818,11 @@ theme_custom.getEventData = function (modalTarget) {
         $("select#event-id").html(optionVal);
         if(localStorage.getItem("eventLookName") != null && localStorage.getItem("eventLookId") != null && localStorage.getItem("customize-from-event") != null){
           $(".create-event-look #look-name").val(localStorage.getItem("eventLookName"));
-          $(".create-event-look #event-id").val(localStorage.getItem("set-event-id")).change();
+          $(".create-event-look #event-id").addClass("disabled").val(localStorage.getItem("set-event-id")).change();
           $(".add-event-look-api-button").removeClass("add-event-look-api-button").addClass("update-event-look-api-button").attr("data-text","Look Updating...").find(".button-title").text("Update Look");
+        }
+        if(localStorage.getItem("customise-look-button-for-add-look-into-event") != null && localStorage.getItem("set-event-id") != null){
+          $('#event-id').addClass("disabled").val(localStorage.getItem("set-event-id")).change();
         }
       } else {
         $(".page-loader").addClass("hidden");
@@ -2135,6 +2138,7 @@ theme_custom.checkEditLook = function(){
     $(`[data-tab-content='overview']`).find(`.wishlist-add-event-part .wishlist-icon-wrap, .product-share-button, .button-wrapper`).hide();
   } 
   if(localStorage.getItem("editLookName") != null && localStorage.getItem("editLookId") != null && localStorage.getItem("look-for-favourite") != null){
+    $(`[data-tab-content='overview']`).find('.wishlist-icon-wrap').addClass("update-look-and-countinue");    
     $(`[data-tab-content='overview']`).find('.wishlist-icon-wrap .favorite-event-button').addClass("update-look");
     $(`[data-tab-content='overview']`).find('.wishlist-icon-wrap .favorite-event-button span').text("Update Look and Continue");
     $(`.favourite-look-wrapper`).find('.favorite-event-api-button').attr('data-text','Updating Look');
@@ -2142,6 +2146,7 @@ theme_custom.checkEditLook = function(){
     $(`[data-tab-content='overview']`).find(`.wishlist-add-event-part .add-to-event, .product-share-button, .button-wrapper`).hide();
   }
   if(localStorage.getItem("set-event-id") != null && localStorage.getItem("customise-look-button-for-add-look-into-event")){
+    $(`[data-tab-content='overview']`).find('.wishlist-add-event-part .add-to-event').addClass("add-look-and-countinue");
     $(`[data-tab-content='overview']`).find('.wishlist-add-event-part .add-to-event span').text("Add Look and Continue");
     $(`[data-tab-content='overview']`).find(`.wishlist-add-event-part .wishlist-icon-wrap, .product-share-button, .button-wrapper`).hide();
   }

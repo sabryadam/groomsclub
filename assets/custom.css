@@ -946,3 +946,17 @@ header.header.header--middle-left.page-width-big.header--has-menu {
     text-align: center;
   }
 }
+.template-page-customize-your-look .wishlist-add-event-part .update-look-and-countinue,
+.template-page-customize-your-look .wishlist-add-event-part .add-look-and-countinue {
+	margin: 0 ;
+	padding : 8px 40px
+}
+.template-page-customize-your-look .wishlist-add-event-part .update-look-and-countinue .link-with-svg i,
+.template-page-customize-your-look .wishlist-add-event-part .add-look-and-countinue .link-with-svg svg {
+	margin-right: 20px;
+}
+select#event-id.disabled {
+	opacity: 0.5;
+	pointer-events: none;
+	cursor: none;
+}

@@ -539,6 +539,7 @@
 .event-page-new-design-wrapper .page-width-inner-wrapper .show-look-from-event-wrapper .look-card-block .look-image{
   position: relative;
   background: #f6f6f6;
+  padding-bottom: 60px;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .show-look-from-event-wrapper .look-card-block .look-image .customise-look{
   position: absolute;
@@ -567,8 +568,8 @@
   mix-blend-mode: darken;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper  .look-card-block img.look-img  {
-  min-height: 400px;
-  height: 480px;
+  min-height: 450px;
+  height: 450px;  
   object-fit: contain;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .slick-arrow{
@@ -1556,4 +1557,8 @@ html .template-page-create-event .ui-button.ui-state-disabled:active{
   padding-top: 0;
   align-items: center;
   justify-content: center;
+}
+.assign-look-user-wrap{
+  max-height: 570px;
+  overflow: auto;
 }
