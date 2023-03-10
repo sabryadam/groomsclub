@@ -111,7 +111,7 @@ $(".member-added-into-event").click(function (e) {
           });
           setTimeout(() => {
             window.location.href = '/account/logout';
-          }, 10000);
+          }, 5000);
         } else {
           $(div).prepend(`<p class="error-member-added-into-event api_error" style="width: 100%;">${xhr.responseJSON.message}</p>`);
         }
@@ -121,7 +121,7 @@ $(".member-added-into-event").click(function (e) {
             error.fadeOut()
           }
           $(`.invite-another-member-popup-wrapper .member-added-into-event,[data-target="update-guest-popup"] .member-added-into-event,[data-target="add-guest-popup"] .member-added-into-event`).removeClass('loading')
-        }, 10000);
+        }, 5000);
       }
     });
   }
@@ -472,7 +472,7 @@ theme_custom.updateEventAPI = function(btn){
           setTimeout(function () {
             $('.api_error').fadeOut();
             button.removeClass("disable");
-          }, 10000);
+          }, 5000);
         }
       }
     });
@@ -593,7 +593,7 @@ theme_custom.createEventAPI = function(btn){
           setTimeout(function () {
             $('.step-content-wrapper.event-step-1 .api_error').fadeOut();
             $(".step-content-wrapper.event-step-1 .button-wrapper").find("button").removeClass("loading");
-          }, 10000);
+          }, 5000);
         }
       }
     });
@@ -845,14 +845,10 @@ theme_custom.ProductData = function(productItemsArr, lookName, lookId, memberId)
 
 // theme_custom.productBlockDataWrap
 theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, lookDetails) {
-  var subTotal = 0, productSubTotalPrice, productHtml;
+  var subTotal = 0, productSubTotalPrice, productItemHTML = '';
   var orderImg = '';
   console.log("orderItemsObj",orderItemsObj);
   var orderItemsData = ''
-  for (let item = 0; item < orderItemsObj.length; item++) {
-    const element = orderItemsObj[item];
-    console.log("item",element);
-  }
   $.map(orderItemsObj, function (productItems) {
     jQuery.ajax({
       type: 'GET',
@@ -862,14 +858,19 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
           if (value.id == productItems.variant_id) {
             variantSelected = value;
             var variantSelectedPrice = variantSelected.price;
-            subTotal = subTotal + parseInt(variantSelectedPrice * 100);
+            subTotal = subTotal + parseInt(variantSelectedPrice*100);
+            productItemHTML += `<div class="product-card-data">
+                                  <input type="hidden" class="product_handle" value="${response.product.handle}" /> 
+                                  <input type="hidden" class="product_var_id" value="${variantSelected.id}" />
+                                  <input type="hidden" class="product_id" value="${response.product.id}" />
+                                </div>`;
           }
         })
         productSubTotalPrice = theme_custom.Shopify.formatMoney((subTotal * 100) / 100, theme_custom.money_format);
-        console.log("orderImg",orderImg);
         $(`.order-wrap-${index} .look-price`).text(productSubTotalPrice);
-        $(`.order-wrap-${index} .look-price`).attr("data-price", subTotal);
-        $(`.order-wrap-${index} .button`).attr("data-look-price", subTotal);
+        $(`.order-wrap-${index} .look-price`).attr("data-price", subTotal/100);
+        $(`.order-wrap-${index} .button`).attr("data-look-price", subTotal/100);
+        $(`.order-wrap-${index} .product-card-wrap`).html(productItemHTML);
       }
     });
   })
@@ -885,24 +886,37 @@ theme_custom.lookInfoData = function(result){
     $(".summary-table-wrapper").removeClass("hidden");
   }
   $.map(paymentInfo, function (orderItems, index) {
-    var productHTML = item_data =  '' ;
+    var productHTML = item_data = product_data_for_host = '' ;
     var orderItemsObj = orderItems.items;
     console.log("orderItems",orderItems);
     if (orderItems.payment_status != "Complete") {
       var actionButton = payInfo = "";
       if (orderItems.is_host == 1) {
         payInfo = 'I pay';
+        product_data_for_host = ''
         actionButton = `<button class="button btn-wrap button--secondary add-to-cart" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}"  data-look-price="215.90">
-                          Proceed To cart
+                          Proceed to Cart
                         </buttom>`;
       } else {
-        payInfo = 'They pay';
+        payInfo = 'I Pay';
+        product_data_for_host = 'hidden';
         actionButton = `<button class="button btn-wrap button--secondary event-payment-for-guest" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}"  data-look-price="215.90">
                           Pay for Guest
                         </buttom>`
       }
     } else {
-      orderFooter = '';
+      var actionButton = payInfo = "";
+      if (orderItems.is_host == 1) {
+        payInfo = 'I pay';
+        actionButton = `<button class="disabled button btn-wrap button--primary add-to-cart" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}"  data-look-price="215.90">
+                          Payment Completed
+                        </buttom>`;
+      } else {
+        payInfo = 'They pay';
+        actionButton = `<button class="disabled button btn-wrap button--primary event-payment-for-guest" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}"  data-look-price="215.90">
+                          Payment Completed
+                        </buttom>`
+      }
     }
     for (let i = 0; i < lookDetails.length; i++) {
       const element = lookDetails[i];
@@ -917,7 +931,7 @@ theme_custom.lookInfoData = function(result){
                       </td>
                       <td>
                         <span class="member-number">
-                          1 Members
+                          For ${orderItems.member_name}
                         </span>
                       </td>
                       <td>
@@ -925,7 +939,7 @@ theme_custom.lookInfoData = function(result){
                         <span class="look-price" data-price="219.90"></span>  
                       </td>
                       <td>
-                        <div class="product-data hidden">
+                        <div class="product-data ${product_data_for_host}">
                           <div class="product-card-wrap">
                             <input type="hidden" class="product_id" data-product-id="" data-product-price="" data-product-var-id="" />
                           </div>
@@ -990,7 +1004,7 @@ theme_custom.eventMemberData = function(){
         $('.reminder-added-part .api_error').show().html(event_date_msg);
         setTimeout(() => {
           $('.reminder-added-part .api_error').html('').hide();
-        }, 10000);
+        }, 5000);
       }
     }
   });
@@ -1033,13 +1047,15 @@ theme_custom.setFitFinder = function(){
 
 theme_custom.eventPageClickEvent = function(){
   $(document).on("click",".event-payment-for-guest",function(e){
-    e.preventDefault()
+    e.preventDefault();
+    var button = $(this);
+    button.text('Paying.....');
     var data = {
       'event_id' : $(this).attr("data-event-id"),
       'member_id'  : $(this).attr("data-member-id"),
       'look_id' : $(this).attr("data-look-id"),
       'look_title'  : $(this).attr("data-look-name"),
-      'look_image' : $(this).attr("data-look-image"),
+      'look_image' : 'https://app.groomsclub.com/storage/looks/iuuo18sY2IfpuHj73gAWpcTSNu8oxFfIav0Pkcxx.jpg',
       'order_amount' : $(this).attr("data-look-price")
     };
     $.ajax({
@@ -1055,6 +1071,7 @@ theme_custom.eventPageClickEvent = function(){
       success: function (result) {
         var paymentURL = `${theme_custom.base_url}/payment/${result.data.event_id}/${result.data.member_id}/${result.data.look_id}`;
         // console.log("paymentURL",paymentURL);
+        button.text('Paying.....');
         window.location.href = paymentURL;
       },
       error: function (xhr, status, error) {
@@ -1381,10 +1398,10 @@ theme_custom.getEventDetails = function(){
       if(location.href.includes('?step')){
         $(".step-wrap").addClass("active");
         $(`.step-content-wrapper[data-step-content-wrap="3"]`).find(".next-button").click();
-        setTimeout(() => {
-          var currentLocation = window.location.href.split('?')[0];
-          history.pushState({}, null, `${currentLocation}`);
-        }, 3000);
+        // setTimeout(() => {
+        //   var currentLocation = window.location.href.split('?')[0];
+        //   history.pushState({}, null, `${currentLocation}`);
+        // }, 3000);
       }
       if(localStorage.getItem("back-to-event-page") != null || localStorage.getItem("showEventStepSecond") != null || localStorage.getItem("go-to-event-page") != null){
         $(".event-page-new-design-wrapper .loader-wrapper").removeClass("hidden");

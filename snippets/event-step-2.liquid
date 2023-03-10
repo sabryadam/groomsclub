@@ -12,6 +12,7 @@
               <div class="checkmark">
                 {% if block.settings.create_look_icon != blank %}
                   <div class="event-type-icon icon-wrap">
+                    <!-- {{ section.settings.icon_code }} -->
                     <img src="{{ block.settings.create_look_icon | img_url : 'master' }}" alt="{{ block.settings.create_look_title }}" />
                   </div>
                 {% endif %}
@@ -53,7 +54,7 @@
         </h4>
         <div class="product-wrapper">
           {%- assign top_look_collection = collections[section.settings.top_look_collections] -%}
-          {%- paginate top_look_collection.products by 4  -%}
+          {%- paginate top_look_collection.products by 2  -%}
             {%- for product in top_look_collection.products -%}
               <div class="product-card">
                 <div class="img">
