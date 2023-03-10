@@ -624,11 +624,52 @@ $(document).on('click','.feature-looks-slider .fav-look-add-to-cart',function(){
     let data = theme_custom.favLooksData[index];
     let lookItems = data.items;
     let items = [];
+    debugger;
     lookItems.forEach((item)=>{
-        items.push({
-            'id':item.variant_id,
-             'quantity': 1
-        })
+        if(item.handle.includes('jacket')){
+            let pant = lookItems.find((product)=> {
+                if(product.handle.includes('pants')){
+                    return product;
+                }
+            });
+            if(!pant){
+                items.push({
+                    'id':item.variant_id,
+                    'quantity': 1
+                })
+            }else{
+                items.push({
+                    'id':item.variant_id,
+                    'quantity': 1,
+                    'properties':{
+                        'variant-id':pant.variant_id
+                    }
+                })
+            }
+            
+        }else if(item.handle.includes('pants')){
+            let jacket = lookItems.find((product)=> product.handle.includes('jacket'));
+            if(!jacket){
+                items.push({
+                    'id':item.variant_id,
+                    'quantity': 1
+                })
+            }else{
+                items.push({
+                    'id':item.variant_id,
+                     'quantity': 1,
+                     'properties':{
+                        'variant-id':jacket.variant_id
+                    }
+                })
+            }
+        }else{
+            items.push({
+                'id':item.variant_id,
+                 'quantity': 1
+            })
+        }
+        
     })
 
     let formData = {items};
