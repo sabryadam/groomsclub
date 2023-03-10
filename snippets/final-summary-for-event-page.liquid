@@ -130,80 +130,20 @@
   </div>
   <div class="member-summary-wrapper">
     <h3 class="heading">Summary</h3>
-    <div class="summary-table-wrapper">
+    <div class="summary-table-wrapper hidden">
       <table>
         <thead>
           <tr>
             <th>Look Name</th>
             <th>No of. Members</th>
-            <th>I Pay</th>
+            <th>Paying Status</th>
             <th>Action Button</th>
           </tr>
         </thead>
         <tbody> 
-          <tr>
+          <tr data-event-id="${eventMemberArray[i].look_id}" data-member-id="${eventMemberArray[i].event_member_id}" data-look-name="${eventMemberArray[i].look_name}">
             <td>
-              <span class="look-name">Desert Sun</span>
-            </td>
-            <td>
-              <span class="member-number">
-                3 Members
-              </span>
-            </td>
-            <td>
-              <span>
-                (1 x $415.90) 1 Member
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <span class="look-name">Desert Sun</span>
-            </td>
-            <td>
-              <span class="member-number">
-                2 Members
-              </span>
-            </td>
-            <td>
-              <span>
-                (1 x $415.90) 1 Member
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <span class="look-name">Desert Sun</span>
-            </td>
-            <td>
-              <span class="member-number">
-                6 Members
-              </span>
-            </td>
-            <td>
-              <span>
-                (1 x $415.90) 1 Member
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <span class="look-name">Desert Sun</span>
-            </td>
-            <td>
-              <span class="member-number">
-                2 Members
-              </span>
-            </td>
-            <td>
-              <span>
-                (1 x $415.90) 1 Member
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <span class="look-name">Desert Sun</span>
+              <span class="look_name">Desert Sun</span>
             </td>
             <td>
               <span class="member-number">
@@ -211,23 +151,29 @@
               </span>
             </td>
             <td>
-              <span>
-                (1 x $415.90) 1 Member
+              <span class="look-price" data-price="219.90">
+                $219.90
               </span>
+            </td>
+            <td>
+              <div class="product-data hidden">
+                <div class="product-card-wrap">
+                  <input type="hidden" class="product_id" data-product-id="" data-product-price="" data-product-var-id="" />
+                </div>
+              </div>
+              <button class="button btn-wrap button--secondary event-payment-for-guest" type="button" data-pay-info="${eventMemberArray[i].is_host_paying}" data-event-id="${eventMemberArray[i].event_id}" data-look-id="${eventMemberArray[i].look_id}" data-member-id="${eventMemberArray[i].event_member_id}" data-look-name="${eventMemberArray[i].look_name}" data-look-image="${lookImage}"  data-look-price="215.90">
+                Pay for Guest
+              </buttom>
             </td>
           </tr>
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="2">
-              <span class="total-price-label">
-                Total Cost
-              </span>
+            <td colspan="3">
+              <span class="total-price-label">Total Cost</span>
             </td>
             <td>
-              <span class="total-price">
-                $1,200.90
-              </span>
+              <span class="total-price">$1,200.90</span>
             </td>
           </tr>
         </tfoot>

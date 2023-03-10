@@ -843,42 +843,99 @@ theme_custom.ProductData = function(productItemsArr, lookName, lookId, memberId)
   });
 }
 
-theme_custom.getEventMemberData = function(eventMemberArray, eventLooksArray, summaryTableWrapper){
-  var eventMemberHTML = '';
-  console.log("summaryTableWrapper",summaryTableWrapper);
-  for (let i = 0; i < eventMemberArray.length; i++) {
-    if(eventMemberArray[i].is_host_paying == "Self"){
-      for (let j = 0; j < eventLooksArray.length; j++) {
-        const eventLooksArr = eventLooksArray;
-        // console.log('eventLooksArray',eventLooksArr);
-        if(eventLooksArr[j].look_id == eventMemberArray[i] .look_id){
-          var lookImage = eventLooksArr[j].look_image;
-          theme_custom.ProductData(eventLooksArr[j].items,eventLooksArr[j].name,eventLooksArr[j].look_id,eventMemberArray[i].event_member_id);
-        }
-      }    
-      eventMemberHTML += `<tr data-event-id="${eventMemberArray[i].look_id}" data-member-id="${eventMemberArray[i].event_member_id}" data-look-name="${eventMemberArray[i].look_name}">
-        <td>
-          <span class="look_name">${eventMemberArray[i].look_name}</span>
-        </td>
-        <td>
-          <span class="member-number">
-            1 Members
-          </span>
-        </td>
-        <td>
-          <span class="look-price" data-price="219.90">
-            $219.90
-          </span>
-        </td>
-        <td>
-          <button class="button btn-wrap button--secondary event-payment-for-guest" type="button" data-pay-info="${eventMemberArray[i].is_host_paying}" data-event-id="${eventMemberArray[i].event_id}" data-look-id="${eventMemberArray[i].look_id}" data-member-id="${eventMemberArray[i].event_member_id}" data-look-name="${eventMemberArray[i].look_name}" data-look-image="${lookImage}"  data-look-price="215.90">
-            Pay for Guest
-          </buttom>
-        </td>
-      </tr>`    
-    }
+// theme_custom.productBlockDataWrap
+theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, lookDetails) {
+  var subTotal = 0, productSubTotalPrice, productHtml;
+  var orderImg = '';
+  console.log("orderItemsObj",orderItemsObj);
+  var orderItemsData = ''
+  for (let item = 0; item < orderItemsObj.length; item++) {
+    const element = orderItemsObj[item];
+    console.log("item",element);
   }
-  summaryTableWrapper.find('tbody').append(eventMemberHTML);
+  $.map(orderItemsObj, function (productItems) {
+    jQuery.ajax({
+      type: 'GET',
+      url: `/products/${productItems.product_handle}.json`,
+      success: function (response) {
+        $.each(response.product.variants, function (key, value) {
+          if (value.id == productItems.variant_id) {
+            variantSelected = value;
+            var variantSelectedPrice = variantSelected.price;
+            subTotal = subTotal + parseInt(variantSelectedPrice * 100);
+          }
+        })
+        productSubTotalPrice = theme_custom.Shopify.formatMoney((subTotal * 100) / 100, theme_custom.money_format);
+        console.log("orderImg",orderImg);
+        $(`.order-wrap-${index} .look-price`).text(productSubTotalPrice);
+        $(`.order-wrap-${index} .look-price`).attr("data-price", subTotal);
+        $(`.order-wrap-${index} .button`).attr("data-look-price", subTotal);
+      }
+    });
+  })
+}
+
+theme_custom.lookInfoData = function(result){
+  var paymentInfo = result.data.payment_info; 
+  var lookDetails = result.data.event_looks;
+  var paymentInfoHTMLtarget = $(".summary-table-wrapper tbody");
+  if (result.data.payment_info == '') {
+    $(".summary-table-wrapper").addClass("hidden");
+  } else {
+    $(".summary-table-wrapper").removeClass("hidden");
+  }
+  $.map(paymentInfo, function (orderItems, index) {
+    var productHTML = item_data =  '' ;
+    var orderItemsObj = orderItems.items;
+    console.log("orderItems",orderItems);
+    if (orderItems.payment_status != "Complete") {
+      var actionButton = payInfo = "";
+      if (orderItems.is_host == 1) {
+        payInfo = 'I pay';
+        actionButton = `<button class="button btn-wrap button--secondary add-to-cart" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}"  data-look-price="215.90">
+                          Proceed To cart
+                        </buttom>`;
+      } else {
+        payInfo = 'They pay';
+        actionButton = `<button class="button btn-wrap button--secondary event-payment-for-guest" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}"  data-look-price="215.90">
+                          Pay for Guest
+                        </buttom>`
+      }
+    } else {
+      orderFooter = '';
+    }
+    for (let i = 0; i < lookDetails.length; i++) {
+      const element = lookDetails[i];
+      if (element.look_id == orderItems.look_id) {
+        orderImg = element.look_image;
+      }
+    }
+    console.log('orderImg',orderImg);
+    productHTML += `<tr class="order-wrap-${index}">
+                      <td>
+                        <span class="look_name">${orderItems.look_name}</span>
+                      </td>
+                      <td>
+                        <span class="member-number">
+                          1 Members
+                        </span>
+                      </td>
+                      <td>
+                        <span class="pay-info" >${payInfo}</span>
+                        <span class="look-price" data-price="219.90"></span>  
+                      </td>
+                      <td>
+                        <div class="product-data hidden">
+                          <div class="product-card-wrap">
+                            <input type="hidden" class="product_id" data-product-id="" data-product-price="" data-product-var-id="" />
+                          </div>
+                        </div>
+                        ${actionButton}
+                      </td>
+                    </tr>`;
+    theme_custom.productBlockDataWrap(orderItemsObj, orderItems, index, lookDetails);
+    paymentInfoHTMLtarget.append(productHTML);
+  })
 }
 
 theme_custom.eventMemberData = function(){
@@ -898,11 +955,7 @@ theme_custom.eventMemberData = function(){
     },
     success: function (result) {
       console.log("result",result);
-      var eventMemberArray = result.data.event_members,
-          eventLooksArray = result.data.event_looks;
-        console.log("eventMemberArray",eventMemberArray);
-        console.log("eventLooksArray",eventLooksArray);
-      theme_custom.getEventMemberData(eventMemberArray, eventLooksArray, summaryTableWrapper);
+      theme_custom.lookInfoData(result);
     },
     error: function (xhr, status, error) {
       if (xhr.responseJSON.message == 'Token is invalid or expired.') {
