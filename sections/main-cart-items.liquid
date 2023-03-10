@@ -101,7 +101,7 @@
                         {%- assign subitemvar = '' -%}
                         {%- for subitem in cart.items -%}
                           {%- assign subItemProductType = subitem.product.type | downcase | handleize -%}
-                          {%- if item.properties['variant-title'] == subitem.variant.title and subitem.properties['variant-title'] == item.variant.title -%}
+                          {%- if subitem.properties['variant-id'] == item.variant.id -%}
                             {%- assign subitemvar = subitem -%}
                             {%- capture pantsOption -%}
                               {%- if subitem.product.has_only_default_variant == false -%}
