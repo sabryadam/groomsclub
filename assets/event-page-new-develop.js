@@ -22,8 +22,6 @@ theme_custom.lookAssignToMember = function(member_id,look_id){
       $(this).addClass("disabled");
     },
     success: function (result) {
-      console.log("result",result)
-      console.log("Look Assign to current ");
       theme_custom.checkLooks(localStorage.getItem("set-event-id"));
       $('[data-target="add-guest-popup"]').removeClass('active');
       $('.member-added-into-event').removeClass('disabled')
@@ -54,24 +52,10 @@ $(".member-added-into-event").click(function (e) {
   e.preventDefault();
   theme_custom.lookVal = $(this).closest(".add-guest-inner-wrapper").find(".look-name").attr("data-look-mapping-id")
   var parent = $(this).closest('.invite-another-member-popup-wrapper');
-  // var updateGuest = false;
-  // if($(this).hasClass('update-guest')){
-  //   updateGuest = true
-  // }
-  // let isPay = 0;
-  // if(updateGuest){
-  //   if(parent.find('[name="is_host_paying_update"]:checked').length <= 0){
-  //     isPay = 1;
-  //     $('.paying-wrap .form-error').html('Please select who will pay').show();
-  //   }
-  // }else{
-  //   if(parent.find('[name="is_host_paying"]:checked').length <= 0){
-  //     isPay = 1;
-  //     $('.paying-wrap .form-error').html('Please select who will pay').show();
-  //   }
-  // }
-  
-
+  var updateGuest = false;
+  if($(this).hasClass('update-guest')){
+    updateGuest = true
+  }
   var error_count = 0,
     eventId = localStorage.getItem("set-event-id"),
     button = $(this);
@@ -79,13 +63,11 @@ $(".member-added-into-event").click(function (e) {
   error_count = error_count + theme_custom.textValidationWithSpacialChar(parent.find('.member-last-name'));
   error_count = error_count + theme_custom.emailValidation(parent.find('.member-email'));
   error_count = error_count + theme_custom.phoneValidation(parent.find('.member-phone'));
-  error_count = error_count + isPay;
   if (error_count == 0) {
     var memberFirstName = $(".member-first-name",parent).val();
     var memberLastName = $(".member-last-name",parent).val();
     var memberEmail = $(".member-email",parent).val();
     var memberPhone = $(".member-phone",parent).val().replace('(','').replace(' ','').replace(')','').replace('-','');
-    // var InviteFormradio_val = $(".field.form-wrap.custom-checkobx span.custom_checkbox input[type=radio]:checked").val();
     var hostPayInfo = $(".field.form-wrap.custom-checkobx span.custom_checkbox input[type=radio]:checked",parent).data('val');
   }
   var member_info_data = {
@@ -112,13 +94,11 @@ $(".member-added-into-event").click(function (e) {
       dataType: "json",
       crossDomain: true,
       headers: {
-        // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
         "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
       },
       beforeSend: function () {
       },
       success: function (result) {
-        console.log("Result",result)
         theme_custom.lookAssignToMember(result.data.id,theme_custom.lookVal);
       },
       error: function (xhr, status, error) {
@@ -151,7 +131,7 @@ theme_custom.user = (user) =>{
     let {email, first_name, last_name, phone, status, is_host_paying} = user;
     let whoPay = "";
     if(is_host_paying.toLowerCase() == "self"){
-      whoPay = "Self";
+      whoPay = "I pay";
     }else{
       whoPay = "They Pay";
     }
@@ -184,9 +164,6 @@ theme_custom.createLookHtml = (div,item, eventMembers, event_id) =>{
   var deleteIconShow = '';
   if(item.assign == true){
     deleteIconShow = 'hidden';
-  }
-  if($('[data-step-content-wrap="3"]').hasClass('active')){
-
   }
   let users = "";
   if(item.look_id){
@@ -259,8 +236,14 @@ theme_custom.favoriteLooks = function(){
             for (var i = 0; i < result.data.length; i++) {   
               var productArray = result.data[i].items;
               var itemData = '';
+              var suitProduct = ''
               for(var items = 0; items < productArray.length ; items++){
-                itemData += `<div class="product-data-card">
+                if(productArray[items].handle.includes('suit')){
+                  suitProduct = 'suit-product'
+                } else {
+                  suitProduct = 'look-products'
+                }
+                itemData += `<div class="product-data-card ${suitProduct}">
                   <input type="hidden" class="looks-product-id" value="${productArray[items].product_id}" />
                   <input type="hidden" class="looks-product-var-id" value="${productArray[items].variant_id}" />
                   <input type="hidden" class="looks-product-handle" value="${productArray[items].handle}" />
@@ -330,18 +313,19 @@ theme_custom.checkLooks = (id) =>{
       $(`.modal-wrapper[data-target="remove-data-for-user"]`).removeClass("active");
       const looksDiv = $('.show-look-from-event-wrapper .event-look-inner-wrapper, .guest-top-looks .event-look-inner-wrapper');
       looksDiv.empty();
+      if(looksDiv.hasClass("slick-initialized")){
+        looksDiv.removeClass("slick-initialized").removeClass("slick-slider");
+      }
       $(`.invite-another-member-popup-wrapper .member-added-into-event,[data-target="update-guest-popup"] .member-added-into-event,[data-target="add-guest-popup"] .member-added-into-event`).removeClass('loading');
       for(let i = 0; i<data.data.event_looks.length;i++){
         let item = data.data.event_looks[i];
         theme_custom.createLookHtml(looksDiv, item, eventMembers, data.data.event_id);
       }
       $(".close-icon").click();
-      if(looksDiv.hasClass("slick-initialized")){
-        looksDiv.removeClass("slick-initialized").removeClass("slick-slider");
-      }
       setTimeout(() => {
-        theme_custom.eventLookSlider();
         setTimeout(() => {
+          theme_custom.eventLookSlider();
+          $(`[data-target="remove-data-for-user"]`).removeClass("active");
           $(".step-content-wrapper.create-event-look .event-block-wrap").hide();
           $('.show-look-from-event-wrapper,.guest-top-looks').show();
           $(".loader-wrapper").addClass("hidden");
@@ -744,10 +728,10 @@ theme_custom.lookAddedIntoEvent = function(){
     var lookName = $(this).closest(".product-card").find(".product-title").text(),
         eventId = $(this).closest(".event-page-new-design-wrapper").find("#event-id").val();
     var custom_look_new_url = '/pages/customize-your-look?';
-    $(this).closest(".product-card").find(`.item-data-wrapper .product-data-card`).each(function(){
+    $(this).closest(".product-card").find(`.item-data-wrapper .product-data-card.look-products`).each(function(){
       var productHandle = $(this).find(".looks-product-handle").val();
       var productVarId = $(this).find(".looks-product-var-id").val();
-      if($(this).closest(".product-card").find(`.item-data-wrapper .product-data-card`).length > 1) {
+      if($(this).closest(".product-card").find(`.item-data-wrapper .product-data-card.look-products`).length > 1) {
         if(custom_look_new_url.indexOf("=") > -1) {
           custom_look_new_url += "&"+productHandle+'='+productVarId;
         }else{
@@ -758,11 +742,11 @@ theme_custom.lookAddedIntoEvent = function(){
       }
     });
     lookUrl = custom_look_new_url;
-    var productDataCardArr = $(this).closest(".product-card").find(`.item-data-wrapper .product-data-card`),
+    var productDataCardArr = $(this).closest(".product-card").find(`.item-data-wrapper .product-data-card.look-products`),
         dataObj = {};
     theme_custom.newArray = [],
     productDataCardArr.each(function(){
-      if($(this).closest(".product-card").find(`.item-data-wrapper .product-data-card .looks-product-var-id`).val() != ''){
+      if($(this).closest(".product-card").find(`.item-data-wrapper .product-data-card.look-products .looks-product-var-id`).val() != ''){
         dataObj = {
           "product_id": $(this).find(".looks-product-id").val(),
           "variant_id": $(this).find(".looks-product-var-id").val(),
@@ -821,7 +805,217 @@ theme_custom.removeUserFromLook = (eventId,memberId) =>{
     }
 }
 
+theme_custom.ProductData = function(productItemsArr, lookName, lookId, memberId){
+  console.log("productItemsArr",productItemsArr);
+  var productSubTotalPrice = "",
+      subTotal = 0;
+  $.map(productItemsArr, function(productItems,index) {
+    jQuery.ajax({
+      type: 'GET',
+      url: `/products/${productItems.product_handle}.json`,
+      success: function(response) {
+        for(i=0; i<response.product.variants.length;i++){
+          var var_id = response.product.variants[i];
+          if (var_id.id == productItems.variant_id) {
+            var_has_available = true;
+            break;
+          } else {
+            var_has_available = false;
+          }
+        }
+        if (var_has_available) {
+          $.each(response.product.variants, function (key, value) {
+            var variantSelected = value;
+            var subtotalVarPrice = (variantSelected.price)*100;
+            if(value.id == productItems.variant_id){
+              subTotal = subTotal + parseInt(subtotalVarPrice)*100;
+            }
+          });
+        }
+        var productTitle = response.product.title;
+        theme_custom.productSubTotalPrice = theme_custom.Shopify.formatMoney((subTotal)/100, theme_custom.money_format);
+        console.log(lookName, "=", productTitle,"=",theme_custom.productSubTotalPrice,"=",lookId , "=", memberId);
+      },
+      error: function(xhr, status, error) {
+       console.log(xhr.responseJSON.message); 
+      }
+    });
+  });
+}
+
+theme_custom.getEventMemberData = function(eventMemberArray, eventLooksArray, summaryTableWrapper){
+  var eventMemberHTML = '';
+  console.log("summaryTableWrapper",summaryTableWrapper);
+  for (let i = 0; i < eventMemberArray.length; i++) {
+    if(eventMemberArray[i].is_host_paying == "Self"){
+      for (let j = 0; j < eventLooksArray.length; j++) {
+        const eventLooksArr = eventLooksArray;
+        // console.log('eventLooksArray',eventLooksArr);
+        if(eventLooksArr[j].look_id == eventMemberArray[i] .look_id){
+          var lookImage = eventLooksArr[j].look_image;
+          theme_custom.ProductData(eventLooksArr[j].items,eventLooksArr[j].name,eventLooksArr[j].look_id,eventMemberArray[i].event_member_id);
+        }
+      }    
+      eventMemberHTML += `<tr data-event-id="${eventMemberArray[i].look_id}" data-member-id="${eventMemberArray[i].event_member_id}" data-look-name="${eventMemberArray[i].look_name}">
+        <td>
+          <span class="look_name">${eventMemberArray[i].look_name}</span>
+        </td>
+        <td>
+          <span class="member-number">
+            1 Members
+          </span>
+        </td>
+        <td>
+          <span class="look-price" data-price="219.90">
+            $219.90
+          </span>
+        </td>
+        <td>
+          <button class="button btn-wrap button--secondary event-payment-for-guest" type="button" data-pay-info="${eventMemberArray[i].is_host_paying}" data-event-id="${eventMemberArray[i].event_id}" data-look-id="${eventMemberArray[i].look_id}" data-member-id="${eventMemberArray[i].event_member_id}" data-look-name="${eventMemberArray[i].look_name}" data-look-image="${lookImage}"  data-look-price="215.90">
+            Pay for Guest
+          </buttom>
+        </td>
+      </tr>`    
+    }
+  }
+  summaryTableWrapper.find('tbody').append(eventMemberHTML);
+}
+
+theme_custom.eventMemberData = function(){
+  var summaryTableWrapper = $(".summary-table-wrapper");
+  summaryTableWrapper.find('tbody').empty();
+  const eventId = localStorage.getItem("set-event-id");  
+  $.ajax({
+    url: `${theme_custom.base_url}/api/event/${eventId}`,
+    method: "GET",
+    data: '',
+    dataType: "json",
+    headers: {
+      // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
+      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+    },
+    beforeSend: function () {
+    },
+    success: function (result) {
+      console.log("result",result);
+      var eventMemberArray = result.data.event_members,
+          eventLooksArray = result.data.event_looks;
+        console.log("eventMemberArray",eventMemberArray);
+        console.log("eventLooksArray",eventLooksArray);
+      theme_custom.getEventMemberData(eventMemberArray, eventLooksArray, summaryTableWrapper);
+    },
+    error: function (xhr, status, error) {
+      if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+        $('.reminder-added-part .api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+          'text-align': 'center',
+          'color': 'red'
+        });
+        setTimeout(() => {
+          theme_custom.removeLocalStorage();
+          window.location.href = '/account/logout';
+        }, 3000);
+      } else {
+        var event_date_msg = '';
+        if (xhr.responseJSON.data) {
+          if (xhr.responseJSON.data.event_id != undefined) {
+            for (let i = 0; i < xhr.responseJSON.data.event_id.length; i++) {
+              event_date_msg += `<span>${xhr.responseJSON.data.event_id[i]}</span>`;
+            }
+          } else {
+            for (let i = 0; i < xhr.responseJSON.data.length; i++) {
+              var errorMsg = xhr.responseJSON.data[i];
+              var membererror = '';
+              $.each(errorMsg, function (key, value) {
+                membererror += `<p><b style="text-transform: uppercase;">${key}</b>: ${value}</p>`;
+              })
+              event_date_msg += `<div>${membererror}</div>`;
+            }
+          }
+        } else {
+          event_date_msg += `<span>${xhr.responseJSON.message}</span>`;
+        }
+        $('.reminder-added-part .api_error').show().html(event_date_msg);
+        setTimeout(() => {
+          $('.reminder-added-part .api_error').html('').hide();
+        }, 10000);
+      }
+    }
+  });
+}
+
+theme_custom.setFitFinder = function(){
+  if(getCookie("fit-finder-data") != ""){
+    var getFitFinderData = JSON.parse(getCookie("fit-finder-data"));
+    console.log("getFitFinderData",getFitFinderData);
+    if(getFitFinderData.jacketSize != ''){
+      var jacketSize = getFitFinderData.jacketSize.split(":")[0];
+      var jacketType = getFitFinderData.jacketSize.split(":")[1], jacketTypeVal = '';
+      if (jacketType == "S") {
+        jacketTypeVal = 'Short'
+      } else if (jacketType == "R") {
+        jacketTypeVal = 'Regular'
+      } else if (jacketType == "L") {
+        jacketTypeVal = 'Long'
+      }
+      $("#jacket-size").val(jacketSize).change();
+      $("#jacket-type").val(jacketTypeVal).change();
+    }
+    if(getFitFinderData.pants_hight != ''){
+      $("#pants-length").val(getFitFinderData.pants_hight).change();
+    }
+    if(getFitFinderData.pants_waist != ''){
+      $("#pants-waist").val(getFitFinderData.pants_waist).change();
+    }
+    if(getFitFinderData.shirt_sleeve != ''){
+      $("#shirt-sleeve").val(getFitFinderData.shirt_sleeve).change();
+    }
+    if(getFitFinderData.shirt_neck != ''){
+      $("#shirt-neck").val(getFitFinderData.shirt_neck).change();
+    }
+    if(getFitFinderData.shoe_size != ''){
+      $("#shoes-size").val(getFitFinderData.shoe_size).change();
+    }
+  }
+}
+
 theme_custom.eventPageClickEvent = function(){
+  $(document).on("click",".event-payment-for-guest",function(e){
+    e.preventDefault()
+    var data = {
+      'event_id' : $(this).attr("data-event-id"),
+      'member_id'  : $(this).attr("data-member-id"),
+      'look_id' : $(this).attr("data-look-id"),
+      'look_title'  : $(this).attr("data-look-name"),
+      'look_image' : $(this).attr("data-look-image"),
+      'order_amount' : $(this).attr("data-look-price")
+    };
+    $.ajax({
+      url: `${theme_custom.base_url}/api/event/addeventdata`,
+      method: "POST",
+      data: data,
+      dataType: "json",
+      headers: {
+        "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+      },
+      beforeSend: function () {
+      },
+      success: function (result) {
+        var paymentURL = `${theme_custom.base_url}/payment/${result.data.event_id}/${result.data.member_id}/${result.data.look_id}`;
+        // console.log("paymentURL",paymentURL);
+        window.location.href = paymentURL;
+      },
+      error: function (xhr, status, error) {
+        if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+          alert('Something went wrong Please try again !');
+          setTimeout(() => {
+            theme_custom.removeLocalStorage();
+            window.location.href = '/account/logout';
+          }, 5000);
+        }
+      }
+    })
+  });
+  
   $(document).on('click', '.user-card-block .action-icon .edit-icon', function(event) {
     let parent = $(this).closest('.look-card-block');
     let data =$('.user-data-script',parent).html();
@@ -964,6 +1158,10 @@ theme_custom.eventPageClickEvent = function(){
     if($(this).closest(`.step-content-wrapper[data-step-content-wrap="2"]`).length > 0){
       theme_custom.checkLooks(localStorage.getItem("set-event-id"));
     }
+    if($(this).closest(`.step-content-wrapper[data-step-content-wrap="3"]`).length > 0){
+      theme_custom.setFitFinder();
+      theme_custom.eventMemberData();
+    }
     theme_custom.changeStep(nextTarget);
   });
 
@@ -1058,28 +1256,6 @@ theme_custom.eventLookSlider = function(){
     });
   }
 }
-// theme_custom.guestLooksSlider = function(){
-//   if($('.guest-top-looks .event-look-inner-wrapper .look-card-block').length > 2){
-//     setTimeout(() => {
-//       $('.guest-top-looks .event-look-inner-wrapper').slick({
-//         adaptiveHeight: true,
-//         slidesToShow: 2,
-//         slidesToScroll: 2,
-//         infinite: false,
-//         speed: 300,
-//         responsive: [
-//           {
-//             breakpoint: 768,
-//             settings: {
-//               slidesToShow: 1,
-//               slidesToScroll: 1,
-//             }
-//           }
-//         ]
-//       });
-//     }, 200);
-//   }
-// }
 theme_custom.changeFilled = function() {
   $(document).on(`change`, `#EventForm-EventName, [name="event-type"], #event_date, [name="event-role"], .phone-number`, function() {
     console.log($(this).val());
@@ -1149,9 +1325,33 @@ theme_custom.getEventDetails = function(){
       $(".create-event-button").addClass("next-button").removeClass("create-event-button");    
       $(`.step-content-wrapper[data-step-content-wrap="1"]`).addClass("active");
       $(`.step-content-wrapper[data-step-content-wrap="1"]`).find(".event-update-button").removeClass("disabled").removeClass("hidden")
-      console.log("eventData",eventDataObj);
-      $(".loader-wrapper").addClass("hidden");
-      $(".event-step-wrapper").removeClass("hidden");
+      if(location.href.includes('?step')){
+        $(".step-wrap").addClass("active");
+        $(`.step-content-wrapper[data-step-content-wrap="3"]`).find(".next-button").click();
+        setTimeout(() => {
+          var currentLocation = window.location.href.split('?')[0];
+          history.pushState({}, null, `${currentLocation}`);
+        }, 3000);
+      }
+      if(localStorage.getItem("back-to-event-page") != null || localStorage.getItem("showEventStepSecond") != null || localStorage.getItem("go-to-event-page") != null){
+        $(".event-page-new-design-wrapper .loader-wrapper").removeClass("hidden");
+        $(".event-page-new-design-wrapper .event-step-wrapper").addClass("hidden");
+        setTimeout(() => {
+          $('.step-content-wrapper[data-step-content-wrap="1"]').find(".next-button").click();
+          if(localStorage.getItem("back-to-event-page") != null) {
+            localStorage.removeItem("back-to-event-page");
+          }
+          if(localStorage.getItem("showEventStepSecond") != null){
+            localStorage.removeItem("showEventStepSecond")
+          }
+          if(localStorage.getItem("go-to-event-page") != null){
+            localStorage.removeItem("go-to-event-page");
+          }
+        }, 1000);
+      } else {
+        $(".loader-wrapper").addClass("hidden");
+        $(".event-step-wrapper").removeClass("hidden");
+      }
     },
     error: function (xhr, status, error) {
       console.log("responseJSON",xhr.responseJSON)
@@ -1226,32 +1426,21 @@ theme_custom.checkUpdateEvent = function(checkEventData,value,selector){
 $(document).ready(function() {
   // theme_custom.updateEvent();
   $( "#event_date" ).datepicker({ 
-    dateFormat: 'yy-mm-dd'
+    dateFormat: 'yy-mm-dd',
+    minDate : 0
   });
   // window.eventDate = $( ".event-data-first-step" ).datepicker({
   //   format: 'yyyy-mm-dd'
   // });
   window.eventDataObj = {};
   theme_custom.deleteTheLooksItem();
-  theme_custom.event_init_page(); 
+  theme_custom.event_init_page();
   if(localStorage.getItem("set-event-id") != null) {
     theme_custom.getEventDetails();
   } else {
     setTimeout(() => {
       $(".loader-wrapper").addClass("hidden");
       $(".event-step-wrapper").removeClass("hidden");
-    }, 1000);
-  }
-  if(localStorage.getItem("back-to-event-page") != null){
-    setTimeout(() => {
-      $('.step-content-wrapper[data-step-content-wrap="1"]').find(".next-button").click();
-      localStorage.removeItem("back-to-event-page");
-    }, 2000);
-  }
-  if(localStorage.getItem("go-to-event-page") != null){
-    setTimeout(() => {
-      $('.step-content-wrapper[data-step-content-wrap="1"]').find(".next-button").click();
-      localStorage.removeItem("go-to-event-page");
-    }, 2000);
+    }, 500);
   }
 })

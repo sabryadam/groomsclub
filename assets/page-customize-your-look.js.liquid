@@ -94,7 +94,6 @@ theme_custom.productDataFromURL = function () {
           if (currentInput.closest(".product-block-wrapper[data-product-type='suit']").length == 0) {
             currentInput.closest('.swatch-wrap').addClass("unchecked-product");
           }
-          currentInput.closest('.product-block-outer-wrapper').find(".color-title").text(varintTitle);
           currentInput.closest('.product-block-outer-wrapper').find('.price-wrap').attr('data-product-price', currentVarintPrice).text(theme_custom.Shopify.formatMoney(currentVarintPrice, theme_custom.money_format)).show();
         }
         if (productHandleTitle.indexOf('shoe') != -1) {

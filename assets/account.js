@@ -367,6 +367,7 @@ $(document).on("click", ".events-main-container .custom-event-button, .events-ma
     var hostedBy = $(this).data("hosted-by");
     localStorage.setItem("hosted-by", hostedBy);
     localStorage.setItem("set-event-id",$(this).data("event-id"));
+    localStorage.setItem("showEventStepSecond","true");
     window.location.href = $(this).data("href");
 })
 

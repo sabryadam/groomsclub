@@ -81,7 +81,7 @@
                           {%- assign prodHandle = producthandleitem | split: '?' | first -%}
                           {%- assign prodVarId = producthandleitem | split: '?' | last | remove: 'variant=' | plus: 0 -%}
                           {%- assign getProduct = all_products[prodHandle] -%}
-                          <div data-target="with-variant" class="product-data-card" data-product-handle="{{ getProduct.handle }}" data-product-type="{{ getProduct.type }}">
+                          <div data-target="with-variant" class="product-data-card look-products" data-product-handle="{{ getProduct.handle }}" data-product-type="{{ getProduct.type }}">
                             <input type="hidden" class="looks-product-id" value="{{ getProduct.id }}" />
                             <input type="hidden" class="looks-product-var-id" value="{{ getProduct.selected_or_first_available_variant.id }}" />
                             <input type="hidden" class="looks-product-handle" value="{{ getProduct.handle }}" />
@@ -92,7 +92,7 @@
                         {%- for producthandleitem in productHandleVal -%}
                           {%- assign producthandleitemData = producthandleitem -%}
                           {%- assign suitGetProduct = all_products[producthandleitemData] -%}
-                          <div data-target="with-out-variant" class="product-data-card" data-product-handle="test-{{ producthandleitemData }}" data-product-type="{{ suitGetProduct.type }}">
+                          <div data-target="with-out-variant" class="product-data-card look-products" data-product-handle="test-{{ producthandleitemData }}" data-product-type="{{ suitGetProduct.type }}">
                             <input type="hidden" class="looks-product-id" value="{{ suitGetProduct.id }}" />
                             <input type="hidden" class="looks-product-var-id" value="{{ suitGetProduct.selected_or_first_available_variant.id }}" />
                             <input type="hidden" class="looks-product-handle" value="{{ suitGetProduct.handle }}" />

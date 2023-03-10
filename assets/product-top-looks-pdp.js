@@ -421,7 +421,7 @@ theme_custom.favoriteLookImageCustomizer = function(lookID,button){
       setTimeout(() => {
         button.removeClass("disabled").text("Added look into favorite");
         $(".favourite-look-api-message").addClass("hidden");
-        window.location.href = `/account#tab-3`
+        window.location.href = `/account?tab=favorite-look`
       },3000);
     },
     error: function(xhr, status, error) {

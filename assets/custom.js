@@ -55,12 +55,6 @@ theme_custom.removeLocalStorage = function(){
 }
 theme_custom.base_url = theme_custom.api_base_url;
 
-theme_custom.removeLocalStorage = function(){
-  localStorage.removeItem("created-event-step");
-  localStorage.removeItem("created-event");
-  localStorage.removeItem("selectedMemberIds");
-  localStorage.removeItem("created-event-id");
-}
 // DatePicker
 theme_custom.datePicker = function ($this) {
   var count = 0;
