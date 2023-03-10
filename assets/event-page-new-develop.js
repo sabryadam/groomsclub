@@ -177,7 +177,7 @@ theme_custom.user = (user) =>{
       </div>
       <spa class="pay-status">${whoPay}</span>
     </div>
-    <script class='user-data-script'> ${JSON.stringify(user)} </script>
+    <script type="application/json" class='user-data-script'> ${JSON.stringify(user)} </script>
   </div>`
 }
 theme_custom.createLookHtml = (div,item, eventMembers, event_id) =>{
