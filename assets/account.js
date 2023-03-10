@@ -240,6 +240,11 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
         success: function (result) {
             var eventBlockCount = result.data.totalEvents;
             var allEvents = result.data.events;
+            allEvents.sort(function(a,b){
+                // Turn your strings into dates, and then subtract them
+                // to get a value that is either negative, positive, or zero.
+                return new Date(b.event_date) - new Date(a.event_date);
+            });
             var myEvents = allEvents.filter((event)=> event.hostedBy.toLowerCase() == 'me');
             var otherEvents = allEvents.filter((event)=> event.hostedBy.toLowerCase() != 'me');
             var eventsObj = [myEvents,otherEvents]
@@ -731,9 +736,10 @@ $(document).on('click', '.tabs-nav li a', function (e) {
     let id = $(this).attr('href');
     $(mainParent).find(id).addClass('active');
     history.pushState({}, null, `${window.location.pathname}?tab=${id.replace('#','')}`);
-    if(id == '#tab-3'){
+    if(id == '#tab-3' || id == "#favorite-look" ){
         $('.feature-looks-slider').slick('refresh');
     }
+
     // var siteHeaderHeight = $('.header-wrapper').height() + 10;
     // $('html, body').animate({ scrollTop: $($(this).attr('href')).position().top - siteHeaderHeight }, '1000');
 });
@@ -1356,6 +1362,11 @@ theme_custom.accountActiveTabs = function(){
         $(mainParent).find(dataId).addClass('active');
         if(dataId == '#tab-3'){
             $('.feature-looks-slider').slick('refresh');
+        }
+        var li = $(`a[href="${dataId}"]`).closest('li');
+        if($(Window).width() <= 767 && li.length > 0){
+            let scrollElement = document.querySelector('.tabs-nav');
+            scrollElement.scrollLeft = li[0].offsetLeft;
         }
     }
 }

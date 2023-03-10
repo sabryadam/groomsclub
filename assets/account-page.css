@@ -22,7 +22,7 @@
     margin: 0 auto;
 }
 .main-account-page .account-header{
-    padding: 18px 15px 0;
+    padding: 18px 50px 0;
     display: flex;
     justify-self: space-between;
 }
@@ -79,10 +79,10 @@
     color: #001F49;
     font-weight: 500;
     font-size: 24px;
+    margin-right: 10px;
 }
 .main-account-page .account-header .account-right-section .user-info-top {
     padding: 0;
-    margin-left: 10px;
     display: block;
 }
 .main-account-page .account-header .account-right-section .user-info-top .user-name{
@@ -453,6 +453,7 @@
         -webkit-overflow-scrolling: touch;
         overflow-y: hidden;
         -webkit-transform: translate3d(0, 0, 0);
+        padding-left: 15px;
     }
     .main-account-page .account-header .account-left-section .tab-top-border .tabs-nav::-webkit-scrollbar {
         display: none;
