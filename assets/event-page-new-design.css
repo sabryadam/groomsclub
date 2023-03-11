@@ -914,9 +914,12 @@
 .final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper {
   margin-top: 40px;
 }
+.final-summary-wrapper .page-width-inner-wrapper .summary-table-wrapper{
+  overflow: auto;
+}
 .final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper table{
-  width: 100%;
   text-align: left;
+  min-width: 100%;
 }
 .final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper table thead,
 .final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper table tr,
@@ -944,6 +947,9 @@
   height: auto;
 }
 @media(max-width : 767px){
+  .final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper table th{
+    min-width: 200px;
+  }
   .modal-wrapper .modal-wrapper-inner-wrapper .product-wrapper .product-card .product-info .button{
     padding : 5px;
   }
@@ -1101,6 +1107,12 @@
     width: 130px;
     height: 30px;
     margin: 10px 0;
+  }
+  .event-page-new-design-wrapper .final-summary-wrapper .button-wrapper .btn-wrap{
+    height: 50px;
+  }
+  .final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper .total-price-label{
+    text-align: left;
   }
   .event-page-new-design-wrapper .button-wrapper .btn-wrap .label{
     font-size: 12px;

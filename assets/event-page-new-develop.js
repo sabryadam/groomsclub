@@ -859,10 +859,11 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
             variantSelected = value;
             var variantSelectedPrice = variantSelected.price;
             subTotal = subTotal + parseInt(variantSelectedPrice*100);
-            productItemHTML += `<div class="product-card-data">
+            productItemHTML += `<div class="product-card-data" data-product-type="${response.product.product_type}">
                                   <input type="hidden" class="product_handle" value="${response.product.handle}" /> 
                                   <input type="hidden" class="product_var_id" value="${variantSelected.id}" />
                                   <input type="hidden" class="product_id" value="${response.product.id}" />
+                                  <input type="hidden" class="product_variant_title" value="${variantSelected.title}" />
                                 </div>`;
           }
         })
@@ -925,7 +926,7 @@ theme_custom.lookInfoData = function(result){
       }
     }
     console.log('orderImg',orderImg);
-    productHTML += `<tr class="order-wrap-${index}">
+    productHTML += `<tr class="order-wrap-block order-wrap-${index}">
                       <td>
                         <span class="look_name">${orderItems.look_name}</span>
                       </td>
@@ -949,6 +950,13 @@ theme_custom.lookInfoData = function(result){
                     </tr>`;
     theme_custom.productBlockDataWrap(orderItemsObj, orderItems, index, lookDetails);
     paymentInfoHTMLtarget.append(productHTML);
+    setTimeout(() => {
+      var totalPrice = 0;
+      $(".order-wrap-block").each(function(){
+        totalPrice = totalPrice + parseFloat($(this).find("button").attr("data-look-price"));
+      })
+      $(`.summary-table-wrapper tfoot`).find('.total-price').text(totalPrice);
+    }, 3000);
   })
 }
 
@@ -1045,7 +1053,77 @@ theme_custom.setFitFinder = function(){
   }
 }
 
+theme_custom.customizeLookProductAjax = function (button, parent) {
+  var button = button;
+  var getProduct = parent.find(".product-card-wrap .product-card-data");
+  var items = [];
+  button.text("Adding...");
+  getProduct.each(function () {
+    var productType = $(this).attr("data-product-type");
+    var varId = $(this).find(".product_var_id").val(),
+      item = {};
+    if (productType == 'Jacket') {
+      var pantsSelectedVariant = $(this).closest(`.product-card-wrap`).find(`.product-card-data[data-product-type="Pants"]`).find(".product_var_id").val(),
+          pantsVarTitle = $(this).closest(`.product-card-wrap`).find(`.product-card-data[data-product-type="Pants"]`).find(".product_variant_title").val();
+      item = {
+        "id": varId,
+        "quantity": 1,
+        "properties": {
+          "variant-title": pantsVarTitle,
+          "variant-id": pantsSelectedVariant
+        }
+      }
+    } else if (productType == 'Pants') {
+      var jacketSelectedVariant = $(this).closest(`.product-card-wrap`).find(`.product-card-data[data-product-type="Jacket"]`).find(".product_var_id").val(),
+          jacketVarTitle = $(this).closest(`.product-card-wrap`).find(`.product-card-data[data-product-type="Jacket"]`).find(".product_variant_title").val();
+      item = {
+        "id": varId,
+        "quantity": 1,
+        "properties": {
+          "variant-title": jacketVarTitle,
+          "variant-id": jacketSelectedVariant
+        }
+      }
+    } else {
+      item = {
+        "id": varId,
+        "quantity": 1
+      }
+    }
+    items.push(item);
+  })
+  data = {
+    items: items
+  };
+  jQuery.ajax({
+    type: 'POST',
+    url: '/cart/add.js',
+    data: data,
+    dataType: 'json',
+    success: function () {
+      button.text("Added to Cart"); 
+      setTimeout(() => {
+        button.removeClass("disabled");
+        window.location.href = "/cart";
+      }, 2500);
+    },
+    error: function (xhr, status, error) {
+      alert(xhr.responseJSON.description);
+      button.text("proceed To Cart");
+      button.removeClass("disabled");
+    }
+  });
+}
+
 theme_custom.eventPageClickEvent = function(){
+
+  // theme_custom.customizeLookProductAjax
+  $(document).on("click",".add-to-cart",function(e){
+    var parent = $(this).closest(".order-wrap-block"),
+        button = $(this);
+    theme_custom.customizeLookProductAjax(button,parent);
+  });
+
   $(document).on("click",".event-payment-for-guest",function(e){
     e.preventDefault();
     var button = $(this);

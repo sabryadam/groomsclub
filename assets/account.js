@@ -21,6 +21,24 @@ theme_custom.checkProductLinkAvailable = function () {
     }
 }
 
+// theme_custom.deleteEvent
+theme_custom.deleteEvent = function(event_id){
+    $.ajax({
+        url: `${theme_custom.base_url}/api/event/delete/${event_id}`,
+        method: "DELETE",
+        data: '',
+        dataType: "json",
+        headers: {
+            "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+        },
+        beforeSend: function () {
+        },
+        success: function (result) {
+            console.log("result",result);
+        }
+    });
+}
+
 // Size APi
 
 function getsizedata() {
@@ -367,6 +385,11 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
     });
 
 }
+
+// Event delete 
+$(document).on("click",".event-action-btns .event-delete-btn", function(){
+    theme_custom.deleteEvent($(this).closest(".events-container").find(".events-main-link").attr("data-event-id"));
+});
 
 $(document).on("click", ".events-main-container .custom-event-button, .events-main-link ", function () {
     var hostedBy = $(this).data("hosted-by");

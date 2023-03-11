@@ -305,6 +305,7 @@
 }
 .main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .events-container .event-container-event-content .event-action-btns .event-delete-btn{
     color: #F50000;
+    cursor: pointer;
 }
 .main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .events-container .event-container-event-content .event-hostedby{
     /* display: none; */
