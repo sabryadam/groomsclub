@@ -645,10 +645,11 @@ $(document).on('click', '.delete_favorites', function () {
 
 $(document).on('click','.feature-looks-slider .fav-look-add-to-cart',function(){
     let index = parseInt($(this).attr('data-index'));
+    let btn = $(this);
     let data = theme_custom.favLooksData[index];
     let lookItems = data.items;
     let items = [];
-    debugger;
+    $(btn).text('Adding....')
     lookItems.forEach((item)=>{
         if(item.handle.includes('jacket')){
             let pant = lookItems.find((product)=> {
@@ -708,10 +709,17 @@ $(document).on('click','.feature-looks-slider .fav-look-add-to-cart',function(){
         return response.json();
     })
     .then((data)=>{
-        window.location.href = '/cart';
+        if(data.description){
+            $(btn).text('ADD To Cart')
+            alert(data.description);
+        }else{
+            window.location.href = '/cart';
+        }
     })
     .catch((error) => {
         console.error('Error:', error);
+        // alert(data.description);
+        $(btn).text('ADD To Cart')
     });
 })
 // End Delete the favorite looks
