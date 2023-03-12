@@ -27,7 +27,6 @@ theme_custom.lookAssignToMember = function(member_id,look_id){
       $('.member-added-into-event').removeClass('disabled')
     },
     error: function (xhr, status, error) {
-    // 
       $(this).removeClass("disabled");
       if (xhr.responseJSON.message == 'Token is invalid or expired.') {
         parent.find('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
