@@ -341,7 +341,7 @@ theme_custom.checkLooks = (id,nextTarget) =>{
 
 theme_custom.changeStep = (index) =>{
     $('.event-step-wrapper').removeClass('hidden');
-    // $('.loader-wrapper').addClass('hidden')
+    $('.loader-wrapper').addClass('hidden')
     $(`.step-content-wrapper`).removeClass("acrive");
     $(`.step-content-wrapper[data-step-content-wrap="${index}"]`).addClass("active");
     $(`.step-wrap[data-step-label-wrap="${index}"]`).addClass("active");
