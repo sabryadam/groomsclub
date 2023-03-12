@@ -989,7 +989,6 @@ theme_custom.favoriteLookUpdate = function (eventButton) {
         },
         beforeSend: function () {},
         success: function (result) {
-          console.log("Look Update");
           theme_custom.favouriteLookApi(lookName, lookUrl, produArray, button);
         },
         error: function (xhr, status, error) {
@@ -1140,7 +1139,6 @@ theme_custom.variantDataGet = function (input) {
 // theme_custom.setFinderData
 theme_custom.setFinderData = function () {
   var getFitFinderData = JSON.parse(getCookie("fit-finder-data"));
-  // console.log(getFitFinderData);
   var jacketType = getFitFinderData.jacketSize.split(":");
   var jacketTypeVal = '';
   if (jacketType[1] == "S") {
@@ -2458,7 +2456,6 @@ theme_custom.saveImage = function(){
     html2canvas(finalCoverImage, {useCORS: true, allowTaint: true, backgroundColor:"#f5f5f5"
      }).then(canvas => {
       b64data = canvas.toDataURL();
-      console.log(b64data)
       theme_custom.downloadBase64File(b64data, 'image/png', 'test.png');
     });
 }
@@ -2467,7 +2464,6 @@ theme_custom.saveImage = function(){
 theme_custom.downloadBase64File = function(base64Data, contentType, fileName) {
   const linkSource = base64Data;
   const downloadLink = document.createElement("a");
-  console.log('linkSource',linkSource);
   downloadLink.href = linkSource;
   downloadLink.download = fileName;
   downloadLink.click();

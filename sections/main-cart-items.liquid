@@ -431,7 +431,6 @@
           var data_name = $(this).data("name");
           
           var data_value = $(this).find(".product-option-val").text();
-          // console.log(data_name + " | " + data_value);
           $(`input[type="radio"][data-name="${data_name}"][value="${data_value}"]`).prop('checked', true);
           $(`input[type="radio"][data-name="${data_name}"][value="${data_value}"] + label`).trigger("click");
           

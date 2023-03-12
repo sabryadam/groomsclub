@@ -27,7 +27,7 @@ theme_custom.lookAssignToMember = function(member_id,look_id){
       $('.member-added-into-event').removeClass('disabled')
     },
     error: function (xhr, status, error) {
-      console.log("responseJSON",xhr.responseJSON)
+    // 
       $(this).removeClass("disabled");
       if (xhr.responseJSON.message == 'Token is invalid or expired.') {
         parent.find('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
@@ -101,8 +101,7 @@ $(".member-added-into-event").click(function (e) {
       success: function (result) {
         theme_custom.lookAssignToMember(result.data.id,theme_custom.lookVal);
       },
-      error: function (xhr, status, error) {
-        console.log("responseJSON",xhr.responseJSON)
+      error: function (xhr, status, error) {        
         let div = $('.invite-another-member-popup-wrapper .member-added-into-event').closest('.field');
         if (xhr.responseJSON.message == 'Token is invalid or expired.') {
           $(div).prepend('<p class="error-member-added-into-event api_error" style="width: 100%;">Something went wrong <a class="try-again-link" href="/account/login">Please try again</a></p>').css({
@@ -280,8 +279,7 @@ theme_custom.favoriteLooks = function(){
         // alert(result.data.success);
       }
     },
-    error: function (xhr, status, error) {
-      console.log("responseJSON",xhr.responseJSON)
+    error: function (xhr, status, error) {      
       $('.feature-looks-slider-loader').hide();
       if (xhr.responseJSON.message == 'Token is invalid or expired.') {
         $('.feature-looks-slider').html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
@@ -437,8 +435,7 @@ theme_custom.updateEventAPI = function(btn){
           }, 1000);
         }
       },
-      error: function (xhr, status, error) {
-        console.log("responseJSON",xhr.responseJSON)
+      error: function (xhr, status, error) {        
         if (xhr.responseJSON.message == 'Token is invalid or expired.') {
           $('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
             'text-align': 'center',
@@ -558,8 +555,7 @@ theme_custom.createEventAPI = function(btn){
           }
         }
       },
-      error: function (xhr, status, error) {
-        console.log("responseJSON",xhr.responseJSON)
+      error: function (xhr, status, error) {        
         if (xhr.responseJSON.message == 'Token is invalid or expired.') {
           $('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
             'text-align': 'center',
@@ -630,8 +626,7 @@ theme_custom.lookImage = function (look_image, lookID, button) {
         button.removeClass("disabled").text("Look Added");
         theme_custom.checkLooks(localStorage.getItem("set-event-id"));
       },
-      error: function (xhr, status, error) {
-        console.log("responseJSON",xhr.responseJSON)
+      error: function (xhr, status, error) {        
           if (xhr.responseJSON.message == 'Token is invalid or expired.') {
               $(".look-api-message").html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
                   'text-align': 'center',
@@ -787,8 +782,7 @@ theme_custom.removeUserFromLook = (eventId,memberId) =>{
           success: function (result) {
             theme_custom.checkLooks(localStorage.getItem("set-event-id"));
           },
-          error: function (xhr, status, error) {
-            console.log("responseJSON",xhr.responseJSON)
+          error: function (xhr, status, error) {            
             if (xhr.responseJSON.message == 'Token is invalid or expired.') {
               alert('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>');
               setTimeout(() => {
@@ -806,7 +800,6 @@ theme_custom.removeUserFromLook = (eventId,memberId) =>{
 }
 
 theme_custom.ProductData = function(productItemsArr, lookName, lookId, memberId){
-  console.log("productItemsArr",productItemsArr);
   var productSubTotalPrice = "",
       subTotal = 0;
   $.map(productItemsArr, function(productItems,index) {
@@ -834,10 +827,9 @@ theme_custom.ProductData = function(productItemsArr, lookName, lookId, memberId)
         }
         var productTitle = response.product.title;
         theme_custom.productSubTotalPrice = theme_custom.Shopify.formatMoney((subTotal)/100, theme_custom.money_format);
-        console.log(lookName, "=", productTitle,"=",theme_custom.productSubTotalPrice,"=",lookId , "=", memberId);
       },
       error: function(xhr, status, error) {
-       console.log(xhr.responseJSON.message); 
+        alert(xhr.responseJSON.message); 
       }
     });
   });
@@ -847,7 +839,6 @@ theme_custom.ProductData = function(productItemsArr, lookName, lookId, memberId)
 theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, lookDetails) {
   var subTotal = 0, productSubTotalPrice, productItemHTML = '';
   var orderImg = '';
-  console.log("orderItemsObj",orderItemsObj);
   var orderItemsData = ''
   $.map(orderItemsObj, function (productItems) {
     jQuery.ajax({
@@ -889,7 +880,6 @@ theme_custom.lookInfoData = function(result){
   $.map(paymentInfo, function (orderItems, index) {
     var productHTML = item_data = product_data_for_host = '' ;
     var orderItemsObj = orderItems.items;
-    console.log("orderItems",orderItems);
     if (orderItems.payment_status != "Complete") {
       var actionButton = payInfo = "";
       if (orderItems.is_host == 1) {
@@ -925,7 +915,6 @@ theme_custom.lookInfoData = function(result){
         orderImg = element.look_image;
       }
     }
-    console.log('orderImg',orderImg);
     productHTML += `<tr class="order-wrap-block order-wrap-${index}">
                       <td>
                         <span class="look_name">${orderItems.look_name}</span>
@@ -976,7 +965,6 @@ theme_custom.eventMemberData = function(){
     beforeSend: function () {
     },
     success: function (result) {
-      console.log("result",result);
       theme_custom.lookInfoData(result);
     },
     error: function (xhr, status, error) {
@@ -1021,7 +1009,6 @@ theme_custom.eventMemberData = function(){
 theme_custom.setFitFinder = function(){
   if(getCookie("fit-finder-data") != ""){
     var getFitFinderData = JSON.parse(getCookie("fit-finder-data"));
-    console.log("getFitFinderData",getFitFinderData);
     if(getFitFinderData.jacketSize != ''){
       var jacketSize = getFitFinderData.jacketSize.split(":")[0];
       var jacketType = getFitFinderData.jacketSize.split(":")[1], jacketTypeVal = '';
@@ -1148,7 +1135,6 @@ theme_custom.eventPageClickEvent = function(){
       },
       success: function (result) {
         var paymentURL = `${theme_custom.base_url}/payment/${result.data.event_id}/${result.data.member_id}/${result.data.look_id}`;
-        // console.log("paymentURL",paymentURL);
         button.text('Paying.....');
         window.location.href = paymentURL;
       },
@@ -1406,7 +1392,6 @@ theme_custom.eventLookSlider = function(){
 }
 theme_custom.changeFilled = function() {
   $(document).on(`change`, `#EventForm-EventName, [name="event-type"], #event_date, [name="event-role"], .phone-number`, function() {
-    console.log($(this).val());
     theme_custom.checkUpdateEvent("event_name",$(this).val(),$(this).attr("data-id"));
   });
 }
@@ -1501,8 +1486,7 @@ theme_custom.getEventDetails = function(){
         $(".event-step-wrapper").removeClass("hidden");
       }
     },
-    error: function (xhr, status, error) {
-      console.log("responseJSON",xhr.responseJSON)
+    error: function (xhr, status, error) {      
       if (xhr.responseJSON.message == 'Token is invalid or expired.') {
         $('.getapi_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
           'text-align': 'center',
@@ -1548,8 +1532,7 @@ theme_custom.deleteTheLooksItem = function (eventLookId) {
           theme_custom.checkLooks(localStorage.getItem("set-event-id"));
         }, 1000);
       },
-      error: function (xhr, status, error) {
-        console.log("responseJSON",xhr.responseJSON)
+      error: function (xhr, status, error) {        
         if (xhr.responseJSON.message == 'Token is invalid or expired.') {
           alert('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>');
           setTimeout(() => {
@@ -1564,7 +1547,6 @@ theme_custom.deleteTheLooksItem = function (eventLookId) {
   }
 }
 theme_custom.checkUpdateEvent = function(checkEventData,value,selector){
-  console.log("selector",selector, "value",value);
   if((selector == 'event-name' && (checkEventData == "event_name" && eventDataObj.eventName != value)) || (selector == 'event-date' && (checkEventData == "event_name" && eventDataObj.eventDate != value)) || (selector == 'event-type' && (checkEventData == "event_name" && eventDataObj.eventType != value)) || (selector == 'event-phone' && (checkEventData == "event_name" && eventDataObj.eventPhone != value)) || (selector == 'event-role' && (checkEventData == "event_name" && eventDataObj.eventRole != value))){
     $(".event-update-button").removeClass("disabled");
   } else {

@@ -99,7 +99,6 @@ class VariantSelects extends HTMLElement {
         document.getElementById(`price-${this.dataset.section}`)?.classList.remove('visibility-hidden');
         this.toggleAddButton(!this.currentVariant.available, window.variantStrings.soldOut);
 
-        // console.log(this.currentVariant)
         
         if (this.currentVariant.available) {
           this.toggleAddButton(false, window.variantStrings.addToCart);

@@ -34,7 +34,10 @@ theme_custom.deleteEvent = function(event_id){
         beforeSend: function () {
         },
         success: function (result) {
-            console.log("result",result);
+            $("#my-events").find(".events-main-container").prepend(`<p class="success-event" style="text-align:center">${result.message}</p>`);
+            setTimeout(() => {
+                theme_custom.geteventslist();
+            }, 5000);
         }
     });
 }
@@ -266,7 +269,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
             var myEvents = allEvents.filter((event)=> event.hostedBy.toLowerCase() == 'me');
             var otherEvents = allEvents.filter((event)=> event.hostedBy.toLowerCase() != 'me');
             var eventsObj = [myEvents,otherEvents]
-            console.log("eventsObj",eventsObj);
+            // console.log("eventsObj",eventsObj);
 
             var pageCount = eventBlockCount / limit;
             if (result.success) {       
@@ -388,6 +391,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
 
 // Event delete 
 $(document).on("click",".event-action-btns .event-delete-btn", function(){
+    $(this).text("Deleting.....");
     theme_custom.deleteEvent($(this).closest(".events-container").find(".events-main-link").attr("data-event-id"));
 });
 
@@ -476,7 +480,7 @@ function favoritelooks() {
             if (result.success) {
                 if (result.data.length > 0) {
                     theme_custom.favLooksData = result.data;
-                    console.log("result.data",result.data);
+                    // console.log("result.data",result.data);
                     var append_fav_html = "";
                     $('.feature-looks-slider').html(append_fav_html);
                     var edit_link = '';

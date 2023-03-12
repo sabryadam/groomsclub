@@ -662,7 +662,6 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
       $(".mywedding_section_wrap").addClass("hidden");
     },
     success: function (result) {
-      // console.log('result call in data',result);
       var htmlBlock = '';
       if( result.message == 'No looks found'){
         htmlBlock += `<p class="text_center">We did't not found any look you have assigned!</p>`;
