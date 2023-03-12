@@ -452,13 +452,19 @@ theme_custom.updateEventAPI = function(btn){
                 event_date_msg += `<span>${xhr.responseJSON.data.event_date[i]}</span>`;
               }
             } else {
-              for (let i = 0; i < xhr.responseJSON.data.length; i++) {
-                var errorMsg = xhr.responseJSON.data[i];
-                var membererror = '';
-                $.each(errorMsg, function (key, value) {
-                  membererror += `<p><b style="text-transform: uppercase;">${key}</b>: ${value}</p>`;
-                })
-                event_date_msg += `<div>${membererror}</div>`;
+              if(xhr.responseJSON.data.length > 0){
+                for (let i = 0; i < xhr.responseJSON.data.length; i++) {
+                  var errorMsg = xhr.responseJSON.data[i];
+                  var membererror = '';
+                  $.each(errorMsg, function (key, value) {
+                    membererror += `<p><b style="text-transform: uppercase;">${key}</b>: ${value}</p>`;
+                  })
+                  event_date_msg += `<div>${membererror}</div>`;
+                }
+              } else {
+                for (let i = 0; i < xhr.responseJSON.data.members.length; i++) {
+                  event_date_msg += `<span>${xhr.responseJSON.data.members[i]}</span>`;
+                }
               }
             }
           } else {
@@ -572,13 +578,19 @@ theme_custom.createEventAPI = function(btn){
                 event_date_msg += `<span>${xhr.responseJSON.data.event_date[i]}</span>`;
               }
             } else {
-              for (let i = 0; i < xhr.responseJSON.data.length; i++) {
-                var errorMsg = xhr.responseJSON.data[i];
-                var membererror = '';
-                $.each(errorMsg, function (key, value) {
-                  membererror += `<p><b style="text-transform: uppercase;">${key}</b>: ${value}</p>`;
-                })
-                event_date_msg += `<div>${membererror}</div>`;
+              if(xhr.responseJSON.data.length > 0){
+                for (let i = 0; i < xhr.responseJSON.data.length; i++) {
+                  var errorMsg = xhr.responseJSON.data[i];
+                  var membererror = '';
+                  $.each(errorMsg, function (key, value) {
+                    membererror += `<p><b style="text-transform: uppercase;">${key}</b>: ${value}</p>`;
+                  })
+                  event_date_msg += `<div>${membererror}</div>`;
+                }
+              } else {
+                for (let i = 0; i < xhr.responseJSON.data.members.length; i++) {
+                  event_date_msg += `<span>${xhr.responseJSON.data.members[i]}</span>`;
+                }
               }
             }
           } else {
@@ -941,9 +953,9 @@ theme_custom.lookInfoData = function(result){
     setTimeout(() => {
       var totalPrice = 0;
       $(".order-wrap-block").each(function(){
-        totalPrice = totalPrice + parseFloat($(this).find("button").attr("data-look-price"));
+        totalPrice = totalPrice + ($(this).find("button").attr("data-look-price") * 1);
       })
-      $(`.summary-table-wrapper tfoot`).find('.total-price').text(totalPrice);
+      $(`.summary-table-wrapper tfoot`).find('.total-price').text('$'+totalPrice);
     }, 3000);
   })
 }
@@ -984,13 +996,19 @@ theme_custom.eventMemberData = function(){
               event_date_msg += `<span>${xhr.responseJSON.data.event_id[i]}</span>`;
             }
           } else {
-            for (let i = 0; i < xhr.responseJSON.data.length; i++) {
-              var errorMsg = xhr.responseJSON.data[i];
-              var membererror = '';
-              $.each(errorMsg, function (key, value) {
-                membererror += `<p><b style="text-transform: uppercase;">${key}</b>: ${value}</p>`;
-              })
-              event_date_msg += `<div>${membererror}</div>`;
+            if(xhr.responseJSON.data.length > 0){
+              for (let i = 0; i < xhr.responseJSON.data.length; i++) {
+                var errorMsg = xhr.responseJSON.data[i];
+                var membererror = '';
+                $.each(errorMsg, function (key, value) {
+                  membererror += `<p><b style="text-transform: uppercase;">${key}</b>: ${value}</p>`;
+                })
+                event_date_msg += `<div>${membererror}</div>`;
+              }
+            } else {
+              for (let i = 0; i < xhr.responseJSON.data.members.length; i++) {
+                event_date_msg += `<span>${xhr.responseJSON.data.members[i]}</span>`;
+              }
             }
           }
         } else {
@@ -1460,6 +1478,8 @@ theme_custom.getEventDetails = function(){
       if(location.href.includes('?step')){
         $(".step-wrap").addClass("active");
         $(`.step-content-wrapper[data-step-content-wrap="3"]`).find(".next-button").click();
+        $(".loader-wrapper").addClass("hidden");
+        $(".event-step-wrapper, .step-header-wrap, .step-content-wrapper").removeClass("hidden");
         // setTimeout(() => {
         //   var currentLocation = window.location.href.split('?')[0];
         //   history.pushState({}, null, `${currentLocation}`);
@@ -1571,5 +1591,9 @@ $(document).ready(function() {
       $(".loader-wrapper").addClass("hidden");
       $(".event-step-wrapper").removeClass("hidden");
     }, 500);
+  }
+  if(location.href.includes('?step')){
+    $(".loader-wrapper").removeClass("hidden");
+    $(".event-step-wrapper, .step-header-wrap, .step-content-wrapper").addClass("hidden");
   }
 })
