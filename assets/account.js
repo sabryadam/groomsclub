@@ -23,6 +23,7 @@ theme_custom.checkProductLinkAvailable = function () {
 
 // theme_custom.deleteEvent
 theme_custom.deleteEvent = function(event_id){
+    theme_custom.event_id = event_id;
     $.ajax({
         url: `${theme_custom.base_url}/api/event/delete/${event_id}`,
         method: "DELETE",
@@ -34,7 +35,8 @@ theme_custom.deleteEvent = function(event_id){
         beforeSend: function () {
         },
         success: function (result) {
-            $("#my-events").find(".events-main-container").prepend(`<p class="success-event" style="text-align:center">${result.message}</p>`);
+            $(`.events-container[data-event-id="${theme_custom.event_id}"]`).remove();
+            $("#my-events").find(".events-main-container").prepend(`<p class="success-event" style="text-align:left; padding-left:15px;padding-right:15px">${result.message}</p>`);
             setTimeout(() => {
                 theme_custom.geteventslist();
             }, 5000);
@@ -314,7 +316,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                                 <span class="remove-event event-delete-btn" data-hosted-by="${event.hostedBy}">Delete</span>
                             </div>`
                             }
-                            append_event_html += `<div data-value="${count}" class="events-container ${eventActiveClass}"> <div class="event-container-date"><span>${day}</span> ${month}</div>
+                            append_event_html += `<div data-value="${count}" data-event-id="${event.event_id}" class="events-container ${eventActiveClass}"> <div class="event-container-date"><span>${day}</span> ${month}</div>
                                 <div class="event-container-image"><img src="${event_picture}" alt="default-event-image"></div>
                                 <div class="event-container-event-content">
                                     <div class="event-title"><span>${event.name}</span></div>

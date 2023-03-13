@@ -833,6 +833,8 @@ theme_custom.tlpclickEvent = function(){
     data = {
       items: items
     };
+    debugger;
+    console.log("helllo",data);
     if (orderType == 'virtual' || orderType == 'normal') {
       $.ajax({
         type: "GET",

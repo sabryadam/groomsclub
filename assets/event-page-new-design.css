@@ -353,8 +353,8 @@
 .modal-wrapper .modal-wrapper-inner-wrapper{
   max-width: 840px;
   min-width: 840px;
-  min-height: 650px;
-  max-height: 650px;
+  min-height: 55vh;
+  max-height: 50vh;
   margin: 0 auto;
   overflow: auto;
   background: #FFFFFF;
@@ -505,15 +505,16 @@
   border: 1px solid #000;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .event-look-inner-wrapper{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: block;
+  /* flex-wrap: wrap;
+  justify-content: space-between; */
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper  .look-card-block {
   background: #FFFFFF;
   margin: 0;
   width: calc(50% - 25px);
   margin: 10px;
+  display: inline-block;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .look-card-block .look-title-and-price{
   display: flex;

@@ -305,7 +305,7 @@ theme_custom.checkLooks = (id,nextTarget) =>{
   }).then((data)=> data.json())
   .then((data)=>{
     data.data.event_looks = data.data.event_looks.reverse();
-    let eventMembers = data.data.event_members
+    let eventMembers = data.data.event_members;
     if(data.data.event_looks && data.data.event_looks.length > 0){
       $(`.modal-wrapper[data-target="remove-data-for-user"]`).removeClass("active");
       const looksDiv = $('.show-look-from-event-wrapper .event-look-inner-wrapper, .guest-top-looks .event-look-inner-wrapper');
@@ -320,20 +320,29 @@ theme_custom.checkLooks = (id,nextTarget) =>{
       }
       $(".close-icon").click();
       setTimeout(() => {
-            theme_custom.eventLookSlider();
-            $(`[data-target="remove-data-for-user"]`).removeClass("active");
-            $(".step-content-wrapper.create-event-look .event-block-wrap").hide();
-            $('.show-look-from-event-wrapper,.guest-top-looks').show();
-            $(".loader-wrapper").addClass("hidden");
-            $(".event-step-wrapper").removeClass("hidden");  
-            if(nextTarget){
-              theme_custom.changeStep(nextTarget);
-              $('.event-look-inner-wrapper').slick('refresh');
-            }
+        if($('.create-event-look .event-look-inner-wrapper .look-card-block, .guest-top-looks .event-look-inner-wrapper .look-card-block').length > 2){
+          theme_custom.eventLookSlider();
+        }
+        $(`[data-target="remove-data-for-user"]`).removeClass("active");
+        $(".step-content-wrapper.create-event-look .event-block-wrap").hide();
+        $('.show-look-from-event-wrapper,.guest-top-looks').show();
+        $(".loader-wrapper").addClass("hidden");
+        $(".event-step-wrapper").removeClass("hidden");  
+        if(nextTarget){
+          theme_custom.changeStep(nextTarget);
+          $('.event-look-inner-wrapper').slick('refresh');
+        }
       }, 2000);
     }else{
-      $(".event-block-wrap").show();
-      $('.show-look-from-event-wrapper').hide();
+      $(`[data-target="remove-data-for-user"]`).removeClass("active");
+        $(".step-content-wrapper.create-event-look .event-block-wrap").show();
+        $('.show-look-from-event-wrapper,.guest-top-looks').hide();
+        $(".loader-wrapper").addClass("hidden");
+        $(".event-step-wrapper").removeClass("hidden");  
+        if(nextTarget){
+          theme_custom.changeStep(nextTarget);
+          $('.event-look-inner-wrapper').slick('refresh');
+        }
     }
     theme_custom.globalLoaderhide();
   });
@@ -548,15 +557,29 @@ theme_custom.createEventAPI = function(btn){
         if (result.success) {
           button.removeClass('loading');
           if(result.message == 'Event updated successfully.'){
+            $('.step-content-wrapper.event-step-1 .api_error').show().html(result.message).css({
+              "background-color": "#DFF2BF", 
+              "color": "#270"
+            });
             button.find(".label").text("Event Updated");
             setTimeout(() => {
+              localStorage.setItem("set-event-id", result.data.eventId);
+              $(".create-event-button").addClass("next-button").removeClass("create-event-button");    
+              $("#event-id").val(result.data.eventId);
+              $('.step-content-wrapper[data-step-content-wrap="1"]').find(".next-button").click();
               button.find(".label").text("Update Event");
-            }, 1000);
+            }, 2500);
           } else {
+            $('.step-content-wrapper.event-step-1 .api_error').show().html(result.message).css({
+              "background-color": "#DFF2BF", 
+              "color": "#270"
+            });
             localStorage.setItem("set-event-id", result.data.eventId);
-            $(".create-event-button").addClass("next-button").removeClass("create-event-button");    
             $("#event-id").val(result.data.eventId);
-            $('.step-content-wrapper[data-step-content-wrap="1"]').find(".next-button").click();
+            setTimeout(() => {    
+              $(".create-event-button").addClass("next-button").removeClass("create-event-button");
+              $('.step-content-wrapper[data-step-content-wrap="1"]').find(".next-button").click();
+            },2500);
           }
         }
       },
@@ -1287,7 +1310,7 @@ theme_custom.eventPageClickEvent = function(){
   
   // Create Event API Functionality
   $(document).on("click", ".event-page-new-design-wrapper .create-event-button", function(){
-    theme_custom.createEventAPI( $(this));
+    theme_custom.createEventAPI($(this));
   });
 
   // update Event API Functionality
@@ -1366,8 +1389,13 @@ theme_custom.eventPageClickEvent = function(){
   // popup close 
   $(".modal-wrapper .close-icon").click(function(){
     $(this).closest(".modal-wrapper").removeClass("active");
-    $(".show-look-from-event-wrapper").show();
-    $(".create-event-look .event-block-wrap").hide();
+    if($(".show-look-from-event-wrapper .event-look-inner-wrapper").find(".look-card-block").length > 0){
+      $(".show-look-from-event-wrapper").show();
+      $(".create-event-look .event-block-wrap").hide();
+    } else {
+      $(".show-look-from-event-wrapper").hide();
+      $(".create-event-look .event-block-wrap").show();
+    }
     $(`html,body`).css({
       "overflow" : "auto"
     })
@@ -1399,23 +1427,21 @@ theme_custom.calender = function(){
   $('#event_date').attr('min',today);
 }
 theme_custom.eventLookSlider = function(){
-  if($('.create-event-look .event-look-inner-wrapper .look-card-block, .guest-top-looks .event-look-inner-wrapper .look-card-block').length > 2){
-    $('.create-event-look .event-look-inner-wrapper, .guest-top-looks .event-look-inner-wrapper').slick({
-      slidesToShow: 2,
-      slidesToScroll: 2,
-      infinite: false,
-      speed: 300,
-      responsive: [
-        {
-          breakpoint: 768,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-          }
+  $('.create-event-look .event-look-inner-wrapper, .guest-top-looks .event-look-inner-wrapper').slick({
+    slidesToShow: 2,
+    slidesToScroll: 2,
+    infinite: false,
+    speed: 300,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
         }
-      ]
-    });
-  }
+      }
+    ]
+  });
 }
 theme_custom.changeFilled = function() {
   $(document).on(`change`, `#EventForm-EventName, [name="event-type"], #event_date, [name="event-role"], .phone-number`, function() {
