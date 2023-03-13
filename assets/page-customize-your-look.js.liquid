@@ -1775,7 +1775,7 @@ theme_custom.customize_product_clickEvent = function () {
         $(".product-block-wrapper[data-product-type='jacket']").find(".swatch-element").parent(".swatch-wrap").removeClass("unchecked-product");
         $(".product-block-wrapper[data-product-type='jacket']").find(".swatch-element").parent(".swatch-wrap").find("input:radio").prop("checked", false);
         $(".product-block-wrapper[data-product-type='jacket']").find(".swatch-element[data-option-value='" + colorVal + "']").parent(".swatch-wrap").addClass("unchecked-product");
-        $(".product-block-wrapper[data-product-type='jacket']").find(".swatch-element[data-option-value='" + colorVal + "']").parent(".swatch-wrap").find("input:radio").prop("checked", true);
+        $(".product-block-wrapper[data-product-type='jacket']").find(".swatch-element[data-option-value='" + colorVal + "']").parent(".swatch-wrap").find("input:radio").prop("checked", true).trigger('change');
         $(".custom-look-image img.jacket-customize-image").attr("src", variantDataGet['variantImage']);
       }
       if ($(".product-block-wrapper[data-product-type='pants']")) {
@@ -1784,7 +1784,7 @@ theme_custom.customize_product_clickEvent = function () {
         $(".product-block-wrapper[data-product-type='pants']").find(".swatch-element").parent(".swatch-wrap").removeClass("unchecked-product");
         $(".product-block-wrapper[data-product-type='pants']").find(".swatch-element").parent(".swatch-wrap").find("input:radio").prop("checked", false);
         $(".product-block-wrapper[data-product-type='pants']").find(".swatch-element[data-option-value='" + colorVal + "']").parent(".swatch-wrap").addClass("unchecked-product");
-        $(".product-block-wrapper[data-product-type='pants']").find(".swatch-element[data-option-value='" + colorVal + "']").parent(".swatch-wrap").find("input:radio").prop("checked", true);
+        $(".product-block-wrapper[data-product-type='pants']").find(".swatch-element[data-option-value='" + colorVal + "']").parent(".swatch-wrap").find("input:radio").prop("checked", true).trigger('change');
         $(".custom-look-image img.pants-customize-image").removeClass("hide");
         $(".custom-look-image img.pants-customize-image").attr("src", variantDataGet['variantImage']);
       }

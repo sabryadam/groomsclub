@@ -296,7 +296,7 @@ theme_custom.favoriteLooks = function(){
   });
 } 
 
-theme_custom.checkLooks = (id) =>{
+theme_custom.checkLooks = (id,nextTarget) =>{
   fetch(`${theme_custom.base_url}/api/event/${id}`,{
     method: "GET",
     headers: {
@@ -320,14 +320,16 @@ theme_custom.checkLooks = (id) =>{
       }
       $(".close-icon").click();
       setTimeout(() => {
-        setTimeout(() => {
-          theme_custom.eventLookSlider();
-          $(`[data-target="remove-data-for-user"]`).removeClass("active");
-          $(".step-content-wrapper.create-event-look .event-block-wrap").hide();
-          $('.show-look-from-event-wrapper,.guest-top-looks').show();
-          $(".loader-wrapper").addClass("hidden");
-          $(".event-step-wrapper").removeClass("hidden");
-        }, 500);
+            theme_custom.eventLookSlider();
+            $(`[data-target="remove-data-for-user"]`).removeClass("active");
+            $(".step-content-wrapper.create-event-look .event-block-wrap").hide();
+            $('.show-look-from-event-wrapper,.guest-top-looks').show();
+            $(".loader-wrapper").addClass("hidden");
+            $(".event-step-wrapper").removeClass("hidden");  
+            if(nextTarget){
+              theme_custom.changeStep(nextTarget);
+              $('.event-look-inner-wrapper').slick('refresh');
+            }
       }, 2000);
     }else{
       $(".event-block-wrap").show();
@@ -338,13 +340,11 @@ theme_custom.checkLooks = (id) =>{
 }
 
 theme_custom.changeStep = (index) =>{
-  setTimeout(() => {
     $('.event-step-wrapper').removeClass('hidden');
     $('.loader-wrapper').addClass('hidden')
     $(`.step-content-wrapper`).removeClass("acrive");
     $(`.step-content-wrapper[data-step-content-wrap="${index}"]`).addClass("active");
     $(`.step-wrap[data-step-label-wrap="${index}"]`).addClass("active");
-  }, 2500);
 }
 
 theme_custom.updateEventAPI = function(btn){
@@ -1301,19 +1301,24 @@ theme_custom.eventPageClickEvent = function(){
     $(".loader-wrapper").removeClass("hidden");
     $(".step-content-wrapper").removeClass("active");
     var target = $(this);
+    let goNext = true;
     var nextTarget = target.closest(".step-content-wrapper").next(".step-content-wrapper").attr("data-step-content-wrap");
     if($(this).closest(`.step-content-wrapper[data-step-content-wrap="1"]`).length > 0){
       $(`.step-content-wrapper[data-step-content-wrap="2"]`).find(".event-block-wrap").hide();
-      theme_custom.checkLooks(localStorage.getItem("set-event-id"));
+      theme_custom.checkLooks(localStorage.getItem("set-event-id"),nextTarget);
+      goNext = false;
     }
     if($(this).closest(`.step-content-wrapper[data-step-content-wrap="2"]`).length > 0){
-      theme_custom.checkLooks(localStorage.getItem("set-event-id"));
+      theme_custom.checkLooks(localStorage.getItem("set-event-id"),nextTarget);
+      goNext = false;
     }
     if($(this).closest(`.step-content-wrapper[data-step-content-wrap="3"]`).length > 0){
       theme_custom.setFitFinder();
       theme_custom.eventMemberData();
     }
-    theme_custom.changeStep(nextTarget);
+    if(goNext){
+      theme_custom.changeStep(nextTarget);
+    }
   });
 
   // Previous Button
@@ -1321,16 +1326,21 @@ theme_custom.eventPageClickEvent = function(){
     $(".event-step-wrapper").addClass("hidden");
     $(".loader-wrapper").removeClass("hidden");
     $(".step-content-wrapper").removeClass("active");
+    let goNext = true;
     var target = $(this);
     var currentTabHead = target.closest(".step-content-wrapper").attr("data-step-content-wrap");
     var prevTarget = target.closest(".step-content-wrapper").prev(".step-content-wrapper").attr("data-step-content-wrap");
     prevTarget = parseInt(prevTarget);
-    theme_custom.changeStep(prevTarget);
     if($(this).closest(`.step-content-wrapper[data-step-content-wrap="3"]`).length > 0){
-      theme_custom.checkLooks(localStorage.getItem("set-event-id"));
+      theme_custom.checkLooks(localStorage.getItem("set-event-id"),prevTarget);
+      goNext = false;
     }
     if($(this).closest(`.step-content-wrapper[data-step-content-wrap="4"]`).length > 0){
-      theme_custom.checkLooks(localStorage.getItem("set-event-id"));
+      theme_custom.checkLooks(localStorage.getItem("set-event-id"),prevTarget);
+      goNext = false;
+    }
+    if(goNext){
+      theme_custom.changeStep(prevTarget);
     }
     $(`.step-wrap[data-step-label-wrap="${currentTabHead}"]`).removeClass("active");
   })
