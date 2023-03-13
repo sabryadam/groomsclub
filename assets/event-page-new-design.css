@@ -920,6 +920,7 @@
 .final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper table{
   text-align: left;
   min-width: 100%;
+  border :0.1rem solid var(--color-foreground-20);
 }
 .final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper table thead,
 .final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper table tr,
