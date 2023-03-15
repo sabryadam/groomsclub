@@ -203,7 +203,8 @@ function getsizedata() {
                     var html = `<div class="empty_message sizeempty_msg text_center">${theme_custom.fitFinderEmptyMsg}</div>`;
                     $('.my-size-block-main').html(html);
                     $('.my-size-block-main').removeClass('displayBlock');
-                    $(".fit-finder-label").text("Add Sizes")
+                    $(".fit-finder-label").text("Add Sizes");
+                    $('#my-sizes').addClass("empty-sizes")
                 }
 
             } else {
@@ -362,10 +363,12 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                 } else {
                     $(".events-main-container").css({
                         "display": "block",
-                        "min-height": "auto"
+                        "min-height": "auto",
+                        "text-align" : "center"
                     });
-                    var html = `<div class="empty_message sizeempty_msg"> We didn't find the event....</div>`;
+                    var html = `<div class="empty_message sizeempty_msg"> We didn't find the event....</div><a href="/pages/create-event" class="button--primary button" style="display: inline-block;margin: 30px auto;">Create Event</a>`;
                     $('.events-main-container').html(html);
+                    $("#my-events").addClass("empty-event")
                 }
             } else {
                 // alert(result.data.success);
@@ -401,7 +404,9 @@ $(document).on("click", ".events-main-container .custom-event-button, .events-ma
     var hostedBy = $(this).data("hosted-by");
     localStorage.setItem("hosted-by", hostedBy);
     localStorage.setItem("set-event-id",$(this).data("event-id"));
-    localStorage.setItem("showEventStepSecond","true");
+    if($(this).text() != 'Edit' ){
+        localStorage.setItem("showEventStepSecond","true");
+    }
     window.location.href = $(this).data("href");
 })
 
@@ -553,10 +558,13 @@ function favoritelooks() {
 
                     }
                     $('.feature-looks-slider').html(append_fav_html);
-                    $('.feature-looks-slider').slick('refresh');
+                    if($('.feature-looks-slider').find(".look-container").length > 0){
+                        $('.feature-looks-slider').slick('refresh');
+                    }
                 } else {
                     var html = `<div class="empty_message sizeempty_msg text_center"> You haven't saved any Favorite Looks yet.</div>`;
                     $('.feature-looks-slider').html(html);
+                    $("#favorite-look").addClass('empty-favourite')
                 }
 
             } else {
@@ -815,7 +823,9 @@ $(document).on('click', '.tabs-nav li a', function (e) {
     $(mainParent).find(id).addClass('active');
     history.pushState({}, null, `${window.location.pathname}?tab=${id.replace('#','')}`);
     if(id == '#tab-3' || id == "#favorite-look" ){
-        $('.feature-looks-slider').slick('refresh');
+        if($('.feature-looks-slider').find(".look-container").length > 0){
+            $('.feature-looks-slider').slick('refresh');
+        }
     }
 
     // var siteHeaderHeight = $('.header-wrapper').height() + 10;

@@ -128,7 +128,7 @@
               </div>
                               
           </div>
-          <div id="order-history" class="tab-content">
+          <div id="order-history" class="tab-content {% if customer.orders.size == 0 %} empty-order-wrapper {% endif %}">
               <div class="order-history-wrapper">
                 <div class="page-width">
                   <div>

@@ -72,6 +72,7 @@ theme_custom.productDataFromURL = function () {
           variantDropDown = currentOption.closest(".product-item-wrap").find('.product-var-dropdown').html();
         currentVarParent.find('input.selected-variant-id').attr('data-variant-id', productVarId).val(productVarId);
         currentVarParent.find('.swatch-element').attr('data-variant-id', productVarId);
+        console.log("currentOption",currentOption);
         if (varintTitle == undefined || varintTitle == '') {
           continue;
         }
@@ -1640,7 +1641,7 @@ theme_custom.customize_product_clickEvent = function () {
       
       if( targetElm.nextAll().attr("data-target") == 'overview' && getCookie("fit-finder-data") == "" ){
         //$('.overview-tab .overview-product.no-product-in-overview').hide();
-        $('.overview-tab .product-info-footer .add-to-cart-button').addClass('disabled');
+        $('.overview-tab .product-info-footer .add-to-cart-button').removeClass('disabled');
       }else{
         //$('.overview-tab .overview-product.no-product-in-overview').show();
         $('.overview-tab .product-info-footer .add-to-cart-button').removeClass('disabled');
@@ -1775,7 +1776,7 @@ theme_custom.customize_product_clickEvent = function () {
         $(".product-block-wrapper[data-product-type='jacket']").find(".swatch-element").parent(".swatch-wrap").removeClass("unchecked-product");
         $(".product-block-wrapper[data-product-type='jacket']").find(".swatch-element").parent(".swatch-wrap").find("input:radio").prop("checked", false);
         $(".product-block-wrapper[data-product-type='jacket']").find(".swatch-element[data-option-value='" + colorVal + "']").parent(".swatch-wrap").addClass("unchecked-product");
-        $(".product-block-wrapper[data-product-type='jacket']").find(".swatch-element[data-option-value='" + colorVal + "']").parent(".swatch-wrap").find("input:radio").prop("checked", true).trigger('change');
+        $(".product-block-wrapper[data-product-type='jacket']").find(".swatch-element[data-option-value='" + colorVal + "']").parent(".swatch-wrap").find("input:radio").prop("checked", true);
         $(".custom-look-image img.jacket-customize-image").attr("src", variantDataGet['variantImage']);
       }
       if ($(".product-block-wrapper[data-product-type='pants']")) {
@@ -1784,7 +1785,7 @@ theme_custom.customize_product_clickEvent = function () {
         $(".product-block-wrapper[data-product-type='pants']").find(".swatch-element").parent(".swatch-wrap").removeClass("unchecked-product");
         $(".product-block-wrapper[data-product-type='pants']").find(".swatch-element").parent(".swatch-wrap").find("input:radio").prop("checked", false);
         $(".product-block-wrapper[data-product-type='pants']").find(".swatch-element[data-option-value='" + colorVal + "']").parent(".swatch-wrap").addClass("unchecked-product");
-        $(".product-block-wrapper[data-product-type='pants']").find(".swatch-element[data-option-value='" + colorVal + "']").parent(".swatch-wrap").find("input:radio").prop("checked", true).trigger('change');
+        $(".product-block-wrapper[data-product-type='pants']").find(".swatch-element[data-option-value='" + colorVal + "']").parent(".swatch-wrap").find("input:radio").prop("checked", true);
         $(".custom-look-image img.pants-customize-image").removeClass("hide");
         $(".custom-look-image img.pants-customize-image").attr("src", variantDataGet['variantImage']);
       }

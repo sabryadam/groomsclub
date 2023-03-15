@@ -706,9 +706,8 @@ theme_custom.fitFinderClickEvent = function () {
                                       <div class="block-info">
                                         <div class="block-title">Jacket</div>
                                         <div class="size-wrap">
-                                          <span class="size-number">Size ${jacketTypeFirst}</span>
-                                          <span class="break">|</span>
-                                          <span class="size-type">${jacketTypeVal}</span>
+                                          <span class="size-number">Chest: ${jacketTypeFirst}</span>
+                                          <span class="size-type">Length: ${jacketTypeVal}</span>
                                         </div>
                                       </div>
                                     </div>
@@ -721,9 +720,8 @@ theme_custom.fitFinderClickEvent = function () {
                                       <div class="block-info">
                                         <div class="block-title">Pants</div>
                                         <div class="size-wrap">
-                                          <span class="size-number">Size ${pantWaist}</span>
-                                          <span class="break">|</span>
-                                          <span class="size-type">${pantHeight}</span>
+                                          <span class="size-number">Waist: ${pantWaist}</span>
+                                          <span class="size-type">Length: ${pantHeight}</span>
                                         </div>
                                       </div>
                                     </div>
@@ -736,9 +734,8 @@ theme_custom.fitFinderClickEvent = function () {
                                       <div class="block-info">
                                         <div class="block-title">Shirt</div>
                                         <div class="size-wrap">
-                                          <span class="size-number">Neck ${shirtNeck}</span>
-                                          <span class="break">|</span>
-                                          <span class="size-type">Sleeve ${shirtSleeve}</span>
+                                          <span class="size-number">Neck:  ${shirtNeck}</span>
+                                          <span class="size-type">Sleeve: ${shirtSleeve}</span>
                                         </div>
                                       </div>
                                     </div>
@@ -751,7 +748,7 @@ theme_custom.fitFinderClickEvent = function () {
                                       <div class="block-info">
                                         <div class="block-title">Shoes</div>
                                         <div class="size-wrap">
-                                          <span class="size-number">Size ${shoesShize}</span>                              
+                                          <span class="size-number">Size: ${shoesShize}</span>                              
                                         </div>
                                       </div>
                                     </div>

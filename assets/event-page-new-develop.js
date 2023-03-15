@@ -134,12 +134,12 @@ theme_custom.user = (user) =>{
       whoPay = "They Pay";
     }
     const deleteIcon = `<div class="member-delete-icon" data-member-id="${user.event_member_id}">
-      <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/delete_1.png?v=1677118754" alt="delete icon" />
+      <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/delete.png?v=1678738752" alt="delete icon" />
     </div>`
     return `<div class="user-card-block">
     <div class="action-icon">
       <span class="edit-icon">
-        <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/pencil_1.png?v=1677124389" alt="Edit Icon">
+        <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/pencil.png?v=1678738737" alt="Edit Icon">
       </span>
       ${user.is_host == 0 ? deleteIcon : ''}
     </div>
@@ -158,7 +158,7 @@ theme_custom.user = (user) =>{
     <script type="application/json" class='user-data-script'> ${JSON.stringify(user)} </script>
   </div>`
 }
-theme_custom.createLookHtml = (div,item, eventMembers, event_id) =>{
+theme_custom.createLookHtml = (index,div,item, eventMembers, event_id) =>{
   var deleteIconShow = '';
   if(item.assign == true){
     deleteIconShow = 'hidden';
@@ -183,31 +183,32 @@ theme_custom.createLookHtml = (div,item, eventMembers, event_id) =>{
   
 
   let hostLookHTML = `<div class="pay-info-confirmation-wrap">
-  <div class="title">Are you wearing this look?</div>
-  <div class="confirm-box-wrap">
-    <span class="update-host-look ${lookAssignedUser ? 'active':''}" data-value="yes">Yes</span>
-    <span class="update-host-look no ${!lookAssignedUser ? 'active':''}" data-value="no">No</span>
-  </div>
-</div>`
+    <div class="title">Are you wearing this look?</div>
+    <div class="confirm-box-wrap">
+      <span class="update-host-look ${lookAssignedUser ? 'active':''}" data-value="yes">Yes</span>
+      <span class="update-host-look no ${!lookAssignedUser ? 'active':''}" data-value="no">No</span>
+    </div>
+  </div>`
 
-  div.append(`<div class="look-card-block" data-event-id="${event_id}" data-look-name="${item.name}" data-host-id="${host.event_member_id}" data-look-mapping-id="${item.mapping_id}" data-look-id="${item.look_id}">
+  div.append(`<div class="look-card-block-${index} look-card-block" data-event-id="${event_id}" data-look-name="${item.name}" data-host-id="${host.event_member_id}" data-look-mapping-id="${item.mapping_id}" data-look-id="${item.look_id}">
     <div class="look-title-and-price">
       <div class="look-title">${item.name}</div>
       <div class="look-price-wrap">
-        <span class="text-lable">Starting at</span>
         <span class="look-price">$199.99</span>
       </div>
     </div>
     <div class="look-image">
       <div class="delete-icon ${deleteIconShow}" data-event-look-id="${item.mapping_id}">
-        <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/delete_1.png?v=1677118754" alt="delete icon" />
+        <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/delete.png?v=1678738752" alt="delete icon" />
       </div>
       <img class="look-img" src="${item.look_image}" alt="${item.name}" />
-      <button data-href="${item.url}" edit-look-id="${localStorage.getItem("set-event-id")}" look-mapping-id="${item.mapping_id}" edit-look-name="${item.name}" class="button button--secondary customise-look customise-look-button">Customise look</button>
+      <button data-href="${item.url}" edit-look-id="${localStorage.getItem("set-event-id")}" look-mapping-id="${item.mapping_id}" edit-look-name="${item.name}" class="button button--primary customise-look customise-look-button">Customise look</button>
     </div>
     ${hostLookHTML}
     <div class="assign-look-user-wrap">${users}</div>
-    <button class="add-guest-button">+ ADD GUEST</button>
+    <div class="text-center">
+      <button class="add-guest-button">+ ADD GUEST</button>
+    </div>
   </div>`)
 }
 
@@ -304,6 +305,8 @@ theme_custom.checkLooks = (id,nextTarget) =>{
     },
   }).then((data)=> data.json())
   .then((data)=>{
+    console.log("Data",data);
+    console.log("Looks",data.data.event_looks)
     data.data.event_looks = data.data.event_looks.reverse();
     let eventMembers = data.data.event_members;
     if(data.data.event_looks && data.data.event_looks.length > 0){
@@ -316,7 +319,14 @@ theme_custom.checkLooks = (id,nextTarget) =>{
       $(`.invite-another-member-popup-wrapper .member-added-into-event,[data-target="update-guest-popup"] .member-added-into-event,[data-target="add-guest-popup"] .member-added-into-event`).removeClass('loading');
       for(let i = 0; i<data.data.event_looks.length;i++){
         let item = data.data.event_looks[i];
-        theme_custom.createLookHtml(looksDiv, item, eventMembers, data.data.event_id);
+        let index = i;        
+        theme_custom.createLookHtml(index,looksDiv, item, eventMembers, data.data.event_id);
+        var paymentInfo = data.data.event_looks;
+        $.map(paymentInfo, function (orderItems, index) {
+          var orderItemsObj = orderItems.items;
+          theme_custom.productBlockDataWrap(orderItemsObj, orderItems, index);
+          console.log("Hello")
+        })
       }
       $(".close-icon").click();
       setTimeout(() => {
@@ -330,20 +340,25 @@ theme_custom.checkLooks = (id,nextTarget) =>{
         $(".event-step-wrapper").removeClass("hidden");  
         if(nextTarget){
           theme_custom.changeStep(nextTarget);
-          $('.event-look-inner-wrapper').slick('refresh');
+          if($('.event-look-inner-wrapper').find(".look-card-block").length > 2){
+            $('.event-look-inner-wrapper').slick('refresh');
+          }
         }
       }, 2000);
     }else{
       $(`[data-target="remove-data-for-user"]`).removeClass("active");
-        $(".step-content-wrapper.create-event-look .event-block-wrap").show();
-        $('.show-look-from-event-wrapper,.guest-top-looks').hide();
-        $(".loader-wrapper").addClass("hidden");
-        $(".event-step-wrapper").removeClass("hidden");  
-        if(nextTarget){
-          theme_custom.changeStep(nextTarget);
+      $(".step-content-wrapper.create-event-look .event-block-wrap").show();
+      $('.show-look-from-event-wrapper,.guest-top-looks').hide();
+      $(".loader-wrapper").addClass("hidden");
+      $(".event-step-wrapper").removeClass("hidden");  
+      if(nextTarget){
+        theme_custom.changeStep(nextTarget);
+        if($('.event-look-inner-wrapper').find(".look-card-block").length > 2){
           $('.event-look-inner-wrapper').slick('refresh');
         }
+      }
     }
+    $(".next-button.disabled").removeClass("disabled");
     theme_custom.globalLoaderhide();
   });
 }
@@ -893,6 +908,7 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
           }
         })
         productSubTotalPrice = theme_custom.Shopify.formatMoney((subTotal * 100) / 100, theme_custom.money_format);
+        console.log("productSubTotalPrice",productSubTotalPrice);
         $(`.order-wrap-${index} .look-price`).text(productSubTotalPrice);
         $(`.order-wrap-${index} .look-price`).attr("data-price", subTotal/100);
         $(`.order-wrap-${index} .button`).attr("data-look-price", subTotal/100);
@@ -937,7 +953,7 @@ theme_custom.lookInfoData = function(result){
                           Payment Completed
                         </buttom>`;
       } else {
-        payInfo = 'They pay';
+        payInfo = 'I pay';
         actionButton = `<button class="disabled button btn-wrap button--primary event-payment-for-guest" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}"  data-look-price="215.90">
                           Payment Completed
                         </buttom>`

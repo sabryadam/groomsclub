@@ -5114,17 +5114,21 @@ details-disclosure>details {
 }
 
 .my-size-wrapper .my-size-block .img-section {
-  padding-bottom: 85.2%;
+  padding: 20px 0 0;
+  position: relative;
+  min-height: 350px;
+  background: #c4c4c4;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .my-size-wrapper .my-size-block .img-section img {
-  max-width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: static;
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  height: auto;
 }
 
 .my-size-wrapper .block-wrap {
@@ -9293,10 +9297,12 @@ img.crossed-out.hide {
   background-color: #FFBABA;
   padding: 10px;
   clear: both;
+  font-size: 14px;
 }
 
 .success-event {
   color: #4F8A10;
+  font-size: 14px;
   background-color: #DFF2BF;
 }
 

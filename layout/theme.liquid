@@ -249,14 +249,14 @@
   
   </script>
 
-  {%- if template contains 'virtual-consultant' -%}
+  {%- if template contains 'index' or template contains 'virtual-consultant'  -%}
     <!-- Calendly badge widget begin -->
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
     <script type="text/javascript">window.onload = function() { Calendly.initBadgeWidget({ url: 'https://calendly.com/groomsclub/30min', text: 'Schedule time with me', color: '#0069ff', textColor: '#ffffff', branding: true }); }</script>
     <!-- Calendly badge widget end -->
     <script>
-      $(document).on("click", ".image-with-text__content .appointment-button", function(){
+      $(document).on("click", ".appointment-button", function(){
         $(".calendly-badge-content").click()
       })
     </script>
