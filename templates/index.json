@@ -89,7 +89,8 @@
           "type": "heading",
           "settings": {
             "heading": "Customize Your Look",
-            "heading_count": ""
+            "heading_count": "",
+            "show_icon": false
           }
         },
         "c6406a55-8c82-49ea-bfbd-f4f76d8944e2": {
@@ -110,6 +111,7 @@
           "settings": {
             "button_label": "Try Our Customizer",
             "button_link": "shopify:\/\/pages\/customize-your-look",
+            "open_new_tab": false,
             "button_style_secondary": true
           }
         }
@@ -224,6 +226,41 @@
         "custom_class": "page-width  secoundry-slider"
       }
     },
+    "3c13ecf6-1f12-42f4-80b1-ff93e248fe2a": {
+      "type": "rich-text",
+      "blocks": {
+        "template--16043277975738__3c13ecf6-1f12-42f4-80b1-ff93e248fe2a-1678739566ed6fc246-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Book a Virtual Consultation",
+            "heading_size": "medium"
+          }
+        },
+        "template--16043277975738__3c13ecf6-1f12-42f4-80b1-ff93e248fe2a-1678739566ed6fc246-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Say “I Do” to Style! Book a virtual appointment with one of our expert fashion consultants to find your perfect suit. With their expert style advice and keen attention to detail, you'll be ready to walk down the aisle with confidence. Book an appointment, chat with your stylist, then sit back and relax while we take care of the rest.<\/p>"
+          }
+        },
+        "template--16043277975738__3c13ecf6-1f12-42f4-80b1-ff93e248fe2a-1678739566ed6fc246-2": {
+          "type": "button",
+          "settings": {
+            "button_label": "Book Personalized Appointment",
+            "button_link": "https:\/\/calendly.com\/groomsclub\/30min?embed_domain=www.groomsclub.com&embed_type=PopupWidget&month=2023-03",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "template--16043277975738__3c13ecf6-1f12-42f4-80b1-ff93e248fe2a-1678739566ed6fc246-0",
+        "template--16043277975738__3c13ecf6-1f12-42f4-80b1-ff93e248fe2a-1678739566ed6fc246-1",
+        "template--16043277975738__3c13ecf6-1f12-42f4-80b1-ff93e248fe2a-1678739566ed6fc246-2"
+      ],
+      "settings": {
+        "color_scheme": "background-1",
+        "full_width": true
+      }
+    },
     "163239632562541ac6": {
       "type": "image-with-text",
       "blocks": {
@@ -231,7 +268,8 @@
           "type": "heading",
           "settings": {
             "heading": "Our Top Looks",
-            "heading_count": ""
+            "heading_count": "",
+            "show_icon": false
           }
         },
         "9591ae0c-927e-49f6-afad-f9e1e68369dd": {
@@ -246,6 +284,7 @@
           "settings": {
             "button_label": "Browse Top Looks",
             "button_link": "shopify:\/\/collections\/looks",
+            "open_new_tab": false,
             "button_style_secondary": true
           }
         }
@@ -274,7 +313,8 @@
           "type": "heading",
           "settings": {
             "heading": "How It Works",
-            "heading_count": ""
+            "heading_count": "",
+            "show_icon": false
           }
         },
         "99ce24b4-3dfa-4bef-9cbb-965cd85c5bc3": {
@@ -312,6 +352,7 @@
           "settings": {
             "button_label": "Get Started",
             "button_link": "shopify:\/\/pages\/how-it-works",
+            "open_new_tab": false,
             "button_style_secondary": true
           }
         }
@@ -517,6 +558,7 @@
     "1632392241b5b3046e",
     "1632396205f946a5df",
     "1632396202cb858d8f",
+    "3c13ecf6-1f12-42f4-80b1-ff93e248fe2a",
     "163239632562541ac6",
     "1632393733f78c28b7",
     "1632393953de63a932",
