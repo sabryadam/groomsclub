@@ -312,13 +312,11 @@ theme_custom.checkLooks = (id,nextTarget,trigger=true) =>{
   }).then((data)=> data.json())
   .then((data)=>{
     theme_custom.globalEventData = data
-    theme_custom.successCallback(data,nextTarget)
+    theme_custom.successCallback(data,nextTarget);
   });
 }
 
 theme_custom.successCallback = (data,nextTarget) =>{
-  console.log("Data",data);
-    console.log("Looks",data.data.event_looks)
     data.data.event_looks = data.data.event_looks.reverse();
     let eventMembers = data.data.event_members;
     if(data.data.event_looks && data.data.event_looks.length > 0){
@@ -333,15 +331,10 @@ theme_custom.successCallback = (data,nextTarget) =>{
         let item = data.data.event_looks[i];
         let index = i;        
         theme_custom.createLookHtml(index,looksDiv, item, eventMembers, data.data.event_id);
-        var paymentInfo = data.data.event_looks;
-        $.map(paymentInfo, function (orderItems, index) {
-          var orderItemsObj = orderItems.items;
-          theme_custom.productBlockDataWrap(orderItemsObj, orderItems, index);
-          console.log("Hello")
-        })
       }
       $(".close-icon").click();
       setTimeout(() => {
+        theme_custom.lookItemsData(data);
         if($('.create-event-look .event-look-inner-wrapper .look-card-block, .guest-top-looks .event-look-inner-wrapper .look-card-block').length > 2){
           theme_custom.eventLookSlider();
         }
@@ -927,6 +920,15 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
         $(`.order-wrap-${index} .product-card-wrap`).html(productItemHTML);
       }
     });
+  })
+}
+
+theme_custom.lookItemsData = function(result){
+  var lookItemsData = result.data.event_looks;
+  $.map(lookItemsData, function (orderItems, index) {
+    debugger;
+    var orderItemsObj = orderItems.items;
+    theme_custom.productBlockDataWrap(orderItemsObj, orderItems, index);    
   })
 }
 
