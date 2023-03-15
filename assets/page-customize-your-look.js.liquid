@@ -1538,7 +1538,21 @@ theme_custom.customize_product_clickEvent = function () {
 
   // favorite-event-button 
   $(document).on("click", ".favorite-event-button", function () {
-    $(`[name="look-name"]`).val('');
+    if($(".error-msg:visible").length > 0) {
+      let parent = $(".error-msg:visible").closest('.customize-look-overview-product');
+      if(parent.length>0){
+        $('html, body').stop().animate({
+          'scrollTop': $(parent).offset().top - $("#shopify-section-header").height() + 10
+        }, "slow");
+        return false;
+      }
+      else{
+        $('html, body').stop().animate({
+          'scrollTop': $(".error-msg:visible").offset().top - $("#shopify-section-header").height() + 10
+        }, "slow");
+        return false;    
+      }
+    } 
     if(localStorage.getItem("editLookName") != null && localStorage.getItem("editLookId") != null){
       $(`[name="look-name"]`).val(localStorage.getItem("editLookName"));
     }
@@ -1588,6 +1602,21 @@ theme_custom.customize_product_clickEvent = function () {
 
   // add-event-look Click Event 
   $(document).on("click", ".add-event-look", function () {
+    if($(".error-msg:visible").length > 0) {
+      let parent = $(".error-msg:visible").closest('.customize-look-overview-product');
+      if(parent.length>0){
+        $('html, body').stop().animate({
+          'scrollTop': $(parent).offset().top - $("#shopify-section-header").height() + 10
+        }, "slow");
+        return false;
+      }
+      else{
+        $('html, body').stop().animate({
+          'scrollTop': $(".error-msg:visible").offset().top - $("#shopify-section-header").height() + 10
+        }, "slow");
+        return false;    
+      }
+    } 
     $("html,body").css("overflow", "hidden");
     $(".page-loader").removeClass("hidden");
     var modalTarget = $(this).closest(".customize-your-look-page").find(".create-event-look");
