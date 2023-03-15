@@ -783,7 +783,7 @@ function addtoeventlist(favid) {
                                         </div>
                                     </section>`;
                     $('.favorite-looks-wrapper').append(errorPopup);
-                    $.fancybox.open($('.create-event-look'));
+                    $.fancybox.open($('.create-event-look')[0]);
 
                 }
 

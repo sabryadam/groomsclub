@@ -1,5 +1,6 @@
 // event-new-development
 theme_custom.base_url = theme_custom.api_base_url;
+theme_custom.globalEventData = null;
 const APP_Token = 'Bearer ' + localStorage.getItem("customerToken");
 
 theme_custom.lookAssignToMember = function(member_id,look_id){
@@ -297,7 +298,12 @@ theme_custom.favoriteLooks = function(){
   });
 } 
 
-theme_custom.checkLooks = (id,nextTarget) =>{
+theme_custom.checkLooks = (id,nextTarget,trigger=true) =>{
+  if(!trigger){
+    theme_custom.successCallback(theme_custom.globalEventData,nextTarget)
+    return
+  }
+  
   fetch(`${theme_custom.base_url}/api/event/${id}`,{
     method: "GET",
     headers: {
@@ -305,7 +311,13 @@ theme_custom.checkLooks = (id,nextTarget) =>{
     },
   }).then((data)=> data.json())
   .then((data)=>{
-    console.log("Data",data);
+    theme_custom.globalEventData = data
+    theme_custom.successCallback(data,nextTarget)
+  });
+}
+
+theme_custom.successCallback = (data,nextTarget) =>{
+  console.log("Data",data);
     console.log("Looks",data.data.event_looks)
     data.data.event_looks = data.data.event_looks.reverse();
     let eventMembers = data.data.event_members;
@@ -360,7 +372,6 @@ theme_custom.checkLooks = (id,nextTarget) =>{
     }
     $(".next-button.disabled").removeClass("disabled");
     theme_custom.globalLoaderhide();
-  });
 }
 
 theme_custom.changeStep = (index) =>{
@@ -908,7 +919,8 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
           }
         })
         productSubTotalPrice = theme_custom.Shopify.formatMoney((subTotal * 100) / 100, theme_custom.money_format);
-        console.log("productSubTotalPrice",productSubTotalPrice);
+        $(`.look-card-block[data-look-id="${orderItems.look_id}"] .look-price`).text(productSubTotalPrice);
+
         $(`.order-wrap-${index} .look-price`).text(productSubTotalPrice);
         $(`.order-wrap-${index} .look-price`).attr("data-price", subTotal/100);
         $(`.order-wrap-${index} .button`).attr("data-look-price", subTotal/100);
@@ -1348,7 +1360,7 @@ theme_custom.eventPageClickEvent = function(){
       goNext = false;
     }
     if($(this).closest(`.step-content-wrapper[data-step-content-wrap="2"]`).length > 0){
-      theme_custom.checkLooks(localStorage.getItem("set-event-id"),nextTarget);
+      theme_custom.checkLooks(localStorage.getItem("set-event-id"),nextTarget,false);
       goNext = false;
     }
     if($(this).closest(`.step-content-wrapper[data-step-content-wrap="3"]`).length > 0){
@@ -1371,11 +1383,11 @@ theme_custom.eventPageClickEvent = function(){
     var prevTarget = target.closest(".step-content-wrapper").prev(".step-content-wrapper").attr("data-step-content-wrap");
     prevTarget = parseInt(prevTarget);
     if($(this).closest(`.step-content-wrapper[data-step-content-wrap="3"]`).length > 0){
-      theme_custom.checkLooks(localStorage.getItem("set-event-id"),prevTarget);
+      theme_custom.checkLooks(localStorage.getItem("set-event-id"),prevTarget,false);
       goNext = false;
     }
     if($(this).closest(`.step-content-wrapper[data-step-content-wrap="4"]`).length > 0){
-      theme_custom.checkLooks(localStorage.getItem("set-event-id"),prevTarget);
+      theme_custom.checkLooks(localStorage.getItem("set-event-id"),prevTarget,false);
       goNext = false;
     }
     if(goNext){
