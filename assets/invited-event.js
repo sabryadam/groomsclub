@@ -363,7 +363,8 @@ theme_custom.clickEventInvited = function(){
     button.addClass("disabled");
     button.find(".btn-title").text(button_text);
     parent = $(this).closest(".product-data-wrapper");
-    theme_custom.draftOrder(button, parent);
+    // theme_custom.draftOrder(button, parent);
+    theme_custom.multipleProductAjax(button, parent);
   })
 
   // variant update  

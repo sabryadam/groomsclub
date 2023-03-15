@@ -181,7 +181,8 @@
 
 .left-part-image-part .image img{
   min-height: 550px;
-  object-fit: cover;
+  mix-blend-mode : darken;
+  /* object-fit: cover; */
 }
 @media screen and (max-width: 400px) {
   .horizontal-product-part {

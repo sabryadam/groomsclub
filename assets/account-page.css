@@ -340,7 +340,7 @@
 }
 .main-account-page #tabs-content .tab-content .feature-looks-slider{
     max-width: 960px;
-    margin: 0 auto;
+    margin: 0 auto !important;
 }
 .main-account-page #tabs-content .tab-content .feature-looks-slider .look-container{
     padding: 0 10px;
@@ -400,7 +400,7 @@
 }
 .main-account-page #tabs-content .tab-content .feature-looks-slider .look-container .look-changes.product-slider-detail-edit{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 .main-account-page #tabs-content .tab-content .feature-looks-slider .look-container .look-changes.product-slider-detail-edit .button{
     width: calc(50% - 6px);
