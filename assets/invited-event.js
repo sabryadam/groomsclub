@@ -1,10 +1,19 @@
+theme_custom.goToCheckout = function(discount){
+  if(discount){
+    window.location.href = `/checkout?discount=${discount}`
+  }else{
+    window.location.href = '/checkout'
+  }
+}
+
 // theme_custom.multipleProductAjax
-theme_custom.multipleProductAjax = function(button, parent){
+theme_custom.multipleProductAjax = function(button, parent, payBy){
   var getProduct = parent.find(".product-card-wrap"),
       event_id = $("#weddingevent_id").val(),
       member_id = theme_custom.memberId,
       look_id = $("#look_id").val(),
-      items = [];
+      items = []
+      payByValue = payBy;
   getProduct.each(function(){
     var varId = $(this).find(".prod-variant-data").attr("data-var-id");
     var item = {},
@@ -60,11 +69,16 @@ theme_custom.multipleProductAjax = function(button, parent){
         data: data,
         dataType: 'json',
         success: function() {
-          $('.account-event-step[data-event-step="purchased"]').addClass("active");   
+          if(payByValue == 'self'){
+            $('.account-event-step[data-event-step="purchased"]').addClass("active");   
             setTimeout(() => {
               button.find(".btn-title").text("Added To Cart");
               window.location.href = "/cart";
             }, 2500);
+          }
+          if(payByValue == 'host'){
+            theme_custom.goToCheckout(theme_custom.discount_code);
+          }
         },
         error: function(xhr, status, error) {
           button.find(".btn-title").text("Add To Cart");
@@ -349,22 +363,24 @@ theme_custom.clickEventInvited = function(){
   $(document).on("click", ".proceed-to-cart", function(){
     $('.account-event-step[data-event-step="purchased"]').addClass("active"); 
     var button = $(this),
-        button_text = $(this).data("text");
+        button_text = $(this).data("text"),
+        payBy = 'self';
     button.find(".btn-title").text(button_text);
     parent = $(this).closest(".product-data-wrapper");
-    theme_custom.multipleProductAjax(button, parent);
+    theme_custom.multipleProductAjax(button, parent, payBy);
   })
 
   // Multiple product add to cart 
   $(document).on("click", ".proceed-to-checkout", function(){
     $('.account-event-step[data-event-step="purchased"]').addClass("active"); 
     var button = $(this),
-        button_text = $(this).data("text");
+        button_text = $(this).data("text"),
+        payBy = 'host';
     button.addClass("disabled");
     button.find(".btn-title").text(button_text);
     parent = $(this).closest(".product-data-wrapper");
     // theme_custom.draftOrder(button, parent);
-    theme_custom.multipleProductAjax(button, parent);
+    theme_custom.multipleProductAjax(button, parent,payBy);
   })
 
   // variant update  
@@ -572,10 +588,14 @@ $(`.look-product-wrapper[data-product-type="shirt"]`).find(".option1").attr("dat
     }
     setTimeout(() => {
       theme_custom.productVariantSeledtUpdate();
-      if($('.error-msg').length > 0 && getCookie("fit-finder") == '' || $(".payment_flag").attr("payment_status")=='pending' && $(".proceed-to-checkout").length > 0){
-        $(".return-suit-checkout-button .button").addClass("disabled");
-      } else {
+      if(theme_custom.discount_code != ''){
         $(".return-suit-checkout-button .button").removeClass("disabled");
+      } else {
+        if($('.error-msg').length > 0 && getCookie("fit-finder") == '' || $(".payment_flag").attr("payment_status")=='pending' && $(".proceed-to-checkout").length > 0){
+          $(".return-suit-checkout-button .button").addClass("disabled");
+        } else {
+          $(".return-suit-checkout-button .button").removeClass("disabled");
+        }
       }
     }, 500);
   }
@@ -603,11 +623,13 @@ theme_custom.getFitFinderData = function(payBy){
         theme_custom.cartButton = 'disabled';
         $(".account-event-step[data-event-step='verified-fit']").hide();
         $('.product-size-type-exchange').addClass('hidden');
+        $('.exchange-item-link').addClass("hidden")
       } else {
         $(".account-event-step[data-event-step='sized'], .account-event-step[data-event-step='verified-fit']").addClass("active");
         $(".product-size-type-exchange-wrapper .product-size-type-exchange").removeClass("hidden");
         $(".order-footer .fit-finder-alert-msg").addClass("hidden");
         $('.product-size-type-exchange').removeClass('hidden');
+        $('.exchange-item-link').removeClass("hidden");
         theme_custom.cartButton = '';
         setTimeout(() => {
           theme_custom.fitFinderDataSet(result.data);
@@ -664,6 +686,7 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
     },
     success: function (result) {
       var htmlBlock = '';
+      theme_custom.discount_code = result.data.event_looks[0].discount_code;
       if( result.message == 'No looks found'){
         htmlBlock += `<p class="text_center">We did't not found any look you have assigned!</p>`;
         $(".assigned-look-back").html(htmlBlock).removeClass("hidden");
@@ -708,7 +731,6 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
                               </div>
                             </div>
                           </div>`;
-        theme_custom.ProductData(productItemsArr);
         $(".product-data-wrapper").find(".order-footer").remove();
         $(".product-data-wrapper").append(orderFooter); 
         $(".assigned-look-back").removeClass("hidden");
@@ -718,7 +740,7 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
             if($(".button").hasClass("proceed-to-cart")){
               $(".proceed-to-cart").addClass("order-complete");
               $(".proceed-to-cart").find(".btn-title").text("Order Completed");
-              $(".exchange-item-link").addClass("hidden");
+              // $(".exchange-item-link").addClass("hidden");
               clearInterval(addTocartBtnDisabled);
             }
           }, 500);
@@ -733,12 +755,14 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
             }, 1000);
           }
           var CheckoutButtonDisabled = setInterval(() => {
-            if($(".proceed-to-checkout").length>0 && payBy=='Host'){
+            //  && result.data.event_looks[0].discount_code == null
+            if($(".proceed-to-checkout").length>0 && payBy=='Host' && result.data.event_looks[0].discount_code == ''){
               $(`.proceed-to-checkout`).addClass("disabled");
               clearInterval(CheckoutButtonDisabled);
             }
           }, 500);
-          if(payBy=='Host'){
+          //  && result.data.event_looks[0].discount_code == null
+          if(payBy=='Host' && result.data.event_looks[0].discount_code == ''){
             $(`.product-data-wrapper`).append(`<p class="payment-pending-message">Payment by the event owner is pending, please try later.</p>`);
           }
         }
@@ -752,6 +776,12 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
             }
           }, 500);
         }
+        theme_custom.ProductData(productItemsArr);
+        setTimeout(() => {
+          if(getCookie("fit-finder-data") != ''){
+            $(".product-size-type-exchange, .exchange-item-link").removeClass("hidden");
+          }
+        }, 500);
       }      
       $('.mywedding_api_call_loading').addClass('hidden');
       $('.mywedding_section_wrap').removeClass('hidden');

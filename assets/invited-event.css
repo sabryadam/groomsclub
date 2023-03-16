@@ -135,6 +135,7 @@
 }
 .invited-assigned-look .horizontal-product-part-big[data-product-type="jacket"]{
   order: 1;
+  margin-bottom: 0 !important;
 }
 .invited-assigned-look .horizontal-product-part-big[data-product-type="pants"]{
   order: 2;

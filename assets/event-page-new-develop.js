@@ -926,7 +926,6 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
 theme_custom.lookItemsData = function(result){
   var lookItemsData = result.data.event_looks;
   $.map(lookItemsData, function (orderItems, index) {
-    debugger;
     var orderItemsObj = orderItems.items;
     theme_custom.productBlockDataWrap(orderItemsObj, orderItems, index);    
   })
@@ -1266,7 +1265,7 @@ theme_custom.eventPageClickEvent = function(){
     $(`.modal-wrapper[data-target="remove-data-for-user"]`).find(".member_id").attr("data-type","member-block");
     $(`.modal-wrapper[data-target="remove-data-for-user"]`).find(".event_id").val(event_id);
     $(`.modal-wrapper[data-target="remove-data-for-user"]`).addClass("active");
-    // theme_custom.removeUserFromLook(event_id,member_id);
+    theme_custom.removeUserFromLook(event_id,member_id);
   });
 
   $(document).on('click', '.look-card-block .delete-icon', function(event) {
