@@ -1120,6 +1120,16 @@ theme_custom.variantDataGet = function (input) {
     varintTitle = varintTitle + ' / ' + parent.find('[data-option-index="2"]').val();
   }
   selectedOption = $(`[data-product-id="${productId}"][data-variant-title="${varintTitle}"]`);
+  if(selectedOption.length <= 0){
+     let items = document.querySelectorAll(`[data-product-id="${productId}"]`);
+     for(let i = 0;i < items.length; i++)[
+      var item =  items[i];
+        if(parseInt(item.getAttribute('data-variant-inventory')) > 0 ){
+          selectedOption = item;
+          break;
+        }
+     ]
+  }
   $(`[data-product-id="${productId}"]`).attr('selected', false);
   selectedOption.attr('selected', true);
   variantPrice = selectedOption.attr('data-variant-price');
