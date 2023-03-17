@@ -1,0 +1,12 @@
+{% layout none  %}
+{% assign count = 0 %}
+{
+    "products":[
+        {% for product in search.results limit: section.settings.products_to_show %}
+            {% if product.object_type == 'product' %}
+                {% unless count == 0 %},{% endunless  %}{{product | json }}
+                {% assign count = count | plus:1 %}
+            {% endif %}
+        {% endfor %}
+    ]
+}
