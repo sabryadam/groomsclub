@@ -174,11 +174,250 @@ theme_custom.draftOrder = function(button,parent){
 theme_custom.ProductData = function(productItemsArr){
   var productHtml = productSizeTypeExchangeData = pantProductHTML = productSubTotalPrice = "",
       subTotal = 0;
+  console.log("productItemsArr",productItemsArr);
+  var product_ids = [];
+  $.map(productItemsArr, function(productItems,index) {
+    product_ids.push(productItems.product_id)
+  });
+  var product_ids = [];
+  $.map(productItemsArr, function(productItems,index) {
+    product_ids.push(productItems.product_id)
+  });
+  console.log("product_ids",product_ids);
+  var product_var_ids = [];
+  $.map(productItemsArr, function(productVarId,index) {
+    product_var_ids.push(productVarId.variant_id)
+  });
+  console.log("product_var_ids",product_var_ids);
+  $.ajax({
+    url: `${theme_custom.base_url}/api/shopify/products`,
+    method: "POST",
+    data: {
+      "products_ids" : product_ids
+    },
+    dataType: "json",
+    headers: {
+      // "Authorization": 'Bearer BzuPQTFq84j4ZDX7EBpveJ0rzGo6Ljj1PQ4AXNMWtsnd5UsNn9kG1Pidd7EnFDVTadlI5eNpKOrfW5JoegG7FU3cXRQNjd0b3FMNA'
+      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+    },
+    beforeSend: function () {},
+    success: function (result) {
+      var productsArr = result.data;
+      console.log("result",productsArr);
+      // for (let productLookVar = 0; productLookVar < product_var_ids.length; productLookVar++) {
+      //   var productVarIds = parseInt(product_var_ids);
+      //   console.log("productVarIds",productVarIds)
+      // }
+      $.map(productsArr, function(productItem,index) {
+        console.log('productItem',productItem);
+        if(productItem.options){
+          var productOption = productItem.options;
+          var customSwatchWap = '';
+          for (let optionVal = 0; optionVal < productOption.length; optionVal++) {
+            var element = productOption[optionVal];
+            var customSwatch = '';
+            var elementValues = element.values;
+            for (let seatchVal = 0; seatchVal < elementValues.length; seatchVal++) {
+              var swatchValue = elementValues[seatchVal];
+              if(productOption[optionVal].name == 'Color' || productOption[optionVal].name == 'color'){
+                var color_name = swatchValue.toLowerCase().replace(" ","-");
+                customSwatch += `<div data-title="${swatchValue}" data-value="${swatchValue}" class="swatch-element-item ${swatchValue}">
+                                  <label style="background-image:url(//cdn.shopify.com/s/files/1/0585/3223/3402/files/color_${color_name}.png?v=13538939889425418844)" for="swatch-2-tuxedo-black"></label>
+                                </div>`;
+              } else {
+                customSwatch += `<div data-title="${swatchValue}" data-value="${swatchValue}" class="swatch-element-item ${swatchValue}">
+                                  <span>
+                                    ${swatchValue}
+                                  </span>
+                                </div>`;
+              }
+            }
+            customSwatchWap += `<div class="swatches text-center ${productOption[optionVal].name}">
+                                  <p class="swatch-title">${productOption[optionVal].name} :</p>
+                                  <div class="swatch" data-option-swatch-index="${optionVal}">
+                                    ${customSwatch}
+                                  </div>
+                                </div>`;
+          }
+        }
+        var prodOptionArray = [];
+        var pantsProd_hide = "";
+        var var_has_available;
+        for(i=0; i<productItem.variants.length;i++){
+          var var_id = productItem.variants[i];
+          console.log("productItemsArr ",productItemsArr);
+          for (let checkVar = 0; checkVar < productItemsArr.length; checkVar++) {
+            debugger;
+            if(productItemsArr.product_id == productItem.id){
+              if (var_id.id == productItemsArr.variant_id) {
+                var_has_available = true;
+                break;
+              } else {
+                var_has_available = false;
+              }
+            }            
+          }
+        }
+        if (var_has_available) {
+
+          $.each(productItem.variants, function (key, value) {
+            if(!value.title == ''){
+              if(key == 0){
+                prodOptionArray += `<option value="${value.id}" data-product-id="${productItem.id}" data-variant-title="${value.title}" selected="selected">${value.title}</option>`;
+              } else {
+                prodOptionArray += `<option value="${value.id}" data-product-id="${productItem.id}" data-variant-title="${value.title}">${value.title}</option>`;
+              }
+            }
+          });
+          $.each(productItem.variants, function (key, value) {
+            if(value.id == parseInt(productItem.variant_id)){
+              variantSelected = value;
+              var variantSelectedImage = variantSelected.image_id,
+                  variantSelectedPrice = variantSelected.price;
+              var subtotalVarPrice = variantSelectedPrice*100;
+              var productPrice = theme_custom.Shopify.formatMoney(variantSelectedPrice, theme_custom.money_format);
+              // variant title print
+              var productType = productItem.product_type.toLowerCase(),
+                  productHandleVal = productItem.handle,
+                  productSizeTypeExchangeData = optionfirst = optionSecond = optionThird = edit_item_hidden = '';
+              if (variantSelected.option1 == null ) {
+                optionfirst = '';
+              } else {
+                optionfirst = `<span class="option1" data-value="${variantSelected.option1}"><span class="value">${variantSelected.option1}</span></span>`;
+              }
+              if (variantSelected.option2 == null ) {
+                optionSecond = '';
+              } else {
+                optionSecond = `<span class="option2" data-value="${variantSelected.option2}">/ <span class="value">${variantSelected.option2}</span></span>`;
+              }
+              if (variantSelected.option3 == null ) {
+                optionThird = '';
+              } else {
+                optionThird = `<span class="option3" data-value="${variantSelected.option3}">/ <span class="value">${variantSelected.option3}</span></span>`;
+              }
+              if(productType == 'jacket' || productType == 'vest' || productType == 'shoes' || productType == 'pants' || productType == 'shirt'){
+                edit_item_hidden = '';
+              } else {
+                edit_item_hidden = 'hidden';
+              }
+              productSizeTypeExchangeData = `<div class="product-size-type-exchange-wrapper">
+                                          <p class="product-size-type-exchange hidden">
+                                            <span class="size-wrap">${optionfirst}</span>
+                                            <span class="size-wrap">${optionSecond}</span>
+                                            <span class="size-wrap">${optionThird}</span>
+                                            <span class="exchange-item-link link hidden"><span class="break">|</span> Edit Size</span>
+                                          </p>
+                                          <div class="product-swatch-option ${productType}" data-product-handle="${productHandleVal}">
+                                            <div class="product-swatches-main"><h4>${productItem.title}</h4>${customSwatchWap}</div>
+                                            <select class="prod-variant-option hidden">${prodOptionArray}</select>
+                                            <button type="button" name="exchange-look-item" class="button button--full-width button--primary exchange-look-item disabled" data-text="Updating..">Update</button>
+                                          </div>
+                                        </div>`;
+              // if(variantSelectedImage == null || variantSelectedImage == '' || variantSelectedImage == undefined){
+              //   productImg = productItem.image.src;
+              // } else { 
+                $.each(productItem.images, function (key, imgValue) {
+                  if(imgValue.id == variantSelectedImage){
+                    imageSelected = imgValue;
+                  }
+                })
+                productImg = imageSelected.src;
+              // }
+              productHtml += `<div class="look-product-wrapper horizontal-product-part-big product-data-card product-card-wrap index-${index}${pantsProd_hide}" data-product-type="${productType}" data-prod-handle="${productItem.handle}">
+                              <div class="product-imge-left">
+                                <img class="prod-img" src="${productImg}" alt="${productItem.title}" />
+                              </div>
+                              <div class="product-info">
+                                <input type="hidden" class="product-id" data-product-id="${productItem.id}" />
+                                <input type="hidden" class="product-type" data-product-type="${productType}" />
+                                <input type="hidden" class="product-handle" data-product-handle="${productItem.handle}" />
+                                <input type="hidden" class="prod-variant-data" data-var-id="${productItem.variant_id}" />
+                                <h4>${productItem.title}</h4>
+                                ${productSizeTypeExchangeData}
+                              </div>
+                              <div class="product-price">
+                                <p class="price">${productPrice}</p>
+                              </div>
+                            </div>`;
+              subTotal = subTotal + parseInt(subtotalVarPrice)*100;
+            }
+          });
+        } else {
+          productImg = productItem.image.src;
+          productHtml += `<div class="look-product-wrapper horizontal-product-part-big index-${index}" data-prod-handle="${productItem.handle}">
+                            <div class="product-imge-left">
+                              <img class="prod-img" src="${productImg}" alt="${productItem.title}" />
+                            </div>
+                            <div class="product-info">
+                              <h4>${productItem.handle}</h4>
+                              <p>We didn't find the Product...</p>
+                            </div>
+                          </div>`;
+        }
+        $(`.product-data-wrapper .look-product-block`).html(productHtml);
+        $(`.product-data-wrapper .look-product-block .pants-prod-data-wrap`).html(pantProductHTML);
+        productSubTotalPrice = theme_custom.Shopify.formatMoney((subTotal)/100, theme_custom.money_format);
+        $(`.product-data-wrapper .order-footer .price-number`).text(productSubTotalPrice);
+        // $(`.product-data-wrapper .look-product-block`).prepend(`<h2 class="border-heading title">Your Assigned Look</h2>`);
+        $(".loader-icon").addClass("hidden");
+        $(".product-data-wrapper").removeClass("hidden");
+      })
+    },
+    error: function (xhr, status, error) {
+      if(xhr.responseJSON.message=='Token is invalid or expired.'){
+        $('.mywedding_api_call_loading .loading-overlay').html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+          'text-align':'center',
+          'color':'red'
+        });
+        setTimeout(() => {
+          theme_custom.removeLocalStorage();
+          window.location.href = '/account/logout';
+        }, 5000);
+      } else {
+        var erroData = '';
+        erroData = '<p>' + xhr.responseJSON.message + '</p>';
+        $('.mywedding_api_call_loading .loading-overlay').html(erroData);
+      }
+    }
+  });
+  return;
   $.map(productItemsArr, function(productItems,index) {
     jQuery.ajax({
       type: 'GET',
-      url: `/products/${productItems.product_handle}.json`,
+      dataType: 'json',
+      // url: `/products/${productItems.product_handle}.json`,
+      url : `/products/${productItems.product_handle}?view=product-get-data`,
       success: function(response) {
+        if(response.product.options){
+          var productOption = response.product.options;
+          var customSwatchWap = '';
+          for (let optionVal = 0; optionVal < productOption.length; optionVal++) {
+            var element = productOption[optionVal];
+            var customSwatch = '';
+            var elementValues = element.values;
+            for (let seatchVal = 0; seatchVal < elementValues.length; seatchVal++) {
+              var swatchValue = elementValues[seatchVal];
+              if(productOption[optionVal].name == 'Color' || productOption[optionVal].name == 'color'){
+                var color_name = swatchValue.toLowerCase().replace(" ","-");
+                customSwatch += `<div data-title="${swatchValue}" data-value="${swatchValue}" class="swatch-element-item ${swatchValue}">
+                                  <label style="background-image:url(//cdn.shopify.com/s/files/1/0585/3223/3402/files/color_${color_name}.png?v=13538939889425418844)" for="swatch-2-tuxedo-black"></label>
+                                </div>`;
+              } else {
+                customSwatch += `<div data-title="${swatchValue}" data-value="${swatchValue}" class="swatch-element-item ${swatchValue}">
+                                  <span>
+                                    ${swatchValue}
+                                  </span>
+                                </div>`;
+              }
+            }
+            customSwatchWap += `<div class="swatches text-center ${productOption[optionVal].name}">
+                                  <p class="swatch-title">${productOption[optionVal].name} :</p>
+                                  <div class="swatch" data-option-swatch-index="${optionVal}">
+                                    ${customSwatch}
+                                  </div>
+                                </div>`;
+          }
+        }
         var prodOptionArray = [];
         var pantsProd_hide = "";
         for(i=0; i<response.product.variants.length;i++){
@@ -193,11 +432,15 @@ theme_custom.ProductData = function(productItemsArr){
         if (var_has_available) {
           $.each(response.product.variants, function (key, value) {
             if(!value.title == ''){
-              prodOptionArray += `<option value="${value.id}" data-product-id="${response.product.id}" data-variant-title="${value.title}">${value.title}</option>`;
+              if(key == 0){
+                prodOptionArray += `<option value="${value.id}" data-product-id="${response.product.id}" data-variant-title="${value.title}" selected="selected">${value.title}</option>`;
+              } else {
+                prodOptionArray += `<option value="${value.id}" data-product-id="${response.product.id}" data-variant-title="${value.title}">${value.title}</option>`;
+              }
             }
           });
           $.each(response.product.variants, function (key, value) {
-            if(value.id == productItems.variant_id){
+            if(value.id == parseInt(productItems.variant_id)){
               variantSelected = value;
               var variantSelectedImage = variantSelected.image_id,
                   variantSelectedPrice = variantSelected.price;
@@ -234,8 +477,9 @@ theme_custom.ProductData = function(productItemsArr){
                                             <span class="size-wrap">${optionThird}</span>
                                             <span class="exchange-item-link link hidden"><span class="break">|</span> Edit Size</span>
                                           </p>
-                                          <div class="product-swatch-option" data-product-handle="${productHandleVal}">
-                                            <select class="prod-variant-option">${prodOptionArray}</select>
+                                          <div class="product-swatch-option ${productType}" data-product-handle="${productHandleVal}">
+                                            <div class="product-swatches-main"><h4>${response.product.title}</h4>${customSwatchWap}</div>
+                                            <select class="prod-variant-option hidden">${prodOptionArray}</select>
                                             <button type="button" name="exchange-look-item" class="button button--full-width button--primary exchange-look-item disabled" data-text="Updating..">Update</button>
                                           </div>
                                         </div>`;
@@ -305,6 +549,53 @@ theme_custom.ProductData = function(productItemsArr){
 
 // Click Event
 theme_custom.clickEventInvited = function(){
+
+  var clickEvent = document.ontouchstart !== null ? 'click' : 'touchstart';
+  $(document).on(clickEvent, ".product-swatches-main .swatch-element-item", function () {
+    let parent = $(this).closest('.product-swatch-option');
+    let select = $('.prod-variant-option',parent);
+    let subParent = $(this).closest('.swatch');
+    $(this).siblings().removeClass('active');
+    $(this).addClass('active');
+
+    let variantTitle = "";
+    $('.swatches',parent).each((i,item)=>{
+        if(variantTitle == ""){
+          variantTitle = $('.swatch-element-item.active',item).attr('data-title');
+        }else{  
+          variantTitle = variantTitle + ' / ' + $('.swatch-element-item.active',item).attr('data-title');
+        }
+    })
+         
+    let option = $(`select option[data-variant-title="${variantTitle}"]`,parent);
+    let btn = $('.exchange-look-item',parent);
+    if(option.length > 0){
+      let qty = parseInt(option.attr('data-variant-inventory'))
+      if(qty <= 0){
+        //$(btn).addClass('disabled');
+        //$(btn).text('Out of stock');
+      }else{
+        // optionValue = option.val();;
+        // $(`select`,parent).val(optionValue);
+        // //$(btn).removeClass('disabled');
+        // $(btn).text('Update');
+      }
+      optionValue = option.val();;
+      $(`select`,parent).val(optionValue);
+      $(btn).text('Update');
+      let productType = $(btn).attr('data-product-type');
+      let selectedVid = $(`.customize-look-overview-product[data-product-type="${productType}"] .overview-variant-id`).attr('data-variant-id')
+      if(selectedVid == optionValue){
+        $(btn).addClass('disabled');
+      }else{
+        $(btn).removeClass('disabled');
+      }
+    }else{
+      $(btn).addClass('disabled');
+      $(btn).text('Unavailable');
+    }
+  });
+
   $(document).on("click", ".account-event-step.tab-header", function(){
     if($(this).attr("data-event-step")=="received-order"){
       $(".product-data-wrapper").addClass("hidden")
@@ -334,15 +625,17 @@ theme_custom.clickEventInvited = function(){
     }
     $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".prod-variant-data").val(targetVarID).attr("data-var-id",targetVarID);
     button.text("Updated");
-    if($(".error-msg").length==0){
-      $(".return-suit-checkout-button").find(".proceed-to-cart").removeClass("disabled");
-    }
+    // if($(".error-msg").length==0){
+    //   $(".return-suit-checkout-button").find(".proceed-to-cart").removeClass("disabled");
+    //   $(".return-suit-checkout-button").find(".proceed-to-checkout").removeClass("disabled");
+    // }
     $(".fancybox-button").click();
   })
 
   // product option popup open
   $(document).on("click", ".exchange-item-link", function(){
     var productSwatchOption = $(this).closest(".product-size-type-exchange-wrapper").find(".product-swatch-option");
+    var productType = $(this).closest(".look-product-wrapper").attr("data-product-type");
     $(this).closest(".product-size-type-exchange-wrapper").find(".exchange-look-item").addClass("disabled");
     var currentSelected = '';
     if ($(this).closest(".product-size-type-exchange-wrapper").find(".option1").length>0) {
@@ -354,33 +647,41 @@ theme_custom.clickEventInvited = function(){
     if ($(this).closest(".product-size-type-exchange-wrapper").find(".option3").length>0) {
       currentSelected = currentSelected +' / '+ $(this).closest(".product-size-type-exchange-wrapper").find(".option3").attr("data-value");
     }    
-    var targetVal =  $(".product-swatch-option").find(`option[data-variant-title='${currentSelected}']`).attr('value')
-    $(".product-swatch-option").find(`option[data-variant-title='${currentSelected}']`).closest('.prod-variant-option').val(targetVal);
+    var targetVal =  $(".product-swatch-option").find(`option[data-variant-title='${currentSelected}']`).attr('value');
+    $(`.look-product-wrapper[data-product-type="${productType}]"`).find(`.product-swatch-option option[data-variant-title='${currentSelected}']`).closest('.prod-variant-option').val(targetVal);
     $.fancybox.open(productSwatchOption);
   });
 
-  // Multiple product add to cart 
-  $(document).on("click", ".proceed-to-cart", function(){
-    $('.account-event-step[data-event-step="purchased"]').addClass("active"); 
-    var button = $(this),
-        button_text = $(this).data("text"),
-        payBy = 'self';
-    button.find(".btn-title").text(button_text);
-    parent = $(this).closest(".product-data-wrapper");
-    theme_custom.multipleProductAjax(button, parent, payBy);
-  })
-
-  // Multiple product add to cart 
-  $(document).on("click", ".proceed-to-checkout", function(){
-    $('.account-event-step[data-event-step="purchased"]').addClass("active"); 
-    var button = $(this),
-        button_text = $(this).data("text"),
-        payBy = 'host';
-    button.addClass("disabled");
-    button.find(".btn-title").text(button_text);
-    parent = $(this).closest(".product-data-wrapper");
-    // theme_custom.draftOrder(button, parent);
-    theme_custom.multipleProductAjax(button, parent,payBy);
+  // Create Order Functionality
+  $(document).on("click", ".return-suit-checkout-button .button", function(e){
+    e.preventdefault;
+    var errorLength = $(".error-msg");
+    if(errorLength.length > 0){
+      $('html, body').stop().animate({
+        'scrollTop': $(".error-msg").closest(".look-product-wrapper").offset().top - 10 - $("#shopify-section-header").height()
+      }, 900);
+      return false
+    }
+    if($(this).hasClass("proceed-to-checkout")){
+      $('.account-event-step[data-event-step="purchased"]').addClass("active"); 
+      var button = $(this),
+          button_text = $(this).data("text"),
+          payBy = 'host';
+      button.addClass("disabled");
+      button.find(".btn-title").text(button_text);
+      parent = $(this).closest(".product-data-wrapper");
+      // theme_custom.draftOrder(button, parent);
+      theme_custom.multipleProductAjax(button, parent,payBy);
+    }
+    if($(this).hasClass("proceed-to-cart")){
+      $('.account-event-step[data-event-step="purchased"]').addClass("active"); 
+      var button = $(this),
+          button_text = $(this).data("text"),
+          payBy = 'self';
+      button.find(".btn-title").text(button_text);
+      parent = $(this).closest(".product-data-wrapper");
+      theme_custom.multipleProductAjax(button, parent, payBy);
+    }
   })
 
   // variant update  
@@ -513,21 +814,40 @@ theme_custom.getEventDetails = function(eventId) {
 theme_custom.productVariantSeledtUpdate = function(){
   var target = $(".look-product-wrapper");
   $(target).each(function(){
-    var varintTitle='' ;
+    var varintTitle = '', 
+        currentOptionValue = '';
     if($(this).find('.option1').length > 0){
+      currentOptionValue = $(this).find('.option1').attr("data-value");
       varintTitle = $(this).find('.option1').attr("data-value");
+      if($(this).find(`[data-option-swatch-index="0"] .swatch-element-item[data-title="${currentOptionValue}"]`).length > 0){
+        $(this).find(`[data-option-swatch-index="0"] .swatch-element-item[data-title="${currentOptionValue}"]`).addClass("active");
+      } else {
+        $(this).find(`[data-option-swatch-index="0"] .swatch-element-item:first`).addClass("active");
+      }
     }
     if($(this).find('.option2').length > 0){
+      currentOptionValue = $(this).find('.option2').attr("data-value");
       varintTitle = varintTitle + ' / ' + $(this).find('.option2').attr("data-value");
+      if($(this).find(`[data-option-swatch-index="1"] .swatch-element-item[data-title="${currentOptionValue}"]`).length > 0){
+        $(this).find(`[data-option-swatch-index="1"] .swatch-element-item[data-title="${currentOptionValue}"]`).addClass("active");
+      } else {
+        $(this).find(`[data-option-swatch-index="1"] .swatch-element-item:first`).addClass("active");
+      }
     }
     if($(this).find('.option3').length > 0){
+      currentOptionValue = $(this).find('.option3').attr("data-value");
       varintTitle = varintTitle + ' / ' + $(this).find('.option3').attr("data-value");
+      if($(this).find(`[data-option-swatch-index="2"] .swatch-element-item[data-title="${currentOptionValue}"]`).length > 0){
+        $(this).find(`[data-option-swatch-index="2"] .swatch-element-item[data-title="${currentOptionValue}"]`).addClass("active");
+      } else {
+        $(this).find(`[data-option-swatch-index="2"] .swatch-element-item:first`).addClass("active");
+      }
     }
     if ($(this).find('.prod-variant-option option').filter('[data-variant-title="'+varintTitle+'"]').length == 0) {
-      $(this).removeClass("product-card-wrap")
+      $(this).find('.prod-variant-option option:first').prop('selected', true);
       $(this).find(".product-info").append("<p class='error-msg' style='color:red; font-size : 14px; margin-top:5px'>"+theme_custom.productNotFoundError+"</p>");
     } else {
-      $(this).find('.prod-variant-option option').removeAttr('selected').filter('[data-variant-title="'+varintTitle+'"]').prop('selected', true);
+      $(this).find('.prod-variant-option option[data-variant-title="'+varintTitle+'"]').prop('selected', true);
       var selectedvarId = $(this).find('.prod-variant-option').val();
       $(this).find(".prod-variant-data").attr("data-var-id",selectedvarId).val(selectedvarId);
     }
@@ -572,7 +892,7 @@ theme_custom.fitFinderDataSet = function(data){
       // $(`.look-product-wrapper[data-product-type="shirt"]`).find(".option1 .value").text(data[i].shirt_sleeve+' | '+data[i].shirt_neck);
       // $(`.look-product-wrapper[data-product-type="shirt"]`).find(".option1").attr("data-value",data[i].shirt_sleeve+' | '+data[i].shirt_neck);
       $(`.look-product-wrapper[data-product-type="shirt"]`).find(".option1 .value").text(data[i].shirt_neck + ' ' + data[i].shirt_sleeve);
-$(`.look-product-wrapper[data-product-type="shirt"]`).find(".option1").attr("data-value",data[i].shirt_neck + ' ' + data[i].shirt_sleeve);
+      $(`.look-product-wrapper[data-product-type="shirt"]`).find(".option1").attr("data-value",data[i].shirt_neck + ' ' + data[i].shirt_sleeve);
       $(`.look-product-wrapper[data-product-type="shirt"]`).find(".option2 .value").text(data[i].fit);
       $(`.look-product-wrapper[data-product-type="shirt"]`).find(".option2").attr("data-value",data[i].fit);
     }
@@ -586,18 +906,13 @@ $(`.look-product-wrapper[data-product-type="shirt"]`).find(".option1").attr("dat
       $(`.look-product-wrapper[data-product-type="shoes"]`).find(".option2 .value").text(shoe_size);
       $(`.look-product-wrapper[data-product-type="shoes"]`).find(".option2").attr("data-value",shoe_size);
     }
-    setTimeout(() => {
-      theme_custom.productVariantSeledtUpdate();
-      if(theme_custom.discount_code != ''){
-        $(".return-suit-checkout-button .button").removeClass("disabled");
-      } else {
-        if($('.error-msg').length > 0 && getCookie("fit-finder") == '' || $(".payment_flag").attr("payment_status")=='pending' && $(".proceed-to-checkout").length > 0){
-          $(".return-suit-checkout-button .button").addClass("disabled");
-        } else {
-          $(".return-suit-checkout-button .button").removeClass("disabled");
-        }
-      }
-    }, 500);
+    theme_custom.productVariantSeledtUpdate();
+    $(".return-suit-checkout-button .button").hide();
+    if(theme_custom.discount_code != '' || getCookie("fit-finder-data") == ''){
+      $(".return-suit-checkout-button .button").addClass("disabled").fadeIn();
+    } else {
+      $(".return-suit-checkout-button .button").removeClass("disabled").fadeIn();
+    }
   }
 }
 
@@ -631,17 +946,15 @@ theme_custom.getFitFinderData = function(payBy){
         $('.product-size-type-exchange').removeClass('hidden');
         $('.exchange-item-link').removeClass("hidden");
         theme_custom.cartButton = '';
-        setTimeout(() => {
-          theme_custom.fitFinderDataSet(result.data);
-        }, 1000);
+        theme_custom.fitFinderDataSet(result.data);
       }
       if(checkPayBy=="Host" || checkPayBy=="host") {
         $('.price-number').text(theme_custom.Shopify.formatMoney(0000, theme_custom.money_format));
-        buttonHtml += `<button type="button" class="button button--primary button-lr-small-padding proceed-to-checkout ${theme_custom.cartButton}" data-text="Adding...">
+        buttonHtml += `<button type="button" class="button button--primary button-lr-small-padding proceed-to-checkout" data-text="Adding...">
                         <span class="btn-title">Proceed to Checkout</span> <i class="fas fa-shopping-cart"></i>
                       </button>`;
       }  else {
-        buttonHtml += `<button type="button" class="button button--primary button-lr-small-padding proceed-to-cart  ${theme_custom.cartButton}" data-text="Adding...">
+        buttonHtml += `<button type="button" class="button button--primary button-lr-small-padding proceed-to-cart" data-text="Adding...">
                         <span class="btn-title">Proceed to Cart</span> <i class="fas fa-shopping-cart"></i>
                       </button>`;
       }
@@ -743,7 +1056,7 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
               // $(".exchange-item-link").addClass("hidden");
               clearInterval(addTocartBtnDisabled);
             }
-          }, 500);
+          }, 2000);
         } else {
           $(".payment_flag").attr("payment_status","pending");
           if(payBy=='Me'){
@@ -760,7 +1073,7 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
               $(`.proceed-to-checkout`).addClass("disabled");
               clearInterval(CheckoutButtonDisabled);
             }
-          }, 500);
+          }, 5000);
           //  && result.data.event_looks[0].discount_code == null
           if(payBy=='Host' && result.data.event_looks[0].discount_code == ''){
             $(`.product-data-wrapper`).append(`<p class="payment-pending-message">Payment by the event owner is pending, please try later.</p>`);
@@ -774,14 +1087,14 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
               $(".exchange-item-link").addClass("hidden");
               clearInterval(proceedToCartDisabled);
             }
-          }, 500);
-        }
+        }, 5000);
+      }
         theme_custom.ProductData(productItemsArr);
         setTimeout(() => {
           if(getCookie("fit-finder-data") != ''){
             $(".product-size-type-exchange, .exchange-item-link").removeClass("hidden");
           }
-        }, 500);
+        }, 2000);
       }      
       $('.mywedding_api_call_loading').addClass('hidden');
       $('.mywedding_section_wrap').removeClass('hidden');

@@ -72,7 +72,6 @@ theme_custom.productDataFromURL = function () {
           variantDropDown = currentOption.closest(".product-item-wrap").find('.product-var-dropdown').html();
         currentVarParent.find('input.selected-variant-id').attr('data-variant-id', productVarId).val(productVarId);
         currentVarParent.find('.swatch-element').attr('data-variant-id', productVarId);
-        console.log("currentOption",currentOption);
         if (varintTitle == undefined || varintTitle == '') {
           continue;
         }
@@ -1987,6 +1986,12 @@ theme_custom.customize_product_clickEvent = function () {
       if ($(this).closest(".product-block-wrapper").find(".not-color").length > 0) {
         $(this).closest(".product-block-wrapper").find(`.not-color input[type="radio"]`).prop('checked', false);
       }
+      var url_arr = [];
+      var productHandleVal = $(this).closest(".product-block.product-item-wrap").attr("data-product-handle"),
+        productVarId = $(this).closest(".swatches-wrapper").find(".product-var-dropdown").val();
+      var product_data_url = '';
+      product_data_url = productHandleVal + '=' + productVarId;
+      url_arr.push(product_data_url);
       $(this).closest(".product-block-outer-wrapper").find(".product-title").after(`<p class="form-error" style="display:block;border-bottom: 1px solid #f5f5f5;padding-bottom: 10px;">Sorry, this product combination is not available.</p>`);
       $(this).closest(".product-block-outer-wrapper").find(".form-error").show();
       theme_custom.priceUpdate();

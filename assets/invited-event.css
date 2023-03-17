@@ -351,6 +351,7 @@
 .mywedding_section_wrap .invite-event-main-content .invited-assigned-look .left-part-image-part .look-name{
   padding-top: 40px;
   margin-bottom: 25px;
+  margin-top: 0;
 }
 .mywedding_section_wrap .invite-event-main-content .invited-assigned-look .right-assigned-look-list{
   max-width: calc(100% - 535px);
@@ -477,6 +478,7 @@
   margin-bottom: 8px;
   display: block;
   color: var(--color-gray-text);
+  word-wrap: break-word;  
 }
 .the-party-part.invited-event-footer .party-background-part .single-member-detail-part .background-part .event_phone{
   font-size: 14px;
@@ -556,4 +558,28 @@
   .the-party-part.invited-event-footer .party-background-part .single-member-detail-part .background-part .member-name{
     font-size: 14px;
   }
+}
+.product-swatch-option.jacket .swatches.Color,
+.product-swatch-option.vest .swatches.Color,
+.product-swatch-option.shirt .swatches.Color,
+.product-swatch-option.shoes .swatches.Color,
+.product-swatch-option.pants .swatches.Color{
+  display: none !important;
+}
+.template-page-event-invited .product-swatches-main .swatches.Color .swatch .swatch-element-item{
+  padding: 0;
+  display: inline-block;
+  cursor: pointer;
+  border: 3px solid transparent;
+  border-radius: 100%;
+}
+.template-page-event-invited .product-swatches-main .swatches.Color .swatch .swatch-element-item.active{
+  border: 3px solid var(--color-button-light-blue);
+}
+.template-page-event-invited .product-swatch-option .swatches.Color .swatch .swatch-element-item label{
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  cursor: pointer;
 }
