@@ -1589,3 +1589,11 @@ span.look-price {
 .member-number {
   text-transform: capitalize;
 }
+.final-summary-for-event-page-main-wrapper .button-wrap{
+  text-align: center;
+}
+.final-summary-for-event-page-main-wrapper .button-wrap .update-event-fit-finder{
+  min-height: 44px;
+  padding: 0;
+  height: auto;
+}

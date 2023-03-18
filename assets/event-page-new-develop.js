@@ -50,6 +50,7 @@ theme_custom.lookAssignToMember = function(member_id,look_id){
 
 $(".member-added-into-event").click(function (e) {
   e.preventDefault();
+  
   theme_custom.lookVal = $(this).closest(".add-guest-inner-wrapper").find(".look-name").attr("data-look-mapping-id")
   var parent = $(this).closest('.invite-another-member-popup-wrapper');
   var updateGuest = false;
@@ -99,6 +100,8 @@ $(".member-added-into-event").click(function (e) {
       beforeSend: function () {
       },
       success: function (result) {
+        $('.event-step-wrapper').addClass('hidden');
+        theme_custom.globalLoaderShow();
         theme_custom.lookAssignToMember(result.data.id,theme_custom.lookVal);
       },
       error: function (xhr, status, error) {        
@@ -346,10 +349,15 @@ theme_custom.successCallback = (data,nextTarget) =>{
         $(".event-step-wrapper").removeClass("hidden");  
         if(nextTarget){
           theme_custom.changeStep(nextTarget);
-          if($('.event-look-inner-wrapper').find(".look-card-block").length > 2){
-            $('.event-look-inner-wrapper').slick('refresh');
-          }
+          // if($('.event-look-inner-wrapper').find(".look-card-block").length > 2){
+          //   $('.event-look-inner-wrapper').slick('refresh');
+          // }
         }
+        $(".next-button.disabled").removeClass("disabled");
+        if($('.event-look-inner-wrapper').find(".look-card-block").length > 2){
+          $('.event-look-inner-wrapper').slick('refresh');
+        }
+        theme_custom.globalLoaderhide();
       }, 2000);
     }else{
       $(`[data-target="remove-data-for-user"]`).removeClass("active");
@@ -363,18 +371,20 @@ theme_custom.successCallback = (data,nextTarget) =>{
           $('.event-look-inner-wrapper').slick('refresh');
         }
       }
+      $(".next-button.disabled").removeClass("disabled");
+      theme_custom.globalLoaderhide();
     }
-    $(".next-button.disabled").removeClass("disabled");
-    theme_custom.globalLoaderhide();
+
 }
 
 theme_custom.changeStep = (index) =>{
     $('.event-step-wrapper').removeClass('hidden');
-    $('.loader-wrapper').addClass('hidden')
     $(`.step-content-wrapper`).removeClass("acrive");
     $(`.step-content-wrapper[data-step-content-wrap="${index}"]`).addClass("active");
     $(`.step-wrap[data-step-label-wrap="${index}"]`).addClass("active");
 }
+
+
 
 theme_custom.updateEventAPI = function(btn){
   var button = btn;
@@ -815,10 +825,13 @@ theme_custom.lookAddedIntoEvent = function(){
   })
 }
 theme_custom.globalLoaderShow = () =>{
-  $('.site-global-loader').removeClass('hidden'); 
+  // $('.site-global-loader').removeClass('hidden'); 
+  $('.loader-wrapper').removeClass('hidden')
+
 }
 theme_custom.globalLoaderhide = () =>{
-  $('.site-global-loader').addClass('hidden'); 
+  // $('.site-global-loader').addClass('hidden'); 
+  $('.loader-wrapper').addClass('hidden')
 }
 theme_custom.removeUserFromLook = (eventId,memberId) =>{
   //  confirms = confirm("Are you sure you want to remove this?");
@@ -1005,6 +1018,9 @@ theme_custom.lookInfoData = function(result){
                     </tr>`;
     theme_custom.productBlockDataWrap(orderItemsObj, orderItems, index, lookDetails);
     paymentInfoHTMLtarget.append(productHTML);
+    $('.event-step-wrapper').removeClass('hidden');
+    theme_custom.globalLoaderhide();
+    theme_custom.changeStep(4);
     setTimeout(() => {
       var totalPrice = 0;
       $(".order-wrap-block").each(function(){
@@ -1091,23 +1107,30 @@ theme_custom.setFitFinder = function(){
       } else if (jacketType == "L") {
         jacketTypeVal = 'Long'
       }
-      $("#jacket-size").val(jacketSize).change();
-      $("#jacket-type").val(jacketTypeVal).change();
+      $("#jacket-size").attr('data-val',jacketSize);
+      $("#jacket-size").val(jacketSize);
+      $("#jacket-type").attr('data-val',jacketTypeVal);
+      $("#jacket-type").val(jacketTypeVal);
     }
     if(getFitFinderData.pants_hight != ''){
-      $("#pants-length").val(getFitFinderData.pants_hight).change();
+      $("#pants-length").val(getFitFinderData.pants_hight);
+      $("#pants-length").attr('data-val',getFitFinderData.pants_hight);
     }
     if(getFitFinderData.pants_waist != ''){
-      $("#pants-waist").val(getFitFinderData.pants_waist).change();
+      $("#pants-waist").val(getFitFinderData.pants_waist);
+      $("#pants-waist").attr('data-val',getFitFinderData.pants_waist);
     }
     if(getFitFinderData.shirt_sleeve != ''){
-      $("#shirt-sleeve").val(getFitFinderData.shirt_sleeve).change();
+      $("#shirt-sleeve").val(getFitFinderData.shirt_sleeve);
+      $("#shirt-sleeve").attr('data-val',getFitFinderData.shirt_sleeve);
     }
     if(getFitFinderData.shirt_neck != ''){
-      $("#shirt-neck").val(getFitFinderData.shirt_neck).change();
+      $("#shirt-neck").val(getFitFinderData.shirt_neck);
+      $("#shirt-neck").attr('data-val',getFitFinderData.shirt_neck);
     }
     if(getFitFinderData.shoe_size != ''){
-      $("#shoes-size").val(getFitFinderData.shoe_size).change();
+      $("#shoes-size").val(getFitFinderData.shoe_size);
+      $("#shoes-size").attr('data-val',getFitFinderData.shoe_size);
     }
   }
 }
@@ -1280,9 +1303,12 @@ theme_custom.eventPageClickEvent = function(){
   });
 
   $(document).on("click",`[data-target="remove-data-for-user"] button`,function(){
+    
     var target = $(this).attr('data-value');
     var checkData = $(this).closest(".modal-wrapper-inner-wrapper").find(".member_id").attr("data-type");
     if(target == 'yes'){ 
+      $('.event-step-wrapper').addClass('hidden');
+      theme_custom.globalLoaderShow();
       if(checkData == 'member-block') {
         var event_id = $(this).closest(".modal-wrapper-inner-wrapper").find(".event_id").val();
         var member_id = $(this).closest(".modal-wrapper-inner-wrapper").find(".member_id").val();
@@ -1303,6 +1329,7 @@ theme_custom.eventPageClickEvent = function(){
     let look_id = parent.attr('data-look-id');
     let member_id = parent.attr('data-host-id');
     if(value == 'yes'){
+      $('.event-step-wrapper').addClass('hidden');
       theme_custom.globalLoaderShow();
       theme_custom.lookAssignToMember(member_id,look_id)
     }else{
@@ -1368,6 +1395,8 @@ theme_custom.eventPageClickEvent = function(){
       goNext = false;
     }
     if($(this).closest(`.step-content-wrapper[data-step-content-wrap="3"]`).length > 0){
+      goNext = false;
+      $('.event-step-wrapper').addClass('hidden');
       theme_custom.setFitFinder();
       theme_custom.eventMemberData();
     }
@@ -1652,6 +1681,7 @@ $(document).ready(function() {
   window.eventDataObj = {};
   theme_custom.deleteTheLooksItem();
   theme_custom.event_init_page();
+  theme_custom.eventChangeEvent();
   if(localStorage.getItem("set-event-id") != null) {
     theme_custom.getEventDetails();
   } else {
@@ -1665,3 +1695,188 @@ $(document).ready(function() {
     $(".event-step-wrapper, .step-header-wrap, .step-content-wrapper").addClass("hidden");
   }
 })
+
+theme_custom.eventChangeEvent = () =>{
+  $(document).on('click','.final-summary-for-event-page-main-wrapper .update-event-fit-finder',function(){
+    let parent = $(this).closest('.product-card');
+    $(this).text('Updating...');
+    $('select',parent).each((i,item)=>{
+      $(item).attr('data-val',$(item).val());
+    })
+    theme_custom.eventPageeditMySize($(this));
+  });
+  $(document).on('change','.final-summary-for-event-page-main-wrapper select',function(){
+    let parent = $(this).closest('.product-card');
+    let value = $(this).val();
+    let oldVal = $(this).attr('data-val');
+    if(value == oldVal){
+      $('.button-wrap',parent).addClass('hidden');
+    }else{
+      $('.button-wrap',parent).removeClass('hidden');
+    }
+
+    // if($(this).attr('name') == 'jacket-size'){
+    //   let value = $(this).val();
+    //   let oldVal = $(this).attr('data-val');
+    //   if(value == oldVal){
+    //     $('.button-wrap',parent).addClass('hidden');
+    //   }else{
+    //     $('.button-wrap',parent).removeClass('hidden');
+    //   }
+    // }else if($(this).attr('name') == 'jacket-type'){
+      
+    // }else if($(this).attr('name') == 'pants-waist'){
+      
+    // }else if($(this).attr('name') == 'pants-length'){
+      
+    // }else if($(this).attr('name') == 'shirt-neck'){
+      
+    // }else if($(this).attr('name') == 'shirt-sleeve'){
+      
+    // }else if($(this).attr('name') == 'shoes-size'){
+      
+    // }
+  })
+}
+
+
+
+theme_custom.eventPageeditMySize= function(btn){
+  if (getCookie("fit-finder-data") != '') {
+    $('.event-step-wrapper').addClass('hidden');
+    theme_custom.globalLoaderShow();
+    
+    var getFitFinder = JSON.parse(getCookie("fit-finder-data"));
+    getFitFinder['jacketSize'] = $('#jacket-size').val() + ':' + $('#jacket-type').val().charAt(0); 
+    getFitFinder['jacketSize_output'] = $('#jacket-size').val() + ':' + $('#jacket-type').val().charAt(0); 
+    getFitFinder['pants_waist'] = $('#pants-waist').val();
+    getFitFinder['pants_waist_output'] = $('#pants-waist').val();
+    getFitFinder['pants_hight'] = $('#pants-length').val();
+    getFitFinder['pants_hight_output'] = $('#pants-length').val();
+    getFitFinder['shirt_neck'] = $('#shirt-neck').val();
+    getFitFinder['shirt_neck_output'] = $('#shirt-neck').val();
+    getFitFinder['shirt_sleeve'] = $('#shirt-sleeve').val();
+    getFitFinder['shirt_sleeve_output'] = $('#shirt-sleeve').val();
+
+    getFitFinder['shoe_size'] = $('#shoes-size').val();
+    getFitFinder['shoe_size_output'] = $('#shoes-size').val();
+    setCookie("fit-finder-data", JSON.stringify(getFitFinder));
+    var fitFinderJsonData = getFitFinder,
+        age_qus = fitFinderJsonData.age_qus,
+        age = fitFinderJsonData.age,
+        build_qus = fitFinderJsonData.build_qus,
+        build = fitFinderJsonData.build,
+        fit_qus = fitFinderJsonData.fit_qus,
+        fit = fitFinderJsonData.fit,
+        height_qus = fitFinderJsonData.height_qus,
+        height = fitFinderJsonData.height,
+        stomach_qus = fitFinderJsonData.stomach_qus,
+        stomach = fitFinderJsonData.stomach,
+        weight_qus = fitFinderJsonData.weight_qus,
+        weight = fitFinderJsonData.weight,
+        jacket_size_qus = fitFinderJsonData.jacket_size_qus,
+        jacket_size = fitFinderJsonData.jacket_size,
+        jacket_type_qus = fitFinderJsonData.jacket_type_qus,
+        jacket_type = fitFinderJsonData.jacket_type,
+        pants_waist_qus = fitFinderJsonData.pants_waist_qus,
+        pants_waist = fitFinderJsonData.pants_waist,
+        pants_hight_qus = fitFinderJsonData.pants_hight_qus,
+        pants_hight = fitFinderJsonData.pants_hight,
+        shirt_neck_qus = fitFinderJsonData.shirt_neck_qus,
+        shirt_neck = fitFinderJsonData.shirt_neck,
+        shirt_sleeve_qus = fitFinderJsonData.shirt_sleeve_qus,
+        shirt_sleeve = fitFinderJsonData.shirt_sleeve,
+        shoe_size_qus = fitFinderJsonData.shoe_size_qus,
+        shoe_size = fitFinderJsonData.shoe_size,
+        jacketSize = fitFinderJsonData.jacketSize,
+        jacketSize_result = fitFinderJsonData.jacketSize_result;
+    var userID = $("#custom_id_num").val(),
+        userEmail = $("#custom_email").val();
+    fitFinder = {
+        "customer_id": userID,
+        "user_email": userEmail,
+        "age_qus": age_qus,
+        "age": age,
+        "build_qus": build_qus,
+        "build": build,
+        "fit_qus": fit_qus,
+        "fit": fit,
+        "height_qus": height_qus,
+        "height": height,
+        "stomach_qus": stomach_qus,
+        "stomach": stomach,
+        "weight_qus": weight_qus,
+        "weight": weight,
+        "jacket_type_question": jacket_type_qus,
+        "jacket_type": jacket_type,
+        "jacket_size_question": jacket_size_qus,
+        "jacket_size": jacket_size,
+        "pants_waist_question": pants_waist_qus,
+        "pants_waist_output": pants_waist,
+        "pants_waist": pants_waist,
+        "pants_hight_question": pants_hight_qus,
+        "pants_hight_output": pants_hight,
+        "pants_hight": pants_hight,
+        "shirt_neck_question": shirt_neck_qus,
+        "shirt_neck_output": shirt_neck,
+        "shirt_neck": shirt_neck,
+        "shirt_sleeve_question": shirt_sleeve_qus,
+        "shirt_sleeve_output": shirt_sleeve,
+        "shirt_sleeve": shirt_sleeve,
+        "shoe_size_question": shoe_size_qus,
+        "shoe_size_output": shoe_size,
+        "shoe_size": shoe_size,
+        "jacketSize_output": jacketSize,
+        "jacketSize_result": jacketSize_result,
+        "jacketSize": jacketSize
+    }
+
+    $.ajax({
+        url: `${theme_custom.base_url}/api/customer/myFit`,
+        method: "POST",
+        data: fitFinder,
+        dataType: "json",
+        header: {
+            // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
+            "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+        },
+        beforeSend: function () {
+        },
+        success: function (result) {
+            theme_custom.globalLoaderhide();
+            $('.event-step-wrapper').removeClass('hidden');
+            $(btn).text('Update');
+            $(btn).closest('.button-wrap').addClass('hidden');
+        },
+        error: function (xhr, status, error) {
+            theme_custom.globalLoaderhide();
+            $('.event-step-wrapper').removeClass('hidden');
+            $(btn).text('Update');
+            $(btn).closest('.button-wrap').addClass('hidden');
+            if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+                $('.api_error').removeClass("hidden").html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+                    'text-align': 'center',
+                    'color': 'red'
+                });
+                setTimeout(() => {
+                    theme_custom.removeLocalStorage();
+                    window.location.href = '/account/logout';
+                }, 3000);
+            } else {
+                var event_date_msg = '';
+                if (xhr.responseJSON.data != '') {
+                    $.map(xhr.responseJSON.data, function (value, index) {
+                        event_date_msg += `<span>${value}</span>`;
+                    });
+                } else {
+                    event_date_msg += `<span>${xhr.responseJSON.message}</span>`;
+                }
+                $('.api_error').removeClass("hidden").html(event_date_msg);
+                setTimeout(function () {
+                    $('.api_error').addClass("hidden")
+                }, 10000);
+            }
+        }
+    });
+}
+}
