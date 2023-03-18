@@ -196,15 +196,14 @@ theme_custom.ProductData = function(productItemsArr){
     beforeSend: function () {},
     success: function (result) {
       console.log("Product Array",result)
-      var productsArray = result.products;
-      console.log("productsArray data",productsArray);
+      var productsArray = result;
       $.map(productItemsArrayLooks, function(productItemInfo,index) {
-        var product = productsArray.find((item)=>item.id==parseInt(productItemInfo.product_id));
-        var selectedVar = product.variants.find((variant)=>variant.id==parseInt(productItemInfo.variant_id));
+        var product = productsArray[index];
+        var selectedVar = product.variants.find((variant)=>variant.id==productItemInfo.variant_id)
         productItemsArrayLooks[index]["selectedVar"] = selectedVar;
         productItemsArrayLooks[index]["product"] = product;
       });
-      console.log("productItemsArrayLooks",productItemsArrayLooks);
+      console.log("productItemsArrayLooks",)
       
       $.map(productItemsArrayLooks, function(productItem,index) {
         let product = productItem.product; 
@@ -245,9 +244,9 @@ theme_custom.ProductData = function(productItemsArr){
           $.each(product.variants, function (key, value) {
             if(!value.title == ''){
               if(key == 0){
-                prodOptionArray += `<option value="${value.id}" data-variant-inventory="${value.inventory_quantity}" data-product-id="${product.id}" data-variant-title="${value.title}" selected="selected">${value.title}</option>`;
+                prodOptionArray += `<option value="${value.id}" data-product-id="${product.id}" data-variant-title="${value.title}" selected="selected">${value.title}</option>`;
               } else {
-                prodOptionArray += `<option value="${value.id}" data-variant-inventory="${value.inventory_quantity}" data-product-id="${product.id}" data-variant-title="${value.title}">${value.title}</option>`;
+                prodOptionArray += `<option value="${value.id}" data-product-id="${product.id}" data-variant-title="${value.title}">${value.title}</option>`;
               }
             }
           });
@@ -259,17 +258,22 @@ theme_custom.ProductData = function(productItemsArr){
               var subtotalVarPrice = variantSelectedPrice*100;
               var productPrice = theme_custom.Shopify.formatMoney(variantSelectedPrice, theme_custom.money_format);
               // variant title print
-              var productType = product.type.toLowerCase(),
-                  productHandleVal = product.handle,
+              var productType = productItem.product_type.toLowerCase(),
+                  productHandleVal = productItem.handle,
                   productSizeTypeExchangeData = optionfirst = optionSecond = optionThird = edit_item_hidden = '';
-              console.log("variantSelected", variantSelected);
-              if (variantSelected.options.length >= 1) {
+              if (variantSelected.option1 == null ) {
+                optionfirst = '';
+              } else {
                 optionfirst = `<span class="option1" data-value="${variantSelected.option1}"><span class="value">${variantSelected.option1}</span></span>`;
               }
-              if (variantSelected.options.length >= 2) {
+              if (variantSelected.option2 == null ) {
+                optionSecond = '';
+              } else {
                 optionSecond = `<span class="option2" data-value="${variantSelected.option2}">/ <span class="value">${variantSelected.option2}</span></span>`;
               }
-              if (variantSelected.options.length == 3 ) {
+              if (variantSelected.option3 == null ) {
+                optionThird = '';
+              } else {
                 optionThird = `<span class="option3" data-value="${variantSelected.option3}">/ <span class="value">${variantSelected.option3}</span></span>`;
               }
               if(productType == 'jacket' || productType == 'vest' || productType == 'shoes' || productType == 'pants' || productType == 'shirt'){
@@ -285,7 +289,7 @@ theme_custom.ProductData = function(productItemsArr){
                                             <span class="exchange-item-link link hidden"><span class="break">|</span> Edit Size</span>
                                           </p>
                                           <div class="product-swatch-option ${productType}" data-product-handle="${productHandleVal}">
-                                            <div class="product-swatches-main"><h4>${product.title}</h4>${customSwatchWap}</div>
+                                            <div class="product-swatches-main"><h4>${productItem.title}</h4>${customSwatchWap}</div>
                                             <select class="prod-variant-option hidden">${prodOptionArray}</select>
                                             <button type="button" name="exchange-look-item" class="button button--full-width button--primary exchange-look-item disabled" data-text="Updating..">Update</button>
                                           </div>
@@ -293,16 +297,16 @@ theme_custom.ProductData = function(productItemsArr){
               // if(variantSelectedImage == null || variantSelectedImage == '' || variantSelectedImage == undefined){
               //   productImg = productItem.image.src;
               // } else { 
-                // $.each(product.images, function (key, imgValue) {
-                //   if(imgValue.id == variantSelectedImage){
-                //     imageSelected = imgValue;
-                //   }
-                // })
-                productImg = variant.featured_image;
+                $.each(productItem.images, function (key, imgValue) {
+                  if(imgValue.id == variantSelectedImage){
+                    imageSelected = imgValue;
+                  }
+                })
+                productImg = imageSelected.src;
               // }
-              productHtml += `<div class="look-product-wrapper horizontal-product-part-big product-data-card product-card-wrap index-${index}${pantsProd_hide}" data-product-type="${productType}" data-prod-handle="${product.handle}">
+              productHtml += `<div class="look-product-wrapper horizontal-product-part-big product-data-card product-card-wrap index-${index}${pantsProd_hide}" data-product-type="${productType}" data-prod-handle="${productItem.handle}">
                               <div class="product-imge-left">
-                                <img class="prod-img" src="${productImg}" alt="${product.title}" />
+                                <img class="prod-img" src="${productImg}" alt="${productItem.title}" />
                               </div>
                               <div class="product-info">
                                 <input type="hidden" class="product-id" data-product-id="${product.id}" />
@@ -384,22 +388,24 @@ theme_custom.clickEventInvited = function(){
     if(option.length > 0){
       let qty = parseInt(option.attr('data-variant-inventory'))
       if(qty <= 0){
-        $(btn).addClass('disabled');
-        $(btn).text('Out of stock'); 
-        return
+        //$(btn).addClass('disabled');
+        //$(btn).text('Out of stock');
+      }else{
+        // optionValue = option.val();;
+        // $(`select`,parent).val(optionValue);
+        // //$(btn).removeClass('disabled');
+        // $(btn).text('Update');
       }
       optionValue = option.val();;
       $(`select`,parent).val(optionValue);
       $(btn).text('Update');
       let productType = $(btn).attr('data-product-type');
-      let selectedVid = $(`.look-product-wrapper[data-product-type="${productType}"] .overview-variant-id`).attr('data-variant-id')
+      let selectedVid = $(`.customize-look-overview-product[data-product-type="${productType}"] .overview-variant-id`).attr('data-variant-id')
       if(selectedVid == optionValue){
         $(btn).addClass('disabled');
       }else{
         $(btn).removeClass('disabled');
       }
-      var producthandle = parent.attr("data-product-handle");
-      $(`.look-product-wrapper[data-prod-handle="${producthandle}"]`).find(".error-msg").remove();
     }else{
       $(btn).addClass('disabled');
       $(btn).text('Unavailable');
@@ -635,7 +641,7 @@ theme_custom.productVariantSeledtUpdate = function(){
         $(this).find(`[data-option-swatch-index="0"] .swatch-element-item:first`).addClass("active");
       }
     }
-    if($(this).find('.option2').length > 0 ){
+    if($(this).find('.option2').length > 0){
       currentOptionValue = $(this).find('.option2').attr("data-value");
       varintTitle = varintTitle + ' / ' + $(this).find('.option2').attr("data-value");
       if($(this).find(`[data-option-swatch-index="1"] .swatch-element-item[data-title="${currentOptionValue}"]`).length > 0){
@@ -758,7 +764,6 @@ theme_custom.getFitFinderData = function(payBy){
         theme_custom.cartButton = '';
         theme_custom.fitFinderDataSet(result.data);
       }
-      
       if(checkPayBy=="Host" || checkPayBy=="host") {
         $('.price-number').text(theme_custom.Shopify.formatMoney(0000, theme_custom.money_format));
         buttonHtml += `<button type="button" class="button button--primary button-lr-small-padding proceed-to-checkout" data-text="Adding...">
@@ -949,11 +954,4 @@ $(document).ready(function () {
   theme_custom.getEventDetails(eventId);
   theme_custom.getMemberLooksData(eventId,memberId);
   theme_custom.clickEventInvited();
-  setTimeout(function(){
-    if(getCookie('fit-finder-data')==''){
-      $(".return-suit-checkout-button .button").addClass("disabled");
-    } else {
-      $(".return-suit-checkout-button .button").removeClass("disabled");
-    }
-  },3000);
 });

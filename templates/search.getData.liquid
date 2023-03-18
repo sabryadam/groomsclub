@@ -4,7 +4,36 @@
     "products":[
         {% for product in search.results limit: section.settings.products_to_show %}
             {% if product.object_type == 'product' %}
-                {% unless count == 0 %},{% endunless  %}{{product | json }}
+                {% unless count == 0 %},{% endunless  %}
+                {
+                    "id": {{product.id}},
+                    "title": "{{product.title}}",
+                    "handle": "{{product.handle}}",
+                    "image" : {{product.featured_image | json }},
+                    "type": "{{product.type}}",
+                    "price": {{product.price | json}},
+                    "available": {{product.available}},
+                    "options" : {{ product.options_with_values | json }},
+                    "variants": [
+                        {% for variant in product.variants %}
+                            {
+                            "id":{{variant.id}},
+                            "title":"{{variant.title}}",
+                            "option1":"{{variant.option1}}",
+                            "option2":"{{variant.option2}}",
+                            "option3":"{{variant.option3}}",
+                            "sku":"{{variant.sku}}",
+                            "featured_image": {{variant.featured_image | json}},
+                            "available":{{variant.available}},
+                            "name":"{{variant.name}}",
+                            "options":{{variant.options | json}},
+                            "price":{{variant.price}},
+                            "inventory_management":"{{variant.inventory_management}}",
+                            "inventory_quantity":"{{variant.inventory_quantity}}"
+                         }{% unless forloop.last %},{% endunless %}
+                        {% endfor %}
+                    ]
+                }
                 {% assign count = count | plus:1 %}
             {% endif %}
         {% endfor %}

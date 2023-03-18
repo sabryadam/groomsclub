@@ -127,6 +127,7 @@ $(".member-added-into-event").click(function (e) {
 });
 
 theme_custom.user = (user) =>{
+  console.log("user",user);
     let {email, first_name, last_name, phone, status, is_host_paying} = user;
     let whoPay = "";
     if(is_host_paying.toLowerCase() == "self"){
@@ -159,7 +160,7 @@ theme_custom.user = (user) =>{
     <script type="application/json" class='user-data-script'> ${JSON.stringify(user)} </script>
   </div>`
 }
-theme_custom.createLookHtml = (index,div,item, eventMembers, event_id) =>{
+theme_custom.createLookHtml = (index,div,item, eventMembers, event_id) =>{  
   var deleteIconShow = '';
   if(item.assign == true){
     deleteIconShow = 'hidden';
@@ -843,9 +844,11 @@ theme_custom.removeUserFromLook = (eventId,memberId) =>{
                 window.location.href = '/account/logout';
               }, 5000);
             } else {
+              $(".site-global-loader").addClass("hidden");
+              $(`[data-target="remove-data-for-user"]`).removeClass("active");
               alert(xhr.responseJSON.message);
             }
-            theme_custom.globalLoaderhide();
+            // theme_custom.globalLoaderhide();
           }
         });
       }
@@ -1265,7 +1268,7 @@ theme_custom.eventPageClickEvent = function(){
     $(`.modal-wrapper[data-target="remove-data-for-user"]`).find(".member_id").attr("data-type","member-block");
     $(`.modal-wrapper[data-target="remove-data-for-user"]`).find(".event_id").val(event_id);
     $(`.modal-wrapper[data-target="remove-data-for-user"]`).addClass("active");
-    theme_custom.removeUserFromLook(event_id,member_id);
+    // theme_custom.removeUserFromLook(event_id,member_id);
   });
 
   $(document).on('click', '.look-card-block .delete-icon', function(event) {
