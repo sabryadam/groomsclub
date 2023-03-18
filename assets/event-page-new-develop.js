@@ -304,6 +304,7 @@ theme_custom.favoriteLooks = function(){
 
 theme_custom.checkLooks = (id,nextTarget,trigger=true) =>{
   if(!trigger){
+    theme_custom.globalEventData.data.event_looks = theme_custom.globalEventData.data.event_looks.reverse();
     theme_custom.successCallback(theme_custom.globalEventData,nextTarget)
     return
   }
