@@ -9,9 +9,11 @@
                     "id": {{product.id}},
                     "title": "{{product.title}}",
                     "handle": "{{product.handle}}",
+                    "image" : {{product.featured_image | json }},
                     "type": "{{product.type}}",
                     "price": {{product.price | json}},
                     "available": {{product.available}},
+                    "options" : {{ product.options_with_values | json }},
                     "variants": [
                         {% for variant in product.variants %}
                             {

@@ -271,9 +271,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
             });
             var myEvents = allEvents.filter((event)=> event.hostedBy.toLowerCase() == 'me');
             var otherEvents = allEvents.filter((event)=> event.hostedBy.toLowerCase() != 'me');
-            var eventsObj = [myEvents,otherEvents]
-            // console.log("eventsObj",eventsObj);
-
+            var eventsObj = [myEvents,otherEvents];
             var pageCount = eventBlockCount / limit;
             if (result.success) {       
                 if (result.data.events.length > 0) {
@@ -339,6 +337,12 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                             paginationWrapper.append(`<span class="count-number ${pageActiveClass}" data-page="${j+1}"> ${(j + 1)}</span>`)
                         }
                         let containerDiv = $(`<div class="event-container-wrapper event-container-${i} ${activeClass}"></div>`)
+                        if($(".event-container-wrapper.event-container-0").find(".events-container").length == 0){
+                            $('.event-container-wrapper.event-container-0').prepend(`<p style="text-align:center">You have not created any Event.</p>`);
+                        }
+                        if($(".event-container-wrapper.event-container-1").find(".events-container").length == 0){
+                            $('.event-container-wrapper.event-container-1').prepend(`<p style="text-align:center">You have not invited any Event.</p>`);
+                        }
                         containerDiv.append(append_event_html);
                         containerDiv.append(paginationWrapper);
                         if(i == 0){

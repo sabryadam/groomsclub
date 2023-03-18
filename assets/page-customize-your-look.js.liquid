@@ -72,7 +72,6 @@ theme_custom.productDataFromURL = function () {
           variantDropDown = currentOption.closest(".product-item-wrap").find('.product-var-dropdown').html();
         currentVarParent.find('input.selected-variant-id').attr('data-variant-id', productVarId).val(productVarId);
         currentVarParent.find('.swatch-element').attr('data-variant-id', productVarId);
-        console.log("currentOption",currentOption);
         if (varintTitle == undefined || varintTitle == '') {
           continue;
         }
@@ -1122,13 +1121,13 @@ theme_custom.variantDataGet = function (input) {
   selectedOption = $(`[data-product-id="${productId}"][data-variant-title="${varintTitle}"]`);
   if(selectedOption.length <= 0){
      let items = document.querySelectorAll(`[data-product-id="${productId}"]`);
-     for(let i = 0;i < items.length; i++)[
-      var item =  items[i];
+     for(let i = 0;i < items.length; i++){
+        let item =  items[i];
         if(parseInt(item.getAttribute('data-variant-inventory')) > 0 ){
           selectedOption = item;
           break;
         }
-     ]
+      }
   }
   $(`[data-product-id="${productId}"]`).attr('selected', false);
   selectedOption.attr('selected', true);
@@ -1612,6 +1611,10 @@ theme_custom.customize_product_clickEvent = function () {
 
   // add-event-look Click Event 
   $(document).on("click", ".add-event-look", function () {
+    $('html, body').stop().animate({
+      'scrollTop': $(".error-msg").closest(".customize-look-overview-product").offset().top - 10 - $("#shopify-section-header").height()
+    }, 900);
+    return false
     if($(".error-msg:visible").length > 0) {
       let parent = $(".error-msg:visible").closest('.customize-look-overview-product');
       if(parent.length>0){
@@ -1997,6 +2000,12 @@ theme_custom.customize_product_clickEvent = function () {
       if ($(this).closest(".product-block-wrapper").find(".not-color").length > 0) {
         $(this).closest(".product-block-wrapper").find(`.not-color input[type="radio"]`).prop('checked', false);
       }
+      var url_arr = [];
+      var productHandleVal = $(this).closest(".product-block.product-item-wrap").attr("data-product-handle"),
+        productVarId = $(this).closest(".swatches-wrapper").find(".product-var-dropdown").val();
+      var product_data_url = '';
+      product_data_url = productHandleVal + '=' + productVarId;
+      url_arr.push(product_data_url);
       $(this).closest(".product-block-outer-wrapper").find(".product-title").after(`<p class="form-error" style="display:block;border-bottom: 1px solid #f5f5f5;padding-bottom: 10px;">Sorry, this product combination is not available.</p>`);
       $(this).closest(".product-block-outer-wrapper").find(".form-error").show();
       theme_custom.priceUpdate();

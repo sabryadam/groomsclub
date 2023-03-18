@@ -1577,6 +1577,7 @@ html .template-page-create-event .ui-button.ui-state-disabled:active{
 .assign-look-user-wrap{
   max-height: 570px;
   overflow: auto;
+  padding-right: 5px;
 }
 span.look-price {
   display: block;
