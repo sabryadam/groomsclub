@@ -303,7 +303,7 @@ theme_custom.lookImage = function(getEventId,lookID,button){
         $(".look-api-message").addClass("hidden");
         localStorage.setItem("set-event-id",getEventId);
         localStorage.setItem("go-to-event-page","true")
-        window.location.href = `/pages/create-event`
+        window.location.href = `/pages/create-event`;
       },5000);
     },
     error: function(xhr, status, error) {

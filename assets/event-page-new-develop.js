@@ -688,6 +688,8 @@ theme_custom.lookImage = function (look_image, lookID, button) {
       },
       success: function (result) {
         button.removeClass("disabled").text("Look Added");
+        $('.event-step-wrapper').addClass('hidden');
+        theme_custom.globalLoaderShow();
         theme_custom.checkLooks(localStorage.getItem("set-event-id"));
       },
       error: function (xhr, status, error) {        
