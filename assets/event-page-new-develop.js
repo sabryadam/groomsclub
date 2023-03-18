@@ -1247,7 +1247,8 @@ theme_custom.eventPageClickEvent = function(){
   
   $(document).on('click', '.user-card-block .action-icon .edit-icon', function(event) {
     let parent = $(this).closest('.look-card-block');
-    let data =$('.user-data-script',parent).html();
+    let mainParent = $(this).closest('.user-card-block');
+    let data =$('.user-data-script',mainParent).html();
     if(data){
       data = JSON.parse(data);
       let popup = $('[data-target="update-guest-popup"]');
@@ -1257,8 +1258,8 @@ theme_custom.eventPageClickEvent = function(){
       let email = $('.member-email',popup);
       let phone = $('.member-phone',popup);
       let memberId = data.event_member_id;
-      let payHost = $('[name="is_host_paying_update"][data-val="1"]');
-      let payOther = $('[name="is_host_paying_update"][data-val="0"]');
+      let payHost = $('[name="is_host_paying_update"][data-val="1"]',popup);
+      let payOther = $('[name="is_host_paying_update"][data-val="0"]',popup);
 
       firstName.val(data.first_name).trigger('change');
       lastName.val(data.last_name).trigger('change');
