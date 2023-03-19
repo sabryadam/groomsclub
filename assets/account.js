@@ -264,13 +264,15 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
         success: function (result) {
             var eventBlockCount = result.data.totalEvents;
             var allEvents = result.data.events;
-            allEvents.sort(function(a,b){
-                // Turn your strings into dates, and then subtract them
-                // to get a value that is either negative, positive, or zero.
-                return new Date(b.event_date) - new Date(a.event_date);
-            });
+            // allEvents.sort(function(a,b){
+            //     // Turn your strings into dates, and then subtract them
+            //     // to get a value that is either negative, positive, or zero.
+            //     return new Date(b.event_date) - new Date(a.event_date);
+            // });
             var myEvents = allEvents.filter((event)=> event.hostedBy.toLowerCase() == 'me');
+            myEvents = myEvents.reverse();
             var otherEvents = allEvents.filter((event)=> event.hostedBy.toLowerCase() != 'me');
+            otherEvents = otherEvents.reverse();
             var eventsObj = [myEvents,otherEvents];
             var pageCount = eventBlockCount / limit;
             if (result.success) {       

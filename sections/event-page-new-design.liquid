@@ -20,6 +20,14 @@
     {% render 'event-step-3' %}
     {% render 'event-step-4' %}
   </div>
+  <div class="modal-wrapper" data-target="delete-look-have-member">
+    <div class="modal-wrapper-inner-wrapper">
+      <div class="inner-wrapper text-center">
+        <p>Look can't be deleted since a member is already assigned to it, Please remove the member in order to delete the look</p>
+        <button class="button button--primary" data-value="no">Close</button>
+      </div>
+    </div>
+  </div>
 </section>
 
 {% schema %}

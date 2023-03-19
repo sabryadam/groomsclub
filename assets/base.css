@@ -2038,6 +2038,7 @@ blockquote {
 
 select {
   cursor: pointer;
+  font-family: 'Stolzl' !important;
 }
 
 table:not([class]) {
