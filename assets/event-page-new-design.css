@@ -563,6 +563,9 @@
   height: auto;
   /* background: #fff; */
 }
+.event-page-new-design-wrapper .page-width-inner-wrapper .show-look-from-event-wrapper .look-card-block .look-image .customise-look.look-have-member{
+  display: none;
+}
 /* .event-page-new-design-wrapper .page-width-inner-wrapper  .look-card-block .look-image .customise-look:hover{
   background: #1075BC;
   color: #fff;

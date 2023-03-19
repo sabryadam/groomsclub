@@ -164,9 +164,9 @@ theme_custom.user = (user) =>{
   </div>`
 }
 theme_custom.createLookHtml = (index,div,item, eventMembers, event_id) =>{  
-  var deleteIconShow = '';
+  var lookHaveMember = '';
   if(item.assign == true){
-    deleteIconShow = 'look-have-member';
+    lookHaveMember = 'look-have-member';
   }
   let users = "";
   if(item.look_id){
@@ -203,11 +203,11 @@ theme_custom.createLookHtml = (index,div,item, eventMembers, event_id) =>{
       </div>
     </div>
     <div class="look-image">
-      <div class="delete-icon ${deleteIconShow}" data-event-look-id="${item.mapping_id}">
+      <div class="delete-icon ${lookHaveMember}" data-event-look-id="${item.mapping_id}">
         <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/delete.png?v=1678738752" alt="delete icon" />
       </div>
       <img class="look-img" src="${item.look_image}" alt="${item.name}" />
-      <button data-href="${item.url}" edit-look-id="${localStorage.getItem("set-event-id")}" look-mapping-id="${item.mapping_id}" edit-look-name="${item.name}" class="button button--primary customise-look customise-look-button">Customise look</button>
+      <button data-href="${item.url}" edit-look-id="${localStorage.getItem("set-event-id")}" look-mapping-id="${item.mapping_id}" edit-look-name="${item.name}" class="button button--primary customise-look customise-look-button ${lookHaveMember}">Customise look</button>
     </div>
     ${hostLookHTML}
     <div class="assign-look-user-wrap">${users}</div>
@@ -241,14 +241,31 @@ theme_custom.favoriteLooks = function(){
             for (var i = 0; i < result.data.length; i++) {   
               var productArray = result.data[i].items;
               var itemData = '';
-              var suitProduct = ''
+              var productType = ''
               for(var items = 0; items < productArray.length ; items++){
                 if(productArray[items].handle.includes('suit')){
-                  suitProduct = 'suit-product'
-                } else {
-                  suitProduct = 'look-products'
+                  productType = `looks`
+                } else if(productArray[items].handle.includes('jacket')){
+                  productType = 'jacket'
+                } else if(productArray[items].handle.includes('pants')){
+                  productType = 'pants'
+                } else if(productArray[items].handle.includes('vest')){
+                  productType = 'vest'
+                } else if(productArray[items].handle.includes('shoes')){
+                  productType = 'shoes'
+                } else if(productArray[items].handle.includes('neckties')){
+                  productType = 'neckties'
+                } else if(productArray[items].handle.includes('hanky')){
+                  productType = 'hanky'
+                } else if(productArray[items].handle.includes('shirt')){
+                  productType = 'shirt'
+                } else if(productArray[items].handle.includes('bow-ties')){
+                  productType = 'bow-ties'
+                } else if(productArray[items].handle.includes('belt')){
+                  productType = 'belt'
                 }
-                itemData += `<div class="product-data-card ${suitProduct}" >
+                
+                itemData += `<div class="product-data-card" data-product-handle="${productArray[items].handle}" data-product-type="${productType}">
                   <input type="hidden" class="looks-product-id" value="${productArray[items].product_id}" />
                   <input type="hidden" class="looks-product-var-id" value="${productArray[items].variant_id}" />
                   <input type="hidden" class="looks-product-handle" value="${productArray[items].handle}" />
@@ -267,7 +284,7 @@ theme_custom.favoriteLooks = function(){
                 <img src="${favorite_look_image}" alt="favourite-look-img">
               </div>
               <div class="product-info">
-                <div class="item-data-wrapper">${itemData}</div>
+                <div class="bundle-product-wrapper">${itemData}</div>
                 <h4 class="product-title">${result.data[i].name}</h4>
                 <p class="product-price">Starting at $199.99</p>
                 <p class="taxes-text">Price includes suit jacket and pants</p>
