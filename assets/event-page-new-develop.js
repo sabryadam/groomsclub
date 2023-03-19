@@ -1,5 +1,6 @@
 // event-new-development
 theme_custom.base_url = theme_custom.api_base_url;
+theme_custom.eventFavLooks = [];
 theme_custom.globalEventData = null;
 const APP_Token = 'Bearer ' + localStorage.getItem("customerToken");
 
@@ -232,6 +233,7 @@ theme_custom.favoriteLooks = function(){
     },
     success: function (result) {
       if (result.success) {
+        theme_custom.eventFavLooks = result.data;
           if (result.data.length > 0) {
             var append_fav_html = "";
             $('#choose-form-favorite .product-wrapper').html(append_fav_html);
@@ -246,7 +248,7 @@ theme_custom.favoriteLooks = function(){
                 } else {
                   suitProduct = 'look-products'
                 }
-                itemData += `<div class="product-data-card ${suitProduct}">
+                itemData += `<div class="product-data-card ${suitProduct}" >
                   <input type="hidden" class="looks-product-id" value="${productArray[items].product_id}" />
                   <input type="hidden" class="looks-product-var-id" value="${productArray[items].variant_id}" />
                   <input type="hidden" class="looks-product-handle" value="${productArray[items].handle}" />
@@ -260,7 +262,7 @@ theme_custom.favoriteLooks = function(){
               } else {
                 edit_link = ``;
               }
-              append_fav_html += `<div class="product-card">
+              append_fav_html += `<div class="product-card" data-id="${result.data[i].id}" data-name="${result.data[i].name}">
               <div class="img">
                 <img src="${favorite_look_image}" alt="favourite-look-img">
               </div>
@@ -303,6 +305,7 @@ theme_custom.favoriteLooks = function(){
 
 theme_custom.checkLooks = (id,nextTarget,trigger=true) =>{
   if(!trigger){
+    theme_custom.globalEventData.data.event_looks = theme_custom.globalEventData.data.event_looks.reverse();
     theme_custom.successCallback(theme_custom.globalEventData,nextTarget)
     return
   }
@@ -688,7 +691,9 @@ theme_custom.lookImage = function (look_image, lookID, button) {
 
       },
       success: function (result) {
-        button.removeClass("disabled").text("Look Added");
+        button.text("Look Added");
+        $('.event-step-wrapper').addClass('hidden');
+        theme_custom.globalLoaderShow();
         theme_custom.checkLooks(localStorage.getItem("set-event-id"));
         $('.event-step-wrapper').addClass('hidden');
         theme_custom.globalLoaderShow();
@@ -1356,7 +1361,8 @@ theme_custom.eventPageClickEvent = function(){
       url: url,
       dataType: 'html',
       success: function(data) {
-        $("#browser-top-looks").find(".product-wrapper").html(data)
+        $("#browser-top-looks").find(".product-wrapper").html(data);
+        theme_custom.updateSelectedLooks($('#browser-top-looks'))
       }
     });
   });
@@ -1453,7 +1459,9 @@ theme_custom.eventPageClickEvent = function(){
   $(document).on("click",".popup-button",function(){
     var targetEl = $(this).attr("data-title");
     $(`.modal-wrapper`).removeClass("active");
-    $(`.modal-wrapper[data-target="${targetEl}"]`).addClass("active");
+    let popup = $(`.modal-wrapper[data-target="${targetEl}"]`);
+    theme_custom.updateSelectedLooks(popup);
+    $(popup).addClass("active");
     $(`html,body`).css({
       "overflow" : "hidden"
     })
@@ -1656,6 +1664,8 @@ theme_custom.deleteTheLooksItem = function (eventLookId) {
           $(".step-content-wrapper.create-event-look").find(".show-look-from-event-wrapper").hide();
         }
         setTimeout(() => {
+          // $(".event-page-new-design-wrapper").find(".loader-wrapper").addClass("hidden");
+          // $(".event-page-new-design-wrapper").find(".event-step-wrapper").removeClass("hidden");
           theme_custom.checkLooks(localStorage.getItem("set-event-id"));
         }, 1000);
       },
@@ -1890,4 +1900,19 @@ theme_custom.eventPageeditMySize= function(btn){
         }
     });
 }
+}
+theme_custom.updateSelectedLooks = (popup) =>{
+  debugger;
+  $('.product-card',popup).each((i,item)=>{
+    let looks = theme_custom.globalEventData.data.event_looks;
+    let name = $(item).attr('data-name');
+    let existLook = looks.find((look)=> look.name == name);
+    if(existLook){
+      let btn = $(item).find('.look-added-into-event');
+      btn.addClass('disabled').text('Look Added')
+    }
+  })
+  // Look Added
+  // theme_custom.eventFavLooks
+  // theme_custom.globalEventData
 }

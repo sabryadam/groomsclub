@@ -1611,10 +1611,10 @@ theme_custom.customize_product_clickEvent = function () {
 
   // add-event-look Click Event 
   $(document).on("click", ".add-event-look", function () {
-    $('html, body').stop().animate({
-      'scrollTop': $(".error-msg").closest(".customize-look-overview-product").offset().top - 10 - $("#shopify-section-header").height()
-    }, 900);
-    return false
+    // $('html, body').stop().animate({
+    //   'scrollTop': $(".error-msg").closest(".customize-look-overview-product").offset().top - 10 - $("#shopify-section-header").height()
+    // }, 900);
+    // return false
     if($(".error-msg:visible").length > 0) {
       let parent = $(".error-msg:visible").closest('.customize-look-overview-product');
       if(parent.length>0){

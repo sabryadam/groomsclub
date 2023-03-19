@@ -262,6 +262,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
 
         },
         success: function (result) {
+            debugger;
             var eventBlockCount = result.data.totalEvents;
             var allEvents = result.data.events;
             // allEvents.sort(function(a,b){

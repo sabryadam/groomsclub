@@ -55,7 +55,7 @@
           {%- assign top_look_collection = collections[section.settings.top_look_collections] -%}
           {%- paginate top_look_collection.products by 2  -%}
             {%- for product in top_look_collection.products -%}
-              <div class="product-card">
+              <div class="product-card" data-name="{{product.title}}">
                 <div class="img">
                   <a href="{{ product.url }}" target="_blank" tabindex="0" title="{{ product.title}}">
                     <img src="{{ product.featured_image | product_img_url : 'master' }}" alt="{{ product.title }}" />
