@@ -26,7 +26,7 @@ theme_custom.lookAssignToMember = function(member_id,look_id){
     success: function (result) {
       theme_custom.checkLooks(localStorage.getItem("set-event-id"));
       $('[data-target="add-guest-popup"]').removeClass('active');
-      $('.member-added-into-event').removeClass('disabled')
+      $('.member-added-into-event').removeClass('disabled');
     },
     error: function (xhr, status, error) {
       $(this).removeClass("disabled");
@@ -138,7 +138,7 @@ theme_custom.user = (user) =>{
     }else{
       whoPay = "They Pay";
     }
-    const deleteIcon = `<div class="member-delete-icon" data-member-id="${user.event_member_id}">
+    const deleteIcon = `<div class="member-delete-icon payment-${status}" data-member-id="${user.event_member_id}">
       <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/delete.png?v=1678738752" alt="delete icon" />
     </div>`
     return `<div class="user-card-block">
@@ -158,7 +158,7 @@ theme_custom.user = (user) =>{
         <span class="size-select-check">status : ${status}</span>
         <span class="reminder-wrap">REMINDER</span>
       </div>
-      <spa class="pay-status">${whoPay}</span>
+      <spa class="pay-status" pay-info="${whoPay}">${whoPay}</span>
     </div>
     <script type="application/json" class='user-data-script'> ${JSON.stringify(user)} </script>
   </div>`
@@ -362,6 +362,11 @@ theme_custom.successCallback = (data,nextTarget) =>{
         theme_custom.globalLoaderhide();
         $(".event-page-new-design-wrapper").find(".loader-wrapper").addClass("hidden");
         $(".event-page-new-design-wrapper").find(".event-step-wrapper").removeClass("hidden");
+        if($(`[data-step-content-wrap="3"] .user-card-block .pay-status[pay-info="I pay"]`).length > 0) {
+          $(`[data-step-content-wrap="3"]`).find(".btn-wrap.next-button").removeClass("disabled");
+        } else {
+          $(`[data-step-content-wrap="3"]`).find(".btn-wrap.next-button").addClass("disabled");
+        }
       }, 2000);
     }else{
       $(`[data-target="remove-data-for-user"]`).removeClass("active");
@@ -441,10 +446,13 @@ theme_custom.updateEventAPI = function(btn){
     return false;
   }
   if (error_count == 0) {
-    button.addClass('loading')
+    button.addClass('loading');
     var event_name = $('.event-page-new-design-wrapper .event-name').val();
     var event_type = $('.event-page-new-design-wrapper [name="event-type"]:checked').attr('data-event-type-id');
-    var event_date = $('.event-page-new-design-wrapper #event_date').val();
+    var eventDate = $('.event-page-new-design-wrapper #event_date').val();
+    var changeEventDateArr = eventDate.split('-');
+    var changeEventDate = changeEventDateArr[2] +"-"+changeEventDateArr[0]+"-"+changeEventDateArr[1];
+    var event_date = changeEventDate;
     var event_role = $('.event-page-new-design-wrapper [name="event-role"]:checked').attr('data-event-role-id');
     var event_phone = $('.event-page-new-design-wrapper .phone-number').val().replace('(','').replace(' ','').replace(')','').replace('-','');
     var event_data = {
@@ -563,10 +571,13 @@ theme_custom.createEventAPI = function(btn){
     return false;
   }
   if (error_count == 0) {
-    button.addClass('loading')
+    button.addClass('loading');
     var event_name = $('.event-page-new-design-wrapper .event-name').val();
     var event_type = $('.event-page-new-design-wrapper [name="event-type"]:checked').attr('data-event-type-id');
-    var event_date = $('.event-page-new-design-wrapper #event_date').val();
+    var eventDate = $('.event-page-new-design-wrapper #event_date').val();
+    var changeEventDateArr = eventDate.split('-');
+    var changeEventDate = changeEventDateArr[2] +"-"+changeEventDateArr[0]+"-"+changeEventDateArr[1];
+    var event_date = changeEventDate;
     var event_role = $('.event-page-new-design-wrapper [name="event-role"]:checked').attr('data-event-role-id');
     var event_phone = $('.event-page-new-design-wrapper .phone-number').val().replace('(','').replace(' ','').replace(')','').replace('-','');
     var event_data = {
@@ -794,36 +805,31 @@ theme_custom.lookAddedIntoEvent = function(){
     button.text($(this).data("text"));
     var lookName = $(this).closest(".product-card").find(".product-title").text(),
         eventId = $(this).closest(".event-page-new-design-wrapper").find("#event-id").val();
-    var custom_look_new_url = '/pages/customize-your-look?';
-    $(this).closest(".product-card").find(`.item-data-wrapper .product-data-card.look-products`).each(function(){
-      var productHandle = $(this).find(".looks-product-handle").val();
-      var productVarId = $(this).find(".looks-product-var-id").val();
-      if($(this).closest(".product-card").find(`.item-data-wrapper .product-data-card.look-products`).length > 1) {
-        if(custom_look_new_url.indexOf("=") > -1) {
-          custom_look_new_url += "&"+productHandle+'='+productVarId;
-        }else{
-          custom_look_new_url += productHandle+'='+productVarId;
-        }
-      } else {
-        custom_look_new_url += productHandle+'='+productVarId;
-      }
-    });
-    lookUrl = custom_look_new_url;
-    var productDataCardArr = $(this).closest(".product-card").find(`.item-data-wrapper .product-data-card.look-products`),
+    var productDataCardArr = $(this).closest(".product-card").find(`.product-data-card`),
         dataObj = {};
     theme_custom.newArray = [],
     productDataCardArr.each(function(){
-      if($(this).closest(".product-card").find(`.item-data-wrapper .product-data-card.look-products .looks-product-var-id`).val() != ''){
-        dataObj = {
-          "product_id": $(this).find(".looks-product-id").val(),
-          "variant_id": $(this).find(".looks-product-var-id").val(),
-          "product_handle": $(this).find(".looks-product-handle").val(),
-          "type": "looks"
-        }
-        theme_custom.newArray.push(dataObj);
+      dataObj = {
+        "product_id": $(this).find(".looks-product-id").val(),
+        "variant_id": $(this).find(".looks-product-var-id").val(),
+        "product_handle": $(this).find(".looks-product-handle").val(),
+        "type": $(this).attr("data-product-type")
+      }
+      theme_custom.newArray.push(dataObj);
+    });
+    produArray = theme_custom.newArray;
+    var custom_look_new_url = '/pages/customize-your-look?';
+    productDataCardArr.each(function(i){
+      var productVarId = $(this).find(".looks-product-var-id").val();
+      var productHandle = $(this).find(".looks-product-handle").val();
+      if ( i === 0) {
+        custom_look_new_url += productHandle+'='+productVarId;
+      } else {
+        custom_look_new_url += "&"+productHandle+'='+productVarId;
       }
     })
-    produArray = theme_custom.newArray;
+    var lookUrl = custom_look_new_url;
+
     var productImageUrl = $(this).closest(".product-card").find(".img img").attr("src");
     theme_custom.toDataURL(productImageUrl, function(dataUrl) {
       theme_custom.image_url = dataUrl;
@@ -1293,6 +1299,10 @@ theme_custom.eventPageClickEvent = function(){
 
   $(document).on('click', '.user-card-block .action-icon .member-delete-icon', function(event) {
     event.preventDefault();
+    if($(this).hasClass("payment-Complete")){
+      $(`.modal-wrapper[data-target="member-payment-complete"]`).addClass("active");
+      return false
+    }
     let parent = $(this).closest('.look-card-block');
     let member_id = $(this).attr('data-member-id');
     let event_id = parent.attr('data-event-id');
@@ -1339,7 +1349,9 @@ theme_custom.eventPageClickEvent = function(){
   $(document).on("click",`[data-target="delete-look-have-member"] button`,function(){
     $(`.modal-wrapper[data-target="delete-look-have-member"]`).removeClass("active");
   })
-
+  $(document).on("click",`[data-target="member-payment-complete"] button`,function(){
+    $(`.modal-wrapper[data-target="member-payment-complete"]`).removeClass("active");
+  })
   $(document).on('click', '.pay-info-confirmation-wrap .confirm-box-wrap .update-host-look', function(event) {
     let value = $(this).attr('data-value');
     let parent = $(this).closest('.look-card-block');
@@ -1438,11 +1450,16 @@ theme_custom.eventPageClickEvent = function(){
       goNext = false;
     }
     if($(this).closest(`.step-content-wrapper[data-step-content-wrap="4"]`).length > 0){
-      theme_custom.checkLooks(localStorage.getItem("set-event-id"),prevTarget,false);
+      if(theme_custom.globalEventData){
+        theme_custom.checkLooks(localStorage.getItem("set-event-id"),prevTarget,false);
+      } else {
+        theme_custom.checkLooks(localStorage.getItem("set-event-id"),prevTarget,true);
+      }
       goNext = false;
     }
     if(goNext){
       theme_custom.changeStep(prevTarget);
+      theme_custom.globalLoaderhide();
     }
     $(`.step-wrap[data-step-label-wrap="${currentTabHead}"]`).removeClass("active");
   })
@@ -1593,6 +1610,7 @@ theme_custom.getEventDetails = function(){
       $(`.step-content-wrapper[data-step-content-wrap="1"]`).addClass("active");
       $(`.step-content-wrapper[data-step-content-wrap="1"]`).find(".event-update-button").removeClass("disabled").removeClass("hidden")
       if(location.href.includes('?step')){
+        theme_custom.checkLooks(localStorage.getItem("set-event-id"));
         $(".step-wrap").addClass("active");
         $(`.step-content-wrapper[data-step-content-wrap="3"]`).find(".next-button").click();
         $(".loader-wrapper").addClass("hidden");
@@ -1693,7 +1711,7 @@ theme_custom.checkUpdateEvent = function(checkEventData,value,selector){
 $(document).ready(function() {
   // theme_custom.updateEvent();
   $( "#event_date" ).datepicker({ 
-    dateFormat: 'yy-mm-dd',
+    dateFormat: 'mm-dd-yy',
     minDate : 0
   });
   // window.eventDate = $( ".event-data-first-step" ).datepicker({
@@ -1715,6 +1733,7 @@ $(document).ready(function() {
     $(".loader-wrapper").removeClass("hidden");
     $(".event-step-wrapper, .step-header-wrap, .step-content-wrapper").addClass("hidden");
   }
+  $(`[data-step-content-wrap="3"]`).find(".btn-wrap.next-button").addClass("disabled");
 })
 
 theme_custom.eventChangeEvent = () =>{
@@ -1902,7 +1921,6 @@ theme_custom.eventPageeditMySize= function(btn){
 }
 }
 theme_custom.updateSelectedLooks = (popup) =>{
-  debugger;
   $('.product-card',popup).each((i,item)=>{
     let looks = theme_custom.globalEventData.data.event_looks;
     let name = $(item).attr('data-name');
@@ -1910,9 +1928,9 @@ theme_custom.updateSelectedLooks = (popup) =>{
     if(existLook){
       let btn = $(item).find('.look-added-into-event');
       btn.addClass('disabled').text('Look Added')
+    } else {
+      let btn = $(item).find('.look-added-into-event');
+      btn.removeClass("disabled").text('Add to Event');
     }
   })
-  // Look Added
-  // theme_custom.eventFavLooks
-  // theme_custom.globalEventData
 }

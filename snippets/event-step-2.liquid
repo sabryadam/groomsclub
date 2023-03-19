@@ -62,44 +62,59 @@
                   </a>
                 </div>
                 <div class="product-info">
-                  <div class="item-data-wrapper">
-                    {% assign suitProductHandle = product.metafields.my_fields.jacket_pants_title | downcase | handleize | strip -%}
-                    {% assign suitProductHandleData = all_products[suitProductHandle] %}
-                    <div class="product-data-card" data-product-handle="{{ suitProductHandleData.handle }}" data-product-type="{{ suitProductHandleData.type }}">
-                      <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ suitProductHandleData.selected_or_first_available_variant.id }}">
-                      <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ suitProductHandleData.selected_or_first_available_variant.id }}">
-                      <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ suitProductHandleData.handle}}">
+                  <div class="bundle-product-wrapper">
+                    {%- assign suitProdHandle = product.metafields.my_fields.jacket_pants_title | downcase | handleize | strip -%}
+                    {%- assign suitProdu = all_products[suitProdHandle] -%}
+                    {%- assign looksProductType =  product.type %}
+                    {%- if product.type == 'suit' or product.type == 'Suit' -%} 
+                      {%- assign looksProductType =  'looks' %}
+                    {%- endif -%}
+                    <div class="product-data-card-wrap product-data-card" data-product-handle="{{ suitProdHandle }}" data-product-type="{{ looksProductType }}">
+                      <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ suitProdu.id }}">
+                      <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ suitProdu.selected_or_first_available_variant.id }}">
+                      <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ suitProdHandle}}">
+                      <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ suitProdu.selected_or_first_available_variant.id }}">
+                      <input type="hidden" name="looks-product-main-image" class="looks-product-main-image" value="{{ product.featured_image | img_url: 'master' }}">
                     </div>
-                    {% assign customLookProducts = product.metafields.custom_look %}
-                    {% assign metaDataSize =  customLookProducts.size | minus : 1 %}
-                    {%- for i in (i..metaDataSize) -%}
-                      {%- assign customLookProd = 'products-' | append : i -%}
-                      {%- assign productHandleArr = product.metafields.custom_look[customLookProd] -%}
-                      {%- if productHandleArr contains '?variant=' -%}
-                        {%- assign productHandleVal = productHandleArr | split : ','  -%}
-                        {%- for producthandleitem in productHandleVal -%}
-                          {%- assign prodHandle = producthandleitem | split: '?' | first -%}
-                          {%- assign prodVarId = producthandleitem | split: '?' | last | remove: 'variant=' | plus: 0 -%}
-                          {%- assign getProduct = all_products[prodHandle] -%}
-                          <div data-target="with-variant" class="product-data-card look-products" data-product-handle="{{ getProduct.handle }}" data-product-type="{{ getProduct.type }}">
-                            <input type="hidden" class="looks-product-id" value="{{ getProduct.id }}" />
-                            <input type="hidden" class="looks-product-var-id" value="{{ getProduct.selected_or_first_available_variant.id }}" />
-                            <input type="hidden" class="looks-product-handle" value="{{ getProduct.handle }}" />
-                          </div>
-                        {%- endfor -%}
-                      {%- else -%}
-                        {%- assign productHandleVal = productHandleArr | split : ',' -%}
-                        {%- for producthandleitem in productHandleVal -%}
-                          {%- assign producthandleitemData = producthandleitem -%}
-                          {%- assign suitGetProduct = all_products[producthandleitemData] -%}
-                          <div data-target="with-out-variant" class="product-data-card look-products" data-product-handle="test-{{ producthandleitemData }}" data-product-type="{{ suitGetProduct.type }}">
-                            <input type="hidden" class="looks-product-id" value="{{ suitGetProduct.id }}" />
-                            <input type="hidden" class="looks-product-var-id" value="{{ suitGetProduct.selected_or_first_available_variant.id }}" />
-                            <input type="hidden" class="looks-product-handle" value="{{ suitGetProduct.handle }}" />
-                          </div>
-                        {%- endfor -%}
-                      {%- endif -%} 
+                    {% assign productHandleArrVarHandle = product.metafields.custom_look.products-0 %}
+                    {% assign producthandleVarMeta = productHandleArrVarHandle | split : ',' %}
+                    {%- for productItem in producthandleVarMeta -%}
+                      {%- assign productHandle = all_products[productItem] -%}
+                      {%- assign productSelectedType  = productHandle.type | downcase -%}
+                      {%- unless productHandle == blank -%}
+                        <div class="product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
+                          <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
+                          <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ productHandle.selected_or_first_available_variant.id }}">
+                          <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
+                          <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ productHandle.selected_or_first_available_variant.id }}">
+                        </div>
+                      {%- endunless -%}
                     {%- endfor -%}
+                    {% assign customLookProducts = product.metafields.custom_look %}
+                    {%- assign customLookProductsVar = false -%}
+                    {%- if customLookProducts.size > 0 -%}
+                      {%- assign customLookProductsVar = true -%}
+                    {%- endif -%}
+                    {%- if customLookProductsVar -%}
+                      {%- for i in (i..customLookProducts.size) -%}
+                        {%- assign customLookProd = 'products-' | append : i -%}
+                        {% assign productHandleArr = product.metafields.custom_look[customLookProd] %}
+                        {%- if productHandleArr contains '?variant=' -%}
+                          {%- assign productHandleVal = productHandleArr | split : ',' -%}
+                          {%- for producthandleitem in productHandleVal -%}
+                            {%- assign accessoriesProdHandle = producthandleitem | split: '?' | first -%}
+                            {%- assign accessoriesProdVarId = producthandleitem | split: '?' | last | remove: 'variant=' | plus: 0 -%}
+                            {%- assign productHandle = all_products[accessoriesProdHandle] -%}
+                            <div class="product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
+                              <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
+                              <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ accessoriesProdVarId }}">
+                              <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
+                              <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ accessoriesProdVarId }}">
+                            </div>
+                          {% endfor %}
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
                   </div>
                   <h4 class="product-title">{{ product.title }}</h4>
                   <p class="product-price">Starting at {{ product.price | money }}</p>

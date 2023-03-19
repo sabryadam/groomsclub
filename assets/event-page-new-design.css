@@ -291,6 +291,7 @@
   border-radius: 5px;
   padding: 0 15px;
   font-family: 'Stolzl' !important;
+  cursor: pointer;
 }
 
 .event-page-new-design-wrapper .page-width-inner-wrapper .event-date-wrap .form-wrap #event_date::placeholder{
@@ -370,7 +371,9 @@
   }  
 }
 .modal-wrapper[data-target="add-guest-popup"] .modal-wrapper-inner-wrapper,
-.modal-wrapper[data-target="update-guest-popup"] .modal-wrapper-inner-wrapper{
+.modal-wrapper[data-target="update-guest-popup"] .modal-wrapper-inner-wrapper,
+.modal-wrapper[data-target="member-payment-complete"] .modal-wrapper-inner-wrapper,
+.modal-wrapper[data-target="delete-look-have-member"] .modal-wrapper-inner-wrapper{
   min-height: auto;
   padding-bottom: 50px;
   max-width: 587px;
@@ -378,7 +381,9 @@
 }
 @media(max-width:767px){
   .modal-wrapper[data-target="add-guest-popup"] .modal-wrapper-inner-wrapper,
-  .modal-wrapper[data-target="update-guest-popup"] .modal-wrapper-inner-wrapper{
+  .modal-wrapper[data-target="update-guest-popup"] .modal-wrapper-inner-wrapper,
+  .modal-wrapper[data-target="member-payment-complete"] .modal-wrapper-inner-wrapper,
+  .modal-wrapper[data-target="delete-look-have-member"] .modal-wrapper-inner-wrapper{
     min-width: calc(100% - 30px);
   } 
 }
@@ -837,6 +842,7 @@
 .event-page-new-design-wrapper .page-width-inner-wrapper .look-card-block .assign-look-user-wrap .user-card-block .size-selected-info .reminder-wrap {
   background: rgba(6, 0, 0, 0.13);
   border: 1px solid #D9D9D9;
+  display: none;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .look-card-block .assign-look-user-wrap .user-card-block .size-selected-info .size-select-check{
   background: #FFFFFF;
@@ -1600,14 +1606,19 @@ span.look-price {
   padding: 0;
   height: auto;
 }
-.modal-wrapper[data-target="delete-look-have-member"] .modal-wrapper-inner-wrapper{
+.modal-wrapper[data-target="delete-look-have-member"] .modal-wrapper-inner-wrapper,
+.modal-wrapper[data-target="member-payment-complete"] .modal-wrapper-inner-wrapper{
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  min-height: 300px;
+  padding: 25px 15px 40px;
 }
-.modal-wrapper[data-target="delete-look-have-member"] .modal-wrapper-inner-wrapper .inner-wrapper{
+.modal-wrapper[data-target="delete-look-have-member"] .modal-wrapper-inner-wrapper .inner-wrapper,
+.modal-wrapper[data-target="member-payment-complete"] .modal-wrapper-inner-wrapper .inner-wrapper{
   max-width: 80%;
+}
+.button{
+  cursor: pointer;
 }

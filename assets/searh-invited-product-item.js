@@ -198,7 +198,6 @@ theme_custom.ProductData = function(productItemsArr){
       console.log("Product Array",result)
       var productsArray = result;
       $.map(productItemsArrayLooks, function(productItemInfo,index) {
-        debugger;
         var product = productsArray[index];
         var selectedVar = product.variants.find((variant)=>variant.id==productItemInfo.variant_id)
         productItemsArrayLooks[index]["selectedVar"] = selectedVar;

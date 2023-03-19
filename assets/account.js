@@ -262,7 +262,6 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
 
         },
         success: function (result) {
-            debugger;
             var eventBlockCount = result.data.totalEvents;
             var allEvents = result.data.events;
             // allEvents.sort(function(a,b){
@@ -347,7 +346,9 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                             $('.event-container-wrapper.event-container-1').prepend(`<p style="text-align:center">You have not invited any Event.</p>`);
                         }
                         containerDiv.append(append_event_html);
-                        containerDiv.append(paginationWrapper);
+                        if(paginateNumber>1){
+                            containerDiv.append(paginationWrapper);
+                        }
                         if(i == 0){
                             containerDiv.append(`<div class="add-new-event-btn btn-wrapper">
                             <span class="button button--primary btn-small create-event-header-button" data-href="/pages/create-event" style="margin: 0 auto;">CREATE NEW EVENT</span>

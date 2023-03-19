@@ -636,7 +636,7 @@
                       {%- assign looksProductType =  'looks' %}
                     {%- endif -%}
                     <div class="product-data-card-wrap" data-product-handle="{{ suitProdHandle }}" data-product-type="{{ looksProductType }}">
-                      <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ suitProdu.selected_or_first_available_variant.id }}">
+                      <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ suitProdu.id }}">
                       <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ suitProdu.selected_or_first_available_variant.id }}">
                       <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ suitProdHandle}}">
                       <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ suitProdu.selected_or_first_available_variant.id }}">
