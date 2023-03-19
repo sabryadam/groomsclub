@@ -51,7 +51,7 @@ theme_custom.productDataFromURL = function () {
       getProductItem = getQueryParam.split("&"),
       customizeLookProduct = [],
       productImageOld, productImageOneOld, productTypeOld;
-    if (getProductItem.length > 0) {
+    if (getUrlArr.length > 0) {
       $(".next-step").removeClass("disabled");
       $(".tabbed-content-title").addClass("tab-header");
       if (getCookie("fit-finder-data") == "") {
