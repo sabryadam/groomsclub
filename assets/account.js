@@ -35,11 +35,12 @@ theme_custom.deleteEvent = function(event_id){
         beforeSend: function () {
         },
         success: function (result) {
-            $(`.events-container[data-event-id="${theme_custom.event_id}"]`).remove();
-            $("#my-events").find(".events-main-container").prepend(`<p class="success-event" style="text-align:left; padding-left:15px;padding-right:15px">${result.message}</p>`);
             setTimeout(() => {
+                $(`.events-container[data-event-id="${theme_custom.event_id}"]`).remove();
+                $(`.modal-wrapper[data-target="event-delete-from-event-list"]`).removeClass("active");
                 theme_custom.geteventslist();
-            }, 5000);
+                $(".page-loader").addClass("hidden");
+            }, 3000);
         }
     });
 }
@@ -404,10 +405,19 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
 
 // Event delete 
 $(document).on("click",".event-action-btns .event-delete-btn", function(){
-    $(this).text("Deleting.....");
-    theme_custom.deleteEvent($(this).closest(".events-container").find(".events-main-link").attr("data-event-id"));
+    var eventLookId = $(this).closest(".events-container").find(".events-main-link").attr("data-event-id");
+    $(`.modal-wrapper[data-target="event-delete-from-event-list"]`).addClass("active").find(".event_id").val(eventLookId);
 });
-
+$(document).on("click",`[data-target="event-delete-from-event-list"] button`,function(){
+    var target = $(this).attr('data-value');
+    if(target == 'yes'){ 
+        var eventLookId = $(this).closest(".modal-wrapper-inner-wrapper").find(".event_id").val();
+        $(".page-loader").removeClass("hidden");
+        theme_custom.deleteEvent(eventLookId);
+    } else {
+        $('.close-icon').click();
+    }
+})
 $(document).on("click", ".events-main-container .custom-event-button, .events-main-link ", function () {
     var hostedBy = $(this).data("hosted-by");
     localStorage.setItem("hosted-by", hostedBy);
@@ -772,7 +782,13 @@ function addtoeventlist(favid) {
             var event_list_html = '';
             $('.favorite-looks-wrapper, .addevent-popup').css('cursor', '');
             if (result.success) {
-                if (result.data.events.length > 0) {
+                var selfEventCount = 0;
+                for (var i = 0; i < result.data.events.length; i++) {
+                    if(result.data.events[i].hostedBy == 'self'){
+                        selfEventCount = 1;
+                    }
+                }
+                if (selfEventCount > 0) {
                     event_list_html += `<label class="form-label field__label hidden">Select Upcoming Event:</label> <select class="add_eventlist_select">
                     <option value="" selected> Select Event </option>`;
                     for (var i = 0; i < result.data.events.length; i++) {
@@ -787,7 +803,7 @@ function addtoeventlist(favid) {
                 } else {
                     var errorPopup = `<section class="create-event-look" style="display: none;">
                                         <div class="empty-error-msg text_center">
-                                            <p> We didn't find the Event Please <a href="/pages/create-event" title="Create Event">Create the Event </a> </p>
+                                            <p> We didn't find the Event Please <a class="button button--secondary btn-small" href="/pages/create-event" title="Create Event" style="display: inline-block;margin-left: 10px;">Create the Event </a> </p>
                                         </div>
                                     </section>`;
                     $('.favorite-looks-wrapper').append(errorPopup);
@@ -950,7 +966,9 @@ $(document).on('click', '#addeventfav_btn', function () {
                 button.removeClass("disabled");
                 $('.add-event-success-msg').remove();
                 $('.addevent-popup .close-btn').click();
-                window.location.href = '/pages/my-event?event_id=' + eventid;
+                localStorage.setItem("showEventStepSecond","true");
+                localStorage.setItem("set-event-id",eventid);
+                window.location.href = '/pages/create-event';
             }, 3000);
             // theme_custom.toDataURL(look_image_url, function(dataUrl) {
             //     theme_custom.image_url = dataUrl;

@@ -524,3 +524,48 @@
 .main-account-page #tabs-content .tab-content .feature-looks-slider .slick-track{
     display: flex;
 }
+.modal-wrapper {
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #00000075;
+    display: none;
+}
+.modal-wrapper.active {
+    display: block;
+}
+.modal-wrapper[data-target="event-delete-from-event-list"] .modal-wrapper-inner-wrapper {
+    margin: 0 auto;
+    overflow: auto;
+    background: #FFFFFF;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    padding-bottom: 50px;
+    padding-top: 50px;
+    max-width: 587px;
+    min-width: 587px;
+    min-height: initial;
+    max-height: initial;
+}
+.modal-wrapper .modal-wrapper-inner-wrapper .title{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #1075bc;
+    text-align: center;
+    z-index: 9;
+    background: #fff;
+    margin: 0;
+    top: 0;
+    display: flex;
+    padding: 25px;
+    padding-top: 0;
+    align-items: center;
+    justify-content: center;
+}
