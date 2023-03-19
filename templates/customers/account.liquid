@@ -18,13 +18,13 @@
 </div>{% endcomment %}
   <!-- Tab heading -->
   <div id="acc-tabs-wr" class="tabs main-account-page">
-    <div class="modal-wrapper" data-target="event-delete-from-event-list">
+    <div class="modal-wrapper" data-target="delete-data-from-api">
       <div class="modal-wrapper-inner-wrapper">
         <h4 class="title">
           <span class="heading">Are you sure you want to remove this?</span>
         </h4>
         <div class="inner-wrapper">
-          <input type="hidden" class="event_id" data-type="delete-look-block">
+          <input type="hidden" class="data_target_id" data-type="">
           <div class="text-center">
             <button class="button button--primary" data-value="yes">Yes</button>
             <button class="button button--primary" data-value="no">No</button>
@@ -133,7 +133,7 @@
                           </div>
                         </div>   
                         <input type="hidden" id="fav-lookupid">
-                        <button class="button button--primary"  type="button" id="addeventfav_btn">Save</button>
+                        <button class="button button--primary disabled"  type="button" id="addeventfav_btn">Save</button>
                         
                       </div>
                     </div>

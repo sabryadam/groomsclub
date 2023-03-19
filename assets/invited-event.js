@@ -174,7 +174,6 @@ theme_custom.draftOrder = function(button,parent){
 theme_custom.ProductData = function(productItemsArr){
   var productHtml = productSizeTypeExchangeData = pantProductHTML = productSubTotalPrice = "",
       subTotal = 0;
-  console.log("productItemsArr",productItemsArr);
   var productItemsArrayLooks = productItemsArr;
   var product_ids = '';
   $.map(productItemsArr, function(productItems,index) {

@@ -537,7 +537,7 @@
 .modal-wrapper.active {
     display: block;
 }
-.modal-wrapper[data-target="event-delete-from-event-list"] .modal-wrapper-inner-wrapper {
+.modal-wrapper[data-target="delete-data-from-api"] .modal-wrapper-inner-wrapper {
     margin: 0 auto;
     overflow: auto;
     background: #FFFFFF;

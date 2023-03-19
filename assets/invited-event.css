@@ -147,7 +147,8 @@
   order: 4;
 }
 .invited-assigned-look .horizontal-product-part-big[data-product-type="neckties"],
-.invited-assigned-look .horizontal-product-part-big[data-product-type="bow-ties"]{
+.invited-assigned-look .horizontal-product-part-big[data-product-type="bow-ties"],
+.invited-assigned-look .horizontal-product-part-big[data-product-type="bow ties"]{
   order: 5;
 }
 .invited-assigned-look .horizontal-product-part-big[data-product-type="hanky"]{

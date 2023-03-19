@@ -37,7 +37,7 @@ theme_custom.deleteEvent = function(event_id){
         success: function (result) {
             setTimeout(() => {
                 $(`.events-container[data-event-id="${theme_custom.event_id}"]`).remove();
-                $(`.modal-wrapper[data-target="event-delete-from-event-list"]`).removeClass("active");
+                $(`.modal-wrapper[data-target="delete-data-from-api"]`).removeClass("active");
                 theme_custom.geteventslist();
                 $(".page-loader").addClass("hidden");
             }, 3000);
@@ -406,16 +406,24 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
 // Event delete 
 $(document).on("click",".event-action-btns .event-delete-btn", function(){
     var eventLookId = $(this).closest(".events-container").find(".events-main-link").attr("data-event-id");
-    $(`.modal-wrapper[data-target="event-delete-from-event-list"]`).addClass("active").find(".event_id").val(eventLookId);
+    $(`.modal-wrapper[data-target="delete-data-from-api"]`).addClass("active").find(".data_target_id").val(eventLookId).attr("data-type","event-remove-from-list");
 });
-$(document).on("click",`[data-target="event-delete-from-event-list"] button`,function(){
+$(document).on("click",`[data-target="delete-data-from-api"] button`,function(){
     var target = $(this).attr('data-value');
+    var checkData = $(this).closest(".modal-wrapper-inner-wrapper").find(".data_target_id").attr("data-type");
     if(target == 'yes'){ 
-        var eventLookId = $(this).closest(".modal-wrapper-inner-wrapper").find(".event_id").val();
-        $(".page-loader").removeClass("hidden");
-        theme_custom.deleteEvent(eventLookId);
+        if(checkData=='event-remove-from-list') {
+            var eventLookId = $(this).closest(".modal-wrapper-inner-wrapper").find(".data_target_id").val();
+            $(".page-loader").removeClass("hidden");
+            theme_custom.deleteEvent(eventLookId);
+        }
+        if(checkData=="favourite-look-delete"){
+            var favouriteLookId = $(this).closest(".modal-wrapper-inner-wrapper").find(".data_target_id").val();
+            $(".page-loader").removeClass("hidden");
+            deletefavoritelooks(favouriteLookId);
+        }
     } else {
-        $('.close-icon').click();
+        $(`.modal-wrapper[data-target="delete-data-from-api"]`).removeClass("active");
     }
 })
 $(document).on("click", ".events-main-container .custom-event-button, .events-main-link ", function () {
@@ -502,6 +510,7 @@ function favoritelooks() {
         },
         success: function (result) {
             $('.feature-looks-slider-loader').remove();
+            $(`.modal-wrapper[data-target="delete-data-from-api"]`).removeClass("active");
             if (result.success) {
                 if (result.data.length > 0) {
                     theme_custom.favLooksData = result.data;
@@ -536,7 +545,7 @@ function favoritelooks() {
                             <span>${result.data[i].name}</span>
                         </div>
                         <div class="delete-fav-wrap">
-                        <span><a href="javascript:void(0)" class="link delete_favorites" data-favid="${result.data[i].id} " >Remove</a></span>
+                        <span><a href="javascript:void(0)" class="link delete_favorites" data-favid="${result.data[i].id}" >Remove</a></span>
                         </div>
                         <div class="look-changes btn-wrapper product-slider-detail-edit">
                           <a  class="button button--primary fav-look-add-to-cart hidden" data-index="${i}">Add to Cart</a>
@@ -584,7 +593,7 @@ function favoritelooks() {
                     $('.feature-looks-slider').html(html);
                     $("#favorite-look").addClass('empty-favourite')
                 }
-
+                $(".page-loader").addClass("hidden");
             } else {
                 // alert(result.data.success);
             }
@@ -633,7 +642,6 @@ function deletefavoritelooks(looksoid) {
             success: function (result) {
                 $('.favorite-looks-wrapper').css('cursor', 'allowed');
                 favoritelooks();
-
             },
             error: function (xhr, status, error) {
                 if (xhr.responseJSON.message == 'Token is invalid or expired.') {
@@ -667,12 +675,9 @@ $(document).on("click", ".edit-favorite-look-button", function () {
 });
 
 $(document).on('click', '.delete_favorites', function () {
+    // var eventLookId = $(this).closest(".events-container").find(".events-main-link").attr("data-event-id");
     var favid = $(this).data('favid');
-    var confirms = confirm("Are you sure you want to remove this?");
-    if (favid && confirms) {
-        deletefavoritelooks(favid);
-    }
-
+    $(`.modal-wrapper[data-target="delete-data-from-api"]`).addClass("active").find(".data_target_id").val(favid).attr("data-type","favourite-look-delete");
 });
 
 $(document).on('click','.feature-looks-slider .fav-look-add-to-cart',function(){
@@ -784,13 +789,13 @@ function addtoeventlist(favid) {
             if (result.success) {
                 var selfEventCount = 0;
                 for (var i = 0; i < result.data.events.length; i++) {
-                    if(result.data.events[i].hostedBy == 'self'){
+                    if(result.data.events[i].hostedBy == 'Me'){
                         selfEventCount = 1;
                     }
                 }
                 if (selfEventCount > 0) {
                     event_list_html += `<label class="form-label field__label hidden">Select Upcoming Event:</label> <select class="add_eventlist_select">
-                    <option value="" selected> Select Event </option>`;
+                    <option value="select event" selected> Select Event </option>`;
                     for (var i = 0; i < result.data.events.length; i++) {
                         if (result.data.events[i].hostedBy == 'Me' || result.data.events[i].hostedBy == 'me') {
                             event_list_html += `<option value="${result.data.events[i].event_id}"> ${result.data.events[i].name} </option>`;
@@ -857,6 +862,14 @@ $(document).on('click', '.tabs-nav li a', function (e) {
 });
 $(document).on('change', '.add_eventlist_select', function () {
     $('p.event-option-error').remove();
+});
+
+$(document).on('change', '.add_eventlist_select', function() {
+    if($(this).val() == 'select event'){
+        $("#addeventfav_btn").addClass("disabled");
+    } else {
+        $("#addeventfav_btn").removeClass("disabled");
+    }
 });
 
 theme_custom.toDataURL = function (url, callback) {

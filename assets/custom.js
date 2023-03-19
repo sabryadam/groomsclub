@@ -183,8 +183,16 @@ theme_custom.getVariantData = function (parentEl) {
       parent.find(".error-message").text('Please select the size!').show();
       parent.find('.product-block-wrap .error-message').addClass("error-show");
     } else {
-      parent.find(".error-message").text('Product is not available for that specific size!').show();
-      parent.find('.product-block-wrap .error-message').addClass("error-show");
+      var parentType = parent.attr("data-product-type");
+      console.log("parent",parentType);
+      if(parentType=='jacket'){
+        $(`.product-variant-wrap[data-product-type="jacket"]`).find(".error-message").addClass("error-show").text('Product is not available for that specific size!').show();
+      } else if (parentType=='pants') {
+        $(`.product-variant-wrap[data-product-type="pants"]`).find(".error-message").addClass("error-show").text('Product is not available for that specific size!').show();
+      } else {
+        parent.find(".error-message").text('Product is not available for that specific size!').show();
+        parent.find('.product-block-wrap .error-message').addClass("error-show");
+      }
     }
   } else {
     parent.find('.pdp-updates-button button').removeClass('disabled');
