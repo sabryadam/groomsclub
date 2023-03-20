@@ -1468,6 +1468,12 @@ theme_custom.clickEvent = function () {
               button.removeClass("disable");
               window.location.href = '/account';
             }, 1500)
+          } else {
+            $('.api_error').show().html(`${xhr.responseJSON.data.event_date[i]}`);
+            setTimeout(function () {
+              $('.api_error').fadeOut();
+              button.removeClass("disable");
+            }, 10000);
           }
         },
         error: function (xhr, status, error) {
@@ -1490,13 +1496,19 @@ theme_custom.clickEvent = function () {
                   event_date_msg += `<span>${xhr.responseJSON.data.event_date[i]}</span>`;
                 }
               } else {
-                for (let i = 0; i < xhr.responseJSON.data.length; i++) {
-                  var errorMsg = xhr.responseJSON.data[i];
-                  var membererror = '';
-                  $.each(errorMsg, function (key, value) {
-                    membererror += `<p><b style="text-transform: uppercase;">${key}</b>: ${value}</p>`;
-                  })
-                  event_date_msg += `<div>${membererror}</div>`;
+                if(xhr.responseJSON.data.length > 0){
+                  for (let i = 0; i < xhr.responseJSON.data.length; i++) {
+                    var errorMsg = xhr.responseJSON.data[i];
+                    var membererror = '';
+                    $.each(errorMsg, function (key, value) {
+                      membererror += `<p><b style="text-transform: uppercase;">${key}</b>: ${value}</p>`;
+                    })
+                    event_date_msg += `<div>${membererror}</div>`;
+                  }
+                } else {
+                  for (let i = 0; i < xhr.responseJSON.data.members.length; i++) {
+                    event_date_msg += `<span>${xhr.responseJSON.data.members[i]}</span>`;
+                  }
                 }
               }
             } else {
