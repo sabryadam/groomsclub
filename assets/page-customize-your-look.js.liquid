@@ -1217,6 +1217,9 @@ theme_custom.setFinderData = function () {
         variantTitle = variantTitle + ' / ' + currentProduct.find('[data-option-index="2"]').val();
       }
       selectedOption = currentProduct.find(`[data-variant-title="${variantTitle}"]`).val();
+      if(!selectedOption){
+        selectedOption = currentProduct.find(`[data-available="true"]`).val();;
+      }
       if (selectedOption != undefined) {
         var product_data_url = '';
         product_data_url = currentProduct.attr("data-product-handle") + '=' + selectedOption;
