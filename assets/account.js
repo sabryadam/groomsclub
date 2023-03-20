@@ -515,7 +515,6 @@ function favoritelooks() {
             if (result.success) {
                 if (result.data.length > 0) {
                     theme_custom.favLooksData = result.data;
-                    // console.log("result.data",result.data);
                     var append_fav_html = "";
                     $('.feature-looks-slider').html(append_fav_html);
                     var edit_link = '';
@@ -1296,7 +1295,6 @@ theme_custom.updateMySize = function (fitFinderJson, button) {
       beforeSend: function () {
       },
       success: function (result) {
-        // console.log("Result",result.data);
         var setFitFinderCookie = {
             "customer_id": result.data.customer_id,
             "user_email": result.data.email,
@@ -1346,7 +1344,6 @@ theme_custom.updateMySize = function (fitFinderJson, button) {
             button.closest('.edit-size-popup').find('.api_error.success-event').show();
         }
         var jacketType = result.data.jacketSize.split(":");
-        // console.log("JacketType",jacketType);
         var jacketTypeVal = '';
         if (jacketType[1] == "S") {
             jacketTypeVal = 'Short'
@@ -1437,7 +1434,6 @@ $(document).on("click", ".update-btn-main .update-my-size", function (e) {
         }else if($(this).closest('.edit-size-popup').attr('data-popup') == 'edit-pants'){
             var edit_pant_waist_size = $(this).closest('.edit-size-popup').find('[name="waist"]:checked').val(),
                 edit_pant_height = $(this).closest('.edit-size-popup').find('[name="inseam"]:checked').val();
-                // console.log('edit_pant_height',edit_pant_height);
             getFitFinder['pants_waist'] = edit_pant_waist_size;
             getFitFinder['pants_waist_output'] = edit_pant_waist_size;
             getFitFinder['pants_hight'] = edit_pant_height;

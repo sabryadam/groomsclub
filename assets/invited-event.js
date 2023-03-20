@@ -194,16 +194,13 @@ theme_custom.ProductData = function(productItemsArr){
     },
     beforeSend: function () {},
     success: function (result) {
-      console.log("Product Array",result)
       var productsArray = result.products;
-      console.log("productsArray data",productsArray);
       $.map(productItemsArrayLooks, function(productItemInfo,index) {
         var product = productsArray.find((item)=>item.id==parseInt(productItemInfo.product_id));
         var selectedVar = product.variants.find((variant)=>variant.id==parseInt(productItemInfo.variant_id));
         productItemsArrayLooks[index]["selectedVar"] = selectedVar;
         productItemsArrayLooks[index]["product"] = product;
       });
-      console.log("productItemsArrayLooks",productItemsArrayLooks);
       
       $.map(productItemsArrayLooks, function(productItem,index) {
         let product = productItem.product; 
@@ -261,7 +258,6 @@ theme_custom.ProductData = function(productItemsArr){
               var productType = product.type.toLowerCase(),
                   productHandleVal = product.handle,
                   productSizeTypeExchangeData = optionfirst = optionSecond = optionThird = edit_item_hidden = '';
-              console.log("variantSelected", variantSelected);
               if (variantSelected.options.length >= 1) {
                 optionfirst = `<span class="option1" data-value="${variantSelected.option1}"><span class="value">${variantSelected.option1}</span></span>`;
               }

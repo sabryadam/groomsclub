@@ -174,7 +174,6 @@ theme_custom.draftOrder = function(button,parent){
 theme_custom.ProductData = function(productItemsArr){
   var productHtml = productSizeTypeExchangeData = pantProductHTML = productSubTotalPrice = "",
       subTotal = 0;
-  console.log("productItemsArr",productItemsArr);
   var productItemsArrayLooks = productItemsArr;
   var product_ids = '';
   $.map(productItemsArr, function(productItems,index) {
@@ -195,7 +194,6 @@ theme_custom.ProductData = function(productItemsArr){
     },
     beforeSend: function () {},
     success: function (result) {
-      console.log("Product Array",result)
       var productsArray = result;
       $.map(productItemsArrayLooks, function(productItemInfo,index) {
         var product = productsArray[index];
@@ -203,7 +201,6 @@ theme_custom.ProductData = function(productItemsArr){
         productItemsArrayLooks[index]["selectedVar"] = selectedVar;
         productItemsArrayLooks[index]["product"] = product;
       });
-      console.log("productItemsArrayLooks",)
       
       $.map(productItemsArrayLooks, function(productItem,index) {
         let product = productItem.product; 
