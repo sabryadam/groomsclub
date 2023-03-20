@@ -249,14 +249,14 @@
   
   </script>
 
-  {%- if template contains 'virtual-consultant' -%}
+  {%- if template contains 'index' or template contains 'virtual-consultant'  -%}
     <!-- Calendly badge widget begin -->
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
     <script type="text/javascript">window.onload = function() { Calendly.initBadgeWidget({ url: 'https://calendly.com/groomsclub/30min', text: 'Schedule time with me', color: '#0069ff', textColor: '#ffffff', branding: true }); }</script>
     <!-- Calendly badge widget end -->
     <script>
-      $(document).on("click", ".image-with-text__content .appointment-button", function(){
+      $(document).on("click", ".appointment-button", function(){
         $(".calendly-badge-content").click()
       })
     </script>
@@ -268,7 +268,10 @@
       }
     </style>
   {%- endif -%}
-
+  {%- if page.handle == 'create-event' -%}
+    {{ 'event-page-new-design.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'event-page-new-develop.js' | asset_url }}" defer></script>
+  {%- endif -%}
 </head>
 {%- capture body_class -%}
 {%- if template.name == 'product' -%}
@@ -380,6 +383,13 @@
 
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-</body>
+<div class="site-global-loader hidden">
+  <div class="loading-overlay__spinner">
+      <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+          <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+      </svg>
+  </div>
+</div>
+  </body>
 
 </html>

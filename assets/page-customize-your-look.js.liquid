@@ -7,7 +7,8 @@ theme_custom.removeTieBar = function () {
   $(`.product-block-wrapper[data-product-type="tie-bar"]`).closest(".product-block-outer-wrapper").hide();
   $(`.mobile-tab-content-title[data-target="tie-bar"]`).hide();
   $(`.tabbed-content-block-inner-wrapper[data-tab-content="customize"] .continue-button.mobile-next-tab-btn-main`).hide();
-        $(`.tabbed-content-block-inner-wrapper[data-tab-content="customize"] .continue-button:not(.mobile-next-tab-btn-main)`).show();
+  $(`.tabbed-content-block-inner-wrapper[data-tab-content="customize"] .continue-button:not(.mobile-next-tab-btn-main)`).show();
+  $(".product-block-wrapper[data-product-type='tie-bar']").closest(".product-block-outer-wrapper").find(".color-title").text('')
 }
 
 //  theme_custom.priceUpdate function
@@ -50,7 +51,7 @@ theme_custom.productDataFromURL = function () {
       getProductItem = getQueryParam.split("&"),
       customizeLookProduct = [],
       productImageOld, productImageOneOld, productTypeOld;
-    if (getUrlArr.length > 0) {
+    if (getProductItem.length > 0) {
       $(".next-step").removeClass("disabled");
       $(".tabbed-content-title").addClass("tab-header");
       if (getCookie("fit-finder-data") == "") {
@@ -403,6 +404,7 @@ theme_custom.removeProductOnUncheck = function (productVarId, prodHandle, produc
           }
         }
         // }
+        currentInput.closest('.product-block-outer-wrapper').find(".color-title").text('');
         currentInput.closest('.swatch-wrap').removeClass("unchecked-product");
       }
       var dataTarget = currentOption.closest(".product-block-wrapper").attr("data-product-type").toLowerCase();
@@ -476,15 +478,44 @@ theme_custom.LookImageCustomizer = function (getEventId, lookID, button) {
 
     },
     success: function (result) {
-      $(".look-api-message").text("Look successfully added to Event").addClass("sucess-msg").removeClass("hidden").show();
-      setTimeout(() => {
-        $(".look-api-message").addClass("hidden");
-        button.removeClass("disabled");
-        button.find(".loading-overlay").addClass("hidden");
-        button.find(".button-title").text("Added To Event");
-        window.location.href = `/pages/my-event?event_id=${getEventId}`
-        localStorage.removeItem("customizerlookUrl");
-      }, 5000);
+      if(localStorage.getItem("customize-from-event") != null){
+        $(".look-api-message").text("Look successfully Updated").addClass("sucess-msg").removeClass("hidden").show();
+        setTimeout(() => {
+          $(".look-api-message").addClass("hidden");
+          localStorage.removeItem("customize-from-event");
+          localStorage.removeItem("eventLookId");
+          localStorage.removeItem("eventLookName");
+          localStorage.removeItem("customizerlookUrl");
+          button.removeClass("disabled");
+          button.find(".button-title").text("Look Updated");
+          button.find(".loading-overlay").addClass("hidden");
+          localStorage.setItem("back-to-event-page","true");
+          window.location.href = `/pages/create-event`;
+        }, 5000);
+      }else if(localStorage.getItem("customise-look-button-for-add-look-into-event") != null){
+        setTimeout(() => {
+          localStorage.removeItem("customise-look-button-for-add-look-into-event");
+          localStorage.removeItem("customizerlookUrl");
+          button.removeClass("disabled");
+          button.find(".button-title").text("Look Added");
+          button.find(".loading-overlay").addClass("hidden");
+          localStorage.setItem("back-to-event-page","true");
+          window.location.href = `/pages/create-event`;
+        }, 5000);
+      } else { 
+        $(".look-api-message").text("Look successfully added to Event").addClass("sucess-msg").removeClass("hidden").show();
+        setTimeout(() => {
+          localStorage.setItem("set-event-id",$("#event-id").val())
+          localStorage.setItem("set-event-id",getEventId);
+          localStorage.setItem("go-to-event-page","true")
+          localStorage.removeItem("customizerlookUrl");
+          $(".look-api-message").addClass("hidden");
+          button.removeClass("disabled");
+          button.find(".loading-overlay").addClass("hidden");
+          button.find(".button-title").text("Added To Event");
+          window.location.href = `/pages/create-event`;
+        }, 5000);
+      }
     },
     error: function (xhr, status, error) {
       if (xhr.responseJSON.message == 'Token is invalid or expired.') {
@@ -544,7 +575,12 @@ theme_custom.favoriteLookImageCustomizer = function (lookID, button) {
           button.find(".button-title").text("Look Updated");
           button.find(".loading-overlay").addClass("hidden");
           $(".favourite-look-api-message").addClass("hidden");
-          window.location.href = `/account#tab-3`
+          if(localStorage.getItem('editLookId') != null && localStorage.getItem('editLookName') != null && localStorage.getItem("look-for-favourite")){
+            localStorage.removeItem('editLookId');
+            localStorage.removeItem('editLookName');
+            localStorage.removeItem("look-for-favourite");
+          }
+          window.location.href = `/account?tab=favorite-look`
         }, 3000);
       } else {
         $(".favourite-look-api-message").text("Look added successfully to Favorite").addClass("sucess-msg").removeClass("hidden").show();
@@ -553,7 +589,7 @@ theme_custom.favoriteLookImageCustomizer = function (lookID, button) {
           button.find(".button-title").text("Added in Favorite");
           button.find(".loading-overlay").addClass("hidden");
           $(".favourite-look-api-message").addClass("hidden");
-          window.location.href = `/account#tab-3`
+          window.location.href = `/account?tab=favorite-look`
         }, 3000);
       }      
     },
@@ -782,6 +818,14 @@ theme_custom.getEventData = function (modalTarget) {
           }
         }
         $("select#event-id").html(optionVal);
+        if(localStorage.getItem("eventLookName") != null && localStorage.getItem("eventLookId") != null && localStorage.getItem("customize-from-event") != null){
+          $(".create-event-look #look-name").val(localStorage.getItem("eventLookName"));
+          $(".create-event-look #event-id").addClass("disabled").val(localStorage.getItem("set-event-id")).change();
+          $(".add-event-look-api-button").removeClass("add-event-look-api-button").addClass("update-event-look-api-button").attr("data-text","Look Updating...").find(".button-title").text("Update Look");
+        }
+        if(localStorage.getItem("customise-look-button-for-add-look-into-event") != null && localStorage.getItem("set-event-id") != null){
+          $('#event-id').addClass("disabled").val(localStorage.getItem("set-event-id")).change();
+        }
       } else {
         $(".page-loader").addClass("hidden");
         $("html,body").css("overflow", "visible");
@@ -945,10 +989,7 @@ theme_custom.favoriteLookUpdate = function (eventButton) {
         },
         beforeSend: function () {},
         success: function (result) {
-          console.log("Look Update");
           theme_custom.favouriteLookApi(lookName, lookUrl, produArray, button);
-          localStorage.removeItem('editLookId');
-          localStorage.removeItem('editLookName');
         },
         error: function (xhr, status, error) {
           if (xhr.responseJSON.message == 'Token is invalid or expired.') {
@@ -1078,6 +1119,16 @@ theme_custom.variantDataGet = function (input) {
     varintTitle = varintTitle + ' / ' + parent.find('[data-option-index="2"]').val();
   }
   selectedOption = $(`[data-product-id="${productId}"][data-variant-title="${varintTitle}"]`);
+  if(selectedOption.length <= 0){
+     let items = document.querySelectorAll(`[data-product-id="${productId}"]`);
+     for(let i = 0;i < items.length; i++){
+        let item =  items[i];
+        if(parseInt(item.getAttribute('data-variant-inventory')) > 0 ){
+          selectedOption = item;
+          break;
+        }
+      }
+  }
   $(`[data-product-id="${productId}"]`).attr('selected', false);
   selectedOption.attr('selected', true);
   variantPrice = selectedOption.attr('data-variant-price');
@@ -1098,7 +1149,6 @@ theme_custom.variantDataGet = function (input) {
 // theme_custom.setFinderData
 theme_custom.setFinderData = function () {
   var getFitFinderData = JSON.parse(getCookie("fit-finder-data"));
-  // console.log(getFitFinderData);
   var jacketType = getFitFinderData.jacketSize.split(":");
   var jacketTypeVal = '';
   if (jacketType[1] == "S") {
@@ -1497,7 +1547,21 @@ theme_custom.customize_product_clickEvent = function () {
 
   // favorite-event-button 
   $(document).on("click", ".favorite-event-button", function () {
-    $(`[name="look-name"]`).val('');
+    if($(".error-msg:visible").length > 0) {
+      let parent = $(".error-msg:visible").closest('.customize-look-overview-product');
+      if(parent.length>0){
+        $('html, body').stop().animate({
+          'scrollTop': $(parent).offset().top - $("#shopify-section-header").height() + 10
+        }, "slow");
+        return false;
+      }
+      else{
+        $('html, body').stop().animate({
+          'scrollTop': $(".error-msg:visible").offset().top - $("#shopify-section-header").height() + 10
+        }, "slow");
+        return false;    
+      }
+    } 
     if(localStorage.getItem("editLookName") != null && localStorage.getItem("editLookId") != null){
       $(`[name="look-name"]`).val(localStorage.getItem("editLookName"));
     }
@@ -1547,6 +1611,25 @@ theme_custom.customize_product_clickEvent = function () {
 
   // add-event-look Click Event 
   $(document).on("click", ".add-event-look", function () {
+    // $('html, body').stop().animate({
+    //   'scrollTop': $(".error-msg").closest(".customize-look-overview-product").offset().top - 10 - $("#shopify-section-header").height()
+    // }, 900);
+    // return false
+    if($(".error-msg:visible").length > 0) {
+      let parent = $(".error-msg:visible").closest('.customize-look-overview-product');
+      if(parent.length>0){
+        $('html, body').stop().animate({
+          'scrollTop': $(parent).offset().top - $("#shopify-section-header").height() + 10
+        }, "slow");
+        return false;
+      }
+      else{
+        $('html, body').stop().animate({
+          'scrollTop': $(".error-msg:visible").offset().top - $("#shopify-section-header").height() + 10
+        }, "slow");
+        return false;    
+      }
+    } 
     $("html,body").css("overflow", "hidden");
     $(".page-loader").removeClass("hidden");
     var modalTarget = $(this).closest(".customize-your-look-page").find(".create-event-look");
@@ -1561,6 +1644,16 @@ theme_custom.customize_product_clickEvent = function () {
     button.find(".loading-overlay").removeClass("hidden");
     button.find(".button-title").text(button.attr("data-text"));
     theme_custom.addLookToEvent(button);
+  })
+
+  // update-event-look-api-button Click Event 
+  $(document).on("click", ".update-event-look-api-button", function (e) {
+    theme_custom.button = $(this);
+    var button = $(this);
+    button.addClass("disabled");
+    button.find(".loading-overlay").removeClass("hidden");
+    button.find(".button-title").text(button.attr("data-text"));
+    theme_custom.removeLookFromEvent(theme_custom.button);
   })
 
   $(".next-step").click(function () {
@@ -1590,7 +1683,7 @@ theme_custom.customize_product_clickEvent = function () {
       
       if( targetElm.nextAll().attr("data-target") == 'overview' && getCookie("fit-finder-data") == "" ){
         //$('.overview-tab .overview-product.no-product-in-overview').hide();
-        $('.overview-tab .product-info-footer .add-to-cart-button').addClass('disabled');
+        $('.overview-tab .product-info-footer .add-to-cart-button').removeClass('disabled');
       }else{
         //$('.overview-tab .overview-product.no-product-in-overview').show();
         $('.overview-tab .product-info-footer .add-to-cart-button').removeClass('disabled');
@@ -1716,6 +1809,7 @@ theme_custom.customize_product_clickEvent = function () {
     var colorVal = $(this).val(),
       parent = $(this).closest(".product-block-wrapper");
     $(".form-error").remove();
+    $(this).closest(".product-block-outer-wrapper").find(".product-title-wrap .color-title").text(colorVal);
     if ($(this).closest(".tabbed-content-block-inner-wrapper[data-tab-content='personalize']").length > 0) {
       $(".vest-customize-image").addClass("hide");
       if ($(".product-block-wrapper[data-product-type='jacket']")) {
@@ -1756,12 +1850,14 @@ theme_custom.customize_product_clickEvent = function () {
       $(".product-block-wrapper[data-product-type='neckties']").find('input[type="radio"]').prop("checked", false);
       $(".product-block-wrapper[data-product-type='neckties']").find('.swatch-wrap.unchecked-product').removeClass("unchecked-product");
       $(".product-block-wrapper[data-product-type='neckties']").closest(".product-block-outer-wrapper").find('.product-title .price-wrap').hide();
+      $(".product-block-wrapper[data-product-type='neckties']").closest(".product-block-outer-wrapper").find(".product-title-wrap .color-title").text('');
       $(".neckties-customize-image").addClass("hide");
       theme_custom.removeTieBar();
     } else if ($(this).closest(".product-block-wrapper[data-product-type='neckties']").length > 0) {
       $(".product-block-wrapper[data-product-type='bow-ties']").find('input[type="radio"]').prop("checked", false);
       $(".product-block-wrapper[data-product-type='bow-ties']").find('.swatch-wrap.unchecked-product').removeClass("unchecked-product");
       $(".product-block-wrapper[data-product-type='bow-ties']").closest(".product-block-outer-wrapper").find('.product-title .price-wrap').hide();
+      $(".product-block-wrapper[data-product-type='bow-ties']").closest(".product-block-outer-wrapper").find(".product-title-wrap .color-title").text('');
       $(".bow-ties-customize-image").addClass("hide");
       if (parent.find('.not-color input:checked').length == 0) {
         parent.find('.not-color .swatch-wrap:first-child input').prop('checked', true);
@@ -1904,6 +2000,12 @@ theme_custom.customize_product_clickEvent = function () {
       if ($(this).closest(".product-block-wrapper").find(".not-color").length > 0) {
         $(this).closest(".product-block-wrapper").find(`.not-color input[type="radio"]`).prop('checked', false);
       }
+      var url_arr = [];
+      var productHandleVal = $(this).closest(".product-block.product-item-wrap").attr("data-product-handle"),
+        productVarId = $(this).closest(".swatches-wrapper").find(".product-var-dropdown").val();
+      var product_data_url = '';
+      product_data_url = productHandleVal + '=' + productVarId;
+      url_arr.push(product_data_url);
       $(this).closest(".product-block-outer-wrapper").find(".product-title").after(`<p class="form-error" style="display:block;border-bottom: 1px solid #f5f5f5;padding-bottom: 10px;">Sorry, this product combination is not available.</p>`);
       $(this).closest(".product-block-outer-wrapper").find(".form-error").show();
       theme_custom.priceUpdate();
@@ -2083,12 +2185,22 @@ theme_custom.fitFinderData = function () {
 }
 
 theme_custom.checkEditLook = function(){
-  if(localStorage.getItem("editLookName") != null && localStorage.getItem("editLookId") != null){
-    $(`[data-tab-content='overview']`).find(".add-to-cart-button").addClass("update-look").addClass("favorite-event-button").removeClass("add-to-cart-button");
+  if(localStorage.getItem("eventLookName") != null && localStorage.getItem("eventLookId") != null && localStorage.getItem("customize-from-event") != null){
+    $(`[data-tab-content='overview']`).find('.add-to-event span').text("Update Look and Continue");
+    $(`[data-tab-content='overview']`).find(`.wishlist-add-event-part .wishlist-icon-wrap, .product-share-button, .button-wrapper`).hide();
+  } 
+  if(localStorage.getItem("editLookName") != null && localStorage.getItem("editLookId") != null && localStorage.getItem("look-for-favourite") != null){
+    $(`[data-tab-content='overview']`).find('.wishlist-icon-wrap').addClass("update-look-and-countinue");    
     $(`[data-tab-content='overview']`).find('.wishlist-icon-wrap .favorite-event-button').addClass("update-look");
-    $(`[data-tab-content='overview']`).find('.wishlist-icon-wrap .favorite-event-button span').text("Update Look")
+    $(`[data-tab-content='overview']`).find('.wishlist-icon-wrap .favorite-event-button span').text("Update Look and Continue");
     $(`.favourite-look-wrapper`).find('.favorite-event-api-button').attr('data-text','Updating Look');
     $(`.favourite-look-wrapper`).find('.favorite-event-api-button .button-title').text('Update Look');
+    $(`[data-tab-content='overview']`).find(`.wishlist-add-event-part .add-to-event, .product-share-button, .button-wrapper`).hide();
+  }
+  if(localStorage.getItem("set-event-id") != null && localStorage.getItem("customise-look-button-for-add-look-into-event")){
+    $(`[data-tab-content='overview']`).find('.wishlist-add-event-part .add-to-event').addClass("add-look-and-countinue");
+    $(`[data-tab-content='overview']`).find('.wishlist-add-event-part .add-to-event span').text("Add Look and Continue");
+    $(`[data-tab-content='overview']`).find(`.wishlist-add-event-part .wishlist-icon-wrap, .product-share-button, .button-wrapper`).hide();
   }
 }
 
@@ -2393,7 +2505,6 @@ theme_custom.saveImage = function(){
     html2canvas(finalCoverImage, {useCORS: true, allowTaint: true, backgroundColor:"#f5f5f5"
      }).then(canvas => {
       b64data = canvas.toDataURL();
-      console.log(b64data)
       theme_custom.downloadBase64File(b64data, 'image/png', 'test.png');
     });
 }
@@ -2402,9 +2513,39 @@ theme_custom.saveImage = function(){
 theme_custom.downloadBase64File = function(base64Data, contentType, fileName) {
   const linkSource = base64Data;
   const downloadLink = document.createElement("a");
-  console.log('linkSource',linkSource);
   downloadLink.href = linkSource;
   downloadLink.download = fileName;
   downloadLink.click();
 }
- 
+
+
+theme_custom.removeLookFromEvent = function(button){
+  var eventLookId = localStorage.getItem("eventLookId");
+  theme_custom.button = button;
+  $.ajax({
+    url: `${theme_custom.base_url}/api/look/removeFromEvent/${eventLookId}`,
+    method: "DELETE",
+    data: '',
+    dataType: "json",
+    headers: {
+      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+    },
+    beforeSend: function () {
+      // $('.favorite-looks-wrapper').css('cursor','not-allowed');
+    },
+    success: function () {
+      theme_custom.addLookToEvent(theme_custom.button);
+    },
+    error: function (xhr, status, error) {
+      if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+        alert('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>');
+        setTimeout(() => {
+          theme_custom.removeLocalStorage();
+          window.location.href = '/account/logout';
+        }, 5000);
+      } else {
+        alert(xhr.responseJSON.message);
+      }
+    }
+  });
+}
