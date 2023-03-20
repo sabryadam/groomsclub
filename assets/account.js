@@ -407,6 +407,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
 $(document).on("click",".event-action-btns .event-delete-btn", function(){
     var eventLookId = $(this).closest(".events-container").find(".events-main-link").attr("data-event-id");
     $(`.modal-wrapper[data-target="delete-data-from-api"]`).addClass("active").find(".data_target_id").val(eventLookId).attr("data-type","event-remove-from-list");
+    $(`.modal-wrapper[data-target="delete-data-from-api"]`).find(".heading").text("Are you sure you want to delete this event?");
 });
 $(document).on("click",`[data-target="delete-data-from-api"] button`,function(){
     var target = $(this).attr('data-value');
@@ -678,6 +679,7 @@ $(document).on('click', '.delete_favorites', function () {
     // var eventLookId = $(this).closest(".events-container").find(".events-main-link").attr("data-event-id");
     var favid = $(this).data('favid');
     $(`.modal-wrapper[data-target="delete-data-from-api"]`).addClass("active").find(".data_target_id").val(favid).attr("data-type","favourite-look-delete");
+    $(`.modal-wrapper[data-target="delete-data-from-api"]`).find(".heading").text("Are you sure you want to delete this Look?");
 });
 
 $(document).on('click','.feature-looks-slider .fav-look-add-to-cart',function(){
@@ -808,7 +810,7 @@ function addtoeventlist(favid) {
                 } else {
                     var errorPopup = `<section class="create-event-look" style="display: none;">
                                         <div class="empty-error-msg text_center">
-                                            <p> We didn't find the Event Please <a class="button button--secondary btn-small" href="/pages/create-event" title="Create Event" style="display: inline-block;margin-left: 10px;">Create the Event </a> </p>
+                                            <p>No event found <a class="button button--secondary btn-small" href="/pages/create-event" title="Create Event">Create Event </a> </p>
                                         </div>
                                     </section>`;
                     $('.favorite-looks-wrapper').append(errorPopup);

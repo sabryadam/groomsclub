@@ -569,3 +569,12 @@
     align-items: center;
     justify-content: center;
 }
+
+.create-event-look{
+    min-width: 350px;
+}
+.create-event-look a.button{
+    display: block;
+    width: fit-content;
+    margin: 25px auto 10px;
+}

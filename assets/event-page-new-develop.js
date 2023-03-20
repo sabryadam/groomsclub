@@ -344,6 +344,9 @@ theme_custom.successCallback = (data, nextTarget) => {
   let eventMembers = data.data.event_members;
   if (data.data.event_looks && data.data.event_looks.length > 0) {
     $(`.modal-wrapper[data-target="remove-data-for-user"]`).removeClass("active");
+    $('html,body').css({
+      "overflow" : ""
+    })
     const looksDiv = $('.show-look-from-event-wrapper .event-look-inner-wrapper, .guest-top-looks .event-look-inner-wrapper');
     looksDiv.empty();
     if (looksDiv.hasClass("slick-initialized")) {
@@ -381,8 +384,12 @@ theme_custom.successCallback = (data, nextTarget) => {
       $(".event-page-new-design-wrapper").find(".event-step-wrapper").removeClass("hidden");
       if ($(`[data-step-content-wrap="3"] .user-card-block .pay-status[pay-info="I pay"]`).length > 0) {
         $(`[data-step-content-wrap="3"]`).find(".btn-wrap.next-button").removeClass("disabled");
+        $(`.member-summary-wrapper`).find(".heading").text("Summary");
+        $(".event-page-new-design-wrapper .button-wrapper").removeClass("active")
       } else {
-        $(`[data-step-content-wrap="3"]`).find(".btn-wrap.next-button").addClass("disabled");
+        $(`.member-summary-wrapper`).find(".heading").addClass("text-center").text("You have not any look for payment!");
+        $(".event-page-new-design-wrapper .button-wrapper").addClass("active")
+        $(`[data-step-content-wrap="3"]`).find(".btn-wrap.next-button").removeClass("disabled");
       }
     }, 2000);
   } else {
@@ -965,7 +972,6 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
         productItemsArrayLooks[index]["product"] = product;
       });
       $.map(productItemsArrayLooks, function(productItem,index) {
-        console.log("productItem",productItem,productItem.product.id);
         var productType = productItem.product.type;
         productType = productType.toLowerCase();
         productItemHTML += `<div class="product-card-data" data-product-type="${productType}">
@@ -1077,6 +1083,9 @@ theme_custom.lookInfoData = function (result) {
       $(`.summary-table-wrapper tfoot`).fadeIn().find('.total-price').text('$' + totalPrice);
     }, 3000);
   })
+  $(".loader-wrapper").addClass("hidden");
+  $(".event-step-wrapper").removeClass("hidden");
+  $(".final-summary-wrapper").addClass("active");
 }
 
 theme_custom.eventMemberData = function () {
@@ -1192,9 +1201,9 @@ theme_custom.customizeLookProductAjax = function (button, parent) {
     var productType = $(this).attr("data-product-type");
     var varId = $(this).find(".product_var_id").val(),
       item = {};
-    if (productType == 'Jacket') {
-      var pantsSelectedVariant = $(this).closest(`.product-card-wrap`).find(`.product-card-data[data-product-type="Pants"]`).find(".product_var_id").val(),
-        pantsVarTitle = $(this).closest(`.product-card-wrap`).find(`.product-card-data[data-product-type="Pants"]`).find(".product_variant_title").val();
+    if (productType == 'jacket' || productType == 'Jacket') {
+      var pantsSelectedVariant = $(this).closest(`.product-card-wrap`).find(`.product-card-data[data-product-type="pants"]`).find(".product_var_id").val(),
+        pantsVarTitle = $(this).closest(`.product-card-wrap`).find(`.product-card-data[data-product-type="pants"]`).find(".product_variant_title").val();
       item = {
         "id": varId,
         "quantity": 1,
@@ -1203,9 +1212,9 @@ theme_custom.customizeLookProductAjax = function (button, parent) {
           "variant-id": pantsSelectedVariant
         }
       }
-    } else if (productType == 'Pants') {
-      var jacketSelectedVariant = $(this).closest(`.product-card-wrap`).find(`.product-card-data[data-product-type="Jacket"]`).find(".product_var_id").val(),
-        jacketVarTitle = $(this).closest(`.product-card-wrap`).find(`.product-card-data[data-product-type="Jacket"]`).find(".product_variant_title").val();
+    } else if (productType == 'pants' || productType == 'Pants') {
+      var jacketSelectedVariant = $(this).closest(`.product-card-wrap`).find(`.product-card-data[data-product-type="jacket"]`).find(".product_var_id").val(),
+        jacketVarTitle = $(this).closest(`.product-card-wrap`).find(`.product-card-data[data-product-type="jacket"]`).find(".product_variant_title").val();
       item = {
         "id": varId,
         "quantity": 1,
@@ -1326,6 +1335,9 @@ theme_custom.eventPageClickEvent = function () {
       $('.update-guest', popup).attr('data-member-id', memberId)
       popup.addClass('active');
     }
+    $('html,body').css({
+      "overflow" : "hidden"
+    })
     // let member_id = $(this).attr('data-member-id');
     // let event_id = parent.attr('data-event-id');
     // theme_custom.removeUserFromLook(event_id,member_id);
@@ -1335,15 +1347,22 @@ theme_custom.eventPageClickEvent = function () {
     event.preventDefault();
     if ($(this).hasClass("payment-Complete")) {
       $(`.modal-wrapper[data-target="member-payment-complete"]`).addClass("active");
+      $('html,body').css({
+        "overflow" : "hidden"
+      })
       return false
     }
     let parent = $(this).closest('.look-card-block');
     let member_id = $(this).attr('data-member-id');
     let event_id = parent.attr('data-event-id');
     $(`.modal-wrapper[data-target="remove-data-for-user"]`).find(".member_id").val(member_id);
+    $(`.modal-wrapper[data-target="remove-data-for-user"]`).find(".heading").text("Are you sure you want to delete this member?");
     $(`.modal-wrapper[data-target="remove-data-for-user"]`).find(".member_id").attr("data-type", "member-block");
     $(`.modal-wrapper[data-target="remove-data-for-user"]`).find(".event_id").val(event_id);
     $(`.modal-wrapper[data-target="remove-data-for-user"]`).addClass("active");
+    $('html,body').css({
+      "overflow" : "hidden"
+    })
     // theme_custom.removeUserFromLook(event_id,member_id);
   });
 
@@ -1351,12 +1370,19 @@ theme_custom.eventPageClickEvent = function () {
     event.preventDefault();
     if ($(this).hasClass("look-have-member")) {
       $(`.modal-wrapper[data-target="delete-look-have-member"]`).addClass("active");
+      $('html,body').css({
+        "overflow" : "hidden"
+      })
       return false;
     }
     var eventLookId = $(this).data('event-look-id');
     $(`.modal-wrapper[data-target="remove-data-for-user"]`).find(".look_id").val(eventLookId);
+    $(`.modal-wrapper[data-target="remove-data-for-user"]`).find(".heading").text("Are you sure you want to delete this Look?");
     $(`.modal-wrapper[data-target="remove-data-for-user"]`).find(".member_id").attr("data-type", "delete-look-block");
     $(`.modal-wrapper[data-target="remove-data-for-user"]`).addClass("active");
+    $('html,body').css({
+      "overflow" : "hidden"
+    })
   });
 
   $(document).on("click", `[data-target="remove-data-for-user"] button`, function () {
@@ -1376,15 +1402,24 @@ theme_custom.eventPageClickEvent = function () {
         theme_custom.deleteTheLooksItem(eventLookId);
       }
     } else {
+      $('html,body').css({
+        "overflow" : ""
+      })
       $('.close-icon').click();
     }
 
   })
   $(document).on("click", `[data-target="delete-look-have-member"] button`, function () {
     $(`.modal-wrapper[data-target="delete-look-have-member"]`).removeClass("active");
+    $('html,body').css({
+      "overflow" : ""
+    })
   })
   $(document).on("click", `[data-target="member-payment-complete"] button`, function () {
     $(`.modal-wrapper[data-target="member-payment-complete"]`).removeClass("active");
+    $('html,body').css({
+      "overflow" : ""
+    })
   })
   $(document).on('click', '.pay-info-confirmation-wrap .confirm-box-wrap .update-host-look', function (event) {
     let value = $(this).attr('data-value');
@@ -1548,6 +1583,9 @@ theme_custom.eventPageClickEvent = function () {
     var look_id = $(this).closest(".look-card-block").attr("data-look-id");
     var look_title = $(this).closest(".look-card-block").find(".look-title").text();
     $(".look-dropdown").find(".look-name").attr("data-look-mapping-id", look_id).text(look_title);
+    $('html,body').css({
+      "overflow" : ""
+    })
   })
 }
 theme_custom.calender = function () {
