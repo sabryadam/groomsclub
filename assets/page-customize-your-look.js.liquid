@@ -1204,6 +1204,7 @@ theme_custom.setFinderData = function () {
 
   var new_url_arr = [];
   $(".product-block-wrapper").each(function () {
+    console.log($(this).attr("data-product-type"))
     if ($(this).find(".swatch-color input:radio:checked").length > 0) {
       var currentProduct = $(this).find(".swatch-color input:radio:checked").closest(".product-item-wrap");
       var variantTitle = selectedOption = '';
@@ -1217,10 +1218,17 @@ theme_custom.setFinderData = function () {
         variantTitle = variantTitle + ' / ' + currentProduct.find('[data-option-index="2"]').val();
       }
       selectedOption = currentProduct.find(`[data-variant-title="${variantTitle}"]`).val();
+      console.log("selectedOption",selectedOption);
       if(!selectedOption){
-        selectedOption = currentProduct.find(`[data-available="true"]`).val();;
+        selectedOption = currentProduct.find(`[data-available="true"]`).val();
+        // if($(this).attr("data-product-type") == 'jacket'){
+        //   $(`.product-variant-link .jacket_option`).append(`<p class="error-msg active">Some product is not available for that specific size</p>`)
+        // } else if($(this).attr("data-product-type") == 'pants'){
+        //   $(`.product-variant-link .pant_option`).append(`<p class="error-msg active">Some product is not available for that specific size</p>`)
+        // }        
       }
       if (selectedOption != undefined) {
+        console.log("Product found ")
         var product_data_url = '';
         product_data_url = currentProduct.attr("data-product-handle") + '=' + selectedOption;
         new_url_arr.push(product_data_url)
