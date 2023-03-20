@@ -92,8 +92,8 @@
     <button>
       {{ 'customer.activate_account.submit' | t }}
     </button>
-    <button name="decline">
+    {%- comment -%}<button name="decline" class="hidden">
       {{ 'customer.activate_account.cancel' | t }}
-    </button>
+    </button>{%- endcomment -%}
   {%- endform -%}
 </div>

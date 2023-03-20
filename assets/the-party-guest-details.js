@@ -435,7 +435,6 @@ theme_custom.guestDetailsClickEvent = function () {
         "is_email": is_email_data,
         "is_sms": is_sms_data,
       }
-      // console.log("guestSendReminderDataObj",guestSendReminderDataObj);
       theme_custom.reminder(guestSendReminderDataObj, button, weddingevent_id, reminderMember);
   }
  
@@ -468,8 +467,7 @@ $(document).ready(function () {
     error_count = error_count + theme_custom.datePicker($(this));
     var targetDate = $(this).val(),
     newDate = new Date();
-  newDate.toLocaleString('en-US', {timeZone: 'America/New_York',}),
-  // console.log(theme_custom.changeTimeZone(targetDate, 'America/New_York'));
+  newDate.toLocaleString('en-US', {timeZone: 'America/New_York',});
   var month = newDate.getMonth() + 1;
   var day = newDate.getDate();
   var output = newDate.getFullYear() + '-' +

@@ -1110,7 +1110,6 @@
           if(result.data.length > 0){
             fitFinderDataHTML += `<h5 class="heading">Sizing & Fit</h5>`;
             for(var i=0; i<result.data.length; i++){
-              // console.log("result.data[i]",result.data[i]);
               fitFinderDataHTML +=`<input class="size_customer_id" type="hidden" value="${result.data[i].customer_id}">`;
               // if(result.data[i].jacket_size && result.data[i].jacket_type) {
               //   var jacketType = result.data[i].jacketSize.split(":");

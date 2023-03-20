@@ -18,7 +18,6 @@ class VariantSelects extends HTMLElement {
     this.updateOptions();
     this.updateMasterId();
     this.toggleAddButton(true, '', false);
-    // this.updatePickupAvailability();
     try{
       this.updatePickupAvailability();
     }catch(e){
@@ -31,7 +30,6 @@ class VariantSelects extends HTMLElement {
         $('.product-main-image').slick('slickGoTo', this.currentVariant.featured_media.position-1);
       }catch(e){
       }
-      // $('.product-main-image').slick('slickGoTo', this.currentVariant.featured_media.position-1);
       this.updateURL();
       this.updateVariantInput();
       this.renderProductInfo();
@@ -101,7 +99,6 @@ class VariantSelects extends HTMLElement {
         document.getElementById(`price-${this.dataset.section}`)?.classList.remove('visibility-hidden');
         this.toggleAddButton(!this.currentVariant.available, window.variantStrings.soldOut);
 
-        // console.log(this.currentVariant)
         
         if (this.currentVariant.available) {
           this.toggleAddButton(false, window.variantStrings.addToCart);

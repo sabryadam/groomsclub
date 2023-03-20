@@ -1,0 +1,190 @@
+<!-- Event page new design section -->
+{{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
+{%- unless customer -%}
+<script>
+  window.location.href = '/account/login';
+</script>
+{%- endunless -%}
+<section class="event-page-new-design-wrapper page-width">
+  <div class="loader-wrapper">
+    <div class="loading-overlay__spinner">
+      <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+          <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+      </svg>
+    </div>
+  </div>
+  <div class="event-step-wrapper hidden">
+    {% render 'event-page-header' %}
+    {% render 'event-step-1' %}
+    {% render 'event-step-2' %}
+    {% render 'event-step-3' %}
+    {% render 'event-step-4' %}
+  </div>
+  <div class="modal-wrapper" data-target="delete-look-have-member">
+    <div class="modal-wrapper-inner-wrapper">
+      <div class="inner-wrapper text-center">
+        <p>Look can't be deleted since a member is already assigned to it, Please remove the member in order to delete the look</p>
+        <button class="button button--primary" data-value="no">Close</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-wrapper" data-target="member-payment-complete">
+    <div class="modal-wrapper-inner-wrapper">
+      <div class="inner-wrapper text-center">
+        <p>Can not remove member after payment completion.</p>
+        <button class="button button--primary" data-value="no">Close</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Event Page",
+  "settings": [
+    {
+      "type" : "header",
+      "content" : "Event Name"
+    },
+    {
+      "type": "text",
+      "id": "event_name_heading",
+      "default": "Event Name",
+      "label": "Event Title"
+    },
+    {
+      "type": "text",
+      "id": "event_name_placeholder",
+      "label": "Placeholder",
+      "default": "Enter Event Name"
+    },
+    {
+      "type" : "header",
+      "content" : "Event Type"
+    },
+    {
+      "type" : "text",
+      "id" : "event_type_heading",
+      "label" : "Title",
+      "default" : "EVENT TYPE"
+    },
+    {
+      "type" : "header",
+      "content" : "When is your event"
+    },
+    {
+      "type" : "text",
+      "id" : "when_is_your_event_heading",
+      "label" : "Title",
+      "default" : "When is your event?"
+    },
+    {
+      "type" : "html",
+      "id" : "when_is_your_event_icon",
+      "label" : "Icon",
+      "default" : "Svg Icon"
+    },
+    {
+      "type" : "header",
+      "content" : "What is your role in the event"
+    },
+    {
+      "type" : "text",
+      "id" : "when_is_your_role_in_event_heading",
+      "label" : "Title",
+      "default" : "What is your role in the event?"
+    },
+    {
+      "type" : "header",
+      "content" : "Phone Number"
+    },
+    {
+      "type" : "text",
+      "id" : "phone_number_title",
+      "label" : "Title",
+      "default" : "Phone Number"
+    },
+    {
+      "type" : "text",
+      "id" : "phone_number_placeholder",
+      "label" : "Placeholder",
+      "default" : "(123)456-7890"
+    },
+    {
+      "type" : "html",
+      "id" : "phone_icon",
+      "label" : "Phone Svg Icon"
+    },
+    {
+      "type" : "header",
+      "content" : "Create Look"
+    },
+    {
+      "type" : "text",
+      "id" : "create_look_title",
+      "label" : "Title",
+      "default" : "Create Look"
+    },
+    {
+      "type" : "collection",
+      "id" : "top_look_collections",
+      "label" : "Top look collections"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "event_type",
+      "name": "Event Type",
+      "settings": [
+        {
+          "type": "text",
+          "id" :"event_type_title", 
+          "label": "Event Type Title"
+        },
+        {
+          "type": "html",
+          "id" :"event_type_icon", 
+          "label": "Event Type icon"
+        }
+      ]
+    },
+    {
+      "type": "event_role",
+      "name": "Event Role",
+      "settings": [
+        {
+          "type": "text",
+          "id" :"event_role_title", 
+          "label": "Event Role Title"
+        },
+        {
+          "type": "html",
+          "id" :"event_role_icon", 
+          "label": "Event Role icon"
+        },
+        {
+          "type": "text",
+          "label": "Event Type",
+          "id" :"event_type"
+        }
+      ]
+    },
+    {
+      "type": "event_look",
+      "name": "Event Look",
+      "settings": [
+        {
+          "type": "text",
+          "id" :"create_look_title", 
+          "label": "Create Look Title"
+        },
+        {
+          "type": "image_picker",
+          "id" :"create_look_icon", 
+          "label": "Create Look icon"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

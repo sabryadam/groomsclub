@@ -34,7 +34,7 @@
             {%- endif -%}
             <div class="product-block-outer-wrapper active" data-collection-title="{{ personalizeProductBlockTitle | downcase | handleize }}">
               <p class="product-title not_toggle">
-                <span class="product-title-wrap" data-product-handle="{{ personalizeProductBlockTitle | downcase | handleize }}">{{personalizeProductBlockTitle}} : </span>
+                <span class="product-title-wrap" data-product-handle="{{ personalizeProductBlockTitle | downcase | handleize }}">{{personalizeProductBlockTitle}} : <span class="color-title"></span></span>
                 <span class="price-wrap" data-product-price="0000" style="display: none;">$00.00</span>
                 <span class="mobile-tab-icon">{% include 'icon-plus' %}</span>
               </p>  
@@ -153,7 +153,7 @@
                   {%- assign customizeProductBlockTitle = collections[customizeCollectionHandle].title -%}
                 {%- endif -%}
                 <p class="product-title">
-                  <span class="product-title-wrap" data-product-handle="{{ customizeProductBlockTitle | downcase | handleize }}">{{customizeProductBlockTitle}} : </span>
+                  <span class="product-title-wrap" data-product-handle="{{ customizeProductBlockTitle | downcase | handleize }}">{{customizeProductBlockTitle}} : <span class="color-title"></span></span>
                   <span class="price-wrap desk-tab-price" data-product-price="0000" style="display: none;">$00.00</span>
                   <span class="mobile-tab-icon">{% include 'icon-plus' %}</span>
                 </p>  
@@ -174,7 +174,7 @@
                   {%- assign customizeProductBlockTitle = collections[customizeCollectionHandle].title -%}
                 {%- endif -%}
                 <p class="product-title">
-                  <span class="product-title-wrap" data-product-handle="{{ customizeProductBlockTitle | downcase | handleize }}">{{customizeProductBlockTitle}} : </span>
+                  <span class="product-title-wrap" data-product-handle="{{ customizeProductBlockTitle | downcase | handleize }}">{{customizeProductBlockTitle}} : <span class="color-title"></span></span>
                   <span class="price-wrap desk-tab-price" data-product-price="0000" style="display: none;">$00.00</span>
                   <span class="mobile-tab-icon">{% include 'icon-plus' %}</span>
                 </p>
@@ -225,7 +225,7 @@
                   {%- assign accessoriesProductBlockTitle = collections[accessoriesCollectionHandle].title -%}
                 {%- endif -%}
                 <p class="product-title">
-                  <span class="product-title-wrap" data-product-handle="{{ accessoriesProductBlockTitle | downcase | handleize }}">{{accessoriesProductBlockTitle}} : </span>
+                  <span class="product-title-wrap" data-product-handle="{{ accessoriesProductBlockTitle | downcase | handleize }}">{{accessoriesProductBlockTitle}} : <span class="color-title"></span></span>
                   <span class="price-wrap desk-tab-price" data-product-price="0000" style="display: none;">$00.00</span>
                   <span class="mobile-tab-icon">{% include 'icon-plus' %}</span>
                 </p>
@@ -312,7 +312,7 @@
                     {%- assign accessoriesProductBlockTitle = collections[accessoriesCollectionHandle].title -%}
                   {%- endif -%}
                   <p class="product-title">
-                    <span class="product-title-wrap" data-product-handle="{{ accessoriesProductBlockTitle | downcase | handleize }}">{{accessoriesProductBlockTitle}} : </span>
+                    <span class="product-title-wrap" data-product-handle="{{ accessoriesProductBlockTitle | downcase | handleize }}">{{accessoriesProductBlockTitle}} : <span class="color-title"></span></span>
                     <span class="price-wrap desk-tab-price" data-product-price="0000" style="display: none;">$00.00</span>
                     <span class="mobile-tab-icon">{% include 'icon-plus' %}</span>
                   </p>
@@ -333,7 +333,7 @@
                   {%- assign accessoriesProductBlockTitle = collections[accessoriesCollectionHandle].title -%}
                 {%- endif -%}
                 <p class="product-title">
-                  <span class="product-title-wrap" data-product-handle="{{ accessoriesProductBlockTitle | downcase | handleize }}">{{accessoriesProductBlockTitle}} : </span>
+                  <span class="product-title-wrap" data-product-handle="{{ accessoriesProductBlockTitle | downcase | handleize }}">{{accessoriesProductBlockTitle}} : <span class="color-title"></span></span>
                   <span class="price-wrap desk-tab-price" data-product-price="0000" style="display: none;">$00.00</span>
                   <span class="mobile-tab-icon">{% include 'icon-plus' %}</span>
                 </p>
@@ -507,7 +507,7 @@
           <div class="add-to-event">
             <a href="javascript:void(0)" class="link link-with-svg event-text add-event-look">
               <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 19 18" style="enable-background:new 0 0 19 18;" xml:space="preserve"><style type="text/css">.plus-icon{fill:#1075BC;}</style><g><g><path class="plus-icon" d="M9.6,1.5c4.1,0,7.5,3.3,7.5,7.5s-3.4,7.5-7.5,7.5S2.1,13.1,2.1,9S5.5,1.5,9.6,1.5 M9.6,0c-5,0-9,4-9,9    s4,9,9,9s9-4,9-9S14.6,0,9.6,0L9.6,0z"/></g><g><rect x="8.6" y="5" class="plus-icon" width="2" height="8.1"/><rect x="8.6" y="5" transform="matrix(6.123234e-17 -1 1 6.123234e-17 0.6405 18.6186)" class="plus-icon" width="2" height="8.1"/></g></g></svg>
-              Add to Event
+              <span>Add to Event</span>
             </a>
           </div>
         </div>
@@ -657,241 +657,243 @@
 const API_URL = theme_custom.api_base_url;
 const APP_Token = 'Bearer ' + localStorage.getItem("customerToken");
 function suitSizeData() {
-  var size_api_url = API_URL + '/api/customer/myFit';
-  var jacket_image = "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/jacket-vest.png";
-  var pants_image = "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/account-2.png";
-  var shirt_image = "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/shirt-display-img.png?v=1641880242";
-  var shoe_image = "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/shoes-display-img.png?v=1641880242";
-  $.ajax({
-    url: size_api_url,
-    method: "GET",
-    data: '',
-    dataType: "json",
-    headers: {
-      "Authorization": APP_Token
-    },
-    beforeSend: function () {},
-    success: function (result) {
-      if (result.success) {
-        var jacket_size = 'NA';
-        var jacket_type = 'NA';
-        var jacket_allsizes = result.data[0].jacketSize;
-        if(jacket_allsizes){
-          jacketType = jacket_allsizes.split(":");
-          jacket_size = jacketType[0];
-          if (jacketType[1] == "S") {
-            jacket_type = 'Short'
-          } else if (jacketType[1] == "R") {
-            jacket_type = 'Regular'
-          } else if (jacketType[1] == "L") {
-            jacket_type = 'Long'
+  if(getCookie("fit-finder-data") != null){
+    var size_api_url = API_URL + '/api/customer/myFit';
+    var jacket_image = "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/jacket-vest.png";
+    var pants_image = "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/account-2.png";
+    var shirt_image = "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/shirt-display-img.png?v=1641880242";
+    var shoe_image = "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/shoes-display-img.png?v=1641880242";
+    $.ajax({
+      url: size_api_url,
+      method: "GET",
+      data: '',
+      dataType: "json",
+      headers: {
+        "Authorization": APP_Token
+      },
+      beforeSend: function () {},
+      success: function (result) {
+        if (result.success) {
+          var jacket_size = 'NA';
+          var jacket_type = 'NA';
+          var jacket_allsizes = result.data[0].jacketSize;
+          if(jacket_allsizes){
+            jacketType = jacket_allsizes.split(":");
+            jacket_size = jacketType[0];
+            if (jacketType[1] == "S") {
+              jacket_type = 'Short'
+            } else if (jacketType[1] == "R") {
+              jacket_type = 'Regular'
+            } else if (jacketType[1] == "L") {
+              jacket_type = 'Long'
+            }
           }
-        }
-        var ff_html = '';
-        if (result.data.length > 0) {
-          setTimeout(function(){
-            // console.log("User has logged In");
-            if(jacket_size == '00' ){
-              $(".select-sizes-wrapper .jacket-sizes-wrap .error-message").show();
+          var ff_html = '';
+          if (result.data.length > 0) {
+            setTimeout(function(){
+              if(jacket_size == '00' ){
+                $(".select-sizes-wrapper .jacket-sizes-wrap .error-message").show();
+              } else {
+                $(".select-sizes-wrapper .jacket-sizes-wrap .error-message").hide();
+                $(".select-sizes-wrapper .jacket-sizes-wrap .size-value, .select-sizes-wrapper .vest-sizes-wrap .size-value").text(`Jacket size : ${jacket_size}, ${jacket_type}`);
+              }
+              if(result.data[0].pants_waist == '00' && result.data[0].pants_hight == '00'){
+                $(".select-sizes-wrapper .pant-sizes-wrap .error-message").show();
+              } else {
+                $(".select-sizes-wrapper .pant-sizes-wrap .error-message").hide();
+                $(".select-sizes-wrapper .pant-sizes-wrap .size-value").text(`${result.data[0].pants_waist}, ${result.data[0].pants_hight}`);
+              }
+              if(result.data[0].shirt_neck == '00' && result.data[0].shirt_sleeve == '00'){
+                $(".select-sizes-wrapper .shirt-size-wrapper .error-message").show();
+              } else {
+                $(".select-sizes-wrapper .shirt-size-wrapper .error-message").hide();
+                $(".select-sizes-wrapper .shirt-size-wrapper .size-value .neck-size").text(`${result.data[0].shirt_neck}`);
+                $(".select-sizes-wrapper .shirt-size-wrapper .size-value .sleeve-size").text(`, ${result.data[0].shirt_sleeve}`);
+              }
+              if(result.data[0].shoe_size == '00' ){
+                $(".select-sizes-wrapper .shoes-size-wrapper .error-message").show();
+              } else {
+                $(".select-sizes-wrapper .shoes-size-wrapper .error-message").hide();
+                $(".select-sizes-wrapper .shoes-sizes-wrap .size-value .shoes-size").text(`result.data[0].shoe_size`);
+              }
+            }, 200);
+            if(jacket_size == '00'){
+              jacket_size = 'NA'
             } else {
-              $(".select-sizes-wrapper .jacket-sizes-wrap .error-message").hide();
-              $(".select-sizes-wrapper .jacket-sizes-wrap .size-value, .select-sizes-wrapper .vest-sizes-wrap .size-value").text(`Jacket size : ${jacket_size}, ${jacket_type}`);
+              jacket_size = jacket_size;
             }
-            if(result.data[0].pants_waist == '00' && result.data[0].pants_hight == '00'){
-              $(".select-sizes-wrapper .pant-sizes-wrap .error-message").show();
+            if(jacket_type == '00'){
+              jacket_type = 'NA'
             } else {
-              $(".select-sizes-wrapper .pant-sizes-wrap .error-message").hide();
-              $(".select-sizes-wrapper .pant-sizes-wrap .size-value").text(`${result.data[0].pants_waist}, ${result.data[0].pants_hight}`);
+              jacket_type = jacket_type;
             }
-            if(result.data[0].shirt_neck == '00' && result.data[0].shirt_sleeve == '00'){
-              $(".select-sizes-wrapper .shirt-size-wrapper .error-message").show();
+            ff_html += `<div class="ff-data">
+                            <strong>Jacket/Vest</strong>
+                            <span>Chest: ${jacket_size}</span>
+                            <span>Length: ${jacket_type}</span>
+                        </div>`;
+                        
+            var pants_waist  = pant_hight =  shirt_sleeve =  shirt_neck =  shoe_size = '' 
+            if(result.data[0].pants_waist == '00' ){
+              pants_waist = 'NA';
             } else {
-              $(".select-sizes-wrapper .shirt-size-wrapper .error-message").hide();
-              $(".select-sizes-wrapper .shirt-size-wrapper .size-value .neck-size").text(`${result.data[0].shirt_neck}`);
-              $(".select-sizes-wrapper .shirt-size-wrapper .size-value .sleeve-size").text(`, ${result.data[0].shirt_sleeve}`);
+              pants_waist = result.data[0].pants_waist; 
             }
+            if(result.data[0].pants_hight == '00' ){
+              pant_hight = 'NA';
+            } else {
+              pant_hight = result.data[0].pants_hight; 
+            }
+            ff_html += `<div class="ff-data">
+                            <strong>Pants</strong>
+                            <span>Waist: ${pants_waist}</span>
+                            <span>Length: ${pant_hight}</span>
+                        </div>`;
+            
+            if(result.data[0].shirt_neck == '00'){
+              shirt_neck = 'NA'
+            } else {
+              shirt_neck = result.data[0].shirt_neck;
+            }
+            if(result.data[0].shirt_sleeve == '00'){
+              shirt_sleeve = 'NA'
+            } else {
+              shirt_sleeve = result.data[0].shirt_sleeve;
+            }
+            if(result.data[0].fit == '00'){
+              shirt_fit = 'NA'
+            } else {
+              shirt_fit = result.data[0].fit;
+            }
+            ff_html += `<div class="ff-data">
+                          <strong>Shirt</strong>
+                          <span>Size: ${shirt_neck} ${shirt_sleeve} / ${shirt_fit}</span>
+                        </div>`;
             if(result.data[0].shoe_size == '00' ){
-              $(".select-sizes-wrapper .shoes-size-wrapper .error-message").show();
+              shoe_size = 'NA';
             } else {
-              $(".select-sizes-wrapper .shoes-size-wrapper .error-message").hide();
-              $(".select-sizes-wrapper .shoes-sizes-wrap .size-value .shoes-size").text(`result.data[0].shoe_size`);
+              shoe_size = result.data[0].shoe_size;
             }
-          }, 200);
-          if(jacket_size == '00'){
-            jacket_size = 'NA'
-          } else {
-            jacket_size = jacket_size;
+            ff_html += `<div class="ff-data">
+                          <strong>Shoe</strong>
+                          <span>Size: ${shoe_size}</span>
+                        </div>`;
+            $("#suit_fit_finder").hide();
+            $("#ff-data-box").html(ff_html);
+            $("#fit_finder_data_auto").show();
           }
-          if(jacket_type == '00'){
-            jacket_type = 'NA'
-          } else {
-            jacket_type = jacket_type;
-          }
-          ff_html += `<div class="ff-data">
-                          <strong>Jacket/Vest</strong>
-                          <span>Chest: ${jacket_size}</span>
-                          <span>Length: ${jacket_type}</span>
-                      </div>`;
-                      
-          var pants_waist  = pant_hight =  shirt_sleeve =  shirt_neck =  shoe_size = '' 
-          if(result.data[0].pants_waist == '00' ){
-            pants_waist = 'NA';
-          } else {
-            pants_waist = result.data[0].pants_waist; 
-          }
-          if(result.data[0].pants_hight == '00' ){
-            pant_hight = 'NA';
-          } else {
-            pant_hight = result.data[0].pants_hight; 
-          }
-          ff_html += `<div class="ff-data">
-                          <strong>Pants</strong>
-                          <span>Waist: ${pants_waist}</span>
-                          <span>Length: ${pant_hight}</span>
-                      </div>`;
-          
-          if(result.data[0].shirt_neck == '00'){
-            shirt_neck = 'NA'
-          } else {
-            shirt_neck = result.data[0].shirt_neck;
-          }
-          if(result.data[0].shirt_sleeve == '00'){
-            shirt_sleeve = 'NA'
-          } else {
-            shirt_sleeve = result.data[0].shirt_sleeve;
-          }
-          if(result.data[0].fit == '00'){
-            shirt_fit = 'NA'
-          } else {
-            shirt_fit = result.data[0].fit;
-          }
-          ff_html += `<div class="ff-data">
-                        <strong>Shirt</strong>
-                        <span>Size: ${shirt_neck} ${shirt_sleeve} / ${shirt_fit}</span>
-                      </div>`;
-          if(result.data[0].shoe_size == '00' ){
-            shoe_size = 'NA';
-          } else {
-            shoe_size = result.data[0].shoe_size;
-          }
-          ff_html += `<div class="ff-data">
-                        <strong>Shoe</strong>
-                        <span>Size: ${shoe_size}</span>
-                      </div>`;
-          $("#suit_fit_finder").hide();
-          $("#ff-data-box").html(ff_html);
-          $("#fit_finder_data_auto").show();
+        }else{
+          $("#suit_fit_finder").show();
+          $("#fit_finder_data_auto").hide();
         }
-      }else{
+      },
+      error: function (xhr, status, error) {
         $("#suit_fit_finder").show();
         $("#fit_finder_data_auto").hide();
+        //window.location.href = '/account/logout';
       }
-    },
-    error: function (xhr, status, error) {
-      $("#suit_fit_finder").show();
-      $("#fit_finder_data_auto").hide();
-      //window.location.href = '/account/logout';
-    }
-  });
+    });
+  }
 
 }
 
 
 function suitSizeDataNonLogged(){
-  var getFitFinder = getCookie("fit-finder-data");
-  if(getFitFinder){
-    getFitFinder = JSON.parse(getCookie("fit-finder-data"));
-    // console.log(getFitFinder);
-    var ff_html = '';
+  if(getCookie("fit-finder-data") != null){ 
+    var getFitFinder = getCookie("fit-finder-data");
+    if(getFitFinder){
+      getFitFinder = JSON.parse(getCookie("fit-finder-data"));
+      var ff_html = '';
 
-    var jacket_size = 'NA';
-    var jacket_type = 'NA';
-    var jacket_allsizes = getFitFinder.jacketSize;
+      var jacket_size = 'NA';
+      var jacket_type = 'NA';
+      var jacket_allsizes = getFitFinder.jacketSize;
 
-    if(jacket_allsizes){
-      jacketType = jacket_allsizes.split(":");
-      jacket_size = jacketType[0];
+      if(jacket_allsizes){
+        jacketType = jacket_allsizes.split(":");
+        jacket_size = jacketType[0];
 
-      if (jacketType[1] == "S") {
-        jacket_type = 'Short'
-      } else if (jacketType[1] == "R") {
-        jacket_type = 'Regular'
-      } else if (jacketType[1] == "L") {
-        jacket_type = 'Long'
+        if (jacketType[1] == "S") {
+          jacket_type = 'Short'
+        } else if (jacketType[1] == "R") {
+          jacket_type = 'Regular'
+        } else if (jacketType[1] == "L") {
+          jacket_type = 'Long'
+        }
       }
-    }
 
-    setTimeout(function(){
+      setTimeout(function(){
 
-      $(`select[name="properties[Jacket Chest Size]"]`).val(jacket_size);
-      $(`select[name="properties[Jacket Length]"]`).val(jacket_type);
+        $(`select[name="properties[Jacket Chest Size]"]`).val(jacket_size);
+        $(`select[name="properties[Jacket Length]"]`).val(jacket_type);
 
-      $(`select[name="properties[Pant Waist Size]"]`).val(getFitFinder.pants_waist);
-      $(`select[name="properties[Pant Length]"]`).val(getFitFinder.pants_hight);
+        $(`select[name="properties[Pant Waist Size]"]`).val(getFitFinder.pants_waist);
+        $(`select[name="properties[Pant Length]"]`).val(getFitFinder.pants_hight);
 
-    }, 200);
+      }, 200);
 
-    //$(`select[name="properties[Vest Size]"]`).val(getFitFinder.pants_waist);
-    //$(`select[name="properties[Vest Length]"]`).val(getFitFinder.pants_hight);
+      //$(`select[name="properties[Vest Size]"]`).val(getFitFinder.pants_waist);
+      //$(`select[name="properties[Vest Length]"]`).val(getFitFinder.pants_hight);
 
-    ff_html += `<div class="ff-data">
-                    <strong>Jacket/Vest</strong>
-                    <span>Chest: ${jacket_size}</span>
-                    <span>Length: ${jacket_type}</span>
-                </div>`;
-                
-    var pants_waist = pant_hight =  shirt_sleeve =  shirt_neck =  shoe_size = '' 
-    if(getFitFinder.pants_waist == '00' ){
-      pants_waist = 'NA';
-    } else {
-      pants_waist = getFitFinder.pants_waist; 
-    }
-    if(getFitFinder.pants_hight == '00' ){
-      pant_hight = 'NA';
-    } else {
-      pant_hight = getFitFinder.pants_hight; 
-    }
-    ff_html += `<div class="ff-data">
-                    <strong>Pants</strong>
-                    <span>Waist: ${pants_waist}</span>
-                    <span>Length: ${pant_hight}</span>
-                </div>`;
-    
-    if(getFitFinder.shirt_neck == '00'){
-      shirt_neck = 'NA'
-    } else {
-      shirt_neck = getFitFinder.shirt_neck;
-    }
-    if(getFitFinder.shirt_sleeve == '00'){
-      shirt_sleeve = 'NA'
-    } else {
-      shirt_sleeve = getFitFinder.shirt_sleeve;
-    }
-    if(getFitFinder.fit == '00'){
-      shirt_fit = 'NA'
-    } else {
-      shirt_fit = getFitFinder.fit;
-    }
-    ff_html += `<div class="ff-data">
-                  <strong>Shirt</strong>
-                  <span>Size: ${shirt_neck} ${shirt_sleeve} / ${shirt_fit}</span>
-                </div>`;
-    if(getFitFinder.shoe_size == '00' ){
-      shoe_size = 'NA';
-    } else {
-      shoe_size = getFitFinder.shoe_size;
-    }
-    ff_html += `<div class="ff-data">
-                  <strong>Shoe</strong>
-                  <span>Size: ${shoe_size}</span>
-                </div>`;
-    $("#suit_fit_finder").hide();
-    $("#ff-data-box").html(ff_html);
-    $("#fit_finder_data_auto").show();
+      ff_html += `<div class="ff-data">
+                      <strong>Jacket/Vest</strong>
+                      <span>Chest: ${jacket_size}</span>
+                      <span>Length: ${jacket_type}</span>
+                  </div>`;
+                  
+      var pants_waist = pant_hight =  shirt_sleeve =  shirt_neck =  shoe_size = '' 
+      if(getFitFinder.pants_waist == '00' ){
+        pants_waist = 'NA';
+      } else {
+        pants_waist = getFitFinder.pants_waist; 
+      }
+      if(getFitFinder.pants_hight == '00' ){
+        pant_hight = 'NA';
+      } else {
+        pant_hight = getFitFinder.pants_hight; 
+      }
+      ff_html += `<div class="ff-data">
+                      <strong>Pants</strong>
+                      <span>Waist: ${pants_waist}</span>
+                      <span>Length: ${pant_hight}</span>
+                  </div>`;
+      
+      if(getFitFinder.shirt_neck == '00'){
+        shirt_neck = 'NA'
+      } else {
+        shirt_neck = getFitFinder.shirt_neck;
+      }
+      if(getFitFinder.shirt_sleeve == '00'){
+        shirt_sleeve = 'NA'
+      } else {
+        shirt_sleeve = getFitFinder.shirt_sleeve;
+      }
+      if(getFitFinder.fit == '00'){
+        shirt_fit = 'NA'
+      } else {
+        shirt_fit = getFitFinder.fit;
+      }
+      ff_html += `<div class="ff-data">
+                    <strong>Shirt</strong>
+                    <span>Size: ${shirt_neck} ${shirt_sleeve} / ${shirt_fit}</span>
+                  </div>`;
+      if(getFitFinder.shoe_size == '00' ){
+        shoe_size = 'NA';
+      } else {
+        shoe_size = getFitFinder.shoe_size;
+      }
+      ff_html += `<div class="ff-data">
+                    <strong>Shoe</strong>
+                    <span>Size: ${shoe_size}</span>
+                  </div>`;
+      $("#suit_fit_finder").hide();
+      $("#ff-data-box").html(ff_html);
+      $("#fit_finder_data_auto").show();
 
-  }else{
-    $("#suit_fit_finder").show();
-    $("#fit_finder_data_auto").hide();
+    }else{
+      $("#suit_fit_finder").show();
+      $("#fit_finder_data_auto").hide();
+    }
   }
 }
 
@@ -1026,7 +1028,6 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
         if(getFitFinder){
           getFitFinder = JSON.parse(getCookie("fit-finder-data"));
 
-          // console.log(getFitFinder);
 
           var jacketFullSize = '';
           var jacketChest = '';
@@ -1074,7 +1075,6 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
             getFitFinder.pantSize = pantFullSize;
           }
 
-          // console.log(getFitFinder);
           setCookie("fit-finder-data", '');
           setCookie("fit-finder-data", JSON.stringify(getFitFinder), 365);
 
@@ -1174,7 +1174,6 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
           };
 
           setCookie("fit-finder-data", JSON.stringify(defaultData));
-          // console.log(defaultData);
         }
       }
     });

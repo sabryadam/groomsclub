@@ -54,6 +54,7 @@ theme_custom.removeLocalStorage = function(){
   localStorage.clear();
 }
 theme_custom.base_url = theme_custom.api_base_url;
+
 // DatePicker
 theme_custom.datePicker = function ($this) {
   var count = 0;
@@ -162,7 +163,6 @@ theme_custom.getVariantData = function (parentEl) {
    //$(".product-form .bundle-product-wrapper").find(".product-data-card[data-product-type="+producttyped+"]").find(".single-option-selector option[data-var-title="+varintTitle+"]").attr("selected",true);
   selectedOption = parent.find(`.single-option-selector option[data-var-title="${varintTitle}"]`);
  // $(`[data-product-id="${productId}"]`).attr('selected', false);
-// console.log($(".product-data-card[data-product-type="+producttyped+"]"));
   //selectedOption.attr('selected', true);
   variantPrice = selectedOption.attr('data-variant-price');
   variantId = selectedOption.attr('value');
@@ -183,8 +183,16 @@ theme_custom.getVariantData = function (parentEl) {
       parent.find(".error-message").text('Please select the size!').show();
       parent.find('.product-block-wrap .error-message').addClass("error-show");
     } else {
-      parent.find(".error-message").text('Product is not available for that specific size!').show();
-      parent.find('.product-block-wrap .error-message').addClass("error-show");
+      var parentType = parent.attr("data-product-type");
+      console.log("parent",parentType);
+      if(parentType=='jacket'){
+        $(`.product-variant-wrap[data-product-type="jacket"]`).find(".error-message").addClass("error-show").text('Product is not available for that specific size!').show();
+      } else if (parentType=='pants') {
+        $(`.product-variant-wrap[data-product-type="pants"]`).find(".error-message").addClass("error-show").text('Product is not available for that specific size!').show();
+      } else {
+        parent.find(".error-message").text('Product is not available for that specific size!').show();
+        parent.find('.product-block-wrap .error-message').addClass("error-show");
+      }
     }
   } else {
     parent.find('.pdp-updates-button button').removeClass('disabled');
@@ -515,7 +523,6 @@ theme_custom.Shopify = {
 theme_custom.IconWithTextSlider = function () {
   if ($(window).width() < 768) {
     $('.icontextblock_container').on('init', function (event, slick) {
-      // console.log("slick initialized");
        // set this slider as const for use in set time out
       const slider = this;
         
@@ -556,7 +563,7 @@ theme_custom.featureLooksSlider = function () {
   $('.feature-looks-slider').slick({
     dots: false,
     arrows: true,
-    infinite: true,
+    infinite: false,
     autoplay: false,
     prevArrow: "<img alt='slider-prev' class='slick-prev pull-left' src='https://cdn.shopify.com/s/files/1/0588/4700/2812/files/slider_arrow_left.png?v=1631874486'>",
     nextArrow: "<img alt='slider-next' class='slick-next pull-right' src='https://cdn.shopify.com/s/files/1/0588/4700/2812/files/slider_arrow_right.png?v=1631874485'>",
@@ -572,7 +579,7 @@ theme_custom.featureLooksSlider = function () {
       }
     },
     {
-      breakpoint: 300,
+      breakpoint: 767,
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1
@@ -1138,6 +1145,15 @@ theme_custom.clickEvent = function () {
     window.location.href = $(this).attr("data-href");
   }); 
 
+  // create-event-header-button 
+  $(document).on("click",".create-event-header-button", function(){
+    if(localStorage.getItem("set-event-id")!= null){
+      localStorage.removeItem("set-event-id");
+    }
+    var buttonLink = $(this).data("href");
+    window.location.href = buttonLink;
+  }) 
+
   // event page 
   $(document).on("click", "#eventevent-type .Squer-radio-button-inner, #eventupdate-event-type .Squer-radio-button-inner ", function () {
     var selectEventType = $(this).find(`[name="event-type"]`).val();
@@ -1349,7 +1365,7 @@ theme_custom.clickEvent = function () {
       success: function () {
         setTimeout(() => {
           setCookie("fit-finder-data", '');
-          theme_custom.removeLocalStorage();
+          theme_custom.removeLocalStorage(); 
           window.location.href = '/account/logout';
         }, 100);
       },
@@ -1461,7 +1477,6 @@ theme_custom.clickEvent = function () {
           $(this).addClass("disable");
         },
         success: function (result) {
-          // console.log('create event result',result);
           if (result.success) {
             $('.api_error').addClass("success-event").show().html(result.message);
             setTimeout(function () {
@@ -1477,7 +1492,6 @@ theme_custom.clickEvent = function () {
           }
         },
         error: function (xhr, status, error) {
-          // console.log('create event error',error);
           button.removeClass("disable");
           if (xhr.responseJSON.message == 'Token is invalid or expired.') {
             $('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
@@ -1546,20 +1560,41 @@ theme_custom.changeEvent = function () {
     }
   });
 
+  $('input[type=radio][name=is_host_paying_update]').change(function () {
+    $(this).closest(".custom-checkobx").find(".form-error").hide();
+    if($(this).closest(".custom-checkobx").find('[value="I Pay"]').prop('checked')){
+      $(".payment-confirmation-popup").addClass('model-open');
+      $('body').addClass("body_fixed");
+      // $.fancybox.close();
+      $('.fancybox-container').addClass('hidden');
+    }
+  });
+
   $(document).on('click', '.payment-confirm-btn-main #i-pay', function (e) {
     $('.fancybox-container').removeClass('hidden');
     $(".payment-confirmation-popup").removeClass('model-open');
     $('body').removeClass("body_fixed");
-    $(".invite-another-member-popup-wrapper").find(`input[name='is_host_paying'][value="I Pay"]`).prop('checked', true);
-    $(".event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying'][value="I Pay"]`).prop('checked', true);
+    if($('[data-target="update-guest-popup"]').hasClass('active')){
+      $("[data-target='update-guest-popup'] .invite-another-member-popup-wrapper").find(`input[name='is_host_paying_update'][value="I Pay"]`).prop('checked', true);
+      $("[data-target='update-guest-popup'] .event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying_update'][value="I Pay"]`).prop('checked', true);
+    }else{
+      $(".invite-another-member-popup-wrapper").find(`input[name='is_host_paying'][value="I Pay"]`).prop('checked', true);
+      $(".event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying'][value="I Pay"]`).prop('checked', true);
+    }
+    
   });
 
   $(document).on('click', '.payment-confirm-btn-main #they-pay', function (e) {
     $('.fancybox-container').removeClass('hidden');
     $(".payment-confirmation-popup").removeClass('model-open');
     $('body').removeClass("body_fixed");
-    $(".invite-another-member-popup-wrapper").find(`input[name='is_host_paying'][value="They Pay"]`).prop('checked', true);
-    $(".event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying'][value="They Pay"]`).prop('checked', true);
+    if($('[data-target="update-guest-popup"]').hasClass('active')){
+      $("[data-target='update-guest-popup'] .invite-another-member-popup-wrapper").find(`input[name='is_host_paying_update'][value="They Pay"]`).prop('checked', true);
+      $("[data-target='update-guest-popup'] .event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying_update'][value="They Pay"]`).prop('checked', true);
+    }else{
+      $(".invite-another-member-popup-wrapper").find(`input[name='is_host_paying'][value="They Pay"]`).prop('checked', true);
+      $(".event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying'][value="They Pay"]`).prop('checked', true);
+    }
   });
   $(document).on("change", "#imageUpload", function () {
     theme_custom.previewImage(this);
