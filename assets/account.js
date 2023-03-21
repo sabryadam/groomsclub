@@ -346,7 +346,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                             $('.event-container-wrapper.event-container-0').prepend(`<p style="text-align:center">You have not created any Event.</p>`);
                         }
                         if($(".event-container-wrapper.event-container-1").find(".events-container").length == 0){
-                            $('.event-container-wrapper.event-container-1').prepend(`<p style="text-align:center">You have not invited any Event.</p>`);
+                            $('.event-container-wrapper.event-container-1').prepend(`<p style="text-align:center">No Event found</p>`);
                         }
                         containerDiv.append(append_event_html);
                         if(paginateNumber>1){
@@ -358,7 +358,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                         </div>`)
                         }else{
                             containerDiv.append(`<div class="add-new-event-btn btn-wrapper">
-                            <a class="button button--primary continue-btn" href="/pages/create-event">SHOP COLLECTION <i class="fas fa-arrow-right"></i></a>
+                            <a class="button button--primary continue-btn hidden" href="/pages/create-event">SHOP COLLECTION <i class="fas fa-arrow-right"></i></a>
                           </div>`)
                         }
                         
@@ -377,8 +377,20 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                         "min-height": "auto",
                         "text-align" : "center"
                     });
-                    var html = `<div class="empty_message sizeempty_msg"> We didn't find the event....</div><a href="/pages/create-event" class="button--primary button" style="display: inline-block;margin: 30px auto;">Create Event</a>`;
-                    $('.events-main-container').html(html);
+                    var eventNotFound = `<div class="event-container-wrapper event-container-0 active">
+                                            <div class="add-new-event-btn btn-wrapper">
+                                                <p style="text-align:center">You have not created any Event.</p>
+                                                <span class="button button--primary btn-small create-event-header-button" data-href="/pages/create-event" style="margin: 0 auto;">CREATE NEW EVENT</span>
+                                            </div>
+                                        </div>
+                                        <div class="event-container-wrapper event-container-1">
+                                            <div class="add-new-event-btn btn-wrapper">
+                                                <p style="text-align:center">No Event found</p>
+                                                <span class="button button--primary btn-small create-event-header-button" data-href="/pages/create-event" style="margin: 0 auto;opacity:0; visibility:hidden">CREATE NEW EVENT</span>
+                                            </div>
+                                        </div>`
+                    // var html = `<div class="empty_message sizeempty_msg">No event found</div><a href="/pages/create-event" class="button--primary button" style="display: inline-block;margin: 30px auto;">Create Event</a>`;
+                    $('.events-main-container').html(eventNotFound);
                     $("#my-events").addClass("empty-event")
                 }
             } else {
@@ -429,7 +441,7 @@ $(document).on("click",`[data-target="delete-data-from-api"] button`,function(){
         $(`.modal-wrapper[data-target="delete-data-from-api"]`).removeClass("active");
     }
 })
-$(document).on("click", ".events-main-container .go-to-event-page", function () {
+$(document).on("click", ".events-main-container .go-to-event-page, .event-edit-btn", function () {
     var hostedBy = $(this).data("hosted-by");
     localStorage.setItem("hosted-by", hostedBy);
     localStorage.setItem("set-event-id",$(this).data("event-id"));

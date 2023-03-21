@@ -633,7 +633,7 @@ theme_custom.createEventAPI = function (btn) {
             button.find(".label").text("Event Updated");
             setTimeout(() => {
               localStorage.setItem("set-event-id", result.data.eventId);
-              $(".create-event-button").addClass("next-button").removeClass("create-event-button");
+              $(".create-event-button").addClass("next-button").removeClass("create-event-button").find(".look-add-btn").removeClass("hidden");
               $("#event-id").val(result.data.eventId);
               $('.step-content-wrapper[data-step-content-wrap="1"]').find(".next-button").click();
               button.find(".label").text("Update Event");
@@ -646,7 +646,7 @@ theme_custom.createEventAPI = function (btn) {
             localStorage.setItem("set-event-id", result.data.eventId);
             $("#event-id").val(result.data.eventId);
             setTimeout(() => {
-              $(".create-event-button").addClass("next-button").removeClass("create-event-button");
+              $(".create-event-button").addClass("next-button").removeClass("create-event-button").find(".look-add-btn").removeClass("hidden");
               $('.step-content-wrapper[data-step-content-wrap="1"]').find(".next-button").click();
             }, 2500);
           }
@@ -982,10 +982,10 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
                             </div>`;
         subTotal += productItem.selectedVar.price;
       });
-      productSubTotalPrice = theme_custom.Shopify.formatMoney((subTotal * 100) / 100, theme_custom.money_format);
+      productSubTotalPrice = theme_custom.Shopify.formatMoney(subTotal, theme_custom.money_format);
       $(`.order-wrap-${index} .look-price`).text(productSubTotalPrice);
       $(`.order-wrap-${index} .look-price`).attr("data-price", subTotal / 100);
-      $(`.order-wrap-${index} .button`).attr("data-look-price", subTotal / 100);
+      $(`.order-wrap-${index} .button`).attr("data-look-price", subTotal);
       $(`.look-card-block[data-look-id="${orderItems.look_id}"] .look-price`).text(productSubTotalPrice).fadeIn();
       $(`.order-wrap-${index} .product-card-wrap`).html(productItemHTML);
     }
@@ -1011,19 +1011,25 @@ theme_custom.lookInfoData = function (result) {
   }
   $.map(paymentInfo, function (orderItems, index) {
     var productHTML = item_data = product_data_for_host = '';
-    var orderItemsObj = orderItems.items;
+    var orderItemsObj = orderItems.items;    
+    for (let i = 0; i < lookDetails.length; i++) {
+      const element = lookDetails[i];
+      if (element.look_id == orderItems.look_id) {
+        orderImg = element.look_image;
+      }
+    }
     if (orderItems.payment_status != "Complete") {
       var actionButton = payInfo = "";
       if (orderItems.is_host == 1) {
         payInfo = 'I pay';
         product_data_for_host = ''
-        actionButton = `<button class="button btn-wrap button--secondary add-to-cart" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}"  data-look-price="215.90">
+        actionButton = `<button class="button btn-wrap button--secondary add-to-cart" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}" data-look-image="${orderImg}"  data-look-price="215.90">
                           Proceed to Cart
                         </buttom>`;
       } else {
         payInfo = 'I Pay';
         product_data_for_host = 'hidden';
-        actionButton = `<button class="button btn-wrap button--secondary event-payment-for-guest" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}"  data-look-price="215.90">
+        actionButton = `<button class="button btn-wrap button--secondary event-payment-for-guest" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}" data-look-image="${orderImg}"  data-look-price="215.90">
                           Pay for Guest
                         </buttom>`
       }
@@ -1039,12 +1045,6 @@ theme_custom.lookInfoData = function (result) {
         actionButton = `<button class="disabled button btn-wrap button--primary event-payment-for-guest" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}"  data-look-price="215.90">
                           Payment Completed
                         </buttom>`
-      }
-    }
-    for (let i = 0; i < lookDetails.length; i++) {
-      const element = lookDetails[i];
-      if (element.look_id == orderItems.look_id) {
-        orderImg = element.look_image;
       }
     }
     productHTML += `<tr class="order-wrap-block order-wrap-${index}">
@@ -1080,7 +1080,8 @@ theme_custom.lookInfoData = function (result) {
       $(".order-wrap-block").each(function () {
         totalPrice = totalPrice + ($(this).find("button").attr("data-look-price") * 1);
       })
-      $(`.summary-table-wrapper tfoot`).fadeIn().find('.total-price').text('$' + totalPrice);
+      var lookTotalPrice = theme_custom.Shopify.formatMoney(totalPrice, theme_custom.money_format)
+      $(`.summary-table-wrapper tfoot`).fadeIn().find('.total-price').text(lookTotalPrice);
     }, 3000);
   })
   $(".loader-wrapper").addClass("hidden");
@@ -1272,7 +1273,7 @@ theme_custom.eventPageClickEvent = function () {
       'member_id': $(this).attr("data-member-id"),
       'look_id': $(this).attr("data-look-id"),
       'look_title': $(this).attr("data-look-name"),
-      'look_image': 'https://app.groomsclub.com/storage/looks/iuuo18sY2IfpuHj73gAWpcTSNu8oxFfIav0Pkcxx.jpg',
+      'look_image': $(this).attr("data-look-image"),
       'order_amount': $(this).attr("data-look-price")
     };
     $.ajax({
@@ -1286,8 +1287,8 @@ theme_custom.eventPageClickEvent = function () {
       beforeSend: function () {
       },
       success: function (result) {
-        var paymentURL = `${theme_custom.base_url}/payment/${result.data.event_id}/${result.data.member_id}/${result.data.look_id}`;
         button.text('Paying.....');
+        var paymentURL = `${theme_custom.base_url}/payment/${result.data.event_id}/${result.data.member_id}/${result.data.look_id}`;
         window.location.href = paymentURL;
       },
       error: function (xhr, status, error) {
@@ -1678,7 +1679,7 @@ theme_custom.getEventDetails = function () {
           $('#EventForm-EventOwnerContactNumber').val(value.phone.replace("+1", "")).trigger("keyup");
         }
       });
-      $(".create-event-button").addClass("next-button").removeClass("create-event-button");
+      $(".create-event-button").addClass("next-button").removeClass("create-event-button").find(".look-add-btn").removeClass("hidden");
       $(`.step-content-wrapper[data-step-content-wrap="1"]`).addClass("active");
       $(`.step-content-wrapper[data-step-content-wrap="1"]`).find(".event-update-button").removeClass("disabled").removeClass("hidden")
       if (location.href.includes('?step')) {

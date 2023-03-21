@@ -1586,6 +1586,12 @@ html .template-page-create-event .ui-button.ui-state-disabled:active{
   min-height: initial;
   max-height: initial;
 }
+@media(max-width : 767px){
+  .modal-wrapper[data-target="remove-data-for-user"] .modal-wrapper-inner-wrapper {
+      max-width: 80%;
+      min-width: 80%;
+  }
+}
 .modal-wrapper[data-target="remove-data-for-user"] .modal-wrapper-inner-wrapper .title .close-icon{
   display: none;
 }
