@@ -194,16 +194,13 @@ theme_custom.ProductData = function(productItemsArr){
     },
     beforeSend: function () {},
     success: function (result) {
-      console.log("Product Array",result)
       var productsArray = result.products;
-      console.log("productsArray data",productsArray);
       $.map(productItemsArrayLooks, function(productItemInfo,index) {
         var product = productsArray.find((item)=>item.id==parseInt(productItemInfo.product_id));
         var selectedVar = product.variants.find((variant)=>variant.id==parseInt(productItemInfo.variant_id));
         productItemsArrayLooks[index]["selectedVar"] = selectedVar;
         productItemsArrayLooks[index]["product"] = product;
       });
-      console.log("productItemsArrayLooks",productItemsArrayLooks);
       
       $.map(productItemsArrayLooks, function(productItem,index) {
         let product = productItem.product; 
@@ -219,7 +216,7 @@ theme_custom.ProductData = function(productItemsArr){
               var swatchValue = elementValues[seatchVal];
               if(productOption[optionVal].name == 'Color' || productOption[optionVal].name == 'color'){
                 var color_name = swatchValue.toLowerCase().replace(" ","-");
-                customSwatch += `<div data-title="${swatchValue}" data-value="${swatchValue}" class="swatch-element-item ${swatchValue}">
+                customSwatch += `<div data-title="${swatchValue}" data-value="${swatchValue}" class="swatch-element-item ${swatchValue} active">
                                   <label style="background-image:url(//cdn.shopify.com/s/files/1/0585/3223/3402/files/color_${color_name}.png?v=13538939889425418844)" for="swatch-2-tuxedo-black"></label>
                                 </div>`;
               } else {
@@ -261,7 +258,6 @@ theme_custom.ProductData = function(productItemsArr){
               var productType = product.type.toLowerCase(),
                   productHandleVal = product.handle,
                   productSizeTypeExchangeData = optionfirst = optionSecond = optionThird = edit_item_hidden = '';
-              console.log("variantSelected", variantSelected);
               if (variantSelected.options.length >= 1) {
                 optionfirst = `<span class="option1" data-value="${variantSelected.option1}"><span class="value">${variantSelected.option1}</span></span>`;
               }
@@ -277,11 +273,12 @@ theme_custom.ProductData = function(productItemsArr){
                 edit_item_hidden = 'hidden';
               }
               productSizeTypeExchangeData = `<div class="product-size-type-exchange-wrapper">
-                                          <p class="product-size-type-exchange hidden">
-                                            <span class="size-wrap">${optionfirst}</span>
-                                            <span class="size-wrap">${optionSecond}</span>
-                                            <span class="size-wrap">${optionThird}</span>
-                                            <span class="exchange-item-link link hidden"><span class="break">|</span> Edit Size</span>
+                                          <p class="product-size-type-exchange">
+                                            <span class="size-wrap option-1 hidden">${optionfirst}</span>
+                                            <span class="size-wrap option-2 hidden">${optionSecond}</span>
+                                            <span class="size-wrap option-3 hidden">${optionThird}</span>
+                                            <span class="break hidden">|</span> 
+                                            <span class="exchange-item-link link">Edit Size</span>
                                           </p>
                                           <div class="product-swatch-option ${productType}" data-product-handle="${productHandleVal}">
                                             <div class="product-swatches-main"><h4>${product.title}</h4>${customSwatchWap}</div>
@@ -307,7 +304,7 @@ theme_custom.ProductData = function(productItemsArr){
                                 <input type="hidden" class="product-id" data-product-id="${product.id}" />
                                 <input type="hidden" class="product-type" data-product-type="${productType}" />
                                 <input type="hidden" class="product-handle" data-product-handle="${product.handle}" />
-                                <input type="hidden" class="prod-variant-data" data-var-id="${product.variant_id}" />
+                                <input type="hidden" class="prod-variant-data" data-var-id="${variantSelected.id}" />
                                 <h4>${product.title}</h4>
                                 ${productSizeTypeExchangeData}
                               </div>
@@ -315,7 +312,7 @@ theme_custom.ProductData = function(productItemsArr){
                                 <p class="price">${productPrice}</p>
                               </div>
                             </div>`;
-              subTotal = subTotal + parseInt(subtotalVarPrice)*100;
+              subTotal = subTotal + parseInt(subtotalVarPrice);
             // }
           // });
         } else {
@@ -424,14 +421,22 @@ theme_custom.clickEventInvited = function(){
     button.text(buttonText);
     var targetVarTitleArr = targetVarTitle.split(" / ");
     if(targetVarTitleArr[0]!=''){ 
+      $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".option1").attr("data-value",targetVarTitleArr[0])
       $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".option1 .value").text(targetVarTitleArr[0]);
+      $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".size-wrap.option-1").removeClass("hidden");
     } 
     if(targetVarTitleArr[1] != ''){
+      $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".option2").attr("data-value",targetVarTitleArr[0])
       $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".option2 .value").text(targetVarTitleArr[1]);
+      $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".size-wrap.option-2").removeClass("hidden");
     } 
     if(targetVarTitleArr[2] != ''){
+      $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".option3").attr("data-value",targetVarTitleArr[0])
       $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".option3 .value").text(targetVarTitleArr[2]); 
+      $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".size-wrap.option-3").removeClass("hidden");
     }
+    $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".break").removeClass("hidden");
+    $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".exchange-item-link").text("Edit Item");
     $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".prod-variant-data").val(targetVarID).attr("data-var-id",targetVarID);
     button.text("Updated");
     // if($(".error-msg").length==0){
@@ -561,7 +566,7 @@ theme_custom.getEventDetails = function(eventId) {
         $('#weddingeventname').html(result.data.event_name);
         $('.breadcrumb .active-page').text(result.data.event_name);
         $('#weddingevent_id').val(result.data.event_id);
-        var getMemberID = window.location.href.split('?')[1].split('+')[1].split("=")[1];
+        var getMemberID = window.location.href.split('?')[1].split('&')[1].split("=")[1];
         $('#member_id').val(getMemberID);
         theme_custom.memberId = $('#member_id').val();
         // $('.event-edit-hosted').html(`<i class="fas fa-user-tie"></i> Hosted By Bobby Jones`);
@@ -633,6 +638,7 @@ theme_custom.productVariantSeledtUpdate = function(){
       } else {
         $(this).find(`[data-option-swatch-index="0"] .swatch-element-item:first`).addClass("active");
       }
+      $(this).find(".size-wrap.option-1").removeClass("hidden");
     }
     if($(this).find('.option2').length > 0 ){
       currentOptionValue = $(this).find('.option2').attr("data-value");
@@ -642,6 +648,7 @@ theme_custom.productVariantSeledtUpdate = function(){
       } else {
         $(this).find(`[data-option-swatch-index="1"] .swatch-element-item:first`).addClass("active");
       }
+      $(this).find(".size-wrap.option-2").removeClass("hidden");
     }
     if($(this).find('.option3').length > 0){
       currentOptionValue = $(this).find('.option3').attr("data-value");
@@ -651,7 +658,9 @@ theme_custom.productVariantSeledtUpdate = function(){
       } else {
         $(this).find(`[data-option-swatch-index="2"] .swatch-element-item:first`).addClass("active");
       }
+      $(this).find(".size-wrap.option-3").removeClass("hidden");
     }
+    $(this).find(".break").removeClass("hidden");
     if ($(this).find('.prod-variant-option option').filter('[data-variant-title="'+varintTitle+'"]').length == 0) {
       $(this).find('.prod-variant-option option:first').prop('selected', true);
       $(this).find(".product-info").append("<p class='error-msg' style='color:red; font-size : 14px; margin-top:5px'>"+theme_custom.productNotFoundError+"</p>");
@@ -746,14 +755,14 @@ theme_custom.getFitFinderData = function(payBy){
         $(".order-footer .fit-finder-alert-msg").removeClass("hidden");
         theme_custom.cartButton = 'disabled';
         $(".account-event-step[data-event-step='verified-fit']").hide();
-        $('.product-size-type-exchange').addClass('hidden');
-        $('.exchange-item-link').addClass("hidden")
+        // $('.product-size-type-exchange').addClass('hidden');
+        $('.exchange-item-link').text("Select Size");
       } else {
         $(".account-event-step[data-event-step='sized'], .account-event-step[data-event-step='verified-fit']").addClass("active");
         $(".product-size-type-exchange-wrapper .product-size-type-exchange").removeClass("hidden");
         $(".order-footer .fit-finder-alert-msg").addClass("hidden");
-        $('.product-size-type-exchange').removeClass('hidden');
-        $('.exchange-item-link').removeClass("hidden");
+        // $('.product-size-type-exchange').removeClass('hidden');
+        $('.exchange-item-link').text("Edit Size");
         theme_custom.cartButton = '';
         theme_custom.fitFinderDataSet(result.data);
       }
@@ -942,7 +951,7 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
 
 $(document).ready(function () {
   $(".Squer-radio-button-big").removeClass("open-popup");
-  var apiIdVal = window.location.search.replace('?','').split("+");
+  var apiIdVal = window.location.search.replace('?','').split("&");
   var eventId = apiIdVal[0].replace("event_id=",'');
   var memberId = apiIdVal[1].replace("member_id=",'');
   theme_custom.getEventDetails(eventId);

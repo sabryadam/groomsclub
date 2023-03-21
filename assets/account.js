@@ -301,8 +301,10 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                             let ownCreated = event.hostedBy.toLowerCase() == 'me' ? true : false;
                             if (ownCreated) {
                                 var pageLink = `/pages/create-event`;
+                                var actionButton = 'go-to-event-page'
                             } else {
-                                var pageLink = `/pages/invited?event_id=${event.event_id}+member_id=${event.member_id}`;
+                                var actionButton = 'invited-event-page'
+                                var pageLink = `/pages/invited?event_id=${event.event_id}&member_id=${event.member_id}`;
                             }
                             let eventActiveClass = "";
                             if(count == 1){
@@ -314,7 +316,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                                 btns = `<div class="event-hostedby"><span>Hosted by ${event.hostedBy}</span></div>`
                             }else{
                                 btns = `<div class="event-action-btns">
-                                <span data-href="${pageLink}" class="events-main-link event-edit-btn " data-hosted-by="${event.hostedBy}" data-event-id="${event.event_id}">Edit</span>
+                                <span class="events-main-link event-edit-btn" data-href="${pageLink}" data-hosted-by="${event.hostedBy}" data-event-id="${event.event_id}">Edit</span>
                                 <span class="remove-event event-delete-btn" data-hosted-by="${event.hostedBy}">Delete</span>
                             </div>`
                             }
@@ -324,7 +326,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                                     <div class="event-title"><span>${event.name}</span></div>
                                     ${btns}
                                 </div>
-                                <div class="event-container-arrow"><span data-href="${pageLink}" style="display:inline-block" class="events-main-link custom-event-button" data-hosted-by="${event.hostedBy}" data-event-id="${event.event_id}">
+                                <div class="event-container-arrow"><span data-href="${pageLink}" style="display:inline-block" class="${actionButton}" data-hosted-by="${event.hostedBy}" data-event-id="${event.event_id}">
                                    <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/next_1.png?v=1677956518" />
                                 </a>
                                 </div>
@@ -427,14 +429,18 @@ $(document).on("click",`[data-target="delete-data-from-api"] button`,function(){
         $(`.modal-wrapper[data-target="delete-data-from-api"]`).removeClass("active");
     }
 })
-$(document).on("click", ".events-main-container .custom-event-button, .events-main-link ", function () {
+$(document).on("click", ".events-main-container .go-to-event-page", function () {
     var hostedBy = $(this).data("hosted-by");
     localStorage.setItem("hosted-by", hostedBy);
     localStorage.setItem("set-event-id",$(this).data("event-id"));
     if($(this).text() != 'Edit' ){
         localStorage.setItem("showEventStepSecond","true");
     }
-    window.location.href = $(this).data("href");
+    window.location.href = $(this).attr("data-href");
+})
+$(document).on("click", ".events-main-container .invited-event-page", function () {
+    debugger;
+    window.location.href = encodeURI(location.origin+$(this).attr("data-href"));
 })
 
 //event List pagination 
@@ -515,7 +521,6 @@ function favoritelooks() {
             if (result.success) {
                 if (result.data.length > 0) {
                     theme_custom.favLooksData = result.data;
-                    // console.log("result.data",result.data);
                     var append_fav_html = "";
                     $('.feature-looks-slider').html(append_fav_html);
                     var edit_link = '';
@@ -1296,7 +1301,6 @@ theme_custom.updateMySize = function (fitFinderJson, button) {
       beforeSend: function () {
       },
       success: function (result) {
-        // console.log("Result",result.data);
         var setFitFinderCookie = {
             "customer_id": result.data.customer_id,
             "user_email": result.data.email,
@@ -1346,7 +1350,6 @@ theme_custom.updateMySize = function (fitFinderJson, button) {
             button.closest('.edit-size-popup').find('.api_error.success-event').show();
         }
         var jacketType = result.data.jacketSize.split(":");
-        // console.log("JacketType",jacketType);
         var jacketTypeVal = '';
         if (jacketType[1] == "S") {
             jacketTypeVal = 'Short'
@@ -1437,7 +1440,6 @@ $(document).on("click", ".update-btn-main .update-my-size", function (e) {
         }else if($(this).closest('.edit-size-popup').attr('data-popup') == 'edit-pants'){
             var edit_pant_waist_size = $(this).closest('.edit-size-popup').find('[name="waist"]:checked').val(),
                 edit_pant_height = $(this).closest('.edit-size-popup').find('[name="inseam"]:checked').val();
-                // console.log('edit_pant_height',edit_pant_height);
             getFitFinder['pants_waist'] = edit_pant_waist_size;
             getFitFinder['pants_waist_output'] = edit_pant_waist_size;
             getFitFinder['pants_hight'] = edit_pant_height;

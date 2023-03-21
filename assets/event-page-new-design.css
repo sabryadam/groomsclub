@@ -1633,3 +1633,7 @@ span.look-price {
 .button{
   cursor: pointer;
 }
+.summary-table-wrapper .order-wrap-block .btn-wrap.button--secondary {
+  min-width: 200px;
+  display: inline-block;
+}
