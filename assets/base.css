@@ -10671,3 +10671,27 @@ p.removing-combine-message
 .site-global-loader.hidden{
   display: none !important;
 }
+@media(max-width : 767px){
+  .order-info.transection-list-inner .return-item .button{
+    display: block;
+    width: fit-content;
+    min-width: auto;
+    height: auto;
+    font-size: 12px;
+  }
+  .order-info.transection-list-inner{
+    flex-wrap: wrap;
+    display: flex;
+  }
+  .order-info.transection-list-inner .order-item-info{
+    order : 0
+  }
+  .order-info.transection-list-inner .order-address{
+    order : 1
+  }
+  .order-info.transection-list-inner .order-address,
+  .order-info.transection-list-inner .order-item-info{
+    width: 100%;
+    min-width: 100%;
+  }
+}

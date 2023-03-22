@@ -45,7 +45,8 @@
           "type": "heading",
           "settings": {
             "heading": "Choose Your Style",
-            "heading_count": "1."
+            "heading_count": "1.",
+            "show_icon": false
           }
         },
         "eb1e6fb5-7b55-4b69-b88a-dbe288600f71": {
@@ -66,6 +67,7 @@
           "settings": {
             "button_label": "Get Started",
             "button_link": "shopify:\/\/pages\/get-started-use",
+            "open_new_tab": false,
             "button_style_secondary": false
           }
         }
@@ -95,7 +97,8 @@
           "type": "heading",
           "settings": {
             "heading": "Create Your Event",
-            "heading_count": "2."
+            "heading_count": "2.",
+            "show_icon": false
           }
         },
         "778ceb53-389b-4c09-b5fe-170894d99a9d": {
@@ -135,7 +138,8 @@
           "type": "heading",
           "settings": {
             "heading": "Sit Back and Relax",
-            "heading_count": "3."
+            "heading_count": "3.",
+            "show_icon": false
           }
         },
         "87ac929d-32bf-4b8b-8c56-0f09ab10997d": {
@@ -155,6 +159,7 @@
           "settings": {
             "button_label": "Get Started",
             "button_link": "shopify:\/\/pages\/get-started-use",
+            "open_new_tab": false,
             "button_style_secondary": true
           }
         }
@@ -267,7 +272,7 @@
         "show_view_all": false,
         "show_image": true,
         "soft_background": false,
-        "btn_label": "More Tips",
+        "btn_label": "",
         "btn_link": "shopify:\/\/blogs\/tips-tricks",
         "button_style_secondary_blog": true
       }
@@ -279,7 +284,8 @@
           "type": "heading",
           "settings": {
             "heading": "Get Started",
-            "heading_count": ""
+            "heading_count": "",
+            "show_icon": false
           }
         },
         "0ba37dd5-0c6d-461d-90f5-018faf29c491": {
@@ -293,6 +299,7 @@
           "settings": {
             "button_label": "Create Account",
             "button_link": "shopify:\/\/pages\/create-event",
+            "open_new_tab": false,
             "button_style_secondary": true
           }
         }

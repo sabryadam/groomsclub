@@ -3,9 +3,13 @@
 
 <head>
   {% if page_title %}
-  <title>{{ page_title | escape }}</title>
+    {% if page_title == 'invited' %}
+      <title>Invite Page | Grooms Club</title>
+    {% else %}
+      <title>{{ page_title | escape }} </title>
+    {% endif %}
   {% else %}
-  <title>{{ shop.name }}</title>
+    <title>{{ shop.name }}</title>
   {% endif %}
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">

@@ -387,7 +387,7 @@ theme_custom.successCallback = (data, nextTarget) => {
         $(`.member-summary-wrapper`).find(".heading").text("Summary");
         $(".event-page-new-design-wrapper .button-wrapper").removeClass("active")
       } else {
-        $(`.member-summary-wrapper`).find(".heading").addClass("text-center").text("You have not any look for payment!");
+        $(`.member-summary-wrapper`).find(".heading").addClass("text-center").text("You don't have any look for payment!");
         $(".event-page-new-design-wrapper .button-wrapper").addClass("active")
         $(`[data-step-content-wrap="3"]`).find(".btn-wrap.next-button").removeClass("disabled");
       }
@@ -1048,19 +1048,19 @@ theme_custom.lookInfoData = function (result) {
       }
     }
     productHTML += `<tr class="order-wrap-block order-wrap-${index}">
-                      <td>
+                      <td class="look-name-wrap">
                         <span class="look_name">${orderItems.look_name}</span>
                       </td>
-                      <td>
+                      <td class="member-name-wrapper">
                         <span class="member-number">
                           For ${orderItems.member_name}
                         </span>
                       </td>
-                      <td>
+                      <td class="pay-info-wrap">
                         <span class="pay-info" >${payInfo}</span>
                         <span class="look-price" data-price="219.90"></span>  
                       </td>
-                      <td>
+                      <td class="action-button">
                         <div class="product-data ${product_data_for_host}">
                           <div class="product-card-wrap">
                             <input type="hidden" class="product_id" data-product-id="" data-product-price="" data-product-var-id="" />
@@ -1453,6 +1453,11 @@ theme_custom.eventPageClickEvent = function () {
 
   // customise-look-button 
   $(document).on("click", ".customise-look-button", function () {
+    if($(this).hasClass("look-have-member")){
+      $(`.modal-wrapper[data-target="delete-look-have-member"]`).find(".inner-wrapper p").text("Look can't be customized since a member is already assigned to it, Please remove the member in order to customize the look.");
+      $(`.modal-wrapper[data-target="delete-look-have-member"]`).addClass("active");
+      return false;
+    }
     localStorage.setItem("customizerlookUrl", $(this).attr("data-href").split('?')[1]);
     localStorage.setItem("customize-from-event", "true");
     localStorage.setItem("eventLookId", $(this).attr("look-mapping-id"));
@@ -1609,6 +1614,7 @@ theme_custom.eventLookSlider = function () {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          adaptiveHeight: true
         }
       }
     ]

@@ -96,7 +96,7 @@
                     	{% assign mobile_menu = section.settings.menu %}
                     {% endif %}{%- endcomment -%}
                     {%- for link in section.settings.menu.links -%}
-                      <li>
+                      <li class="main-link">
                         {%- if link.links != blank -%}
                           <details>
                             <summary class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.current or link.child_active %} menu-drawer__menu-item--active{% endif %}"{% if link.current or link.child_active %} aria-current="page"{% endif %}>
@@ -145,6 +145,11 @@
                                       {%- endif -%}
                                     </li>
                                   {%- endfor -%}
+                                  <li class="xs-show">
+                                    <a href="{{ link.url}}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">
+                                      {{ link.title | escape }}
+                                    </a>
+                                  </li>
                                 </ul>
                               </div>
                             </div>
@@ -156,7 +161,7 @@
                         {%- endif -%}
                       </li>
                     {%- endfor -%}
-                    <li>
+                    <li class="main-link">
                        <a href="/pages/contact" class="menu-drawer__menu-item list-menu__item link link--text focus-inset"{% if link.current %} aria-current="page"{% endif %}>
                           Contact Us
                         </a>

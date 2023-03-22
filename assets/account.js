@@ -451,7 +451,6 @@ $(document).on("click", ".events-main-container .go-to-event-page, .event-edit-b
     window.location.href = $(this).attr("data-href");
 })
 $(document).on("click", ".events-main-container .invited-event-page", function () {
-    debugger;
     window.location.href = encodeURI(location.origin+$(this).attr("data-href"));
 })
 
