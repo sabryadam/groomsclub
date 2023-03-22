@@ -317,6 +317,15 @@ theme_custom.productDataFromURL = function () {
           $(`.customize-look-overview-product[data-product-type="${target}"] .customize-look-overview-product`).append(error);
         }
       });
+      $(".swatch-wrap.unchecked-product").each(function(){
+        var targetClor = $(this).find(".tool-tip").text();
+        var suitProduct = $(this).closest(".product-block-outer-wrapper").attr("data-collection-title");
+        if(suitProduct == 'jacket'){
+          $(`.product-block-outer-wrapper[data-collection-title="suit-color"]`).find(".color-title").text(targetClor)
+        } else{
+          $(this).closest(".product-block-outer-wrapper").find(".color-title").text(targetClor)
+        }
+      })
     }
     
     

@@ -12,7 +12,8 @@ theme_custom.multipleProductAjax = function(button, parent, payBy){
       event_id = $("#weddingevent_id").val(),
       member_id = theme_custom.memberId,
       look_id = $("#look_id").val(),
-      items = []
+      items = [],
+      attributes= {},
       payByValue = payBy;
   getProduct.each(function(){
     var varId = $(this).find(".prod-variant-data").attr("data-var-id");
@@ -48,14 +49,24 @@ theme_custom.multipleProductAjax = function(button, parent, payBy){
     }
     items.push(item);
   });
-  data = {
-    items: items,
-    'attributes': {
+  if(payByValue == 'host'){
+    attributes = {
+      'event_id': event_id,
+      'member_id' : member_id,
+      'look_id' : look_id,
+      'order_type' : 'virtual'
+    }
+  } else {
+    attributes =  {
       'event_id': event_id,
       'member_id' : member_id,
       'look_id' : look_id,
       'order_type' : 'normal'
-    }
+    }  
+  }
+  data = {
+    items: items,
+    'attributes': attributes
   }
   jQuery.ajax({
     type: 'POST',

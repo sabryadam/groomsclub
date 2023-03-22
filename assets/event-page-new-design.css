@@ -566,9 +566,9 @@
   height: auto;
   /* background: #fff; */
 }
-.event-page-new-design-wrapper .page-width-inner-wrapper .show-look-from-event-wrapper .look-card-block .look-image .customise-look.look-have-member{
+/* .event-page-new-design-wrapper .page-width-inner-wrapper .show-look-from-event-wrapper .look-card-block .look-image .customise-look.look-have-member{
   display: none;
-}
+} */
 /* .event-page-new-design-wrapper .page-width-inner-wrapper  .look-card-block .look-image .customise-look:hover{
   background: #1075BC;
   color: #fff;
@@ -583,6 +583,12 @@
   min-height: 450px;
   height: 450px;  
   object-fit: contain;
+}
+@media(max-width : 767px){
+   .event-page-new-design-wrapper .page-width-inner-wrapper  .look-card-block img.look-img  {
+    min-height: 350px;
+    height: 350px;  
+  } 
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .slick-arrow{
   position: absolute;
@@ -897,7 +903,7 @@
   -webkit-transform: translate3d(0, 0, 0);
 }
 .final-summary-wrapper .page-width-inner-wrapper .product-card-wrapper .product-card {
-  min-width: 100%;
+  min-width: 80%;
 }
 }
 .final-summary-wrapper .page-width-inner-wrapper .product-card-wrapper .img img{
@@ -928,6 +934,7 @@
   -moz-appearance: none;
   appearance: none;
   background: url('https://cdn.shopify.com/s/files/1/0585/3223/3402/files/down-arrow.png') 95% / 6% no-repeat #fff;
+  color: var(--color-button-primary);
 }
 .final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper {
   margin-top: 40px;
@@ -1126,6 +1133,7 @@
     width: 130px;
     height: 30px;
     margin: 10px 0;
+    padding : 0 10px
   }
   .event-page-new-design-wrapper .final-summary-wrapper .button-wrapper .btn-wrap{
     height: 50px;
@@ -1601,7 +1609,7 @@ html .template-page-create-event .ui-button.ui-state-disabled:active{
   justify-content: center;
 }
 .assign-look-user-wrap{
-  max-height: 570px;
+  max-height: 280px;
   overflow: auto;
   /* padding-right: 5px; */
 }
@@ -1642,4 +1650,64 @@ span.look-price {
 .summary-table-wrapper .order-wrap-block .btn-wrap.button--secondary {
   min-width: 200px;
   display: inline-block;
+}
+@media(max-width : 767px){
+  .summary-table-wrapper table,
+  .summary-table-wrapper tbody{
+    display: block;
+  }
+  .summary-table-wrapper thead{
+    display: none;
+  }
+  .summary-table-wrapper .order-wrap-block{
+    display: block;
+    position: relative;
+  }
+  .summary-table-wrapper tr{
+    display: block !important;
+  }
+  .summary-table-wrapper .order-wrap-block .look-name-wrap{
+    width: 100%;
+    padding-bottom: 0;
+    display: block;
+  }
+  .summary-table-wrapper .order-wrap-block .member-name-wrapper{
+    width: 100%;
+    padding-top: 0;
+    display: block;
+  }
+  .summary-table-wrapper .order-wrap-block .pay-info-wrap{
+    width: auto;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .summary-table-wrapper .pay-info-wrap .pay-info{
+    display: none;
+  }
+  .summary-table-wrapper .action-button{
+    width: 100%;
+    display: inline-block;
+    padding-top: 0;
+  }
+  .summary-table-wrapper .order-wrap-block .btn-wrap.button--secondary{
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    font-size: 14px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  span.look-price{
+    font-size: 18px;
+  }
+  .summary-table-wrapper tfoot{
+    display: block;
+  }
+  .summary-table-wrapper tfoot tr{
+    display: flex !important;
+    width: 100%;
+    justify-content: space-between;
+  }
 }
