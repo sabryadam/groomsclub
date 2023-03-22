@@ -337,7 +337,7 @@
 }
 
 .main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .pagination-wrapper{
-    margin-bottom: 50px;
+    margin-bottom: 10px;
 }
 .main-account-page #tabs-content .tab-content .feature-looks-slider{
     max-width: 960px;
@@ -551,6 +551,12 @@
     min-width: 587px;
     min-height: initial;
     max-height: initial;
+}
+@media(max-width : 767px){
+    .modal-wrapper[data-target="delete-data-from-api"] .modal-wrapper-inner-wrapper {
+        max-width: 80%;
+        min-width: 80%;
+    }
 }
 .modal-wrapper .modal-wrapper-inner-wrapper .title{
     font-style: normal;
