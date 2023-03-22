@@ -985,7 +985,7 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
       productSubTotalPrice = theme_custom.Shopify.formatMoney(subTotal, theme_custom.money_format);
       $(`.order-wrap-${index} .look-price`).text(productSubTotalPrice);
       $(`.order-wrap-${index} .look-price`).attr("data-price", subTotal / 100);
-      $(`.order-wrap-${index} .button`).attr("data-look-price", subTotal);
+      $(`.order-wrap-${index} .button`).attr("data-look-price", subTotal / 100).attr("data-look-total-price", subTotal);
       $(`.look-card-block[data-look-id="${orderItems.look_id}"] .look-price`).text(productSubTotalPrice).fadeIn();
       $(`.order-wrap-${index} .product-card-wrap`).html(productItemHTML);
     }
@@ -1078,7 +1078,7 @@ theme_custom.lookInfoData = function (result) {
     setTimeout(() => {
       var totalPrice = 0;
       $(".order-wrap-block").each(function () {
-        totalPrice = totalPrice + ($(this).find("button").attr("data-look-price") * 1);
+        totalPrice = totalPrice + ($(this).find("button").attr("data-look-total-price") * 1);
       })
       var lookTotalPrice = theme_custom.Shopify.formatMoney(totalPrice, theme_custom.money_format)
       $(`.summary-table-wrapper tfoot`).fadeIn().find('.total-price').text(lookTotalPrice);
