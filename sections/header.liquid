@@ -460,6 +460,9 @@
           </span>
         </a>
       {%- endif -%}
+      <a class="link link-with-svg fav-icon" tabindex="0" title="Favorite Look" href="{%- if customer -%}/account?tab=favorite-look{%- else -%}{{ routes.account_login_url }}{%- endif -%}">
+        <i class="far fa-heart"></i>
+      </a>
         {% comment %}if cart empty -- render 'icon-cart-empty' {% endcomment %}
          {% comment %}if cart not empty  render 'icon-cart' {% endcomment %}
       <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link link--text focus-inset" id="cart-icon-bubble">
