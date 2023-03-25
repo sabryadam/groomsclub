@@ -374,7 +374,9 @@
       ],
       "settings": {
         "check_width": false,
-        "video_mp4_link": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/5ce7f5dfe9b344db9efeb9442de8d151.mp4",
+        "image": "shopify:\/\/shop_images\/New-sequence-6-16.gif",
+        "video_mp4_link": "",
+        "image_mobile": "shopify:\/\/shop_images\/New-sequence-6-16.gif",
         "height": "adapt",
         "color_scheme": "background-2",
         "background_color": "#ffffff",

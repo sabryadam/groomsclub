@@ -17,8 +17,7 @@
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
 
 <div class="mywedding_section_wrap hidden">
-  <div class="invite-event-header page-top-margin-0">
-    {% comment %}
+  <div class="page-top-head-background page-top-margin-0">
     <div class="page-width-big">
       <div class="page-top-headpadding-flex">
         <div class="breadcrumb">
@@ -33,7 +32,7 @@
         </div>
       </div>
     </div>
-    {% endcomment %}
+    
     <div class="page-width">
       <input type="hidden" id="weddingevent_id">
       <input type="hidden" id="customer_id" value="{{ customer.id }}">
@@ -45,11 +44,12 @@
           <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/default-event-img.jpg?v=1654156190">
         </div>
         <div class="profile-info-part">
+          <div class="event-edit-hosted xs-show"><i class="fas fa-user-tie"></i> Hosted By <span class="user-name">Bobby Jones</span></div>
           <h1 class="text-center-heading border-heading page-title" id="weddingeventname"></h1>
           <input type="hidden" class="payment_flag" />
           <div class="event-detail-part">
             <div class="event-date-part h4" id="weddingeventdate"></div>
-            <div class="event-edit-hosted"><i class="fas fa-user-tie"></i> Hosted By <span class="user-name">Bobby Jones</span></div>
+            <div class="event-edit-hosted xs-hide"><i class="fas fa-user-tie"></i> Hosted By <span class="user-name">Bobby Jones</span></div>
           </div>
         </div>
       </div>
@@ -84,25 +84,14 @@
     </div>
   </div>
 
-  <div class="invite-event-main-content background-color-spacing assigned-look-back hidden">
+  <div class="background-color-spacing assigned-look-back hidden">
     <div class="page-width">
-      <div class="event-content-head">
-        <h2 class="border-heading title">Your Assigned Look</h2>
-        <div class="review-fit-finder">
-          <p class="review-size">REVIEW Your Size</p>
-          <p class="fit-finder-text">
-            <span>(Not sure?</span>
-            <span class="invited-event-fit-finder-button">Try Fit Finder)</span>
-          </p>
-        </div>
-      </div>
-      
       <div class="invited-assigned-look">
         <div class="left-part-image-part look-event-data">
           <div class="image">
-            <h3 class="suit-heading margin-0 look-name">Look Name</h3>
             <img class="look-img" src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/product-img-3.png?v=1634963523" alt="Look image" />
           </div>
+          <h3 class="suit-heading margin-0 look-name">Look Name</h3>
         </div>
         <div class="right-assigned-look-list">
           <div class="loader-icon">
@@ -119,11 +108,11 @@
       </div>
     </div>
   </div>
-  <div class="the-party-part invited-event-footer">
+  <div class="the-party-part">
     <div class="party-background-part">
       <div class="page-width">
         <div class="section-heading">
-          <h2 class="text-center-heading border-heading title">Members in the Event</h2>
+          <h2 class="text-center-heading border-heading title">The Party</h2>
         </div>
         <div class="party-invite-member-part"></div>
       </div>

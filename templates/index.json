@@ -89,8 +89,7 @@
           "type": "heading",
           "settings": {
             "heading": "Customize Your Look",
-            "heading_count": "",
-            "show_icon": false
+            "heading_count": ""
           }
         },
         "c6406a55-8c82-49ea-bfbd-f4f76d8944e2": {
@@ -111,7 +110,6 @@
           "settings": {
             "button_label": "Try Our Customizer",
             "button_link": "shopify:\/\/pages\/customize-your-look",
-            "open_new_tab": false,
             "button_style_secondary": true
           }
         }
@@ -124,9 +122,9 @@
       ],
       "settings": {
         "check_width": true,
-        "image": "shopify:\/\/shop_images\/New-Vert_8ece258b-3d99-4571-818e-682110ac7709.gif",
+        "image": "shopify:\/\/shop_images\/New-sequence-6-16.gif",
         "video_mp4_link": "",
-        "image_mobile": "shopify:\/\/shop_images\/New-Vert_8ece258b-3d99-4571-818e-682110ac7709.gif",
+        "image_mobile": "shopify:\/\/shop_images\/New-sequence-6-16.gif",
         "height": "adapt",
         "color_scheme": "custom_color",
         "background_color": "#f5f5f5",
@@ -152,160 +150,6 @@
         "loop": true
       }
     },
-    "1632396202cb858d8f": {
-      "type": "banner-slider",
-      "blocks": {
-        "d53d78c5-ff78-44ed-a053-8966226f2f26": {
-          "type": "sliderimage",
-          "settings": {
-            "title": "",
-            "subtitle": "",
-            "button_link": "",
-            "button_name": "",
-            "desktop_image": "shopify:\/\/shop_images\/Don-split.png",
-            "mobile_image": "shopify:\/\/shop_images\/Don-split.png"
-          }
-        },
-        "ec612edb-252d-4e0a-8936-53c105ffa019": {
-          "type": "sliderimage",
-          "settings": {
-            "title": "",
-            "subtitle": "",
-            "button_link": "",
-            "button_name": "",
-            "desktop_image": "shopify:\/\/shop_images\/Stretch-Adrian-neck_cropped_new.png",
-            "mobile_image": "shopify:\/\/shop_images\/Stretch-Adrian-neck_cropped_new.png"
-          }
-        },
-        "b06b2a19-0a93-4f56-b032-c39646015e1e": {
-          "type": "sliderimage",
-          "settings": {
-            "title": "",
-            "subtitle": "",
-            "button_link": "",
-            "button_name": "",
-            "desktop_image": "shopify:\/\/shop_images\/Ethan-slide.png",
-            "mobile_image": "shopify:\/\/shop_images\/Ethan-slide.png"
-          }
-        },
-        "52872f7b-d5fd-4591-8e3e-e29386764906": {
-          "type": "sliderimage",
-          "settings": {
-            "title": "",
-            "subtitle": "",
-            "button_link": "",
-            "button_name": "",
-            "desktop_image": "shopify:\/\/shop_images\/new-Stretch-sleeve.png",
-            "mobile_image": "shopify:\/\/shop_images\/new-Stretch-sleeve.png"
-          }
-        },
-        "bb75f37e-0806-4480-b84f-5b441256ab7f": {
-          "type": "sliderimage",
-          "settings": {
-            "title": "",
-            "subtitle": "",
-            "button_link": "",
-            "button_name": "",
-            "desktop_image": "shopify:\/\/shop_images\/Stretch-Adrian_cropped_new.png",
-            "mobile_image": "shopify:\/\/shop_images\/Stretch-Adrian_cropped_new.png"
-          }
-        }
-      },
-      "block_order": [
-        "d53d78c5-ff78-44ed-a053-8966226f2f26",
-        "ec612edb-252d-4e0a-8936-53c105ffa019",
-        "b06b2a19-0a93-4f56-b032-c39646015e1e",
-        "52872f7b-d5fd-4591-8e3e-e29386764906",
-        "bb75f37e-0806-4480-b84f-5b441256ab7f"
-      ],
-      "settings": {
-        "autoplay": true,
-        "arrowprev": true,
-        "dots": true,
-        "loop": true,
-        "custom_class": "page-width  secoundry-slider"
-      }
-    },
-    "3c13ecf6-1f12-42f4-80b1-ff93e248fe2a": {
-      "type": "rich-text",
-      "blocks": {
-        "template--16043277975738__3c13ecf6-1f12-42f4-80b1-ff93e248fe2a-1678739566ed6fc246-0": {
-          "type": "heading",
-          "settings": {
-            "heading": "Book a Virtual Consultation",
-            "heading_size": "medium"
-          }
-        },
-        "template--16043277975738__3c13ecf6-1f12-42f4-80b1-ff93e248fe2a-1678739566ed6fc246-1": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Say “I Do” to Style! Book a virtual appointment with one of our expert fashion consultants to find your perfect suit. With their expert style advice and keen attention to detail, you'll be ready to walk down the aisle with confidence. Book an appointment, chat with your stylist, then sit back and relax while we take care of the rest.<\/p>"
-          }
-        },
-        "template--16043277975738__3c13ecf6-1f12-42f4-80b1-ff93e248fe2a-1678739566ed6fc246-2": {
-          "type": "button",
-          "settings": {
-            "button_label": "Book Personalized Appointment",
-            "button_link": "https:\/\/calendly.com\/groomsclub\/30min?embed_domain=www.groomsclub.com&embed_type=PopupWidget&month=2023-03",
-            "button_style_secondary": false
-          }
-        }
-      },
-      "block_order": [
-        "template--16043277975738__3c13ecf6-1f12-42f4-80b1-ff93e248fe2a-1678739566ed6fc246-0",
-        "template--16043277975738__3c13ecf6-1f12-42f4-80b1-ff93e248fe2a-1678739566ed6fc246-1",
-        "template--16043277975738__3c13ecf6-1f12-42f4-80b1-ff93e248fe2a-1678739566ed6fc246-2"
-      ],
-      "settings": {
-        "color_scheme": "background-1",
-        "full_width": true
-      }
-    },
-    "163239632562541ac6": {
-      "type": "image-with-text",
-      "blocks": {
-        "163239632562541ac6-0": {
-          "type": "heading",
-          "settings": {
-            "heading": "Our Top Looks",
-            "heading_count": "",
-            "show_icon": false
-          }
-        },
-        "9591ae0c-927e-49f6-afad-f9e1e68369dd": {
-          "type": "subheading",
-          "settings": {
-            "sub_heading": "Browse some of our suggested looks to seamlessly style your group."
-          }
-        },
-        "163239632562541ac6-2": {
-          "type": "button",
-          "disabled": true,
-          "settings": {
-            "button_label": "Browse Top Looks",
-            "button_link": "shopify:\/\/collections\/looks",
-            "open_new_tab": false,
-            "button_style_secondary": true
-          }
-        }
-      },
-      "block_order": [
-        "163239632562541ac6-0",
-        "9591ae0c-927e-49f6-afad-f9e1e68369dd",
-        "163239632562541ac6-2"
-      ],
-      "settings": {
-        "check_width": false,
-        "image": "shopify:\/\/shop_images\/TOP_Looks_HP.png",
-        "video_mp4_link": "",
-        "image_mobile": "shopify:\/\/shop_images\/TOP_Looks_HP.png",
-        "height": "adapt",
-        "color_scheme": "background-1",
-        "background_color": "#ffffff",
-        "layout": "image_first",
-        "custom_class": "top-look"
-      }
-    },
     "1632393733f78c28b7": {
       "type": "image-with-text",
       "blocks": {
@@ -313,8 +157,7 @@
           "type": "heading",
           "settings": {
             "heading": "How It Works",
-            "heading_count": "",
-            "show_icon": false
+            "heading_count": ""
           }
         },
         "99ce24b4-3dfa-4bef-9cbb-965cd85c5bc3": {
@@ -350,9 +193,8 @@
         "1632393733f78c28b7-2": {
           "type": "button",
           "settings": {
-            "button_label": "Get Started",
+            "button_label": "Learn More",
             "button_link": "shopify:\/\/pages\/how-it-works",
-            "open_new_tab": false,
             "button_style_secondary": true
           }
         }
@@ -466,7 +308,7 @@
       "settings": {
         "title": "Why Rent When You Can Buy?",
         "subtitle": "",
-        "btntitle": "Get Started",
+        "btntitle": "Learn More",
         "btnlink": "shopify:\/\/pages\/how-it-works",
         "button_style_secondary": true,
         "groom_text_title": "Grooms Club Suit",
@@ -496,7 +338,7 @@
         "1662995850ba141913-2": {
           "type": "buttons",
           "settings": {
-            "button_label_1": "Get Started",
+            "button_label_1": "Learn More!",
             "button_link_1": "shopify:\/\/pages\/home-try-on-overview",
             "button_style_secondary_1": false,
             "button_label_2": "",
@@ -518,37 +360,120 @@
         "adapt_height_first_image": false
       }
     },
-    "2090a493-beeb-4e64-a485-04649519dbb1": {
+    "1632396202cb858d8f": {
       "type": "banner-slider",
-      "disabled": true,
       "blocks": {
-        "904b6910-9b63-46cb-93de-343d61096eb5": {
-          "type": "video",
+        "d53d78c5-ff78-44ed-a053-8966226f2f26": {
+          "type": "sliderimage",
           "settings": {
-            "video_link": "",
-            "video_mp4_link": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/c829c0f6a6124fc78c2f24ef1a89573f.mp4",
-            "video_mp4_height": "500"
+            "title": "",
+            "subtitle": "",
+            "button_link": "",
+            "button_name": "",
+            "desktop_image": "shopify:\/\/shop_images\/Don-split.png",
+            "mobile_image": "shopify:\/\/shop_images\/Don-split.png"
           }
         },
-        "dab27c21-6cea-4bd9-9367-cdb98e8000f0": {
-          "type": "video",
+        "ec612edb-252d-4e0a-8936-53c105ffa019": {
+          "type": "sliderimage",
           "settings": {
-            "video_link": "",
-            "video_mp4_link": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/7362bf13ebf54a8c841c598716f32215.mp4",
-            "video_mp4_height": "500"
+            "title": "",
+            "subtitle": "",
+            "button_link": "",
+            "button_name": "",
+            "desktop_image": "shopify:\/\/shop_images\/Stretch-Adrian-neck_cropped_new.png",
+            "mobile_image": "shopify:\/\/shop_images\/Stretch-Adrian-neck_cropped_new.png"
+          }
+        },
+        "b06b2a19-0a93-4f56-b032-c39646015e1e": {
+          "type": "sliderimage",
+          "settings": {
+            "title": "",
+            "subtitle": "",
+            "button_link": "",
+            "button_name": "",
+            "desktop_image": "shopify:\/\/shop_images\/Ethan-slide.png",
+            "mobile_image": "shopify:\/\/shop_images\/Ethan-slide.png"
+          }
+        },
+        "52872f7b-d5fd-4591-8e3e-e29386764906": {
+          "type": "sliderimage",
+          "settings": {
+            "title": "",
+            "subtitle": "",
+            "button_link": "",
+            "button_name": "",
+            "desktop_image": "shopify:\/\/shop_images\/new-Stretch-sleeve.png",
+            "mobile_image": "shopify:\/\/shop_images\/new-Stretch-sleeve.png"
+          }
+        },
+        "bb75f37e-0806-4480-b84f-5b441256ab7f": {
+          "type": "sliderimage",
+          "settings": {
+            "title": "",
+            "subtitle": "",
+            "button_link": "",
+            "button_name": "",
+            "desktop_image": "shopify:\/\/shop_images\/Stretch-Adrian_cropped_new.png",
+            "mobile_image": "shopify:\/\/shop_images\/Stretch-Adrian_cropped_new.png"
           }
         }
       },
       "block_order": [
-        "904b6910-9b63-46cb-93de-343d61096eb5",
-        "dab27c21-6cea-4bd9-9367-cdb98e8000f0"
+        "d53d78c5-ff78-44ed-a053-8966226f2f26",
+        "ec612edb-252d-4e0a-8936-53c105ffa019",
+        "b06b2a19-0a93-4f56-b032-c39646015e1e",
+        "52872f7b-d5fd-4591-8e3e-e29386764906",
+        "bb75f37e-0806-4480-b84f-5b441256ab7f"
       ],
       "settings": {
         "autoplay": true,
         "arrowprev": true,
         "dots": true,
         "loop": true,
-        "custom_class": ""
+        "custom_class": "page-width  secoundry-slider"
+      }
+    },
+    "163239632562541ac6": {
+      "type": "image-with-text",
+      "blocks": {
+        "163239632562541ac6-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Our Top Looks",
+            "heading_count": ""
+          }
+        },
+        "9591ae0c-927e-49f6-afad-f9e1e68369dd": {
+          "type": "subheading",
+          "settings": {
+            "sub_heading": "Browse some of our suggested looks to seamlessly style your group."
+          }
+        },
+        "163239632562541ac6-2": {
+          "type": "button",
+          "settings": {
+            "button_label": "Browse Top Looks",
+            "button_link": "shopify:\/\/collections\/looks",
+            "button_style_secondary": true
+          }
+        }
+      },
+      "block_order": [
+        "163239632562541ac6-0",
+        "9591ae0c-927e-49f6-afad-f9e1e68369dd",
+        "163239632562541ac6-2"
+      ],
+      "settings": {
+        "check_width": false,
+        "image": "shopify:\/\/shop_images\/TOP_Looks_HP.png",
+        "video_mp4_link": "",
+        "image_mobile": "shopify:\/\/shop_images\/TOP_Looks_HP.png",
+        "height": "adapt",
+        "color_scheme": "background-1",
+        "background_color": "#ffffff",
+        "layout": "image_first",
+        "custom_class": "top-look"
       }
     }
   },
@@ -557,12 +482,10 @@
     "1632392239fe0110fd",
     "1632392241b5b3046e",
     "1632396205f946a5df",
-    "1632396202cb858d8f",
-    "3c13ecf6-1f12-42f4-80b1-ff93e248fe2a",
-    "163239632562541ac6",
     "1632393733f78c28b7",
     "1632393953de63a932",
     "166299585038981241",
-    "2090a493-beeb-4e64-a485-04649519dbb1"
+    "1632396202cb858d8f",
+    "163239632562541ac6"
   ]
 }

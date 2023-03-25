@@ -50,11 +50,8 @@
   }), e(t).on("click", "[data-fancybox-share]", function () { var t, o, i = e.fancybox.getInstance(), a = i.current || null; a && ("function" === e.type(a.opts.share.url) && (t = a.opts.share.url.apply(a, [i, a])), o = a.opts.share.tpl.replace(/\{\{media\}\}/g, "image" === a.type ? encodeURIComponent(a.src) : "").replace(/\{\{url\}\}/g, encodeURIComponent(t)).replace(/\{\{url_raw\}\}/g, n(t)).replace(/\{\{descr\}\}/g, i.$caption ? encodeURIComponent(i.$caption.text()) : ""), e.fancybox.open({ src: i.translate(i, o), type: "html", opts: { touch: !1, animationEffect: !1, afterLoad: function (t, e) { i.$refs.container.one("beforeClose.fb", function () { t.close(null, 0) }), e.$content.find(".fancybox-share__button").click(function () { return window.open(this.href, "Share", "width=550, height=450"), !1 }) }, mobile: { autoFocus: !1 } } })) })
 }(document, jQuery), function (t, e, n) { "use strict"; function o() { var e = t.location.hash.substr(1), n = e.split("-"), o = n.length > 1 && /^\+?\d+$/.test(n[n.length - 1]) ? parseInt(n.pop(-1), 10) || 1 : 1, i = n.join("-"); return { hash: e, index: o < 1 ? 1 : o, gallery: i } } function i(t) { "" !== t.gallery && n("[data-fancybox='" + n.escapeSelector(t.gallery) + "']").eq(t.index - 1).focus().trigger("click.fb-start") } function a(t) { var e, n; return !!t && (e = t.current ? t.current.opts : t.opts, "" !== (n = e.hash || (e.$orig ? e.$orig.data("fancybox") || e.$orig.data("fancybox-trigger") : "")) && n) } n.escapeSelector || (n.escapeSelector = function (t) { return (t + "").replace(/([\0-\x1f\x7f]|^-?\d)|^-$|[^\x80-\uFFFF\w-]/g, function (t, e) { return e ? "\0" === t ? "�" : t.slice(0, -1) + "\\" + t.charCodeAt(t.length - 1).toString(16) + " " : "\\" + t }) }), n(function () { !1 !== n.fancybox.defaults.hash && (n(e).on({ "onInit.fb": function (t, e) { var n, i; !1 !== e.group[e.currIndex].opts.hash && (n = o(), (i = a(e)) && n.gallery && i == n.gallery && (e.currIndex = n.index - 1)) }, "beforeShow.fb": function (n, o, i, s) { var r; i && !1 !== i.opts.hash && (r = a(o)) && (o.currentHash = r + (o.group.length > 1 ? "-" + (i.index + 1) : ""), t.location.hash !== "#" + o.currentHash && (s && !o.origHash && (o.origHash = t.location.hash), o.hashTimer && clearTimeout(o.hashTimer), o.hashTimer = setTimeout(function () { "replaceState" in t.history ? (t.history[s ? "pushState" : "replaceState"]({}, e.title, t.location.pathname + t.location.search + "#" + o.currentHash), s && (o.hasCreatedHistory = !0)) : t.location.hash = o.currentHash, o.hashTimer = null }, 300))) }, "beforeClose.fb": function (n, o, i) { i && !1 !== i.opts.hash && (clearTimeout(o.hashTimer), o.currentHash && o.hasCreatedHistory ? t.history.back() : o.currentHash && ("replaceState" in t.history ? t.history.replaceState({}, e.title, t.location.pathname + t.location.search + (o.origHash || "")) : t.location.hash = o.origHash), o.currentHash = null) } }), n(t).on("hashchange.fb", function () { var t = o(), e = null; n.each(n(".fancybox-container").get().reverse(), function (t, o) { var i = n(o).data("FancyBox"); if (i && i.currentHash) return e = i, !1 }), e ? e.currentHash === t.gallery + "-" + t.index || 1 === t.index && e.currentHash == t.gallery || (e.currentHash = null, e.close()) : "" !== t.gallery && i(t) }), setTimeout(function () { n.fancybox.getInstance() || i(o()) }, 50)) }) }(window, document, jQuery), function (t, e) { "use strict"; var n = (new Date).getTime(); e(t).on({ "onInit.fb": function (t, e, o) { e.$refs.stage.on("mousewheel DOMMouseScroll wheel MozMousePixelScroll", function (t) { var o = e.current, i = (new Date).getTime(); e.group.length < 2 || !1 === o.opts.wheel || "auto" === o.opts.wheel && "image" !== o.type || (t.preventDefault(), t.stopPropagation(), o.$slide.hasClass("fancybox-animated") || (t = t.originalEvent || t, i - n < 250 || (n = i, e[(-t.deltaY || -t.deltaX || t.wheelDelta || -t.detail) < 0 ? "next" : "previous"]()))) }) } }) }(document, jQuery);
 
-theme_custom.removeLocalStorage = function(){
-  localStorage.clear();
-}
-theme_custom.base_url = theme_custom.api_base_url;
 
+theme_custom.base_url = theme_custom.api_base_url;
 // DatePicker
 theme_custom.datePicker = function ($this) {
   var count = 0;
@@ -132,9 +129,8 @@ theme_custom.cvvValidation = function ($this) {
 // Get Variant Data
 theme_custom.getVariantData = function (parentEl) {
   var variantDataGetArr = [];
-  var parent = parentEl, checkSizeIsNotSelect = false,
+  var parent = parentEl,
     productId = parent.find(".looks-product-id").val();
-  var producttyped = parent.attr('data-product-type');
 
   var varintTitle = '', variantId, variantImage, variantPrice, selectedOption;
   if (parent.find('.option-1').length > 0) {
@@ -144,26 +140,11 @@ theme_custom.getVariantData = function (parentEl) {
     varintTitle = varintTitle + ' / ' + parent.find('.option-2').text();
   }
   if (parent.find('.option-3').length > 0) {
-    if(producttyped == 'vest'){
-      var option3 = parent.find('[data-option-index="2"] input:checked').val();
-      varintTitle = varintTitle + ' / ' + option3;
-    }else{
-      varintTitle = varintTitle + ' / ' + parent.find('.option-3').text();
-    }
+    varintTitle = varintTitle + ' / ' + parent.find('.option-3').text();
   }
-  setTimeout(function(){
-    parent.find(`.single-option-selector option[data-var-title="${varintTitle}"]`).attr('selected','selected');
-
-  },100);
-  if(varintTitle.includes("00")){
-    checkSizeIsNotSelect = true;
-  } else {
-    checkSizeIsNotSelect = false;
-  }
-   //$(".product-form .bundle-product-wrapper").find(".product-data-card[data-product-type="+producttyped+"]").find(".single-option-selector option[data-var-title="+varintTitle+"]").attr("selected",true);
-  selectedOption = parent.find(`.single-option-selector option[data-var-title="${varintTitle}"]`);
- // $(`[data-product-id="${productId}"]`).attr('selected', false);
-  //selectedOption.attr('selected', true);
+  selectedOption = parent.find(`[data-product-id="${productId}"][data-var-title="${varintTitle}"]`);
+  $(`[data-product-id="${productId}"]`).attr('selected', false);
+  selectedOption.attr('selected', true);
   variantPrice = selectedOption.attr('data-variant-price');
   variantId = selectedOption.attr('value');
   variantImage = selectedOption.attr('data-variant-img');
@@ -179,24 +160,10 @@ theme_custom.getVariantData = function (parentEl) {
   parent.find('.looks-product-var-id').val(variantId);
   if (selectedOption.length == 0) {
     parent.find('.pdp-updates-button button').addClass('disabled');
-    if(checkSizeIsNotSelect){
-      parent.find(".error-message").text('Please select the size!').show();
-      parent.find('.product-block-wrap .error-message').addClass("error-show");
-    } else {
-      var parentType = parent.attr("data-product-type");
-      if(parentType=='jacket'){
-        $(`.product-variant-wrap[data-product-type="jacket"]`).find(".error-message").addClass("error-show").text('Product is not available for that specific size!').show();
-      } else if (parentType=='pants') {
-        $(`.product-variant-wrap[data-product-type="pants"]`).find(".error-message").addClass("error-show").text('Product is not available for that specific size!').show();
-      } else {
-        parent.find(".error-message").text('Product is not available for that specific size!').show();
-        parent.find('.product-block-wrap .error-message').addClass("error-show");
-      }
-    }
+    parent.find(".error-message").text('Product is not available for that specific size!').show();
   } else {
     parent.find('.pdp-updates-button button').removeClass('disabled');
     parent.find(".error-message").text('').hide();
-    parent.find('.product-block-wrap .error-message').removeClass("error-show");
   }
   return variantDataGetArr;
 }
@@ -256,11 +223,11 @@ theme_custom.loadEvent = function () {
         $(".customize-button-fit-your-find .product-fit-finder").find(".button-title").text("Edit Size");
         localStorage.setItem("edit-fit-finder", "true");
       } else {
-        // if ($('.product-type').val() == 'shirt') {
-        //   $(".product-form__submit").addClass("normal-product-disable")
-        //   $(".swatch-product-form").addClass("disabled");
-        //   $(".swatch-color").removeClass("disabled");
-        // }
+        if ($('.product-type').val() == 'shirt') {
+          $(".product-form__submit").addClass("normal-product-disable")
+          $(".swatch-product-form").addClass("disabled");
+          $(".swatch-color").removeClass("disabled");
+        }
       }
     }
   }
@@ -268,9 +235,6 @@ theme_custom.loadEvent = function () {
   if ($(".looks-product").length > 0) {
     if (getCookie("fit-finder-data") != "") {
       var getFitFinderData = JSON.parse(getCookie("fit-finder-data"));
-      setTimeout(function(){
-        $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="jacket"], .product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="pants"]`).find(".error-message ").removeClass('error-show')
-      },500)
       $(".product-data-card").each(function () {
         var parentEl = $(this);
         var productType = $(this).data("product-type").toLowerCase();
@@ -278,9 +242,7 @@ theme_custom.loadEvent = function () {
           parentEl.find(`.swatch-wrapper input[data-name='Size']:checked`).removeAttr("checked");
           parentEl.find(`.swatch-wrapper input[data-name='Size'][value="${getFitFinderData.shoe_size}"]`).attr("checked", "checked");
           parentEl.find(".option-name[data-option-title='Size']").text(`${getFitFinderData.shoe_size}`).attr("data-variant-val", getFitFinderData.shoe_size);
-          setTimeout(function(){
-            theme_custom.getVariantData(parentEl);
-          },1000)
+          theme_custom.getVariantData(parentEl);
         }
         if (getFitFinderData.shirt_neck && getFitFinderData.shirt_sleeve && getFitFinderData.fit && productType == 'shirt') {
           // var shirt_size =  getFitFinderData.shirt_sleeve + ' | ' + getFitFinderData.shirt_neck;
@@ -292,9 +254,7 @@ theme_custom.loadEvent = function () {
           parentEl.find(`.swatch-wrapper input[data-name='Style']:checked`).removeAttr("checked");
           parentEl.find(`.swatch-wrapper input[data-name='Style'][value="${shirt_fit}"]`).attr("checked", "checked");
           parentEl.find(".option-name[data-option-title='Style']").text(`${shirt_fit}`).attr("data-variant-val", shirt_fit);
-          setTimeout(function(){
-            theme_custom.getVariantData(parentEl);
-          },1000)
+          theme_custom.getVariantData(parentEl);
         }
         if (getFitFinderData.jacketSize && productType == 'jacket' || getFitFinderData.jacketSize && productType == 'vest') {
           var jacketType = getFitFinderData.jacketSize.split(":");
@@ -312,9 +272,7 @@ theme_custom.loadEvent = function () {
           parentEl.find(`.swatch-wrapper input[data-name='Style']:checked`).removeAttr("checked");
           parentEl.find(`.swatch-wrapper input[data-name='Style'][value="${jacketTypeVal}"]`).attr("checked", "checked");
           parentEl.find(`.option-name[data-option-title='Style']`).text(`${jacketTypeVal}`).attr("data-variant-val", jacketTypeVal);
-          setTimeout(function(){
-            theme_custom.getVariantData(parentEl);
-          },1000)
+          theme_custom.getVariantData(parentEl);
         }
         if (getFitFinderData.pants_waist && getFitFinderData.pants_hight && productType == 'pants') {
           var pants_waist = getFitFinderData.pants_waist;
@@ -327,9 +285,7 @@ theme_custom.loadEvent = function () {
           parentEl.find(`.option-name[data-option-title='Length']`).text(`${pants_hight}`).attr("data-variant-val", pants_hight);
           if (parentEl.find(`.swatch-wrapper input[data-name='Length'][value="${pants_hight}"]`).length > 0) {
           }
-          setTimeout(function(){
-            theme_custom.getVariantData(parentEl);
-          },1000)
+          theme_custom.getVariantData(parentEl);
         }
       })
       // product-block-wrap-suit-wrapper
@@ -420,7 +376,6 @@ theme_custom.updateProfileImage = function (that) {
           'color': 'red'
         });
         setTimeout(() => {
-          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -522,6 +477,7 @@ theme_custom.Shopify = {
 theme_custom.IconWithTextSlider = function () {
   if ($(window).width() < 768) {
     $('.icontextblock_container').on('init', function (event, slick) {
+      console.log("slick initialized");
        // set this slider as const for use in set time out
       const slider = this;
         
@@ -562,7 +518,7 @@ theme_custom.featureLooksSlider = function () {
   $('.feature-looks-slider').slick({
     dots: false,
     arrows: true,
-    infinite: false,
+    infinite: true,
     autoplay: false,
     prevArrow: "<img alt='slider-prev' class='slick-prev pull-left' src='https://cdn.shopify.com/s/files/1/0588/4700/2812/files/slider_arrow_left.png?v=1631874486'>",
     nextArrow: "<img alt='slider-next' class='slick-next pull-right' src='https://cdn.shopify.com/s/files/1/0588/4700/2812/files/slider_arrow_right.png?v=1631874485'>",
@@ -578,7 +534,7 @@ theme_custom.featureLooksSlider = function () {
       }
     },
     {
-      breakpoint: 767,
+      breakpoint: 300,
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1
@@ -651,7 +607,7 @@ theme_custom.themeSlider = function () {
     speed: 300,
     autoplaySpeed: 1000,
     cssEase: 'ease-in-out',
-    slidesToShow: 4,
+    slidesToShow: 3,
     slidesToScroll: 1,
     //fade: true,
     responsive: [{
@@ -696,12 +652,12 @@ theme_custom.themeSlider = function () {
     dots: dots,
     arrows: arrow,
     infinite: loop,
-    autoplay: false,
+    autoplay: autoplay,
     prevArrow: "<img alt='slider-prev'  class='slick-prev pull-left' src='https://cdn.shopify.com/s/files/1/0588/4700/2812/files/slider_arrow_left.png?v=1631874486'>",
     nextArrow: "<img alt='slider-next'  class='slick-next pull-right' src='https://cdn.shopify.com/s/files/1/0588/4700/2812/files/slider_arrow_right.png?v=1631874485'>",
     speed: 500,
     autoplaySpeed: 2000,
-    slidesToShow: 4,
+    slidesToShow: 3,
     slidesToScroll: 1,
     responsive: [{
       breakpoint: 768,
@@ -1136,22 +1092,6 @@ theme_custom.submitEvent = function () {
 }
 // theme_custom.clickEvent
 theme_custom.clickEvent = function () {
-  // Top look fav and event click on user has not logged 
-  $(document).on("click",".event-or-fav-when-user-has-not-logged", function(){
-    localStorage.setItem("event-or-fav-when-user-has-not-logged","true");
-    localStorage.setItem("previous-page-link","true");
-    localStorage.setItem("page-link",window.location.href);
-    window.location.href = $(this).attr("data-href");
-  }); 
-
-  // create-event-header-button 
-  $(document).on("click",".create-event-header-button", function(){
-    if(localStorage.getItem("set-event-id")!= null){
-      localStorage.removeItem("set-event-id");
-    }
-    var buttonLink = $(this).data("href");
-    window.location.href = buttonLink;
-  }) 
 
   // event page 
   $(document).on("click", "#eventevent-type .Squer-radio-button-inner, #eventupdate-event-type .Squer-radio-button-inner ", function () {
@@ -1364,7 +1304,10 @@ theme_custom.clickEvent = function () {
       success: function () {
         setTimeout(() => {
           setCookie("fit-finder-data", '');
-          theme_custom.removeLocalStorage(); 
+          localStorage.removeItem("save-fit-finder-flag");
+          localStorage.removeItem("edit-fit-finder");
+          localStorage.removeItem("save-fit-finder-flag-replace");
+          localStorage.removeItem("userHasLogged");
           window.location.href = '/account/logout';
         }, 100);
       },
@@ -1426,10 +1369,10 @@ theme_custom.clickEvent = function () {
       }, 1000);
       return false;
     }
-    // if ($('.blockemail_wrap').length == 0) {
-    //   $('.api_error.create-event-error').text("Please add at least one member.").addClass('active');
-    //   return false;
-    // }
+    if ($('.blockemail_wrap').length == 0) {
+      $('.api_error.create-event-error').text("Please add at least one member.").addClass('active');
+      return false;
+    }
     if (error_count == 0) {
       var event_name = $('#EventForm-EventName').val();
       var event_type = $('[name="event-type"]:checked').data('event_type_id');
@@ -1476,21 +1419,17 @@ theme_custom.clickEvent = function () {
           $(this).addClass("disable");
         },
         success: function (result) {
+          console.log('create event result',result);
           if (result.success) {
             $('.api_error').addClass("success-event").show().html(result.message);
             setTimeout(function () {
               button.removeClass("disable");
               window.location.href = '/account';
             }, 1500)
-          } else {
-            $('.api_error').show().html(`${xhr.responseJSON.data.event_date[i]}`);
-            setTimeout(function () {
-              $('.api_error').fadeOut();
-              button.removeClass("disable");
-            }, 10000);
           }
         },
         error: function (xhr, status, error) {
+          console.log('create event error',error);
           button.removeClass("disable");
           if (xhr.responseJSON.message == 'Token is invalid or expired.') {
             $('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
@@ -1498,7 +1437,6 @@ theme_custom.clickEvent = function () {
               'color': 'red'
             });
             setTimeout(() => {
-              theme_custom.removeLocalStorage();
               window.location.href = '/account/logout';
             }, 5000);
           } else {
@@ -1509,19 +1447,13 @@ theme_custom.clickEvent = function () {
                   event_date_msg += `<span>${xhr.responseJSON.data.event_date[i]}</span>`;
                 }
               } else {
-                if(xhr.responseJSON.data.length > 0){
-                  for (let i = 0; i < xhr.responseJSON.data.length; i++) {
-                    var errorMsg = xhr.responseJSON.data[i];
-                    var membererror = '';
-                    $.each(errorMsg, function (key, value) {
-                      membererror += `<p><b style="text-transform: uppercase;">${key}</b>: ${value}</p>`;
-                    })
-                    event_date_msg += `<div>${membererror}</div>`;
-                  }
-                } else {
-                  for (let i = 0; i < xhr.responseJSON.data.members.length; i++) {
-                    event_date_msg += `<span>${xhr.responseJSON.data.members[i]}</span>`;
-                  }
+                for (let i = 0; i < xhr.responseJSON.data.length; i++) {
+                  var errorMsg = xhr.responseJSON.data[i];
+                  var membererror = '';
+                  $.each(errorMsg, function (key, value) {
+                    membererror += `<p><b style="text-transform: uppercase;">${key}</b>: ${value}</p>`;
+                  })
+                  event_date_msg += `<div>${membererror}</div>`;
                 }
               }
             } else {
@@ -1559,41 +1491,20 @@ theme_custom.changeEvent = function () {
     }
   });
 
-  $('input[type=radio][name=is_host_paying_update]').change(function () {
-    $(this).closest(".custom-checkobx").find(".form-error").hide();
-    if($(this).closest(".custom-checkobx").find('[value="I Pay"]').prop('checked')){
-      $(".payment-confirmation-popup").addClass('model-open');
-      $('body').addClass("body_fixed");
-      // $.fancybox.close();
-      $('.fancybox-container').addClass('hidden');
-    }
-  });
-
   $(document).on('click', '.payment-confirm-btn-main #i-pay', function (e) {
     $('.fancybox-container').removeClass('hidden');
     $(".payment-confirmation-popup").removeClass('model-open');
     $('body').removeClass("body_fixed");
-    if($('[data-target="update-guest-popup"]').hasClass('active')){
-      $("[data-target='update-guest-popup'] .invite-another-member-popup-wrapper").find(`input[name='is_host_paying_update'][value="I Pay"]`).prop('checked', true);
-      $("[data-target='update-guest-popup'] .event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying_update'][value="I Pay"]`).prop('checked', true);
-    }else{
-      $(".invite-another-member-popup-wrapper").find(`input[name='is_host_paying'][value="I Pay"]`).prop('checked', true);
-      $(".event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying'][value="I Pay"]`).prop('checked', true);
-    }
-    
+    $(".invite-another-member-popup-wrapper").find(`input[name='is_host_paying'][value="I Pay"]`).prop('checked', true);
+    $(".event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying'][value="I Pay"]`).prop('checked', true);
   });
 
   $(document).on('click', '.payment-confirm-btn-main #they-pay', function (e) {
     $('.fancybox-container').removeClass('hidden');
     $(".payment-confirmation-popup").removeClass('model-open');
     $('body').removeClass("body_fixed");
-    if($('[data-target="update-guest-popup"]').hasClass('active')){
-      $("[data-target='update-guest-popup'] .invite-another-member-popup-wrapper").find(`input[name='is_host_paying_update'][value="They Pay"]`).prop('checked', true);
-      $("[data-target='update-guest-popup'] .event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying_update'][value="They Pay"]`).prop('checked', true);
-    }else{
-      $(".invite-another-member-popup-wrapper").find(`input[name='is_host_paying'][value="They Pay"]`).prop('checked', true);
-      $(".event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying'][value="They Pay"]`).prop('checked', true);
-    }
+    $(".invite-another-member-popup-wrapper").find(`input[name='is_host_paying'][value="They Pay"]`).prop('checked', true);
+    $(".event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying'][value="They Pay"]`).prop('checked', true);
   });
   $(document).on("change", "#imageUpload", function () {
     theme_custom.previewImage(this);
@@ -1776,22 +1687,3 @@ document.addEventListener('readystatechange', event => {
     }
   }
 });
-
-
-$(document).on('change', '.swatch-wrapper-options .swatch.swatch-wrap select', function () {
-    var select_value = $(this).find('option:selected').val();
-    $(this).closest('.swatch.swatch-wrap').find('.swatch-product-wrapper.swatch-element').each(function () {
-        var this_value = $(this).data('value');
-        if(select_value == this_value){
-            $(this).find('input').trigger('click');
-              $(this).closest('.edit-item-popup').find('.pdp-updates-button button').trigger('click');
-        }
-    })
-});
-
-$(document).on('change', 'variant-selects select.select__select', function () {
-  var select_name = $(this).closest(".product-form__input--dropdown").attr('data-option');
-  var select_value = $(this).val();
-  $(`input[name="${select_name}"][value="${select_value}"]`).prop('checked', true);
-});
-

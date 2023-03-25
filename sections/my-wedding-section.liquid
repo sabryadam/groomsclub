@@ -14,8 +14,7 @@
 
 <script src="https://harvesthq.github.io/chosen/chosen.jquery.js" defer></script>
 <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/1.1.2/css/bootstrap-multiselect.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 {{ 'mywedding.js' | asset_url | script_tag }}
 {{ 'my-wedding.css' | asset_url | stylesheet_tag }}
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
@@ -101,7 +100,7 @@
     </div>
   </div>
   <div class="page-width">
-    <div class="schedule-button-part hidden" >
+    <div class="schedule-button-part hidden">
       <a href="/pages/home-try-on/" class="button button--secondary"> {% include 'icon-schedule' %} Schedule Home Try On</a>
       <div class="tooltip-main">
         <i class="fas fa-info information"></i>

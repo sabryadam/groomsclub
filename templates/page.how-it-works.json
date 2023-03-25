@@ -13,7 +13,7 @@
         "e1663b08-1c53-4ab8-b41e-d226dd8637f9": {
           "type": "sub_heading",
           "settings": {
-            "sub_heading": "Suiting up is simple! Just follow these 3 easy steps, or watch the demonstration video below."
+            "sub_heading": "Suiting up is simple! Just follow these 3 easy steps, or watch the demonstration video below.."
           }
         }
       },
@@ -45,8 +45,7 @@
           "type": "heading",
           "settings": {
             "heading": "Choose Your Style",
-            "heading_count": "1.",
-            "show_icon": false
+            "heading_count": "1."
           }
         },
         "eb1e6fb5-7b55-4b69-b88a-dbe288600f71": {
@@ -60,23 +59,12 @@
           "settings": {
             "text": "<p>The options are endless! Find the combinations of colors and accessories that are the perfect match for your big day! Build your own from scratch, or, start from one of our stylish top looks! <\/p>"
           }
-        },
-        "c42105a1-7e29-47a7-b129-55ac40b1eac0": {
-          "type": "button",
-          "disabled": true,
-          "settings": {
-            "button_label": "Get Started",
-            "button_link": "shopify:\/\/pages\/get-started-use",
-            "open_new_tab": false,
-            "button_style_secondary": false
-          }
         }
       },
       "block_order": [
         "163358073380d8cd22-0",
         "eb1e6fb5-7b55-4b69-b88a-dbe288600f71",
-        "163358073380d8cd22-1",
-        "c42105a1-7e29-47a7-b129-55ac40b1eac0"
+        "163358073380d8cd22-1"
       ],
       "settings": {
         "check_width": true,
@@ -97,8 +85,7 @@
           "type": "heading",
           "settings": {
             "heading": "Create Your Event",
-            "heading_count": "2.",
-            "show_icon": false
+            "heading_count": "2."
           }
         },
         "778ceb53-389b-4c09-b5fe-170894d99a9d": {
@@ -138,8 +125,7 @@
           "type": "heading",
           "settings": {
             "heading": "Sit Back and Relax",
-            "heading_count": "3.",
-            "show_icon": false
+            "heading_count": "3."
           }
         },
         "87ac929d-32bf-4b8b-8c56-0f09ab10997d": {
@@ -158,8 +144,7 @@
           "type": "button",
           "settings": {
             "button_label": "Get Started",
-            "button_link": "shopify:\/\/pages\/get-started-use",
-            "open_new_tab": false,
+            "button_link": "#",
             "button_style_secondary": true
           }
         }
@@ -272,7 +257,7 @@
         "show_view_all": false,
         "show_image": true,
         "soft_background": false,
-        "btn_label": "",
+        "btn_label": "More Tips",
         "btn_link": "shopify:\/\/blogs\/tips-tricks",
         "button_style_secondary_blog": true
       }
@@ -284,8 +269,7 @@
           "type": "heading",
           "settings": {
             "heading": "Get Started",
-            "heading_count": "",
-            "show_icon": false
+            "heading_count": ""
           }
         },
         "0ba37dd5-0c6d-461d-90f5-018faf29c491": {
@@ -298,8 +282,7 @@
           "type": "button",
           "settings": {
             "button_label": "Create Account",
-            "button_link": "shopify:\/\/pages\/create-event",
-            "open_new_tab": false,
+            "button_link": "\/account\/register",
             "button_style_secondary": true
           }
         }

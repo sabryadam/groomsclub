@@ -24,25 +24,6 @@
       width: 15px !important;
     }
   }
-  div.edit-item-popup,
-  .edit-item-popup select.single-option-selector {
-    /* display: block; */
-  }
-  .product__title.h2 {
-    margin-top: -5px;
-  }
-  div.product__description.rte {
-    margin-bottom: 0;
-  }
-  body .product__info-container .product-form {
-    margin-top: 0;
-  }
-  body.suit_page_body .product-form .product-data-card-wrap {
-    margin: 0;
-  }
-  div pickup-availability[available] {
-    min-height: 0;
-  }
   .mobile-product-image video,
   .mobile-product-image img{
     width: 100%;
@@ -61,11 +42,11 @@
     width: 100%;
   }
   .banner-slider_container .sliderinner_container{
-    padding: 0 0;
+    padding: 100px 0;
   }
   @media(max-width: 767px) {
     .banner-slider_container .sliderinner_container{
-      padding: 0 0;
+      padding: 50px 0;
     } 
   }
   .product-data-card.product-data-card-wrap[data-product-type="jacket"],
@@ -96,71 +77,6 @@
   }
   .bundle-product-wrapper [data-product-type="shirt"]{
     order: 2;
-  }
-
-  .product-data-card.product-data-card-wrap[data-product-type="shirt"] .variant-title,
-  .product-data-card.product-data-card-wrap[data-product-type="vest"] .variant-title,
-  .product-data-card.product-data-card-wrap[data-product-type="shoes"] .variant-title {
-    /* display: none; */
-  }
-
-  .suit_page_body div.product-data-card.product-data-card-wrap {
-    background-color: transparent;
-  }
-  .suit_page_body div.product-data-card.product-data-card-wrap .product-block-wrap {
-    padding: 0;
-  }
-
-  .suit_page_body div.product-data-card.product-data-card-wrap .product-block-wrap .product-image,
-  .suit_page_body div.product-data-card.product-data-card-wrap .product-block-wrap .product-price.desktop-small,
-  .suit_page_body div.product-data-card.product-data-card-wrap .product-block-wrap .product-info .variant-title,
-  .suit_page_body div.product-data-card.product-data-card-wrap .product-block-wrap .product-info .cta-button-wrap,
-  .suit_page_body div.product-data-card.product-data-card-wrap .product-block-wrap .product-info .product-price.mobile-small {
-    display: none;
-  }
-
-  .var-select-custom,
-  .var-select-custom + .icon.icon-caret{
-    display: none;
-  }
-
-  .suit_page_body .var-select-custom,
-  .suit_page_body .var-select-custom + .icon.icon-caret{
-    display: block;
-  }
-
-  .suit_page_body div.product-data-card.product-data-card-wrap .product-block-wrap .product-info {
-    padding: 0;
-  }
-  .product-data-card.product-data-card-wrap .edit-item-popup {
-    padding: 0;
-  }
-  .suit-select-box .icon.icon-caret {
-    right: 4px;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    margin-top: auto;
-    height: .9rem;
-    pointer-events: none;
-    position: absolute;
-    right: 1.5rem;
-  }
-  .edit-item-popup .swatch.suit-select-box {
-    margin-top: 8px;
-  }
-  @media screen and (max-width: 767px) {
-    div.when-customer-logged .favorite-event-cart-wrapper .product-form__submit {
-      margin: 10px 0 0;
-    }
-    div.product-data-card.product-data-card-wrap .product-block-wrap {
-      margin-bottom: 0;
-    }
-  }
-  @media screen and (max-width: 560px) {
-    .edit-item-popup .swatch.suit-select-box {
-      width: 50%;
-    }
   }
 </style>
 
@@ -631,12 +547,8 @@
                   <div class="bundle-product-wrapper">
                     {%- assign suitProdHandle = product.metafields.my_fields.jacket_pants_title | downcase | handleize | strip -%}
                     {%- assign suitProdu = all_products[suitProdHandle] -%}
-                    {%- assign looksProductType =  product.type %}
-                    {%- if product.type == 'suit' or product.type == 'Suit' -%} 
-                      {%- assign looksProductType =  'looks' %}
-                    {%- endif -%}
-                    <div class="product-data-card-wrap" data-product-handle="{{ suitProdHandle }}" data-product-type="{{ looksProductType }}">
-                      <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ suitProdu.id }}">
+                    <div class="product-data-card-wrap" data-product-handle="{{ suitProdHandle }}" data-product-type="{{ product.type }}">
+                      <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ suitProdu.selected_or_first_available_variant.id }}">
                       <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ suitProdu.selected_or_first_available_variant.id }}">
                       <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ suitProdHandle}}">
                       <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ suitProdu.selected_or_first_available_variant.id }}">
@@ -657,7 +569,7 @@
                             {%- assign productSelectedType  = productHandle.type | downcase -%}
                             {%- unless productHandle == blank -%}
                               {%- if productSelectedType == "jacket" or productSelectedType == "pants"  -%}
-                                <div class="variant-title variant-info-wrap product-variant-wrap" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
+                                <div class="variant-title variant-info-wrap" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
                                   <div class="option-title">
                                     {%- if productSelectedType == 'jacket' %}
                                       <span class="edit-size-title">Jacket Size </span>
@@ -674,7 +586,6 @@
                                         {%- if productSelectedType == 'jacket' and  forloop.first %}
                                           Jacket&nbsp;
                                         {%- endif -%}
-                                        
                                         {%- unless productSelectedType == 'pants' or productSelectedType == 'jacket' %}
                                           {%- unless forloop.last  -%}
                                             {{ option }}
@@ -696,8 +607,8 @@
                                       {% endfor %}
                                     </div>
                                   </div>
-                                  <div class="cta-button-wrap ">
-                                    <span class="edit-item-button btn select" data-button-label='select-size'> <span style="color:var(--color-gray-text);">-</span> Select Sizes</span>
+                                  <div class="cta-button-wrap hidden">
+                                    <span class="edit-item-button btn"> <span style="color:var(--color-gray-text);">-</span> Select Size</span>
                                   </div>
                                   <span class="error-message"></span>
                                 </div>
@@ -705,29 +616,7 @@
                             {%- endunless -%}
                           {%- endfor -%}
                         {%- endcapture -%}
-
-                        <div id="suit_fit_finder" class="completefit product_fit_finder" style="display: none;">
-                          <a href="https://www.groomsclub.com/pages/fit-finder">
-                        <div class="fit-finder-info-block">
-                            <h4>Not sure of your size? Try our fit finder</h4>
-                          <p>Answer a few simple questions to help you find the perfect fit</p>
-                        </div>
-                                                  <i class="fas fa-chevron-right"></i>
-
-                        </a>
-                        </div>
-
-                        <div id="fit_finder_data_auto" style="display: none;">
-                          <div class="ff-top-box">
-                            <h3>Your Sizes</h3>
-                            <span>Calculated based on your fit responses.</span>
-                            <a href="https://www.groomsclub.com/pages/fit-finder">Retry fit finder</a>
-                          </div>
-                          <div id="ff-data-box">
-                          </div>
-                        </div>
-
-                        <div class="product-block-wrap-suit-wrapper product-block-item">
+                        <div class="product-block-wrap-suit-wrapper">
                           <div class="product-image">
                             <img srcset="{{ product.featured_media.image.src | img_url: 'medium' }} 1x, {{ product.featured_media.image.src | img_url: 'medium', scale: 2 }} 2x"
                               src="{{ product.featured_media.image.src | img_url: image_size }}"
@@ -756,285 +645,7 @@
                               {{ product.price | money }}
                             </span>
                           </div>
-                        </div> 
-
-                        
-                        {%- assign jacket_pant_data = product.metafields.custom_look.products-0 -%}
-                        {%- assign vest_data = product.metafields.custom_look.products-1 -%}
-
-                        {%- assign jacket_pant_data_arr = jacket_pant_data | split : ',' -%}
-
-                        <div class="product-block-wrap-suit-wrappertwo product-block-item">
-                          <div class="row">
-                            <h4>SELECT SIZES:</h4>
-                          </div>
-                        
-                          {% comment %}
-                          {%- for jacket_pant_data_single in jacket_pant_data_arr -%}
-                            
-                            {%- if jacket_pant_data_single contains 'jacket' -%}
-                              {% assign head_title = 'Jacket/Vest' %}
-                            {% elsif jacket_pant_data_single contains 'pants' %}
-                              {% assign head_title = 'Pants' %}
-                            {% else %}
-                              {% assign head_title = jacket_pant_data_single %}
-                            {% endif %}
-
-                            <div class="row">
-                              <h5>{{head_title}}</h5>
-                              <div class="form-row">
-                                {% assign getProduct = all_products[jacket_pant_data_single] %}
-
-                                {% assign option1 = '' %}
-                                {% assign option2 = '' %}
-
-                                {% for variant in getProduct.variants %}
-                                  {% assign option1 = option1 | append: variant.option1 | append: ',' %}
-                                  {% assign option2 = option2 | append: variant.option2 | append: ',' %}
-                                {% endfor %}
-
-                                {% if option1 %}
-                                  {%- assign option1 = option1 | split: ',' | uniq | join: ',' -%}
-                                  {%- assign option1_data_arr = option1 | split : ',' -%}
-                                  <div class="form-group">
-                                    {%- if jacket_pant_data_single contains 'jacket' -%}
-                                      <select class="form-control suit_attr" id="exampleFormControlSelect1" name="properties[Jacket Chest Size]" data-product-handle="{{jacket_pant_data_single}}" form="product-form-{{ section.id }}">
-                                        <option value="">Chest Size</option>
-                                    {% elsif jacket_pant_data_single contains 'pants' %}
-                                      <select class="form-control suit_attr" data-product-handle="{{jacket_pant_data_single}}" id="exampleFormControlSelect2" name="properties[Pant Waist Size]">
-                                        <option value="">Waist Size</option>
-                                    {% else %}
-                                      <select>
-                                    {% endif %}
-                                    
-                                        {% for dropData in option1_data_arr %}
-                                          <option>
-                                            {{ dropData }}
-                                          </option>
-                                      {% endfor %}
-                                    </select>
-                                    {% render 'icon-caret' %}
-                                  </div>
-                                {% endif %}
-
-                                {% if option2 %}
-                                  {%- assign option2 = option2 | split: ',' | uniq | join: ',' -%}
-                                  {%- assign option2_data_arr = option2 | split : ',' -%}
-                                  <div class="form-group">
-                                    {%- if jacket_pant_data_single contains 'jacket' -%}
-                                      <select class="form-control suit_attr" data-product-handle="{{jacket_pant_data_single}}" id="exampleFormControlSelect1" name="properties[Jacket Length]" form="product-form-{{ section.id }}">
-                                        <option value="">Length</option> 
-                                    {% elsif jacket_pant_data_single contains 'pants' %}
-                                      <select class="form-control suit_attr" data-product-handle="{{jacket_pant_data_single}}" id="exampleFormControlSelect1" name="properties[Pant Length]">
-                                        <option value="">Length</option>
-                                    {% else %}
-                                      <select>
-                                    {% endif %}
-                                        {% for dropData in option2_data_arr %}
-                                          <option>
-                                            {{ dropData }}
-                                          </option>
-                                      {% endfor %}
-                                    </select>
-                                    {% render 'icon-caret' %}
-                                  </div>
-                                {% endif %}
-                              </div>
-                            </div>
-                          {%- endfor -%}
-
-                        <!-- <div class="row">
-                         <h5>Jacket</h5>
-                            <div class="form-row">
-                              <div class="form-group">
-                           
-                                <select class="form-control suit_attr" id="exampleFormControlSelect1" name="properties[Jacket Chest Size]" form="product-form-{{ section.id }}">
-                                  <option value="">Chest Size</option>
-                                  <option value="32">32</option>
-                                  <option value="34">34</option>
-                                  <option value="36">36</option>
-                                  <option value="38">38</option>
-                                  <option value="40">40</option>
-                                  <option value="42">42</option>
-                                  <option value="44">44</option>
-                                  <option value="46">46</option>
-                                  <option value="48">48</option>
-                                  <option value="50">50</option>
-                                  <option value="52">52</option>
-                                  <option value="54">54</option>
-                                  <option value="56">56</option>
-                                  <option value="58">58</option>
-                                  <option value="60">60</option>
-                                </select>
-
-                                {% render 'icon-caret' %}
-                              </div>
-                              <div class="form-group">
-                                
-                                <select class="form-control suit_attr" id="exampleFormControlSelect1" name="properties[Jacket Length]" form="product-form-{{ section.id }}">
-                                  <option value="">Length</option>          
-                                  <option value="Short">Short</option>
-                                  <option value="Regular">Regular</option>
-                                  <option value="Long">Long</option>
-                                </select>
-                           {% render 'icon-caret' %}
-                              </div>
-
-                            </div>
-
-                          </div> -->
-
-
-                         <!-- <div class="row">
-                         <h5>Pants</h5>
-                            <div class="form-row">
-                              <div class="form-group">
-                           
-                                <select class="form-control suit_attr" id="exampleFormControlSelect2" name="properties[Pant Waist Size]">
-                                  <option value="">Waist Size</option>
-                                  <option value="26">26</option>
-                                  <option value="28">28</option>
-                                  <option value="30">30</option>
-                                  <option value="32">32</option>
-                                  <option value="34">34</option>
-                                  <option value="36">36</option>
-                                  <option value="38">38</option>
-                                  <option value="40">40</option>
-                                  <option value="42">42</option>
-                                  <option value="44">44</option>
-                                  <option value="46">46</option>
-                                  <option value="48">48</option>
-                                  <option value="50">50</option>
-                                  <option value="52">52</option>
-                                  <option value="54">54</option>
-                               
-                                </select>
-                           {% render 'icon-caret' %}
-                              </div>
-                              <div class="form-group">
-                                
-                                <select class="form-control suit_attr" id="exampleFormControlSelect1" name="properties[Pant Length]">
-                                  <option value="">Length</option>          
-                                  <option value="30">30</option>
-                                  <option value="32">32</option>
-                                  <option value="34">34</option>
-                               
-                                </select>
-                           {% render 'icon-caret' %}
-                              </div>
-
-                            </div>
-
-                          </div> -->
-                        {% endcomment %}
-                        
-                        {% comment %}
-                        {% if vest_data != '' %}
-                          <div class="row">
-                            <h5>Vest</h5>
-                            <div class="form-row">
-                              {% assign getProduct = all_products[vest_data] %}
-
-                              {% assign option1 = '' %}
-                              {% assign option2 = '' %}
-
-                              {% for variant in getProduct.variants %}
-                                {% assign option1 = option1 | append: variant.option1 | append: ',' %}
-                                {% assign option2 = option2 | append: variant.option2 | append: ',' %}
-                              {% endfor %}
-
-                              {% if option1 %}
-                                {%- assign option1 = option1 | split: ',' | uniq | join: ',' -%}
-                                {%- assign option1_data_arr = option1 | split : ',' -%}
-                                <div class="form-group">
-                                  <select class="form-control suit_attr" id="exampleFormControlSelect1" name="properties[Vest Size]">
-                                      <option value="">Size</option>
-                                      {% for dropData in option1_data_arr %}
-                                        <option>
-                                          {{ dropData }}
-                                        </option>
-                                    {% endfor %}
-                                  </select>
-                                  {% render 'icon-caret' %}
-                                </div>
-                              {% endif %}
-
-                              {% if option2 %}
-                                {%- assign option2 = option2 | split: ',' | uniq | join: ',' -%}
-                                {%- assign option2_data_arr = option2 | split : ',' -%}
-                                <div class="form-group">
-                                  <select  class="form-control suit_attr" id="exampleFormControlSelect1"  name="properties[Vest Length]">
-                                    <option value="">Length</option>
-                                      {% for dropData in option2_data_arr %}
-                                        <option>
-                                          {{ dropData }}
-                                        </option>
-                                    {% endfor %}
-                                  </select>
-                                  {% render 'icon-caret' %}
-                                </div>
-                              {% endif %}
-                            </div>
-                          </div>
-                        {% endif %}
-                        {% endcomment %}
-
-                         <!-- <div class="row">
-                         <h5>Vest</h5>
-                            <div class="form-row">
-                              <div class="form-group">
-                           
-                                <select class="form-control suit_attr" id="exampleFormControlSelect1" name="properties[Vest Size]">
-                                  <option value="">Size</option>
-                                  <option value="26">26</option>
-                                  <option value="28">28</option>
-                                  <option value="30">30</option>
-                                  <option value="32">32</option>
-                                  <option value="34">34</option>
-                                  <option value="36">36</option>
-                                  <option value="38">38</option>
-                                  <option value="40">40</option>
-                                  <option value="42">42</option>
-                                  <option value="44">44</option>
-                                  <option value="46">46</option>
-                                  <option value="48">48</option>
-                                  <option value="50">50</option>
-                                  <option value="52">52</option>
-                                  <option value="54">54</option>
-                                </select>
-
-                                {% render 'icon-caret' %}
-                              </div>
-                              <div class="form-group">
-                                
-                                <select class="form-control suit_attr" id="exampleFormControlSelect1"  name="properties[Vest Length]">
-                                  <option value="">Length</option>          
-                                  <option value="Short">Short</option>
-                                  <option value="Regular">Regular</option>
-                                  <option value="Long">Long</option>
-                               
-                                </select>
-                           {% render 'icon-caret' %}
-                              </div>
-
-                            </div>
-
-                          </div> -->
-
-
-                        
-
-
-
-
-                        
                         </div>
-
-
-
-
-
-
                       {% endcapture %}
                       {%- capture customLookProductsInfo -%}
                         {{ productMerge }}
@@ -1048,7 +659,7 @@
                               {%- assign accessoriesProdVarId = producthandleitem | split: '?' | last | remove: 'variant=' | plus: 0 -%}
                               {%- assign productHandle = all_products[accessoriesProdHandle] -%}
                               {% unless productHandle == blank %}
-                                <div class="product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
+                                <div class="product-data-card product-data-card-wrap" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
                                   <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
                                   <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ accessoriesProdVarId }}">
                                   <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
@@ -1088,7 +699,7 @@
                                     <div class="product-info">
                                       <h4 class="product-title">{{ productHandle.title }}</h4>
                                       {%- assign productSelectedType  = productHandle.type | downcase -%}
-                                      <span class="variant-title hidden">
+                                      <span class="variant-title{% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %} hidden{% endif %}">
                                         {% for option in productHandle.options_with_values  %}
                                           {% assign outer_forloop = forloop %}
                                           {% if variantAvailavle  %}
@@ -1106,13 +717,13 @@
                                           {%- unless forloop.last -%},{%- endunless -%}
                                         {% endfor %}
                                       </span>
-                                      <div class="cta-button-wrap product-variant-wrap"{% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %} style="margin-top : 10px" {% endif %}>
+                                      <div class="cta-button-wrap hidden"{% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %} style="margin-top : 10px" {% endif %}>
                                         {% if productHandle.variants.size > 1 %}
-                                          <span class="edit-item-btn btn {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}" {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}data-button-label="select-size"{% endif %}>
+                                          <span class="edit-item-btn btn">
                                             {%- if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' -%}
                                               Select Size
                                             {%- else -%}
-                                              Edit Item
+                                              Edit Item  
                                             {%- endif -%}
                                           </span>
                                         {%- endif -%}
@@ -1142,7 +753,7 @@
                                 {% assign productData = producthandleData | split: '_' | last %}
                                 {%- assign productHandle = all_products[productData] -%}
                                 {%- unless productHandle == blank -%}
-                                  <div class="product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
+                                  <div class="product-data-card product-data-card-wrap" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
                                     <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
                                     <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ productHandle.selected_or_first_available_variant.id }}">
                                     <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
@@ -1172,7 +783,7 @@
                                       <div class="product-info">
                                         <h4 class="product-title">{{ productHandle.title }}</h4>
                                         {%- assign productSelectedType  = productHandle.type | downcase -%}
-                                        <span class="variant-title hidden">
+                                        <span class="variant-title">
                                           {% for option in productHandle.options_with_values  %}
                                             {% assign outer_forloop = forloop %}
                                               {%- if productSelectedType == 'pants' and  forloop.first %}
@@ -1181,7 +792,9 @@
                                               {%- if productSelectedType == 'jacket' and  forloop.first %}
                                                 Jacket&nbsp;
                                               {%- endif -%}
-                                            
+                                              {%- if productSelectedType == 'vest' and  forloop.first %}
+                                                Vest&nbsp;
+                                              {%- endif -%}
                                               {%- unless productSelectedType == 'pants' or productSelectedType == 'jacket' or productSelectedType == 'vest' %}
                                                 {%- unless forloop.last  -%}
                                                   {{ option }}
@@ -1199,16 +812,16 @@
                                                   {%- endif -%}
                                                 {%- endif -%}
                                               {%- endfor -%}
-                                            {%- unless forloop.last -%}{%- endunless -%}
+                                            {%- unless forloop.last -%},{%- endunless -%}
                                           {% endfor %}
                                         </span>
                                         <div class="cta-button-wrap">
                                           {% if productHandle.variants.size > 1 %}
-                                            <span class="edit-item-btn btn {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}" {% if productSelectedType == 'vest' or productSelectedType == 'shoes' %}data-button-label="select-size"{% endif %}>
+                                            <span class="edit-item-btn btn">
                                               {%- if productSelectedType == 'vest' or productSelectedType == 'shoes' -%}
                                                 Select Size
                                               {%- else -%}
-                                                Edit Item
+                                                Edit Item  
                                               {%- endif -%}
                                             </span>
                                           {%- endif -%}
@@ -1244,7 +857,7 @@
                         <span class="custom-look-new-url button button--secondary" style="line-height: inherit;">Customize This Look</span>
                       </div>
                     {%- endif -%}
-<!--                     <div class="sizing-and-fit-wrapper" data-product-type="{{ productType }}">
+                    <div class="sizing-and-fit-wrapper" data-product-type="{{ productType }}">
                       <div class="filed-wrapper empty-fit-fider-wrapper hidden">
                         <p class="field__label title" style="text-align: center;font-size: 16px;margin: 0;">Please use the Fit Finder below for sizing to Continue</p>
                       </div>
@@ -1254,7 +867,7 @@
                         <span class="icon">{%- render 'icon-size-chart' -%}</span>
                         <span class="button-title">Find Your Fit</span>
                       </span>
-                    </div> -->
+                    </div>
                     <div class="favorite-event-cart-wrapper">
                       {%- if customer -%}
                         <div class="wishlist-icon-wrap">
@@ -1269,34 +882,29 @@
                             Add to Event
                           </a>
                         </div>
-                      {%- else -%} 
+                      {%- else -%}
                         <div class="wishlist-icon-wrap">
-                          <span data-href="{{ routes.account_login_url }}" class="link link-with-svg event-text {% unless customer %}event-or-fav-when-user-has-not-logged{% endunless %}">
+                          <a href="{{ routes.account_login_url }}" class="link link-with-svg event-text">
                             <i class="far fa-heart"></i>
                             Favorite
-                          </span>
+                          </a>
                         </div>
                         <div class="add-to-event">
-                          <span data-href="{{ routes.account_login_url }}" class="link link-with-svg event-text {% unless customer %}event-or-fav-when-user-has-not-logged{% endunless %}">
+                          <a href="{{ routes.account_login_url }}" class="link link-with-svg event-text">
                             <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 19 18" style="enable-background:new 0 0 19 18;" xml:space="preserve"><style type="text/css">.plus-icon{fill:#1075BC;}</style><g><g><path class="plus-icon" d="M9.6,1.5c4.1,0,7.5,3.3,7.5,7.5s-3.4,7.5-7.5,7.5S2.1,13.1,2.1,9S5.5,1.5,9.6,1.5 M9.6,0c-5,0-9,4-9,9    s4,9,9,9s9-4,9-9S14.6,0,9.6,0L9.6,0z"/></g><g><rect x="8.6" y="5" class="plus-icon" width="2" height="8.1"/><rect x="8.6" y="5" transform="matrix(6.123234e-17 -1 1 6.123234e-17 0.6405 18.6186)" class="plus-icon" width="2" height="8.1"/></g></g></svg>
                             Add to Event
-                          </span>
+                          </a>
                         </div>
                       {%- endif -%}
-                      <button type="button"  name="add" class="product-form__submit button button--full-width button--primary custom-top-look-disable --add_suite_btn_old suit_btn_add_to_cart">
+                      <button type="submit" name="add" class="product-form__submit button button--full-width button--primary custom-top-look-disable">
                         <span class="btn-title" data-text="Adding...">{{ 'products.product.add_to_cart' | t }}</span>
                         <i class="fas fa-shopping-cart"></i>
                       </button>
-                      <!-- <button type="submit" name="add" class="button button--full-width button--primary add_suite_btn">
-                        <span class="btn-title" data-text="Adding...">{{ 'products.product.add_to_cart' | t }}</span>
-                        <i class="fas fa-shopping-cart"></i>
-                      </button> -->
                       {%- if block.settings.show_dynamic_checkout -%}
                         {{ form | payment_button }}
                       {%- endif -%}
                       <div class = "customize-button-customize-look mobile">
-                        <span class="custom-look-new-url button button--secondary" style="line-height: inherit;height: auto">Customize This Look</span>
-                        <!--<a href="/pages/customize-your-look" class="button button--secondary btn-small">Customize This Look</a> -->
+                        <a href="/pages/customize-your-look" class="button button--secondary btn-small">Customize This Look</a>
                       </div>
                     </div>
                 </div>
@@ -1411,267 +1019,6 @@
 {% render 'customizer-favourite-popup' %}
 
 <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
-
-<script>
-const API_URL = theme_custom.api_base_url;
-const APP_Token = 'Bearer ' + localStorage.getItem("customerToken");
-function suitSizeData() {
-  var size_api_url = API_URL + '/api/customer/myFit';
-  var jacket_image = "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/jacket-vest.png";
-  var pants_image = "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/account-2.png";
-  var shirt_image = "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/shirt-display-img.png?v=1641880242";
-  var shoe_image = "https://cdn.shopify.com/s/files/1/0585/3223/3402/files/shoes-display-img.png?v=1641880242";
-  $.ajax({
-      url: size_api_url,
-      method: "GET",
-      data: '',
-      dataType: "json",
-      headers: {
-          "Authorization": APP_Token
-      },
-      beforeSend: function () {
-          
-      },
-      success: function (result) {
-          if (result.success) {
-            if (result.data.length > 0) {
-              var jacket_size = 'NA';
-              var jacket_type = 'NA';
-              var jacket_allsizes = result.data[0].jacketSize;
-
-              if(jacket_allsizes){
-                jacketType = jacket_allsizes.split(":");
-                jacket_size = jacketType[0];
-
-                if (jacketType[1] == "S") {
-                  jacket_type = 'Short'
-                } else if (jacketType[1] == "R") {
-                  jacket_type = 'Regular'
-                } else if (jacketType[1] == "L") {
-                  jacket_type = 'Long'
-                }
-              }
-
-              var ff_html = '';
-              if (result.data.length > 0) {
-
-                setTimeout(() => {
-      
-                  $(`.edit-item-popup[data-product-type="jacket"] select[data-name="chest size"]`).val(jacket_size);
-                  $(`.edit-item-popup[data-product-type="jacket"] select[data-name="style"]`).val(jacket_type);
-
-                  $(`.edit-item-popup[data-product-type="vest"] select[data-name="chest size"]`).val(jacket_size);
-                  $(`.edit-item-popup[data-product-type="vest"] select[data-name="style"]`).val(jacket_type);
-
-                  $(`.edit-item-popup[data-product-type="waist"] select[data-name="chest size"]`).val(result.data[0].pants_waist);
-                  $(`.edit-item-popup[data-product-type="length"] select[data-name="style"]`).val(result.data[0].pants_hight);
-
-                },200);
-                
-
-                ff_html += `<div class="ff-data">
-                                <strong>Jacket</strong>
-                                <span>Chest: ${jacket_size}</span>
-                                <span>Length: ${jacket_type}</span>
-                            </div>`;
-                
-
-                if( result.data[0].pants_waist || result.data[0].pants_hight ){
-                  ff_html += `<div class="ff-data">
-                                  <strong>Pants</strong>
-                                  <span>Waist: ${result.data[0].pants_waist}</span>
-                                  <span>Length: ${result.data[0].pants_hight}</span>
-                              </div>`;
-                }
-
-                if( result.data[0].shirt_neck || result.data[0].shirt_sleeve ){
-                  ff_html += `<div class="ff-data">
-                                  <strong>Shirt</strong>
-                                  <span>Neck: ${result.data[0].shirt_neck}</span>
-                                  <span>Sleeve: ${result.data[0].shirt_sleeve}</span>
-                              </div>`;
-                }
-
-                if( result.data[0].shoe_size ){
-                  ff_html += `<div class="ff-data">
-                                  <strong>Shoes</strong>
-                                  <span>Size: ${result.data[0].shoe_size}</span>
-                              </div>`;
-                }
-
-                $("#suit_fit_finder").hide();
-                $("#ff-data-box").html(ff_html);
-                $("#fit_finder_data_auto").show();
-              }
-            }
-          }else{
-            $("#suit_fit_finder").show();
-            $("#fit_finder_data_auto").hide();
-          }
-      },
-      error: function (xhr, status, error) {
-        $("#suit_fit_finder").show();
-        $("#fit_finder_data_auto").hide();
-        //window.location.href = '/account/logout';
-      }
-  });
-
-}
-
-function suitSizeDataNonLogged(){
-  var getFitFinder = getCookie("fit-finder-data");
-  if(getFitFinder){
-    getFitFinder = JSON.parse(getCookie("fit-finder-data"));
-    var ff_html = '';
-
-    var jacket_size = 'NA';
-    var jacket_type = 'NA';
-    var jacket_allsizes = getFitFinder.jacketSize;
-
-    if(jacket_allsizes){
-      jacketType = jacket_allsizes.split(":");
-      jacket_size = jacketType[0];
-
-      if (jacketType[1] == "S") {
-        jacket_type = 'Short'
-      } else if (jacketType[1] == "R") {
-        jacket_type = 'Regular'
-      } else if (jacketType[1] == "L") {
-        jacket_type = 'Long'
-      }
-    }
-
-    setTimeout(() => {
-      
-      $(`.edit-item-popup[data-product-type="jacket"] select[data-name="chest size"]`).val(jacket_size);
-      $(`.edit-item-popup[data-product-type="jacket"] select[data-name="style"]`).val(jacket_type);
-
-      $(`.edit-item-popup[data-product-type="vest"] select[data-name="chest size"]`).val(jacket_size);
-      $(`.edit-item-popup[data-product-type="vest"] select[data-name="style"]`).val(jacket_type);
-
-      $(`.edit-item-popup[data-product-type="pants"] select[data-name="waist"]`).val(getFitFinder.pants_waist);
-      $(`.edit-item-popup[data-product-type="pants"] select[data-name="length"]`).val(getFitFinder.pants_hight);
-
-    },200);
-
-    ff_html += `<div class="ff-data">
-                    <strong>Jacket</strong>
-                    <span>Chest: ${jacket_size}</span>
-                    <span>Length: ${jacket_type}</span>
-                </div>`;
-
-    if( getFitFinder.pants_waist || getFitFinder.pants_hight ){
-      ff_html += `<div class="ff-data">
-                      <strong>Pants</strong>
-                      <span>Waist: ${getFitFinder.pants_waist}</span>
-                      <span>Length: ${getFitFinder.pants_hight}</span>
-                  </div>`;
-    }
-
-    if( getFitFinder.shirt_neck || getFitFinder.shirt_sleeve ){
-      ff_html += `<div class="ff-data">
-                      <strong>Shirt</strong>
-                      <span>Neck: ${getFitFinder.shirt_neck}</span>
-                      <span>Sleeve: ${getFitFinder.shirt_sleeve}</span> 
-                  </div>`;
-    }
-
-    if( getFitFinder.shoe_size ){
-      ff_html += `<div class="ff-data">
-                      <strong>Shoes</strong>
-                      <span>Size: ${getFitFinder.shoe_size}</span>
-                  </div>`;
-    }
-
-    $("#suit_fit_finder").hide();
-    $("#ff-data-box").html(ff_html);
-    $("#fit_finder_data_auto").show();
-
-  }else{
-    $("#suit_fit_finder").show();
-    $("#fit_finder_data_auto").hide();
-  }
-}
-
-
-$(document).ready(function(){
-
-  var cur_url = window.location.href;
-  //alert(cur_url);
-  if(cur_url)
-  if(cur_url.indexOf('collections/suit') != -1){
-    $(".add_suite_btn").show();
-    $(".add_suite_btn_old").hide();
-    //$(".customize-button-customize-look").hide("");
-    //$("body").addClass("suit_page_body");
-
-    $(".customize-button-customize-look").click(function(){
-      localStorage.setItem("suit_addDefault_vest", "1");
-    });
-
-  }else{
-    $(".add_suite_btn").hide();
-    $(".add_suite_btn_old").show();
-  }
-
-  $(".product_fit_finder a, .ff-top-box a").click(function(e){
-    e.preventDefault();
-    var fit_finder_url = $(this).attr("href");
-    var bring_back_url = window.location.href;
-    localStorage.setItem("bring_back_fit_finder_url", bring_back_url);
-    window.location.href = fit_finder_url;
-  });
-
-  if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-flag-replace") == 'true') {
-    $("#suit_fit_finder").show();
-    $("#fit_finder_data_auto").hide();
-  }else{
-    {% if customer %}
-      suitSizeData();
-    {% else %}
-      suitSizeDataNonLogged();
-    {% endif %}
-  }
-
-
-  $(document).on("change", ".suit_attr", function(){ 
-    var selectHandle = $(this).data("product-handle");
-    var box = $(`.product-data-card-wrap[data-product-handle="${selectHandle}"]`);
-
-    if(selectHandle.indexOf('jacket') != -1){
-      var jacket_size = $(`select[name="properties[Jacket Chest Size]"]`).val();
-      var jacket_type = $(`select[name="properties[Jacket Length]"]`).val();
-      var attr = jacket_size + ' / ' + jacket_type;
-    }else if(selectHandle.indexOf('pants') != -1){
-      var waist_size = $(`select[name="properties[Pant Waist Size]"]`).val();
-      var pant_length = $(`select[name="properties[Pant Length]"]`).val();
-      var attr = waist_size + ' / ' + pant_length;
-    }
-      var errorCount = 1;
-      box.find(".single-option-selector option").each(function(){
-        var title = $(this).data("var-title");
-        if(title.indexOf(attr) != -1){
-          var optionValue = $(this).attr("value");
-          box.find(".single-option-selector").val(optionValue);
-          box.find(".pdp-updates-button .button.button--primary").removeClass("disabled");
-          box.find(".pdp-updates-button .button.button--primary").trigger("click");
-          errorCount = 0;
-        }
-      });
-
-      if(errorCount == 1){
-        alert("Variation not found");
-      }
-
-    
-
-  })
-
-});
-
-
-
-</script>
 
 {%- if first_3d_model -%}
   <script type="application/json" id="ProductJSON-{{ product.id }}">

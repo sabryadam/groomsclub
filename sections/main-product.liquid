@@ -34,11 +34,11 @@
     width: 100%;
   }
   .banner-slider_container .sliderinner_container{
-    padding: 0 0;
+    padding: 100px 0;
   }
   @media(max-width: 767px) {
     .banner-slider_container .sliderinner_container{
-      padding: 0 0;
+      padding: 50px 0;
     } 
   }
 </style>
@@ -148,7 +148,7 @@
       {%- endif -%}
     </div>
     <div class="product__info-wrapper grid__item">
-      <div id="ProductInfo-{{ section.id }}" class="product__info-container product__info-container--sticky when-customer-logged">
+      <div id="ProductInfo-{{ section.id }}" class="product__info-container{% if section.settings.enable_sticky_info %} product__info-container--sticky{% endif %} when-customer-logged">
         {%- assign product_form_id = 'product-form-' | append: section.id -%}
         <select class="single-option-selector hidden">
           {% for variant in product.variants %}
@@ -410,7 +410,7 @@
               {%- elsif block.settings.picker_type == 'dropdown' -%}
                 <variant-selects class="no-js-hidden" data-section="{{ section.id }}" data-url="{{ product.url }}">
                   {%- for option in product.options_with_values -%}
-                    <div class="product-form__input product-form__input--dropdown" data-option="{{ option.name | escape }}">
+                    <div class="product-form__input product-form__input--dropdown">
                       <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
                         {{ option.name }}
                       </label>
@@ -429,75 +429,12 @@
                         {% render 'icon-caret' %}
                       </div>
                     </div>
-
-
-               
-
-
-
-
                   {%- endfor -%}
-               
 
                   <script type="application/json">
                     {{ product.variants | json }}
                   </script>
                 </variant-selects>
-
-                <variant-radios class="no-js-hidden csutomswatch" data-section="{{ section.id }}" data-url="{{ product.url }}">
-                  {%- for option in product.options_with_values -%}
-                    {% assign is_color = false %}
-                    {% assign opt_name = option.name | downcase %}
-                    {% if opt_name contains 'color' or opt_name contains 'colour' %}
-                      {% assign is_color = true %}
-                    {% endif %}
-                    {% assign s_value = product.selected_or_first_available_variant.options[forloop.index0] %}
-                    {%- if is_color -%}
-                      <fieldset class="js product-form__input swatch-product-form text swatch-{{ option.name | downcase }}" data-option-index="{{forloop.index | minus: 1 }}">
-                        <legend class="form__label swatch-form-label">{{ option.name }} : </legend>
-                        {% assign file_extension = 'png' %}
-                        {%- for value in option.values -%}
-                          <div class="swatch-outer-wrapper">
-                            <span class="tool-tip">{{ value }}</span>
-                            <input data-opt_name="{{opt_name}}" type="radio" id="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
-                                  name="{{ option.name }}"
-                                  value="{{ value  | escape }}"
-                                  form="product-form-{{ section.id }}"{% if s_value == value %} checked="checked"{% endif %}
-                            >
-                              <label for="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
-                              style="background-color: {{ value | split: ' ' | last | handle }};
-                                background-image: url({{ value | handle | prepend : 'color_' | append: '.' | append: file_extension | file_url }})">
-                                <span style="display: none;">{{ value }}</span>
-                              </label>
-                            </div>
-                        {%- endfor -%}
-                      </fieldset>
-                    {%- else -%}
-                      <fieldset class="js product-form__input swatch-product-form text swatch-{{ option.name | downcase }}" data-option-index="{{forloop.index | minus: 1 }}">
-                        <legend class="form__label swatch-form-label">{{ option.name }} : </legend>
-                        {% assign file_extension = 'png' %}
-                        {%- for value in option.values -%}
-                          <div class="swatch-outer-wrapper">
-                            <input data-opt_name="{{opt_name}}" type="radio" id="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
-                                  name="{{ option.name }}"
-                                  value="{{ value  | escape }}"
-                                  form="product-form-{{ section.id }}"{% if s_value == value %} checked="checked"{% endif %}
-                            >
-                            <label for="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}">
-                              {{ value }}
-                            </label>
-                          </div>
-                        {%- endfor -%}
-                      </fieldset>
-                    {%- endif -%}
-                  {%- endfor -%}
-                  <script type="application/json">
-                    {{ product.variants | json }}
-                  </script>
-                </variant-radios>
-
-
-                
               {% else %}
                 <div class="produ-var-option hidden">
                   <select id="Option-{{ section.id }}-{{ forloop.index0 }}"
@@ -541,7 +478,7 @@
                           {%- endfor -%}
                         </fieldset>
                       {%- else -%}
-                        <fieldset class="js product-form__input swatch-product-form text swatch-{{ option.name | downcase }}" data-option-index="{{forloop.index | minus: 1 }}">
+                        <fieldset class="js product-form__input swatch-product-form text swatch-{{ option.name | downcase }}{% if productType == 'shirt' %} disabled{% endif %}" data-option-index="{{forloop.index | minus: 1 }}">
                           <legend class="form__label swatch-form-label">{{ option.name }} : </legend>
                           {% assign file_extension = 'png' %}
                           {%- for value in option.values -%}
@@ -593,28 +530,28 @@
                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
                 <!-- when customer is not logged in -->
                 <div class="product-form__buttons display-logout">
-                  {%- if productType == 'shirt' -%}
-<!--                     <div class="sizing-and-fit-wrapper" data-product-type="{{ productType }}">
+                  {%- if productType == 'shirt' or productType == 'shoes' -%}
+                    <div class="sizing-and-fit-wrapper" data-product-type="{{ productType }}">
                       <div class="filed-wrapper empty-fit-fider-wrapper">
                         <p class="field__label title" style="font-size: 16px;margin: 0;">Please use the Fit Finder below for sizing to Continue</p>
                       </div>
-                    </div> -->
+                    </div>
                   {%- endif -%}
-                  <div class="customize-cart-wrapper cutommain-pdp{% unless productType == 'shirt' %} justify-start{% endunless %}">
-                    {%- if productType == 'shirt' -%}
-<!--                       <div class = "customize-button-fit-your-find">
+                  <div class="customize-cart-wrapper{% unless productType == 'shirt' or productType == 'shoes' %} justify-start{% endunless %}">
+                    {%- if productType == 'shirt' or productType == 'shoes' -%}
+                      <div class = "customize-button-fit-your-find">
                         <span class="button button--secondary product-fit-finder" data-product-url="{{ product.url }}">
                           <span class="icon">{%- render 'icon-size-chart' -%}</span>
                           <span class="button-title">Find Your Fit</span>
                         </span>
-                      </div> -->
+                      </div>
                     {%- endif -%}
                     <button type="button" name="add" class="product-form__submit button button--full-width button--primary">
-                      {%- if products.product.sold_out -%}
+                      {%- if product.selected_or_first_available_variant.available -%}
+                        <span class="btn-title" data-text="Adding...">{{ 'products.product.add_to_cart' | t }}</span>
+                        <i class="fas fa-shopping-cart"></i>
+                      {%- else -%}
                         <span class="btn-title">{{ 'products.product.sold_out' | t }}</span>
-                      {% else %}
-                       <span class="btn-title" data-text="Adding...">{{ 'products.product.add_to_cart' | t }}</span>
-                          <i class="fas fa-shopping-cart"></i>
                       {%- endif -%}
                     </button>
                     {%- if block.settings.show_dynamic_checkout -%}
@@ -1110,6 +1047,7 @@
           if(result.data.length > 0){
             fitFinderDataHTML += `<h5 class="heading">Sizing & Fit</h5>`;
             for(var i=0; i<result.data.length; i++){
+              console.log("result.data[i]",result.data[i]);
               fitFinderDataHTML +=`<input class="size_customer_id" type="hidden" value="${result.data[i].customer_id}">`;
               // if(result.data[i].jacket_size && result.data[i].jacket_type) {
               //   var jacketType = result.data[i].jacketSize.split(":");
@@ -1175,7 +1113,6 @@
             'color':'red'
           });
           setTimeout(() => {
-            theme_custom.removeLocalStorage();
             window.location.href = '/account/logout';
           }, 5000);
         } else {
@@ -1257,18 +1194,18 @@
       }
     }, 500);
   }
-  // if ($(".product-type").val() == 'shirt') {
-  //   if(localStorage.getItem("customerToken")){
-  //     var getProductType  = $(".sizing-and-fit-wrapper").attr("data-product-type");
-  //     theme_custom.getFitFinder(getProductType);
-  //     $(".sizing-and-fit-wrapper .empty-fit-fider-wrapper").addClass("disabled");
-  //     $(".product-form__submit").removeClass("normal-product-disable");
-  //   } else {
-  //     theme_custom.getFitFinderCookie();
-  //     $(".product-form__submit").addClass("normal-product-disable");
-  //     $(".sizing-and-fit-wrapper .empty-fit-fider-wrapper").removeClass("disabled");
-  //   }
-  // }
+  if ($(".product-type").val() == 'shirt' || $(".product-type").val() == 'shoes') {
+    if(localStorage.getItem("customerToken")){
+      var getProductType  = $(".sizing-and-fit-wrapper").attr("data-product-type");
+      theme_custom.getFitFinder(getProductType);
+      $(".sizing-and-fit-wrapper .empty-fit-fider-wrapper").addClass("disabled");
+      $(".product-form__submit").removeClass("normal-product-disable");
+    } else {
+      theme_custom.getFitFinderCookie();
+      $(".product-form__submit").addClass("normal-product-disable");
+      $(".sizing-and-fit-wrapper .empty-fit-fider-wrapper").removeClass("disabled");
+    }
+  }
   $(document).on("click",".product-fit-finder",function(){
     localStorage.setItem("previous-page-link", "true");
     localStorage.setItem("page-link",$(this).data("product-url"));
@@ -1278,18 +1215,17 @@
     e.preventDefault();
     var button = $(this);
     // button.addClass("disabled");
-    // button.addClass("normal-product-disable");
-    // if(getCookie("fit-finder-data") == '' && ($('.product-type').val() == 'shirt' || $('.product-type').val() != 'shoes') ){
-    //   e.preventDefault();
-    //   $('.fitfinder-err-msg.form-error').remove();
-    //   button.parent().after('<div class="fitfinder-err-msg form-error text-center"><p>Please use the Fit Finder for sizing to continue</p></div>');
-    //   $(".fitfinder-err-msg.form-error").show();
-    //   button.find(".btn-title").text($(this).find(".btn-title").text());
-    //   return false;
-    // }else{
+    button.addClass("normal-product-disable");
+    if(getCookie("fit-finder-data") == '' && ($('.product-type').val() == 'shirt' || $('.product-type').val() == 'shoes') ){
+      e.preventDefault();
+      $('.fitfinder-err-msg.form-error').remove();
+      button.parent().after('<div class="fitfinder-err-msg form-error text-center"><p>Please use the Fit Finder for sizing to continue</p></div>');
+      $(".fitfinder-err-msg.form-error").show();
+      button.find(".btn-title").text($(this).find(".btn-title").text());
+      return false;
+    }else{
       button.find(".btn-title").text($(this).find(".btn-title").data("text"));
-      button.removeClass("normal-product-disable");
-    // }
+    }
     button.find(".btn-title").text($(this).find(".btn-title").data("text"));
     var getShirtVariantId= button.parents('.product__info-container');
     var varintTitle='' ,varId;
@@ -1356,7 +1292,7 @@
             data: item,
             dataType: 'json',
             success: function() {
-              button.find(".btn-title").text("Added to Cart");
+              button.find(".btn-title").text("Added");
               setTimeout(() => {
                 button.removeClass("disabled");
                 window.location.href = "/cart";
@@ -1377,17 +1313,16 @@
         data: item,
         dataType: 'json',
         success: function() {
-          button.find(".btn-title").text("Added to Cart");
+          button.find(".btn-title").text("Added");
           setTimeout(() => {
             button.removeClass("disabled");
             window.location.href = "/cart";
           }, 2500);
         },
         error: function(xhr, status, error) {
-        // alert(xhr.responseJSON.description);
-              button.find(".btn-title").text("Add To Cart");
+          alert(xhr.responseJSON.description);
+          button.find(".btn-title").text("Add To Cart");
           button.removeClass("disabled");
-        
         }
       });
     }

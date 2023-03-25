@@ -2,20 +2,12 @@
 <html class="no-js" lang="{{ request.locale.iso_code }}">
 
 <head>
-  {% if page_title %}
-    {% if page_title == 'invited' %}
-      <title>Invite Page | Grooms Club</title>
-    {% else %}
-      <title>{{ page_title | escape }} </title>
-    {% endif %}
-  {% else %}
   <title>{{ shop.name }}</title>
-  {% endif %}
   <meta charset="utf-8">
+  <meta name="robots" content="noindex">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="">
-  <meta name='robots' content='index, follow'>
   {% if page_description %}
   <meta name="description" content="{{ page_description | escape }}">
   {% endif %}
@@ -30,10 +22,6 @@
       let expires = "expires=" + d.toUTCString();
       document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
-    if(window.location.pathname != "/pages/fit-finder"){
-      setCookie('lastpage',window.location.pathname,1);
-    }
-    
     function getCookie(cname) {
       let name = cname + "=";
       let ca = document.cookie.split(';');
@@ -67,8 +55,6 @@
   {%- endunless -%}
   {% render 'meta-tags' %}
   <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'custom2.js' | asset_url }}" defer="defer"></script>
-
   {{ content_for_header }}
   {%- liquid
   assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
@@ -122,7 +108,7 @@
   --color-button-primary: #001f49;
   --color-button-light-blue: #1075bc;
   --color-button-white:#fff;
-  --font-button: 1.2rem;
+  --font-button: 1.6rem;
   --color-base-text: {{ settings.colors_text }};
   --color-base-text-rgb: {{ settings.colors_text | color_to_rgb | remove: 'rgb(' | remove: ')' }};
   --color-base-background-1: {{ settings.colors_background_1 }};
@@ -175,19 +161,11 @@
   font-size:var(--font-size-body);
   }
   }
-  @media only screen and (max-width: 767px) {
-    body {
-    font-size: calc(var(--font-size-body) - 2px);
-    }
-  }
   @media screen and (max-width:1199px) and (min-width:768px) {
   body {font-size: calc(var(--font-h6) - 2px);}
   }
   {% endstyle %}
   {{ 'base.css' | asset_url | stylesheet_tag }}
-  {{ 'custom.css' | asset_url | stylesheet_tag }}
-
-  
   {%- unless settings.type_body_font.system? -%}
   <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
   {%- endunless -%}
@@ -253,29 +231,6 @@
   
   </script>
 
-  {%- if template contains 'index' or template contains 'virtual-consultant'  -%}
-    <!-- Calendly badge widget begin -->
-    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
-    <script type="text/javascript">window.onload = function() { Calendly.initBadgeWidget({ url: 'https://calendly.com/groomsclub/30min', text: 'Schedule time with me', color: '#0069ff', textColor: '#ffffff', branding: true }); }</script>
-    <!-- Calendly badge widget end -->
-    <script>
-      $(document).on("click", ".appointment-button", function(){
-        $(".calendly-badge-content").click()
-      })
-    </script>
-    <style>
-      .template-page-virtual-consultant .text-with-img-custom .image-with-text__content a.button{
-        opacity: 1 !important;
-        cursor: auto !important;
-        pointer-events: all !important;
-      }
-    </style>
-  {%- endif -%}
-  {%- if page.handle == 'create-event' -%}
-    {{ 'event-page-new-design.css' | asset_url | stylesheet_tag }}
-    <script src="{{ 'event-page-new-develop.js' | asset_url }}" defer></script>
-  {%- endif -%}
 </head>
 {%- capture body_class -%}
 {%- if template.name == 'product' -%}
@@ -293,7 +248,7 @@
 {%- endcapture -%}
 
 <body
-  class="{{ body_class | strip | strip_newlines | split: '|' | join: ' '}}{% if template == 'index' %} homepage{% endif %}{% unless customer %} customer-has-not-logged{% endunless %} template-{{ product.handle}}">
+  class="{{ body_class | strip | strip_newlines | split: '|' | join: ' '}}{% if template == 'index' %} homepage{% endif %}{% unless customer %} customer-has-not-logged{% endunless %}">
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WPZ3HG7" height="0" width="0"
       style="display:none;visibility:hidden"></iframe></noscript>
@@ -343,8 +298,6 @@
   <script src="{{ 'variants.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
   <script src="{{ 'custom.js' | asset_url }}" defer></script>
-
-  
   <script>
     {%- if customer -%}
     if (!localStorage.getItem("customerToken")) {
@@ -367,33 +320,15 @@
     }
     if ($(".template-page-customize-your-look").length == 0 && $(".template-page-home-try-on-checkout").length == 0) {
       // if (window.location.href.indexOf('-pants') > -1 || window.location.href.indexOf('-jacket') > -1 || window.location.href.indexOf('-vest') > -1) {
-       if (window.location.href.indexOf('-pants') > -1 || window.location.href.indexOf('-jacket') > -1) {
-         const match = window.location.pathname.match(/(?<=products\/).+?(?=-(jacket|suit|pants))/)[0]
-         window.location.href = `/products/${match}-suit`
+        if (window.location.href.indexOf('-pants') > -1 || window.location.href.indexOf('-jacket') > -1) {
+        window.location.href = '/collections/looks'
       }
     }
-
-    $(document).ready(function(){
-
-      $(".cart-page .header-bottom-link a.link").click(function(e){
-        e.preventDefault();
-        var tar = $(this).attr("href");
-        history.back();
-      });
-
-      
-
-    });
-
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<div class="site-global-loader hidden">
-  <div class="loading-overlay__spinner">
-      <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-          <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
-      </svg>
-  </div>
-</div>
-  </body>
+  <!--Gorgias Chat Widget Start-->
+  <script id="gorgias-chat-widget-install-v2"
+    src="https://config.gorgias.chat/gorgias-chat-bundle-loader.js?applicationId=14976"></script>
+  <!--Gorgias Chat Widget End-->
+</body>
 
 </html>

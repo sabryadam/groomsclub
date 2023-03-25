@@ -15,16 +15,7 @@
         {%- when 'text' -%}
           <div class="rich-text__text rte">{{ block.settings.text }}</div>
         {%- when 'button' -%}
-          {%- if template contains 'index'  -%}
-            <button
-              type="button"
-              class="button {% if block.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %} {% if heading_count %} count-right-content {% endif %} appointment-button">{{ block.settings.button_label | escape }}
-              <i
-                class="fas fa-arrow-right"></i>
-            </button>
-          {%- else -%}
-            <a{% if block.settings.button_link == blank %} aria-disabled="true"{% else %} href="{{ block.settings.button_link }}"{% endif %} class="button{% if block.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}">{{ block.settings.button_label | escape }}</a>
-          {%- endif -%}
+          <a{% if block.settings.button_link == blank %} aria-disabled="true"{% else %} href="{{ block.settings.button_link }}"{% endif %} class="button{% if block.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}">{{ block.settings.button_label | escape }}</a>
       {%- endcase -%}
     {%- endfor -%}
   </div>
