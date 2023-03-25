@@ -96,7 +96,7 @@
                     	{% assign mobile_menu = section.settings.menu %}
                     {% endif %}{%- endcomment -%}
                     {%- for link in section.settings.menu.links -%}
-                      <li class="main-link">
+                    <li>
                         {%- if link.links != blank -%}
                           <details>
                             <summary class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.current or link.child_active %} menu-drawer__menu-item--active{% endif %}"{% if link.current or link.child_active %} aria-current="page"{% endif %}>
@@ -145,11 +145,6 @@
                                       {%- endif -%}
                                     </li>
                                   {%- endfor -%}
-                                  <li class="xs-show">
-                                    <a href="{{ link.url}}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">
-                                      {{ link.title | escape }}
-                                    </a>
-                                  </li>
                                 </ul>
                               </div>
                             </div>
@@ -161,11 +156,6 @@
                         {%- endif -%}
                       </li>
                     {%- endfor -%}
-                    <li class="main-link">
-                       <a href="/pages/contact" class="menu-drawer__menu-item list-menu__item link link--text focus-inset"{% if link.current %} aria-current="page"{% endif %}>
-                          Contact Us
-                        </a>
-                    </li>
                   </ul>
                   {% if section.settings.header-url_title %}
                     <div class="header_get_started_btn mobile-button">
@@ -331,20 +321,17 @@
     {%- endif -%}
 
     {%- if section.settings.menu != blank -%}
-      <nav class="header__inline-menu ">
+      <nav class="header__inline-menu">
         <ul class="list-menu list-menu--inline" role="list">
           {%- for link in section.settings.menu.links -%}
             <li>
               {%- if link.links != blank -%}
-                <div class="header__menu-item-wrap {% if link.title == 'Help Center' %} how-it-works{% endif %}">
+                <div class="header__menu-item-wrap">
                   <a href="{{ link.url }}"  class="{{link.title | downcase | handleize }} header__menu-item list-menu__item link focus-inset{% if link.active or link.child_active  %} active{% endif %}">
                     <span {%- if link.child_active %} class="header__active-menu-item"{% endif %}>{{ link.title | escape }}</span>
                     {% render 'icon-caret' %}
                   </a>
-                  {% if link.title == 'Help Center' %}
-                    <div class="header__submenu list-menu--disclosure">
-                  {% endif %}
-                  <ul class="{% if link.title != 'Help Center' %}header__submenu list-menu list-menu--disclosure{% endif %} list-menu caption-large motion-reduce{% if link.links.size > 5 %} menu-item-above-five{% endif %}" role="list" tabindex="-1">
+                  <ul class="header__submenu list-menu list-menu--disclosure caption-large motion-reduce{% if link.links.size > 5 %} menu-item-above-five{% endif %}" role="list" tabindex="-1">
                     {%- for childlink in link.links -%}
                       <li>
                         {%- if childlink.links == blank -%}
@@ -371,24 +358,6 @@
                       </li>
                     {%- endfor -%}
                   </ul>
-                  {% if link.title == 'Help Center' %} 
-                  <div class="contact-us-header-menu caption-large motion-reduce{% if link.links.size > 5 %} menu-item-above-five{% endif %}" role="list" tabindex="-1">
-                    <h3>Contact us</h3>
-                    <ul class="contact-us-header-menu-inner">
-                      <li>
-                        <p><a href="tel:201-559-9715" target="_blank" title="tel:201-559-9715">201-559-9715</a></p>
-                        <p>Call us from 10am - 9pm EST (Mon-Sat).</p>
-                      </li>
-                      <li>
-                        <p><a href="mailto:info@groomsclub.com.com" target="_blank" title="mailto:info@groomsclub.com.com">info@groomsclub.com</a></p>
-                        <p>Our team typically answers within 24 hrs.</p>
-                      </li>
-                    </ul>
-                  </div>
-                  {% endif %}
-                  {% if link.title == 'Help Center' %}
-                    </div>
-                  {% endif %}
                 </details-disclosure>
               {%- else -%}
                 <a href="{{ link.url }}" class="header__menu-item header__menu-item list-menu__item link link--text focus-inset{% if link.active %} active{% endif %}"{% if link.current %} aria-current="page"{% endif %}>
@@ -398,16 +367,11 @@
             </li>
           {%- endfor -%}
         </ul>
-       
       </nav>
     {%- endif -%}
     <div class="header__icons">
       <div class="header_get_started_btn">
-        {% if customer %}
-          <span class="button button--secondary btn-small create-event-header-button" data-href="{{ settings.create_event_url }}">{{ settings.create_event_after_login_btn_text }}</span>
-        {% else %}
-          <a class="button button--secondary btn-small" href="{% if customer %}{{ settings.create_event_url }}{% else %}{{ routes.account_register_url }}{% endif %}">{{ settings.create_event_before_login_btn_text }}</a>
-        {% endif %}
+        <a class="button button--secondary btn-small" href="{% if customer %}{{ settings.create_event_url }}{% else %}{{ routes.account_register_url }}{% endif %}">{% unless customer %}{{ settings.create_event_before_login_btn_text }}{% else %}{{ settings.create_event_after_login_btn_text }}{% endunless %}</a>
       </div>
      {% comment %} <details-modal class="header__search">
         <details>

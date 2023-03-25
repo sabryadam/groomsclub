@@ -257,7 +257,7 @@ $(document).on(`click`, `.custom-qty-button .quantity__button[name="minus"]`, fu
   pants_id = $(this).closest(".cart-item").find(`.suit-product-info[data-item-product-type='pants']`).attr("data-variant-id");
   quantity = parseInt($(this).closest(".cart-item").find(`.quantity__input_custom`).val())-1;
   $(".page-loader").removeClass("hidden");
-  // $(".page-loader").append(`<p class="removing-combine-message" style="color:#fff;font-size : 14px">Please Note: We have Add Jacket and Pants both product. As Jacket or Pants can't be purcase individually</p>`);
+  $(".page-loader").append(`<p class="removing-combine-message" style="color:#fff;font-size : 14px">Please Note: We have Add Jacket and Pants both product. As Jacket or Pants can't be purcase individually</p>`);
   var data = `updates[${jacketId}]=${quantity}&updates[${pants_id}]=${quantity}`;
   $.ajax({
     type: 'POST',
@@ -283,7 +283,7 @@ $(document).on(`click`, `.custom-qty-button  .quantity__button[name="plus"]`, fu
   pants_id = $(this).closest(".cart-item").find(`.suit-product-info[data-item-product-type='pants']`).attr("data-variant-id");
   quantity = parseInt($(this).closest(".cart-item").find(`.quantity__input_custom`).val())+1;
   $(".page-loader").removeClass("hidden");
-  // $(".page-loader").append(`<p class="removing-combine-message" style="color:#fff;font-size : 14px">Please Note: We have Add Jacket and Pants both product. As Jacket or Pants can't be purcase individually</p>`);
+  $(".page-loader").append(`<p class="removing-combine-message" style="color:#fff;font-size : 14px">Please Note: We have Add Jacket and Pants both product. As Jacket or Pants can't be purcase individually</p>`);
   var data = `updates[${jacketId}]=${quantity}&updates[${pants_id}]=${quantity}`;
   $.ajax({
     type: 'POST',
@@ -313,7 +313,7 @@ $(document).on("click", ".suit-product-remove", function(){
   theme_custom.pantsRemove = $(`.cart-item[line-item-product="pants"][line-item-id="${pants_id}"]`);
   var data = `updates[${jacketId}]=0&updates[${pants_id}]=0`;
   $(".page-loader").removeClass("hidden");
-  // $(".page-loader").append(`<p class="removing-combine-message" style="color:#fff;font-size : 14px">Please Note: We have removed the Jacket as well. As Jacket or Pants can't be sold individually</p>`)
+  $(".page-loader").append(`<p class="removing-combine-message" style="color:#fff;font-size : 14px">Please Note: We have removed the Jacket as well. As Jacket or Pants can't be sold individually</p>`)
   $.ajax({
     type: 'POST',
     url: '/cart/update.js',

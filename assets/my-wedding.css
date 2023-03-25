@@ -277,22 +277,6 @@ h5.title{
   cursor: pointer;
 }
 
-.multiselect-container {
-  position: static !important;
-}
-
-.multiselect.dropdown-toggle {
-  display: none;
-}
-
-.multiselect-container li.disabled {
-  color: rgb(235,235,228);
-}
-
-.multiselect-container li.disabled label {
-  cursor: not-allowed;
-}
-
 @media (max-width:767px){
   .reminder-box-wrapper{
     padding: 20px;

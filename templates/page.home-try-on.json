@@ -19,7 +19,7 @@
         "1648145552165b3f6b-1": {
           "type": "text",
           "settings": {
-            "text": "<p>Try it before your buy it! If you're the Groom, we'll send you a suit to test out for up to 7 days, 100% free!<\/p><p><\/p><p>Until then, everyone receives FREE RETURNS up to 30 days after purchase.<\/p>"
+            "text": "<p>Try it before your buy it! If you're the Groom, we'll send you a suit to test out for up to 7 days, 100% free!<\/p>"
           }
         },
         "1648145552165b3f6b-2": {
@@ -48,7 +48,7 @@
         "custom_class": ""
       }
     },
-    "166065625787200d6e": {
+    "1657781408ac95e49f": {
       "type": "page-home-try-on",
       "settings": {
         "title": "Home try on",
@@ -60,6 +60,6 @@
   "order": [
     "main",
     "16481455532b5de5ec",
-    "166065625787200d6e"
+    "1657781408ac95e49f"
   ]
 }

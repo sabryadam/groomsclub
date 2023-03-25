@@ -15,7 +15,7 @@
   {%- form 'create_customer', novalidate: 'novalidate' -%}
     {%- if form.errors -%}
       <h2 class="form__message" tabindex="-1" autofocus>
-        <svg aria-hidden="true" focusable="false" role="presentation">
+        <svg  width="25" height="25" aria-hidden="true" focusable="false" role="presentation">
           <use href="#icon-error" />
         </svg>
         {{ 'templates.contact.form.error_heading' | t }}
@@ -89,7 +89,7 @@
     </div>
     {%- if form.errors contains 'email' -%}
       <span id="RegisterForm-email-error" class="form__message">
-        <svg aria-hidden="true" focusable="false" role="presentation">
+        <svg  width="25" height="25" aria-hidden="true" focusable="false" role="presentation">
           <use href="#icon-error" />
         </svg>
         {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.
@@ -114,7 +114,7 @@
     </div>
     {%- if form.errors contains 'password' -%}
       <span id="RegisterForm-password-error" class="form__message">
-        <svg aria-hidden="true" focusable="false" role="presentation">
+        <svg  width="25" height="25" aria-hidden="true" focusable="false" role="presentation">
           <use href="#icon-error" />
         </svg>
         {{ form.errors.translated_fields['password'] | capitalize }} {{ form.errors.messages['password'] }}.

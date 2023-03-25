@@ -29,7 +29,6 @@ theme_custom.reminder = function (sendReminderDataObj, button) {
           'color': 'red'
         });
         setTimeout(() => {
-          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -92,7 +91,6 @@ theme_custom.updateReminder = function(reminderDataObj, button,reminderId){
             'color': 'red'
           });
           setTimeout(() => {
-            theme_custom.removeLocalStorage();
             window.location.href = '/account/logout';
           }, 5000);
         } else {
@@ -375,7 +373,7 @@ theme_custom.paymentInfo = function (result) {
                       <div class="order-subtotal">Subtotal: <h3 class="price-number">$304.98</h3>
                       </div>
                       <button type="button" class="button  button--primary button-lr-small-padding ${proceedToCartClass}" data-text="Adding...">
-                        <span class="btn-title">Proceed to Cart</span> <i class="fas fa-shopping-cart"></i>
+                          <span class="btn-title">Proceed to Cart</span> <i class="fas fa-shopping-cart"></i>
                       </button>
                     </div>`;
     } else {
@@ -462,7 +460,6 @@ theme_custom.assignToMember = function (data, button) {
           'color': 'red'
         });
         setTimeout(() => {
-          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -504,7 +501,6 @@ theme_custom.removeUserFromLook = function (eventId, memberId) {
           if (xhr.responseJSON.message == 'Token is invalid or expired.') {
             alert('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>');
             setTimeout(() => {
-              theme_custom.removeLocalStorage();
               window.location.href = '/account/logout';
             }, 5000);
           } else {
@@ -542,7 +538,6 @@ theme_custom.deleteReminder = function (reminderId) {
           if (xhr.responseJSON.message == 'Token is invalid or expired.') {
             alert('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>');
             setTimeout(() => {
-              theme_custom.removeLocalStorage();
               window.location.href = '/account/logout';
             }, 5000);
           } else {
@@ -673,7 +668,6 @@ theme_custom.getEventMemberList = function (eventId) {
           'color': 'red'
         });
         setTimeout(() => {
-          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 3000);
       } else {
@@ -935,21 +929,11 @@ theme_custom.myWeddingClickEvent = function () {
   // assign-look-button click event 
   $(document).on("click", ".assign-look-button", function () {
     var selectedVal = $(this).closest(".assign-member-look-popup-wrapper").find("#memberIDsDropdown").val();
-    var nonSelectedVal = [];
-
-    var selectedMemberIds = localStorage.getItem("selectedMemberIds");
-    if(selectedMemberIds != '') {
-      selectedMemberIdArr = selectedMemberIds.split(',');
-      var nonSelectedVal = $(selectedMemberIdArr).not(selectedVal).get();
-    }
-    
     var eventLookId = $(this).attr("data-event-look-id"),
       button = $(this);
-
     var data = {
       "look_id": eventLookId,
-      "member_id": selectedVal,
-      "deleted_member_id": nonSelectedVal
+      "member_id": selectedVal
     }
     button.addClass("disabled");
     theme_custom.assignToMember(data, button);
@@ -1027,8 +1011,7 @@ theme_custom.myWeddingClickEvent = function () {
       target = $(".assign-member-look-popup-wrapper .drop-down"),
       memberIDsDropdown = '',
       assignMemberLookPopup = $(this).closest(".mywedding_section_wrap").find(".assign-member-look-popup-wrapper");
-      target.html('');
-    
+    $.fancybox.open(assignMemberLookPopup);
     $(".assign-member-look-popup-wrapper .form-outer-wrapper").removeClass("hidden");
     $('.api_error').hide();
     $.ajax({
@@ -1043,40 +1026,16 @@ theme_custom.myWeddingClickEvent = function () {
       beforeSend: function () { },
       success: function (result) {
         var formWrapMemberId = result.data.event_members;
-        memberIDsDropdown += '<select class="member-ids-dropdown" id="memberIDsDropdown" multiple>';
-        var selectedMemberIds = [];
+        $('#memberIDsDropdown').find('option').remove().end().append('<option value="">Select Look</option>').val('');
+        memberIDsDropdown += '<select class="member-ids-dropdown" id="memberIDsDropdown">';
         for (i = 0; i < formWrapMemberId.length; i++) {
-          dropDownDisable = "";
-          dropDownSelected = "";
-          if(formWrapMemberId[i].payment_status != '0') {
-            dropDownDisable = "disabled";
-          }
-          if(formWrapMemberId[i].look_id != "NULL") {
-            if(eventLookId != formWrapMemberId[i].look_id) {
-              dropDownDisable = "disabled";
-            }
-          }
-
-          if(formWrapMemberId[i].look_id != "NULL") {
-            if(eventLookId == formWrapMemberId[i].look_id) {
-              dropDownSelected = "selected";
-              selectedMemberIds.push(formWrapMemberId[i].event_member_id);
-            }
-          }
-          
-          memberIDsDropdown += '<option '+dropDownDisable+' '+dropDownSelected+' value="' + formWrapMemberId[i].event_member_id + '">' + formWrapMemberId[i].first_name + ' ' + formWrapMemberId[i].last_name + '</option>';
+          memberIDsDropdown += '<option value="' + formWrapMemberId[i].event_member_id + '">' + formWrapMemberId[i].first_name + ' ' + formWrapMemberId[i].last_name + '</option>';
         }
         memberIDsDropdown += '</select">';
-        localStorage.setItem("selectedMemberIds", selectedMemberIds);
         target.find(".loading-overlay").addClass("hidden");
         $(".member-ids-dropdown").remove();
         $(memberIDsDropdown).appendTo(target);
         $(".assign-look-button").attr("data-event-look-id", eventLookId);
-        $('#memberIDsDropdown').multiselect({
-        	nonSelectedText: 'Select Member'
-        });
-        $.fancybox.open(assignMemberLookPopup);
-        
       },
       error: function (xhr, status, error) {
         if (xhr.responseJSON.message == 'Token is invalid or expired.') {
@@ -1085,7 +1044,6 @@ theme_custom.myWeddingClickEvent = function () {
             'color': 'red'
           });
           setTimeout(() => {
-            theme_custom.removeLocalStorage();
             window.location.href = '/account/logout';
           }, 5000);
         } else {
@@ -1175,7 +1133,6 @@ theme_custom.myWeddingClickEvent = function () {
               'color': 'red'
             });
             setTimeout(() => {
-              theme_custom.removeLocalStorage();
               window.location.href = '/account/logout';
             }, 5000);
           } else {
@@ -1420,7 +1377,6 @@ theme_custom.myWeddingClickEvent = function () {
             'color': 'red'
           });
           setTimeout(() => {
-            theme_custom.removeLocalStorage();
             window.location.href = '/account/logout';
           }, 5000);
         } else {
@@ -1505,7 +1461,6 @@ theme_custom.myWeddingClickEvent = function () {
             'color': 'red'
           });
           setTimeout(() => {
-            theme_custom.removeLocalStorage();
             window.location.href = '/account/logout';
           }, 5000);
         } else {
@@ -1553,15 +1508,6 @@ theme_custom.myWeddingClickEvent = function () {
     var parent = $(this).closest(".member-info-list-edit");
     var selectedLook = parent.find("#looks").val();
     var eventMemberId = parent.find(".event_member_id").val();
-
-    if(selectedLook == '')
-    {
-      parent.find('.api_error').show().html('In order to save your changes, please assign a look above.').css("text-align", "center");
-      setTimeout(() => {
-        parent.find(".api_error").hide();
-      }, 3000);
-      return;
-    }
     var data = {
       "look_id": selectedLook,
       "member_id": eventMemberId
@@ -1595,7 +1541,6 @@ theme_custom.myWeddingClickEvent = function () {
             'color': 'red'
           });
           setTimeout(() => {
-            theme_custom.removeLocalStorage();
             window.location.href = '/account/logout';
           }, 5000);
         } else {
@@ -1637,7 +1582,6 @@ theme_custom.deleteTheLooksItem = function () {
             if (xhr.responseJSON.message == 'Token is invalid or expired.') {
               alert('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>');
               setTimeout(() => {
-                theme_custom.removeLocalStorage();
                 window.location.href = '/account/logout';
               }, 5000);
             } else {
@@ -1683,7 +1627,7 @@ theme_custom.getEventDetails = function () {
           $('#weddingevent_id').val(result.data.event_id);
 
           if(result.data.is_host == 1){
-            // $(".schedule-button-part").removeClass("hidden");
+            $(".schedule-button-part").removeClass("hidden");
             if($('.schedule-button-part a').attr('href').indexOf('event_id=') == -1){
               $('.schedule-button-part a').attr('href',$('.schedule-button-part a').attr('href')+'?event_id='+result.data.event_id);
             }
@@ -1723,11 +1667,6 @@ theme_custom.getEventDetails = function () {
                 if (result.data.event_looks[i].url != null) {
                   editButton = `<span class="break"> | </span><span><span data-href="${result.data.event_looks[i].url}" class="link edit-item-look">Edit look</span></span>`
                 }
-                deleteButton = `<span class="break"> | </span><span><a href="javascript:void(0)" class="link delete_favorites" data-event-look-id="${result.data.event_looks[i].mapping_id}">Delete</a></span>`;
-              } else {
-                editButton = '';
-                deleteButton = '';
-              }
                 assignLookBtn = `<span>
                                   <a href="javascript:void(0)" class="link assign_look_button" data-event-look-id="${result.data.event_looks[i].look_id}">Assign look</a>
                                   <div class="tooltip-main slider-tooltip">
@@ -1737,8 +1676,12 @@ theme_custom.getEventDetails = function () {
                                     </p>
                                   </div>
                                 </span>`;
-                
-              
+                deleteButton = `<span class="break"> | </span><span><a href="javascript:void(0)" class="link delete_favorites" data-event-look-id="${result.data.event_looks[i].mapping_id}">Delete</a></span>`;
+              } else {
+                editButton = deleteButton = '';
+                assignLookBtn = `<span><a href="javascript:void(0)" class="link" style="cursor: inherit;">Assigned look</a></span>`;
+
+              }
               eventLooksHtml += `<div class="look-container slider-lr-spacing-inner" data-look-id="${result.data.event_looks[i].look_id}">
                 <div class="img-container product-slider-img">
                   <img src="${favorite_look_image}" alt="${result.data.event_looks[i].name}" />
@@ -1844,13 +1787,6 @@ theme_custom.getEventDetails = function () {
           // $('.sendmobileno').val(weddingeventarray[0].phone);
           for (var i = 0; i < weddingeventarray.length; i++) {
             var looksOptions = look_name = '', indexVal = 'index-' + i;
-            if (weddingeventarray[i].payment_status == '0') {
-              guestCTA = `<span class="link remove-guest">Remove Guest</span><span href="javascript:void(0)" class="link save-guest">Save</span>`;
-            } else {
-              guestCTA = `<span class="link remove-guest">Remove Guest</span>`;
-            }
-
-            {% comment %}
             if (weddingeventarray[i].look_name != '') {
               if (weddingeventarray[i].look_name != 'Unassigned') {
                 guestCTA = `<span class="link remove-guest">Remove Guest</span>`;
@@ -1866,9 +1802,8 @@ theme_custom.getEventDetails = function () {
                 guestCTA = `<span class="link remove-guest">Remove Guest</span><span href="javascript:void(0)" class="link save-guest">Save</span>`;
               }
             }
-            {% endcomment %}
             if (weddingeventarray[i].look_name != '') {
-              if (weddingeventarray[i].payment_status != '0') {
+              if (weddingeventarray[i].look_name != 'Unassigned') {
                 look_name += weddingeventarray[i].look_name;
                 looksOptions += `<p class="dropdwon"><span>Assigned Look </span><span class="look_select value">: &nbsp;${weddingeventarray[i].look_name} <span></p>`;
               } else {
@@ -2009,7 +1944,6 @@ theme_custom.getEventDetails = function () {
               'color': 'red'
             });
             setTimeout(() => {
-              theme_custom.removeLocalStorage();
               window.location.href = '/account/logout';
             }, 5000);
           } else {
@@ -2051,7 +1985,6 @@ theme_custom.chargePayment = function(data){
           'color': 'red'
         });
         setTimeout(() => {
-          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -2104,7 +2037,6 @@ theme_custom.getPaymentDetails =function(){
               'color': 'red'
             });
             setTimeout(() => {
-              theme_custom.removeLocalStorage();
               window.location.href = '/account/logout';
             }, 5000);
           } else {
@@ -2154,7 +2086,6 @@ theme_custom.getEventMember = function () {
           'color': 'red'
         });
         setTimeout(() => {
-          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -2226,7 +2157,6 @@ theme_custom.getMemberSelectedForReminder = function (reminderMemberArr, eidtind
           'color': 'red'
         });
         setTimeout(() => {
-          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -2298,7 +2228,6 @@ theme_custom.selectedOption = function (reminderMemberArr, eidtindex) {
           'color': 'red'
         });
         setTimeout(() => {
-          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 3000);
       } else {

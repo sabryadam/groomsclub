@@ -2,83 +2,10 @@
   "sections": {
     "main": {
       "type": "main-page",
-      "disabled": true,
       "settings": {}
-    },
-    "529fcfe4-58ba-46e5-a684-faac80d6484e": {
-      "type": "help-centre-top",
-      "settings": {
-        "title": "Hi, how can we help you?"
-      }
-    },
-    "631a2495-2074-4c77-9ad8-fab1e71d2a86": {
-      "type": "help-centre-bottom",
-      "blocks": {
-        "b3a02097-9bae-42bd-ae2f-5ed0d4d65731": {
-          "type": "block",
-          "settings": {
-            "links-pages": "shopify:\/\/pages\/fit-and-sizing",
-            "text-heading": "Fit and Sizing",
-            "text-para": "Our Fit Finder makes sure you have the perfect fitting suit for your body. Learn more about how we can find your precise measurements."
-          }
-        },
-        "f9e4dcba-6cee-4bb7-b143-e0504865eac4": {
-          "type": "block",
-          "settings": {
-            "links-pages": "shopify:\/\/pages\/order-and-shipping",
-            "text-heading": "Orders and Shipping",
-            "text-para": "Learn how to track your orders and know our shipping options."
-          }
-        },
-        "bf225404-9b75-47e0-bf50-b21aa5bc12ea": {
-          "type": "block",
-          "settings": {
-            "links-pages": "shopify:\/\/pages\/returns-and-exchanges",
-            "text-heading": "Returns and Exchanges",
-            "text-para": "We make returns & exchanges easy."
-          }
-        },
-        "15e88384-6bb7-49ca-acb8-c219151a7de3": {
-          "type": "block",
-          "settings": {
-            "links-pages": "shopify:\/\/pages\/group-management",
-            "text-heading": "Group Management",
-            "text-para": "Learn how to make the most of your Grooms Club experience."
-          }
-        },
-        "a743bd95-27c7-4cb4-94bf-5970bd19675c": {
-          "type": "block",
-          "settings": {
-            "links-pages": "shopify:\/\/pages\/at-home-try-on",
-            "text-heading": "At Home Try On",
-            "text-para": "Reserved for our Grooms and Event Owners."
-          }
-        },
-        "a5dc4494-3adb-4c42-b1f9-d6a16e4e54e4": {
-          "type": "block",
-          "settings": {
-            "links-pages": "shopify:\/\/pages\/faqs",
-            "text-heading": "FAQ's",
-            "text-para": "You've got questions? We've got answers!"
-          }
-        }
-      },
-      "block_order": [
-        "b3a02097-9bae-42bd-ae2f-5ed0d4d65731",
-        "f9e4dcba-6cee-4bb7-b143-e0504865eac4",
-        "bf225404-9b75-47e0-bf50-b21aa5bc12ea",
-        "15e88384-6bb7-49ca-acb8-c219151a7de3",
-        "a743bd95-27c7-4cb4-94bf-5970bd19675c",
-        "a5dc4494-3adb-4c42-b1f9-d6a16e4e54e4"
-      ],
-      "settings": {
-        "title": "Get more information"
-      }
     }
   },
   "order": [
-    "main",
-    "529fcfe4-58ba-46e5-a684-faac80d6484e",
-    "631a2495-2074-4c77-9ad8-fab1e71d2a86"
+    "main"
   ]
 }

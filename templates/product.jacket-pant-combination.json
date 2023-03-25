@@ -250,47 +250,11 @@
             "desktop_image": "shopify:\/\/shop_images\/Stretch_Adrian_cropped.png",
             "mobile_image": "shopify:\/\/shop_images\/Stretch_Adrian_cropped.png"
           }
-        },
-        "4a231ef1-817f-4e52-86f5-5e6f10cae1cb": {
-          "type": "sliderimage",
-          "settings": {
-            "title": "",
-            "subtitle": "",
-            "button_link": "",
-            "button_name": "",
-            "desktop_image": "shopify:\/\/shop_images\/Don-split.png",
-            "mobile_image": "shopify:\/\/shop_images\/Don-split.png"
-          }
-        },
-        "4ac0da4d-7621-4c67-be7b-9c43fd1b694f": {
-          "type": "sliderimage",
-          "settings": {
-            "title": "",
-            "subtitle": "",
-            "button_link": "",
-            "button_name": "",
-            "desktop_image": "shopify:\/\/shop_images\/new-Stretch-sleeve.png",
-            "mobile_image": "shopify:\/\/shop_images\/new-Stretch-sleeve.png"
-          }
-        },
-        "16f44468-c5df-4ce8-bac5-8b8b539a10c2": {
-          "type": "sliderimage",
-          "settings": {
-            "title": "",
-            "subtitle": "",
-            "button_link": "",
-            "button_name": "",
-            "desktop_image": "shopify:\/\/shop_images\/Ethan-slide.png",
-            "mobile_image": "shopify:\/\/shop_images\/Ethan-slide.png"
-          }
         }
       },
       "block_order": [
         "8270513a-f10e-4cb1-ab0d-8f0084a3a890",
-        "d5454a5d-9276-4c5b-a0e1-31537926adee",
-        "4a231ef1-817f-4e52-86f5-5e6f10cae1cb",
-        "4ac0da4d-7621-4c67-be7b-9c43fd1b694f",
-        "16f44468-c5df-4ce8-bac5-8b8b539a10c2"
+        "d5454a5d-9276-4c5b-a0e1-31537926adee"
       ],
       "settings": {
         "autoplay": true,
@@ -374,7 +338,9 @@
       ],
       "settings": {
         "check_width": false,
-        "video_mp4_link": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/5ce7f5dfe9b344db9efeb9442de8d151.mp4",
+        "image": "shopify:\/\/shop_images\/customize-look-2x.png",
+        "video_mp4_link": "",
+        "image_mobile": "shopify:\/\/shop_images\/customize-look-2x.png",
         "height": "adapt",
         "color_scheme": "background-2",
         "background_color": "#ffffff",

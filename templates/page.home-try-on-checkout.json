@@ -10,18 +10,17 @@
       "disabled": true,
       "settings": {}
     },
-    "16606563632e2ab5a2": {
+    "16578889512cfc2b8e": {
       "type": "home-try-on-checkout-section",
       "settings": {
-        "heading": "Home try on",
-        "contact_heading": "Contact Information",
-        "contact_sub_heading": "Shipping address"
+        "title": "Home try on",
+        "heading": "Home try on"
       }
     }
   },
   "order": [
     "main",
     "form",
-    "16606563632e2ab5a2"
+    "16578889512cfc2b8e"
   ]
 }

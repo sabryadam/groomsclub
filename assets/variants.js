@@ -1,5 +1,5 @@
 theme_custom.checkFitFinderCookie = function(){
-  if(document.querySelector(".product-type").value=="suit" || document.querySelector(".product-type").value=="looks"){
+  if(document.querySelector(".product-type").value=="shirt" || document.querySelector(".product-type").value=="shoes" || document.querySelector(".product-type").value=="suit" || document.querySelector(".product-type").value=="looks"){
     if(!getCookie("fit-finder-data")){
       $(".product-form__submit").addClass("disabled");
     } else {
@@ -18,18 +18,13 @@ class VariantSelects extends HTMLElement {
     this.updateOptions();
     this.updateMasterId();
     this.toggleAddButton(true, '', false);
-    try{
-      this.updatePickupAvailability();
-    }catch(e){
-    }
+    this.updatePickupAvailability();
+
     if (!this.currentVariant) {
       this.toggleAddButton(true, '', true);
       this.setUnavailable();
     } else {
-      try{
-        $('.product-main-image').slick('slickGoTo', this.currentVariant.featured_media.position-1);
-      }catch(e){
-      }
+      $('.product-main-image').slick('slickGoTo', this.currentVariant.featured_media.position-1);
       this.updateURL();
       this.updateVariantInput();
       this.renderProductInfo();
@@ -98,11 +93,6 @@ class VariantSelects extends HTMLElement {
 
         document.getElementById(`price-${this.dataset.section}`)?.classList.remove('visibility-hidden');
         this.toggleAddButton(!this.currentVariant.available, window.variantStrings.soldOut);
-
-        
-        if (this.currentVariant.available) {
-          this.toggleAddButton(false, window.variantStrings.addToCart);
-        }
       });
   }
 
@@ -120,8 +110,9 @@ class VariantSelects extends HTMLElement {
     } else {
       addButton.removeAttribute('disabled');
       addButton.classList.remove('disabled');
-      if (text) addButton.textContent = text;
+      addButtonText.textContent = window.variantStrings.addToCart;
       addButton.style.opacity = "1";
+      theme_custom.checkFitFinderCookie();
     }
 
     if (!modifyClass) return;

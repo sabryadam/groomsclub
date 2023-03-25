@@ -1,5 +1,3 @@
-// const { ready } = require("jquery");
-
 // constant define
 const API_URL = theme_custom.api_base_url;
 // const APP_Token = "Bearer XtkRwrz3zIljk6FsH74pnGAIwPkgQouqz9kM4XOEm3MsP6F0FwtaVc3oKxQbGdxbAF9uD1lYj3HnDvst22Z1SnAycTBYT0RHRA";
@@ -9,7 +7,7 @@ const loader_content = `<div class="loading-overlay__spinner">
                                 <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
                             </svg>
                         </div>`;
-theme_custom.favLooksData = [];
+
 theme_custom.checkProductLinkAvailable = function () {
     if (localStorage.getItem("previous-page-link") == "true") {
         var productLink = localStorage.getItem("page-link");
@@ -19,30 +17,6 @@ theme_custom.checkProductLinkAvailable = function () {
             window.location.href = productLink;
         }, 500);
     }
-}
-
-// theme_custom.deleteEvent
-theme_custom.deleteEvent = function(event_id){
-    theme_custom.event_id = event_id;
-    $.ajax({
-        url: `${theme_custom.base_url}/api/event/delete/${event_id}`,
-        method: "DELETE",
-        data: '',
-        dataType: "json",
-        headers: {
-            "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
-        },
-        beforeSend: function () {
-        },
-        success: function (result) {
-            setTimeout(() => {
-                $(`.events-container[data-event-id="${theme_custom.event_id}"]`).remove();
-                $(`.modal-wrapper[data-target="delete-data-from-api"]`).removeClass("active");
-                theme_custom.geteventslist();
-                $(".page-loader").addClass("hidden");
-            }, 3000);
-        }
-    });
 }
 
 // Size APi
@@ -129,8 +103,9 @@ function getsizedata() {
                                 <div class="block-info">
                                     <div class="block-title">Jacket</div>
                                     <div class="size-wrap">
-                                    <span class="size-number">Chest: ${jacketType[0]}</span> 
-                                    <span class="size-type">Length: ${jacketTypeVal}</span>
+                                    <span class="size-number">Size ${jacketType[0]}</span> 
+                                    <span class="break">|</span>
+                                    <span class="size-type">${jacketTypeVal}</span>
                                     </div>
                                     <div class="acc-edit-size-main">
                                     <a href="javascript:void(0)" data-popup="edit-jacket" class="acc-edit-mysize">Edit Size</a>
@@ -146,8 +121,9 @@ function getsizedata() {
                                 <div class="block-info">
                                     <div class="block-title">Pants</div>
                                     <div class="size-wrap">
-                                    <span class="size-number">Waist: ${result.data[i].pants_waist}W</span> 
-                                    <span class="size-type">Length: ${result.data[i].pants_hight}H</span>
+                                    <span class="size-number">Size ${result.data[i].pants_waist}W</span> 
+                                    <span class="break">|</span>
+                                    <span class="size-type">${result.data[i].pants_hight}H</span>
                                     </div>
                                     <div class="acc-edit-size-main">
                                     <a href="javascript:void(0)" data-popup="edit-pants" class="acc-edit-mysize">Edit Size</a>
@@ -163,8 +139,9 @@ function getsizedata() {
                                 <div class="block-info">
                                     <div class="block-title">Shirt</div>
                                     <div class="size-wrap">
-                                        <span class="size-number">Neck: ${result.data[i].shirt_neck}</span> 
-                                        <span class="size-type">Sleeve: ${result.data[i].shirt_sleeve}</span>
+                                    <span class="size-number">Neck ${result.data[i].shirt_neck}</span> 
+                                    <span class="break">|</span>
+                                    <span class="size-type">Sleeve ${result.data[i].shirt_sleeve}</span>
                                     </div>
                                     <div class="acc-edit-size-main">
                                     <a href="javascript:void(0)" data-popup="edit-shirt" class="acc-edit-mysize">Edit Size</a>
@@ -180,7 +157,8 @@ function getsizedata() {
                                 <div class="block-info">
                                     <div class="block-title">Shoes</div>
                                     <div class="size-wrap">
-                                        <span class="size-number">Size: ${result.data[i].shoe_size}</span> 
+                                    <span class="size-number">Size ${result.data[i].shoe_size}</span> 
+                                    
                                     </div>
                                     <div class="acc-edit-size-main">
                                     <a href="javascript:void(0)"data-popup="edit-shoes" class="acc-edit-mysize">Edit Size</a>
@@ -204,8 +182,7 @@ function getsizedata() {
                     var html = `<div class="empty_message sizeempty_msg text_center">${theme_custom.fitFinderEmptyMsg}</div>`;
                     $('.my-size-block-main').html(html);
                     $('.my-size-block-main').removeClass('displayBlock');
-                    $(".fit-finder-label").text("Add Sizes");
-                    $('#my-sizes').addClass("empty-sizes")
+                    $(".fit-finder-label").text("Add Sizes")
                 }
 
             } else {
@@ -221,7 +198,6 @@ function getsizedata() {
                     'color': 'red'
                 });
                 setTimeout(() => {
-                    theme_custom.removeLocalStorage();
                     window.location.href = '/account/logout';
                 }, 5000);
             } else {
@@ -241,7 +217,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
     var eventType = eventtype;
     var page = pageno;
     var host = hostby;
-    var limit = 100;
+    var limit = 3;
 
     var data = {
         "eventType": eventType,
@@ -264,138 +240,91 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
         },
         success: function (result) {
             var eventBlockCount = result.data.totalEvents;
-            var allEvents = result.data.events;
-            // allEvents.sort(function(a,b){
-            //     // Turn your strings into dates, and then subtract them
-            //     // to get a value that is either negative, positive, or zero.
-            //     return new Date(b.event_date) - new Date(a.event_date);
-            // });
-            var myEvents = allEvents.filter((event)=> event.hostedBy.toLowerCase() == 'me');
-            myEvents = myEvents.reverse();
-            var otherEvents = allEvents.filter((event)=> event.hostedBy.toLowerCase() != 'me');
-            otherEvents = otherEvents.reverse();
-            var eventsObj = [myEvents,otherEvents];
             var pageCount = eventBlockCount / limit;
-            if (result.success) {       
-                if (result.data.events.length > 0) {
-                    for(let i = 0;i<eventsObj.length;i++){
-                        let activeClass = "";
-                        if(i == 0){
-                            activeClass = 'active' 
+            if (eventBlockCount > 3) {
+                var paginationBlock = setInterval(function () {
+                    if ($(".pagination-wrapper").length > 0) {
+                        for (var i = 0; i < pageCount; i++) {
+                            $(".pagination-wrapper").append('<span class="count-number" data-page="' + (i + 1) + '">' + (i + 1) + '</li> ');
+                            // if(i>limit){
+                            //     $(".pagination-wrapper span.count-number").eq(i).hide();
+                            // }
                         }
-                        var append_event_html = `<input type="hidden" class="eventtype-hidden" value="${eventType}">`;
-                        let eventData = eventsObj[i];
-                        let count = 1;
-                        for(j=0;j<eventData.length;j++){
-                            let index = (j+1);
-                            index = index % 3
-                            let event = eventData[j];
-                            var event_picture = event.picture;
-                            if (!event_picture) {
-                                event_picture = default_event_image;
-                            }
-                            var month_name = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                            var date = new Date(event.event_date);
-                            let month = month_name[date.getMonth()];
-                            let day = date.getDate();
-                            let ownCreated = event.hostedBy.toLowerCase() == 'me' ? true : false;
-                            if (ownCreated) {
-                                var pageLink = `/pages/create-event`;
-                                var actionButton = 'go-to-event-page'
-                            } else {
-                                var actionButton = 'invited-event-page'
-                                var pageLink = `/pages/invited?event_id=${event.event_id}&member_id=${event.member_id}`;
-                            }
-                            let eventActiveClass = "";
-                            if(count == 1){
-                                eventActiveClass = "active";
-                            }
-
-                            let btns = "";
-                            if(!ownCreated){
-                                btns = `<div class="event-hostedby"><span>Hosted by ${event.hostedBy}</span></div>`
-                            }else{
-                                btns = `<div class="event-action-btns">
-                                <span class="events-main-link event-edit-btn" data-href="${pageLink}" data-hosted-by="${event.hostedBy}" data-event-id="${event.event_id}">Edit</span>
-                                <span class="remove-event event-delete-btn" data-hosted-by="${event.hostedBy}">Delete</span>
-                            </div>`
-                            }
-                            append_event_html += `<div data-value="${count}" data-event-id="${event.event_id}" class="events-container ${eventActiveClass}"> <div class="event-container-date"><span>${day}</span> ${month}</div>
-                                <div class="event-container-image"><img src="${event_picture}" alt="default-event-image"></div>
-                                <div class="event-container-event-content">
-                                    <div class="event-title"><span>${event.name}</span></div>
-                                    ${btns}
-                                </div>
-                                <div class="event-container-arrow"><span data-href="${pageLink}" style="display:inline-block" class="${actionButton}" data-hosted-by="${event.hostedBy}" data-event-id="${event.event_id}">
-                                   <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/next_1.png?v=1677956518" />
-                                </a>
-                                </div>
-                            </div>`;
-                            if(index == 0){
-                                count = count + 1;
-                            }
-                        }
-                        let paginationWrapper = $(`<div class="pagination-wrapper"></div>`);
-                        let paginateNumber = Math.ceil(eventData.length / 3);
-                        for(j=0;j<paginateNumber;j++){
-                            let pageActiveClass = j == 0 ? 'current':''
-                            paginationWrapper.append(`<span class="count-number ${pageActiveClass}" data-page="${j+1}"> ${(j + 1)}</span>`)
-                        }
-                        let containerDiv = $(`<div class="event-container-wrapper event-container-${i} ${activeClass}"></div>`)
-                        if($(".event-container-wrapper.event-container-0").find(".events-container").length == 0){
-                            $('.event-container-wrapper.event-container-0').prepend(`<p style="text-align:center">You have not created any Event.</p>`);
-                        }
-                        if($(".event-container-wrapper.event-container-1").find(".events-container").length == 0){
-                            $('.event-container-wrapper.event-container-1').prepend(`<p style="text-align:center">No Event found</p>`);
-                        }
-                        containerDiv.append(append_event_html);
-                        if(paginateNumber>1){
-                            containerDiv.append(paginationWrapper);
-                        }
-                        if(i == 0){
-                            containerDiv.append(`<div class="add-new-event-btn btn-wrapper">
-                            <span class="button button--primary btn-small create-event-header-button" data-href="/pages/create-event" style="margin: 0 auto;">CREATE NEW EVENT</span>
-                        </div>`)
+                        $(".pagination-wrapper .count-number").first().addClass("current");
+                        console.log("result.data",result.data);
+                        if(result.data.nextPage == null){
+                            $(".pagination-wrapper .count-number").removeClass("current");
+                            $('.pagination-wrapper .count-number:last-child').addClass("current");
                         }else{
-                            containerDiv.append(`<div class="add-new-event-btn btn-wrapper">
-                            <a class="button button--primary continue-btn hidden" href="/pages/create-event">SHOP COLLECTION <i class="fas fa-arrow-right"></i></a>
-                          </div>`)
+                            var currentPage = result.data.nextPage - 1;
+                            $(".pagination-wrapper .count-number").removeClass("current");
+                            $('.pagination-wrapper .count-number[data-page="' + currentPage + '"]').addClass("current");
                         }
-                        
-                                            
-                        // append_event_html += `<div class="event-pagination"><span class="event-pre ${pre_class}" data-page="${pre_page-1}">Pre</span> <span class="event-next ${next_class}" data-page="${next_page}">Next</span></div>`;
-                       if( i == 0){
-                        $('.events-main-container').html("");
-                       }
-                        $('.events-main-container').hide().append(containerDiv).slideDown('slow');
                     }
+                    clearInterval(paginationBlock);
+                }, 500);
+            }
+
+            var next_class = pre_class = "disable_class";
+            var pre_page = next_page = 0;
+            if (result.success) {
+                
+                var next_class = pre_class = "";
+                next_page = result.data.nextPage;
+                pre_page = page;
+                if (result.data.nextPage == null) {
+                    next_class = "disable_class";
+                }
+                if (page == 1) {
+                    pre_class = "disable_class";
+                }
+                if (result.data.events.length > 0) {
+                    var append_event_html = `<input type="hidden" class="eventtype-hidden" value="${eventType}">`;
+
+                    for (var i = 0; i < result.data.events.length; i++) {
+                        var event_picture = result.data.events[i].picture;
+                        if (!event_picture) {
+                            event_picture = default_event_image;
+                        }
+                        var month_name = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                        var date = new Date(result.data.events[i].event_date);
+                        let month = month_name[date.getMonth()];
+                        let day = date.getDate();
+                        if (result.data.events[i].hostedBy == 'Me' || result.data.events[i].hostedBy == 'me') {
+                            var pageLink = `/pages/my-event?event_id=${result.data.events[i].event_id}`;
+                        } else {
+                            var pageLink = `/pages/invited?event_id=${result.data.events[i].event_id}+member_id=${result.data.events[i].member_id}`;
+                        }
+                        append_event_html += `<a href="${pageLink}" class="events-main-link" data-hosted-by="${result.data.events[i].hostedBy}"><div class="events-container"> <div class="event-container-date"><span>${day}</span> ${month}</div>
+                            <div class="event-container-image"><img src="${event_picture}" alt="default-event-image"></div>
+                            <div class="event-container-event-content"><div class="event-title"><span>${result.data.events[i].name}</span></div>
+                            <div class="event-hostedby"><i class="fas fa-user-tie"></i><span>Hosted by ${result.data.events[i].hostedBy}</span></div>
+                            </div>
+                            <div class="event-container-arrow"><span style="display:inline-block" class="custom-event-button" data-hosted-by="${result.data.events[i].hostedBy}"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 33 35" style="enable-background:new 0 0 33 35;" xml:space="preserve">
+                                <style type="text/css">.paginationarrow{fill:none;stroke:#1075BC;stroke-width:3;stroke-miterlimit:10;}.paginationarrow-one{fill:#1075BC;}</style><g>
+                                <polyline class="paginationarrow" points="15.7,2.4 30.7,18.4 15.7,33.4 	"/><rect x="1.2" y="16.4" transform="matrix(-1 -4.488999e-11 4.488999e-11 -1 30.4722 35.7375)" class="paginationarrow-one" width="28" height="3"/></g>
+                            </svg> </span>
+                            </div>
+                        </div></a>`;
+                    }
+                    append_event_html += `<div class="pagination-wrapper"></div>`;
+                    // append_event_html += `<div class="event-pagination"><span class="event-pre ${pre_class}" data-page="${pre_page-1}">Pre</span> <span class="event-next ${next_class}" data-page="${next_page}">Next</span></div>`;
+                    $('.events-main-container').hide().html(append_event_html).slideDown('slow');
                     $(".event-list-top").removeClass("hidden");
                    
                 } else {
                     $(".events-main-container").css({
                         "display": "block",
-                        "min-height": "auto",
-                        "text-align" : "center"
+                        "min-height": "auto"
                     });
-                    var eventNotFound = `<div class="event-container-wrapper event-container-0 active">
-                                            <div class="add-new-event-btn btn-wrapper">
-                                                <p style="text-align:center">You have not created any Event.</p>
-                                                <span class="button button--primary btn-small create-event-header-button" data-href="/pages/create-event" style="margin: 0 auto;">CREATE NEW EVENT</span>
-                                            </div>
-                                        </div>
-                                        <div class="event-container-wrapper event-container-1">
-                                            <div class="add-new-event-btn btn-wrapper">
-                                                <p style="text-align:center">No Event found</p>
-                                                <span class="button button--primary btn-small create-event-header-button" data-href="/pages/create-event" style="margin: 0 auto;opacity:0; visibility:hidden">CREATE NEW EVENT</span>
-                                            </div>
-                                        </div>`
-                    // var html = `<div class="empty_message sizeempty_msg">No event found</div><a href="/pages/create-event" class="button--primary button" style="display: inline-block;margin: 30px auto;">Create Event</a>`;
-                    $('.events-main-container').html(eventNotFound);
-                    $("#my-events").addClass("empty-event")
+                    var html = `<div class="empty_message sizeempty_msg"> We didn't find the event....</div>`;
+                    $('.events-main-container').html(html);
                 }
             } else {
                 // alert(result.data.success);
             }
+
+
         },
         error: function (xhr, status, error) {
             if (xhr.responseJSON.message == 'Token is invalid or expired.') {
@@ -404,7 +333,6 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                     'color': 'red'
                 });
                 setTimeout(() => {
-                    theme_custom.removeLocalStorage();
                     window.location.href = '/account/logout';
                 }, 5000);
             } else {
@@ -417,68 +345,21 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
 
 }
 
-// Event delete 
-$(document).on("click",".event-action-btns .event-delete-btn", function(){
-    var eventLookId = $(this).closest(".events-container").find(".events-main-link").attr("data-event-id");
-    $(`.modal-wrapper[data-target="delete-data-from-api"]`).addClass("active").find(".data_target_id").val(eventLookId).attr("data-type","event-remove-from-list");
-    $(`.modal-wrapper[data-target="delete-data-from-api"]`).find(".heading").text("Are you sure you want to delete this event?");
-});
-$(document).on("click",`[data-target="delete-data-from-api"] button`,function(){
-    var target = $(this).attr('data-value');
-    var checkData = $(this).closest(".modal-wrapper-inner-wrapper").find(".data_target_id").attr("data-type");
-    if(target == 'yes'){ 
-        if(checkData=='event-remove-from-list') {
-            var eventLookId = $(this).closest(".modal-wrapper-inner-wrapper").find(".data_target_id").val();
-            $(".page-loader").removeClass("hidden");
-            theme_custom.deleteEvent(eventLookId);
-        }
-        if(checkData=="favourite-look-delete"){
-            var favouriteLookId = $(this).closest(".modal-wrapper-inner-wrapper").find(".data_target_id").val();
-            $(".page-loader").removeClass("hidden");
-            deletefavoritelooks(favouriteLookId);
-        }
-    } else {
-        $(`.modal-wrapper[data-target="delete-data-from-api"]`).removeClass("active");
-    }
-})
-$(document).on("click", ".events-main-container .go-to-event-page, .event-edit-btn", function () {
+$(document).on("click", ".events-main-container .custom-event-button, .events-main-link ", function () {
     var hostedBy = $(this).data("hosted-by");
     localStorage.setItem("hosted-by", hostedBy);
-    localStorage.setItem("set-event-id",$(this).data("event-id"));
-    if($(this).text() != 'Edit' ){
-        localStorage.setItem("showEventStepSecond","true");
-    }
-    window.location.href = $(this).attr("data-href");
-})
-$(document).on("click", ".events-main-container .invited-event-page", function () {
-    window.location.href = encodeURI(location.origin+$(this).attr("data-href"));
 })
 
 //event List pagination 
 $(document).on('click', '.count-number', function () {
-    let parent = $(this).closest('.event-container-wrapper');
-    $(".count-number",parent).removeClass("current");
+    $(".count-number").removeClass("current");
     $(this).addClass("current")
-    let page = $(this).attr('data-page');
-    $('.events-container',parent).removeClass('active');
-    $(`.events-container[data-value="${page}"]`,parent).addClass('active');
-    // var nextpage = $(this).data('page');
-    // var eventtype = $('.eventtype-hidden').val();
-    // if (nextpage) {
-    //     theme_custom.geteventslist(eventtype = eventtype, pageno = nextpage, hostby = 0);
-    // }
+    var nextpage = $(this).data('page');
+    var eventtype = $('.eventtype-hidden').val();
+    if (nextpage) {
+        theme_custom.geteventslist(eventtype = eventtype, pageno = nextpage, hostby = 0);
+    }
 })
-
-//event List pagination 
-$(document).on('click', '.event-types-btn-wrap .event-types-btn', function () {
-    let parent = $(this).closest('.event-types-btn-wrap');
-    $(".event-types-btn",parent).removeClass("active");
-    $(this).addClass("active")
-    let page = $(this).attr('data-id');
-    $('.events-main-container .event-container-wrapper').removeClass('active');
-    $(`.events-main-container .event-container-wrapper.event-container-${page}`).addClass('active');
-})
-
 $(document).on('click', '.event-next', function () {
     var nextpage = $(this).data('page');
     var eventtype = $('.eventtype-hidden').val();
@@ -528,46 +409,33 @@ function favoritelooks() {
         },
         success: function (result) {
             $('.feature-looks-slider-loader').remove();
-            $(`.modal-wrapper[data-target="delete-data-from-api"]`).removeClass("active");
             if (result.success) {
                 if (result.data.length > 0) {
-                    theme_custom.favLooksData = result.data;
                     var append_fav_html = "";
                     $('.feature-looks-slider').html(append_fav_html);
                     var edit_link = '';
-                    // result.data[1] = result.data[0];
-                    // result.data[2] = result.data[0];
-                    // result.data[3] = result.data[0];
-                    // result.data[4] = result.data[0];
-                    // result.data[5] = result.data[0];
-                    // result.data[6] = result.data[0];
-                    result.data = result.data.reverse();
-                    for (var i = 0; i < result.data.length; i++) {    
+                    for (var i = 0; i < result.data.length; i++) {                        
                         if (result.data[i].look_image) {
                             favorite_look_image = result.data[i].look_image;
                         }
 
                         if (result.data[i].url) {
-                            edit_link = `<span data-href="${result.data[i].url}" edit-look-id="${result.data[i].id}" edit-look-name="${result.data[i].name}" class="btn-customiser button button--primary edit-favorite-look-button">CUSTOMIZE</span>`;
+                            edit_link = `<span data-href="${result.data[i].url}" class="link edit-favorite-look-button">Edit look</span><span class="break"> | </span>`;
                         } else {
                             edit_link = ``;
                         }
                         append_fav_html += `<div class="look-container slider-lr-spacing-inner">
                         <div class="img-container product-slider-img">
                           <img src="${favorite_look_image}" alt="favourite-look-img">
-                          ${edit_link}
                         </div>
-                        <div>
                         <div class="look-img-title product-slider-title h3">
                             <span>${result.data[i].name}</span>
                         </div>
-                        <div class="delete-fav-wrap">
-                        <span><a href="javascript:void(0)" class="link delete_favorites" data-favid="${result.data[i].id}" >Remove</a></span>
-                        </div>
-                        <div class="look-changes btn-wrapper product-slider-detail-edit">
-                          <a  class="button button--primary fav-look-add-to-cart hidden" data-index="${i}">Add to Cart</a>
-                          <a href="javascript:void(0)" data-favid="${result.data[i].id}" class="link addevent_fav button button--primary btn-1 link">ADD TO EVENT</a>
-                        </div>
+                        <div class="look-changes product-slider-detail-edit">
+                          <span><a href="javascript:void(0)" data-favid="${result.data[i].id}" class="link addevent_fav">Add to Event</a></span>
+                          <span class="break"> | </span>
+                          ${edit_link}
+                          <span><a href="javascript:void(0)" class="link delete_favorites" data-favid="${result.data[i].id} " >Delete</a></span>
                         </div>
                         <share-button class="product-share-button product-small-share-icon">
                           <span class="share-button_label">
@@ -602,15 +470,12 @@ function favoritelooks() {
 
                     }
                     $('.feature-looks-slider').html(append_fav_html);
-                    if($('.feature-looks-slider').find(".look-container").length > 0){
-                        $('.feature-looks-slider').slick('refresh');
-                    }
+                    $('.feature-looks-slider').slick('refresh');
                 } else {
                     var html = `<div class="empty_message sizeempty_msg text_center"> You haven't saved any Favorite Looks yet.</div>`;
                     $('.feature-looks-slider').html(html);
-                    $("#favorite-look").addClass('empty-favourite')
                 }
-                $(".page-loader").addClass("hidden");
+
             } else {
                 // alert(result.data.success);
             }
@@ -625,7 +490,6 @@ function favoritelooks() {
                     'color': 'red'
                 });
                 setTimeout(() => {
-                    theme_custom.removeLocalStorage();
                     window.location.href = '/account/logout';
                 }, 5000);
             } else {
@@ -659,6 +523,7 @@ function deletefavoritelooks(looksoid) {
             success: function (result) {
                 $('.favorite-looks-wrapper').css('cursor', 'allowed');
                 favoritelooks();
+
             },
             error: function (xhr, status, error) {
                 if (xhr.responseJSON.message == 'Token is invalid or expired.') {
@@ -667,7 +532,6 @@ function deletefavoritelooks(looksoid) {
                         'color': 'red'
                     });
                     setTimeout(() => {
-                        theme_custom.removeLocalStorage();
                         window.location.href = '/account/logout';
                     }, 5000);
                 } else {
@@ -683,100 +547,20 @@ function deletefavoritelooks(looksoid) {
 // edit-favorite-look-button page redirect 
 $(document).on("click", ".edit-favorite-look-button", function () {
     var getRediectUrl = $(this).attr("data-href");
+    window.location.href = getRediectUrl;
     localStorage.setItem("customizerlookFrom", "exiting-looks");
     localStorage.setItem("customizerlookUrl", getRediectUrl.split("?")[1]);
-    localStorage.setItem("editLookId",$(this).attr("edit-look-id"));
-    localStorage.setItem("editLookName",$(this).attr("edit-look-name"));
-    localStorage.setItem("look-for-favourite","look-for-favourite");
-    window.location.href = getRediectUrl;
 });
 
 $(document).on('click', '.delete_favorites', function () {
-    // var eventLookId = $(this).closest(".events-container").find(".events-main-link").attr("data-event-id");
     var favid = $(this).data('favid');
-    $(`.modal-wrapper[data-target="delete-data-from-api"]`).addClass("active").find(".data_target_id").val(favid).attr("data-type","favourite-look-delete");
-    $(`.modal-wrapper[data-target="delete-data-from-api"]`).find(".heading").text("Are you sure you want to delete this Look?");
+    var confirms = confirm("Are you sure you want to remove this?");
+    if (favid && confirms) {
+        deletefavoritelooks(favid);
+    }
+
 });
 
-$(document).on('click','.feature-looks-slider .fav-look-add-to-cart',function(){
-    let index = parseInt($(this).attr('data-index'));
-    let btn = $(this);
-    let data = theme_custom.favLooksData[index];
-    let lookItems = data.items;
-    let items = [];
-    $(btn).text('Adding....')
-    lookItems.forEach((item)=>{
-        if(item.handle.includes('jacket')){
-            let pant = lookItems.find((product)=> {
-                if(product.handle.includes('pants')){
-                    return product;
-                }
-            });
-            if(!pant){
-                items.push({
-                    'id':item.variant_id,
-                    'quantity': 1
-                })
-            }else{
-                items.push({
-                    'id':item.variant_id,
-                    'quantity': 1,
-                    'properties':{
-                        'variant-id':pant.variant_id
-                    }
-                })
-            }
-            
-        }else if(item.handle.includes('pants')){
-            let jacket = lookItems.find((product)=> product.handle.includes('jacket'));
-            if(!jacket){
-                items.push({
-                    'id':item.variant_id,
-                    'quantity': 1
-                })
-            }else{
-                items.push({
-                    'id':item.variant_id,
-                     'quantity': 1,
-                     'properties':{
-                        'variant-id':jacket.variant_id
-                    }
-                })
-            }
-        }else{
-            items.push({
-                'id':item.variant_id,
-                 'quantity': 1
-            })
-        }
-        
-    })
-
-    let formData = {items};
-    fetch(window.Shopify.routes.root + 'cart/add.js', {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    })
-    .then(response => {
-        return response.json();
-    })
-    .then((data)=>{
-        if(data.description){
-            $(btn).text('ADD To Cart')
-            alert(data.description);
-        }else{
-            window.location.href = '/cart';
-        }
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        // alert(data.description);
-        $(btn).text('ADD To Cart')
-    });
-})
 // End Delete the favorite looks
 
 //Add to Event for favorite Looks
@@ -789,7 +573,6 @@ function addtoeventlist(favid) {
         "host": 0,
         "limit": 100
     };
-
     $.ajax({
         url: event_api_url,
         method: "POST",
@@ -805,15 +588,9 @@ function addtoeventlist(favid) {
             var event_list_html = '';
             $('.favorite-looks-wrapper, .addevent-popup').css('cursor', '');
             if (result.success) {
-                var selfEventCount = 0;
-                for (var i = 0; i < result.data.events.length; i++) {
-                    if(result.data.events[i].hostedBy == 'Me'){
-                        selfEventCount = 1;
-                    }
-                }
-                if (selfEventCount > 0) {
+                if (result.data.events.length > 0) {
                     event_list_html += `<label class="form-label field__label hidden">Select Upcoming Event:</label> <select class="add_eventlist_select">
-                    <option value="select event" selected> Select Event </option>`;
+                    <option value="" selected> Select Event </option>`;
                     for (var i = 0; i < result.data.events.length; i++) {
                         if (result.data.events[i].hostedBy == 'Me' || result.data.events[i].hostedBy == 'me') {
                             event_list_html += `<option value="${result.data.events[i].event_id}"> ${result.data.events[i].name} </option>`;
@@ -826,11 +603,11 @@ function addtoeventlist(favid) {
                 } else {
                     var errorPopup = `<section class="create-event-look" style="display: none;">
                                         <div class="empty-error-msg text_center">
-                                            <p>No event found <a class="button button--secondary btn-small" href="/pages/create-event" title="Create Event">Create Event </a> </p>
+                                            <p> We didn't find the Event Please <a href="/pages/create-event" title="Create Event">Create the Event </a> </p>
                                         </div>
                                     </section>`;
                     $('.favorite-looks-wrapper').append(errorPopup);
-                    $.fancybox.open($('.create-event-look')[0]);
+                    $.fancybox.open($('.create-event-look'));
 
                 }
 
@@ -848,8 +625,8 @@ $(document).on("click", ".close-btn", function () {
     $("body").removeClass("body_fixed");
 })
 
-$(document).on('click', '.addevent_fav', function (e) {
-    e.preventDefault();
+$(document).on('click', '.addevent_fav', function () {
+
     var favid = $(this).data('favid');
 
 
@@ -861,33 +638,11 @@ $(document).on('click', '.addevent_fav', function (e) {
 });
 $(document).on('click', '.tabs-nav li a', function (e) {
     e.preventDefault();
-    let mainParent = ('.main-account-page');
-    let parent = $(this).closest('.tabs-nav');
-    $('li',parent).removeClass('active');
-    $(this).closest('li').addClass('active');
-    $('#tabs-content .tab-content',mainParent).removeClass('active');
-    let id = $(this).attr('href');
-    $(mainParent).find(id).addClass('active');
-    history.pushState({}, null, `${window.location.pathname}?tab=${id.replace('#','')}`);
-    if(id == '#tab-3' || id == "#favorite-look" ){
-        if($('.feature-looks-slider').find(".look-container").length > 0){
-            $('.feature-looks-slider').slick('refresh');
-        }
-    }
-
-    // var siteHeaderHeight = $('.header-wrapper').height() + 10;
-    // $('html, body').animate({ scrollTop: $($(this).attr('href')).position().top - siteHeaderHeight }, '1000');
+    var siteHeaderHeight = $('.header-wrapper').height() + 10;
+    $('html, body').animate({ scrollTop: $($(this).attr('href')).position().top - siteHeaderHeight }, '1000');
 });
 $(document).on('change', '.add_eventlist_select', function () {
     $('p.event-option-error').remove();
-});
-
-$(document).on('change', '.add_eventlist_select', function() {
-    if($(this).val() == 'select event'){
-        $("#addeventfav_btn").addClass("disabled");
-    } else {
-        $("#addeventfav_btn").removeClass("disabled");
-    }
 });
 
 theme_custom.toDataURL = function (url, callback) {
@@ -948,7 +703,6 @@ theme_custom.LookImageCustomizer = function (look_image, lookID, button) {
                     'color': 'red'
                 });
                 setTimeout(() => {
-                    theme_custom.removeLocalStorage();
                     window.location.href = '/account/logout';
                 }, 5000);
             } else {
@@ -997,11 +751,10 @@ $(document).on('click', '#addeventfav_btn', function () {
                 button.removeClass("disabled");
                 $('.add-event-success-msg').remove();
                 $('.addevent-popup .close-btn').click();
-                localStorage.setItem("showEventStepSecond","true");
-                localStorage.setItem("set-event-id",eventid);
-                window.location.href = '/pages/create-event';
+                window.location.href = '/pages/my-event?event_id=' + eventid;
             }, 3000);
             // theme_custom.toDataURL(look_image_url, function(dataUrl) {
+            //     debugger;
             //     theme_custom.image_url = dataUrl;
             //     theme_custom.ImageURL = theme_custom.dataURLtoFile(theme_custom.image_url,'look-image.png');
             // });
@@ -1015,7 +768,6 @@ $(document).on('click', '#addeventfav_btn', function () {
                     'color': 'red'
                 });
                 setTimeout(() => {
-                    theme_custom.removeLocalStorage();
                     window.location.href = '/account/logout';
                 }, 5000);
             } else {
@@ -1129,13 +881,9 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
             localStorage.setItem("save-fit-finder-flag-replace", "false");
             $("#tab-1").find(".my-size-title").after(`<p class="sucess-message">Save My Sizes!</p>`);
             getsizedata();
-
-            var bring_back_url = localStorage.getItem("bring_back_fit_finder_url");
-            if(bring_back_url){
-                window.location.href = bring_back_url;
-                localStorage.removeItem("bring_back_fit_finder_url");
+            if (localStorage.getItem("previous-page-link", "true")) {
+                window.location.href = localStorage.getItem("page-link")
             }
-
             if (localStorage.getItem("previous-page-link", "true")) {
                 window.location.href = localStorage.getItem("page-link")
             }
@@ -1151,7 +899,6 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
                     'color': 'red'
                 });
                 setTimeout(() => {
-                    theme_custom.removeLocalStorage();
                     window.location.href = '/account/logout';
                 }, 3000);
             } else {
@@ -1312,6 +1059,7 @@ theme_custom.updateMySize = function (fitFinderJson, button) {
       beforeSend: function () {
       },
       success: function (result) {
+        console.log("Result",result.data);
         var setFitFinderCookie = {
             "customer_id": result.data.customer_id,
             "user_email": result.data.email,
@@ -1361,6 +1109,7 @@ theme_custom.updateMySize = function (fitFinderJson, button) {
             button.closest('.edit-size-popup').find('.api_error.success-event').show();
         }
         var jacketType = result.data.jacketSize.split(":");
+        console.log("JacketType",jacketType);
         var jacketTypeVal = '';
         if (jacketType[1] == "S") {
             jacketTypeVal = 'Short'
@@ -1391,7 +1140,6 @@ theme_custom.updateMySize = function (fitFinderJson, button) {
             'color': 'red'
           });
           setTimeout(() => {
-            theme_custom.removeLocalStorage();
             window.location.href = '/account/logout';
           }, 5000);
         } else {
@@ -1451,6 +1199,7 @@ $(document).on("click", ".update-btn-main .update-my-size", function (e) {
         }else if($(this).closest('.edit-size-popup').attr('data-popup') == 'edit-pants'){
             var edit_pant_waist_size = $(this).closest('.edit-size-popup').find('[name="waist"]:checked').val(),
                 edit_pant_height = $(this).closest('.edit-size-popup').find('[name="inseam"]:checked').val();
+                console.log('edit_pant_height',edit_pant_height);
             getFitFinder['pants_waist'] = edit_pant_waist_size;
             getFitFinder['pants_waist_output'] = edit_pant_waist_size;
             getFitFinder['pants_hight'] = edit_pant_height;
@@ -1486,32 +1235,3 @@ $('.edit-size-popup .step-wrapper input[type=radio]').on('change', function () {
     $(this).closest('.step-wrapper').find(".error-message").remove();
     $(this).closest('.edit-size-popup').find(".update-my-size").removeClass("disabled");
 });
-
-if(localStorage.getItem("event-or-fav-when-user-has-not-logged")=='true'){
-    localStorage.removeItem("event-or-fav-when-user-has-not-logged");
-    theme_custom.checkProductLinkAvailable();
-}
-theme_custom.accountActiveTabs = function(){
-    var urlParams = new URLSearchParams(window.location.search);
-    var dataId = urlParams.get('tab');
-    if (dataId) {
-        dataId= "#" + dataId;
-        let mainParent = ('.main-account-page');
-        let parent = $('.tabs-nav');
-        $('li',parent).removeClass('active');
-        $(`a[href="${dataId}"]`).closest('li').addClass('active');
-        $('#tabs-content .tab-content',mainParent).removeClass('active');
-        $(mainParent).find(dataId).addClass('active');
-        if(dataId == '#tab-3'){
-            $('.feature-looks-slider').slick('refresh');
-        }
-        var li = $(`a[href="${dataId}"]`).closest('li');
-        if($(Window).width() <= 767 && li.length > 0){
-            let scrollElement = document.querySelector('.tabs-nav');
-            scrollElement.scrollLeft = li[0].offsetLeft;
-        }
-    }
-}
-$(document).ready(function(){
-    theme_custom.accountActiveTabs()
-})

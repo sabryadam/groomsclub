@@ -1,3 +1,64 @@
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-{%- section 'event-page-new-design' -%}
+{%- unless customer -%}
+<script>
+    window.location.href = '/account/login';
+</script>
+{%- endunless -%}
+<!-- page.create-event -->
+{%- style -%}
+  .not-logged{
+    padding : 50px 0;
+    text-align : center;
+    font-size : 18px;
+  }
+  .create_event_btn.disable  {
+    opacity: 0.5;
+    cursor: progress;
+  }
+  .api_error{
+    color: #D8000C;
+    background-color: #FFBABA;
+    padding : 10px;
+  }
+  .api_error span{ 
+    display: block;
+  }
+  .success-event{
+    color: #4F8A10;
+    background-color: #DFF2BF;
+  }
+  .calendar-body li.disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+{%- endstyle-%}
+<div id="creatEventWrap">
+  {%- if customer -%}
+    {%- section 'event-name' -%}
+    {%- section 'event-type' -%}
+    {%- section 'event-calender' -%}
+    {%- section 'event-role'-%}
+    {%- section 'event-owner-contact-number'-%}
+    {%- section 'add-people' -%}
+    {%- section 'person-profile-form' -%}
+    {%- section 'payment-confirmation-modal' -%}
+    <div class="create-event-error form-error text_center">Please add Atleast one member.</div>
+    <div class="page-width">
+      <div class="api_error create-event-error form-error text_center"></div>
+    </div>
+    <div class="section-bottom-button">
+      <a href="javaScript:void(0)" class="button button--primary create_event_btn">
+        Create Event & Review My Size <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  {%- else -%}
+    <div class="page-width">
+      <div class="not-logged">
+        Please <a class="link" href="/account/login">login here</a>
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+<script>
+  $(".calendar-body").find("li.active").prevAll().addClass("disabled");
+</script>

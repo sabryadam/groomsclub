@@ -1,7 +1,7 @@
 {{ 'customer.css' | asset_url | stylesheet_tag }}
 
 <div class="customer activate">
-  <svg style="display: none">
+  <svg  width="25" height="25" style="display: none">
     <symbol id="icon-error" viewBox="0 0 13 13">
       <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"/>
       <circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width="0.7"/>
@@ -18,7 +18,7 @@
   {%- form 'activate_customer_password' -%}
     {%- if form.errors -%}
       <h2 class="form__message" tabindex="-1" autofocus>
-        <svg aria-hidden="true" focusable="false" role="presentation">
+        <svg  width="25" height="25" aria-hidden="true" focusable="false" role="presentation">
           <use href="#icon-error" />
         </svg>
         {{ 'templates.contact.form.error_heading' | t }}
@@ -56,7 +56,7 @@
       </label>
       {%- if form.errors contains 'password' -%}
         <small id="password-error" class="form__message">
-          <svg aria-hidden="true" focusable="false" role="presentation">
+          <svg  width="25" height="25" aria-hidden="true" focusable="false" role="presentation">
             <use href="#icon-error" />
           </svg>
           {{ form.errors.translated_fields['password'] | capitalize }} {{ form.errors.messages['password'] }}
@@ -81,7 +81,7 @@
       </label>
       {%- if form.errors contains 'password_confirmation' -%}
         <small id="password_confirmation-error" class="form__message">
-          <svg aria-hidden="true" focusable="false" role="presentation">
+          <svg  width="25" height="25" aria-hidden="true" focusable="false" role="presentation">
             <use href="#icon-error" />
           </svg>
           {{ form.errors.translated_fields['password_confirmation'] | capitalize }} {{ form.errors.messages['password_confirmation'] }}
@@ -92,8 +92,8 @@
     <button>
       {{ 'customer.activate_account.submit' | t }}
     </button>
-    {%- comment -%}<button name="decline" class="hidden">
+    <button name="decline">
       {{ 'customer.activate_account.cancel' | t }}
-    </button>{%- endcomment -%}
+    </button>
   {%- endform -%}
 </div>

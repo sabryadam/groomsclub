@@ -231,7 +231,6 @@ $(document).ready(function () {
                   'color': 'red'
                 });
                 setTimeout(() => {
-                  theme_custom.removeLocalStorage();
                   window.location.href = '/account/logout';
                 }, 5000);
               } else {
@@ -343,7 +342,6 @@ $(document).on('click', '.update_event_btn', function (e) {
               'color': 'red'
             });
             setTimeout(() => {
-              theme_custom.removeLocalStorage();
               window.location.href = '/account/logout';
             }, 5000);
           } else {
