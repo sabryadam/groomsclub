@@ -66,9 +66,10 @@
   <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
   {%- endunless -%}
   {% render 'meta-tags' %}
-  <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+  {% unless template contains 'customize-your-look' %}
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'custom2.js' | asset_url }}" defer="defer"></script>
-
+  {% endunless %}
   {{ content_for_header }}
   {%- liquid
   assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
@@ -194,17 +195,7 @@
   {%- unless settings.type_header_font.system? -%}
   <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
   {%- endunless -%}
-  <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
-  <!-- Google Tag Manager -->
-  <script>(function (w, d, s, l, i) {
-      w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-          new Date().getTime(), event: 'gtm.js'
-      }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-          'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-WPZ3HG7');</script>
-  <!-- End Google Tag Manager -->
+ 
 
   <style type="text/css">
     #mc_embed_signup {
@@ -218,40 +209,9 @@
       We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
   </style>
 
-      <!-- Global site tag (gtag.js) - Google Ads: 10983417033 -->
-    
-    <script async src=https://www.googletagmanager.com/gtag/js?id=AW-10983417033></script>
-    
-    <script>
-    
-      window.dataLayer = window.dataLayer || [];
-    
-      function gtag(){dataLayer.push(arguments);}
-    
-      gtag('js', new Date());
-    
-     
-    
-      gtag('config', 'AW-10983417033');
-    
-    </script>
     <!-- Event snippet for **LP - Purchase conversion page -->
 
-  <script>
   
-    gtag('event', 'conversion', {
-  
-        'send_to': 'AW-10983417033/exn5COrf3d4DEMnJpvUo',
-  
-        'value': 1.0,
-  
-        'currency': 'USD',
-  
-        'transaction_id': ''
-  
-    });
-  
-  </script>
 
   {%- if template contains 'index' or template contains 'virtual-consultant'  -%}
     <!-- Calendly badge widget begin -->
@@ -276,6 +236,7 @@
     {{ 'event-page-new-design.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'event-page-new-develop.js' | asset_url }}" defer></script>
   {%- endif -%}
+  {% render 'menu-css' %}
 </head>
 {%- capture body_class -%}
 {%- if template.name == 'product' -%}
@@ -294,10 +255,6 @@
 
 <body
   class="{{ body_class | strip | strip_newlines | split: '|' | join: ' '}}{% if template == 'index' %} homepage{% endif %}{% unless customer %} customer-has-not-logged{% endunless %} template-{{ product.handle}}">
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WPZ3HG7" height="0" width="0"
-      style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
   <a class="skip-to-content-link button visually-hidden" href="#MainContent">
     {{ "accessibility.skip_to_text" | t }}
   </a>
@@ -338,55 +295,15 @@
       unavailable: `{{ 'products.product.unavailable' | t }}`,
     }
   </script>
+  {% unless template contains 'customize-your-look' %}
   <script src="{{ 'slider.js' | asset_url }}" defer="defer"></script>
   {%- if template contains 'product' -%}
   <script src="{{ 'variants.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
   <script src="{{ 'custom.js' | asset_url }}" defer></script>
-
+{% endunless %}
   
-  <script>
-    {%- if customer -%}
-    if (!localStorage.getItem("customerToken")) {
-      var custom_id_num = $("#custom_id_num").val();
-      var url = theme_custom.api_base_url + '/api/customer/getToken/' + custom_id_num;
-      if ($(".template-index").length > 0) {
-        $.get(url, function (data, status) {
-          localStorage.setItem("customerToken", data.data.token);
-        });
-      }
-    }
-    {%- endif -%}
-    if (localStorage.getItem("save-fit-finder-flag") == "true" && $("#custom_email").length > 0) {
-      localStorage.setItem("save-fit-finder-flag", "false");
-      localStorage.setItem("save-fit-finder-flag-replace", "true");
-      window.location.href = '/account';
-    }
-    if (window.location.href.indexOf("virtual-product") > -1) {
-      window.location.href = '/collections/all';
-    }
-    if ($(".template-page-customize-your-look").length == 0 && $(".template-page-home-try-on-checkout").length == 0) {
-      // if (window.location.href.indexOf('-pants') > -1 || window.location.href.indexOf('-jacket') > -1 || window.location.href.indexOf('-vest') > -1) {
-       if (window.location.href.indexOf('-pants') > -1 || window.location.href.indexOf('-jacket') > -1) {
-         const match = window.location.pathname.match(/(?<=products\/).+?(?=-(jacket|suit|pants))/)[0]
-         window.location.href = `/products/${match}-suit`
-      }
-    }
 
-    $(document).ready(function(){
-
-      $(".cart-page .header-bottom-link a.link").click(function(e){
-        e.preventDefault();
-        var tar = $(this).attr("href");
-        history.back();
-      });
-
-      
-
-    });
-
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <div class="site-global-loader hidden">
   <div class="loading-overlay__spinner">
       <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
@@ -394,6 +311,7 @@
       </svg>
   </div>
 </div>
+{% render 'footer-script' %}
   </body>
 
 </html>

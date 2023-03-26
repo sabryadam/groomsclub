@@ -1,0 +1,154 @@
+<script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+<script>
+    theme_custom.Shopify = {
+    formatMoney: function formatMoney(t, r) {
+        function e(t, r) {
+            return void 0 === t ? r : t;
+        }
+
+        function a(t, r, a, o) {
+            if (r = e(r, 2),
+            a = e(a, ","),
+            o = e(o, "."),
+            isNaN(t) || null == t)
+                return 0;
+            t = (t / 100).toFixed(r);
+            var n = t.split(".");
+            return n[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1" + a) + (n[1] ? o + n[1] : "");
+        }
+
+        "string" == typeof t && (t = t.replace(".", ""));
+        var o = ""
+          , n = /\{\{\s*(\w+)\s*\}\}/
+          , i = r || this.money_format;
+
+        switch (i.match(n)[1]) {
+        case "amount":
+            o = a(t, 2);
+            break;
+
+        case "amount_no_decimals":
+            o = a(t, 0);
+            break;
+
+        case "amount_with_comma_separator":
+            o = a(t, 2, ".", ",");
+            break;
+
+        case "amount_with_space_separator":
+            o = a(t, 2, " ", ",");
+            break;
+
+        case "amount_with_period_and_space_separator":
+            o = a(t, 2, " ", ".");
+            break;
+
+        case "amount_no_decimals_with_comma_separator":
+            o = a(t, 0, ".", ",");
+            break;
+
+        case "amount_no_decimals_with_space_separator":
+            o = a(t, 0, " ", "");
+            break;
+
+        case "amount_with_apostrophe_separator":
+            o = a(t, 2, "'", ".");
+            break;
+
+        case "amount_with_decimal_separator":
+            o = a(t, 2, ".", ".");
+        }
+
+        return i.replace(n, o);
+    }
+}
+</script>
+<!-- Google Tag Manager -->
+<script defer>(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+      'gtm.start':
+        new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+  })(window, document, 'script', 'dataLayer', 'GTM-WPZ3HG7');</script>
+<!-- End Google Tag Manager -->
+
+
+      <!-- Global site tag (gtag.js) - Google Ads: 10983417033 -->
+    
+      <script defer async src=https://www.googletagmanager.com/gtag/js?id=AW-10983417033></script>
+    
+      <script defer>
+      
+        window.dataLayer = window.dataLayer || [];
+      
+        function gtag(){dataLayer.push(arguments);}
+      
+        gtag('js', new Date());
+      
+       
+      
+        gtag('config', 'AW-10983417033');
+      
+      </script>
+
+      <script defer>
+  
+    gtag('event', 'conversion', {
+  
+        'send_to': 'AW-10983417033/exn5COrf3d4DEMnJpvUo',
+  
+        'value': 1.0,
+  
+        'currency': 'USD',
+  
+        'transaction_id': ''
+  
+    });
+  
+  </script>
+
+  <script defer>
+    {%- if customer -%}
+    if (!localStorage.getItem("customerToken")) {
+      var custom_id_num = $("#custom_id_num").val();
+      var url = theme_custom.api_base_url + '/api/customer/getToken/' + custom_id_num;
+      if ($(".template-index").length > 0) {
+        $.get(url, function (data, status) {
+          localStorage.setItem("customerToken", data.data.token);
+        });
+      }
+    }
+    {%- endif -%}
+    if (localStorage.getItem("save-fit-finder-flag") == "true" && $("#custom_email").length > 0) {
+      localStorage.setItem("save-fit-finder-flag", "false");
+      localStorage.setItem("save-fit-finder-flag-replace", "true");
+      window.location.href = '/account';
+    }
+    if (window.location.href.indexOf("virtual-product") > -1) {
+      window.location.href = '/collections/all';
+    }
+    if ($(".template-page-customize-your-look").length == 0 && $(".template-page-home-try-on-checkout").length == 0) {
+      // if (window.location.href.indexOf('-pants') > -1 || window.location.href.indexOf('-jacket') > -1 || window.location.href.indexOf('-vest') > -1) {
+       if (window.location.href.indexOf('-pants') > -1 || window.location.href.indexOf('-jacket') > -1) {
+         const match = window.location.pathname.match(/(?<=products\/).+?(?=-(jacket|suit|pants))/)[0]
+         window.location.href = `/products/${match}-suit`
+      }
+    }
+
+    $(document).ready(function(){
+
+      $(".cart-page .header-bottom-link a.link").click(function(e){
+        e.preventDefault();
+        var tar = $(this).attr("href");
+        history.back();
+      });
+
+      
+
+    });
+
+  </script>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

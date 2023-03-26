@@ -1,8 +1,5 @@
-<script type="text/javascript" src="{{ 'jquery.zoom.min.js' | asset_url }}" defer=”defer”></script>
-<script src="{{ 'jquery.pan.js' | asset_url }}"></script>
 <!-- /section/customize-your-look -->	
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
-{{ 'jquery.pan.css' | asset_url | stylesheet_tag }}
 <script>	
   theme_custom.hasNoOverViewMsg = '{{ section.settings.no_product_has_overview | escape }}';	
   theme_custom.defaultmage = '{{ section.settings.skeleton_image }}';
@@ -621,16 +618,16 @@
             <link rel="preload" as="image" href="{{ section.settings.belt_image | img_url : '1400x'}}">
             <link rel="preload" as="image" href="{{ section.settings.shoes_image | img_url : '1400x'}}">
           {%- endif -%}
-          <img class="shirt-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.shirt_image | img_url : '1400x' }}" alt="Shirt Image" data-close-collar-image="{{ section.settings.shirt_image | img_url : 'master' }}" data-open-collar-image="{{ section.settings.open_shirt_image | img_url : 'master' }}" />
-          <img class="jacket-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.jacket_image | img_url : '1400x' }}" alt="Suit image" />
-          <img class="pants-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.pants_image | img_url : '1400x' }}" alt="Suit image" />
-          <img class="vest-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.vest_image | img_url : '1400x' }}" alt="vest image" />
-          <img class="hanky-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.hanky_image | img_url : '1400x' }}" alt="Hanky image" />
-          <img class="bow-ties-customize-image hide" loading="lazy" crossorigin="anonymous" src="{{ section.settings.bow_ties_image | img_url : '1400x' }}" alt="Bow Tie image" />
-          <img class="neckties-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.neckties_image | img_url : '1400x' }}" alt="Neckties image" />
-          <img class="tie-bar-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.tie_bar_image | img_url : '1400x' }}" alt="Tie bar image" />
-          <img class="belt-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.belt_image | img_url : '1400x' }}" alt="Belt Image" />
-          <img class="shoes-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.shoes_image | img_url : '1400x' }}" alt="Shoes Image" />
+          <img class="shirt-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.shirt_image | img_url : '1000x' }}" alt="Shirt Image" data-close-collar-image="{{ section.settings.shirt_image | img_url : 'master' }}" data-open-collar-image="{{ section.settings.open_shirt_image | img_url : 'master' }}" />
+          <img class="jacket-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.jacket_image | img_url : '1000x' }}" alt="Suit image" />
+          <img class="pants-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.pants_image | img_url : '1000x' }}" alt="Suit image" />
+          <img class="vest-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.vest_image | img_url : '1000x' }}" alt="vest image" />
+          <img class="hanky-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.hanky_image | img_url : '1000x' }}" alt="Hanky image" />
+          <img class="bow-ties-customize-image hide" loading="lazy" crossorigin="anonymous" src="{{ section.settings.bow_ties_image | img_url : '1000x' }}" alt="Bow Tie image" />
+          <img class="neckties-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.neckties_image | img_url : '1000x' }}" alt="Neckties image" />
+          <img class="tie-bar-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.tie_bar_image | img_url : '1000x' }}" alt="Tie bar image" />
+          <img class="belt-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.belt_image | img_url : '1000x' }}" alt="Belt Image" />
+          <img class="shoes-customize-image" loading="lazy" crossorigin="anonymous" src="{{ section.settings.shoes_image | img_url : '1000x' }}" alt="Shoes Image" />
         </div>
         <div class="zoom-image-magnifier-button">
           <svg xmlns="http://www.w3.org/2000/svg" width="492" height="513" viewBox="0 0 492 513" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M385 202.5C385 304.481 302.76 387 201.5 387C100.24 387 18 304.481 18 202.5C18 100.519 100.24 18 201.5 18C302.76 18 385 100.519 385 202.5ZM329.606 358.814C294.785 387.669 250.156 405 201.5 405C90.2146 405 0 314.338 0 202.5C0 90.6623 90.2146 0 201.5 0C312.785 0 403 90.6623 403 202.5C403 258.584 380.313 309.342 343.659 346.013L489.029 495.954C492.681 499.721 492.588 505.735 488.821 509.387C485.054 513.039 479.039 512.946 475.387 509.179L329.613 358.821L329.606 358.814ZM201 122C205.971 122 210 126.029 210 131V195H271C275.971 195 280 199.029 280 204C280 208.971 275.971 213 271 213H210V276C210 280.971 205.971 285 201 285C196.029 285 192 280.971 192 276V213H127C122.029 213 118 208.971 118 204C118 199.029 122.029 195 127 195H192V131C192 126.029 196.029 122 201 122Z" fill="#010101" style="fill: #1075bc;"/></svg>
