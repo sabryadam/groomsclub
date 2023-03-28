@@ -1724,7 +1724,7 @@ theme_custom.customize_product_clickEvent = function () {
       
       if( targetElm.nextAll().attr("data-target") == 'overview' && getCookie("fit-finder-data") == "" ){
         //$('.overview-tab .overview-product.no-product-in-overview').hide();
-        $('.overview-tab .product-info-footer .add-to-cart-button').removeClass('disabled');
+        $('.overview-tab .product-info-footer .add-to-cart-button').addClass('disabled');
       }else{
         //$('.overview-tab .overview-product.no-product-in-overview').show();
         $('.overview-tab .product-info-footer .add-to-cart-button').removeClass('disabled');
