@@ -595,7 +595,7 @@ theme_custom.createEventAPI = function (btn) {
     return false;
   }
   if (error_count == 0) {
-    button.addClass('loading');
+    button.addClass('loading disabled');
     var event_name = $('.event-page-new-design-wrapper .event-name').val();
     var event_type = $('.event-page-new-design-wrapper [name="event-type"]:checked').attr('data-event-type-id');
     var eventDate = $('.event-page-new-design-wrapper #event_date').val();
@@ -624,7 +624,6 @@ theme_custom.createEventAPI = function (btn) {
       },
       success: function (result) {
         if (result.success) {
-          button.removeClass('loading');
           if (result.message == 'Event updated successfully.') {
             $('.step-content-wrapper.event-step-1 .api_error').show().html(result.message).css({
               "background-color": "#DFF2BF",
@@ -637,6 +636,7 @@ theme_custom.createEventAPI = function (btn) {
               $("#event-id").val(result.data.eventId);
               $('.step-content-wrapper[data-step-content-wrap="1"]').find(".next-button").click();
               button.find(".label").text("Update Event");
+              button.removeClass('loading disabled');
             }, 2500);
           } else {
             $('.step-content-wrapper.event-step-1 .api_error').show().html(result.message).css({
@@ -648,6 +648,7 @@ theme_custom.createEventAPI = function (btn) {
             setTimeout(() => {
               $(".create-event-button").addClass("next-button").removeClass("create-event-button").find(".look-add-btn").removeClass("hidden");
               $('.step-content-wrapper[data-step-content-wrap="1"]').find(".next-button").click();
+              button.removeClass('loading disabled');
             }, 2500);
           }
         }

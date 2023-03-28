@@ -121,24 +121,29 @@ theme_custom.getFitFinder = function(){
                                     <p class="field__label title">Jacket Size :</p>
                                     <p class="value">${jacketType[0]} ${jacketTypeVal}</p>
                                   </div>`;
+                $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="jacket"]`).find('.edit-item-button').attr("data-button-label","edit-item"); 
+                $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="vest"]`).find('.edit-item-button').attr("data-button-label","edit-item");
             }
             if(result.data[i].pants_waist && result.data[i].pants_hight && (getProductType == 'suit' || getProductType == 'looks')){
               fitFinderDataHTML+= `<div class="filed-wrapper">
                                     <p class="field__label title">Pants Size :</p>
                                     <p class="value">${result.data[i].pants_waist}W ${result.data[i].pants_hight}H</p>
                                   </div>`
+              $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="pants"]`).find('.edit-item-button').attr("data-button-label","edit-item");
             }
             if(result.data[i].shirt_neck && result.data[i].shirt_sleeve && getProductType == 'looks'){
               fitFinderDataHTML+= `<div class="filed-wrapper">
                                     <p class="field__label title">Shirt Size:</p>
                                     <p class="value">Neck ${result.data[i].shirt_neck}, Sleeve ${result.data[i].shirt_sleeve}</p>
-                                  </div>`
+                                  </div>`;
+              $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="shirt"]`).find('.edit-item-button').attr("data-button-label","edit-item");
             }
             if(result.data[i].shoe_size && getProductType == 'looks'){
               fitFinderDataHTML+= `<div class="filed-wrapper">
                                     <p class="field__label title">Shoe Size:</p>
                                     <p class="value">${result.data[i].shoe_size}</p>
                                   </div>`
+              $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="shoes"]`).find('.edit-item-button').attr("data-button-label","edit-item");
             }
           }
           $(".fit-finder-main-wrapper").remove();
@@ -152,7 +157,7 @@ theme_custom.getFitFinder = function(){
             if($(this).attr("data-product-type") == 'vest' || $(this).attr("data-product-type") == 'shoes' || $(this).attr("data-product-type") == 'shirt'){
               $(this).find(".variant-title").removeClass('hidden');
               $(this).find(".cta-button-wrap").css('margin-top','0');
-              $(this).find(".edit-item-btn").text('Edit Item');
+              $(this).find(".edit-item-btn,.edit-item-button").text('Edit Item').attr("data-button-label","edit-item");
             }
           })
         } else{
@@ -214,24 +219,30 @@ theme_custom.getFitFinderCookie = function(){
                             <p class="field__label title">Jacket Size :</p>
                             <p class="value">${jacketType[0]} ${jacketTypeVal}</p>
                           </div>`;
+      $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="jacket"]`).find('.edit-item-button').attr("data-button-label","edit-item"); 
+      $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="vest"]`).find('.edit-item-button').attr("data-button-label","edit-item");
     }
     if(getFitFinderData.pants_waist && getFitFinderData.pants_hight){
       fitFinderDataHTML+= `<div class="filed-wrapper">
                             <p class="field__label title">Pants Size :</p>
                             <p class="value">${getFitFinderData.pants_waist}W ${getFitFinderData.pants_hight}H</p>
                           </div>`
+      $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="pants"]`).find('.edit-item-button').attr("data-button-label","edit-item");
     }
     if(getFitFinderData.shirt_neck && getFitFinderData.shirt_sleeve){
       fitFinderDataHTML+= `<div class="filed-wrapper">
                             <p class="field__label title">Shirt Size:</p>
                             <p class="value">Neck ${getFitFinderData.shirt_neck}, Sleeve ${getFitFinderData.shirt_sleeve}</p>
                           </div>`
+      $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="shirt"]`).find('.edit-item-button').attr("data-button-label","edit-item");
+      
     }
     if(getFitFinderData.shoe_size){
       fitFinderDataHTML+= `<div class="filed-wrapper">
                             <p class="field__label title">Shoe Size:</p>
                             <p class="value">${getFitFinderData.shoe_size}</p>
                           </div>`
+      $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="shoes"]`).find('.edit-item-button').attr("data-button-label","edit-item");
     }
     $(".fit-finder-main-wrapper").remove();
     $(".sizing-and-fit-wrapper").html(fitFinderDataHTML);
@@ -244,7 +255,8 @@ theme_custom.getFitFinderCookie = function(){
       if($(this).attr("data-product-type") == 'vest' || $(this).attr("data-product-type") == 'shoes' || $(this).attr("data-product-type") == 'shirt'){
         $(this).find(".variant-title").removeClass('hidden');
         $(this).find(".cta-button-wrap").css('margin-top','0');
-        $(this).find(".edit-item-btn").text('Edit Item');
+        // $(this).find(".edit-item-btn").text('Edit Item');
+        $(this).find(".edit-item-btn,.edit-item-button").text('Edit Item').attr("data-button-label","edit-item");
       }
     });
   } else {
@@ -1130,6 +1142,7 @@ $(document).ready(function(){
             } else {
               $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="${productType}"]`).find(".error-message").removeClass("error-show");
             }
+            $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="jacket"]`).find('.edit-item-button').attr("data-button-label","edit-item"); 
           } 
           if(productType == 'pants') {
             if(fitFinder.pantSize){
@@ -1146,6 +1159,7 @@ $(document).ready(function(){
             } else {
               $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="${productType}"]`).find(".error-message").removeClass("error-show");
             }
+            $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="pants"]`).find('.edit-item-button').attr("data-button-label","edit-item");
           } 
           if(productType == 'vest'){
             varintTitle = jacket_size + ' / ' + jacket_type + ' / ' + productColor;
@@ -1154,6 +1168,7 @@ $(document).ready(function(){
             } else {
               $(`.product-data-card[data-product-type="${productType}"] .product-block-wrap`).find(".error-message").removeClass("error-show");
             }
+            $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="vest"]`).find('.edit-item-button').attr("data-button-label","edit-item");
           } 
           if(productType == 'shoes'){
             var shoe_size = fitFinder.shoe_size;
@@ -1163,6 +1178,7 @@ $(document).ready(function(){
             } else {
               $(`.product-data-card[data-product-type="${productType}"] .product-block-wrap`).find(".error-message").removeClass("error-show");
             }
+            $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="shoes"]`).find('.edit-item-button').attr("data-button-label","edit-item");
           } 
           if (productType == 'shirt'){
             var shirt_neck = fitFinder.shirt_neck, 
@@ -1174,6 +1190,7 @@ $(document).ready(function(){
             } else {
               $(`.product-data-card[data-product-type="${productType}"] .product-block-wrap`).find(".error-message").removeClass("error-show");
             }
+            $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="shirt"]`).find('.edit-item-button').attr("data-button-label","edit-item");
           }
         });
         $(`.product-data-card.product-data-card-wrap .variant-title`).removeClass("hidden");

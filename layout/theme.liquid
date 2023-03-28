@@ -276,6 +276,7 @@
     {{ 'event-page-new-design.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'event-page-new-develop.js' | asset_url }}" defer></script>
   {%- endif -%}
+  {% render 'menu-css' %}
 </head>
 {%- capture body_class -%}
 {%- if template.name == 'product' -%}
