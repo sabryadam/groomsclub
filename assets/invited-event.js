@@ -774,6 +774,7 @@ theme_custom.getFitFinderData = function(payBy){
         $(".order-footer .fit-finder-alert-msg").addClass("hidden");
         // $('.product-size-type-exchange').removeClass('hidden');
         $('.exchange-item-link').text("Edit Size");
+        $('.size-wrap').removeClass("hidden");
         theme_custom.cartButton = '';
         theme_custom.fitFinderDataSet(result.data);
       }
@@ -922,7 +923,7 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
         theme_custom.ProductData(productItemsArr);
         setTimeout(() => {
           if(getCookie("fit-finder-data") != ''){
-            $(".product-size-type-exchange, .exchange-item-link").removeClass("hidden");
+            $(".product-size-type-exchange, .exchange-item-link, .size-wrap").removeClass("hidden");
           }
         }, 2000);
       }      
