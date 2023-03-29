@@ -4,7 +4,7 @@
   {% unless template contains 'product' %}<h5>{{ currentProduct.title }}</h5>{% endunless %}
   <select class="single-option-selector">
     {% for variant in currentProduct.variants %}
-      <option data-var-title="{{ variant.title }}" data-product-id="{{ product.id }}" value="{{ variant.id }}" data-v-inventory="{{variant.inventory_quantity}}" data-v-price="{{ variant.price }}" data-img="{% if variant.image == blank %}prod-img{% else %}var-img{% endif %}" data-v-image="{% if variant.image == blank %}{{ productHandle.featured_media.image.src | img_url: 'master' }}{% else %}{{ variant.image.src | img_url : 'master' }}{%endif%}" data-v-id="{{ variant.id }}" data-title="{{ variant.title }}" {% unless variant.available %}disable{% endunless %}>
+      <option data-var-title="{{ variant.title }}" data-product-id="{{ product.id }}" value="{{ variant.id }}" data-v-inventory="{{variant.inventory_quantity}}" data-v-price="{{ variant.price }}" data-img="{% if variant.image == blank %}prod-img{% else %}var-img{% endif %}" data-v-image="{% if variant.image == blank %}{{ productHandle.featured_media.image.src | img_url: 'master' }}{% else %}{{ variant.image.src | img_url : 'master' }}{%endif%}" data-v-id="{{ variant.id }}" data-title="{{ variant.title }}" {% unless variant.available %}disable{% endunless %} data-inventory-policy="{{ variant.inventory_policy }}">
         {{ variant.title }}
       </option>
     {%- endfor -%}
