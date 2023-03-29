@@ -128,7 +128,7 @@ theme_custom.getFitFinder = function(){
               fitFinderDataHTML+= `<div class="filed-wrapper">
                                     <p class="field__label title">Pants Size :</p>
                                     <p class="value">${result.data[i].pants_waist}W ${result.data[i].pants_hight}H</p>
-                                  </div>`
+                                  </div>`;
               $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="pants"]`).find('.edit-item-button').attr("data-button-label","edit-item");
             }
             if(result.data[i].shirt_neck && result.data[i].shirt_sleeve && getProductType == 'looks'){
@@ -142,7 +142,7 @@ theme_custom.getFitFinder = function(){
               fitFinderDataHTML+= `<div class="filed-wrapper">
                                     <p class="field__label title">Shoe Size:</p>
                                     <p class="value">${result.data[i].shoe_size}</p>
-                                  </div>`
+                                  </div>`;
               $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="shoes"]`).find('.edit-item-button').attr("data-button-label","edit-item");
             }
           }
@@ -226,14 +226,14 @@ theme_custom.getFitFinderCookie = function(){
       fitFinderDataHTML+= `<div class="filed-wrapper">
                             <p class="field__label title">Pants Size :</p>
                             <p class="value">${getFitFinderData.pants_waist}W ${getFitFinderData.pants_hight}H</p>
-                          </div>`
+                          </div>`;
       $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="pants"]`).find('.edit-item-button').attr("data-button-label","edit-item");
     }
     if(getFitFinderData.shirt_neck && getFitFinderData.shirt_sleeve){
       fitFinderDataHTML+= `<div class="filed-wrapper">
                             <p class="field__label title">Shirt Size:</p>
                             <p class="value">Neck ${getFitFinderData.shirt_neck}, Sleeve ${getFitFinderData.shirt_sleeve}</p>
-                          </div>`
+                          </div>`;
       $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="shirt"]`).find('.edit-item-button').attr("data-button-label","edit-item");
       
     }
@@ -241,7 +241,7 @@ theme_custom.getFitFinderCookie = function(){
       fitFinderDataHTML+= `<div class="filed-wrapper">
                             <p class="field__label title">Shoe Size:</p>
                             <p class="value">${getFitFinderData.shoe_size}</p>
-                          </div>`
+                          </div>`;
       $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="shoes"]`).find('.edit-item-button').attr("data-button-label","edit-item");
     }
     $(".fit-finder-main-wrapper").remove();
