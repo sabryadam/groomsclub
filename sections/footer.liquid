@@ -16,6 +16,21 @@
 <noscript>{{ 'component-rte.css' | asset_url | stylesheet_tag }}</noscript>
 <noscript>{{ 'disclosure.css' | asset_url | stylesheet_tag }}</noscript>
 
+{% capture footer_contact_data %}
+  <div class="footer-contact-us-wrapper footer-block grid__item">
+    <h3>Contact us</h3>
+    <ul class="contact-us-header-menu-inner">
+      <li>
+        <p><a href="tel:201-559-9715" target="_blank" title="tel:201-559-9715">201-559-9715</a></p>
+        <p>Call us from 10am - 9pm EST (Mon-Sat).</p>
+      </li>
+      <li style="margin-top : 16px">
+        <p><a href="mailto:info@groomsclub.com.com" target="_blank" title="mailto:info@groomsclub.com.com">info@groomsclub.com</a></p>
+        <p>Our team typically answers within 24 hrs.</p>
+      </li>
+    </ul>
+  </div>
+{% endcapture %}
 <footer class="footer color-{{ section.settings.color_scheme }}" {% if section.settings.color_scheme=='background-1'
   %}Style="background-color:{{ section.settings.footer_bg_color }};" {% endif %}>
   {%- if section.blocks.size > 0 or section.settings.newsletter_enable or section.settings.show_social -%}
@@ -88,19 +103,7 @@
       {%- endif -%}
       {% endif %}
       {% endfor %}
-      <div class="footer-contact-us-wrapper">
-        <h3>Contact us</h3>
-        <ul class="contact-us-header-menu-inner">
-          <li>
-            <p><a href="tel:201-559-9715" target="_blank" title="tel:201-559-9715">201-559-9715</a></p>
-            <p>Call us from 10am - 9pm EST (Mon-Sat).</p>
-          </li>
-          <li style="margin-top : 16px">
-            <p><a href="mailto:info@groomsclub.com.com" target="_blank" title="mailto:info@groomsclub.com.com">info@groomsclub.com</a></p>
-            <p>Our team typically answers within 24 hrs.</p>
-          </li>
-        </ul>
-      </div>
+      {{ footer_contact_data }}
       {% for block in section.blocks %}
       {%- if block.settings.show_social -%}
       <div class="footer-blocks-mobile-inner">
@@ -388,19 +391,7 @@
         {%- endcase -%}
       </div>
       {%- endfor -%}
-      <div class="footer-block grid__item footer-contact-us-wrapper">
-        <h3>Contact us</h3>
-        <ul class="contact-us-header-menu-inner">
-          <li>
-            <p><a href="tel:201-559-9715" target="_blank" title="tel:201-559-9715">201-559-9715</a></p>
-            <p>Call us from 10am - 9pm EST (Mon-Sat).</p>
-          </li>
-          <li style="margin-top : 16px">
-            <p><a href="mailto:info@groomsclub.com.com" target="_blank" title="mailto:info@groomsclub.com.com">info@groomsclub.com</a></p>
-            <p>Our team typically answers within 24 hrs.</p>
-          </li>
-        </ul>
-      </div>
+      {{ footer_contact_data }}
     </div>
     {%- endif -%}
 

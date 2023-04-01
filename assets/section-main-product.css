@@ -1181,7 +1181,7 @@ a.product__text {
   cursor: pointer;
 }
 
-
+.open-product-edit-popup,
 .when-customer-logged .bundle-product-wrapper .product-block-wrap .product-info .cta-button-wrap .btn.edit-item-btn,
 .when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-info .cta-button-wrap .btn.edit-item-btn{
   border-right: 1px solid #000;

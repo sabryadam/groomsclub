@@ -555,19 +555,31 @@ theme_custom.getVariantDataEditItemPopup = function(parentEl){
   variantId = selectedOption.attr('value');
   variantImage = selectedOption.attr('data-v-image');
   variantQuantity =  selectedOption.attr('data-v-inventory');
+  variantInventoryPolicy = selectedOption.attr('data-inventory-policy');
   variantDataGetArr['productId'] = productId;
   variantDataGetArr['variantId'] = variantId;
   variantDataGetArr['variantImage'] = variantImage;
   variantDataGetArr['variantPrice'] = variantPrice;
   variantDataGetArr['varintTitle'] = varintTitle;
   variantDataGetArr['variantQty'] = variantQuantity;
+  variantDataGetArr['variantInventoryPolicy'] = variantInventoryPolicy;
   parent.find('.looks-product-var-id').val(variantId);
-  if (selectedOption.length == 0) {
-    parent.find('.pdp-updates-button button').addClass('disabled');
-    parent.find(".error-message").text('Product is not available for that specific size!').show().addClass('error-show');
+  if(!variantId){
+    parent.find(".pdp-updates-button .button").addClass("disabled").find(".button-label").text("Unavailable");
+    parent.find(".error-message").text('Product is not available for this specific combination.').show().addClass("error-show");
   } else {
-    parent.find('.pdp-updates-button button').removeClass('disabled');
-    parent.find(".error-message").text('').hide().removeClass('error-show');
+    if(variantInventoryPolicy == 'continue'){
+      parent.find('.pdp-updates-button button').removeClass('disabled').find(".button-label").text("Update");
+      parent.find(".error-message").text('').hide().removeClass("error-show");
+    } else {
+      if (parseInt(variantQuantity) > 0) {
+        parent.find('.pdp-updates-button button').removeClass('disabled').find(".button-label").text("Update");
+        parent.find(".error-message").text('').hide().removeClass("error-show");
+      } else {
+        parent.find(".pdp-updates-button .button").removeClass("disabled").find(".button-label").text("Out of Stock");
+        parent.find(".error-message").text('This Variant is Out of Stock. Please choose another variant.').show().addClass("error-show");
+      }
+    }
   }
   return variantDataGetArr;
 }
@@ -612,18 +624,17 @@ theme_custom.tlpclickEvent = function(){
 
   $(document).on("click", ".edit-item-btn", function(){
     var target = $(this).closest(".product-data-card").find(".edit-item-popup");
-    target.find(".error-message").text('').hide();
-    var option1 = $(this).closest(".product-data-card").find(".option-1").text(),
-        option2 = $(this).closest(".product-data-card").find(".option-2").text(),
-        option3 = $(this).closest(".product-data-card").find(".option-3").text();
+    var option1 = $(this).closest(".product-data-card").find(".option-1").text().toLocaleLowerCase(),
+        option2 = $(this).closest(".product-data-card").find(".option-2").text().toLocaleLowerCase(),
+        option3 = $(this).closest(".product-data-card").find(".option-3").text().toLocaleLowerCase();
     if(option1 != '' ){
-      target.find(`[data-option-value="${option1}"]`).click();
+      target.find(`[data-option-index="0"]`).find(`[type="radio"][data-value="${option1}"]`).prop("checked", true);
     }
     if(option2 != '' ){
-      target.find(`[data-option-value="${option2}"]`).click();
+      target.find(`[data-option-index="1"]`).find(`[type="radio"][data-value="${option2}"]`).prop("checked", true);
     }
     if(option3 != '' ){
-      target.find(`[data-option-value="${option3}"]`).click();
+      target.find(`[data-option-index="2"]`).find(`[type="radio"][data-value="${option3}"]`).prop("checked", true);
     }
     $.fancybox.open(target);
   });
@@ -798,7 +809,7 @@ theme_custom.tlpclickEvent = function(){
     } 
     var button = $(this),
     orderType = $(".order-type").val();
-    button.addClass("custom-top-look-disable");
+    button.addClass("disabled").addClass("custom-top-look-disable");
     // if(getCookie("fit-finder-data") == ''){
     //   e.preventDefault();
     //   $('.fitfinder-err-msg.form-error').remove();
@@ -884,7 +895,7 @@ theme_custom.tlpclickEvent = function(){
             error: function(xhr, status, error) {
               alert(xhr.responseJSON.description);
               button.find(".btn-title").text("Add To Cart");
-              button.removeClass("custom-top-look-disable");
+              button.removeClass("custom-top-look-disable").removeClass("disabled");
             }
           });
         }
@@ -905,7 +916,7 @@ theme_custom.tlpclickEvent = function(){
         error: function(xhr, status, error) {
           alert(xhr.responseJSON.description);
           button.find(".btn-title").text("Add To Cart");
-          button.removeClass("custom-top-look-disable");
+          button.removeClass("custom-top-look-disable").removeClass("disabled");
         }
       });
     }
@@ -1040,14 +1051,13 @@ theme_custom.tlpclickEvent = function(){
           $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="pants"]`).find('.edit-item-button').attr("data-button-label","edit-item");
         }
         parent.find(".edit-size-title").addClass("hidden");
-      } else {
-        $(`.product-data-card[data-product-handle='${dataHandle}']`).find('.error-message').text('').hide();
-      }
-      if(productType == 'vest' || productType == 'shoes' || productType == 'shirt'){
+      } else if(productType == 'vest' || productType == 'shoes' || productType == 'shirt'){
         $(`.product-data-card[data-product-handle='${dataHandle}']`).find(".variant-title").removeClass("hidden");
         $(`.product-data-card[data-product-handle='${dataHandle}']`).find(".edit-item-btn").text("Edit Item").attr("data-button-label","edit-item").removeClass("slide-up");
         $(`.product-data-card[data-product-handle='${dataHandle}']`).find(".cta-button-wrap").css('margin-top','0');
         $(`.product-data-card[data-product-handle='${dataHandle}']`).find(".error-message").removeClass("error-show").text('').removeClass("product-not-found");
+      } else {
+        $(`.product-data-card[data-product-handle='${dataHandle}']`).find('.error-message').removeClass("error-show").text('').hide().removeClass("product-not-found");
       }
       // parent.find(".error-message").text('').hide();
       if($(".error-message").text() == '' && getCookie("fit-finder-data") != ''){

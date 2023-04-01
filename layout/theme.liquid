@@ -49,6 +49,7 @@
       return "";
     }
     window.theme_custom = window.theme_custom || {};
+    window.global_function = window.global_function || {};
     theme_custom.money_format = {{ shop.money_format | json }};
     theme_custom.api_base_url = {{ settings.api_base_url | json }};
     theme_custom.shop_url = {{ shop.url | json}};
@@ -344,6 +345,7 @@
   <script src="{{ 'variants.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
   <script src="{{ 'custom.js' | asset_url }}" defer></script>
+  <script src="{{ 'common-function.js' | asset_url }}" defer></script>
 
   
   <script>
