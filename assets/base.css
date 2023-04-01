@@ -6647,7 +6647,8 @@ progress[value]::-webkit-progress-value {
   }
 
   .header .header__icons {
-    padding-right: 8px;
+    padding-right: 0px;
+    padding-left: 10px;
   }
 
   .afterbeforeimage {

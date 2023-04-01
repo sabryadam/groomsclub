@@ -1179,6 +1179,11 @@ theme_custom.submitEvent = function () {
 }
 // theme_custom.clickEvent
 theme_custom.clickEvent = function () {
+
+  $(document).on("click", ".black-bg",function(){
+    $(".header__icon--menu").click() 
+  });
+  
   // Top look fav and event click on user has not logged 
   $(document).on("click",".event-or-fav-when-user-has-not-logged", function(){
     localStorage.setItem("event-or-fav-when-user-has-not-logged","true");
