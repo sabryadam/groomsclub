@@ -1,9 +1,11 @@
-<link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }} />
-<link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" />
+<link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'" />
+<link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'" />
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-cart-notification.css' | asset_url }}" media="print" onload="this.media='all'">
 
+<noscript>{{ 'component-list-menu.css' | asset_url | stylesheet_tag }}</noscript>
 <noscript>{{ 'component-search.css' | asset_url | stylesheet_tag }}</noscript>
+<noscript>{{ 'component-menu-drawer.css' | asset_url | stylesheet_tag }}</noscript>
 <noscript>{{ 'component-cart-notification.css' | asset_url | stylesheet_tag }}</noscript>
 
 <style>
@@ -257,6 +259,7 @@
                   </ul>
                 </div>
               </div>
+              <div class="black-bg"></div>
             </div>
           </div>
         </details>
@@ -458,6 +461,9 @@
           </span>
         </a>
       {%- endif -%}
+      <a class="link link-with-svg fav-icon" tabindex="0" title="Favorite Look" href="{%- if customer -%}/account?tab=favorite-look{%- else -%}{{ routes.account_login_url }}{%- endif -%}">
+        <i class="far fa-heart"></i>
+      </a>
         {% comment %}if cart empty -- render 'icon-cart-empty' {% endcomment %}
          {% comment %}if cart not empty  render 'icon-cart' {% endcomment %}
       <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link link--text focus-inset" id="cart-icon-bubble">

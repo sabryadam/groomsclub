@@ -1250,7 +1250,7 @@ theme_custom.customizeLookProductAjax = function (button, parent) {
     },
     error: function (xhr, status, error) {
       alert(xhr.responseJSON.description);
-      button.text("proceed To Cart");
+      button.text("Proceed To Cart");
       button.removeClass("disabled");
     }
   });

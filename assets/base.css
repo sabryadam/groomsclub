@@ -6647,7 +6647,8 @@ progress[value]::-webkit-progress-value {
   }
 
   .header .header__icons {
-    padding-right: 8px;
+    padding-right: 0px;
+    padding-left: 10px;
   }
 
   .afterbeforeimage {
@@ -10647,7 +10648,7 @@ p.removing-combine-message
     width: 64%;
   }
   .header__icons{
-    width: 18%;
+    width: 300px;
     justify-content: right;
   }
 }
@@ -10693,5 +10694,37 @@ p.removing-combine-message
   .order-info.transection-list-inner .order-item-info{
     width: 100%;
     min-width: 100%;
+  }
+}
+.header__icons a.fav-icon{
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  border-right: 2px solid #b3b3b3;
+  padding-right: 10px;
+}
+.header__icons a.fav-icon .far{
+  font-size: 22px;
+  color: #0f2541 !important;
+}
+@media(max-width : 767px){
+  .header__icon:not(.header__icon--summary){
+    padding: 0 10px;
+  }
+  .header__icons .link svg,
+  .header__icons .customer a svg{
+    width: 20px;
+    height: 20px;
+  }
+  .header__icons a.fav-icon .far{
+    font-size: 20px;
+  }
+  .header__icon:not(.header__icon--summary):before{
+    top: 0;
+    height: 20px;
+    right: -2px;
+  }
+  .header__icons a.fav-icon{
+    padding-right: 5px;
   }
 }

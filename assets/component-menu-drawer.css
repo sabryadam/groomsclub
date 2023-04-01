@@ -321,11 +321,27 @@ summary.menu-drawer__menu-item .menu-drawer__menu-item{
     pointer-events: none;
   }
   .menu-drawer__inner-container {
+    width: 100%;
+    border: 0rem solid var(--color-foreground-20);
+    border-left: 0;
+    background-color: transparent !important;
+    overflow-x: hidden;
+  }
+  .menu-drawer__inner-container .menu-drawer__navigation-container{
     width: 80%;
     border: 0rem solid var(--color-foreground-20);
     border-left: 0;
     background-color: var(--color-light-gray-background);
-    overflow-x: hidden;
+  }
+  .menu-drawer__inner-container .black-bg{
+    width: calc(100% - 80%);
+    height: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
   }
   summary.menu-drawer__menu-item .menu-drawer__menu-item{
     position: relative;
@@ -344,6 +360,7 @@ summary.menu-drawer__menu-item .menu-drawer__menu-item{
   }
   summary.menu-drawer__menu-item .menu-drawer__menu-item::before {
     transform: rotate(90deg);
+    top : 49%;
   }
   .menu-drawer__submenu{
     padding: 0 15px;
