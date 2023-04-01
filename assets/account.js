@@ -302,6 +302,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                             if(currentDate > date){
                                 dateExpire = true;
                             }
+                            // debugger;
                             let month = month_name[date.getMonth()];
                             let day = date.getDate();
                             let ownCreated = event.hostedBy.toLowerCase() == 'me' ? true : false;
@@ -334,7 +335,13 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                                     </div>`
                                 }
                             }
-                            append_event_html += `<div data-value="${count}" data-event-id="${event.event_id}" class="events-container ${eventActiveClass}"> <div class="event-container-date"><span>${day}</span> ${month}</div>
+                            let expiredDiv = "";
+                            if(dateExpire){
+                                expiredDiv = '<div class="account-event-ribbon ribbon-top-left"><span>Expired</span></div>'
+                            }
+                            append_event_html += `<div data-value="${count}" data-event-id="${event.event_id}" class="events-container ${eventActiveClass}"> 
+                            ${expiredDiv}
+                            <div class="event-container-date"><span>${day}</span> ${month}</div>
                                 <div class="event-container-image"><img src="${event_picture}" alt="default-event-image"></div>
                                 <div class="event-container-event-content">
                                     <div class="event-title"><span>${event.name}</span></div>
