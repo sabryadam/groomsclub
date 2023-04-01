@@ -736,55 +736,8 @@ theme_custom.tlpclickEvent = function(){
     theme_custom.favoriteButtonEvent(button,productArray,lookURL);
   })
 
-  $(document).on("change",".create-event-look #event-id", function() {
-    $(this).next(".form-error").removeClass("active")
-    theme_custom.getEventDetails($('#event-id').val());
-  });
-  $(document).on("keyup", ".create-event-look .custom-text-filed", function(e){
-    $(this).closest(".create-event-look").find(".form-error").removeClass("active");
-  });
-  $(document).on("click", ".add-event-look-api-button", function(e){
 
-      var error_count = 0,
-          button = $(this); 
-      error_count = error_count + theme_custom.textValidationWithSpacialChar($(this).closest(".create-event-look").find('[name="look-name"'));
-      if($(this).closest(".create-event-look").find("#event-id").val() == ''){
-        $(this).closest(".create-event-look").find("select").next(".form-error").text("Please Select Event Name!").addClass("active");
-        error_count = 1;
-      }
-      if (error_count > 0) {
-        e.preventDefault();
-        return false;
-      } else {
-        button.text($(this).data("text"));
-        var productDataCardArr = $(".product-data-card");
-        theme_custom.customizeURLData  = '';
-        theme_custom.customizeURLData += $(`.product-data-card-wrap[data-product-type="looks"]`).find(".looks-product-handle").val() + '=' + $(`.product-data-card-wrap[data-product-type="looks"]`).find(".looks-product-var-id").val() + '&';
-        $.each(productDataCardArr, function(index, value) {
-          var customizeURL = ''
-          var isLastElement = index == productDataCardArr.length -1;
-          if (isLastElement) {
-            customizeURL = $(this).find(".looks-product-handle").val() + '=' + $(this).find(".looks-product-var-id").val();
-          } else {
-            customizeURL = $(this).find(".looks-product-handle").val() + '=' + $(this).find(".looks-product-var-id").val() + '&';
-          }
-          theme_custom.customizeURLData += customizeURL;
-        });
-        var lookName = $(this).closest(".create-event-look").find("#look-name").val(),
-            eventId = $(this).closest(".create-event-look").find("#event-id").val(),
-            lookUrl = `/pages/customize-your-look?${theme_custom.customizeURLData}`;
-            produArray = theme_custom.newArray;
 
-        lookName = lookName.trim(0);
-        
-        let lookNameExist = theme_custom.selectedEventLooks.find((item)=> item.name.toLowerCase() == lookName.toLowerCase());
-        if(lookNameExist){
-          $(this).closest(".create-event-look").find("select").next(".form-error").text("Look name already exist. Please Select another Event Name!").addClass("active");
-        }else{
-          theme_custom.createLookAPI(lookName,eventId,lookUrl,produArray,button);
-        }
-      }
-  })
 
   $(document).on("click", ".product-form__submit", function(e){
     e.preventDefault();
@@ -1237,28 +1190,3 @@ $(document).ready(function(){
   }
 });
 
-theme_custom.getEventDetails = function (eventId) {
-  $('.page-loader').css({'z-index': '100000'})
-  $('.page-loader').removeClass('hidden')
-  $.ajax({
-    url: `${theme_custom.base_url}/api/event/${eventId}`,
-    method: "GET",
-    data: '',
-    dataType: "json",
-    headers: {
-      // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
-      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
-    },
-    beforeSend: function () {
-    },
-    success: function (result) {
-      theme_custom.selectedEventLooks = result.data.event_looks;
-      $('.page-loader').css({'z-index': '1200'})
-      $('.page-loader').addClass('hidden')
-    },
-    error: function (xhr, status, error) {
-      $('.page-loader').css({'z-index': '1200'});
-      $('.page-loader').addClass('hidden');
-    }
-  });
-}

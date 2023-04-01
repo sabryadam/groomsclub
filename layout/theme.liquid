@@ -67,6 +67,9 @@
   <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
   {%- endunless -%}
   {% render 'meta-tags' %}
+  {% if template contains 'customize-your-look' or template contains 'top-looks-pdp' %}
+  <script src="{{ 'check-same-name-event-look.js' | asset_url }}" defer="defer"></script>
+  {% endif  %}
   <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'custom2.js' | asset_url }}" defer="defer"></script>
 
