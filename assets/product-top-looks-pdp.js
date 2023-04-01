@@ -1,4 +1,7 @@
 theme_custom.base_url = theme_custom.api_base_url;
+theme_custom.favLooks = [];
+theme_custom.selectedEventLooks = [];
+
 
 theme_custom.priceCalculator = function(){
   if($(".product-data-card").length>0){
@@ -33,6 +36,7 @@ theme_custom.getEventData = function(modalTarget){
     },
     success: function(result) {
       var dataOptionArray = result.data.events;
+      // theme_custom.events = result.data.events;
       $.fancybox.open(modalTarget);
       if(result.data.events.length > 0){
         $(".page-loader").addClass("hidden");
@@ -460,78 +464,9 @@ theme_custom.favoriteLookImageCustomizer = function(lookID,button){
   });
 }
 
-// theme_custom.favouriteLookApi
-theme_custom.favouriteLookApi = function(lookName,lookUrl,produArray,button){
-  eventData = {
-    "look_name": lookName,
-    "url": lookUrl,
-    "favourite": "1",
-    "items": produArray
-  }
-  $.ajax({
-    url: `${theme_custom.api_base_url}/api/look/favourite`,
-    method: "POST",
-    data: eventData,
-    dataType: "json",
-    headers: {
-      "Authorization": 'Bearer '+localStorage.getItem("customerToken")
-    },
-    beforeSend: function() {
-    }, 
-    success: function(result){
-      var lookID = result.data.lookId;
-      theme_custom.favoriteLookImageCustomizer(lookID, button);
-    },
-    error:function(xhr,status,error){
-      button.removeClass("disabled").text("Add Favorite Look");
-      if(xhr.responseJSON.message=='Token is invalid or expired.'){
-        $('.favourite-look-api-message').html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').removeClass("hidden").show().css({
-          'text-align':'center',
-          'color':'red'
-        });
-        setTimeout(() => {
-          theme_custom.removeLocalStorage();
-          window.location.href = '/account/logout';
-        }, 5000);
-      } else {
-        var event_date_msg = '';
-        if(xhr.responseJSON.data){
-          if(xhr.responseJSON.data.favourite != undefined){
-            for(let i=0 ;i<xhr.responseJSON.data.favourite.length; i++){
-              event_date_msg += `<span>${xhr.responseJSON.data.favourite[i]}</span>`;
-            }
-          } else {
-            event_date_msg += `<span class="normal-error">${xhr.responseJSON.data}</span>`;
-          }
-        } else {
-          event_date_msg += `<span>${xhr.responseJSON.message}</span>`;
-        }
-        $('.favourite-look-api-message').html(event_date_msg).removeClass("hidden").show();
-        setTimeout(() => {
-          $(".favourite-look-api-message").addClass("hidden").hide();
-        }, 3000);
-      }
-    }
-  });
-}
 
-theme_custom.favoriteButtonEvent = function(button,productArray,lookURL){
-  var error_count = 0,
-      button = button;
-  error_count = error_count + theme_custom.textValidationWithSpacialChar(button.closest(".favourite-look-wrapper").find('[name="look-name"'));
-  if (error_count > 0) {
-    // e.preventDefault();
-    // button.text("Add to Favorite");
-    return false;
-  } else {
-    button.addClass("disabled");
-    // button.text(button.data("text"));
-    var lookName = button.closest(".favourite-look-wrapper").find("#look-name").val(),
-        lookUrl = `/pages/customize-your-look?${lookURL}`;
-        produArray = productArray;
-    theme_custom.favouriteLookApi(lookName,lookUrl,produArray,button);
-  }
-}
+
+
 
 theme_custom.getVariantDataEditItemPopup = function(parentEl){
   var variantDataGetArr = [];
@@ -716,59 +651,13 @@ theme_custom.tlpclickEvent = function(){
       }
       theme_custom.customizeURLData += customizeURL;
     });
-    setTimeout(() => {
+    theme_custom.getFavoriteLooks(function(looks){
+      theme_custom.favLooks = looks;
       $(".page-loader").addClass("hidden");
       $.fancybox.open(target);
-    }, 1500);
+    })
   });
 
-  $(document).on("click", ".favorite-event-api-button", function(e){
-    var button = $(this);
-    button.find(".loading-overlay").removeClass("hidden");
-    button.addClass("disabled");
-    button.find('.button-title').text(button.attr("data-text"));
-    var productArray = theme_custom.prodArray;
-    var lookURL = theme_custom.customizeURLData;
-    theme_custom.favoriteButtonEvent(button,productArray,lookURL);
-  })
-
-  $(document).on("change",".create-event-look #event-id", function() {
-    $(this).next(".form-error").removeClass("active")
-  });
-
-  $(document).on("click", ".add-event-look-api-button", function(e){
-      var error_count = 0,
-          button = $(this); 
-      error_count = error_count + theme_custom.textValidationWithSpacialChar($(this).closest(".create-event-look").find('[name="look-name"'));
-      if($(this).closest(".create-event-look").find("#event-id").val() == ''){
-        $(this).closest(".create-event-look").find("select").next(".form-error").text("Please Select Event Name!").addClass("active");
-        error_count = 1;
-      }
-      if (error_count > 0) {
-        e.preventDefault();
-        return false;
-      } else {
-        button.text($(this).data("text"));
-        var productDataCardArr = $(".product-data-card");
-        theme_custom.customizeURLData  = '';
-        theme_custom.customizeURLData += $(`.product-data-card-wrap[data-product-type="looks"]`).find(".looks-product-handle").val() + '=' + $(`.product-data-card-wrap[data-product-type="looks"]`).find(".looks-product-var-id").val() + '&';
-        $.each(productDataCardArr, function(index, value) {
-          var customizeURL = ''
-          var isLastElement = index == productDataCardArr.length -1;
-          if (isLastElement) {
-            customizeURL = $(this).find(".looks-product-handle").val() + '=' + $(this).find(".looks-product-var-id").val();
-          } else {
-            customizeURL = $(this).find(".looks-product-handle").val() + '=' + $(this).find(".looks-product-var-id").val() + '&';
-          }
-          theme_custom.customizeURLData += customizeURL;
-        });
-        var lookName = $(this).closest(".create-event-look").find("#look-name").val(),
-            eventId = $(this).closest(".create-event-look").find("#event-id").val(),
-            lookUrl = `/pages/customize-your-look?${theme_custom.customizeURLData}`;
-            produArray = theme_custom.newArray;
-        theme_custom.createLookAPI(lookName,eventId,lookUrl,produArray,button);
-      }
-  })
 
   $(document).on("click", ".product-form__submit", function(e){
     e.preventDefault();

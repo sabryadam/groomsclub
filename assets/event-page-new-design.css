@@ -1,4 +1,9 @@
 /* event-page-new-design style start */
+.next-disabled{
+  opacity: .5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
 .loader-wrapper {
   min-height: 500px;
   min-width: 500px;

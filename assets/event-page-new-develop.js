@@ -2,6 +2,7 @@
 theme_custom.base_url = theme_custom.api_base_url;
 theme_custom.eventFavLooks = [];
 theme_custom.globalEventData = null;
+theme_custom.eventExpire = false;
 const APP_Token = 'Bearer ' + localStorage.getItem("customerToken");
 
 theme_custom.lookAssignToMember = function (member_id, look_id) {
@@ -358,6 +359,7 @@ theme_custom.successCallback = (data, nextTarget) => {
       let index = i;
       theme_custom.createLookHtml(index, looksDiv, item, eventMembers, data.data.event_id);
     }
+    theme_custom.eventExpired(data.data);
     $(".close-icon").click();
     setTimeout(() => {
       theme_custom.lookItemsData(data);
@@ -1244,6 +1246,7 @@ theme_custom.lookInfoData = function (result) {
       var lookTotalPrice = theme_custom.Shopify.formatMoney(totalPrice, theme_custom.money_format)
       $(`.summary-table-wrapper tfoot`).fadeIn().find('.total-price').text(lookTotalPrice);
     }, 3000);
+    theme_custom.eventExpired(result.data);
   })
   $(".loader-wrapper").addClass("hidden");
   $(".event-step-wrapper").removeClass("hidden");
@@ -1948,6 +1951,25 @@ theme_custom.event_init_page = function () {
     $('.event-date-wrap .form-error').removeClass('active');
   });
 }
+theme_custom.eventExpired = function (data){
+  if(theme_custom.eventExpire){
+    // debugger;
+    if(data.event_looks.length <= 0){
+      $('.step-content-wrapper.create-event-look .next-button').addClass('next-disabled');
+    }
+    $('.event-update-button').hide()
+    $('.look-card-block .delete-icon').hide();
+    $('.look-card-block .customise-look-button').hide();
+    $('.user-card-block .edit-icon').hide();
+    $('.user-card-block .member-delete-icon').hide();
+    $('.look-card-block .confirm-box-wrap').hide();
+    $('.add-guest-button').hide();
+    $('.add-look-wrapper').hide();
+    $('.summary-table-wrapper .action-button').hide();
+    $('.action-btn-th').hide();
+    $('.summary-footer-cost-label').attr('colspan',2);
+  }
+}
 theme_custom.getEventDetails = function () {
   $(".step-content-wrapper").removeClass("active");
   var eventId = localStorage.getItem("set-event-id");
@@ -1968,6 +1990,11 @@ theme_custom.getEventDetails = function () {
       eventDataObj.eventType = result.data.event_type;
       eventDataObj.eventDate = result.data.event_date;
       eventDataObj.eventRole = result.data.event_role;
+// debugger;
+      if(new Date('4-14-23') > new Date(eventDataObj.eventDate)){
+        theme_custom.eventExpire = true;
+        theme_custom.eventExpired(result.data);
+      }
 
       $('#EventForm-EventName').val(result.data.event_name);
       $('#EventForm-id').val(result.data.event_id);
@@ -2133,10 +2160,12 @@ theme_custom.eventChangeEvent = () => {
     let parent = $(this).closest('.product-card');
     let value = $(this).val();
     let oldVal = $(this).attr('data-val');
-    if (value == oldVal) {
-      $('.button-wrap', parent).addClass('hidden');
-    } else {
-      $('.button-wrap', parent).removeClass('hidden');
+    if(!theme_custom.eventExpire){
+      if (value == oldVal) {
+        $('.button-wrap', parent).addClass('hidden');
+      } else {
+        $('.button-wrap', parent).removeClass('hidden');
+      }
     }
   })
 }
