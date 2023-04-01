@@ -1,4 +1,7 @@
 theme_custom.base_url = theme_custom.api_base_url;
+theme_custom.favLooks = [];
+theme_custom.selectedEventLooks = [];
+
 
 theme_custom.priceCalculator = function(){
   if($(".product-data-card").length>0){
@@ -33,6 +36,7 @@ theme_custom.getEventData = function(modalTarget){
     },
     success: function(result) {
       var dataOptionArray = result.data.events;
+      // theme_custom.events = result.data.events;
       $.fancybox.open(modalTarget);
       if(result.data.events.length > 0){
         $(".page-loader").addClass("hidden");
@@ -734,9 +738,13 @@ theme_custom.tlpclickEvent = function(){
 
   $(document).on("change",".create-event-look #event-id", function() {
     $(this).next(".form-error").removeClass("active")
+    theme_custom.getEventDetails($('#event-id').val());
   });
-
+  $(document).on("keyup", ".create-event-look .custom-text-filed", function(e){
+    $(this).closest(".create-event-look").find(".form-error").removeClass("active");
+  });
   $(document).on("click", ".add-event-look-api-button", function(e){
+
       var error_count = 0,
           button = $(this); 
       error_count = error_count + theme_custom.textValidationWithSpacialChar($(this).closest(".create-event-look").find('[name="look-name"'));
@@ -766,7 +774,15 @@ theme_custom.tlpclickEvent = function(){
             eventId = $(this).closest(".create-event-look").find("#event-id").val(),
             lookUrl = `/pages/customize-your-look?${theme_custom.customizeURLData}`;
             produArray = theme_custom.newArray;
-        theme_custom.createLookAPI(lookName,eventId,lookUrl,produArray,button);
+
+        lookName = lookName.trim(0);
+        
+        let lookNameExist = theme_custom.selectedEventLooks.find((item)=> item.name.toLowerCase() == lookName.toLowerCase());
+        if(lookNameExist){
+          $(this).closest(".create-event-look").find("select").next(".form-error").text("Look name already exist. Please Select another Event Name!").addClass("active");
+        }else{
+          theme_custom.createLookAPI(lookName,eventId,lookUrl,produArray,button);
+        }
       }
   })
 
@@ -1220,3 +1236,29 @@ $(document).ready(function(){
     }
   }
 });
+
+theme_custom.getEventDetails = function (eventId) {
+  $('.page-loader').css({'z-index': '100000'})
+  $('.page-loader').removeClass('hidden')
+  $.ajax({
+    url: `${theme_custom.base_url}/api/event/${eventId}`,
+    method: "GET",
+    data: '',
+    dataType: "json",
+    headers: {
+      // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
+      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+    },
+    beforeSend: function () {
+    },
+    success: function (result) {
+      theme_custom.selectedEventLooks = result.data.event_looks;
+      $('.page-loader').css({'z-index': '1200'})
+      $('.page-loader').addClass('hidden')
+    },
+    error: function (xhr, status, error) {
+      $('.page-loader').css({'z-index': '1200'});
+      $('.page-loader').addClass('hidden');
+    }
+  });
+}
