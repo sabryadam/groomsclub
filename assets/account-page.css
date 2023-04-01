@@ -262,6 +262,10 @@
     display: none;
     gap: 10px;
 }
+.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .events-container.event-expired{
+    background: #ddd;
+}
+
 .main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .events-container.active{
     display: flex;
 }
