@@ -1,3 +1,181 @@
+  //Favorite Looks API
+// const APP_Token = 'Bearer ' + localStorage.getItem("customerToken")
+
+  // favorite-event-api-button Click Event 
+  $(document).on("click", ".favorite-event-api-button", function (e) {
+    var button = $(this);
+
+    if(window.location.pathname != '/pages/customize-your-look'){
+      theme_custom.favoriteButtonEvent(button);
+    }else{
+      if(localStorage.getItem("editLookName")!=null && localStorage.getItem("editLookId")!=null){
+        theme_custom.favoriteLookUpdate(button);
+      } else {
+        theme_custom.favoriteButtonEvent(button);
+      }
+    }
+  })
+
+
+  // Favorite Look added
+theme_custom.favoriteButtonEvent = function (eventButton) {
+  var error_count = 0,
+    button = eventButton;
+  error_count = error_count + theme_custom.textValidationWithSpacialChar(button.closest(".favourite-look-wrapper").find('[name="look-name"'));
+  if (error_count > 0) {
+    return false;
+  } else {
+    var lookName = button.closest(".favourite-look-wrapper").find("#look-name").val();
+    var lookUrl = window.location.href;
+    var produArray = theme_custom.prodArray;
+    lookName = lookName.trim();
+    let lookExist = theme_custom.favLooks.find((item)=> item.name.toLowerCase() == lookName.toLowerCase());
+    if(lookExist){
+      $(button).closest(".favourite-look-wrapper").find(".form-error:first").text("Look name already exist. Please Select another Event Name!").addClass("active");
+
+    }else{
+      button.find(".loading-overlay").removeClass("hidden");
+      button.addClass("disabled");
+      button.find('.button-title').text(button.attr("data-text"));
+      if(window.location.pathname != '/pages/customize-your-look'){
+        lookURL = theme_custom.customizeURLData;
+          lookUrl = `/pages/customize-your-look?${lookURL}`;
+        }
+        theme_custom.favouriteLookApi(lookName, lookUrl, produArray, button);
+    }
+  }
+}
+
+// Favorite Look Update
+theme_custom.favoriteLookUpdate = function (eventButton) {
+  var error_count = 0,
+    button = eventButton;
+  error_count = error_count + theme_custom.textValidationWithSpacialChar(button.closest(".favourite-look-wrapper").find('[name="look-name"'));
+  if (error_count > 0) {
+    button.removeClass("disabled");
+    button.find(".loading-overlay").addClass("hidden");
+    button.find(".button-title").text("Add to Favorite");
+    return false;
+  } else {
+    button.find(".loading-overlay").removeClass("hidden");
+    button.find(".button-title").text(button.attr("data-text"));
+    var lookName = button.closest(".favourite-look-wrapper").find("#look-name").val(),
+      lookUrl = window.location.href;
+    produArray = theme_custom.prodArray;
+    if(localStorage.getItem('editLookId')!='' && localStorage.getItem('editLookName')!=''){
+      var favid = localStorage.getItem('editLookId');
+      favorite_api_url = `${theme_custom.base_url}/api/look/removeFromFavourite/${favid}`;  
+      $.ajax({
+        url: favorite_api_url,
+        method: "DELETE",
+        data: '',
+        dataType: "json",
+        headers: {
+          "Authorization": APP_Token
+        },
+        beforeSend: function () {},
+        success: function (result) {
+          theme_custom.favouriteLookApi(lookName, lookUrl, produArray, button);
+        },
+        error: function (xhr, status, error) {
+          if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+            $('.feature-looks-slider').html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+              'text-align': 'center',
+              'color': 'red'
+            });
+            setTimeout(() => {
+              theme_custom.removeLocalStorage();
+              window.location.href = '/account/logout';
+            }, 5000);
+          } else {
+            $('.feature-looks-slider').html(xhr.responseJSON.message);
+          }
+        }
+      });
+    } else {
+      theme_custom.favouriteLookApi(lookName, lookUrl, produArray, button);
+    }
+  }
+} 
+
+// theme_custom.favouriteLookApi
+theme_custom.favouriteLookApi = function (lookName, lookUrl, produArray, button) {
+  eventData = {
+    "look_name": lookName,
+    "url": lookUrl,
+    "favourite": "1",
+    "items": produArray
+  }
+  button.addClass("disabled");
+  $.ajax({
+    url: `${theme_custom.api_base_url}/api/look/favourite`,
+    method: "POST",
+    data: eventData,
+    dataType: "json",
+    headers: {
+      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+    },
+    beforeSend: function () {
+    },
+    success: function (result) {
+      var lookID = result.data.lookId;
+      theme_custom.favoriteLookImageCustomizer(lookID, button);
+    },
+    error: function (xhr, status, error) {
+      button.removeClass("disabled").text("Add Favorite Look");
+      if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+        $('.favourite-look-api-message').html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').removeClass("hidden").show().css({
+          'text-align': 'center',
+          'color': 'red'
+        });
+        setTimeout(() => {
+          theme_custom.removeLocalStorage();
+          window.location.href = '/account/logout';
+        }, 5000);
+      } else {
+        var event_date_msg = '';
+        if (xhr.responseJSON.data) {
+          if (xhr.responseJSON.data.favourite != undefined) {
+            for (let i = 0; i < xhr.responseJSON.data.favourite.length; i++) {
+              event_date_msg += `<span>${xhr.responseJSON.data.favourite[i]}</span>`;
+            }
+          } else {
+            event_date_msg += `<span class="normal-error">${xhr.responseJSON.data}</span>`;
+          }
+        } else {
+          event_date_msg += `<span>${xhr.responseJSON.message}</span>`;
+        }
+        $('.favourite-look-api-message').html(event_date_msg).removeClass("hidden").show();
+        setTimeout(() => {
+          $(".favourite-look-api-message").addClass("hidden").hide();
+        }, 3000);
+      }
+    }
+  });
+}
+
+theme_custom.getFavoriteLooks = function(callback) {
+
+  var favorite_api_url = theme_custom.api_base_url + '/api/look/favouriteLooks';
+  $.ajax({
+      url: favorite_api_url,
+      method: "GET",
+      data: '',
+      dataType: "json",
+      headers: {
+          "Authorization": APP_Token
+      },
+      success: function (result) {
+        callback(result.data)
+        // theme_custom.favLooks = result.data;
+      },
+      error: function (xhr, status, error) {
+        callback([])
+      }
+  });
+}
+  
+  
   // add-event-look-api-button Click Event 
   $(document).on("keyup", ".create-event-look .custom-text-filed", function(e){
     $(this).closest(".create-event-look").find(".form-error").removeClass("active");

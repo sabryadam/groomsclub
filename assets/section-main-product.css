@@ -1472,3 +1472,9 @@ a.product__text {
     margin-top: 0;
   }
 }
+.add-event-look-api-button .loading-overlay {
+  position: absolute;
+  left: 20%;
+  top: 50%;
+  transform: translateY(-50%);
+}

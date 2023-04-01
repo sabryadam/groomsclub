@@ -464,78 +464,9 @@ theme_custom.favoriteLookImageCustomizer = function(lookID,button){
   });
 }
 
-// theme_custom.favouriteLookApi
-theme_custom.favouriteLookApi = function(lookName,lookUrl,produArray,button){
-  eventData = {
-    "look_name": lookName,
-    "url": lookUrl,
-    "favourite": "1",
-    "items": produArray
-  }
-  $.ajax({
-    url: `${theme_custom.api_base_url}/api/look/favourite`,
-    method: "POST",
-    data: eventData,
-    dataType: "json",
-    headers: {
-      "Authorization": 'Bearer '+localStorage.getItem("customerToken")
-    },
-    beforeSend: function() {
-    }, 
-    success: function(result){
-      var lookID = result.data.lookId;
-      theme_custom.favoriteLookImageCustomizer(lookID, button);
-    },
-    error:function(xhr,status,error){
-      button.removeClass("disabled").text("Add Favorite Look");
-      if(xhr.responseJSON.message=='Token is invalid or expired.'){
-        $('.favourite-look-api-message').html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').removeClass("hidden").show().css({
-          'text-align':'center',
-          'color':'red'
-        });
-        setTimeout(() => {
-          theme_custom.removeLocalStorage();
-          window.location.href = '/account/logout';
-        }, 5000);
-      } else {
-        var event_date_msg = '';
-        if(xhr.responseJSON.data){
-          if(xhr.responseJSON.data.favourite != undefined){
-            for(let i=0 ;i<xhr.responseJSON.data.favourite.length; i++){
-              event_date_msg += `<span>${xhr.responseJSON.data.favourite[i]}</span>`;
-            }
-          } else {
-            event_date_msg += `<span class="normal-error">${xhr.responseJSON.data}</span>`;
-          }
-        } else {
-          event_date_msg += `<span>${xhr.responseJSON.message}</span>`;
-        }
-        $('.favourite-look-api-message').html(event_date_msg).removeClass("hidden").show();
-        setTimeout(() => {
-          $(".favourite-look-api-message").addClass("hidden").hide();
-        }, 3000);
-      }
-    }
-  });
-}
 
-theme_custom.favoriteButtonEvent = function(button,productArray,lookURL){
-  var error_count = 0,
-      button = button;
-  error_count = error_count + theme_custom.textValidationWithSpacialChar(button.closest(".favourite-look-wrapper").find('[name="look-name"'));
-  if (error_count > 0) {
-    // e.preventDefault();
-    // button.text("Add to Favorite");
-    return false;
-  } else {
-    button.addClass("disabled");
-    // button.text(button.data("text"));
-    var lookName = button.closest(".favourite-look-wrapper").find("#look-name").val(),
-        lookUrl = `/pages/customize-your-look?${lookURL}`;
-        produArray = productArray;
-    theme_custom.favouriteLookApi(lookName,lookUrl,produArray,button);
-  }
-}
+
+
 
 theme_custom.getVariantDataEditItemPopup = function(parentEl){
   var variantDataGetArr = [];
@@ -720,23 +651,12 @@ theme_custom.tlpclickEvent = function(){
       }
       theme_custom.customizeURLData += customizeURL;
     });
-    setTimeout(() => {
+    theme_custom.getFavoriteLooks(function(looks){
+      theme_custom.favLooks = looks;
       $(".page-loader").addClass("hidden");
       $.fancybox.open(target);
-    }, 1500);
+    })
   });
-
-  $(document).on("click", ".favorite-event-api-button", function(e){
-    var button = $(this);
-    button.find(".loading-overlay").removeClass("hidden");
-    button.addClass("disabled");
-    button.find('.button-title').text(button.attr("data-text"));
-    var productArray = theme_custom.prodArray;
-    var lookURL = theme_custom.customizeURLData;
-    theme_custom.favoriteButtonEvent(button,productArray,lookURL);
-  })
-
-
 
 
   $(document).on("click", ".product-form__submit", function(e){
