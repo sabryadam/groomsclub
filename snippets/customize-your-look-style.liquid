@@ -559,6 +559,7 @@
     opacity: 0;
     transition: all 0.1s;
     z-index: 5;
+    display: none !important;
   }
 
   .swatch-el-outer-wrapper .swatch-wrap:hover .tool-tip {
@@ -872,7 +873,7 @@
   }
 
   @media screen and (max-width:590px) {
-    .customize-look-overview-product{
+    .customize-look-overview-product {
       margin-bottom: 15px;
     }
     .customize-look-overview-product .product-info-edit .product-variant-link {
@@ -1065,7 +1066,7 @@
     .customize-look-overview-product .product-info-edit h4 {
       font-size: 16px;
     }
-    .customize-look-overview-product .product-info-edit .product-variant-link p{
+    .customize-look-overview-product .product-info-edit .product-variant-link p {
       font-size: 14px;
     }
     #product_info_box .scroll-part.right-scroll-spcing.overview-product.no-product-in-overview {
@@ -1073,12 +1074,14 @@
     }
     .tabbed-content-block-outer-wrapper .product-image-wrap .custom-look-image {
       min-height: auto;
-      width: 330px;
+      width: 100%;
       height: 330px;
       margin: 0 auto;
-      transform: translatex(-50%);
       top: 0;
-      left: 50%;
+      transform: translate(0, 0);
+      left: 0;
+      right: 0;
+      bottom: 0;
     }
     .remove-product-icon svg {
       height: 34px;
@@ -1266,6 +1269,9 @@
   @media(max-width: 960px) {
     .tabbed-content-block-outer-wrapper .product-info-wrap .product-title {
       margin-top: 0;
+      display: block;
+    }
+    .tabbed-content-block-outer-wrapper .product-info-wrap .product-title .mobile-tab-icon {
       display: none;
     }
     .tabbed-content-block-outer-wrapper .product-info-wrap .product-info-top-block .scroll-part .product-block-outer-wrapper:not(.active) {
@@ -1543,7 +1549,7 @@
   @media(max-width: 767px) {
     .tabbed-content-block-outer-wrapper .product-info-wrap .product-title {
       margin-top: 0;
-      display: none;
+      display: block;
     }
     .tabbed-content-block-outer-wrapper .product-info-wrap .product-info-top-block .scroll-part .product-block-outer-wrapper:not(.active) {
       display: none;
@@ -1940,6 +1946,18 @@
     .tabbed-content-block-outer-wrapper .product-info-wrap .product-info-footer .button-wrapper .back-button {
       order: unset;
       text-align: left;
+    }
+  }
+  @media(max-width : 767px){
+    .cross-icon,
+    .remove-product-icon {
+      width : 20px;
+      height : 20px;
+    }
+    .cross-icon svg,
+    .remove-product-icon svg{
+      width : 20px;
+      height : 20px;
     }
   }
 {% endstyle %}

@@ -6,8 +6,8 @@ theme_custom.saveFitFinder = function (fitFinderJson, button) {
     pantSize = fitFinderJsonData.pantSize.split('x'),
     pantWaistSize = pantSize[0],
     pantWaistInseam = pantSize[1],
-    age_qus = fitFinderJson.age_qus,
-    age = fitFinderJson.age,
+    age_qus = "What is your age",
+    age = $("#age").val(),
     build_qus = fitFinderJsonData.build_qus,
     build = fitFinderJsonData.build,
     fit_qus = fitFinderJsonData.fit_qus,
@@ -76,10 +76,7 @@ theme_custom.saveFitFinder = function (fitFinderJson, button) {
     "jacketSize_result": jacketSize_result,
     "jacketSize": jacketSize
   }
-  // console.log("Fit finder fitFinderJsonData",fitFinderJsonData);
-  // console.warn("Fit Finder Data",fitFinder);
   header = {
-    // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
     "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
   };
 
@@ -114,7 +111,6 @@ theme_custom.saveFitFinder = function (fitFinderJson, button) {
         } else if (localStorage.getItem("invited-event-fit-finder-button")) {
           var getHometryOnEventUrl = localStorage.getItem("home-try-on-event-url");
           window.location.href = '/pages/my-event?' + getHometryOnEventUrl;
-          // console.log("Home try on event url",getHometryOnEventUrl);
         }
          else {
           $(".edit-size-button").removeClass("hidden").show();
@@ -131,6 +127,7 @@ theme_custom.saveFitFinder = function (fitFinderJson, button) {
           'color': 'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -277,7 +274,6 @@ theme_custom.jacketSizefunction = function (jacketSize, jacketSizeVal, jacketPan
   $(".fit-finder-pant-result").attr("data-fit-finder-pant-result", jacketPantVal).text(jacketPantVal);
   fitFinder["jacketSize"] = $(".fit-finder-result").attr("data-fit-finder-result");
   fitFinder["pantSize"] = $(".fit-finder-pant-result").attr("data-fit-finder-pant-result");
-  // console.log("fitfinder size",fitFinder["pantSize"] = $(".fit-finder-pant-result").attr("data-fit-finder-pant-result"));
   fitFinder["jacketSize_result"] = "Your Jacket size result";
 }
 
@@ -450,7 +446,6 @@ theme_custom.fitFinderClickEvent = function () {
       if (parent.find("input[type='radio']").is(':checked')) {
         $(".required-error").removeClass("active");
         selectedVal = parent.find("input[type='radio']:checked").val();
-        // console.log("selected value",selectedVal);
         selectedQuestion = parent.find(".block-heading").text();
         fitFinder[stepTitle + '_qus'] = selectedQuestion.trim();
         fitFinder[stepTitle] = selectedVal;
@@ -527,7 +522,6 @@ theme_custom.fitFinderClickEvent = function () {
         userNewHeight = userHeight.replace('"', ''),
         userWeight = parseInt(fitFinderJson.weight),
         userNewHeight = userNewHeight.replace('`', '.');
-        // console.log("fitFinderJson",fitFinderJson);
       if ((userNewHeight >= 1.0 && userNewHeight <= 5.09) && (userWeight >= 1 && userWeight <= 124)) {
         theme_custom.jacketSizefunction("32:S", "32S", "26x30", fitFinder);
       } else if ((userNewHeight >= 1.0 && userNewHeight <= 5.09) && (userWeight >= 125 && userWeight <= 140)) {
@@ -614,7 +608,6 @@ theme_custom.fitFinderClickEvent = function () {
       var pantSizeArr = fitFinderJson.pantSize.split('x'),
         pants_waist = pantSizeArr[0],
         pants_hight = pantSizeArr[1];
-        // console.log("pantSizeArr",pantSizeArr);
       fitFinderJson.pants_waist = pants_waist;
       fitFinderJson.pants_hight = pants_hight;
       setCookie("fit-finder-data", JSON.stringify(fitFinderJson), 365);
@@ -713,9 +706,8 @@ theme_custom.fitFinderClickEvent = function () {
                                       <div class="block-info">
                                         <div class="block-title">Jacket</div>
                                         <div class="size-wrap">
-                                          <span class="size-number">Size ${jacketTypeFirst}</span>
-                                          <span class="break">|</span>
-                                          <span class="size-type">${jacketTypeVal}</span>
+                                          <span class="size-number">Chest: ${jacketTypeFirst}</span>
+                                          <span class="size-type">Length: ${jacketTypeVal}</span>
                                         </div>
                                       </div>
                                     </div>
@@ -728,9 +720,8 @@ theme_custom.fitFinderClickEvent = function () {
                                       <div class="block-info">
                                         <div class="block-title">Pants</div>
                                         <div class="size-wrap">
-                                          <span class="size-number">Size ${pantWaist}</span>
-                                          <span class="break">|</span>
-                                          <span class="size-type">${pantHeight}</span>
+                                          <span class="size-number">Waist: ${pantWaist}</span>
+                                          <span class="size-type">Length: ${pantHeight}</span>
                                         </div>
                                       </div>
                                     </div>
@@ -743,9 +734,8 @@ theme_custom.fitFinderClickEvent = function () {
                                       <div class="block-info">
                                         <div class="block-title">Shirt</div>
                                         <div class="size-wrap">
-                                          <span class="size-number">Neck ${shirtNeck}</span>
-                                          <span class="break">|</span>
-                                          <span class="size-type">Sleeve ${shirtSleeve}</span>
+                                          <span class="size-number">Neck:  ${shirtNeck}</span>
+                                          <span class="size-type">Sleeve: ${shirtSleeve}</span>
                                         </div>
                                       </div>
                                     </div>
@@ -758,7 +748,7 @@ theme_custom.fitFinderClickEvent = function () {
                                       <div class="block-info">
                                         <div class="block-title">Shoes</div>
                                         <div class="size-wrap">
-                                          <span class="size-number">Size ${shoesShize}</span>                              
+                                          <span class="size-number">Size: ${shoesShize}</span>                              
                                         </div>
                                       </div>
                                     </div>
@@ -857,7 +847,6 @@ theme_custom.editFitFinder = function () {
     jacket_size = jacketType[0],
     jacket_type = jacketTypeVal,
     fit = getFitFinder.fit;
-    // console.log("pantSize",pantSize);
   $(".step-wrapper[data-step-title='Height']").find(".height-feet").val(heightArr[0]);
   $(".step-wrapper[data-step-title='Height']").find(".height-inche").val(heightArr[1]);
   $(".step-wrapper[data-step-title='Height']").find(".user-height").val($("#user-height").val());

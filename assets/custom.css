@@ -585,10 +585,6 @@ div.tab-top-border {
 	margin-top: 25px;
 }
 
-#acc-tabs-wr .my-size-wrapper {
-	margin-bottom: 50px;
-}
-
 #acc-tabs-wr .my-event-wrapper .my-event-inner .left-side-content {
 	padding-top: 45px;
 	padding-bottom: 50px;
@@ -945,4 +941,18 @@ header.header.header--middle-left.page-width-big.header--has-menu {
   .template-collection-top-collection .card-information__wrapper{
     text-align: center;
   }
+}
+.template-page-customize-your-look .wishlist-add-event-part .update-look-and-countinue,
+.template-page-customize-your-look .wishlist-add-event-part .add-look-and-countinue {
+	margin: 0 ;
+	padding : 8px 40px
+}
+.template-page-customize-your-look .wishlist-add-event-part .update-look-and-countinue .link-with-svg i,
+.template-page-customize-your-look .wishlist-add-event-part .add-look-and-countinue .link-with-svg svg {
+	margin-right: 20px;
+}
+select#event-id.disabled {
+	opacity: 0.5;
+	pointer-events: none;
+	cursor: none;
 }

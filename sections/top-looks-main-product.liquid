@@ -631,8 +631,12 @@
                   <div class="bundle-product-wrapper">
                     {%- assign suitProdHandle = product.metafields.my_fields.jacket_pants_title | downcase | handleize | strip -%}
                     {%- assign suitProdu = all_products[suitProdHandle] -%}
-                    <div class="product-data-card-wrap" data-product-handle="{{ suitProdHandle }}" data-product-type="{{ product.type }}">
-                      <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ suitProdu.selected_or_first_available_variant.id }}">
+                    {%- assign looksProductType =  product.type %}
+                    {%- if product.type == 'suit' or product.type == 'Suit' -%} 
+                      {%- assign looksProductType =  'looks' %}
+                    {%- endif -%}
+                    <div class="product-data-card-wrap" data-product-handle="{{ suitProdHandle }}" data-product-type="{{ looksProductType }}">
+                      <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ suitProdu.id }}">
                       <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ suitProdu.selected_or_first_available_variant.id }}">
                       <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ suitProdHandle}}">
                       <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ suitProdu.selected_or_first_available_variant.id }}">
@@ -1240,6 +1244,7 @@
                         <span class="custom-look-new-url button button--secondary" style="line-height: inherit;">Customize This Look</span>
                       </div>
                     {%- endif -%}
+                    <input type="hidden" name="sizing-and-fit-wrapper" class="sizing-and-fit-wrapper" data-product-type="{{ productType }}">
 <!--                     <div class="sizing-and-fit-wrapper" data-product-type="{{ productType }}">
                       <div class="filed-wrapper empty-fit-fider-wrapper hidden">
                         <p class="field__label title" style="text-align: center;font-size: 16px;margin: 0;">Please use the Fit Finder below for sizing to Continue</p>
@@ -1265,15 +1270,15 @@
                             Add to Event
                           </a>
                         </div>
-                      {%- else -%}
+                      {%- else -%} 
                         <div class="wishlist-icon-wrap">
-                          <span data-href="{{ routes.account_login_url }}" class="link link-with-svg event-text event-or-fav-when-user-has-not-logged">
+                          <span data-href="{{ routes.account_login_url }}" class="link link-with-svg event-text {% unless customer %}event-or-fav-when-user-has-not-logged{% endunless %}">
                             <i class="far fa-heart"></i>
                             Favorite
                           </span>
                         </div>
                         <div class="add-to-event">
-                          <span data-href="{{ routes.account_login_url }}" class="link link-with-svg event-text event-or-fav-when-user-has-not-logged">
+                          <span data-href="{{ routes.account_login_url }}" class="link link-with-svg event-text {% unless customer %}event-or-fav-when-user-has-not-logged{% endunless %}">
                             <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 19 18" style="enable-background:new 0 0 19 18;" xml:space="preserve"><style type="text/css">.plus-icon{fill:#1075BC;}</style><g><g><path class="plus-icon" d="M9.6,1.5c4.1,0,7.5,3.3,7.5,7.5s-3.4,7.5-7.5,7.5S2.1,13.1,2.1,9S5.5,1.5,9.6,1.5 M9.6,0c-5,0-9,4-9,9    s4,9,9,9s9-4,9-9S14.6,0,9.6,0L9.6,0z"/></g><g><rect x="8.6" y="5" class="plus-icon" width="2" height="8.1"/><rect x="8.6" y="5" transform="matrix(6.123234e-17 -1 1 6.123234e-17 0.6405 18.6186)" class="plus-icon" width="2" height="8.1"/></g></g></svg>
                             Add to Event
                           </span>
@@ -1291,7 +1296,8 @@
                         {{ form | payment_button }}
                       {%- endif -%}
                       <div class = "customize-button-customize-look mobile">
-                        <a href="/pages/customize-your-look" class="button button--secondary btn-small">Customize This Look</a>
+                        <span class="custom-look-new-url button button--secondary" style="line-height: inherit;height: auto">Customize This Look</span>
+                        <!--<a href="/pages/customize-your-look" class="button button--secondary btn-small">Customize This Look</a> -->
                       </div>
                     </div>
                 </div>
@@ -1429,7 +1435,6 @@ function suitSizeData() {
       },
       success: function (result) {
           if (result.success) {
-              // console.log(result);
             if (result.data.length > 0) {
               var jacket_size = 'NA';
               var jacket_type = 'NA';
@@ -1518,7 +1523,6 @@ function suitSizeDataNonLogged(){
   var getFitFinder = getCookie("fit-finder-data");
   if(getFitFinder){
     getFitFinder = JSON.parse(getCookie("fit-finder-data"));
-    // console.log(getFitFinder);
     var ff_html = '';
 
     var jacket_size = 'NA';
@@ -1648,7 +1652,6 @@ $(document).ready(function(){
       box.find(".single-option-selector option").each(function(){
         var title = $(this).data("var-title");
         if(title.indexOf(attr) != -1){
-          // console.log(title);
           var optionValue = $(this).attr("value");
           box.find(".single-option-selector").val(optionValue);
           box.find(".pdp-updates-button .button.button--primary").removeClass("disabled");

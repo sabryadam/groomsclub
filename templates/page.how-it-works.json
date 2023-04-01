@@ -240,7 +240,6 @@
     },
     "1633935671a4d91269": {
       "type": "featured-blog",
-      "disabled": true,
       "blocks": {
         "1633935671a4d91269-0": {
           "type": "title",
@@ -273,7 +272,7 @@
         "show_view_all": false,
         "show_image": true,
         "soft_background": false,
-        "btn_label": "More Tips",
+        "btn_label": "",
         "btn_link": "shopify:\/\/blogs\/tips-tricks",
         "button_style_secondary_blog": true
       }

@@ -29,7 +29,7 @@
 
       <div class="cart__warnings">
         <h2 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h2>
-        <a href="{{ routes.all_products_collection_url }}" class="link">
+        <a href="{{ routes.all_products_collection_url }}" class="button button--primary">
           {{ 'general.continue_shopping' | t }}
         </a>
       </div>
@@ -149,7 +149,9 @@
                                 <span class="option-wrap product_var_cart">
                                   {%- for option in item.options_with_values -%}
                                     <div class="product-option" data-name="{{option.name}}">
-                                      <div>{{ option.name }}: </div>
+                                      {% unless option.name == 'Denominations' %}
+                                        <div>{{ option.name }}: </div>
+                                      {% endunless %}
                                       <div class="product-option-val">{{ option.value }}</div>
                                     </div>
                                   {%- endfor -%}
@@ -429,7 +431,6 @@
           var data_name = $(this).data("name");
           
           var data_value = $(this).find(".product-option-val").text();
-          // console.log(data_name + " | " + data_value);
           $(`input[type="radio"][data-name="${data_name}"][value="${data_value}"]`).prop('checked', true);
           $(`input[type="radio"][data-name="${data_name}"][value="${data_value}"] + label`).trigger("click");
           

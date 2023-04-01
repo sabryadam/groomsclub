@@ -960,18 +960,21 @@ body.compensate-for-scrollbar {
 
 /* Derived from base colors (theme settings) */
 body::-webkit-scrollbar-track,
+.assign-look-user-wrap::-webkit-scrollbar-track,
 .tabbed-content-block-outer-wrapper .product-info-wrap .tabbed-content-block-inner-wrapper .product-info-top-block::-webkit-scrollbar-track{
   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
   background-color: #F5F5F5;
 }
 
 body::-webkit-scrollbar ,
+.assign-look-user-wrap::-webkit-scrollbar,
 .tabbed-content-block-outer-wrapper .product-info-wrap .tabbed-content-block-inner-wrapper .product-info-top-block::-webkit-scrollbar{
   width: 5px;
   background-color: #F5F5F5;
 }
 
 body::-webkit-scrollbar-thumb,
+.assign-look-user-wrap::-webkit-scrollbar-thumb,
 .tabbed-content-block-outer-wrapper .product-info-wrap .tabbed-content-block-inner-wrapper .product-info-top-block::-webkit-scrollbar-thumb{
   background-color: var(--color-button-light-blue);
   border: 2px solid var(--color-button-light-blue);
@@ -2035,6 +2038,7 @@ blockquote {
 
 select {
   cursor: pointer;
+  font-family: 'Stolzl' !important;
 }
 
 table:not([class]) {
@@ -5111,17 +5115,21 @@ details-disclosure>details {
 }
 
 .my-size-wrapper .my-size-block .img-section {
-  padding-bottom: 85.2%;
+  padding: 20px 0 0;
+  position: relative;
+  min-height: 350px;
+  background: #c4c4c4;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .my-size-wrapper .my-size-block .img-section img {
-  max-width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: static;
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  height: auto;
 }
 
 .my-size-wrapper .block-wrap {
@@ -6639,7 +6647,8 @@ progress[value]::-webkit-progress-value {
   }
 
   .header .header__icons {
-    padding-right: 8px;
+    padding-right: 0px;
+    padding-left: 10px;
   }
 
   .afterbeforeimage {
@@ -8845,7 +8854,7 @@ img.crossed-out.hide {
 .my-event-wrapper .pagination-wrapper span.count-number {
   font-size: 16px;
   color: var(--color-primary);
-  font-weight: 400;
+  font-weight: 300;
   display: inline-block;
   width: 30px;
   height: 30px;
@@ -9290,10 +9299,12 @@ img.crossed-out.hide {
   background-color: #FFBABA;
   padding: 10px;
   clear: both;
+  font-size: 14px;
 }
 
 .success-event {
   color: #4F8A10;
+  font-size: 14px;
   background-color: #DFF2BF;
 }
 
@@ -10630,14 +10641,90 @@ p.removing-combine-message
 }
 
 @media(min-width:1025px){
-  .header__heading{
+  .header__heading,.header__heading-link{
     width: 18%;
   }
   .header__inline-menu {
     width: 64%;
   }
   .header__icons{
-    width: 18%;
+    width: 300px;
     justify-content: right;
+  }
+}
+.collection .collection-product-count{
+  display: none;
+}
+.site-global-loader{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.7);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.site-global-loader.hidden{
+  display: none !important;
+}
+@media(max-width : 767px){
+  .order-info.transection-list-inner .return-item .button{
+    display: block;
+    width: fit-content;
+    min-width: auto;
+    height: auto;
+    font-size: 12px;
+  }
+  .order-info.transection-list-inner{
+    flex-wrap: wrap;
+    display: flex;
+  }
+  .order-info.transection-list-inner .order-item-info{
+    order : 0
+  }
+  .order-info.transection-list-inner .order-address{
+    order : 1
+  }
+  .order-info.transection-list-inner .order-address,
+  .order-info.transection-list-inner .order-item-info{
+    width: 100%;
+    min-width: 100%;
+  }
+}
+.header__icons a.fav-icon{
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  border-right: 2px solid #b3b3b3;
+  padding-right: 10px;
+}
+.header__icons a.fav-icon .far{
+  font-size: 22px;
+  color: #0f2541 !important;
+}
+@media(max-width : 767px){
+  .header__icon:not(.header__icon--summary){
+    padding: 0 10px;
+  }
+  .header__icons .link svg,
+  .header__icons .customer a svg{
+    width: 20px;
+    height: 20px;
+  }
+  .header__icons a.fav-icon .far{
+    font-size: 20px;
+  }
+  .header__icon:not(.header__icon--summary):before{
+    top: 0;
+    height: 20px;
+    right: -2px;
+  }
+  .header__icons a.fav-icon{
+    padding-right: 5px;
   }
 }

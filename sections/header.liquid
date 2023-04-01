@@ -1,6 +1,6 @@
-<link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'" />
+<link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'" />
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-cart-notification.css' | asset_url }}" media="print" onload="this.media='all'">
 
 <noscript>{{ 'component-list-menu.css' | asset_url | stylesheet_tag }}</noscript>
@@ -96,7 +96,7 @@
                     	{% assign mobile_menu = section.settings.menu %}
                     {% endif %}{%- endcomment -%}
                     {%- for link in section.settings.menu.links -%}
-                    <li>
+                      <li class="main-link">
                         {%- if link.links != blank -%}
                           <details>
                             <summary class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.current or link.child_active %} menu-drawer__menu-item--active{% endif %}"{% if link.current or link.child_active %} aria-current="page"{% endif %}>
@@ -145,6 +145,11 @@
                                       {%- endif -%}
                                     </li>
                                   {%- endfor -%}
+                                  <li class="xs-show">
+                                    <a href="{{ link.url}}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">
+                                      {{ link.title | escape }}
+                                    </a>
+                                  </li>
                                 </ul>
                               </div>
                             </div>
@@ -156,6 +161,11 @@
                         {%- endif -%}
                       </li>
                     {%- endfor -%}
+                    <li class="main-link">
+                       <a href="/pages/contact" class="menu-drawer__menu-item list-menu__item link link--text focus-inset"{% if link.current %} aria-current="page"{% endif %}>
+                          Contact Us
+                        </a>
+                    </li>
                   </ul>
                   {% if section.settings.header-url_title %}
                     <div class="header_get_started_btn mobile-button">
@@ -249,6 +259,7 @@
                   </ul>
                 </div>
               </div>
+              <div class="black-bg"></div>
             </div>
           </div>
         </details>
@@ -367,7 +378,7 @@
                     <ul class="contact-us-header-menu-inner">
                       <li>
                         <p><a href="tel:201-559-9715" target="_blank" title="tel:201-559-9715">201-559-9715</a></p>
-                        <p>Call us from 9am-7pm EST (Mon-Fri).</p>
+                        <p>Call us from 10am - 9pm EST (Mon-Sat).</p>
                       </li>
                       <li>
                         <p><a href="mailto:info@groomsclub.com.com" target="_blank" title="mailto:info@groomsclub.com.com">info@groomsclub.com</a></p>
@@ -393,7 +404,11 @@
     {%- endif -%}
     <div class="header__icons">
       <div class="header_get_started_btn">
-        <a class="button button--secondary btn-small" href="{% if customer %}{{ settings.create_event_url }}{% else %}{{ routes.account_register_url }}{% endif %}">{% unless customer %}{{ settings.create_event_before_login_btn_text }}{% else %}{{ settings.create_event_after_login_btn_text }}{% endunless %}</a>
+        {% if customer %}
+          <span class="button button--secondary btn-small create-event-header-button" data-href="{{ settings.create_event_url }}">{{ settings.create_event_after_login_btn_text }}</span>
+        {% else %}
+          <a class="button button--secondary btn-small" href="{% if customer %}{{ settings.create_event_url }}{% else %}{{ routes.account_register_url }}{% endif %}">{{ settings.create_event_before_login_btn_text }}</a>
+        {% endif %}
       </div>
      {% comment %} <details-modal class="header__search">
         <details>
@@ -446,6 +461,9 @@
           </span>
         </a>
       {%- endif -%}
+      <a class="link link-with-svg fav-icon" tabindex="0" title="Favorite Look" href="{%- if customer -%}/account?tab=favorite-look{%- else -%}{{ routes.account_login_url }}{%- endif -%}">
+        <i class="far fa-heart"></i>
+      </a>
         {% comment %}if cart empty -- render 'icon-cart-empty' {% endcomment %}
          {% comment %}if cart not empty  render 'icon-cart' {% endcomment %}
       <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link link--text focus-inset" id="cart-icon-bubble">

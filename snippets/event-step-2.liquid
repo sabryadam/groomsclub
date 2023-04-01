@@ -1,0 +1,161 @@
+<div class="step-content-wrapper create-event-look" data-step-content-wrap="2">
+  <div class="page-width-inner-wrapper">
+    <h4 class="section-title xs-show">Create Look</h4>
+    <div class="event-block-wrap">
+      {% if section.settings.create_look_title != blank %}
+        <h3 class="heading">{{ section.settings.create_look_title }}</h3>
+      {% endif %}
+      <div class="box-wrap"> 
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'event_look' -%}
+            <div class="Squer-radio-button-inner box-inner-wrap popup-button {% if block.settings.create_look_title == 'Suit Customizer' %}customise-look-button-for-add-look-into-event{% endif %}" data-href="/pages/customize-your-look?light-grey-suit=41097419653306&light-grey-jacket=41097359065274&light-grey-pants-1=41097369813178&light-grey-vest-1=41097382527162" data-title="{{ block.settings.create_look_title | downcase | handleize }}">
+              <div class="checkmark">
+                {% if block.settings.create_look_icon != blank %}
+                  <div class="event-type-icon icon-wrap">
+                    <img src="{{ block.settings.create_look_icon | img_url : 'master' }}" alt="{{ block.settings.create_look_title }}" />
+                  </div>
+                {% endif %}
+                {% if block.settings.create_look_title != blank %}
+                  <h3 class="event-type-title">
+                    {{ block.settings.create_look_title }}
+                  </h3>
+                {% endif %}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+    <div class="show-look-from-event-wrapper" style="display: none;">
+      <header>
+        <button class="add-look-wrapper">+ Add New Look</button>
+      </header>
+      <div class="event-look-inner-wrapper"></div>
+    </div>
+    <div class="modal-wrapper" data-target="choose-from-favorite">
+      <div class="choose-form-favorite modal-wrapper-inner-wrapper" id="choose-form-favorite">
+        <h4 class="title">
+          <span>Choose from favorite</span>
+          <span class="close-icon">
+            <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/close_1.png" alt="close-icon" />
+          </span>
+        </h4>
+        <div class="product-wrapper"></div>
+      </div>
+    </div>
+    <div class="modal-wrapper" data-target="browse-top-looks">
+      <div class="browse-top-looks modal-wrapper-inner-wrapper" id="browser-top-looks">
+        <h4 class="title">
+          <span>BROWSE TOP LOOKS</span>
+          <span class="close-icon">
+            <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/close_1.png" alt="close-icon" />
+          </span>
+        </h4>
+        <div class="product-wrapper">
+          {%- assign top_look_collection = collections[section.settings.top_look_collections] -%}
+          {%- paginate top_look_collection.products by 2  -%}
+            {%- for product in top_look_collection.products -%}
+              <div class="product-card" data-name="{{product.title}}">
+                <div class="img">
+                  <a href="{{ product.url }}" target="_blank" tabindex="0" title="{{ product.title}}">
+                    <img src="{{ product.featured_image | product_img_url : 'master' }}" alt="{{ product.title }}" />
+                  </a>
+                </div>
+                <div class="product-info">
+                  <div class="bundle-product-wrapper">
+                    {%- assign suitProdHandle = product.metafields.my_fields.jacket_pants_title | downcase | handleize | strip -%}
+                    {%- assign suitProdu = all_products[suitProdHandle] -%}
+                    {%- assign looksProductType =  product.type %}
+                    {%- if product.type == 'suit' or product.type == 'Suit' -%} 
+                      {%- assign looksProductType =  'looks' %}
+                    {%- endif -%}
+                    <div class="product-data-card-wrap product-data-card" data-product-handle="{{ suitProdHandle }}" data-product-type="{{ looksProductType }}">
+                      <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ suitProdu.id }}">
+                      <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ suitProdu.selected_or_first_available_variant.id }}">
+                      <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ suitProdHandle}}">
+                      <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ suitProdu.selected_or_first_available_variant.id }}">
+                      <input type="hidden" name="looks-product-main-image" class="looks-product-main-image" value="{{ product.featured_image | img_url: 'master' }}">
+                    </div>
+                    {% assign productHandleArrVarHandle = product.metafields.custom_look.products-0 %}
+                    {% assign producthandleVarMeta = productHandleArrVarHandle | split : ',' %}
+                    {%- for productItem in producthandleVarMeta -%}
+                      {%- assign productHandle = all_products[productItem] -%}
+                      {%- assign productSelectedType  = productHandle.type | downcase -%}
+                      {%- unless productHandle == blank -%}
+                        <div class="product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
+                          <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
+                          <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ productHandle.selected_or_first_available_variant.id }}">
+                          <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
+                          <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ productHandle.selected_or_first_available_variant.id }}">
+                        </div>
+                      {%- endunless -%}
+                    {%- endfor -%}
+                    {% assign customLookProducts = product.metafields.custom_look %}
+                    {%- assign customLookProductsVar = false -%}
+                    {%- if customLookProducts.size > 0 -%}
+                      {%- assign customLookProductsVar = true -%}
+                    {%- endif -%}
+                    {%- if customLookProductsVar -%}
+                      {%- for i in (i..customLookProducts.size) -%}
+                        {%- assign customLookProd = 'products-' | append : i -%}
+                        {% assign productHandleArr = product.metafields.custom_look[customLookProd] %}
+                        {%- if productHandleArr contains '?variant=' -%}
+                          {%- assign productHandleVal = productHandleArr | split : ',' -%}
+                          {%- for producthandleitem in productHandleVal -%}
+                            {%- assign accessoriesProdHandle = producthandleitem | split: '?' | first -%}
+                            {%- assign accessoriesProdVarId = producthandleitem | split: '?' | last | remove: 'variant=' | plus: 0 -%}
+                            {%- assign productHandle = all_products[accessoriesProdHandle] -%}
+                            <div class="product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
+                              <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
+                              <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ accessoriesProdVarId }}">
+                              <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
+                              <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ accessoriesProdVarId }}">
+                            </div>
+                          {% endfor %}
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+                  <h4 class="product-title">{{ product.title }}</h4>
+                  <p class="product-price">Starting at {{ product.price | money }}</p>
+                  <p class="taxes-text">Price includes suit jacket and pants</p>
+                  <button class="button button--secondary look-added-into-event" data-text="Adding...">Add To Event</button>
+                </div>
+              </div>
+            {%- endfor -%}
+            <div class="pagination-custom">
+              {% if paginate.previous %}
+                {% assign prev_page = paginate.prev.url | split : '?' | last  %}
+                <button class="button button--secondary custom-paginate-next" data-hrefhref="{{ top_look_collection.url }}?page={{ paginated_products.previous_page }}" title="{{ paginate.prev.title }}">Previous</a>
+              {% endif %}
+              {% if paginate.next  %}
+                {% assign next_page = paginate.next.url | split : '?' | last  %}
+                <button class="button button--secondary custom-paginate-next" data-href="{{ top_look_collection.url }}?{{ next_page }}&view=get-data" title="{{ paginate.next.title }}">Next</button>
+              {% endif %}
+            </div>
+          {%- endpaginate -%}
+        </div>
+      </div>
+    </div>
+    <div class="button-wrapper">
+      <button type="button" class="btn-wrap button--secondary previous-button">
+        <span class="icon">
+          <img class="blue-icon" src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/previous-blue-icon.png?v=1675601344" width="22" height="22" alt="Next Arrow" />
+          <img class="white-icon" src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/previous-white-icon.png?v=1675601344" width="22" height="22" alt="Next Arrow" />
+        </span>
+        <span class="label">
+          Previous
+        </span>
+      </button>
+      <button type="button" class="btn-wrap button--secondary next-button disabled">
+        <span class="label">
+          Next (Add Guest)
+        </span>
+        <span class="icon">
+          <img class="blue-icon" src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/next-blue-icon.png?v=1675601344" width="22" height="22" alt="Next Arrow" />
+          <img class="white-icon" src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/next-white-icon.png?v=1675601344" width="22" height="22" alt="Next Arrow" />
+        </span>
+      </button>
+    </div>
+  </div>
+</div>

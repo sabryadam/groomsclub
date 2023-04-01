@@ -50,8 +50,11 @@
   }), e(t).on("click", "[data-fancybox-share]", function () { var t, o, i = e.fancybox.getInstance(), a = i.current || null; a && ("function" === e.type(a.opts.share.url) && (t = a.opts.share.url.apply(a, [i, a])), o = a.opts.share.tpl.replace(/\{\{media\}\}/g, "image" === a.type ? encodeURIComponent(a.src) : "").replace(/\{\{url\}\}/g, encodeURIComponent(t)).replace(/\{\{url_raw\}\}/g, n(t)).replace(/\{\{descr\}\}/g, i.$caption ? encodeURIComponent(i.$caption.text()) : ""), e.fancybox.open({ src: i.translate(i, o), type: "html", opts: { touch: !1, animationEffect: !1, afterLoad: function (t, e) { i.$refs.container.one("beforeClose.fb", function () { t.close(null, 0) }), e.$content.find(".fancybox-share__button").click(function () { return window.open(this.href, "Share", "width=550, height=450"), !1 }) }, mobile: { autoFocus: !1 } } })) })
 }(document, jQuery), function (t, e, n) { "use strict"; function o() { var e = t.location.hash.substr(1), n = e.split("-"), o = n.length > 1 && /^\+?\d+$/.test(n[n.length - 1]) ? parseInt(n.pop(-1), 10) || 1 : 1, i = n.join("-"); return { hash: e, index: o < 1 ? 1 : o, gallery: i } } function i(t) { "" !== t.gallery && n("[data-fancybox='" + n.escapeSelector(t.gallery) + "']").eq(t.index - 1).focus().trigger("click.fb-start") } function a(t) { var e, n; return !!t && (e = t.current ? t.current.opts : t.opts, "" !== (n = e.hash || (e.$orig ? e.$orig.data("fancybox") || e.$orig.data("fancybox-trigger") : "")) && n) } n.escapeSelector || (n.escapeSelector = function (t) { return (t + "").replace(/([\0-\x1f\x7f]|^-?\d)|^-$|[^\x80-\uFFFF\w-]/g, function (t, e) { return e ? "\0" === t ? "�" : t.slice(0, -1) + "\\" + t.charCodeAt(t.length - 1).toString(16) + " " : "\\" + t }) }), n(function () { !1 !== n.fancybox.defaults.hash && (n(e).on({ "onInit.fb": function (t, e) { var n, i; !1 !== e.group[e.currIndex].opts.hash && (n = o(), (i = a(e)) && n.gallery && i == n.gallery && (e.currIndex = n.index - 1)) }, "beforeShow.fb": function (n, o, i, s) { var r; i && !1 !== i.opts.hash && (r = a(o)) && (o.currentHash = r + (o.group.length > 1 ? "-" + (i.index + 1) : ""), t.location.hash !== "#" + o.currentHash && (s && !o.origHash && (o.origHash = t.location.hash), o.hashTimer && clearTimeout(o.hashTimer), o.hashTimer = setTimeout(function () { "replaceState" in t.history ? (t.history[s ? "pushState" : "replaceState"]({}, e.title, t.location.pathname + t.location.search + "#" + o.currentHash), s && (o.hasCreatedHistory = !0)) : t.location.hash = o.currentHash, o.hashTimer = null }, 300))) }, "beforeClose.fb": function (n, o, i) { i && !1 !== i.opts.hash && (clearTimeout(o.hashTimer), o.currentHash && o.hasCreatedHistory ? t.history.back() : o.currentHash && ("replaceState" in t.history ? t.history.replaceState({}, e.title, t.location.pathname + t.location.search + (o.origHash || "")) : t.location.hash = o.origHash), o.currentHash = null) } }), n(t).on("hashchange.fb", function () { var t = o(), e = null; n.each(n(".fancybox-container").get().reverse(), function (t, o) { var i = n(o).data("FancyBox"); if (i && i.currentHash) return e = i, !1 }), e ? e.currentHash === t.gallery + "-" + t.index || 1 === t.index && e.currentHash == t.gallery || (e.currentHash = null, e.close()) : "" !== t.gallery && i(t) }), setTimeout(function () { n.fancybox.getInstance() || i(o()) }, 50)) }) }(window, document, jQuery), function (t, e) { "use strict"; var n = (new Date).getTime(); e(t).on({ "onInit.fb": function (t, e, o) { e.$refs.stage.on("mousewheel DOMMouseScroll wheel MozMousePixelScroll", function (t) { var o = e.current, i = (new Date).getTime(); e.group.length < 2 || !1 === o.opts.wheel || "auto" === o.opts.wheel && "image" !== o.type || (t.preventDefault(), t.stopPropagation(), o.$slide.hasClass("fancybox-animated") || (t = t.originalEvent || t, i - n < 250 || (n = i, e[(-t.deltaY || -t.deltaX || t.wheelDelta || -t.detail) < 0 ? "next" : "previous"]()))) }) } }) }(document, jQuery);
 
-
+theme_custom.removeLocalStorage = function(){
+  localStorage.clear();
+}
 theme_custom.base_url = theme_custom.api_base_url;
+
 // DatePicker
 theme_custom.datePicker = function ($this) {
   var count = 0;
@@ -160,7 +163,6 @@ theme_custom.getVariantData = function (parentEl) {
    //$(".product-form .bundle-product-wrapper").find(".product-data-card[data-product-type="+producttyped+"]").find(".single-option-selector option[data-var-title="+varintTitle+"]").attr("selected",true);
   selectedOption = parent.find(`.single-option-selector option[data-var-title="${varintTitle}"]`);
  // $(`[data-product-id="${productId}"]`).attr('selected', false);
-// console.log($(".product-data-card[data-product-type="+producttyped+"]"));
   //selectedOption.attr('selected', true);
   variantPrice = selectedOption.attr('data-variant-price');
   variantId = selectedOption.attr('value');
@@ -181,8 +183,15 @@ theme_custom.getVariantData = function (parentEl) {
       parent.find(".error-message").text('Please select the size!').show();
       parent.find('.product-block-wrap .error-message').addClass("error-show");
     } else {
-      parent.find(".error-message").text('Product is not available for that specific size!').show();
-      parent.find('.product-block-wrap .error-message').addClass("error-show");
+      var parentType = parent.attr("data-product-type");
+      if(parentType=='jacket'){
+        $(`.product-variant-wrap[data-product-type="jacket"]`).find(".error-message").addClass("error-show").text('Product is not available for that specific size!').show();
+      } else if (parentType=='pants') {
+        $(`.product-variant-wrap[data-product-type="pants"]`).find(".error-message").addClass("error-show").text('Product is not available for that specific size!').show();
+      } else {
+        parent.find(".error-message").text('Product is not available for that specific size!').show();
+        parent.find('.product-block-wrap .error-message').addClass("error-show");
+      }
     }
   } else {
     parent.find('.pdp-updates-button button').removeClass('disabled');
@@ -411,6 +420,7 @@ theme_custom.updateProfileImage = function (that) {
           'color': 'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -512,7 +522,6 @@ theme_custom.Shopify = {
 theme_custom.IconWithTextSlider = function () {
   if ($(window).width() < 768) {
     $('.icontextblock_container').on('init', function (event, slick) {
-      // console.log("slick initialized");
        // set this slider as const for use in set time out
       const slider = this;
         
@@ -553,7 +562,7 @@ theme_custom.featureLooksSlider = function () {
   $('.feature-looks-slider').slick({
     dots: false,
     arrows: true,
-    infinite: true,
+    infinite: false,
     autoplay: false,
     prevArrow: "<img alt='slider-prev' class='slick-prev pull-left' src='https://cdn.shopify.com/s/files/1/0588/4700/2812/files/slider_arrow_left.png?v=1631874486'>",
     nextArrow: "<img alt='slider-next' class='slick-next pull-right' src='https://cdn.shopify.com/s/files/1/0588/4700/2812/files/slider_arrow_right.png?v=1631874485'>",
@@ -569,7 +578,7 @@ theme_custom.featureLooksSlider = function () {
       }
     },
     {
-      breakpoint: 300,
+      breakpoint: 767,
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1
@@ -1127,22 +1136,27 @@ theme_custom.submitEvent = function () {
 }
 // theme_custom.clickEvent
 theme_custom.clickEvent = function () {
+
+  $(document).on("click", ".black-bg",function(){
+    $(".header__icon--menu").click() 
+  });
+  
   // Top look fav and event click on user has not logged 
   $(document).on("click",".event-or-fav-when-user-has-not-logged", function(){
     localStorage.setItem("event-or-fav-when-user-has-not-logged","true");
     localStorage.setItem("previous-page-link","true");
-    localStorage.setItem("previous-page-link",window.location.href);
-    window.location.href = `${$(this).attr("data-href")}?checkout_url=${window.location.href}`;
+    localStorage.setItem("page-link",window.location.href);
+    window.location.href = $(this).attr("data-href");
   }); 
 
-
-  $(document).on("click",".event-or-fav-when-user-has-not-logged", function(e){
-    e.preventDefault();
-    // localStorage.setItem("event-or-fav-when-user-has-not-logged","true");
-    // localStorage.setItem("previous-page-link","true");
-    // localStorage.setItem("previous-page-link",window.location.href);
-    window.location.href = `${$(this).attr("href")}?prev_url=${window.location.href}`;
-  }); 
+  // create-event-header-button 
+  $(document).on("click",".create-event-header-button", function(){
+    if(localStorage.getItem("set-event-id")!= null){
+      localStorage.removeItem("set-event-id");
+    }
+    var buttonLink = $(this).data("href");
+    window.location.href = buttonLink;
+  }) 
 
   // event page 
   $(document).on("click", "#eventevent-type .Squer-radio-button-inner, #eventupdate-event-type .Squer-radio-button-inner ", function () {
@@ -1355,10 +1369,7 @@ theme_custom.clickEvent = function () {
       success: function () {
         setTimeout(() => {
           setCookie("fit-finder-data", '');
-          localStorage.removeItem("save-fit-finder-flag");
-          localStorage.removeItem("edit-fit-finder");
-          localStorage.removeItem("save-fit-finder-flag-replace");
-          localStorage.removeItem("userHasLogged");
+          theme_custom.removeLocalStorage(); 
           window.location.href = '/account/logout';
         }, 100);
       },
@@ -1470,17 +1481,21 @@ theme_custom.clickEvent = function () {
           $(this).addClass("disable");
         },
         success: function (result) {
-          // console.log('create event result',result);
           if (result.success) {
             $('.api_error').addClass("success-event").show().html(result.message);
             setTimeout(function () {
               button.removeClass("disable");
               window.location.href = '/account';
             }, 1500)
+          } else {
+            $('.api_error').show().html(`${xhr.responseJSON.data.event_date[i]}`);
+            setTimeout(function () {
+              $('.api_error').fadeOut();
+              button.removeClass("disable");
+            }, 10000);
           }
         },
         error: function (xhr, status, error) {
-          // console.log('create event error',error);
           button.removeClass("disable");
           if (xhr.responseJSON.message == 'Token is invalid or expired.') {
             $('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
@@ -1488,6 +1503,7 @@ theme_custom.clickEvent = function () {
               'color': 'red'
             });
             setTimeout(() => {
+              theme_custom.removeLocalStorage();
               window.location.href = '/account/logout';
             }, 5000);
           } else {
@@ -1498,13 +1514,19 @@ theme_custom.clickEvent = function () {
                   event_date_msg += `<span>${xhr.responseJSON.data.event_date[i]}</span>`;
                 }
               } else {
-                for (let i = 0; i < xhr.responseJSON.data.length; i++) {
-                  var errorMsg = xhr.responseJSON.data[i];
-                  var membererror = '';
-                  $.each(errorMsg, function (key, value) {
-                    membererror += `<p><b style="text-transform: uppercase;">${key}</b>: ${value}</p>`;
-                  })
-                  event_date_msg += `<div>${membererror}</div>`;
+                if(xhr.responseJSON.data.length > 0){
+                  for (let i = 0; i < xhr.responseJSON.data.length; i++) {
+                    var errorMsg = xhr.responseJSON.data[i];
+                    var membererror = '';
+                    $.each(errorMsg, function (key, value) {
+                      membererror += `<p><b style="text-transform: uppercase;">${key}</b>: ${value}</p>`;
+                    })
+                    event_date_msg += `<div>${membererror}</div>`;
+                  }
+                } else {
+                  for (let i = 0; i < xhr.responseJSON.data.members.length; i++) {
+                    event_date_msg += `<span>${xhr.responseJSON.data.members[i]}</span>`;
+                  }
                 }
               }
             } else {
@@ -1542,20 +1564,41 @@ theme_custom.changeEvent = function () {
     }
   });
 
+  $('input[type=radio][name=is_host_paying_update]').change(function () {
+    $(this).closest(".custom-checkobx").find(".form-error").hide();
+    if($(this).closest(".custom-checkobx").find('[value="I Pay"]').prop('checked')){
+      $(".payment-confirmation-popup").addClass('model-open');
+      $('body').addClass("body_fixed");
+      // $.fancybox.close();
+      $('.fancybox-container').addClass('hidden');
+    }
+  });
+
   $(document).on('click', '.payment-confirm-btn-main #i-pay', function (e) {
     $('.fancybox-container').removeClass('hidden');
     $(".payment-confirmation-popup").removeClass('model-open');
     $('body').removeClass("body_fixed");
-    $(".invite-another-member-popup-wrapper").find(`input[name='is_host_paying'][value="I Pay"]`).prop('checked', true);
-    $(".event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying'][value="I Pay"]`).prop('checked', true);
+    if($('[data-target="update-guest-popup"]').hasClass('active')){
+      $("[data-target='update-guest-popup'] .invite-another-member-popup-wrapper").find(`input[name='is_host_paying_update'][value="I Pay"]`).prop('checked', true);
+      $("[data-target='update-guest-popup'] .event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying_update'][value="I Pay"]`).prop('checked', true);
+    }else{
+      $(".invite-another-member-popup-wrapper").find(`input[name='is_host_paying'][value="I Pay"]`).prop('checked', true);
+      $(".event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying'][value="I Pay"]`).prop('checked', true);
+    }
+    
   });
 
   $(document).on('click', '.payment-confirm-btn-main #they-pay', function (e) {
     $('.fancybox-container').removeClass('hidden');
     $(".payment-confirmation-popup").removeClass('model-open');
     $('body').removeClass("body_fixed");
-    $(".invite-another-member-popup-wrapper").find(`input[name='is_host_paying'][value="They Pay"]`).prop('checked', true);
-    $(".event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying'][value="They Pay"]`).prop('checked', true);
+    if($('[data-target="update-guest-popup"]').hasClass('active')){
+      $("[data-target='update-guest-popup'] .invite-another-member-popup-wrapper").find(`input[name='is_host_paying_update'][value="They Pay"]`).prop('checked', true);
+      $("[data-target='update-guest-popup'] .event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying_update'][value="They Pay"]`).prop('checked', true);
+    }else{
+      $(".invite-another-member-popup-wrapper").find(`input[name='is_host_paying'][value="They Pay"]`).prop('checked', true);
+      $(".event-person-form_section_wrap .person_form_wrap").find(`input[name='is_host_paying'][value="They Pay"]`).prop('checked', true);
+    }
   });
   $(document).on("change", "#imageUpload", function () {
     theme_custom.previewImage(this);

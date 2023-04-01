@@ -380,6 +380,7 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
           'color':'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -536,6 +537,7 @@ theme_custom.getFitFinderData = function(payBy){
           'color':'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
@@ -603,6 +605,7 @@ theme_custom.getEventDataForHomeTryOn = function (eventId) {
           'color': 'red'
         });
         setTimeout(() => {
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 5000);
       } else {
