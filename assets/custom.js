@@ -52,6 +52,7 @@
 
 theme_custom.removeLocalStorage = function(){
   localStorage.clear();
+  setCookie("fit-finder-data", '');
 }
 theme_custom.base_url = theme_custom.api_base_url;
 
@@ -1369,7 +1370,7 @@ theme_custom.clickEvent = function () {
       success: function () {
         setTimeout(() => {
           setCookie("fit-finder-data", '');
-          theme_custom.removeLocalStorage(); 
+          theme_custom.removeLocalStorage();
           window.location.href = '/account/logout';
         }, 100);
       },
