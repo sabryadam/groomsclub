@@ -683,6 +683,11 @@ function deletefavoritelooks(looksoid) {
 // edit-favorite-look-button page redirect 
 $(document).on("click", ".edit-favorite-look-button", function () {
     var getRediectUrl = $(this).attr("data-href");
+    
+    localStorage.removeItem("customize-from-event");
+    localStorage.removeItem("eventLookName");
+    localStorage.removeItem("eventLookId");
+    
     localStorage.setItem("customizerlookFrom", "exiting-looks");
     localStorage.setItem("customizerlookUrl", getRediectUrl.split("?")[1]);
     localStorage.setItem("editLookId",$(this).attr("edit-look-id"));

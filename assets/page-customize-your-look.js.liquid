@@ -1546,6 +1546,9 @@ theme_custom.customize_product_clickEvent = function () {
     // } 
 
     button.text("Updated");
+    if($(".overview-product .link.edit-item[data-button-target='select-size']").length > 0) {
+      $(`[data-tab-content="overview"]`).find(".add-to-cart-button").removeClass("disabled");
+    }
     $(".fancybox-button").click();
     if(productType == 'neckties' || productType == 'hanky' || productType == 'bow-ties' || productType == 'tie-bar' || productType == 'belt'){
       setTimeout(() => {
