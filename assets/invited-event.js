@@ -593,7 +593,13 @@ theme_custom.getEventDetails = function(eventId) {
         const d = new Date(getDateFormat);
         var dateformat = monthNames[d.getMonth()] + " " + d.getDate() + "," + " " + d.getFullYear();
         $('#weddingeventdate').html(dateformat);
-        $('.event-edit-hosted .user-name').html(localStorage.getItem("hosted-by"));
+
+        let user = result?.data?.event_members.find((user)=> user.is_host == 1);
+        if(user){
+          $('.event-edit-hosted .user-name').html(`${user.first_name} ${user.last_name}`);
+        }else{
+          $('.event-edit-hosted .user-name').html(localStorage.getItem("hosted-by"));
+        }
         var weddingeventarray = result.data.event_members,
             eventNewArray = [],
             editEventData = '';
@@ -831,7 +837,7 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
     success: function (result) {
       var htmlBlock = '';
       theme_custom.discount_code = result.data.event_looks[0].discount_code;
-      if( result.message == 'No looks found'){
+      if( result.message == 'No looks found' || result?.data?.event_looks?.length <= 0){
         htmlBlock += `<p class="text_center">We did't not found any look you have assigned!</p>`;
         $(".assigned-look-back").html(htmlBlock).removeClass("hidden");
         // $(".account-event-step[data-event-step='verified-fit']").hide();
