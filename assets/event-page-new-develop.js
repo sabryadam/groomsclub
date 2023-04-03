@@ -1766,6 +1766,7 @@ theme_custom.eventPageClickEvent = function (){
       $(`.modal-wrapper[data-target="delete-look-have-member"]`).addClass("active");
       return false;
     }
+    localStorage.removeItem("customise-look-button-for-add-look-into-event");
     localStorage.setItem("customizerlookUrl", $(this).attr("data-href").split('?')[1]);
     localStorage.setItem("customize-from-event", "true");
     localStorage.setItem("eventLookId", $(this).attr("look-mapping-id"));
@@ -1775,6 +1776,9 @@ theme_custom.eventPageClickEvent = function (){
 
   // customise-look-button-for-add-look-into-event
   $(document).on("click", ".customise-look-button-for-add-look-into-event", function () {
+    debugger;
+    localStorage.removeItem("customize-from-event");
+    localStorage.removeItem("eventLookName");
     localStorage.setItem("customizerlookUrl", $(this).attr("data-href").split('?')[1]);
     localStorage.setItem("customise-look-button-for-add-look-into-event", "true");
     window.location.href = $(this).attr("data-href");
@@ -1990,8 +1994,7 @@ theme_custom.getEventDetails = function () {
       eventDataObj.eventType = result.data.event_type;
       eventDataObj.eventDate = result.data.event_date;
       eventDataObj.eventRole = result.data.event_role;
-// debugger;
-      if(new Date('4-14-23') > new Date(eventDataObj.eventDate)){
+      if(new Date() > new Date(eventDataObj.eventDate)){
         theme_custom.eventExpire = true;
         theme_custom.eventExpired(result.data);
       }

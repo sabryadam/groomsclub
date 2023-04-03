@@ -198,10 +198,12 @@ theme_custom.addLookToEvent = function (eventButton) {
     return false;
   } else {
 
-    if(window.location.pathname != '/pages/customize-your-look'){
+    // if(window.location.pathname != '/pages/customize-your-look'){
       var productDataCardArr = $(".product-data-card");
       theme_custom.customizeURLData  = '';
-      theme_custom.customizeURLData += $(`.product-data-card-wrap[data-product-type="looks"]`).find(".looks-product-handle").val() + '=' + $(`.product-data-card-wrap[data-product-type="looks"]`).find(".looks-product-var-id").val() + '&';
+      if(window.location.pathname != '/pages/customize-your-look'){
+        theme_custom.customizeURLData += $(`.product-data-card-wrap[data-product-type="looks"]`).find(".looks-product-handle").val() + '=' + $(`.product-data-card-wrap[data-product-type="looks"]`).find(".looks-product-var-id").val() + '&';
+      }
       $.each(productDataCardArr, function(index, value) {
         var customizeURL = ''
         var isLastElement = index == productDataCardArr.length -1;
@@ -212,14 +214,20 @@ theme_custom.addLookToEvent = function (eventButton) {
         }
         theme_custom.customizeURLData += customizeURL;
       });
-    }
+    // }
 
     var lookName = eventButton.closest(".create-event-look").find("#look-name").val(),
       eventId = eventButton.closest(".create-event-look").find("#event-id").val(),
-      lookUrl = window.location.href;
+      // lookUrl = window.location.href;
+      lookUrl = `/pages/customize-your-look?${theme_custom.customizeURLData}`;
       produArray = theme_custom.newArray;
       lookName = lookName.trim(0);
     let lookNameExist = theme_custom.selectedEventLooks.find((item)=> item.name.toLowerCase() == lookName.toLowerCase());
+    if($(".template-page-customize-your-look").length > 0) {
+      if(localStorage.getItem("customize-from-event") != null){
+        lookNameExist = false;
+      }
+    }
     if(lookNameExist){
       $(eventButton).closest(".create-event-look").find("select").next(".form-error").text("Look name already exist. Please Select another Event Name!").addClass("active");
     }else{
@@ -344,6 +352,7 @@ theme_custom.LookImageCustomizer = function (getEventId, lookID, button) {
           localStorage.removeItem("eventLookId");
           localStorage.removeItem("eventLookName");
           localStorage.removeItem("customizerlookUrl");
+          localStorage.removeItem("customise-look-button-for-add-look-into-event");
           button.removeClass("disabled");
           button.find(".button-title").text("Look Updated");
           button.find(".loading-overlay").addClass("hidden");

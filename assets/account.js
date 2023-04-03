@@ -277,7 +277,6 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
             var eventsObj = [myEvents,otherEvents];
             var pageCount = eventBlockCount / limit;
             if (result.success) {    
-                debugger;   
                 let currentDate = new Date();
                 if (result.data.events.length > 0) {
                     for(let i = 0;i<eventsObj.length;i++){
@@ -363,15 +362,20 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                             paginationWrapper.append(`<span class="count-number ${pageActiveClass}" data-page="${j+1}"> ${(j + 1)}</span>`)
                         }
                         let containerDiv = $(`<div class="event-container-wrapper event-container-${i} ${activeClass}"></div>`)
+                        containerDiv.append(append_event_html);
+                        if(paginateNumber>1){
+                            containerDiv.append(paginationWrapper);
+                        }                    
+                        // append_event_html += `<div class="event-pagination"><span class="event-pre ${pre_class}" data-page="${pre_page-1}">Pre</span> <span class="event-next ${next_class}" data-page="${next_page}">Next</span></div>`;
+                        if( i == 0){
+                            $('.events-main-container').html("");
+                        }
+                        $('.events-main-container').hide().append(containerDiv).slideDown('slow');
                         if($(".event-container-wrapper.event-container-0").find(".events-container").length == 0){
                             $('.event-container-wrapper.event-container-0').prepend(`<p style="text-align:center">You have not created any Event.</p>`);
                         }
                         if($(".event-container-wrapper.event-container-1").find(".events-container").length == 0){
-                            $('.event-container-wrapper.event-container-1').prepend(`<p style="text-align:center">No Event found</p>`);
-                        }
-                        containerDiv.append(append_event_html);
-                        if(paginateNumber>1){
-                            containerDiv.append(paginationWrapper);
+                            $('.event-container-wrapper.event-container-1').append(`<p style="text-align:center">No Event found</p>`);
                         }
                         if(i == 0){
                             containerDiv.append(`<div class="add-new-event-btn btn-wrapper">
@@ -379,16 +383,9 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                         </div>`)
                         }else{
                             containerDiv.append(`<div class="add-new-event-btn btn-wrapper">
-                            <a class="button button--primary continue-btn hidden" href="/pages/create-event">SHOP COLLECTION <i class="fas fa-arrow-right"></i></a>
+                            <a class="button button--primary continue-btn" href="/pages/create-event">SHOP COLLECTION <i class="fas fa-arrow-right"></i></a>
                           </div>`)
                         }
-                        
-                                            
-                        // append_event_html += `<div class="event-pagination"><span class="event-pre ${pre_class}" data-page="${pre_page-1}">Pre</span> <span class="event-next ${next_class}" data-page="${next_page}">Next</span></div>`;
-                       if( i == 0){
-                        $('.events-main-container').html("");
-                       }
-                        $('.events-main-container').hide().append(containerDiv).slideDown('slow');
                     }
                     $(".event-list-top").removeClass("hidden");
                    
@@ -405,9 +402,9 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                                             </div>
                                         </div>
                                         <div class="event-container-wrapper event-container-1">
-                                            <div class="add-new-event-btn btn-wrapper">
+                                            <div class="add-new-event-btn btn-wrapper error-not-found">
                                                 <p style="text-align:center">No Event found</p>
-                                                <span class="button button--primary btn-small create-event-header-button" data-href="/pages/create-event" style="margin: 0 auto;opacity:0; visibility:hidden">CREATE NEW EVENT</span>
+                                                <a class="button button--primary continue-btn" href="/pages/create-event">SHOP COLLECTION <i class="fas fa-arrow-right"></i></a>
                                             </div>
                                         </div>`
                     // var html = `<div class="empty_message sizeempty_msg">No event found</div><a href="/pages/create-event" class="button--primary button" style="display: inline-block;margin: 30px auto;">Create Event</a>`;
