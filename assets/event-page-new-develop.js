@@ -1459,6 +1459,7 @@ theme_custom.eventPageClickEvent = function () {
       $(`.modal-wrapper[data-target="delete-look-have-member"]`).addClass("active");
       return false;
     }
+    localStorage.removeItem("customise-look-button-for-add-look-into-event");
     localStorage.setItem("customizerlookUrl", $(this).attr("data-href").split('?')[1]);
     localStorage.setItem("customize-from-event", "true");
     localStorage.setItem("eventLookId", $(this).attr("look-mapping-id"));
@@ -1470,6 +1471,7 @@ theme_custom.eventPageClickEvent = function () {
   $(document).on("click", ".customise-look-button-for-add-look-into-event", function () {
     localStorage.setItem("customizerlookUrl", $(this).attr("data-href").split('?')[1]);
     localStorage.setItem("customise-look-button-for-add-look-into-event", "true");
+    localStorage.removeItem("customize-from-event");    
     window.location.href = $(this).attr("data-href");
   })
 

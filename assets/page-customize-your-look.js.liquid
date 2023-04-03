@@ -2228,7 +2228,7 @@ theme_custom.fitFinderData = function () {
 theme_custom.checkEditLook = function(){
   if(localStorage.getItem("eventLookName") != null && localStorage.getItem("eventLookId") != null && localStorage.getItem("customize-from-event") != null){
     $(`[data-tab-content='overview']`).find('.add-to-event span').text("Update Look and Continue");
-    $(`[data-tab-content='overview']`).find(`.wishlist-add-event-part .wishlist-icon-wrap, .product-share-button, .button-wrapper`).hide();
+    $(`[data-tab-content='overview']`).find(`.wishlist-add-event-part .wishlist-icon-wrap, .product-share-button, .product-info-footer .button-wrapper`).hide();
   } 
   if(localStorage.getItem("editLookName") != null && localStorage.getItem("editLookId") != null && localStorage.getItem("look-for-favourite") != null){
     $(`[data-tab-content='overview']`).find('.wishlist-icon-wrap').addClass("update-look-and-countinue");    
@@ -2236,12 +2236,12 @@ theme_custom.checkEditLook = function(){
     $(`[data-tab-content='overview']`).find('.wishlist-icon-wrap .favorite-event-button span').text("Update Look and Continue");
     $(`.favourite-look-wrapper`).find('.favorite-event-api-button').attr('data-text','Updating Look');
     $(`.favourite-look-wrapper`).find('.favorite-event-api-button .button-title').text('Update Look');
-    $(`[data-tab-content='overview']`).find(`.wishlist-add-event-part .add-to-event, .product-share-button, .button-wrapper`).hide();
+    $(`[data-tab-content='overview']`).find(`.wishlist-add-event-part .add-to-event, .product-share-button, .product-info-footer .button-wrapper`).hide();
   }
   if(localStorage.getItem("set-event-id") != null && localStorage.getItem("customise-look-button-for-add-look-into-event")){
     $(`[data-tab-content='overview']`).find('.wishlist-add-event-part .add-to-event').addClass("add-look-and-countinue");
     $(`[data-tab-content='overview']`).find('.wishlist-add-event-part .add-to-event span').text("Add Look and Continue");
-    $(`[data-tab-content='overview']`).find(`.wishlist-add-event-part .wishlist-icon-wrap, .product-share-button, .button-wrapper`).hide();
+    $(`[data-tab-content='overview']`).find(`.wishlist-add-event-part .wishlist-icon-wrap, .product-share-button, .product-info-footer .button-wrapper`).hide();
   }
 }
 

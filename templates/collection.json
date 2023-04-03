@@ -10,7 +10,7 @@
     "product-grid": {
       "type": "main-collection-product-grid",
       "settings": {
-        "products_per_page": 9,
+        "products_per_page": 12,
         "image_ratio": "adapt",
         "show_secondary_image": true,
         "add_image_padding": false,
@@ -26,7 +26,8 @@
           "type": "heading",
           "settings": {
             "heading": "Sizing & Fit",
-            "heading_count": ""
+            "heading_count": "",
+            "show_icon": false
           }
         },
         "16372167119bc1ad06-1": {
@@ -40,6 +41,7 @@
           "settings": {
             "button_label": "Find Yout Fit",
             "button_link": "shopify:\/\/pages\/fit-finder",
+            "open_new_tab": false,
             "button_style_secondary": true
           }
         }
@@ -68,7 +70,8 @@
           "type": "heading",
           "settings": {
             "heading": "Customize Your Look",
-            "heading_count": ""
+            "heading_count": "",
+            "show_icon": false
           }
         },
         "16372170386cb90443-1": {
@@ -82,6 +85,7 @@
           "settings": {
             "button_label": "Try Our Customizer",
             "button_link": "shopify:\/\/pages\/customize-your-look",
+            "open_new_tab": false,
             "button_style_secondary": true
           }
         }
@@ -110,7 +114,8 @@
           "type": "heading",
           "settings": {
             "heading": "Our Top Looks",
-            "heading_count": ""
+            "heading_count": "",
+            "show_icon": false
           }
         },
         "163721722871e2a6ae-1": {
@@ -124,6 +129,7 @@
           "settings": {
             "button_label": "Browse Top Looks",
             "button_link": "shopify:\/\/collections\/looks",
+            "open_new_tab": false,
             "button_style_secondary": true
           }
         }
