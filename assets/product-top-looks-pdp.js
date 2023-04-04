@@ -798,7 +798,12 @@ theme_custom.tlpclickEvent = function(){
     } 
     var button = $(this),
     orderType = $(".order-type").val();
-    button.addClass("custom-top-look-disable");
+    button.addClass("custom-top-look-disable").addClass("disabled");
+    theme_custom.openUpsellPopup = false;
+    if(button.hasClass("up-sell-popup")){
+      theme_custom.openUpsellPopup = true;
+    }
+    console.log("Open Upsell Popup",theme_custom.openUpsellPopup);
     // if(getCookie("fit-finder-data") == ''){
     //   e.preventDefault();
     //   $('.fitfinder-err-msg.form-error').remove();
@@ -877,14 +882,21 @@ theme_custom.tlpclickEvent = function(){
             success: function() {
               button.find(".btn-title").text("Added to Cart");
               setTimeout(() => {
-                button.removeClass("custom-top-look-disable");
-                window.location.href = "/cart";
+                if(theme_custom.openUpsellPopup){
+                  $("html, body").css({
+                    "overflow" : "hidden"
+                  });
+                  $(".product-upsell-wrapper").addClass("show")
+                } else {
+                  button.removeClass("custom-top-look-disable").removeClass("disabled");
+                  window.location.href = "/cart";
+                }
               }, 2500);
             },
             error: function(xhr, status, error) {
               alert(xhr.responseJSON.description);
               button.find(".btn-title").text("Add To Cart");
-              button.removeClass("custom-top-look-disable");
+              button.removeClass("custom-top-look-disable").removeClass("disabled");
             }
           });
         }
@@ -898,14 +910,21 @@ theme_custom.tlpclickEvent = function(){
         success: function() {
           button.find(".btn-title").text("Added to Cart");
           setTimeout(() => {
-            button.removeClass("custom-top-look-disable");
-            window.location.href = "/cart";
+            if(theme_custom.openUpsellPopup){
+              $("html, body").css({
+                "overflow" : "hidden"
+              });
+              $(".product-upsell-wrapper").addClass("show");
+            } else {
+              // button.removeClass("custom-top-look-disable").removeClass("disabled");
+              window.location.href = "/cart";
+            }
           }, 2500);
         },
         error: function(xhr, status, error) {
           alert(xhr.responseJSON.description);
           button.find(".btn-title").text("Add To Cart");
-          button.removeClass("custom-top-look-disable");
+          button.removeClass("custom-top-look-disable").removeClass("disabled");
         }
       });
     }
@@ -916,6 +935,38 @@ theme_custom.tlpclickEvent = function(){
       $(this).siblings('.error_span').remove();
     }
   });
+
+  $(document).on("click",".product-upsell-wrapper .close-icon",function(){
+    $(".product-upsell-wrapper").removeClass("show");
+  });
+
+  $(document).on("click",".upsell-product-add",function(e){
+    e.preventDefault();
+    var button = $(this);
+    button.addClass("disabled").find(".btn-title").text(button.find(".btn-title").attr("data-text"));
+    var data = {
+      "id": button.closest(".product-item").find(".product-var-id").val(),
+      "quantity": 1,
+    }
+    jQuery.ajax({
+      type: 'POST',
+      url: '/cart/add.js',
+      data: data,
+      dataType: 'json',
+      success: function() {
+        setTimeout(() => {
+          button.addClass("disabled").find(".btn-title").text("ADDED");
+        }, 1000);
+      },
+      error: function(xhr, status, error) {
+        button.closest(".product-info-wrapper").append(`<p class="error-message error-show">${xhr.responseJSON.description}</p>`);
+        setTimeout(() => {
+          button.closest(".product-info-wrapper").find(".error-message").remove();
+          button.removeClass("disabled").find(".btn-title").text("ADD+");
+        }, 1000);
+      }
+    });
+  })
 
   $(document).on("click", ".add_suite_btn", function(e){
     e.preventDefault();

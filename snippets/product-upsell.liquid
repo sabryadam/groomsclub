@@ -1,0 +1,43 @@
+<div class="product-upsell-wrapper">
+  <div class="black-bg"></div>
+  <div class="prouct-upsell-inner-wrapper">
+    <h5 class="popup-heading">Add Some Accessories <span class="close-icon"><img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/cross.png?v=1680536094" alt="close icon" /></span></h5>
+    <div class="upsell-product-items-wrapper">
+      {% assign upsellProductArr = product.metafields.custom.product_page_upsell | split : ',' %}
+      {%- for upsell_product in upsellProductArr -%}
+        {% assign upsell_product_data = all_products[upsell_product] -%} 
+        <div class="product-item">
+          <input type="hidden" name="Var id" value="{{ upsell_product_data.selected_or_first_available_variant.id }}" class="product-var-id" />
+          <div class="img">
+            <img srcset="{% if upsell_product_data.featured_image.preview_image.width >= 288 %}{{ upsell_product_data.featured_image.preview_image | img_url: '288x' }} 288w,{% endif %} {% if product.featured_image.preview_image.width >= 576 %}{{ upsell_product_data.featured_image.preview_image | img_url: '576x' }} 576w,{% endif %} {% if upsell_product_data.featured_image.preview_image.width >= 550 %}{{ upsell_product_data.featured_image.preview_image | img_url: '550x' }} 550w,{% endif %} {% if upsell_product_data.featured_image.preview_image.width >= 1100 %}{{ upsell_product_data.featured_image.preview_image | img_url: '1100x' }} 1100w{% endif %}" src="{{ upsell_product_data.featured_image | img_url: '550x550' }}" loading="lazy" width="50" height="50" alt="{{ upsell_product_data.title }}" />
+          </div>
+          <div class="product-info-wrapper">
+            <p class="heading">{{ upsell_product_data.title }} <span class="product-price">{{ upsell_product_data.selected_or_first_available_variant.price | money }}</span></p>
+            <div class="swatch-wrapper-options">
+              <div class="product-custom-swatch">
+                <select class="single-option-selector hidden">
+                  {% for variant in upsell_product_data.variants %}
+                    <option data-variant-title="{{ variant.title }}" data-variant-inventory="{{ variant.inventory_quantity }}" data-variant-inventory-policy="{{ variant.inventory_management }}"  value="{{ variant.id }}" data-variant-price="{{ variant.price }}" data-variant-image="{% if variant.image == blank %}{{ productHandle.featured_media.image.src | img_url: 'master' }}{% else %}{{ variant.image.src | img_url : 'master' }}{%endif%}" data-variant-id="{{ variant.id }}" data-variant-title="{{ variant.title }}" {% unless variant.available %}disable{% endunless %} {% if current_var == variant.id %}selected{% endif %}>
+                      {{ variant.title }}
+                    </option>
+                  {%- endfor -%}
+                </select>
+                {% if upsell_product_data.available and upsell_product_data.variants.size > 1 %}
+                  {%- for product_option in upsell_product_data.options_with_values -%} 
+                    {%- render 'custom-options' with option: product_option, swatch: product_option.name, product: upsell_product_data, variantId : upsell_product_data.id, selectedOption: upsell_product_data.selected_or_first_available_variant  -%}
+                  {%- endfor -%}
+                {% endif %}
+              </div>
+            </div>
+            <button type="button" name="add" class="button button--full-width button--primary upsell-product-add">
+              <span class="btn-title" data-text="Adding...">ADD +</span>
+            </button>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+    <a href="/cart" class="button button--full-width button--primary" tabindex="0" title="Go to Cart">
+      <span class="btn-title" data-text="Adding...">Go to Cart</span>
+    </a>
+  </div>
+</div>
