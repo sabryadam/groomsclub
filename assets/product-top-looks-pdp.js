@@ -968,6 +968,43 @@ theme_custom.tlpclickEvent = function(){
     });
   })
 
+  $(document).on('change', `.upsell-product-items-wrapper input[type="radio"]`, function(){
+    var parent = $(this).closest(".product-item");
+    var selectOptionVar = parent.find('.single-option-selector option');
+    var productVariantTitle = [];
+    selectOptionVar.each(function(){
+      productVariantTitle.push($(this).attr("data-variant-title"));    
+    });
+    if(parent.find('[data-option-index="0"] input:checked').length > 0){
+      varintTitle = parent.find('[data-option-index="0"] input:checked').val();
+    }
+    if(parent.find('[data-option-index="1"] input:checked').length > 0){
+      varintTitle = varintTitle + ' / ' + parent.find('[data-option-index="1"] input:checked').val();
+    }
+    if(parent.find('[data-option-index="2"] input:checked').length > 0){
+      varintTitle = varintTitle + ' / ' + parent.find('[data-option-index="2"] input:checked').val();
+    }    
+    var selectedVar = $(`.single-option-selector option[data-variant-title="${varintTitle}"]`).val();
+    var selectedVarInventoryQty = $(`.single-option-selector option[data-variant-title="${varintTitle}"]`).attr("data-variant-inventory-qty");
+    var selectedVarInventoryPolicy = $(`.single-option-selector option[data-variant-title="${varintTitle}"]`).attr("data-variant-inventory-policy");
+    if($.inArray(varintTitle,productVariantTitle) == -1){
+      parent.find(".error-message").addClass("error-show").text("Product is not available for this specific combination");
+      parent.find(".upsell-product-add").addClass("disabled");
+    } else {
+      if(selectedVarInventoryPolicy == 'contiune'){
+      } else {
+        if(selectedVarInventoryQty <= 0){
+          parent.find(".error-message").addClass("error-show").text("This variant is Out of Stock. Please choose another variant.");
+          parent.find(".upsell-product-add").addClass("disabled");
+        } else {
+          parent.find(".error-message").removeClass("error-show").text('');
+          parent.find(".upsell-product-add").removeClass("disabled");
+          parent.find(".product-var-id").val(selectedVar);
+        }
+      }
+    }
+  })
+
   $(document).on("click", ".add_suite_btn", function(e){
     e.preventDefault();
 
