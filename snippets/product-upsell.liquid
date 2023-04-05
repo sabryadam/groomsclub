@@ -1,7 +1,13 @@
-<div class="product-upsell-wrapper">
+<div class="product-upsell-wrapper show">
   <div class="black-bg"></div>
   <div class="prouct-upsell-inner-wrapper">
-    <h5 class="popup-heading">Add Some Accessories <span class="close-icon"><img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/cross.png?v=1680536094" alt="close icon" /></span></h5>
+    <h5 class="popup-heading"> 
+      <span>Add Some Accessories</span>
+      <a href="/cart" class="button button--full-width button--link" tabindex="0" title="Go to Cart">
+        <span class="btn-title" data-text="Adding...">Go to Cart</span>
+      </a> 
+      <span class="close-icon"><img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/cross.png?v=1680536094" alt="close icon" /></span>
+    </h5>
     <div class="upsell-product-items-wrapper">
       {% assign upsellProductArr = product.metafields.custom.product_page_upsell | split : ',' %}
       {%- for upsell_product in upsellProductArr -%}
@@ -37,8 +43,5 @@
         </div>
       {%- endfor -%}
     </div>
-    <a href="/cart" class="button button--full-width button--primary" tabindex="0" title="Go to Cart">
-      <span class="btn-title" data-text="Adding...">Go to Cart</span>
-    </a>
   </div>
 </div>

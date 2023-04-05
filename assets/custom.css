@@ -998,7 +998,7 @@ select#event-id.disabled {
 	left: 50%;
 	position: absolute;
 	width: 560px;
-	height: 50vh;
+	height: 70vh;
 	display: flex;
 	flex-direction: column;
 }
@@ -1019,12 +1019,16 @@ select#event-id.disabled {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	padding-right: 40px;
 }
 .product-upsell-wrapper .prouct-upsell-inner-wrapper .popup-heading .close-icon{
 	cursor: pointer;
 	width: 15px;
 	height: 15px;
 	display: inline-block;
+	position: absolute;
+	right: 15px;
+	z-index: 1;
 }
 .product-upsell-wrapper .prouct-upsell-inner-wrapper .popup-heading .close-icon img{
 	width: 100%;
@@ -1080,6 +1084,7 @@ select#event-id.disabled {
 }
 .product-upsell-wrapper .prouct-upsell-inner-wrapper .product-item .swatch-product-wrapper{
 	display: inline-block;
+	margin: 0 3px;
 }
 .product-upsell-wrapper .prouct-upsell-inner-wrapper .product-item .swatch-wrap .swatch-product-wrapper input[type=radio]{
 	position: absolute;
@@ -1136,6 +1141,22 @@ select#event-id.disabled {
 	background-color: var(--color-foreground);
 	color: var(--color-background);
 }
+.product-upsell-wrapper .prouct-upsell-inner-wrapper .popup-heading a.button--link {
+	color: var(--color-primary);
+	font-weight: 700;
+	text-transform: uppercase;
+	border-bottom: 1px solid;
+	width: fit-content;
+	display: inline-block;
+	min-width: auto;
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 0;
+	line-height: inherit;
+	padding-bottom: 5px;
+	min-height: auto;
+	height: auto;
+}
 @media(max-width : 767px){
 	.product-upsell-wrapper .prouct-upsell-inner-wrapper{
 		transform: none;
@@ -1158,6 +1179,16 @@ select#event-id.disabled {
 		padding: 8px;
     font-size: 10px;
     height: auto;
+	}
+	.product-upsell-wrapper .product-custom-swatch .swatch.swatch-wrap{
+		display: flex;
+    overflow-y: auto;
+	}
+	.product-upsell-wrapper .product-custom-swatch .swatch.swatch-wrap::-webkit-scrollbar {
+		display: none;
+	}
+	.product-upsell-wrapper .prouct-upsell-inner-wrapper .product-item .product-custom-swatch .swatch .header{
+		display: none;
 	}
 }
 /* Upsell Product style end  */
