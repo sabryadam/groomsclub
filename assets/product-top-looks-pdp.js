@@ -881,17 +881,15 @@ theme_custom.tlpclickEvent = function(){
             dataType: 'json',
             success: function() {
               button.find(".btn-title").text("Added to Cart");
-              setTimeout(() => {
-                if(theme_custom.openUpsellPopup){
-                  $("html, body").css({
-                    "overflow" : "hidden"
-                  });
-                  $(".product-upsell-wrapper").addClass("show")
-                } else {
-                  button.removeClass("custom-top-look-disable").removeClass("disabled");
-                  window.location.href = "/cart";
-                }
-              }, 2500);
+              if(theme_custom.openUpsellPopup){
+                $("html, body").css({
+                  "overflow" : "hidden"
+                });
+                $(".product-upsell-wrapper").addClass("show")
+              } else {
+                button.removeClass("custom-top-look-disable").removeClass("disabled");
+                window.location.href = "/cart";
+              }
             },
             error: function(xhr, status, error) {
               alert(xhr.responseJSON.description);
@@ -909,17 +907,15 @@ theme_custom.tlpclickEvent = function(){
         dataType: 'json',
         success: function() {
           button.find(".btn-title").text("Added to Cart");
-          setTimeout(() => {
-            if(theme_custom.openUpsellPopup){
-              $("html, body").css({
-                "overflow" : "hidden"
-              });
-              $(".product-upsell-wrapper").addClass("show");
-            } else {
-              // button.removeClass("custom-top-look-disable").removeClass("disabled");
-              window.location.href = "/cart";
-            }
-          }, 2500);
+          if(theme_custom.openUpsellPopup){
+            $("html, body").css({
+              "overflow" : "hidden"
+            });
+            $(".product-upsell-wrapper").addClass("show");
+          } else {
+            // button.removeClass("custom-top-look-disable").removeClass("disabled");
+            window.location.href = "/cart";
+          }
         },
         error: function(xhr, status, error) {
           alert(xhr.responseJSON.description);
@@ -938,6 +934,9 @@ theme_custom.tlpclickEvent = function(){
 
   $(document).on("click",".product-upsell-wrapper .close-icon",function(){
     $(".product-upsell-wrapper").removeClass("show");
+    $("html, body").css({
+      "overflow" : ""
+    });
   });
 
   $(document).on("click",".upsell-product-add",function(e){
@@ -998,7 +997,7 @@ theme_custom.tlpclickEvent = function(){
           parent.find(".upsell-product-add").addClass("disabled");
         } else {
           parent.find(".error-message").removeClass("error-show").text('');
-          parent.find(".upsell-product-add").removeClass("disabled");
+          parent.find(".upsell-product-add").removeClass("disabled").find(".btn-title").text("ADD+");
           parent.find(".product-var-id").val(selectedVar);
         }
       }
