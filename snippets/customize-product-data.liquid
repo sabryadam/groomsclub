@@ -43,7 +43,8 @@
           data-variant-title="{{ variant.title}}"
           data-variant-featured-img="{{ variant.image.src | img_url: '1400x' }}"
           data-variant-img="{{ variant.metafields.my_fields.color_image | img_url : '1400x'}}"
-          data-variant-inventory="{{ variant.inventory_quantity }}" 
+          data-variant-inventory="{{ variant.inventory_quantity }}"
+          data-inventory-policy="{{ variant.inventory_policy }}" 
           {% unless variant.metafields.my_fields.color_image_one == blank %}
           data-variant-img-one="{{ variant.metafields.my_fields.color_image_one | img_url : '1400x'}}"
           {% endunless %}

@@ -276,7 +276,8 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
             otherEvents = otherEvents.reverse();
             var eventsObj = [myEvents,otherEvents];
             var pageCount = eventBlockCount / limit;
-            if (result.success) {       
+            if (result.success) {    
+                let currentDate = new Date();
                 if (result.data.events.length > 0) {
                     for(let i = 0;i<eventsObj.length;i++){
                         let activeClass = "";
@@ -288,7 +289,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                         let count = 1;
                         for(j=0;j<eventData.length;j++){
                             let index = (j+1);
-                            index = index % 3
+                            index = index % 3;
                             let event = eventData[j];
                             var event_picture = event.picture;
                             if (!event_picture) {
@@ -296,6 +297,11 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                             }
                             var month_name = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                             var date = new Date(event.event_date);
+                            let dateExpire = false;
+                            if(currentDate > date){
+                                dateExpire = true;
+                            }
+                            // debugger;
                             let month = month_name[date.getMonth()];
                             let day = date.getDate();
                             let ownCreated = event.hostedBy.toLowerCase() == 'me' ? true : false;
@@ -310,17 +316,31 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                             if(count == 1){
                                 eventActiveClass = "active";
                             }
-
+                            if(dateExpire){
+                                eventActiveClass += ' event-expired'  
+                            }
                             let btns = "";
                             if(!ownCreated){
                                 btns = `<div class="event-hostedby"><span>Hosted by ${event.hostedBy}</span></div>`
                             }else{
-                                btns = `<div class="event-action-btns">
-                                <span class="events-main-link event-edit-btn" data-href="${pageLink}" data-hosted-by="${event.hostedBy}" data-event-id="${event.event_id}">Edit</span>
-                                <span class="remove-event event-delete-btn" data-hosted-by="${event.hostedBy}">Delete</span>
-                            </div>`
+                                if(dateExpire){
+                                    btns = `<div class="event-action-btns">
+                                                <span class="remove-event event-delete-btn" data-hosted-by="${event.hostedBy}">Delete</span>
+                                            </div>`
+                                }else{
+                                    btns = `<div class="event-action-btns">
+                                                <span class="events-main-link event-edit-btn" data-href="${pageLink}" data-hosted-by="${event.hostedBy}" data-event-id="${event.event_id}">Edit</span>
+                                                <span class="remove-event event-delete-btn" data-hosted-by="${event.hostedBy}">Delete</span>
+                                            </div>`
+                                }
                             }
-                            append_event_html += `<div data-value="${count}" data-event-id="${event.event_id}" class="events-container ${eventActiveClass}"> <div class="event-container-date"><span>${day}</span> ${month}</div>
+                            let expiredDiv = "";
+                            if(dateExpire){
+                                expiredDiv = '<div class="account-event-ribbon ribbon-top-left"><span>Expired</span></div>'
+                            }
+                            append_event_html += `<div data-value="${count}" data-event-id="${event.event_id}" class="events-container ${eventActiveClass}"> 
+                            ${expiredDiv}
+                            <div class="event-container-date"><span>${day}</span> ${month}</div>
                                 <div class="event-container-image"><img src="${event_picture}" alt="default-event-image"></div>
                                 <div class="event-container-event-content">
                                     <div class="event-title"><span>${event.name}</span></div>
@@ -342,15 +362,20 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                             paginationWrapper.append(`<span class="count-number ${pageActiveClass}" data-page="${j+1}"> ${(j + 1)}</span>`)
                         }
                         let containerDiv = $(`<div class="event-container-wrapper event-container-${i} ${activeClass}"></div>`)
+                        containerDiv.append(append_event_html);
+                        if(paginateNumber>1){
+                            containerDiv.append(paginationWrapper);
+                        }                    
+                        // append_event_html += `<div class="event-pagination"><span class="event-pre ${pre_class}" data-page="${pre_page-1}">Pre</span> <span class="event-next ${next_class}" data-page="${next_page}">Next</span></div>`;
+                        if( i == 0){
+                            $('.events-main-container').html("");
+                        }
+                        $('.events-main-container').hide().append(containerDiv).slideDown('slow');
                         if($(".event-container-wrapper.event-container-0").find(".events-container").length == 0){
                             $('.event-container-wrapper.event-container-0').prepend(`<p style="text-align:center">You have not created any Event.</p>`);
                         }
                         if($(".event-container-wrapper.event-container-1").find(".events-container").length == 0){
-                            $('.event-container-wrapper.event-container-1').prepend(`<p style="text-align:center">No Event found</p>`);
-                        }
-                        containerDiv.append(append_event_html);
-                        if(paginateNumber>1){
-                            containerDiv.append(paginationWrapper);
+                            $('.event-container-wrapper.event-container-1').append(`<p style="text-align:center">No Event found</p>`);
                         }
                         if(i == 0){
                             containerDiv.append(`<div class="add-new-event-btn btn-wrapper">
@@ -358,16 +383,9 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                         </div>`)
                         }else{
                             containerDiv.append(`<div class="add-new-event-btn btn-wrapper">
-                            <a class="button button--primary continue-btn hidden" href="/pages/create-event">SHOP COLLECTION <i class="fas fa-arrow-right"></i></a>
+                            <a class="button button--primary continue-btn" href="/pages/create-event">SHOP COLLECTION <i class="fas fa-arrow-right"></i></a>
                           </div>`)
                         }
-                        
-                                            
-                        // append_event_html += `<div class="event-pagination"><span class="event-pre ${pre_class}" data-page="${pre_page-1}">Pre</span> <span class="event-next ${next_class}" data-page="${next_page}">Next</span></div>`;
-                       if( i == 0){
-                        $('.events-main-container').html("");
-                       }
-                        $('.events-main-container').hide().append(containerDiv).slideDown('slow');
                     }
                     $(".event-list-top").removeClass("hidden");
                    
@@ -384,9 +402,9 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                                             </div>
                                         </div>
                                         <div class="event-container-wrapper event-container-1">
-                                            <div class="add-new-event-btn btn-wrapper">
+                                            <div class="add-new-event-btn btn-wrapper error-not-found">
                                                 <p style="text-align:center">No Event found</p>
-                                                <span class="button button--primary btn-small create-event-header-button" data-href="/pages/create-event" style="margin: 0 auto;opacity:0; visibility:hidden">CREATE NEW EVENT</span>
+                                                <a class="button button--primary continue-btn" href="/pages/create-event">SHOP COLLECTION <i class="fas fa-arrow-right"></i></a>
                                             </div>
                                         </div>`
                     // var html = `<div class="empty_message sizeempty_msg">No event found</div><a href="/pages/create-event" class="button--primary button" style="display: inline-block;margin: 30px auto;">Create Event</a>`;
