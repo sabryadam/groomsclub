@@ -214,6 +214,9 @@ theme_custom.ProductData = function(productItemsArr){
       });
       
       $.map(productItemsArrayLooks, function(productItem,index) {
+        var productTitle = productItem.product.title;
+        if(productTitle.indexOf('Suit') != -1){
+        } else {
         let product = productItem.product; 
         let variant = productItem.selectedVar;
         if(product.options){
@@ -294,7 +297,7 @@ theme_custom.ProductData = function(productItemsArr){
                                           <div class="product-swatch-option ${productType}" data-product-handle="${productHandleVal}">
                                             <div class="product-swatches-main"><h4>${product.title}</h4>${customSwatchWap}</div>
                                             <select class="prod-variant-option hidden">${prodOptionArray}</select>
-                                            <button type="button" name="exchange-look-item" class="button button--full-width button--primary exchange-look-item disabled" data-text="Updating..">Update</button>
+                                            <button type="button" name="exchange-look-item" class="button button--full-width button--primary exchange-look-item" data-text="Updating..">Update</button>
                                           </div>
                                         </div>`;
               // if(variantSelectedImage == null || variantSelectedImage == '' || variantSelectedImage == undefined){
@@ -345,6 +348,7 @@ theme_custom.ProductData = function(productItemsArr){
         // $(`.product-data-wrapper .look-product-block`).prepend(`<h2 class="border-heading title">Your Assigned Look</h2>`);
         $(".loader-icon").addClass("hidden");
         $(".product-data-wrapper").removeClass("hidden");
+        }
       })
     },
     error: function (xhr, status, error) {
@@ -461,7 +465,7 @@ theme_custom.clickEventInvited = function(){
   $(document).on("click", ".exchange-item-link", function(){
     var productSwatchOption = $(this).closest(".product-size-type-exchange-wrapper").find(".product-swatch-option");
     var productType = $(this).closest(".look-product-wrapper").attr("data-product-type");
-    $(this).closest(".product-size-type-exchange-wrapper").find(".exchange-look-item").addClass("disabled");
+    // $(this).closest(".product-size-type-exchange-wrapper").find(".exchange-look-item").addClass("disabled");
     var currentSelected = '';
     if ($(this).closest(".product-size-type-exchange-wrapper").find(".option1").length>0) {
       currentSelected = $(this).closest(".product-size-type-exchange-wrapper").find(".option1").attr("data-value")

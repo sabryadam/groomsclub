@@ -1006,7 +1006,7 @@ theme_custom.tlpclickEvent = function(){
       $(this).closest(".edit-item-popup").find(".error-message").text('').hide();
       $(this).closest(".edit-item-popup").find(".error-message").text(theme_custom.productNotFoundError).show();
     } else {
-    
+      parent.find('.single-option-selector option[data-title="'+varintTitle+'"]').prop("selected",true);
       currentVariantVal = parent.find('.single-option-selector option[data-title="'+varintTitle+'"]').attr('value');
       v_price = parent.find('.single-option-selector option[data-title="'+varintTitle+'"]').data('v-price');
       v_img = parent.find('.single-option-selector option[data-title="'+varintTitle+'"]').data('v-image');
