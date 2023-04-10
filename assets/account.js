@@ -545,8 +545,6 @@ function favoritelooks() {
             $('.feature-looks-slider-loader').remove();
             $(`.modal-wrapper[data-target="delete-data-from-api"]`).removeClass("active");
             if (result.success) {
-                $('.feature-looks-slider').html('');
-                console.log("result.data",result.data)
                 if (result.data.length > 0) {
                     theme_custom.favLooksData = result.data;
                     var append_fav_html = "";
