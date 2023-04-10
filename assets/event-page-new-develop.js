@@ -694,7 +694,7 @@ theme_custom.createEventAPI = function (btn) {
           $('.step-content-wrapper.event-step-1 .api_error').show().html(event_date_msg);
           setTimeout(function () {
             $('.step-content-wrapper.event-step-1 .api_error').fadeOut();
-            $(".step-content-wrapper.event-step-1 .button-wrapper").find("button").removeClass("loading");
+            $(".step-content-wrapper.event-step-1 .button-wrapper").find("button").removeClass("loading").removeClass("disabled");
           }, 5000);
         }
       }

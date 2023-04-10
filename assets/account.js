@@ -365,7 +365,13 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                         containerDiv.append(append_event_html);
                         if(paginateNumber>1){
                             containerDiv.append(paginationWrapper);
-                        }                    
+                        }
+                        if(i == 0){
+                            containerDiv.append(`<div class="add-new-event-btn btn-wrapper"><span class="button button--primary btn-small create-event-header-button" data-href="/pages/create-event" style="margin: 0 auto;">CREATE NEW EVENT</span></div>`)
+                        }else{
+                            containerDiv.append(`<div class="add-new-event-btn btn-wrapper"><a class="button button--primary continue-btn" href="/pages/create-event">SHOP COLLECTION <i class="fas fa-arrow-right"></i></a></div>`)
+                        }
+                                                                   
                         // append_event_html += `<div class="event-pagination"><span class="event-pre ${pre_class}" data-page="${pre_page-1}">Pre</span> <span class="event-next ${next_class}" data-page="${next_page}">Next</span></div>`;
                         if( i == 0){
                             $('.events-main-container').html("");
@@ -375,16 +381,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                             $('.event-container-wrapper.event-container-0').prepend(`<p style="text-align:center">You have not created any Event.</p>`);
                         }
                         if($(".event-container-wrapper.event-container-1").find(".events-container").length == 0){
-                            $('.event-container-wrapper.event-container-1').append(`<p style="text-align:center">No Event found</p>`);
-                        }
-                        if(i == 0){
-                            containerDiv.append(`<div class="add-new-event-btn btn-wrapper">
-                            <span class="button button--primary btn-small create-event-header-button" data-href="/pages/create-event" style="margin: 0 auto;">CREATE NEW EVENT</span>
-                        </div>`)
-                        }else{
-                            containerDiv.append(`<div class="add-new-event-btn btn-wrapper">
-                            <a class="button button--primary continue-btn" href="/pages/create-event">SHOP COLLECTION <i class="fas fa-arrow-right"></i></a>
-                          </div>`)
+                            $('.event-container-wrapper.event-container-1').prepend(`<p style="text-align:center">No Event found</p>`);
                         }
                     }
                     $(".event-list-top").removeClass("hidden");
@@ -548,10 +545,11 @@ function favoritelooks() {
             $('.feature-looks-slider-loader').remove();
             $(`.modal-wrapper[data-target="delete-data-from-api"]`).removeClass("active");
             if (result.success) {
+                $('.feature-looks-slider').html('');
+                console.log("result.data",result.data)
                 if (result.data.length > 0) {
                     theme_custom.favLooksData = result.data;
                     var append_fav_html = "";
-                    $('.feature-looks-slider').html(append_fav_html);
                     var edit_link = '';
                     // result.data[1] = result.data[0];
                     // result.data[2] = result.data[0];
