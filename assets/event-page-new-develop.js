@@ -1465,7 +1465,7 @@ theme_custom.eventPageClickEvent = function () {
     localStorage.removeItem("editLookId");
     localStorage.removeItem("editLookName");
     localStorage.removeItem('look-for-favourite');
-
+    
     localStorage.setItem("customizerlookUrl", $(this).attr("data-href").split('?')[1]);
     localStorage.setItem("customize-from-event", "true");
     localStorage.setItem("eventLookId", $(this).attr("look-mapping-id"));
@@ -1483,10 +1483,10 @@ theme_custom.eventPageClickEvent = function () {
     localStorage.removeItem("editLookId");
     localStorage.removeItem("editLookName");
     localStorage.removeItem('look-for-favourite');
-
+    
     localStorage.setItem("customizerlookUrl", $(this).attr("data-href").split('?')[1]);
     localStorage.setItem("customise-look-button-for-add-look-into-event", "true");
-       
+        
     window.location.href = $(this).attr("data-href");
   })
 
