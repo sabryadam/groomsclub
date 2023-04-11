@@ -94,9 +94,11 @@ function getsizedata() {
                             "pants_waist_question": result.data[i].pants_waist_question,
                             "pants_waist_output": result.data[i].pants_waist,
                             "pants_waist": result.data[i].pants_waist,
+                            "pantsWaistVal" : result.data[i].pantsWaistVal,
                             "pants_hight_question": result.data[i].pants_hight_question,
                             "pants_hight_output": result.data[i].pants_hight,
                             "pants_hight": result.data[i].pants_hight,
+                            "pantsHightVal" : result.data[i].pantsHightVal,
                             "shirt_neck_question": result.data[i].shirt_neck_question,
                             "shirt_neck_output": result.data[i].shirt_neck,
                             "shirt_neck": result.data[i].shirt_neck,
@@ -276,9 +278,8 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
             otherEvents = otherEvents.reverse();
             var eventsObj = [myEvents,otherEvents];
             var pageCount = eventBlockCount / limit;
-            if (result.success) {    
-                // debugger;   
-                let currentDate = new Date('4-14-23');
+            if (result.success) {   
+                let currentDate = new Date();    
                 if (result.data.events.length > 0) {
                     for(let i = 0;i<eventsObj.length;i++){
                         let activeClass = "";
@@ -302,7 +303,6 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                             if(currentDate > date){
                                 dateExpire = true;
                             }
-                            // debugger;
                             let month = month_name[date.getMonth()];
                             let day = date.getDate();
                             let ownCreated = event.hostedBy.toLowerCase() == 'me' ? true : false;
@@ -324,16 +324,11 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                             if(!ownCreated){
                                 btns = `<div class="event-hostedby"><span>Hosted by ${event.hostedBy}</span></div>`
                             }else{
-                                if(dateExpire){
-                                    btns = `<div class="event-action-btns">
-                                    <span class="remove-event event-delete-btn" data-hosted-by="${event.hostedBy}">Delete</span>
-                                </div>`
-                                }else{
-                                    btns = `<div class="event-action-btns">
-                                        <span class="events-main-link event-edit-btn" data-href="${pageLink}" data-hosted-by="${event.hostedBy}" data-event-id="${event.event_id}">Edit</span>
-                                        <span class="remove-event event-delete-btn" data-hosted-by="${event.hostedBy}">Delete</span>
-                                    </div>`
-                                }
+
+                                btns = `<div class="event-action-btns">
+                                            <span class="events-main-link event-edit-btn" data-href="${pageLink}" data-hosted-by="${event.hostedBy}" data-event-id="${event.event_id}">Edit</span>
+                                            <span class="remove-event event-delete-btn" data-hosted-by="${event.hostedBy}">Delete</span>
+                                        </div>`
                             }
                             let expiredDiv = "";
                             if(dateExpire){
@@ -363,12 +358,6 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                             paginationWrapper.append(`<span class="count-number ${pageActiveClass}" data-page="${j+1}"> ${(j + 1)}</span>`)
                         }
                         let containerDiv = $(`<div class="event-container-wrapper event-container-${i} ${activeClass}"></div>`)
-                        if($(".event-container-wrapper.event-container-0").find(".events-container").length == 0){
-                            $('.event-container-wrapper.event-container-0').prepend(`<p style="text-align:center">You have not created any Event.</p>`);
-                        }
-                        if($(".event-container-wrapper.event-container-1").find(".events-container").length == 0){
-                            $('.event-container-wrapper.event-container-1').prepend(`<p style="text-align:center">No Event found</p>`);
-                        }
                         containerDiv.append(append_event_html);
                         if(paginateNumber>1){
                             containerDiv.append(paginationWrapper);
@@ -379,7 +368,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                         </div>`)
                         }else{
                             containerDiv.append(`<div class="add-new-event-btn btn-wrapper">
-                            <a class="button button--primary continue-btn hidden" href="/pages/create-event">SHOP COLLECTION <i class="fas fa-arrow-right"></i></a>
+                            <a class="button button--primary continue-btn" href="/pages/create-event">SHOP COLLECTION <i class="fas fa-arrow-right"></i></a>
                           </div>`)
                         }
                         
@@ -388,7 +377,13 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                        if( i == 0){
                         $('.events-main-container').html("");
                        }
-                        $('.events-main-container').hide().append(containerDiv).slideDown('slow');
+                       $('.events-main-container').hide().append(containerDiv).slideDown('slow');
+                        if($(".event-container-wrapper.event-container-0").find(".events-container").length == 0){
+                            $('.event-container-wrapper.event-container-0').prepend(`<p style="text-align:center">You have not created any Event.</p>`);
+                        }
+                        if($(".event-container-wrapper.event-container-1").find(".events-container").length == 0){
+                            $('.event-container-wrapper.event-container-1').prepend(`<p style="text-align:center">No Event found</p>`);
+                        }
                     }
                     $(".event-list-top").removeClass("hidden");
                    
@@ -407,7 +402,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                                         <div class="event-container-wrapper event-container-1">
                                             <div class="add-new-event-btn btn-wrapper">
                                                 <p style="text-align:center">No Event found</p>
-                                                <span class="button button--primary btn-small create-event-header-button" data-href="/pages/create-event" style="margin: 0 auto;opacity:0; visibility:hidden">CREATE NEW EVENT</span>
+                                                <a class="button button--primary continue-btn" href="/pages/create-event">SHOP COLLECTION <i class="fas fa-arrow-right"></i></a>
                                             </div>
                                         </div>`
                     // var html = `<div class="empty_message sizeempty_msg">No event found</div><a href="/pages/create-event" class="button--primary button" style="display: inline-block;margin: 30px auto;">Create Event</a>`;
@@ -704,6 +699,12 @@ function deletefavoritelooks(looksoid) {
 // edit-favorite-look-button page redirect 
 $(document).on("click", ".edit-favorite-look-button", function () {
     var getRediectUrl = $(this).attr("data-href");
+
+    localStorage.removeItem("customise-look-button-for-add-look-into-event");
+    localStorage.removeItem("customize-from-event");
+    localStorage.removeItem("eventLookName");
+    localStorage.removeItem("eventLookId");
+  
     localStorage.setItem("customizerlookFrom", "exiting-looks");
     localStorage.setItem("customizerlookUrl", getRediectUrl.split("?")[1]);
     localStorage.setItem("editLookId",$(this).attr("edit-look-id"));

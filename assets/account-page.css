@@ -262,6 +262,7 @@
     display: none;
     gap: 10px;
     position: relative;
+    overflow: hidden;
 }
 .main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .events-container.event-expired{
     /* background: #ddd; */
@@ -592,35 +593,19 @@
 
 
 /* common */
-.account-event-ribbon {
-    position: absolute;
-    z-index: 100;
-    width: 120px;
-    height: 120px;
-    z-index: 1;
-    overflow: hidden;
-}
-  .account-event-ribbon::before,
-  .account-event-ribbon::after {
-    content: "";
-    bottom: -3px;
-    border-top: 3px solid #4c1210;
-    border-left: 3px solid transparent;
-    border-right: 3px solid transparent;
-  }
-  .account-event-ribbon span {
+.account-event-ribbon span {
     zoom: 1;
     background-size: 100%;
     background-image: linear-gradient(to bottom, #d9534f 0%, #b52b27 100%);
     position: absolute;
     display: block;
     width: 100%;
-    padding: 4px 16px;
+    padding: 0;
     text-align: center;
     text-transform: uppercase;
     text-shadow: 0 2px 0 #b52b27;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 10px;
     color: #fff;
     background-color: #d9534f;
     -moz-transform: rotate(-45deg);
@@ -630,22 +615,20 @@
     -moz-box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.5);
     -webkit-box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.5);
     box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.5);
-    top: 16px;
-    left: -27px;
-  }
-
-  /* top left*/
-.account-event-ribbon.ribbon-top-left {
-    top: -4px;
-    left: -3px;
+    left: -35px;
+    top: -23px;
+    width: 100px;
 }
-  .account-event-ribbon.ribbon-top-left::before,
-  .account-event-ribbon.ribbon-top-left::after {
+.account-event-ribbon.ribbon-top-left {
+    top: 0;
+    left: 0;
+    position: relative;
+    width: auto;
+    height: auto;
+}
+.account-event-ribbon.ribbon-top-left::before,
+.account-event-ribbon.ribbon-top-left::after {
     border-top-color: transparent;
     border-left-color: transparent;
-  }
-  .account-event-ribbon.ribbon-top-left span {
-    right: -25px;
-    top: 15px;
-    transform: rotate(-45deg);
-  }
+}
+/* account-event-ribbon end */

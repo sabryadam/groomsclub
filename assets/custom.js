@@ -52,6 +52,7 @@
 
 theme_custom.removeLocalStorage = function(){
   localStorage.clear();
+  setCookie("fit-finder-data", '');
 }
 theme_custom.base_url = theme_custom.api_base_url;
 

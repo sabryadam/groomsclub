@@ -214,6 +214,9 @@ theme_custom.ProductData = function(productItemsArr){
       });
       
       $.map(productItemsArrayLooks, function(productItem,index) {
+        var productTitle = productItem.product.title;
+        if(productTitle.indexOf('Suit') != -1){
+        } else {
         let product = productItem.product; 
         let variant = productItem.selectedVar;
         if(product.options){
@@ -223,15 +226,21 @@ theme_custom.ProductData = function(productItemsArr){
             var element = productOption[optionVal];
             var customSwatch = '';
             var elementValues = element.values;
+            var activeClass = '';
             for (let seatchVal = 0; seatchVal < elementValues.length; seatchVal++) {
+              if ( seatchVal === 0) {
+                activeClass = 'active' 
+              } else {
+                activeClass = ''
+              }
               var swatchValue = elementValues[seatchVal];
               if(productOption[optionVal].name == 'Color' || productOption[optionVal].name == 'color'){
                 var color_name = swatchValue.toLowerCase().replace(" ","-");
-                customSwatch += `<div data-title="${swatchValue}" data-value="${swatchValue}" class="swatch-element-item ${swatchValue} active">
+                customSwatch += `<div data-title="${swatchValue}" data-value="${swatchValue}" class="swatch-element-item ${swatchValue} ${activeClass}">
                                   <label style="background-image:url(//cdn.shopify.com/s/files/1/0585/3223/3402/files/color_${color_name}.png?v=13538939889425418844)" for="swatch-2-tuxedo-black"></label>
                                 </div>`;
               } else {
-                customSwatch += `<div data-title="${swatchValue}" data-value="${swatchValue}" class="swatch-element-item ${swatchValue}">
+                customSwatch += `<div data-title="${swatchValue}" data-value="${swatchValue}" class="swatch-element-item ${swatchValue} ${activeClass}">
                                   <span>
                                     ${swatchValue}
                                   </span>
@@ -295,7 +304,7 @@ theme_custom.ProductData = function(productItemsArr){
                                             <div class="product-swatches-main"><h4>${product.title}</h4>${customSwatchWap}</div>
                                             <select class="prod-variant-option hidden">${prodOptionArray}</select>
                                             <span class="error-message" style="display: none;"></span>                                          
-                                            <button type="button" name="exchange-look-item" class="button button--full-width button--primary exchange-look-item disabled" data-text="Updating..">Update</button>
+                                            <button type="button" name="exchange-look-item" class="button button--full-width button--primary exchange-look-item" data-text="Updating..">Update</button>
                                           </div>
                                         </div>`;
               // if(variantSelectedImage == null || variantSelectedImage == '' || variantSelectedImage == undefined){
@@ -346,6 +355,7 @@ theme_custom.ProductData = function(productItemsArr){
         // $(`.product-data-wrapper .look-product-block`).prepend(`<h2 class="border-heading title">Your Assigned Look</h2>`);
         $(".loader-icon").addClass("hidden");
         $(".product-data-wrapper").removeClass("hidden");
+        }
       })
     },
     error: function (xhr, status, error) {
@@ -466,7 +476,7 @@ theme_custom.clickEventInvited = function(){
   $(document).on("click", ".exchange-item-link", function(){
     var productSwatchOption = $(this).closest(".product-size-type-exchange-wrapper").find(".product-swatch-option");
     var productType = $(this).closest(".look-product-wrapper").attr("data-product-type");
-    $(this).closest(".product-size-type-exchange-wrapper").find(".exchange-look-item").addClass("disabled");
+    // $(this).closest(".product-size-type-exchange-wrapper").find(".exchange-look-item").addClass("disabled");
     var currentSelected = '';
     if ($(this).closest(".product-size-type-exchange-wrapper").find(".option1").length>0) {
       currentSelected = $(this).closest(".product-size-type-exchange-wrapper").find(".option1").attr("data-value")
