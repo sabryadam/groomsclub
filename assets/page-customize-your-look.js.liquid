@@ -336,8 +336,8 @@ theme_custom.productDataFromURL = function () {
     theme_custom.priceUpdate();
     theme_custom.setFitFinderData();
     if (getCookie("fit-finder-data") == ""){
+      $(`[data-product-type="vest"],[data-product-type="shirt"],[data-product-type="shoes"]`).find(".edit-item").attr("data-button-target","select-size").text('Select Size | ');
       $(`[data-product-type="vest"] .variant-title, [data-product-type="shirt"] .variant-title, [data-product-type="shoes"] .variant-title`).addClass('hidden');
-      $(`[data-product-type="shoes"]`).find(".edit-item").text('Select Size | ');
       $(`.jacket_option .edit-item, .pant_option .edit-item, [data-product-type="vest"] .edit-item, [data-product-type="shirt"] .edit-item, [data-product-type="shoes"] .edit-item`).attr('data-button-target','select-size');
     } else {
       $(`[data-product-type="vest"],[data-product-type="shirt"],[data-product-type="shoes"]`).find(".edit-item").attr("data-button-target","edit-item").text('Edit Size | ');
