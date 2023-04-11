@@ -278,7 +278,8 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
             otherEvents = otherEvents.reverse();
             var eventsObj = [myEvents,otherEvents];
             var pageCount = eventBlockCount / limit;
-            if (result.success) {       
+            if (result.success) {   
+                let currentDate = new Date();    
                 if (result.data.events.length > 0) {
                     for(let i = 0;i<eventsObj.length;i++){
                         let activeClass = "";
@@ -290,7 +291,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                         let count = 1;
                         for(j=0;j<eventData.length;j++){
                             let index = (j+1);
-                            index = index % 3
+                            index = index % 3;
                             let event = eventData[j];
                             var event_picture = event.picture;
                             if (!event_picture) {
@@ -298,6 +299,10 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                             }
                             var month_name = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                             var date = new Date(event.event_date);
+                            let dateExpire = false;
+                            if(currentDate > date){
+                                dateExpire = true;
+                            }
                             let month = month_name[date.getMonth()];
                             let day = date.getDate();
                             let ownCreated = event.hostedBy.toLowerCase() == 'me' ? true : false;
@@ -312,17 +317,25 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                             if(count == 1){
                                 eventActiveClass = "active";
                             }
-
+                            if(dateExpire){
+                                eventActiveClass += ' event-expired'  
+                            }
                             let btns = "";
                             if(!ownCreated){
                                 btns = `<div class="event-hostedby"><span>Hosted by ${event.hostedBy}</span></div>`
                             }else{
                                 btns = `<div class="event-action-btns">
-                                <span class="events-main-link event-edit-btn" data-href="${pageLink}" data-hosted-by="${event.hostedBy}" data-event-id="${event.event_id}">Edit</span>
-                                <span class="remove-event event-delete-btn" data-hosted-by="${event.hostedBy}">Delete</span>
-                            </div>`
+                                            <span class="events-main-link event-edit-btn" data-href="${pageLink}" data-hosted-by="${event.hostedBy}" data-event-id="${event.event_id}">Edit</span>
+                                            <span class="remove-event event-delete-btn" data-hosted-by="${event.hostedBy}">Delete</span>
+                                        </div>`
                             }
-                            append_event_html += `<div data-value="${count}" data-event-id="${event.event_id}" class="events-container ${eventActiveClass}"> <div class="event-container-date"><span>${day}</span> ${month}</div>
+                            let expiredDiv = "";
+                            if(dateExpire){
+                                expiredDiv = '<div class="account-event-ribbon ribbon-top-left"><span>Expired</span></div>'
+                            }
+                            append_event_html += `<div data-value="${count}" data-event-id="${event.event_id}" class="events-container ${eventActiveClass}"> 
+                                ${expiredDiv}
+                                <div class="event-container-date"><span>${day}</span> ${month}</div>
                                 <div class="event-container-image"><img src="${event_picture}" alt="default-event-image"></div>
                                 <div class="event-container-event-content">
                                     <div class="event-title"><span>${event.name}</span></div>
