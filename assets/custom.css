@@ -956,3 +956,13 @@ select#event-id.disabled {
 	pointer-events: none;
 	cursor: none;
 }
+.heart-icon-for-wishlist{
+  width: 25px;
+  height: 25px;
+}
+@media(max-width : 767px){
+  .heart-icon-for-wishlist{
+    width: 20px;
+    height: 20px;
+  }
+}

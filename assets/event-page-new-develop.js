@@ -692,7 +692,7 @@ theme_custom.createEventAPI = function (btn) {
           $('.step-content-wrapper.event-step-1 .api_error').show().html(event_date_msg);
           setTimeout(function () {
             $('.step-content-wrapper.event-step-1 .api_error').fadeOut();
-            $(".step-content-wrapper.event-step-1 .button-wrapper").find("button").removeClass("loading");
+            $(".step-content-wrapper.event-step-1 .button-wrapper").find("button").removeClass("loading").removeClass("disabled");
           }, 5000);
         }
       }
@@ -1465,7 +1465,7 @@ theme_custom.eventPageClickEvent = function () {
     localStorage.removeItem("editLookId");
     localStorage.removeItem("editLookName");
     localStorage.removeItem('look-for-favourite');
-
+    
     localStorage.setItem("customizerlookUrl", $(this).attr("data-href").split('?')[1]);
     localStorage.setItem("customize-from-event", "true");
     localStorage.setItem("eventLookId", $(this).attr("look-mapping-id"));
@@ -1483,10 +1483,10 @@ theme_custom.eventPageClickEvent = function () {
     localStorage.removeItem("editLookId");
     localStorage.removeItem("editLookName");
     localStorage.removeItem('look-for-favourite');
-
+    
     localStorage.setItem("customizerlookUrl", $(this).attr("data-href").split('?')[1]);
     localStorage.setItem("customise-look-button-for-add-look-into-event", "true");
-       
+        
     window.location.href = $(this).attr("data-href");
   })
 

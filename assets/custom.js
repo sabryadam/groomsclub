@@ -1370,7 +1370,7 @@ theme_custom.clickEvent = function () {
       success: function () {
         setTimeout(() => {
           setCookie("fit-finder-data", '');
-          theme_custom.removeLocalStorage();
+          theme_custom.removeLocalStorage(); 
           window.location.href = '/account/logout';
         }, 100);
       },
