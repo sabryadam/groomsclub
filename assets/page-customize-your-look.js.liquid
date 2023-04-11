@@ -297,7 +297,7 @@ theme_custom.productDataFromURL = function () {
                   ${swatches}
                 </div>
                 <select class="prod-variant-option hidden" data-prod-handle="medium-grey-pants">${variantDropDown}</select>
-                <button type="button" name="exchange-look-item" class="button button--full-width button--primary exchange-look-item disabled" data-product-type="${productType}" data-text="Updating..">Update</button>
+                <button type="button" name="exchange-look-item" class="button button--full-width button--primary exchange-look-item" data-product-type="${productType}" data-text="Updating..">Update</button>
               </div>
               ${variantNotFoundMessage}
           </div>`;
@@ -340,8 +340,8 @@ theme_custom.productDataFromURL = function () {
       $(`[data-product-type="shoes"]`).find(".edit-item").text('Select Size | ');
       $(`.jacket_option .edit-item, .pant_option .edit-item, [data-product-type="vest"] .edit-item, [data-product-type="shirt"] .edit-item, [data-product-type="shoes"] .edit-item`).attr('data-button-target','select-size');
     } else {
+      $(`[data-product-type="vest"],[data-product-type="shirt"],[data-product-type="shoes"]`).find(".edit-item").attr("data-button-target","edit-item").text('Edit Size | ');
       $(`[data-product-type="vest"] .variant-title, [data-product-type="shirt"] .variant-title, [data-product-type="shoes"] .variant-title`).removeClass('hidden');
-      $(`[data-product-type="shoes"]`).find(".edit-item").text('Edit Size | ');
       $(`.jacket_option .edit-item, .pant_option .edit-item, [data-product-type="vest"] .edit-item, [data-product-type="shirt"] .edit-item, [data-product-type="shoes"] .edit-item`).attr('data-button-target','edit-item');
       var fitFinderData = JSON.parse(getCookie('fit-finder-data')),
           shoe_size = fitFinderData.shoe_size; 
@@ -1524,7 +1524,7 @@ theme_custom.customize_product_clickEvent = function () {
     let selectedItem = $(this).closest(".product-swatch-option").find("select.prod-variant-option option:selected");
     if(selectedItem.attr('data-available') == 'false'){
       error.removeClass('hidden');
-      $(`[data-tab-content="overview"]`).find(".add-to-cart-button").addClass("disabled");
+      // $(`[data-tab-content="overview"]`).find(".add-to-cart-button").addClass("disabled");
       // var target = $(this).closest(".product-swatch-option").attr("data-product-handle");
       // $(`.customize-look-overview-product[data-product-handle="${target}"]`).addClass("product-block-var-data")
       // $(`.customize-look-overview-product[data-product-handle="${target}"]`).find(".error-msg").removeClass("active");
@@ -1544,9 +1544,11 @@ theme_custom.customize_product_clickEvent = function () {
     // } else {
     //   $(`[data-tab-content="overview"]`).find(".add-to-cart-button").removeClass("disabled");
     // } 
-    if($(".overview-product .link.edit-item[data-button-target='select-size']").length > 0) {
-      $(`[data-tab-content="overview"]`).find(".add-to-cart-button").removeClass("disabled");
-    }
+    // if($(".overview-product .link.edit-item[data-button-target='select-size']").length > 0) {
+    //   $(`[data-tab-content="overview"]`).find(".add-to-cart-button").removeClass("disabled");
+    // } else {
+    //   $(`[data-tab-content="overview"]`).find(".add-to-cart-button").addClass("disabled");
+    // }
     button.text("Updated");
     $(".fancybox-button").click();
     if(productType == 'neckties' || productType == 'hanky' || productType == 'bow-ties' || productType == 'tie-bar' || productType == 'belt'){
@@ -1560,8 +1562,15 @@ theme_custom.customize_product_clickEvent = function () {
   $(document).on("click", ".edit-item", function () {
     let parent = $(this).closest('.customize-look-overview-product');
     let btn = $('.exchange-look-item',parent);
-    if(btn){
-      btn.addClass('disabled');
+    var currentProductType = $(this).closest(".edit-remove-link").attr("product-type");
+    if(currentProductType == 'jacket') {
+      $(`.customize-look-overview-product[data-product-type="jacket"]`).find(".product-swatch-option .exchange-look-item").removeClass("disabled");
+    } else if(currentProductType == 'pants'){
+      $(`.customize-look-overview-product[data-product-type="pants"]`).find(".product-swatch-option .exchange-look-item").removeClass("disabled");
+    } else {
+      if(btn){
+        btn.removeClass('disabled');
+      }
     }
     if($(this).attr('data-product-handle') == 'jacket-product'){
       $.fancybox.open($(`.customize-look-overview-product[data-product-type="jacket"] .product-swatch-option`));
@@ -1629,6 +1638,12 @@ theme_custom.customize_product_clickEvent = function () {
 
   // add-to-cart-button Click Event 
   $(document).on("click", ".add-to-cart-button", function () {
+    if($(`[data-button-target="select-size"]`).length > 0) {
+      $('html, body').stop().animate({
+        'scrollTop': $(`[data-button-target="select-size"]:first`).offset().top - $("#shopify-section-header").height() + 10
+      }, "slow");
+      return false;
+    }
     if($(".error-msg:visible").length > 0) {
       let parent = $(".error-msg:first:visible").closest('.customize-look-overview-product');
       if(parent.length>0){
@@ -1724,13 +1739,13 @@ theme_custom.customize_product_clickEvent = function () {
       }
       
       
-      if( targetElm.nextAll().attr("data-target") == 'overview' && getCookie("fit-finder-data") == "" ){
-        //$('.overview-tab .overview-product.no-product-in-overview').hide();
-        $('.overview-tab .product-info-footer .add-to-cart-button').addClass('disabled');
-      }else{
-        //$('.overview-tab .overview-product.no-product-in-overview').show();
-        $('.overview-tab .product-info-footer .add-to-cart-button').removeClass('disabled');
-      }
+      // if( targetElm.nextAll().attr("data-target") == 'overview' && getCookie("fit-finder-data") == "" ){
+      //   //$('.overview-tab .overview-product.no-product-in-overview').hide();
+      //   $('.overview-tab .product-info-footer .add-to-cart-button').addClass('disabled');
+      // }else{
+      //   //$('.overview-tab .overview-product.no-product-in-overview').show();
+      //   $('.overview-tab .product-info-footer .add-to-cart-button').removeClass('disabled');
+      // }
 
       $(this).closest('.tabbed-content-block-inner-wrapper').next().find('.mobile-customize-tab .mobile-tab-content-title:first-child').click();
     if(targetElm.attr("data-target") == 'overview' && getCookie("fit-finder-data") != ""){
