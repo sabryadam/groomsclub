@@ -798,7 +798,11 @@ theme_custom.tlpclickEvent = function(){
     } 
     var button = $(this),
     orderType = $(".order-type").val();
-    button.addClass("custom-top-look-disable");
+    button.addClass("custom-top-look-disable").addClass("disabled");
+    theme_custom.openUpsellPopup = false;
+    if(button.hasClass("up-sell-popup")){
+      theme_custom.openUpsellPopup = true;
+    }
     // if(getCookie("fit-finder-data") == ''){
     //   e.preventDefault();
     //   $('.fitfinder-err-msg.form-error').remove();
@@ -876,15 +880,24 @@ theme_custom.tlpclickEvent = function(){
             dataType: 'json',
             success: function() {
               button.find(".btn-title").text("Added to Cart");
-              setTimeout(() => {
-                button.removeClass("custom-top-look-disable");
+              if(theme_custom.openUpsellPopup){
+                $("html, body").css({
+                  "overflow" : "hidden"
+                });
+                $(".product-upsell-wrapper").addClass("show")
+              } else {
+                button.removeClass("custom-top-look-disable").removeClass("disabled");
                 window.location.href = "/cart";
-              }, 2500);
+              }
+              // setTimeout(() => {
+              //   button.removeClass("custom-top-look-disable");
+              //   window.location.href = "/cart";
+              // }, 2500);
             },
             error: function(xhr, status, error) {
               alert(xhr.responseJSON.description);
               button.find(".btn-title").text("Add To Cart");
-              button.removeClass("custom-top-look-disable");
+              button.removeClass("custom-top-look-disable").removeClass("disabled");
             }
           });
         }
@@ -897,19 +910,105 @@ theme_custom.tlpclickEvent = function(){
         dataType: 'json',
         success: function() {
           button.find(".btn-title").text("Added to Cart");
-          setTimeout(() => {
-            button.removeClass("custom-top-look-disable");
+          if(theme_custom.openUpsellPopup){
+            $("html, body").css({
+              "overflow" : "hidden"
+            });
+            $(".product-upsell-wrapper").addClass("show");
+          } else {
+            // button.removeClass("custom-top-look-disable").removeClass("disabled");
             window.location.href = "/cart";
-          }, 2500);
+          }
+          // setTimeout(() => {
+          //   button.removeClass("custom-top-look-disable");
+          //   window.location.href = "/cart";
+          // }, 2500);
         },
         error: function(xhr, status, error) {
           alert(xhr.responseJSON.description);
           button.find(".btn-title").text("Add To Cart");
-          button.removeClass("custom-top-look-disable");
+          button.removeClass("custom-top-look-disable").removeClass("disabled");
         }
       });
     }
   });
+
+  $(document).on("click",".product-upsell-wrapper .close-icon",function(){
+    $(".product-upsell-wrapper").removeClass("show");
+    $("html, body").css({
+      "overflow" : ""
+    });
+  });
+
+  $(document).on("click",".upsell-product-add",function(e){
+    e.preventDefault();
+    var button = $(this);
+    button.addClass("disabled").find(".btn-title").text(button.find(".btn-title").attr("data-text"));
+    var data = {
+      "id": button.closest(".product-item").find(".product-var-id").val(),
+      "quantity": 1,
+    }
+    jQuery.ajax({
+      type: 'POST',
+      url: '/cart/add.js',
+      data: data,
+      dataType: 'json',
+      success: function() {
+        setTimeout(() => {
+          button.addClass("disabled").find(".btn-title").text("ADDED");
+        }, 1000);
+      },
+      error: function(xhr, status, error) {
+        button.closest(".product-info-wrapper").append(`<p class="error-message error-show">${xhr.responseJSON.description}</p>`);
+        setTimeout(() => {
+          button.closest(".product-info-wrapper").find(".error-message").remove();
+          button.removeClass("disabled").find(".btn-title").text("ADD");
+        }, 1000);
+      }
+    });
+  })
+
+  $(document).on('change', `.upsell-product-items-wrapper input[type="radio"]`, function(){
+    var optionValue = $(this).val();
+    $(this).closest(".swatch-wrap").find(".option-value").text(optionValue);
+    var parent = $(this).closest(".product-item");
+    var selectOptionVar = parent.find('.single-option-selector option');
+    var productVariantTitle = [];
+    selectOptionVar.each(function(){
+      productVariantTitle.push($(this).attr("data-variant-title"));    
+    });
+    if(parent.find('[data-option-index="0"] input:checked').length > 0){
+      varintTitle = parent.find('[data-option-index="0"] input:checked').val();
+    }
+    if(parent.find('[data-option-index="1"] input:checked').length > 0){
+      varintTitle = varintTitle + ' / ' + parent.find('[data-option-index="1"] input:checked').val();
+    }
+    if(parent.find('[data-option-index="2"] input:checked').length > 0){
+      varintTitle = varintTitle + ' / ' + parent.find('[data-option-index="2"] input:checked').val();
+    }    
+    var selectedVar = parent.find($(`.single-option-selector option[data-variant-title="${varintTitle}"]`)).val();
+    var selectedVarInventoryQty = parent.find($(`.single-option-selector option[data-variant-title="${varintTitle}"]`)).attr("data-variant-inventory-qty");
+    var selectedVarInventoryPolicy = parent.find($(`.single-option-selector option[data-variant-title="${varintTitle}"]`)).attr("data-variant-inventory-policy");
+    if($.inArray(varintTitle,productVariantTitle) == -1){
+      parent.find(".error-message").addClass("error-show").text("Product is not available for this specific combination");
+      parent.find(".upsell-product-add").addClass("disabled");
+    } else {
+      if(selectedVarInventoryPolicy == 'continue'){
+        parent.find(".error-message").removeClass("error-show").text('');
+        parent.find(".upsell-product-add").removeClass("disabled").find(".btn-title").text("ADD");
+        parent.find(".product-var-id").val(selectedVar);
+      } else {
+        if(selectedVarInventoryQty <= 0){
+          parent.find(".error-message").addClass("error-show").text("This variant is Out of Stock. Please choose another variant.");
+          parent.find(".upsell-product-add").addClass("disabled");
+        } else {
+          parent.find(".error-message").removeClass("error-show").text('');
+          parent.find(".upsell-product-add").removeClass("disabled").find(".btn-title").text("ADD");
+          parent.find(".product-var-id").val(selectedVar);
+        }
+      }
+    }
+  })
 
   $(document).on('change','.suit_attr',function(){
     if($(this).val() != ''){
