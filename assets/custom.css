@@ -1201,3 +1201,6 @@ select#event-id.disabled {
 	}
 }
 /* Upsell Product style end  */
+.edit-item-popup .option-value{
+  display : none;
+}
