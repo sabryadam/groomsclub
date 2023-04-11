@@ -602,7 +602,10 @@ theme_custom.createEventAPI = function (btn) {
     eventName = eventName.trim();
     let eventExist = theme_custom.allEvents.find((item)=> item.name.toLowerCase() == eventName.toLowerCase());
     if(eventExist){
-      alert('Event name already exist. Please Select another Event Name!');
+      $('#EventForm-EventName').next(".form-error").text(`Event name already exist. Please Select another Event Name!`).addClass("active");
+      $('html, body').animate({
+        scrollTop: $('.event-type-block-wrap').offset().top - 100
+      }, 1000);
       return;
     }
   }
