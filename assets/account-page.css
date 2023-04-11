@@ -261,6 +261,8 @@
     margin-bottom: 10px;
     display: none;
     gap: 10px;
+    position: relative;
+    overflow: hidden;
 }
 .main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .events-container.active{
     display: flex;
@@ -584,3 +586,44 @@
     width: fit-content;
     margin: 25px auto 10px;
 }
+
+/* account-event-ribbon start */
+.account-event-ribbon span {
+    zoom: 1;
+    background-size: 100%;
+    background-image: linear-gradient(to bottom, #d9534f 0%, #b52b27 100%);
+    position: absolute;
+    display: block;
+    width: 100%;
+    padding: 0;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow: 0 2px 0 #b52b27;
+    font-weight: 500;
+    font-size: 10px;
+    color: #fff;
+    background-color: #d9534f;
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -moz-box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 3px 6px -3px rgba(0, 0, 0, 0.5);
+    left: -35px;
+    top: -23px;
+    width: 100px;
+}
+.account-event-ribbon.ribbon-top-left {
+    top: 0;
+    left: 0;
+    position: relative;
+    width: auto;
+    height: auto;
+}
+.account-event-ribbon.ribbon-top-left::before,
+.account-event-ribbon.ribbon-top-left::after {
+    border-top-color: transparent;
+    border-left-color: transparent;
+}
+/* account-event-ribbon end */
