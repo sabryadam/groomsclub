@@ -52,9 +52,9 @@
       <div class="swatch swatch-wrap clearfix swatch-{{ downcased_option }}" data-option-index="{{ option_index }}" {{ selected-value }}>
         {%- unless template contains 'customize-your-look' -%}
           {%- if swatch == 'Style' -%}
-            <div class="header">Length : <span class="option-value"></span></div>
+            <div class="header">Length : <span class="option-value">{{ s_value }}</span></div>
           {%- else -%}
-            <div class="header">{{ swatch }} : <span class="option-value"></span></div>
+            <div class="header">{{ swatch }} : <span class="option-value">{{ s_value }}</span></div>
           {%- endif -%}
         {%- endunless -%}
         {% for variant in product.variants %}
@@ -76,9 +76,9 @@
       <div class="swatch swatch-wrap clearfix swatch-{{ downcased_option }} form-group suit-select-box" data-option-index="{{ option_index }}" {{ selected-value }}>
         {%- unless template contains 'customize-your-look' -%}
           {%- if swatch == 'Style' -%}
-            <div class="header">Length : <span class="option-value"></span></div>
+            <div class="header">Length : <span class="option-value">{{ s_value }}</span></div>
           {%- else -%}
-            <div class="header">{{ swatch }} : <span class="option-value"></span></div>
+            <div class="header">{{ swatch }} : <span class="option-value">{{ s_value }}</span></div>
           {%- endif -%}
         {%- endunless -%}
       {% if template contains 'cart' %}
