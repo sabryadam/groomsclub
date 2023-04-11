@@ -867,6 +867,8 @@ theme_custom.tlpclickEvent = function(){
   })
 
   $(document).on('change', `.upsell-product-items-wrapper input[type="radio"]`, function(){
+    var optionValue = $(this).val();
+    $(this).closest(".swatch-wrap").find(".option-value").text(optionValue);
     var parent = $(this).closest(".product-item");
     var selectOptionVar = parent.find('.single-option-selector option');
     var productVariantTitle = [];
@@ -882,14 +884,17 @@ theme_custom.tlpclickEvent = function(){
     if(parent.find('[data-option-index="2"] input:checked').length > 0){
       varintTitle = varintTitle + ' / ' + parent.find('[data-option-index="2"] input:checked').val();
     }    
-    var selectedVar = $(`.single-option-selector option[data-variant-title="${varintTitle}"]`).val();
-    var selectedVarInventoryQty = $(`.single-option-selector option[data-variant-title="${varintTitle}"]`).attr("data-variant-inventory-qty");
-    var selectedVarInventoryPolicy = $(`.single-option-selector option[data-variant-title="${varintTitle}"]`).attr("data-variant-inventory-policy");
+    var selectedVar = parent.find($(`.single-option-selector option[data-variant-title="${varintTitle}"]`)).val();
+    var selectedVarInventoryQty = parent.find($(`.single-option-selector option[data-variant-title="${varintTitle}"]`)).attr("data-variant-inventory-qty");
+    var selectedVarInventoryPolicy = parent.find($(`.single-option-selector option[data-variant-title="${varintTitle}"]`)).attr("data-variant-inventory-policy");
     if($.inArray(varintTitle,productVariantTitle) == -1){
       parent.find(".error-message").addClass("error-show").text("Product is not available for this specific combination");
       parent.find(".upsell-product-add").addClass("disabled");
     } else {
-      if(selectedVarInventoryPolicy == 'contiune'){
+      if(selectedVarInventoryPolicy == 'continue'){
+        parent.find(".error-message").removeClass("error-show").text('');
+        parent.find(".upsell-product-add").removeClass("disabled").find(".btn-title").text("ADD");
+        parent.find(".product-var-id").val(selectedVar);
       } else {
         if(selectedVarInventoryQty <= 0){
           parent.find(".error-message").addClass("error-show").text("This variant is Out of Stock. Please choose another variant.");

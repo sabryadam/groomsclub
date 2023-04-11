@@ -378,10 +378,10 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                         }
                         $('.events-main-container').hide().append(containerDiv).slideDown('slow');
                         if($(".event-container-wrapper.event-container-0").find(".events-container").length == 0){
-                            $('.event-container-wrapper.event-container-0').prepend(`<p style="text-align:center">You have not created any Event.</p>`);
+                            $('.event-container-wrapper.event-container-0').prepend(`<p class="event-not-found" style="text-align:center"> event-not-found You have not created any Event.</p>`);
                         }
                         if($(".event-container-wrapper.event-container-1").find(".events-container").length == 0){
-                            $('.event-container-wrapper.event-container-1').prepend(`<p style="text-align:center">No Event found</p>`);
+                            $('.event-container-wrapper.event-container-1').prepend(`<p class="event-not-found" style="text-align:center">No Event found</p>`);
                         }
                     }
                     $(".event-list-top").removeClass("hidden");
@@ -394,7 +394,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                     });
                     var eventNotFound = `<div class="event-container-wrapper event-container-0 active">
                                             <div class="add-new-event-btn btn-wrapper">
-                                                <p style="text-align:center">You have not created any Event.</p>
+                                                <p style="text-align:center">Test You have not created any Event.</p>
                                                 <span class="button button--primary btn-small create-event-header-button" data-href="/pages/create-event" style="margin: 0 auto;">CREATE NEW EVENT</span>
                                             </div>
                                         </div>

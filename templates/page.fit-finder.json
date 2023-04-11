@@ -5,8 +5,8 @@
       "settings": {
         "page_header": "Fit Finder",
         "size_content_bg_color": "#fafafa",
-        "contiune_btn_title": "Continue Shopping",
-        "contiune_btn_link": "shopify:\/\/collections\/all",
+        "continue_btn_title": "Continue Shopping",
+        "continue_btn_link": "shopify:\/\/collections\/all",
         "step_1_heading": "",
         "step_1_svg": "",
         "step_1_title": "How tall are you?",

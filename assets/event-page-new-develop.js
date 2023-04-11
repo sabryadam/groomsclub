@@ -1458,7 +1458,7 @@ theme_custom.editItemPopup = function(parentEl){
     parent.find('.selected-variant-update').addClass('disabled');
     parent.find(".error-message").text('Product is not available for this specific combination.').show().addClass('error-show');
   } else {
-    if(variantInventoryPolicy == 'contiune'){
+    if(variantInventoryPolicy == 'continue'){
       parent.find('.selected-variant-update').removeClass('disabled');
       parent.find(".error-message").text('').hide().removeClass('error-show');
     } else {
