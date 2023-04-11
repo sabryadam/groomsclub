@@ -1050,7 +1050,7 @@
                               {% unless productHandle == blank %}
                                 <div class="product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
                                   <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
-                                  <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ accessoriesProdVarId }}">
+                                  <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ accessoriesProdVarId }}" data-inventory-policy="{{ productHandle.selected_or_first_available_variant.inventory_policy }}">
                                   <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
                                   <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ accessoriesProdVarId }}">
                                   <div class="product-block-wrap">
@@ -1144,7 +1144,7 @@
                                 {%- unless productHandle == blank -%}
                                   <div class="product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
                                     <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
-                                    <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ productHandle.selected_or_first_available_variant.id }}">
+                                    <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ productHandle.selected_or_first_available_variant.id }}" data-inventory-policy="{{ productHandle.selected_or_first_available_variant.inventory_policy }}">
                                     <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
                                     <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ productHandle.selected_or_first_available_variant.id }}">
                                     <div class="product-block-wrap">

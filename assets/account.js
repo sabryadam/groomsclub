@@ -324,6 +324,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                             if(!ownCreated){
                                 btns = `<div class="event-hostedby"><span>Hosted by ${event.hostedBy}</span></div>`
                             }else{
+
                                 btns = `<div class="event-action-btns">
                                             <span class="events-main-link event-edit-btn" data-href="${pageLink}" data-hosted-by="${event.hostedBy}" data-event-id="${event.event_id}">Edit</span>
                                             <span class="remove-event event-delete-btn" data-hosted-by="${event.hostedBy}">Delete</span>
@@ -334,8 +335,8 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                                 expiredDiv = '<div class="account-event-ribbon ribbon-top-left"><span>Expired</span></div>'
                             }
                             append_event_html += `<div data-value="${count}" data-event-id="${event.event_id}" class="events-container ${eventActiveClass}"> 
-                                ${expiredDiv}
-                                <div class="event-container-date"><span>${day}</span> ${month}</div>
+                            ${expiredDiv}
+                            <div class="event-container-date"><span>${day}</span> ${month}</div>
                                 <div class="event-container-image"><img src="${event_picture}" alt="default-event-image"></div>
                                 <div class="event-container-event-content">
                                     <div class="event-title"><span>${event.name}</span></div>

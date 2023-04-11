@@ -1181,7 +1181,7 @@ a.product__text {
   cursor: pointer;
 }
 
-
+.open-product-edit-popup,
 .when-customer-logged .bundle-product-wrapper .product-block-wrap .product-info .cta-button-wrap .btn.edit-item-btn,
 .when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-info .cta-button-wrap .btn.edit-item-btn{
   border-right: 1px solid #000;
@@ -1471,4 +1471,10 @@ a.product__text {
   .product__info-wrapper .when-customer-logged .favorite-event-cart-wrapper{
     margin-top: 0;
   }
+}
+.add-event-look-api-button .loading-overlay {
+  position: absolute;
+  left: 20%;
+  top: 50%;
+  transform: translateY(-50%);
 }
