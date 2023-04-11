@@ -214,6 +214,9 @@ theme_custom.ProductData = function(productItemsArr){
       });
       
       $.map(productItemsArrayLooks, function(productItem,index) {
+        var productTitle = productItem.product.title;
+        if(productTitle.indexOf('Suit') != -1){
+        } else {
         let product = productItem.product; 
         let variant = productItem.selectedVar;
         if(product.options){
@@ -345,6 +348,7 @@ theme_custom.ProductData = function(productItemsArr){
         // $(`.product-data-wrapper .look-product-block`).prepend(`<h2 class="border-heading title">Your Assigned Look</h2>`);
         $(".loader-icon").addClass("hidden");
         $(".product-data-wrapper").removeClass("hidden");
+        }
       })
     },
     error: function (xhr, status, error) {
