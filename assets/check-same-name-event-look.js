@@ -31,7 +31,7 @@ theme_custom.favoriteButtonEvent = function (eventButton) {
     lookName = lookName.trim();
     let lookExist = theme_custom.favLooks.find((item)=> item.name.toLowerCase() == lookName.toLowerCase());
     if(lookExist){
-      $(button).closest(".favourite-look-wrapper").find(".form-error:first").text("Look name already exist. Please Select another Look Name!").addClass("active");
+      $(button).closest(".favourite-look-wrapper").find(".form-error:first").text("Look name already exist. Please Enter another Name!").addClass("active");
     }else{
       button.find(".loading-overlay").removeClass("hidden");
       button.addClass("disabled");

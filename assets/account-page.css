@@ -611,12 +611,12 @@ background-image: linear-gradient(to bottom, #d9534f 0%, #b52b27 100%);
 position: absolute;
 display: block;
 width: 100%;
-padding: 4px 16px;
+padding: 0px 2px 0px 16px;
 text-align: center;
 text-transform: uppercase;
 text-shadow: 0 2px 0 #b52b27;
 font-weight: 500;
-font-size: 14px;
+font-size: 10px;
 color: #fff;
 background-color: #d9534f;
 -moz-transform: rotate(-45deg);
@@ -641,7 +641,7 @@ left: -27px;
     border-left-color: transparent;
 }
 .account-event-ribbon.ribbon-top-left span {
-    right: -25px;
-    top: 15px;
+    left: -40px;
+    top: 20px;
     transform: rotate(-45deg);
 }

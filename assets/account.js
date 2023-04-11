@@ -323,16 +323,16 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                             if(!ownCreated){
                                 btns = `<div class="event-hostedby"><span>Hosted by ${event.hostedBy}</span></div>`
                             }else{
-                                if(dateExpire){
-                                    btns = `<div class="event-action-btns">
-                                                <span class="remove-event event-delete-btn" data-hosted-by="${event.hostedBy}">Delete</span>
-                                            </div>`
-                                }else{
-                                    btns = `<div class="event-action-btns">
-                                                <span class="events-main-link event-edit-btn" data-href="${pageLink}" data-hosted-by="${event.hostedBy}" data-event-id="${event.event_id}">Edit</span>
-                                                <span class="remove-event event-delete-btn" data-hosted-by="${event.hostedBy}">Delete</span>
-                                            </div>`
-                                }
+                                // if(dateExpire){
+                                //     btns = `<div class="event-action-btns">
+                                //                 <span class="remove-event event-delete-btn" data-hosted-by="${event.hostedBy}">Delete</span>
+                                //             </div>`
+                                // }else{
+                                // }
+                                btns = `<div class="event-action-btns">
+                                            <span class="events-main-link event-edit-btn" data-href="${pageLink}" data-hosted-by="${event.hostedBy}" data-event-id="${event.event_id}">Edit</span>
+                                            <span class="remove-event event-delete-btn" data-hosted-by="${event.hostedBy}">Delete</span>
+                                        </div>`
                             }
                             let expiredDiv = "";
                             if(dateExpire){

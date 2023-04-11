@@ -860,7 +860,7 @@ theme_custom.tlpclickEvent = function(){
         button.closest(".product-info-wrapper").append(`<p class="error-message error-show">${xhr.responseJSON.description}</p>`);
         setTimeout(() => {
           button.closest(".product-info-wrapper").find(".error-message").remove();
-          button.removeClass("disabled").find(".btn-title").text("ADD+");
+          button.removeClass("disabled").find(".btn-title").text("ADD");
         }, 1000);
       }
     });
@@ -896,7 +896,7 @@ theme_custom.tlpclickEvent = function(){
           parent.find(".upsell-product-add").addClass("disabled");
         } else {
           parent.find(".error-message").removeClass("error-show").text('');
-          parent.find(".upsell-product-add").removeClass("disabled").find(".btn-title").text("ADD+");
+          parent.find(".upsell-product-add").removeClass("disabled").find(".btn-title").text("ADD");
           parent.find(".product-var-id").val(selectedVar);
         }
       }

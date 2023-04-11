@@ -1219,3 +1219,8 @@ select#event-id.disabled {
 .product-swatch-option{
 	display: none;
 }
+.product-upsell-wrapper .go-to-cart-btn{
+	display: inline-block;
+	margin: 10px auto;
+	width: 90%;
+}

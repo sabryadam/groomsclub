@@ -958,6 +958,14 @@
 .final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper table th{
   border: none;
 }
+@media(min-width : 768px){
+  .final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper table thead,
+  .final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper table tr,
+  .final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper table td,
+  .final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper table th{
+    width: 25%;
+  }
+}
 .final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper table tr {
   border-top : 1px solid #dedede;
 }
@@ -1655,6 +1663,7 @@ span.look-price {
 .summary-table-wrapper .order-wrap-block .btn-wrap.button--secondary {
   min-width: 200px;
   display: inline-block;
+  width: 100%;
 }
 @media(max-width : 767px){
   .summary-table-wrapper table,
@@ -1802,8 +1811,10 @@ span.look-price {
   min-width: 100px;
 }
 .summary-table-wrapper .order-wrap-block .view-look{
-  margin-left: 25px;
   line-height: 50px;
+  display: block;
+  margin: 0;
+  text-align: center;
 }
 .event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .product-data-card .product-swatch-option{
   display: none;

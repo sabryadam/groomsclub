@@ -33,7 +33,9 @@ theme_custom.saveFitFinder = function (fitFinderJson, button) {
     shoe_size_qus = fitFinderJsonData.shoe_size_qus,
     shoe_size = fitFinderJsonData.shoe_size,
     jacketSize = fitFinderJsonData.jacketSize,
-    jacketSize_result = fitFinderJsonData.jacketSize_result;
+    jacketSize_result = fitFinderJsonData.jacketSize_result,
+    pantsHightVal = $(`[name="inseam"]:checked`).val(),
+    pantsWaistVal = $(`[name="waist"]:checked`).val();
   var header = '';
   var userID = $("#customer_id").val(),
     userEmail = $("#customer_email").val();
@@ -59,9 +61,11 @@ theme_custom.saveFitFinder = function (fitFinderJson, button) {
     "pantSize": pantSize,
     "pants_waist_question": pants_waist_qus,
     "pants_waist_output": pants_waist,
+    "pantsWaistVal": pantsWaistVal,
     "pants_waist": pants_waist,
     "pants_hight_question": pants_hight_qus,
     "pants_hight_output": pants_hight,
+    "pantsHightVal" : pantsHightVal,
     "pants_hight": pants_hight,
     "shirt_neck_question": shirt_neck_qus,
     "shirt_neck_output": shirt_neck,
