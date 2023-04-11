@@ -22,8 +22,10 @@ theme_custom.saveFitFinder = function (fitFinderJson, button) {
     jacket_size = fitFinderJsonData.jacket_size,
     jacket_type_qus = fitFinderJsonData.jacket_type_qus,
     jacket_type = fitFinderJsonData.jacket_type,
+    pantsWaistVal = $(`[name="waist"]:checked`).val(),
     pants_waist_qus = fitFinderJsonData.pants_waist_qus,
     pants_waist = pantWaistSize,
+    pantsHightVal = $(`[name="inseam"]:checked`).val(),
     pants_hight_qus = fitFinderJsonData.pants_hight_qus,
     pants_hight = pantWaistInseam,
     shirt_neck_qus = fitFinderJsonData.shirt_neck_qus,
@@ -453,6 +455,12 @@ theme_custom.fitFinderClickEvent = function () {
         selectedQuestion = parent.find(".block-heading").text();
         fitFinder[stepTitle + '_qus'] = selectedQuestion.trim();
         fitFinder[stepTitle] = selectedVal;
+        if(parent.attr("data-step-handle") == 'pants_waist'){
+          fitFinder.pantsWaistVal = $(`[name="waist"]:checked`).val();
+        }
+        if(parent.attr("data-step-handle") == 'pants_hight' ){
+          fitFinder.pantsHightVal = $(`[name="inseam"]:checked`).val();
+        }
         if (error_count == 0) {
           theme_custom.nextElmShow(parent);
         }
@@ -482,21 +490,20 @@ theme_custom.fitFinderClickEvent = function () {
           }
         } else if (parent.attr("data-step-title") == 'Age') {
           $(".required-error").removeClass("active");
-          // if (parent.find('.age-wrap .text-field').val() != '') {
-            // var weightValue = parent.find('.age-wrap .text-field');
-            // error_count += theme_custom.ageValidation(weightValue);
-            // if (error_count > 0) {
-            //   return false;
-            // } else {
-            //   stepTitle = parent.attr("data-step-handle");
-            //   selectedVal = parent.find("input[type='text']").val();
-            //   selectedQuestion = parent.find(".block-heading").text();
-            //   fitFinder[stepTitle + '_qus'] = selectedQuestion.trim();
-            //   fitFinder[stepTitle] = selectedVal;
-            //   theme_custom.nextElmShow(parent);
-            // }
-           
-          // }
+          if (parent.find('.age-wrap .text-field').val() != '') {
+            var weightValue = parent.find('.age-wrap .text-field');
+            error_count += theme_custom.ageValidation(weightValue);
+            if (error_count > 0) {
+              return false;
+            } else {
+              stepTitle = parent.attr("data-step-handle");
+              selectedVal = parent.find("input[type='text']").val();
+              selectedQuestion = parent.find(".block-heading").text();
+              fitFinder[stepTitle + '_qus'] = selectedQuestion.trim();
+              fitFinder[stepTitle] = selectedVal;
+              theme_custom.nextElmShow(parent);
+            }           
+          }
           theme_custom.nextElmShow(parent);
         } else {
           stepTitle = parent.attr("data-step-handle");

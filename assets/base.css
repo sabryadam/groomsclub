@@ -9738,14 +9738,14 @@ main#MainContent {
   text-align: center;
   font-size: 14px;
   padding: 10px;
-  line-height: 24px;
+  line-height: 20px;
 }
 
 .error-message {
   display: none;
   font-size: 14px;
   padding: 5px 0;
-  line-height: 24px;
+  line-height: 20px;
   color: red;
   width: 100%;
 }

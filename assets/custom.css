@@ -966,7 +966,6 @@ select#event-id.disabled {
     height: 20px;
   }
 }
-
 /* Upsell Product style Start*/
 .product-upsell-wrapper{
 	pointer-events: none;
@@ -1223,4 +1222,7 @@ select#event-id.disabled {
 	display: inline-block;
 	margin: 10px auto;
 	width: 90%;
+}
+.edit-item-popup .option-value{
+  display : none;
 }
