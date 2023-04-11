@@ -1284,7 +1284,7 @@
                           </span>
                         </div>
                       {%- endif -%}
-                      <button type="button"  name="add" class="product-form__submit button button--full-width button--primary custom-top-look-disable --add_suite_btn_old suit_btn_add_to_cart">
+                      <button type="button"  name="add" class="product-form__submit button button--full-width button--primary custom-top-look-disable {% if product.metafields.custom.product_page_upsell != blank %}up-sell-popup{% endif %}">
                         <span class="btn-title" data-text="Adding...">{{ 'products.product.add_to_cart' | t }}</span>
                         <i class="fas fa-shopping-cart"></i>
                       </button>
@@ -1999,3 +1999,8 @@ $(document).ready(function(){
   ]
 }
 {% endschema %}
+
+{% if product.metafields.custom.product_page_upsell != blank %}
+  <!-- Product Upsell Popup --> 
+  {% render 'product-upsell' %}
+{% endif %}
