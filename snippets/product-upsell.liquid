@@ -2,10 +2,7 @@
   <div class="black-bg"></div>
   <div class="prouct-upsell-inner-wrapper">
     <h5 class="popup-heading"> 
-      <span>Add Some Accessories</span>
-      <a href="/cart" class="button button--full-width button--link" tabindex="0" title="Go to Cart">
-        <span class="btn-title" data-text="Adding...">Go to Cart</span>
-      </a> 
+      <span>Complete Your Look</span> 
       <span class="close-icon"><img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/cross.png?v=1680536094" alt="close icon" /></span>
     </h5>
     <div class="upsell-product-items-wrapper">
@@ -36,12 +33,15 @@
               </div>
             </div>
             <button type="button" name="add" class="button button--full-width button--primary upsell-product-add">
-              <span class="btn-title" data-text="Adding...">ADD +</span>
+              <span class="btn-title" data-text="Adding...">ADD</span>
             </button>
             <span class="error-message"></span>
           </div>
         </div>
       {%- endfor -%}
     </div>
+    <a href="/cart" class="button button--full-width button--primary go-to-cart-btn" tabindex="0" title="Go to Cart">
+      <span class="btn-title" data-text="Adding...">Go to Cart</span>
+    </a>
   </div>
 </div>

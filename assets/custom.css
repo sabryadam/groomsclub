@@ -956,7 +956,33 @@ select#event-id.disabled {
 	pointer-events: none;
 	cursor: none;
 }
-
+.edit-item-popup[data-product-type=jacket] .swatch.swatch-wrap.swatch-color,
+.edit-item-popup[data-product-type=pants] .swatch.swatch-wrap.swatch-color,
+.edit-item-popup[data-product-type=vest] .swatch.swatch-wrap.swatch-color,
+.edit-item-popup[data-product-type=shirt] .swatch.swatch-wrap.swatch-color{
+	display: none!important;
+}
+.open-product-edit-popup{
+	color: var(--color-light-blue);
+  font-size: calc(var(--font-size-body) - 3px);
+  font-weight: var(--font-weight-custom-medium);
+  line-height: 1;
+  display: inline-block;
+  cursor: pointer;
+}
+.product-swatch-option{
+	display: none;
+}
+.heart-icon-for-wishlist{
+  width: 25px;
+  height: 25px;
+}
+@media(max-width : 767px){
+  .heart-icon-for-wishlist{
+    width: 20px;
+    height: 20px;
+  }
+}
 /* Upsell Product style Start*/
 .product-upsell-wrapper{
 	pointer-events: none;
@@ -1191,4 +1217,9 @@ select#event-id.disabled {
 		display: none;
 	}
 }
+
 /* Upsell Product style end  */
+.edit-item-popup .option-value{
+  display : none;
+}
+
