@@ -1622,10 +1622,11 @@ $(document).ready(function(){
     localStorage.setItem("bring_back_fit_finder_url", bring_back_url);
     window.location.href = fit_finder_url;
   });
-
-  if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-flag-replace") == 'true') {
+  if (getCookie("fit-finder-data") == '') {
     $("#suit_fit_finder").show();
-    $("#fit_finder_data_auto").hide();
+  } else if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-flag-replace") == 'true') {
+    $("#suit_fit_finder").hide(); 
+    $("#fit_finder_data_auto").show();
   }else{
     {% if customer %}
       suitSizeData();

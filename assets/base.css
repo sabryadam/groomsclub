@@ -9005,6 +9005,7 @@ img.crossed-out.hide {
 
 .edit-item-popup .swatch-wrap .header {
   margin-bottom: 10px;
+  display: block;
 }
 
 .edit-item-popup .swatch.swatch-color .swatch-product-wrapper.swatch-element {
