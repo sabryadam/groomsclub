@@ -703,6 +703,7 @@ theme_custom.tlpclickEvent = function(){
     if(button.hasClass("up-sell-popup")){
       theme_custom.openUpsellPopup = true;
     }
+
     // if(getCookie("fit-finder-data") == ''){
     //   e.preventDefault();
     //   $('.fitfinder-err-msg.form-error').remove();
@@ -789,7 +790,6 @@ theme_custom.tlpclickEvent = function(){
                 button.removeClass("custom-top-look-disable").removeClass("disabled");
                 window.location.href = "/cart";
               }
-
               // setTimeout(() => {
               //   button.removeClass("custom-top-look-disable");
               //   window.location.href = "/cart";
@@ -820,7 +820,6 @@ theme_custom.tlpclickEvent = function(){
             // button.removeClass("custom-top-look-disable").removeClass("disabled");
             window.location.href = "/cart";
           }
-
           // setTimeout(() => {
           //   button.removeClass("custom-top-look-disable");
           //   window.location.href = "/cart";
@@ -1287,3 +1286,4 @@ $(document).ready(function(){
     }
   }
 });
+

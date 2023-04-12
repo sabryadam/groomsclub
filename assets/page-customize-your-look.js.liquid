@@ -354,9 +354,8 @@ theme_custom.productDataFromURL = function () {
     theme_custom.priceUpdate();
     theme_custom.setFitFinderData();
     if (getCookie("fit-finder-data") == ""){
+      $(`[data-product-type="vest"],[data-product-type="shirt"],[data-product-type="shoes"]`).find(".edit-item").attr("data-button-target","select-size").text('Select Size | ');
       $(`[data-product-type="vest"] .variant-title, [data-product-type="shirt"] .variant-title, [data-product-type="shoes"] .variant-title`).addClass('hidden');
-      $(`[data-product-type="vest"],[data-product-type="shirt"],[data-product-type="shoes"]`).find(".edit-item").attr("data-button-target","edit-item").text('Select Size | ');
-      // $(`[data-product-type="shoes"]`).find(".edit-item").text('Select Size | ');
       $(`.jacket_option .edit-item, .pant_option .edit-item, [data-product-type="vest"] .edit-item, [data-product-type="shirt"] .edit-item, [data-product-type="shoes"] .edit-item`).attr('data-button-target','select-size');
     } else {
       $(`[data-product-type="vest"],[data-product-type="shirt"],[data-product-type="shoes"]`).find(".edit-item").attr("data-button-target","edit-item").text('Edit Size | ');
@@ -565,6 +564,7 @@ theme_custom.favoriteLookImageCustomizer = function (lookID, button) {
     }
   });
 }
+
 
 
 // theme_custom.customizeLookProductAjax
@@ -1280,9 +1280,10 @@ theme_custom.customize_product_clickEvent = function () {
   // } 
 
     button.text("Updated");
-    if($(".overview-product .link.edit-item[data-button-target='select-size']").length > 0) {
-      $(`[data-tab-content="overview"]`).find(".add-to-cart-button").removeClass("disabled");
-    }
+    // if($(".overview-product .link.edit-item[data-button-target='select-size']").length > 0) {
+    //   $(`[data-tab-content="overview"]`).find(".add-to-cart-button").removeClass("disabled");
+    // }
+
     $(".fancybox-button").click();
     if(productType == 'neckties' || productType == 'hanky' || productType == 'bow-ties' || productType == 'tie-bar' || productType == 'belt'){
       setTimeout(() => {
@@ -1295,7 +1296,6 @@ theme_custom.customize_product_clickEvent = function () {
   $(document).on("click", ".edit-item", function () {
     let parent = $(this).closest('.customize-look-overview-product');
     let btn = $('.exchange-look-item',parent);
-    debugger;
     var currentProductType = $(this).closest(".edit-remove-link").attr("product-type");
     if(currentProductType == 'jacket') {
       $(`.customize-look-overview-product[data-product-type="jacket"]`).find(".product-swatch-option .exchange-look-item").removeClass("disabled");
@@ -1361,24 +1361,10 @@ theme_custom.customize_product_clickEvent = function () {
 
   // add-to-cart-button Click Event 
   $(document).on("click", ".add-to-cart-button", function () {
-    if($(`[data-button-target="select-size"]`).length > 0 ){
-      $('.error-message').show();
-
-      let errors = $(".product-form__buttons.display-login .error-message:visible");
-      let firstError;
-      for(let i=0;i<errors.length;i++){
-        let item = errors[i];
-        if(!$(item).is(':empty')){
-          firstError = item;
-          break;
-        }
-      }
-      if(firstError){
-        let parent = $(firstError).closest('.product-block-item');
-        $('html, body').stop().animate({
-          'scrollTop': $(parent).offset().top - $("#shopify-section-header").height() - 20
-        }, "slow");
-      }
+    if($(`[data-button-target="select-size"]`).length > 0) {
+      $('html, body').stop().animate({
+        'scrollTop': $(`[data-button-target="select-size"]:first`).offset().top - $("#shopify-section-header").height() + 10
+      }, "slow");
       return false;
     }
     if($(".error-msg:visible").length > 0) {
@@ -1468,13 +1454,13 @@ theme_custom.customize_product_clickEvent = function () {
       }
       
       
-      if( targetElm.nextAll().attr("data-target") == 'overview' && getCookie("fit-finder-data") == "" ){
-        //$('.overview-tab .overview-product.no-product-in-overview').hide();
-        $('.overview-tab .product-info-footer .add-to-cart-button').addClass('disabled');
-      }else{
-        //$('.overview-tab .overview-product.no-product-in-overview').show();
-        $('.overview-tab .product-info-footer .add-to-cart-button').removeClass('disabled');
-      }
+      // if( targetElm.nextAll().attr("data-target") == 'overview' && getCookie("fit-finder-data") == "" ){
+      //   //$('.overview-tab .overview-product.no-product-in-overview').hide();
+      //   $('.overview-tab .product-info-footer .add-to-cart-button').addClass('disabled');
+      // }else{
+      //   //$('.overview-tab .overview-product.no-product-in-overview').show();
+      //   $('.overview-tab .product-info-footer .add-to-cart-button').removeClass('disabled');
+      // }
 
       $(this).closest('.tabbed-content-block-inner-wrapper').next().find('.mobile-customize-tab .mobile-tab-content-title:first-child').click();
     if(targetElm.attr("data-target") == 'overview' && getCookie("fit-finder-data") != ""){

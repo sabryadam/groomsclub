@@ -1,6 +1,7 @@
 // event-new-development
 theme_custom.base_url = theme_custom.api_base_url;
 theme_custom.eventFavLooks = [];
+theme_custom.allEvents = [];
 theme_custom.globalEventData = null;
 theme_custom.eventExpire = false;
 const APP_Token = 'Bearer ' + localStorage.getItem("customerToken");
@@ -596,6 +597,19 @@ theme_custom.createEventAPI = function (btn) {
     }, 1000);
     return false;
   }
+  let eventName = $(".event-page-new-design-wrapper").find(".event-name").val();
+  if(eventName){
+    eventName = eventName.trim();
+    let eventExist = theme_custom.allEvents.find((item)=> item.name.toLowerCase() == eventName.toLowerCase());
+    if(eventExist){
+      $('#EventForm-EventName').next(".form-error").text(`Event name already exist. Please Select another Event Name!`).addClass("active");
+      $('html, body').animate({
+        scrollTop: $('.event-type-block-wrap').offset().top - 100
+      }, 1000);
+      return;
+    }
+  }
+  
   if (error_count == 0) {
     button.addClass('loading disabled');
     var event_name = $('.event-page-new-design-wrapper .event-name').val();
@@ -1953,6 +1967,7 @@ theme_custom.changeFilled = function () {
   });
 }
 theme_custom.event_init_page = function () {
+  theme_custom.getAllEvents();
   theme_custom.eventPageClickEvent();
   theme_custom.calender();
   theme_custom.favoriteLooks();
@@ -2340,4 +2355,31 @@ theme_custom.updateSelectedLooks = (popup) => {
       btn.removeClass("disabled").text('Add to Event');
     }
   })
+}
+
+// theme_custom.getEventData
+theme_custom.getAllEvents = function (modalTarget) {
+  data = {
+    "eventType": "1",
+    "page": "1",
+    "host": "0",
+    "limit": "100"
+  }
+  $.ajax({
+    url: `${theme_custom.base_url}/api/customer/events`,
+    method: "POST",
+    data: data,
+    dataType: "json",
+    headers: {
+      // "Authorization": 'Bearer Am3Trk0xm4fR5SXdni5zilc1ffwxFFUWwwwnh2ZQ98wRSL9KDihFoBMnCJ9Dw8Kc8A5zkHnMZBot02nbyybQEtSd3dadnY4RFZZQQ'
+      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+    },
+    beforeSend: function () {
+    },
+    success: function (result) {
+      theme_custom.allEvents = result.data.events
+    },
+    error: function (xhr, status, error) {
+    }
+  });
 }
