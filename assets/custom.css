@@ -349,7 +349,7 @@ select.suit_attr + .icon {
 	background-color: var(--color-light-blue);
 	padding: 25px 30px 15px;
 	border-radius: 4px;
-	max-width: 530px;
+	/* max-width: 530px; */
 }
 
 .ff-top-box {
@@ -1241,7 +1241,4 @@ select#event-id.disabled {
 	display: inline-block;
 	margin: 10px auto;
 	width: 90%;
-}
-.edit-item-popup .option-value{
-  display : none;
 }
