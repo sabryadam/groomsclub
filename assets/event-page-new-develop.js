@@ -961,6 +961,7 @@ theme_custom.ProductData = function (productItemsArr, lookName, lookId, memberId
 
 // theme_custom.productBlockDataWrap
 theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, lookDetails, isHostCheck, lookImagePath, lookTitle) {
+  debugger;
   $(`.look-card-block[data-look-id="${orderItems.look_id}"] .look-price,.order-wrap-${index} .product-card-wrap`).hide();
   var productDataArrayData = orderItemsObj.filter((x) => { return (x.type != "looks" || !x.product_handle.includes("suit"))});
   var subTotal = 0, productItemHTML = productLookList = productLookItemList = '',
@@ -1087,7 +1088,7 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
                                   <div class="product-edit-popup-wrap edit-item-popup" data-product-handle="${productItem.product.handle}" data-product-id="${productItem.product.id}" data-line-item-id="${productItem.selectedVar.id}" data-product-type="${productType}">
                                     <select class="prod-variant-option hidden">${prodOptionArray}</select>
                                     <div class="swatch-wrapper-options"><h4>${productItem.product.title}</h4>${customSwatchWap}</div>
-                                    <span class="error-message" style="display: none;"></span>
+                                    <span class="error-message ${showErrorClass}">${errorMsg}</span>
                                     <button type="button" name="selected-variant-update" class="button button--full-width button--primary selected-variant-update ${ctaBtnTextDisable}" data-product-type="${productType}" data-text="Updating..">${ctaBtnText}</button>
                                   </div>
                                 </div>`;

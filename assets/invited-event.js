@@ -666,6 +666,7 @@ theme_custom.productVariantSeledtUpdate = function(){
       currentOptionValue = $(this).find('.option1').attr("data-value");
       varintTitle = $(this).find('.option1').attr("data-value");
       if($(this).find(`[data-option-swatch-index="0"] .swatch-element-item[data-title="${currentOptionValue}"]`).length > 0){
+        $(this).find(`[data-option-swatch-index="0"] .swatch-element-item`).removeClass("active");
         $(this).find(`[data-option-swatch-index="0"] .swatch-element-item[data-title="${currentOptionValue}"]`).addClass("active");
       } else {
         $(this).find(`[data-option-swatch-index="0"] .swatch-element-item:first`).addClass("active");
@@ -676,6 +677,7 @@ theme_custom.productVariantSeledtUpdate = function(){
       currentOptionValue = $(this).find('.option2').attr("data-value");
       varintTitle = varintTitle + ' / ' + $(this).find('.option2').attr("data-value");
       if($(this).find(`[data-option-swatch-index="1"] .swatch-element-item[data-title="${currentOptionValue}"]`).length > 0){
+        $(this).find(`[data-option-swatch-index="1"] .swatch-element-item`).removeClass("active");
         $(this).find(`[data-option-swatch-index="1"] .swatch-element-item[data-title="${currentOptionValue}"]`).addClass("active");
       } else {
         $(this).find(`[data-option-swatch-index="1"] .swatch-element-item:first`).addClass("active");
@@ -686,6 +688,7 @@ theme_custom.productVariantSeledtUpdate = function(){
       currentOptionValue = $(this).find('.option3').attr("data-value");
       varintTitle = varintTitle + ' / ' + $(this).find('.option3').attr("data-value");
       if($(this).find(`[data-option-swatch-index="2"] .swatch-element-item[data-title="${currentOptionValue}"]`).length > 0){
+        $(this).find(`[data-option-swatch-index="2"] .swatch-element-item`).removeClass("active");
         $(this).find(`[data-option-swatch-index="2"] .swatch-element-item[data-title="${currentOptionValue}"]`).addClass("active");
       } else {
         $(this).find(`[data-option-swatch-index="2"] .swatch-element-item:first`).addClass("active");
