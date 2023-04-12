@@ -159,8 +159,8 @@ theme_custom.productDataFromURL = function () {
             optionThirdval = currentOption.closest(".product-block.product-item-wrap").find("input[data-option-index='2']").val();
         }
         if (currentOption.closest(".product-block-wrapper[data-product-type='suit']").length > 0) {
-          variantTitle = `<p class="jacket_option" style="line-height: 25px;">Jacket <span class="option1">${theme_custom.jacketSize ? theme_custom.jacketSize : "" }</span> <span class="option2">${theme_custom.jacketType ? theme_custom.jacketType : ""}</span> <span class="link edit-item" data-variant-id="${getProductvarID}" data-product-handle="jacket-product"> | ${theme_custom.jacketSize && theme_custom.jacketType ? "Edit Item" :"Select size"} </span></p>
-                          <p class="pant_option" style="line-height: 25px;">Pants <span class="option1">${theme_custom.pantsWaist ? theme_custom.pantsWaist + "W" : ""}</span> <span class="option2">${theme_custom.pantsLength ? theme_custom.pantsLength + "H" : ""}</span> <span class="link edit-item" data-variant-id="${getProductvarID}" data-product-handle="pant-product"> | ${theme_custom.pantsWaist && theme_custom.pantsLength ? "Edit Item" :"Select size"} </span></p>`;
+          variantTitle = `<p class="jacket_option edit-remove-link" product-type="jacket" style="line-height: 25px;">Jacket <span class="option1">${theme_custom.jacketSize ? theme_custom.jacketSize : "" }</span> <span class="option2">${theme_custom.jacketType ? theme_custom.jacketType : ""}</span> <span class="link edit-item" data-variant-id="${getProductvarID}" data-product-handle="jacket-product"> | ${theme_custom.jacketSize && theme_custom.jacketType ? "Edit Item" :"Select size"} </span></p>
+                          <p class="pant_option edit-remove-link" product-type="pants" style="line-height: 25px;">Pants <span class="option1">${theme_custom.pantsWaist ? theme_custom.pantsWaist + "W" : ""}</span> <span class="option2">${theme_custom.pantsLength ? theme_custom.pantsLength + "H" : ""}</span> <span class="link edit-item" data-variant-id="${getProductvarID}" data-product-handle="pant-product"> | ${theme_custom.pantsWaist && theme_custom.pantsLength ? "Edit Item" :"Select size"} </span></p>`;
         } else if (currentOption.closest(".product-block-wrapper[data-product-type='shirt']").length > 0) {
           var productVariantLink = ''; 
           if(optionFirstVal != '' ){
@@ -283,7 +283,7 @@ theme_custom.productDataFromURL = function () {
         }
         $(this).closest(".product-block-outer-wrapper").find(".product-title .price-wrap").attr("data-product-price", getVarPrice).text('+' + productPrice).show();
         if (productType != 'suit') {
-          editRemoveBtnWrap = `<div class="edit-remove-link">
+          editRemoveBtnWrap = `<div class="edit-remove-link" product-type="${productType}">
                                 ${editItem}
                                 ${removeItem}
                               </div>`
@@ -1273,13 +1273,17 @@ theme_custom.customize_product_clickEvent = function () {
         error.addClass('active').show();
       }
     }
-    if($(".error-msg.active").length > 0){
-      $(`[data-tab-content="overview"]`).find(".add-to-cart-button").addClass("disabled");
-    } else {
-      $(`[data-tab-content="overview"]`).find(".add-to-cart-button").removeClass("disabled");
-    } 
+  // if($(".error-msg").hasClass("active")){
+  //   $(`[data-tab-content="overview"]`).find(".add-to-cart-button").addClass("disabled");
+  // } else {
+  //   $(`[data-tab-content="overview"]`).find(".add-to-cart-button").removeClass("disabled");
+  // } 
 
     button.text("Updated");
+    // if($(".overview-product .link.edit-item[data-button-target='select-size']").length > 0) {
+    //   $(`[data-tab-content="overview"]`).find(".add-to-cart-button").removeClass("disabled");
+    // }
+
     $(".fancybox-button").click();
     if(productType == 'neckties' || productType == 'hanky' || productType == 'bow-ties' || productType == 'tie-bar' || productType == 'belt'){
       setTimeout(() => {

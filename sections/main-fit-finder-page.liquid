@@ -1219,8 +1219,8 @@
       <div class="button-wrap footer-btn-wrap">
         <button type="button" class="btn-prev-step link prev-button previous-page-link" style="display: none;"><i class="fas fa-arrow-left"></i> Back to Previous</button>
         <button type="button" class="button button--secondary edit-size-button hidden">{% render 'icon-size-rular' %} <span class="fit-finder-label">Edit Sizes</span></button>
-        {%- if section.settings.contiune_btn_link != blank -%}
-          <a type="button" href="{{ section.settings.contiune_btn_link }}" class="button link hidden continue-shopping-btn continue_shopping_fit_finder" style="display: none;">{{ section.settings.contiune_btn_title }} <i class="fas fa-arrow-right"></i></a>
+        {%- if section.settings.continue_btn_link != blank -%}
+          <a type="button" href="{{ section.settings.continue_btn_link }}" class="button link hidden continue-shopping-btn continue_shopping_fit_finder" style="display: none;">{{ section.settings.continue_btn_title }} <i class="fas fa-arrow-right"></i></a>
         {%- endif -%}
       </div>
     </div>
@@ -1273,13 +1273,13 @@ $(document).ready(function(){
     },
     {
       "type":"text",
-      "id":"contiune_btn_title",
+      "id":"continue_btn_title",
       "label":"Button text",
       "default" : "Continue Shopping"
     },
     {
       "type":"url",
-      "id":"contiune_btn_link",
+      "id":"continue_btn_link",
       "label":"Button Link",
       "default" : "/collections/all"
     },

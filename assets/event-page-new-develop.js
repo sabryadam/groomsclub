@@ -360,7 +360,7 @@ theme_custom.successCallback = (data, nextTarget) => {
       let index = i;
       theme_custom.createLookHtml(index, looksDiv, item, eventMembers, data.data.event_id);
     }
-    theme_custom.eventExpired(data.data);
+    // theme_custom.eventExpired(data.data);
     $(".close-icon").click();
     setTimeout(() => {
       theme_custom.lookItemsData(data);
@@ -1000,8 +1000,10 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
             errorMsg = `This Variant is Out of Stock. Please choose another variant.`
             showErrorClass = 'error-show'
             ctaBtnText = 'Out of stock'
+            ctaBtnTextDisable = "disabled"
           } else {
-            ctaBtnText = 'Update'
+            ctaBtnText = 'Update',
+            ctaBtnTextDisable = ''
           }
           var productOptionsList = productItem.product.options;
           var variantTitle = swatches = '';
@@ -1086,7 +1088,7 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
                                     <select class="prod-variant-option hidden">${prodOptionArray}</select>
                                     <div class="swatch-wrapper-options"><h4>${productItem.product.title}</h4>${customSwatchWap}</div>
                                     <span class="error-message" style="display: none;"></span>
-                                    <button type="button" name="selected-variant-update" class="button button--full-width button--primary selected-variant-update disabled" data-product-type="${productType}" data-text="Updating..">${ctaBtnText}</button>
+                                    <button type="button" name="selected-variant-update" class="button button--full-width button--primary selected-variant-update ${ctaBtnTextDisable}" data-product-type="${productType}" data-text="Updating..">${ctaBtnText}</button>
                                   </div>
                                 </div>`;
           productItemHTML += `<div class="product-card-data ${variantNotFound}" data-product-type="${productType}">
@@ -1260,7 +1262,7 @@ theme_custom.lookInfoData = function (result) {
       var lookTotalPrice = theme_custom.Shopify.formatMoney(totalPrice, theme_custom.money_format)
       $(`.summary-table-wrapper tfoot`).fadeIn().find('.total-price').text(lookTotalPrice);
     }, 3000);
-    theme_custom.eventExpired(result.data);
+    // theme_custom.eventExpired(result.data);
   })
   $(".loader-wrapper").addClass("hidden");
   $(".event-step-wrapper").removeClass("hidden");
@@ -1470,7 +1472,7 @@ theme_custom.editItemPopup = function(parentEl){
     parent.find('.selected-variant-update').addClass('disabled');
     parent.find(".error-message").text('Product is not available for this specific combination.').show().addClass('error-show');
   } else {
-    if(variantInventoryPolicy == 'contiune'){
+    if(variantInventoryPolicy == 'continue'){
       parent.find('.selected-variant-update').removeClass('disabled');
       parent.find(".error-message").text('').hide().removeClass('error-show');
     } else {
@@ -1479,7 +1481,7 @@ theme_custom.editItemPopup = function(parentEl){
         parent.find(".error-message").text('').hide().removeClass('error-show');
       } else {
         parent.find(".error-message").text('This Variant is Out of Stock. Please choose another variant.').show().addClass('error-show');
-        parent.find('.selected-variant-update').addClass('disabled');
+        parent.find('.selected-variant-update').text("Out of Stock").addClass('disabled');
       }
     }
   }
@@ -2022,10 +2024,10 @@ theme_custom.getEventDetails = function () {
       eventDataObj.eventType = result.data.event_type;
       eventDataObj.eventDate = result.data.event_date;
       eventDataObj.eventRole = result.data.event_role;
-      if(new Date() > new Date(eventDataObj.eventDate)){
-        theme_custom.eventExpire = true;
-        theme_custom.eventExpired(result.data);
-      }
+      // if(new Date() > new Date(eventDataObj.eventDate)){
+      //   theme_custom.eventExpire = true;
+      //   theme_custom.eventExpired(result.data);
+      // }
 
       $('#EventForm-EventName').val(result.data.event_name);
       $('#EventForm-id').val(result.data.event_id);

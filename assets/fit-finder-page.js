@@ -35,7 +35,9 @@ theme_custom.saveFitFinder = function (fitFinderJson, button) {
     shoe_size_qus = fitFinderJsonData.shoe_size_qus,
     shoe_size = fitFinderJsonData.shoe_size,
     jacketSize = fitFinderJsonData.jacketSize,
-    jacketSize_result = fitFinderJsonData.jacketSize_result;
+    jacketSize_result = fitFinderJsonData.jacketSize_result,
+    pantsHightVal = $(`[name="inseam"]:checked`).val(),
+    pantsWaistVal = $(`[name="waist"]:checked`).val();
   var header = '';
   var userID = $("#customer_id").val(),
     userEmail = $("#customer_email").val();

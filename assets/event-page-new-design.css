@@ -1812,8 +1812,9 @@ span.look-price {
 }
 .summary-table-wrapper .order-wrap-block .view-look{
   line-height: 50px;
-  text-align: center;
   display: block;
+  margin: 0;
+  text-align: center;
 }
 .event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .product-data-card .product-swatch-option{
   display: none;

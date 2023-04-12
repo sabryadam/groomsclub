@@ -278,8 +278,8 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
             otherEvents = otherEvents.reverse();
             var eventsObj = [myEvents,otherEvents];
             var pageCount = eventBlockCount / limit;
-            if (result.success) {    
-                let currentDate = new Date();
+            if (result.success) {   
+                let currentDate = new Date();    
                 if (result.data.events.length > 0) {
                     for(let i = 0;i<eventsObj.length;i++){
                         let activeClass = "";
@@ -324,7 +324,6 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                             if(!ownCreated){
                                 btns = `<div class="event-hostedby"><span>Hosted by ${event.hostedBy}</span></div>`
                             }else{
-
                                 btns = `<div class="event-action-btns">
                                             <span class="events-main-link event-edit-btn" data-href="${pageLink}" data-hosted-by="${event.hostedBy}" data-event-id="${event.event_id}">Edit</span>
                                             <span class="remove-event event-delete-btn" data-hosted-by="${event.hostedBy}">Delete</span>
