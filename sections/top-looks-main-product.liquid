@@ -1625,7 +1625,7 @@ $(document).ready(function(){
   if (getCookie("fit-finder-data") == '') {
     $("#suit_fit_finder").show();
   } else if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-flag-replace") == 'true') {
-    $("#suit_fit_finder").show();
+    $("#suit_fit_finder").hide(); 
     $("#fit_finder_data_auto").show();
   }else{
     {% if customer %}
