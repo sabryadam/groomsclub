@@ -2022,8 +2022,7 @@ theme_custom.getEventDetails = function () {
       eventDataObj.eventType = result.data.event_type;
       eventDataObj.eventDate = result.data.event_date;
       eventDataObj.eventRole = result.data.event_role;
-// debugger;
-      if(new Date('4-14-23') > new Date(eventDataObj.eventDate)){
+      if(new Date() > new Date(eventDataObj.eventDate)){
         theme_custom.eventExpire = true;
         theme_custom.eventExpired(result.data);
       }

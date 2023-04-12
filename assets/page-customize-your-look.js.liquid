@@ -63,8 +63,8 @@ theme_custom.productDataFromURL = function () {
       for (var i = 0; i < getProductItem.length; i++) { 
         var productHandleTitle = getProductItem[i].split("=")[0],
           productVarId = parseInt(getProductItem[i].split("=")[1]);
-        if(productHandleTitle.includes("suit")){
-        } else {
+        // if(productHandleTitle.includes("suit")){
+        // } else {
         var currentOption = $(`option[value="${productVarId}"]`),
           currentVarintPrice = currentOption.attr('data-variant-price'),
           currentVarParent = currentOption.closest('.swatches-wrapper'),
@@ -123,6 +123,7 @@ theme_custom.productDataFromURL = function () {
           getProductHandle = currentOption.closest('.product-item-wrap').find('.swatch-wrap:first-child').attr('data-product-handle'),
           productType = currentOption.closest('.product-block-wrapper').attr("data-product-type").toLowerCase(),
           getProductvarQty = parseInt(currentOption.attr("data-variant-inventory")),
+          getProductvarPolicy = parseInt(currentOption.attr("data-inventory-policy")),
         editRemoveBtnWrap = inputHiddenVal = productBlockVarData = editItem = removeItem = variantTitle = variantTitleWithOption = optionFirstName = optionFirstVal = optionSecondName = optionSecondVal = optionThirdName = optionThirdval = '';
         let fitData = {};
         if(getCookie('fit-finder-data')){
@@ -289,8 +290,11 @@ theme_custom.productDataFromURL = function () {
         } else {
           editRemoveBtnWrap = '';
         }
-        customizeLookProductHTML = `<div class="customize-look-overview-product ${productBlockVarData}" data-product-id="${getProductID}" data-variant-id="${getProductvarID}" data-product-handle="${getProductHandle}" data-product-type="${productType}">
+        customizeLookProductHTML = `<div class="product-data-card customize-look-overview-product ${productBlockVarData}" data-product-id="${getProductID}" data-variant-id="${getProductvarID}" data-product-handle="${getProductHandle}" data-product-type="${productType}">
               ${inputHiddenVal}
+              <input type="hidden" name="looks-product-id" class="looks-product-id" value="${getProductID}">
+              <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="${getProductHandle}">
+              <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="${getProductvarID}" data-inventory-policy="${getProductvarPolicy}">
               <div class="product-image">
                 <img src="${productVarImage}" alt="${productTitle}" />
               </div>
@@ -315,7 +319,7 @@ theme_custom.productDataFromURL = function () {
               ${variantNotFoundMessage}
           </div>`;
         customizeLookProduct.push(customizeLookProductHTML);
-        }
+        // }
       }
       $(".overview-product").html(customizeLookProduct);
       $(".customize-look-overview-product[data-product-type='jacket']").hide();
@@ -756,7 +760,6 @@ theme_custom.getEventData = function (modalTarget) {
 }
 
 
-
 // theme_custom.b64toBlob
 theme_custom.b64toBlob = function (b64Data, contentType, sliceSize) {
 
@@ -783,9 +786,6 @@ theme_custom.b64toBlob = function (b64Data, contentType, sliceSize) {
   var blob = new Blob(byteArrays, { type: contentType });
   return blob;
 }
-
-
-
 
 
 // theme_custom.imageMagnifier 
@@ -1355,7 +1355,6 @@ theme_custom.customize_product_clickEvent = function () {
   });
 
 
-
   // add-to-cart-button Click Event 
   $(document).on("click", ".add-to-cart-button", function () {
     if($(`[data-button-target="select-size"]`).length > 0) {
@@ -1414,7 +1413,6 @@ theme_custom.customize_product_clickEvent = function () {
     theme_custom.getEventData(modalTarget);
     theme_custom.createLookImage();
   });
-
 
 
   // update-event-look-api-button Click Event 
@@ -1968,7 +1966,7 @@ theme_custom.checkEditLook = function(){
     $(`.favourite-look-wrapper`).find('.favorite-event-api-button .button-title').text('Update Look');
     $(`[data-tab-content='overview']`).find(`.wishlist-add-event-part .add-to-event, .product-share-button, .product-info-footer .button-wrapper`).hide();
   }
-  if(localStorage.getItem("set-event-id") != null && localStorage.getItem("customise-look-button-for-add-look-into-event")){
+  if(localStorage.getItem("set-event-id") != null && localStorage.getItem("customise-look-button-for-add-look-into-event") != null){
     $(`[data-tab-content='overview']`).find('.wishlist-add-event-part .add-to-event').addClass("add-look-and-countinue");
     $(`[data-tab-content='overview']`).find('.wishlist-add-event-part .add-to-event span').text("Add Look and Continue");
     $(`[data-tab-content='overview']`).find(`.wishlist-add-event-part .wishlist-icon-wrap, .product-share-button, .product-info-footer .button-wrapper`).hide();
@@ -2063,7 +2061,6 @@ $(document).ready(function () {
       $(this).closest(".product-swatch-option").find(".exchange-look-item").removeClass("disabled");
     }
   });
-
 
 
   $(".custom-tabs-scroll").each(function (index, item) {

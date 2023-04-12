@@ -278,8 +278,8 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
             otherEvents = otherEvents.reverse();
             var eventsObj = [myEvents,otherEvents];
             var pageCount = eventBlockCount / limit;
-            if (result.success) {   
-                let currentDate = new Date();    
+            if (result.success) {    
+                let currentDate = new Date();
                 if (result.data.events.length > 0) {
                     for(let i = 0;i<eventsObj.length;i++){
                         let activeClass = "";

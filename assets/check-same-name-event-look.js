@@ -1,23 +1,23 @@
-  //Favorite Looks API
+//Favorite Looks API
 // const APP_Token = 'Bearer ' + localStorage.getItem("customerToken")
 
-  // favorite-event-api-button Click Event 
-  $(document).on("click", ".favorite-event-api-button", function (e) {
-    var button = $(this);
+// favorite-event-api-button Click Event 
+$(document).on("click", ".favorite-event-api-button", function (e) {
+  var button = $(this);
 
-    if(window.location.pathname != '/pages/customize-your-look'){
+  if(window.location.pathname != '/pages/customize-your-look'){
+    theme_custom.favoriteButtonEvent(button);
+  }else{
+    if(localStorage.getItem("editLookName")!=null && localStorage.getItem("editLookId")!=null){
+      theme_custom.favoriteLookUpdate(button);
+    } else {
       theme_custom.favoriteButtonEvent(button);
-    }else{
-      if(localStorage.getItem("editLookName")!=null && localStorage.getItem("editLookId")!=null){
-        theme_custom.favoriteLookUpdate(button);
-      } else {
-        theme_custom.favoriteButtonEvent(button);
-      }
     }
-  })
+  }
+})
 
 
-  // Favorite Look added
+// Favorite Look added
 theme_custom.favoriteButtonEvent = function (eventButton) {
   var error_count = 0,
     button = eventButton;
@@ -32,16 +32,15 @@ theme_custom.favoriteButtonEvent = function (eventButton) {
     let lookExist = theme_custom.favLooks.find((item)=> item.name.toLowerCase() == lookName.toLowerCase());
     if(lookExist){
       $(button).closest(".favourite-look-wrapper").find(".form-error:first").text("Look name already exist. Please Select another Look Name!").addClass("active");
-
     }else{
       button.find(".loading-overlay").removeClass("hidden");
       button.addClass("disabled");
       button.find('.button-title').text(button.attr("data-text"));
       if(window.location.pathname != '/pages/customize-your-look'){
-        lookURL = theme_custom.customizeURLData;
-          lookUrl = `/pages/customize-your-look?${lookURL}`;
-        }
-        theme_custom.favouriteLookApi(lookName, lookUrl, produArray, button);
+        lookUrl = `/pages/customize-your-look?${theme_custom.customizeURLData}`;
+      }
+      console.log("lookUrl",lookUrl)
+      theme_custom.favouriteLookApi(lookName, lookUrl, produArray, button);
     }
   }
 }
@@ -155,118 +154,123 @@ theme_custom.favouriteLookApi = function (lookName, lookUrl, produArray, button)
 }
 
 theme_custom.getFavoriteLooks = function(callback) {
-
   var favorite_api_url = theme_custom.api_base_url + '/api/look/favouriteLooks';
   $.ajax({
-      url: favorite_api_url,
-      method: "GET",
-      data: '',
-      dataType: "json",
-      headers: {
-          "Authorization": APP_Token
-      },
-      success: function (result) {
-        callback(result.data)
-        // theme_custom.favLooks = result.data;
-      },
-      error: function (xhr, status, error) {
-        callback([])
-      }
+    url: favorite_api_url,
+    method: "GET",
+    data: '',
+    dataType: "json",
+    headers: {
+        "Authorization": APP_Token
+    },
+    success: function (result) {
+      callback(result.data)
+      // theme_custom.favLooks = result.data;
+    },
+    error: function (xhr, status, error) {
+      callback([])
+    }
   });
 }
   
   
-  // add-event-look-api-button Click Event 
-  $(document).on("keyup", ".create-event-look .custom-text-filed", function(e){
-    $(this).closest(".create-event-look").find(".form-error").removeClass("active");
-  });
-  $(document).on("click", ".add-event-look-api-button", function (e) {
-    var button = $(this);
-    theme_custom.addLookToEvent(button);
-  })
+// add-event-look-api-button Click Event 
+$(document).on("keyup", ".create-event-look .custom-text-filed", function(e){
+  $(this).closest(".create-event-look").find(".form-error").removeClass("active");
+});
+$(document).on("click", ".add-event-look-api-button", function (e) {
+  var button = $(this);
+  theme_custom.addLookToEvent(button);
+})
 
-  theme_custom.addLookToEvent = function (eventButton) {
-    var error_count = 0,
-      button = eventButton;
-    error_count = error_count + theme_custom.textValidationWithSpacialChar(eventButton.closest(".create-event-look").find('[name="look-name"'));
-    if (eventButton.closest(".create-event-look").find("#event-id").val() == '') {
-      eventButton.closest(".create-event-look").find("select").next(".form-error").text("Please Select Event Name!").addClass("active");
-      error_count = 1;
-    }
-    if (error_count > 0) {
-      button.removeClass("disabled")
-      button.find(".loading-overlay").addClass("hidden");
-      button.find(".button-title").text("Add to Event");
-      return false;
-    } else {
+theme_custom.addLookToEvent = function (eventButton) {
+  var error_count = 0,
+    button = eventButton;
+  error_count = error_count + theme_custom.textValidationWithSpacialChar(eventButton.closest(".create-event-look").find('[name="look-name"'));
+  if (eventButton.closest(".create-event-look").find("#event-id").val() == '') {
+    eventButton.closest(".create-event-look").find("select").next(".form-error").text("Please Select Event Name!").addClass("active");
+    error_count = 1;
+  }
+  if (error_count > 0) {
+    button.removeClass("disabled")
+    button.find(".loading-overlay").addClass("hidden");
+    button.find(".button-title").text("Add to Event");
+    return false;
+  } else {
 
+    // if(window.location.pathname != '/pages/customize-your-look'){
+      var productDataCardArr = $(".product-data-card");
+      theme_custom.customizeURLData  = '';
       if(window.location.pathname != '/pages/customize-your-look'){
-        var productDataCardArr = $(".product-data-card");
-        theme_custom.customizeURLData  = '';
         theme_custom.customizeURLData += $(`.product-data-card-wrap[data-product-type="looks"]`).find(".looks-product-handle").val() + '=' + $(`.product-data-card-wrap[data-product-type="looks"]`).find(".looks-product-var-id").val() + '&';
-        $.each(productDataCardArr, function(index, value) {
-          var customizeURL = ''
-          var isLastElement = index == productDataCardArr.length -1;
-          if (isLastElement) {
-            customizeURL = $(this).find(".looks-product-handle").val() + '=' + $(this).find(".looks-product-var-id").val();
-          } else {
-            customizeURL = $(this).find(".looks-product-handle").val() + '=' + $(this).find(".looks-product-var-id").val() + '&';
-          }
-          theme_custom.customizeURLData += customizeURL;
-        });
       }
-
-      var lookName = eventButton.closest(".create-event-look").find("#look-name").val(),
-      eventId = eventButton.closest(".create-event-look").find("#event-id").val(),
-      lookUrl = window.location.href;
-    produArray = theme_custom.newArray;
-         lookName = lookName.trim(0);
-  
-        let lookNameExist = theme_custom.selectedEventLooks.find((item)=> item.name.toLowerCase() == lookName.toLowerCase());
-        if(lookNameExist){
-            $(eventButton).closest(".create-event-look").find("select").next(".form-error").text("Look name already exist. Please Select another Event Name!").addClass("active");
-        }else{
-            button.addClass("disabled")
-            button.find(".loading-overlay").removeClass("hidden");
-            button.find(".button-title").text(button.attr("data-text"));
-            theme_custom.customizeLookAPI(lookName, eventId, lookUrl, produArray, button);
-            // theme_custom.createLookAPI(lookName,eventId,lookUrl,produArray,button);
+      $.each(productDataCardArr, function(index, value) {
+        var customizeURL = ''
+        var isLastElement = index == productDataCardArr.length -1;
+        if (isLastElement) {
+          customizeURL = $(this).find(".looks-product-handle").val() + '=' + $(this).find(".looks-product-var-id").val();
+        } else {
+          customizeURL = $(this).find(".looks-product-handle").val() + '=' + $(this).find(".looks-product-var-id").val() + '&';
         }
+        theme_custom.customizeURLData += customizeURL;
+      });
+    // }
 
+    var lookName = eventButton.closest(".create-event-look").find("#look-name").val(),
+      eventId = eventButton.closest(".create-event-look").find("#event-id").val(),
+      // lookUrl = window.location.href;
+      lookUrl = `/pages/customize-your-look?${theme_custom.customizeURLData}`;
+      produArray = theme_custom.newArray;
+      lookName = lookName.trim(0);
+    let lookNameExist = theme_custom.selectedEventLooks.find((item)=> item.name.toLowerCase() == lookName.toLowerCase());
+    if($(".template-page-customize-your-look").length > 0) {
+      if(localStorage.getItem("customize-from-event") != null){
+        lookNameExist = false;
+      }
+    }
+    if(lookNameExist){
+      $(eventButton).closest(".create-event-look").find("select").next(".form-error").text("Look name already exist. Please Select another Event Name!").addClass("active");
+    }else{
+      button.addClass("disabled")
+      button.find(".loading-overlay").removeClass("hidden");
+      button.find(".button-title").text(button.attr("data-text"));
+      theme_custom.customizeLookAPI(lookName, eventId, lookUrl, produArray, button);
+      // theme_custom.createLookAPI(lookName,eventId,lookUrl,produArray,button);
     }
   }
-
-$(document).on("change",".create-event-look #event-id", function() {
-    $(this).next(".form-error").removeClass("active")
-    theme_custom.getEventDetailsByID($('#event-id').val());
-});
-theme_custom.getEventDetailsByID = function (eventId) {
-    $('.page-loader').css({'z-index': '100000'})
-    $('.page-loader').removeClass('hidden')
-    $.ajax({
-      url: `${theme_custom.base_url}/api/event/${eventId}`,
-      method: "GET",
-      data: '',
-      dataType: "json",
-      headers: {
-        // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
-        "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
-      },
-      beforeSend: function () {
-      },
-      success: function (result) {
-        theme_custom.selectedEventLooks = result.data.event_looks;
-        $('.page-loader').css({'z-index': '1200'})
-        $('.page-loader').addClass('hidden')
-      },
-      error: function (xhr, status, error) {
-        $('.page-loader').css({'z-index': '1200'});
-        $('.page-loader').addClass('hidden');
-      }
-    });
 }
 
-  // theme_custom.customizeLookAPI
+$(document).on("change",".create-event-look #event-id", function() {
+  $(this).next(".form-error").removeClass("active")
+  theme_custom.getEventDetailsByID($('#event-id').val());
+});
+theme_custom.getEventDetailsByID = function (eventId) {
+  $('.page-loader').css({'z-index': '100000'})
+  $('.page-loader').removeClass('hidden')
+  $.ajax({
+    url: `${theme_custom.base_url}/api/event/${eventId}`,
+    method: "GET",
+    data: '',
+    dataType: "json",
+    headers: {
+      // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
+      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+    },
+    beforeSend: function () {
+    },
+    success: function (result) {
+      theme_custom.selectedEventLooks = result.data.event_looks;
+      $('.page-loader').css({'z-index': '1200'})
+      $('.page-loader').addClass('hidden')
+    },
+    error: function (xhr, status, error) {
+      $('.page-loader').css({'z-index': '1200'});
+      $('.page-loader').addClass('hidden');
+    }
+  });
+}
+
+// theme_custom.customizeLookAPI
 theme_custom.customizeLookAPI = function (lookName, eventId, lookUrl, produArray, button) {
   var getEventId = eventId;
   eventData = {
@@ -348,6 +352,7 @@ theme_custom.LookImageCustomizer = function (getEventId, lookID, button) {
           localStorage.removeItem("eventLookId");
           localStorage.removeItem("eventLookName");
           localStorage.removeItem("customizerlookUrl");
+          localStorage.removeItem("customise-look-button-for-add-look-into-event");
           button.removeClass("disabled");
           button.find(".button-title").text("Look Updated");
           button.find(".loading-overlay").addClass("hidden");
