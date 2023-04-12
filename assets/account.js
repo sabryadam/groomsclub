@@ -400,7 +400,7 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                                             </div>
                                         </div>
                                         <div class="event-container-wrapper event-container-1">
-                                            <div class="add-new-event-btn btn-wrapper error-not-found">
+                                            <div class="add-new-event-btn btn-wrapper">
                                                 <p style="text-align:center">No Event found</p>
                                                 <a class="button button--primary continue-btn" href="/pages/create-event">SHOP COLLECTION <i class="fas fa-arrow-right"></i></a>
                                             </div>
