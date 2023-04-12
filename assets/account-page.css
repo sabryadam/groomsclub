@@ -264,10 +264,6 @@
     position: relative;
     overflow: hidden;
 }
-.main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .events-container.event-expired{
-    /* background: #ddd; */
-}
-
 .main-account-page #tabs-content .tab-content .my-event-wrapper .my-event-inner .events-main-container .events-container.active{
     display: flex;
 }
@@ -590,7 +586,6 @@
     width: fit-content;
     margin: 25px auto 10px;
 }
-
 
 /* account-event-ribbon start */
 .account-event-ribbon span {

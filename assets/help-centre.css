@@ -114,9 +114,13 @@ width: 32%;
     color: var(--color-primary);
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 24px;
     margin: 0px 0 6px 0;
+  }
+
+  .link-box h3 {
+    font-size: 16px;
   }
 }
 

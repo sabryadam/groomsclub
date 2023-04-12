@@ -29,8 +29,7 @@
                             "options":{{variant.options | json}},
                             "price":{{variant.price}},
                             "inventory_management":"{{variant.inventory_management}}",
-                            "inventory_quantity":"{{variant.inventory_quantity}}",
-                            "inventory_policy": "{{variant.inventory_policy}}"
+                            "inventory_quantity":"{{variant.inventory_quantity}}"
                          }{% unless forloop.last %},{% endunless %}
                         {% endfor %}
                     ]

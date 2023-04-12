@@ -49,7 +49,6 @@
       return "";
     }
     window.theme_custom = window.theme_custom || {};
-    window.global_function = window.global_function || {};
     theme_custom.money_format = {{ shop.money_format | json }};
     theme_custom.api_base_url = {{ settings.api_base_url | json }};
     theme_custom.shop_url = {{ shop.url | json}};
@@ -67,9 +66,6 @@
   <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
   {%- endunless -%}
   {% render 'meta-tags' %}
-  {% if template contains 'customize-your-look' or template contains 'top-looks-pdp' %}
-  <script src="{{ 'check-same-name-event-look.js' | asset_url }}" defer="defer"></script>
-  {% endif  %}
   <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'custom2.js' | asset_url }}" defer="defer"></script>
 
@@ -348,7 +344,6 @@
   <script src="{{ 'variants.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
   <script src="{{ 'custom.js' | asset_url }}" defer></script>
-  <script src="{{ 'common-function.js' | asset_url }}" defer></script>
 
   
   <script>

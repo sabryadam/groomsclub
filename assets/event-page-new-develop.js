@@ -1,9 +1,7 @@
 // event-new-development
 theme_custom.base_url = theme_custom.api_base_url;
 theme_custom.eventFavLooks = [];
-theme_custom.allEvents = [];
 theme_custom.globalEventData = null;
-theme_custom.eventExpire = false;
 const APP_Token = 'Bearer ' + localStorage.getItem("customerToken");
 
 theme_custom.lookAssignToMember = function (member_id, look_id) {
@@ -360,7 +358,6 @@ theme_custom.successCallback = (data, nextTarget) => {
       let index = i;
       theme_custom.createLookHtml(index, looksDiv, item, eventMembers, data.data.event_id);
     }
-    theme_custom.eventExpired(data.data);
     $(".close-icon").click();
     setTimeout(() => {
       theme_custom.lookItemsData(data);
@@ -597,19 +594,6 @@ theme_custom.createEventAPI = function (btn) {
     }, 1000);
     return false;
   }
-  let eventName = $(".event-page-new-design-wrapper").find(".event-name").val();
-  if(eventName){
-    eventName = eventName.trim();
-    let eventExist = theme_custom.allEvents.find((item)=> item.name.toLowerCase() == eventName.toLowerCase());
-    if(eventExist){
-      $('#EventForm-EventName').next(".form-error").text(`Event name already exist. Please Select another Event Name!`).addClass("active");
-      $('html, body').animate({
-        scrollTop: $('.event-type-block-wrap').offset().top - 100
-      }, 1000);
-      return;
-    }
-  }
-  
   if (error_count == 0) {
     button.addClass('loading disabled');
     var event_name = $('.event-page-new-design-wrapper .event-name').val();
@@ -960,12 +944,10 @@ theme_custom.ProductData = function (productItemsArr, lookName, lookId, memberId
 }
 
 // theme_custom.productBlockDataWrap
-theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, lookDetails, isHostCheck, lookImagePath, lookTitle) {
+theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, lookDetails) {
   $(`.look-card-block[data-look-id="${orderItems.look_id}"] .look-price,.order-wrap-${index} .product-card-wrap`).hide();
   var productDataArrayData = orderItemsObj.filter((x) => { return (x.type != "looks" || !x.product_handle.includes("suit"))});
-  var subTotal = 0, productItemHTML = productLookList = productLookItemList = '',
-      lookImagePath = lookImagePath,
-      lookTitle = lookTitle;
+  var subTotal = 0, productItemHTML = '';
   var productItemsArrayLooks = productDataArrayData;
   var product_ids = '';
   $.map(productDataArrayData, function (productItems, index) {
@@ -990,146 +972,17 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
         productItemsArrayLooks[index]["selectedVar"] = selectedVar;
         productItemsArrayLooks[index]["product"] = product;
       });
-      if(isHostCheck == 1){
-        $.map(productItemsArrayLooks, function(productItem,index) {
-          var productType = productItem.product.type;
-          productType = productType.toLowerCase();
-          var variantNotFound = errorMsg = showErrorClass = '';
-          if(productItem.selectedVar.inventory_policy == 'deny' && parseInt(productItem.selectedVar.inventory_quantity) <= 0){
-            variantNotFound = 'variant-not-found';
-            errorMsg = `This Variant is Out of Stock. Please choose another variant.`
-            showErrorClass = 'error-show'
-            ctaBtnText = 'Out of stock'
-          } else {
-            ctaBtnText = 'Update'
-          }
-          var productOptionsList = productItem.product.options;
-          var variantTitle = swatches = '';
-          if(productItem.product.options){
-            var productOption = productItem.product.options;
-            var customSwatchWap = '';
-            for (let optionVal = 0; optionVal < productOption.length; optionVal++) {
-              var element = productOption[optionVal];
-              var customSwatch = '';
-              var elementValues = element.values;
-              for (let selectVar = 0; selectVar < elementValues.length; selectVar++) {
-                var swatchValue = elementValues[selectVar];
-                if(productOption[optionVal].name == 'Color' || productOption[optionVal].name == 'color'){
-                  var color_name = swatchValue.toLowerCase().replace(" ","-");
-                  customSwatch += `<div data-title="${swatchValue}" data-value="${swatchValue}" class="swatch-product-wrapper swatch-element ${swatchValue}">
-                                    <input id="${productItem.product.handle}-${color_name}" type="radio" data-name="${productOption[optionVal].name}" name="${productItem.product.handle}-${productOption[optionVal].name}" value="${swatchValue}" data-value="${swatchValue.toLowerCase()}" />
-                                    <label style="background-image:url(//cdn.shopify.com/s/files/1/0585/3223/3402/files/color_${color_name}.png?v=13538939889425418844)" for="${productItem.product.handle}-${color_name}"><span>${color_name}</span></label>
-                                  </div>`;
-                } else {
-                  customSwatch += `<div data-title="${swatchValue}" data-value="${swatchValue}" class="swatch-product-wrapper swatch-element ${swatchValue}">
-                                    <input id="${productItem.product.handle}-${productOption[optionVal].name}-${swatchValue}" type="radio" data-name="${productOption[optionVal].name}" name="${productItem.product.handle}-${productOption[optionVal].name}" value="${swatchValue}" data-value="${swatchValue.toLowerCase()}" />
-                                    <label data-option-value="${swatchValue}" for="${productItem.product.handle}-${productOption[optionVal].name}-${swatchValue}">${swatchValue}</label>
-                                  </div>`;
-                }
-              }
-              var optionNameHandle = (productOption[optionVal].name).toLowerCase().replace(/ /g,'-');
-              customSwatchWap += `<div class="swatch swatch-wrap clearfix swatch-${optionNameHandle}" data-option-index="${optionVal}">
-                                    <p class="swatch-title">${productOption[optionVal].name} :</p>
-                                    <div class="swatch" data-option-swatch-index="${optionVal}">
-                                      ${customSwatch}
-                                    </div>
-                                  </div>`;
-            }
-          }
-          var prodOptionArray = [];
-          $.each(productItem.product.variants, function (key, value) {
-            if(!value.title == ''){
-              if(key == 0){
-                prodOptionArray += `<option data-variant-title="${value.title}" data-product-id="${productItem.product.id}" value="${value.id}" data-variant-price="${value.price}" data-variant-image="${value.featured_image}" data-variant-inventory-policy="${value.inventory_policy}" data-variant-inventory-quantity="${value.inventory_quantity}" selected="selected">${value.title}</option>`;
-              } else {
-                prodOptionArray += `<option data-variant-title="${value.title}" data-product-id="${productItem.product.id}" value="${value.id}" data-variant-price="${value.price}" data-variant-image="${value.featured_image}" data-variant-inventory-policy="${value.inventory_policy}" data-variant-inventory-quantity="${value.inventory_quantity}">${value.title}</option>`;
-              }
-            }
-          });
-          $(productOptionsList).each(function(index, item){
-            if(index == 0) {
-              variantTitle += `<span class="option-name option-1 ${item.name}" data-value="${productItem.selectedVar.option1}">${productItem.selectedVar.option1}</span>`
-            }
-            if(index == 1){
-              variantTitle += ` / <span class="option-name option-2 ${item.name}" data-value="${productItem.selectedVar.option2}">${productItem.selectedVar.option2}</span>`
-            }
-            if(index == 2){
-              variantTitle += ` / <span class="option-name option-3 ${item.name}" data-value="${productItem.selectedVar.option3}">${productItem.selectedVar.option3}</span>`              
-            }
-          });
-          productLookItemList += `<div class="edit-product-data-card product-data-card ${variantNotFound}" data-product-type="${productType}" data-prod-handle="${productItem.product.handle}">
-                                  <input type="hidden" class="product_handle" value="${productItem.product.handle}" /> 
-                                  <input type="hidden" class="product_id" value="${productItem.product.id}" />
-                                  <input type="hidden" class="product_var_id" value="${productItem.selectedVar.id}" data-inventory-policy="${productItem.selectedVar.inventory_policy}" data-inventory-quantity="${productItem.selectedVar.inventory_quantity}" />
-                                  <input type="hidden" class="product_variant_title" value="${productItem.selectedVar.title}" />
-                                  <div class="product-block-wrap">
-                                    <div class="product-image">
-                                      <img src="${productItem.selectedVar.featured_image}" alt="${productItem.product.title}">
-                                    </div>
-                                    <div class="product-variant-info">
-                                      <h4 class="product-title">${productItem.product.title}</h4>
-                                      <div class="variant-title">
-                                        ${variantTitle}                                            
-                                      </div>
-                                      <div class="cta-button-wrap product-variant-wrap">
-                                        <span class="open-product-edit-popup" data-button-label="edit-item">Edit Item</span>
-                                      </div>
-                                    </div>
-                                    <div class="product-price">
-                                      <span class="money" data-price="${productItem.selectedVar.price}">
-                                        ${theme_custom.Shopify.formatMoney(productItem.selectedVar.price, theme_custom.money_format)}
-                                      </span>
-                                    </div>
-                                    <span class="error-message ${showErrorClass}">${errorMsg}</span>
-                                  </div>
-                                  <div class="product-edit-popup-wrap edit-item-popup" data-product-handle="${productItem.product.handle}" data-product-id="${productItem.product.id}" data-line-item-id="${productItem.selectedVar.id}" data-product-type="${productType}">
-                                    <select class="prod-variant-option hidden">${prodOptionArray}</select>
-                                    <div class="swatch-wrapper-options"><h4>${productItem.product.title}</h4>${customSwatchWap}</div>
-                                    <span class="error-message" style="display: none;"></span>
-                                    <button type="button" name="selected-variant-update" class="button button--full-width button--primary selected-variant-update disabled" data-product-type="${productType}" data-text="Updating..">${ctaBtnText}</button>
-                                  </div>
-                                </div>`;
-          productItemHTML += `<div class="product-card-data ${variantNotFound}" data-product-type="${productType}">
-                                <input type="hidden" class="product_handle" value="${productItem.product.handle}" /> 
-                                <input type="hidden" class="product_id" value="${productItem.product.id}" />
-                                <input type="hidden" class="product_var_id" value="${productItem.selectedVar.id}" data-inventory-policy="${productItem.selectedVar.inventory_policy}" data-inventory-quantity="${productItem.selectedVar.inventory_quantity}" />
-                                <input type="hidden" class="product_variant_title" value="${productItem.selectedVar.title}" />
-                              </div>`;
-          subTotal += productItem.selectedVar.price;
-        });
-        productLookList = `<td colspan="4" class="look-list">
-                            <div class="look-product-details">
-                              <div class="look-info-wrapper">
-                                <div class="look-img">
-                                  <img src="${lookImagePath}" alt="${lookTitle}" />
-                                </div>
-                                <h3 class="look-title">${lookTitle}</h3>
-                              </div>
-                              <div class="look-products-list-wrapper">
-                                ${productLookItemList}
-                              </div>
-                            </div>
-                          </td>`;
-        $(`.event-owner-look-product-list.order-wrap-block.look-product-list-wrapper`).html(productLookList);
-        if($(".event-owner-look-product-list.look-product-list-wrapper").find(".error-message.error-show").length > 0){
-          $(".event-owner-look-product-list").find(".view-look").attr("data-text","View Look").text("Hide Look");
-          setTimeout(() => {
-            $(".event-owner-look-product-list.look-product-list-wrapper").find(".look-product-details").addClass("show");
-          }, 1500);
-        }
-      } else {
-        $.map(productItemsArrayLooks, function(productItem,index) {
-          var productType = productItem.product.type;
-          productType = productType.toLowerCase();
-          productItemHTML += `<div class="product-card-data" data-product-type="${productType}">
-                                <input type="hidden" class="product_handle" value="${productItem.product.handle}" /> 
-                                <input type="hidden" class="product_id" value="${productItem.product.id}" />
-                                <input type="hidden" class="product_var_id" value="${productItem.selectedVar.id}" data-inventory-policy="${productItem.selectedVar.inventory_policy}" data-inventory-quantity="${productItem.selectedVar.inventory_quantity}" />
-                                <input type="hidden" class="product_variant_title" value="${productItem.selectedVar.title}" />
-                              </div>`;
-          subTotal += productItem.selectedVar.price;
-        });
-      }      
+      $.map(productItemsArrayLooks, function(productItem,index) {
+        var productType = productItem.product.type;
+        productType = productType.toLowerCase();
+        productItemHTML += `<div class="product-card-data" data-product-type="${productType}">
+                              <input type="hidden" class="product_handle" value="${productItem.product.handle}" /> 
+                              <input type="hidden" class="product_id" value="${productItem.product.id}" />
+                              <input type="hidden" class="product_var_id" value="${productItem.selectedVar.id}" />
+                              <input type="hidden" class="product_variant_title" value="${productItem.selectedVar.title}" />
+                            </div>`;
+        subTotal += productItem.selectedVar.price;
+      });
       productSubTotalPrice = theme_custom.Shopify.formatMoney(subTotal, theme_custom.money_format);
       $(`.order-wrap-${index} .look-price`).text(productSubTotalPrice);
       $(`.order-wrap-${index} .look-price`).attr("data-price", subTotal / 100);
@@ -1158,14 +1011,12 @@ theme_custom.lookInfoData = function (result) {
     $(".summary-table-wrapper").removeClass("hidden");
   }
   $.map(paymentInfo, function (orderItems, index) {
-    var isHostCheck = orderItems.is_host; 
     var productHTML = item_data = product_data_for_host = '';
     var orderItemsObj = orderItems.items;    
     for (let i = 0; i < lookDetails.length; i++) {
       const element = lookDetails[i];
       if (element.look_id == orderItems.look_id) {
-        var lookImagePath = element.look_image;
-        var lookTitle = element.name;
+        orderImg = element.look_image;
       }
     }
     if (orderItems.payment_status != "Complete") {
@@ -1173,80 +1024,53 @@ theme_custom.lookInfoData = function (result) {
       if (orderItems.is_host == 1) {
         payInfo = 'I pay';
         product_data_for_host = ''
-        actionButton = `<button class="button btn-wrap button--secondary cta-action-add-to-cart" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}" data-look-image="${lookImagePath}"  data-look-price="215.90">
+        actionButton = `<button class="button btn-wrap button--secondary add-to-cart" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}" data-look-image="${orderImg}"  data-look-price="215.90">
                           Proceed to Cart
-                        </button>
-                        <span class="view-look" data-text="Hide Look">View Look</span>`;
+                        </buttom>`;
       } else {
         payInfo = 'I Pay';
         product_data_for_host = 'hidden';
-        actionButton = `<button class="button btn-wrap button--secondary event-payment-for-guest" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}" data-look-image="${lookImagePath}"  data-look-price="215.90">
+        actionButton = `<button class="button btn-wrap button--secondary event-payment-for-guest" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}" data-look-image="${orderImg}"  data-look-price="215.90">
                           Pay for Guest
-                        </button>`
+                        </buttom>`
       }
     } else {
       var actionButton = payInfo = "";
       if (orderItems.is_host == 1) {
         payInfo = 'I pay';
-        actionButton = `<button class="disabled button btn-wrap button--primary cta-action-add-to-cart" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}"  data-look-price="215.90">
+        actionButton = `<button class="disabled button btn-wrap button--primary add-to-cart" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}"  data-look-price="215.90">
                           Payment Completed
-                        </button>`;
+                        </buttom>`;
       } else {
         payInfo = 'I pay';
         actionButton = `<button class="disabled button btn-wrap button--primary event-payment-for-guest" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}"  data-look-price="215.90">
                           Payment Completed
-                        </button>`
+                        </buttom>`
       }
     }
-    if (orderItems.is_host == 1) {
-      productHTML += `<tr class="event-owner-look-product-list order-wrap-block product-price-cal order-wrap-${index}">
-                        <td class="look-name-wrap">
-                          <span class="look_name">${orderItems.look_name}</span>
-                        </td>
-                        <td class="member-name-wrapper">
-                          <span class="member-number">
-                            For ${orderItems.member_name}
-                          </span>
-                        </td>
-                        <td class="pay-info-wrap">
-                          <span class="pay-info" >${payInfo}</span>
-                          <span class="look-price" data-price="219.90"></span>  
-                        </td>
-                        <td class="action-button">
-                          <div class="product-data ${product_data_for_host}">
-                            <div class="product-card-wrap">
-                              <input type="hidden" class="product_id" data-product-id="" data-product-price="" data-product-var-id="" />
-                            </div>
+    productHTML += `<tr class="order-wrap-block order-wrap-${index}">
+                      <td class="look-name-wrap">
+                        <span class="look_name">${orderItems.look_name}</span>
+                      </td>
+                      <td class="member-name-wrapper">
+                        <span class="member-number">
+                          For ${orderItems.member_name}
+                        </span>
+                      </td>
+                      <td class="pay-info-wrap">
+                        <span class="pay-info" >${payInfo}</span>
+                        <span class="look-price" data-price="219.90"></span>  
+                      </td>
+                      <td class="action-button">
+                        <div class="product-data ${product_data_for_host}">
+                          <div class="product-card-wrap">
+                            <input type="hidden" class="product_id" data-product-id="" data-product-price="" data-product-var-id="" />
                           </div>
-                          ${actionButton}
-                        </td>
-                      </tr>
-                      <tr class="event-owner-look-product-list order-wrap-block look-product-list-wrapper multi-item-add-to-cart"></tr>`;
-    } else {
-      productHTML += `<tr class="guest-memeber-look-product-list product-price-cal order-wrap-block order-wrap-${index}">
-                        <td class="look-name-wrap">
-                          <span class="look_name">${orderItems.look_name}</span>
-                        </td>
-                        <td class="member-name-wrapper">
-                          <span class="member-number">
-                            For ${orderItems.member_name}
-                          </span>
-                        </td>
-                        <td class="pay-info-wrap">
-                          <span class="pay-info" >${payInfo}</span>
-                          <span class="look-price" data-price="219.90"></span>  
-                        </td>
-                        <td class="action-button">
-                          <div class="product-data ${product_data_for_host}">
-                            <div class="product-card-wrap">
-                              <input type="hidden" class="product_id" data-product-id="" data-product-price="" data-product-var-id="" />
-                            </div>
-                          </div>
-                          ${actionButton}
-                        </td>
-                      </tr>`;
-    }                
-    theme_custom.productBlockDataWrap(orderItemsObj, orderItems, index, lookDetails, isHostCheck, lookImagePath, lookTitle);
+                        </div>
+                        ${actionButton}
+                      </td>
+                    </tr>`;
+    theme_custom.productBlockDataWrap(orderItemsObj, orderItems, index, lookDetails);
     paymentInfoHTMLtarget.append(productHTML);
     $('.event-step-wrapper').removeClass('hidden');
     theme_custom.globalLoaderhide();
@@ -1254,13 +1078,12 @@ theme_custom.lookInfoData = function (result) {
     $(`.summary-table-wrapper tfoot`).hide();
     setTimeout(() => {
       var totalPrice = 0;
-      $(".product-price-cal.order-wrap-block").each(function () {
+      $(".order-wrap-block").each(function () {
         totalPrice = totalPrice + ($(this).find("button").attr("data-look-total-price") * 1);
       })
       var lookTotalPrice = theme_custom.Shopify.formatMoney(totalPrice, theme_custom.money_format)
       $(`.summary-table-wrapper tfoot`).fadeIn().find('.total-price').text(lookTotalPrice);
     }, 3000);
-    theme_custom.eventExpired(result.data);
   })
   $(".loader-wrapper").addClass("hidden");
   $(".event-step-wrapper").removeClass("hidden");
@@ -1371,18 +1194,18 @@ theme_custom.setFitFinder = function () {
   }
 }
 
-theme_custom.multiItemAddToCart = function (button) {
+theme_custom.customizeLookProductAjax = function (button, parent) {
   var button = button;
-  var getProduct = $(".look-product-list-wrapper.multi-item-add-to-cart .edit-product-data-card")
+  var getProduct = parent.find(".product-card-wrap .product-card-data");
   var items = [];
-  button.text("Adding...").addClass("disabled");
+  button.text("Adding...");
   getProduct.each(function () {
     var productType = $(this).attr("data-product-type");
     var varId = $(this).find(".product_var_id").val(),
       item = {};
     if (productType == 'jacket' || productType == 'Jacket') {
-      var pantsSelectedVariant = $(`.multi-item-add-to-cart`).find(`.product-data-card[data-product-type="pants"]`).find(".product_var_id").val(),
-        pantsVarTitle = $(`.multi-item-add-to-cart`).find(`.product-data-card[data-product-type="pants"]`).find(".product_variant_title").val();
+      var pantsSelectedVariant = $(this).closest(`.product-card-wrap`).find(`.product-card-data[data-product-type="pants"]`).find(".product_var_id").val(),
+        pantsVarTitle = $(this).closest(`.product-card-wrap`).find(`.product-card-data[data-product-type="pants"]`).find(".product_variant_title").val();
       item = {
         "id": varId,
         "quantity": 1,
@@ -1392,8 +1215,8 @@ theme_custom.multiItemAddToCart = function (button) {
         }
       }
     } else if (productType == 'pants' || productType == 'Pants') {
-      var jacketSelectedVariant = $(`.multi-item-add-to-cart`).find(`.product-data-card[data-product-type="jacket"]`).find(".product_var_id").val(),
-        jacketVarTitle = $(`.multi-item-add-to-cart`).find(`.product-data-card[data-product-type="jacket"]`).find(".product_variant_title").val();
+      var jacketSelectedVariant = $(this).closest(`.product-card-wrap`).find(`.product-card-data[data-product-type="jacket"]`).find(".product_var_id").val(),
+        jacketVarTitle = $(this).closest(`.product-card-wrap`).find(`.product-card-data[data-product-type="jacket"]`).find(".product_variant_title").val();
       item = {
         "id": varId,
         "quantity": 1,
@@ -1421,6 +1244,7 @@ theme_custom.multiItemAddToCart = function (button) {
     success: function () {
       button.text("Added to Cart");
       setTimeout(() => {
+        button.removeClass("disabled");
         window.location.href = "/cart";
       }, 2500);
     },
@@ -1432,161 +1256,13 @@ theme_custom.multiItemAddToCart = function (button) {
   });
 }
 
-theme_custom.editItemPopup = function(parentEl){
-  var variantDataGetArr = [];
-  var parent = parentEl;
-  if ($(".looks-product").length > 0) {
-    productId = parent.find(".looks-product-id").val();
-  } else {
-    productId = parent.attr("data-product-id");
-  }
-  var varintTitle='', variantId, variantImage, variantPrice, selectedOption;
-  if(parent.find('[data-option-index="0"] input:checked').length > 0){
-    varintTitle = parent.find('[data-option-index="0"] input:checked').val();
-  }
-  if(parent.find('[data-option-index="1"] input:checked').length > 0){
-    varintTitle = varintTitle + ' / ' + parent.find('[data-option-index="1"] input:checked').val();
-  }
-  if(parent.find('[data-option-index="2"] input:checked').length > 0){
-    varintTitle = varintTitle + ' / ' + parent.find('[data-option-index="2"] input:checked').val();
-  }
-  selectedOption = parent.find(`[data-product-id="${productId}"][data-variant-title="${varintTitle}"]`);
-  $(`[data-product-id="${productId}"]`).attr('selected', false);
-  selectedOption.attr('selected', true);
-  variantPrice = selectedOption.attr('data-variant-price');
-  variantId = selectedOption.attr('value');
-  variantImage = selectedOption.attr('data-variant-image');
-  variantQuantity =  selectedOption.attr('data-variant-inventory-quantity');
-  variantInventoryPolicy =  selectedOption.attr('data-variant-inventory-policy');
-  variantDataGetArr['productId'] = productId;
-  variantDataGetArr['variantId'] = variantId;
-  variantDataGetArr['variantImage'] = variantImage;
-  variantDataGetArr['variantPrice'] = variantPrice;
-  variantDataGetArr['varintTitle'] = varintTitle;
-  variantDataGetArr['variantQty'] = variantQuantity;
-  variantDataGetArr['variantPolicy'] = variantInventoryPolicy;
-  parent.find('.looks-product-var-id').val(variantId);
-  if(!variantId){
-    parent.find('.selected-variant-update').addClass('disabled');
-    parent.find(".error-message").text('Product is not available for this specific combination.').show().addClass('error-show');
-  } else {
-    if(variantInventoryPolicy == 'contiune'){
-      parent.find('.selected-variant-update').removeClass('disabled');
-      parent.find(".error-message").text('').hide().removeClass('error-show');
-    } else {
-      if (variantQuantity > 0) {
-        parent.find('.selected-variant-update').removeClass('disabled').text("Update");
-        parent.find(".error-message").text('').hide().removeClass('error-show');
-      } else {
-        parent.find(".error-message").text('This Variant is Out of Stock. Please choose another variant.').show().addClass('error-show');
-        parent.find('.selected-variant-update').addClass('disabled');
-      }
-    }
-  }
-}
+theme_custom.eventPageClickEvent = function () {
 
-theme_custom.eventPageClickEvent = function (){
-
-  // product option popup open
-  $(document).on("click", ".open-product-edit-popup", function(){
-    var parentSelect = $(this).closest(".edit-product-data-card");
-    var productEditOptionPopup = parentSelect.find(".product-edit-popup-wrap");
-    var productType = parentSelect.attr("data-product-type");
-    parentSelect.find(".edit-item-btn").addClass("disabled");
-    var currentSelected = '';
-    if (parentSelect.find(".option-1").length>0) {
-      var optionVal = parentSelect.find(".option-1").attr("data-value").toLowerCase();
-      currentSelected = parentSelect.find(".option-1").attr("data-value");
-      parentSelect.find(`[data-option-index="0"]`).find(`[type="radio"][data-value="${optionVal}"]`).prop("checked", true);
-    }
-    if (parentSelect.find(".option-2").length>0) {
-      var optionVal2 = parentSelect.find(".option-2").attr("data-value").toLowerCase();
-      currentSelected = currentSelected +' / '+ parentSelect.find(".option-2").attr("data-value");
-      parentSelect.find(`[data-option-index="1"]`).find(`[type="radio"][data-value="${optionVal2}"]`).prop("checked", true);
-    }
-    if (parentSelect.find(".option-3").length>0) {
-      var optionVal3 = parentSelect.find(".option-3").attr("data-value").toLowerCase();
-      currentSelected = currentSelected +' / '+ parentSelect.find(".option-3").attr("data-value");
-      parentSelect.find(`[data-option-index="2"]`).find(`[type="radio"][data-value="${optionVal3}"]`).prop("checked", true);
-    }    
-    var selectedVariant =  $(this).closest(".edit-product-data-card").find(".product-edit-popup-wrap").find(`option[data-variant-title='${currentSelected}']`).attr('value');
-    $(`.look-product-list-wrapper .edit-product-data-card[data-product-type="${productType}"]`).find(`.prod-variant-option option[data-variant-title='${currentSelected}']`).closest('.prod-variant-option').val(selectedVariant).change();
-    $.fancybox.open(productEditOptionPopup);
-  });
-
-  // Change varint on change / Click
-  $(document).on("change", `.swatch-product-wrapper [type="radio"]`, function (){
-    let parent = $(this).closest('.product-edit-popup-wrap');
-    theme_custom.editItemPopup(parent);
-  });
-
-  // Update Variant functiom
-  $(document).on("click", ".selected-variant-update", function(){
-    var button = $(this),
-        targetVarID = $(this).closest(".product-edit-popup-wrap").find("select.prod-variant-option").val(),
-        targetVarTitle = $(this).closest(".product-edit-popup-wrap").find("select.prod-variant-option option:selected").attr("data-variant-title"),
-        targetVarImage = $(this).closest(".product-edit-popup-wrap").find("select.prod-variant-option option:selected").attr("data-variant-image"),
-        targetVarInventoryPolicy = $(this).closest(".product-edit-popup-wrap").find("select.prod-variant-option option:selected").attr("data-variant-inventory-policy"),
-        targetVarInventoryQty = $(this).closest(".product-edit-popup-wrap").find("select.prod-variant-option option:selected").attr("data-variant-inventory-quantity"),
-        buttonText = button.data("text"),
-        dataProductType = button.attr("data-product-type").toLowerCase();
-        button.removeClass("disabled");
-    button.text(buttonText);
-    var targetVarTitleArr = targetVarTitle.split(" / ");
-    if(targetVarTitleArr[0]!=''){ 
-      $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(".option-1").attr("data-value",targetVarTitleArr[0]).text(targetVarTitleArr[0]);
-    } 
-    if(targetVarTitleArr[1] != ''){
-      $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(".option-2").attr("data-value",targetVarTitleArr[0]).text(targetVarTitleArr[1]);
-    } 
-    if(targetVarTitleArr[2] != ''){
-      $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(".option-3").attr("data-value",targetVarTitleArr[0]).text(targetVarTitleArr[2]); 
-    }
-    $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(".product-image img").attr("src",targetVarImage);
-    $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(".error-message").removeClass("error-show")
-    $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(".product_var_id").val(targetVarID).attr("data-inventory-quantity",targetVarInventoryQty).attr("data-inventory-policy",targetVarInventoryPolicy);
-    button.text("Updated");
-    $(".fancybox-button").click();
-  });
-
-  // Product Add to cart Function
-  $(document).on("click", ".cta-action-add-to-cart", function(e){
-    if($(".error-message.error-show").length > 0) {
-      let parent = $(".error-message.error-show").closest('.product-data-card');
-      if(parent.length>0){
-        $('html, body').stop().animate({
-          'scrollTop': $(parent).offset().top - $("#shopify-section-header").height() + 10
-        }, "slow");
-        return false;
-      }
-      else{
-        $('html, body').stop().animate({
-          'scrollTop': $(".error-message.error-show").offset().top - $("#shopify-section-header").height() + 10
-        }, "slow");
-        return false;    
-      }
-    }
-    if($(".template-page-create-event").length > 0){
-      var parent = $(".multi-item-add-to-cart"); 
-    } else {
-      var parent = $(this).closest(".multi-item-add-to-cart"); 
-    }
-    var button = $(this);
-    theme_custom.multiItemAddToCart(button, parent);
-  });
-
-  // view - hide look products
-  $(document).on("click", ".view-look",function(){
-    if($(this).attr("data-text")=='View Look') {
-      $(this).text("View Look").attr("data-text","Hide Look");
-      $(".event-owner-look-product-list.look-product-list-wrapper .look-product-details").removeClass("show");
-    } else {
-      $(this).text("Hide Look").attr("data-text","View Look");
-      $(".event-owner-look-product-list.look-product-list-wrapper .look-product-details").addClass("show");
-    }
-    $('html, body').stop().animate({
-      'scrollTop': $(this).closest(".order-wrap-block").offset().top - $("#shopify-section-header").height() + 10
-    }, "slow");
+  // theme_custom.customizeLookProductAjax
+  $(document).on("click", ".add-to-cart", function (e) {
+    var parent = $(this).closest(".order-wrap-block"),
+      button = $(this);
+    theme_custom.customizeLookProductAjax(button, parent);
   });
 
   $(document).on("click", ".event-payment-for-guest", function (e) {
@@ -1664,6 +1340,9 @@ theme_custom.eventPageClickEvent = function (){
     $('html,body').css({
       "overflow" : "hidden"
     })
+    // let member_id = $(this).attr('data-member-id');
+    // let event_id = parent.attr('data-event-id');
+    // theme_custom.removeUserFromLook(event_id,member_id);
   });
 
   $(document).on('click', '.user-card-block .action-icon .member-delete-icon', function (event) {
@@ -1965,7 +1644,6 @@ theme_custom.changeFilled = function () {
   });
 }
 theme_custom.event_init_page = function () {
-  theme_custom.getAllEvents();
   theme_custom.eventPageClickEvent();
   theme_custom.calender();
   theme_custom.favoriteLooks();
@@ -1982,25 +1660,6 @@ theme_custom.event_init_page = function () {
   $(document).on('change', '#event_date', function () {
     $('.event-date-wrap .form-error').removeClass('active');
   });
-}
-theme_custom.eventExpired = function (data){
-  if(theme_custom.eventExpire){
-    // debugger;
-    if(data.event_looks.length <= 0){
-      $('.step-content-wrapper.create-event-look .next-button').addClass('next-disabled');
-    }
-    $('.event-update-button').hide()
-    $('.look-card-block .delete-icon').hide();
-    $('.look-card-block .customise-look-button').hide();
-    $('.user-card-block .edit-icon').hide();
-    $('.user-card-block .member-delete-icon').hide();
-    $('.look-card-block .confirm-box-wrap').hide();
-    $('.add-guest-button').hide();
-    $('.add-look-wrapper').hide();
-    $('.summary-table-wrapper .action-button').hide();
-    $('.action-btn-th').hide();
-    $('.summary-footer-cost-label').attr('colspan',2);
-  }
 }
 theme_custom.getEventDetails = function () {
   $(".step-content-wrapper").removeClass("active");
@@ -2022,11 +1681,6 @@ theme_custom.getEventDetails = function () {
       eventDataObj.eventType = result.data.event_type;
       eventDataObj.eventDate = result.data.event_date;
       eventDataObj.eventRole = result.data.event_role;
-// debugger;
-      if(new Date('4-14-23') > new Date(eventDataObj.eventDate)){
-        theme_custom.eventExpire = true;
-        theme_custom.eventExpired(result.data);
-      }
 
       $('#EventForm-EventName').val(result.data.event_name);
       $('#EventForm-id').val(result.data.event_id);
@@ -2186,23 +1840,45 @@ theme_custom.eventChangeEvent = () => {
     $('select', parent).each((i, item) => {
       $(item).attr('data-val', $(item).val());
     })
-    theme_custom.eventPageEditMySize($(this));
+    theme_custom.eventPageeditMySize($(this));
   });
   $(document).on('change', '.final-summary-for-event-page-main-wrapper select', function () {
     let parent = $(this).closest('.product-card');
     let value = $(this).val();
     let oldVal = $(this).attr('data-val');
-    if(!theme_custom.eventExpire){
-      if (value == oldVal) {
-        $('.button-wrap', parent).addClass('hidden');
-      } else {
-        $('.button-wrap', parent).removeClass('hidden');
-      }
+    if (value == oldVal) {
+      $('.button-wrap', parent).addClass('hidden');
+    } else {
+      $('.button-wrap', parent).removeClass('hidden');
     }
+
+    // if($(this).attr('name') == 'jacket-size'){
+    //   let value = $(this).val();
+    //   let oldVal = $(this).attr('data-val');
+    //   if(value == oldVal){
+    //     $('.button-wrap',parent).addClass('hidden');
+    //   }else{
+    //     $('.button-wrap',parent).removeClass('hidden');
+    //   }
+    // }else if($(this).attr('name') == 'jacket-type'){
+
+    // }else if($(this).attr('name') == 'pants-waist'){
+
+    // }else if($(this).attr('name') == 'pants-length'){
+
+    // }else if($(this).attr('name') == 'shirt-neck'){
+
+    // }else if($(this).attr('name') == 'shirt-sleeve'){
+
+    // }else if($(this).attr('name') == 'shoes-size'){
+
+    // }
   })
 }
 
-theme_custom.eventPageEditMySize = function (btn) {
+
+
+theme_custom.eventPageeditMySize = function (btn) {
   if (getCookie("fit-finder-data") != '') {
     $('.event-step-wrapper').addClass('hidden');
     theme_custom.globalLoaderShow();
@@ -2354,31 +2030,4 @@ theme_custom.updateSelectedLooks = (popup) => {
       btn.removeClass("disabled").text('Add to Event');
     }
   })
-}
-
-// theme_custom.getEventData
-theme_custom.getAllEvents = function (modalTarget) {
-  data = {
-    "eventType": "1",
-    "page": "1",
-    "host": "0",
-    "limit": "100"
-  }
-  $.ajax({
-    url: `${theme_custom.base_url}/api/customer/events`,
-    method: "POST",
-    data: data,
-    dataType: "json",
-    headers: {
-      // "Authorization": 'Bearer Am3Trk0xm4fR5SXdni5zilc1ffwxFFUWwwwnh2ZQ98wRSL9KDihFoBMnCJ9Dw8Kc8A5zkHnMZBot02nbyybQEtSd3dadnY4RFZZQQ'
-      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
-    },
-    beforeSend: function () {
-    },
-    success: function (result) {
-      theme_custom.allEvents = result.data.events
-    },
-    error: function (xhr, status, error) {
-    }
-  });
 }
