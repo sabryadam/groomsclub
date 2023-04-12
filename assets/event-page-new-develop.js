@@ -336,6 +336,11 @@ theme_custom.checkLooks = (id, nextTarget, trigger = true) => {
     },
   }).then((data) => data.json())
     .then((data) => {
+      var eventLooks = data.data.event_looks;
+      if(eventLooks.length > 0){
+        $(".create-event-look").find(".next-button").removeClass("event-has-not-look");
+        $(".create-event-look .event-block-wrap").find(".error-message").removeClass("error-show");
+      }
       theme_custom.globalEventData = data
       theme_custom.successCallback(data, nextTarget);
     });
@@ -961,7 +966,6 @@ theme_custom.ProductData = function (productItemsArr, lookName, lookId, memberId
 
 // theme_custom.productBlockDataWrap
 theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, lookDetails, isHostCheck, lookImagePath, lookTitle) {
-  debugger;
   $(`.look-card-block[data-look-id="${orderItems.look_id}"] .look-price,.order-wrap-${index} .product-card-wrap`).hide();
   var productDataArrayData = orderItemsObj.filter((x) => { return (x.type != "looks" || !x.product_handle.includes("suit"))});
   var subTotal = 0, productItemHTML = productLookList = productLookItemList = '',
@@ -2021,6 +2025,11 @@ theme_custom.getEventDetails = function () {
     beforeSend: function () {
     },
     success: function (result) {
+      var eventLooksSize = result.data.event_looks;
+      if(eventLooksSize.length == 0){
+        $(".create-event-look").find(".next-button").addClass("event-has-not-look");
+        $(".create-event-look .event-block-wrap").find(".error-message").addClass("error-show");
+      }
       eventDataObj.eventName = result.data.event_name;
       eventDataObj.eventType = result.data.event_type;
       eventDataObj.eventDate = result.data.event_date;

@@ -1839,3 +1839,13 @@ span.look-price {
     min-width: 550px;
   }
 }
+.event-has-not-look {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+.event-page-new-design-wrapper .page-width-inner-wrapper .event-block-wrap .error-message{
+  text-align: center;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
