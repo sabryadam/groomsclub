@@ -548,6 +548,8 @@ function favoritelooks() {
                 if (result.data.length > 0) {
                     theme_custom.favLooksData = result.data;
                     var append_fav_html = "";
+                    // $('.feature-looks-slider').slick('unload');
+                    $('.feature-looks-slider').removeClass('slick-initialized slick-slider');
                     $('.feature-looks-slider').html(append_fav_html);
                     var edit_link = '';
                     // result.data[1] = result.data[0];
@@ -618,7 +620,8 @@ function favoritelooks() {
                     }
                     $('.feature-looks-slider').html(append_fav_html);
                     if($('.feature-looks-slider').find(".look-container").length > 0){
-                        $('.feature-looks-slider').slick('refresh');
+                        // $('.feature-looks-slider').slick('refresh');
+                        theme_custom.featureLooksSlider();
                     }
                 } else {
                     var html = `<div class="empty_message sizeempty_msg text_center"> You haven't saved any Favorite Looks yet.</div>`;
