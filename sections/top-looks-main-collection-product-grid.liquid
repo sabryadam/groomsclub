@@ -384,7 +384,7 @@
 </div>
 
 <script src="{{ 'collection-filters-form.js' | asset_url }}" defer="defer"></script>
-{%- assign products_per_page = 9 -%}
+{%- assign products_per_page = 12 -%}
 <div id="CollectionProductGrid">
   {%- paginate collection.products by products_per_page -%}
     {%- if collection.products.size == 0 -%}
@@ -427,7 +427,7 @@
         </p>
 
         <div class="main-collection-product-grid" data-id="{{ section.id }}">
-          {%- for product in collection.products reversed  limit: 9 -%}
+          {%- for product in collection.products reversed  limit: 12 -%}
             <div class="product-grid-inner-wrapper">
               <div class="plp-top-looks-product-grid" data-index="{{ forloop.index }}">
                 {% render 'product-card-top-plp',
