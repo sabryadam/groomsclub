@@ -839,6 +839,7 @@ theme_custom.tlpclickEvent = function(){
     $("html, body").css({
       "overflow" : ""
     });
+    window.location.reload();
   });
 
   $(document).on("click",".upsell-product-add",function(e){
