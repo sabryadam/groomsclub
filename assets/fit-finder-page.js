@@ -648,7 +648,7 @@ theme_custom.fitFinderClickEvent = function () {
                                 <div class="form-wrap">
                                   <h4 class="title">Time to save your fit!</h4>  
                                   <div class="button-outer-wrapper" style="align-items: end;">
-                                    <div class="button-wrapper"><button type="button" class="button button--primary previous-page-link" onclick="window.moveToLastPage()">Continue Shopping</button></div>
+                                    <div class="button-wrapper"><button id="contiune-shopping" type="button" class="button button--primary previous-page-link" onclick="window.moveToLastPage()" data-text="continue-shopping">Continue Shopping</button></div>
                                     <div class="button-wrapper"><button type="button" class="button button--primary save-fit-finder-flag" data-target-link="/account/login">Log In/Sign Up</button></div>
                                   </div>
                                   <span class="form-error"></span>
@@ -897,6 +897,9 @@ $(document).ready(function () {
   theme_custom.heightScroll = $("#shopify-section-header").height() + $(".breadcrumb").height() + 30;
 })
 window.moveToLastPage = function(){
+  if($("#contiune-shopping").attr("data-text") == "continue-shopping"){
+    localStorage.setItem("save-fit-finder-flag-replace", "true");
+  } 
   if(getCookie('lastpage')){
     window.location.href = getCookie('lastpage'); 
   }else{
