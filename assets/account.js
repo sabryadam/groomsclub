@@ -377,12 +377,12 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                         $('.events-main-container').html("");
                        }
                        $('.events-main-container').hide().append(containerDiv).slideDown('slow');
-                        if($(".event-container-wrapper.event-container-0").find(".events-container").length == 0){
-                            $('.event-container-wrapper.event-container-0').prepend(`<p style="text-align:center">You have not created any Event.</p>`);
-                        }
-                        if($(".event-container-wrapper.event-container-1").find(".events-container").length == 0){
-                            $('.event-container-wrapper.event-container-1').prepend(`<p style="text-align:center">No Event found</p>`);
-                        }
+                    }
+                    if($(".event-container-wrapper.event-container-0").find(".events-container").length == 0){
+                        $('.event-container-wrapper.event-container-0').prepend(`<p style="text-align:center">You have not created any Event.</p>`);
+                    }
+                    if($(".event-container-wrapper.event-container-1").find(".events-container").length == 0){
+                        $('.event-container-wrapper.event-container-1').prepend(`<p style="text-align:center">No Event found</p>`);
                     }
                     $(".event-list-top").removeClass("hidden");
                    
