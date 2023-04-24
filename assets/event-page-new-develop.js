@@ -133,17 +133,23 @@ $(".member-added-into-event").click(function (e) {
 });
 
 theme_custom.user = (user) => {
-  let { email, first_name, last_name, phone, status, is_host_paying } = user;
-  let whoPay = "";
+  console.log("user",user);
+  let { email, first_name, last_name, phone, status, is_host_paying, is_host } = user;
+  let whoPay = "", eventOwner = '';
   if (is_host_paying.toLowerCase() == "self") {
     whoPay = "I pay";
   } else {
     whoPay = "They Pay";
   }
+  if(is_host == 1 ){
+    eventOwner = 'event-owner'
+  } else {
+    eventOwner = ''
+  }
   const deleteIcon = `<div class="member-delete-icon payment-${status}" data-member-id="${user.event_member_id}">
       <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/delete.png?v=1678738752" alt="delete icon" />
     </div>`
-  return `<div class="user-card-block">
+  return `<div class="user-card-block ${eventOwner}">
     <div class="action-icon">
       <span class="edit-icon">
         <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/pencil.png?v=1678738737" alt="Edit Icon">
@@ -193,7 +199,7 @@ theme_custom.createLookHtml = (index, div, item, eventMembers, event_id) => {
     <div class="title">Are you wearing this look?</div>
     <div class="confirm-box-wrap">
       <span class="update-host-look ${lookAssignedUser ? 'active' : ''}" data-value="yes">Yes</span>
-      <span class="update-host-look no ${!lookAssignedUser ? 'active' : ''}" data-value="no">No</span>
+      <span class="update-host-look no" data-value="no">No</span>
     </div>
   </div>`
 
@@ -364,6 +370,12 @@ theme_custom.successCallback = (data, nextTarget) => {
       let item = data.data.event_looks[i];
       let index = i;
       theme_custom.createLookHtml(index, looksDiv, item, eventMembers, data.data.event_id);
+      if($(".event-guest-look .user-card-block.event-owner").length > 0){
+        $(".look-card-block").find(".update-host-look.no").addClass('not-assign-event-owner')
+        $(".event-guest-look .user-card-block.event-owner").each(function(){
+          $(this).closest(".look-card-block").find(".update-host-look.no").removeClass('not-assign-event-owner').addClass('assign-event-owner')
+        })
+      }
     }
     // theme_custom.eventExpired(data.data);
     $(".close-icon").click();
@@ -893,13 +905,13 @@ theme_custom.globalLoaderhide = () => {
   // $('.site-global-loader').addClass('hidden'); 
   $('.loader-wrapper').addClass('hidden')
 }
-theme_custom.removeUserFromLook = (eventId, memberId) => {
+theme_custom.removeUserFromLook = (look_id,eventId, event_member_id) => {
   //  confirms = confirm("Are you sure you want to remove this?");
   if (eventId) {
     theme_custom.globalLoaderShow();
     if (eventId) {
       $.ajax({
-        url: `${theme_custom.base_url}/api/event/removeMember/${eventId}/${memberId}`,
+        url: `${theme_custom.base_url}/api/look/removeMemberOwner/${look_id}/${eventId}/${event_member_id}`,
         method: "DELETE",
         data: '',
         dataType: "json",
@@ -1761,7 +1773,11 @@ theme_custom.eventPageClickEvent = function (){
       theme_custom.globalLoaderShow();
       theme_custom.lookAssignToMember(member_id, look_id)
     } else {
-      // theme_custom.removeUserFromLook(eventId,member_id);
+      $('.event-step-wrapper').addClass('hidden');
+      theme_custom.globalLoaderShow();
+      var event_id = localStorage.getItem("set-event-id");
+      var event_member_id =  parent.attr('data-host-id');
+      theme_custom.removeUserFromLook(look_id,event_id,event_member_id);
     }
   })
   $(document).on('click', '.custom-paginate-next', function (event) {

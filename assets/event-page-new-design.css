@@ -772,7 +772,7 @@
   color: #000000;
   cursor: pointer;
 }
-.guest-top-looks .pay-info-confirmation-wrap .confirm-box-wrap span.no{
+.guest-top-looks .pay-info-confirmation-wrap .confirm-box-wrap span:not(.assign-event-owner).no{
   cursor: not-allowed;
   pointer-events: none;
 }
@@ -785,7 +785,8 @@
   padding: 5px 10px;
   margin: 0;
 }
-.guest-top-looks .pay-info-confirmation-wrap .confirm-box-wrap span.active{
+.guest-top-looks .pay-info-confirmation-wrap .confirm-box-wrap span.active,
+.guest-top-looks .pay-info-confirmation-wrap .confirm-box-wrap span.not-assign-event-owner{
   background: #1075BC;
   color: #FFFFFF;
 }

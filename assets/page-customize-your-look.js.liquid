@@ -345,11 +345,6 @@ theme_custom.productDataFromURL = function () {
       })
     }
     
-    
-
-    // if(!allProductsAvailable){
-    //   $("[data-tab-content='overview'] .add-to-cart-button").addClass('disabled');
-    // }
     theme_custom.priceUpdate();
     theme_custom.setFitFinderData();
     if (getCookie("fit-finder-data") == ""){
@@ -1262,6 +1257,7 @@ theme_custom.customize_product_clickEvent = function () {
     let selectedItem = $(this).closest(".product-swatch-option").find("select.prod-variant-option option:selected");
     let selectedItemInventoryQuantity = selectedItem.attr("data-variant-inventory");
     let selectedItemInventoryPolicy = selectedItem.attr("data-inventory-policy");
+    $(".product-out-of-stock-error").addClass("hidden").removeClass("active");
     if(selectedItem.attr("data-inventory-policy")=="continue"){
       error.removeClass('active').hide();
       $(`.customize-look-overview-product[data-product-type="${productType}"]`).addClass('product-block-var-data');
@@ -1272,16 +1268,8 @@ theme_custom.customize_product_clickEvent = function () {
         error.addClass('active').show();
       }
     }
-  // if($(".error-msg").hasClass("active")){
-  //   $(`[data-tab-content="overview"]`).find(".add-to-cart-button").addClass("disabled");
-  // } else {
-  //   $(`[data-tab-content="overview"]`).find(".add-to-cart-button").removeClass("disabled");
-  // } 
-
+    
     button.text("Updated");
-    // if($(".overview-product .link.edit-item[data-button-target='select-size']").length > 0) {
-    //   $(`[data-tab-content="overview"]`).find(".add-to-cart-button").removeClass("disabled");
-    // }
 
     $(".fancybox-button").click();
     if(productType == 'neckties' || productType == 'hanky' || productType == 'bow-ties' || productType == 'tie-bar' || productType == 'belt'){
@@ -1289,6 +1277,7 @@ theme_custom.customize_product_clickEvent = function () {
         theme_custom.updatePreviousSwatch(productType);  
       }, 500);
     }
+    
   })
 
   // product option popup open
@@ -1371,18 +1360,14 @@ theme_custom.customize_product_clickEvent = function () {
       return false;
     }
     if($(".error-msg:visible").length > 0) {
+      $(".product-out-of-stock-error").addClass("hidden").removeClass("active");
       let parent = $(".error-msg:first:visible").closest('.customize-look-overview-product');
       if(parent.length>0){
         $('html, body').stop().animate({
           'scrollTop': $(parent).offset().top - $("#shopify-section-header").height() + 10
         }, "slow");
+        $(".product-out-of-stock-error").removeClass("hidden").addClass("active");
         return false;
-      }
-      else{
-        $('html, body').stop().animate({
-          'scrollTop': $(".error-msg:visible").offset().top - $("#shopify-section-header").height() + 10
-        }, "slow");
-        return false;    
       }
     }
     var button = $(this),
@@ -1457,13 +1442,7 @@ theme_custom.customize_product_clickEvent = function () {
       }
       
       
-      // if( targetElm.nextAll().attr("data-target") == 'overview' && getCookie("fit-finder-data") == "" ){
-      //   //$('.overview-tab .overview-product.no-product-in-overview').hide();
-      //   $('.overview-tab .product-info-footer .add-to-cart-button').addClass('disabled');
-      // }else{
-      //   //$('.overview-tab .overview-product.no-product-in-overview').show();
-      //   $('.overview-tab .product-info-footer .add-to-cart-button').removeClass('disabled');
-      // }
+      
 
       $(this).closest('.tabbed-content-block-inner-wrapper').next().find('.mobile-customize-tab .mobile-tab-content-title:first-child').click();
     if(targetElm.attr("data-target") == 'overview' && getCookie("fit-finder-data") != ""){
