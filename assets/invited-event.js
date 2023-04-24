@@ -592,7 +592,7 @@ theme_custom.getEventDetails = function(eventId) {
         $('#weddingeventname').html(result.data.event_name);
         $('.breadcrumb .active-page').text(result.data.event_name);
         $('#weddingevent_id').val(result.data.event_id);
-        var getMemberID = window.location.href.split('?')[1].split('&')[1].split("=")[1];
+        var getMemberID = window.location.href.split('?')[1].split('+')[1].split("=")[1];
         $('#member_id').val(getMemberID);
         theme_custom.memberId = $('#member_id').val();
         // $('.event-edit-hosted').html(`<i class="fas fa-user-tie"></i> Hosted By Bobby Jones`);
@@ -1011,7 +1011,8 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
 
 $(document).ready(function () {
   $(".Squer-radio-button-big").removeClass("open-popup");
-  var apiIdVal = window.location.search.replace('?','').split("&");
+  debugger
+  var apiIdVal = window.location.search.replace('?','').split("+");
   var eventId = apiIdVal[0].replace("event_id=",'');
   var memberId = apiIdVal[1].replace("member_id=",'');
   theme_custom.getEventDetails(eventId);

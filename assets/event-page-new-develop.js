@@ -893,13 +893,13 @@ theme_custom.globalLoaderhide = () => {
   // $('.site-global-loader').addClass('hidden'); 
   $('.loader-wrapper').addClass('hidden')
 }
-theme_custom.removeUserFromLook = (eventId, memberId) => {
+theme_custom.removeUserFromLook = (look_id,eventId, event_member_id) => {
   //  confirms = confirm("Are you sure you want to remove this?");
   if (eventId) {
     theme_custom.globalLoaderShow();
     if (eventId) {
       $.ajax({
-        url: `${theme_custom.base_url}/api/event/removeMember/${eventId}/${memberId}`,
+        url: `${theme_custom.base_url}/api/look/removeMemberOwner/${look_id}/${eventId}/${event_member_id}`,
         method: "DELETE",
         data: '',
         dataType: "json",
@@ -1761,7 +1761,9 @@ theme_custom.eventPageClickEvent = function (){
       theme_custom.globalLoaderShow();
       theme_custom.lookAssignToMember(member_id, look_id)
     } else {
-      // theme_custom.removeUserFromLook(eventId,member_id);
+      var event_id = localStorage.getItem("set-event-id");
+      var event_member_id =  parent.attr('data-host-id');
+      theme_custom.removeUserFromLook(look_id,event_id,event_member_id);
     }
   })
   $(document).on('click', '.custom-paginate-next', function (event) {

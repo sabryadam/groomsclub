@@ -772,10 +772,10 @@
   color: #000000;
   cursor: pointer;
 }
-.guest-top-looks .pay-info-confirmation-wrap .confirm-box-wrap span.no{
+/* .guest-top-looks .pay-info-confirmation-wrap .confirm-box-wrap span.no{
   cursor: not-allowed;
   pointer-events: none;
-}
+} */
 .guest-top-looks .pay-info-confirmation-wrap .confirm-box-wrap{
   display: flex;
   align-items: center;
