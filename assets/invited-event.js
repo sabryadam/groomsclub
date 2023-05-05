@@ -878,7 +878,9 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
     },
     success: function (result) {
       var htmlBlock = '';
-      theme_custom.discount_code = result.data.event_looks[0].discount_code;
+      if(result.data.event_looks != undefined){
+        theme_custom.discount_code = result.data.event_looks[0].discount_code;
+      }
       if( result.message == 'No looks found' || result?.data?.event_looks?.length <= 0){
         htmlBlock += `<p class="text_center">We did't not found any look you have assigned!</p>`;
         $(".assigned-look-back").html(htmlBlock).removeClass("hidden");
