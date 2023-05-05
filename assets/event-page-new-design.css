@@ -1850,3 +1850,7 @@ span.look-price {
   margin-bottom: 0;
   padding-bottom: 0;
 }
+.guest-top-looks .pay-info-confirmation-wrap .confirm-box-wrap span.active {
+  cursor: not-allowed;
+  pointer-events: none;
+}
