@@ -99,12 +99,13 @@ theme_custom.lookAssignToMember = function (member_id, look_id) {
           window.location.href = '/account/logout';
         }, 5000);
       } else {
-        parent.find('.api_error').removeClass("hidden").show().html(xhr.responseJSON.message).css("text-align", "center");
-        setTimeout(() => {
-          parent.find(".api_error").hide();
-        }, 3000);
+        alert(xhr.responseJSON.message);
       }
-      theme_custom.globalLoaderhide();
+      $('html,body').css({
+        'overflow' : "auto"
+      })
+      $(".loader-wrapper").addClass("hidden");
+      $(".event-step-wrapper").removeClass("hidden");
     }
   });
 }
@@ -1066,13 +1067,15 @@ theme_custom.globalLoaderhide = () => {
   // $('.site-global-loader').addClass('hidden'); 
   $('.loader-wrapper').addClass('hidden')
 }
-theme_custom.removeUserFromLook = (look_id,eventId, event_member_id) => {
+
+// remove Event member form Look
+theme_custom.removeUserFromLook = (eventId, memberId) => {
   //  confirms = confirm("Are you sure you want to remove this?");
   if (eventId) {
     theme_custom.globalLoaderShow();
     if (eventId) {
       $.ajax({
-        url: `${theme_custom.base_url}/api/look/removeMemberOwner/${look_id}/${eventId}/${event_member_id}`,
+        url: `${theme_custom.base_url}/api/event/removeMember/${eventId}/${memberId}`,
         method: "DELETE",
         data: '',
         dataType: "json",
@@ -1093,6 +1096,52 @@ theme_custom.removeUserFromLook = (look_id,eventId, event_member_id) => {
             $(".site-global-loader").addClass("hidden");
             $(`[data-target="remove-data-for-user"]`).removeClass("active");
             alert(xhr.responseJSON.message);
+            $('html,body').css({
+              'overflow' : "auto"
+            })
+            $(".loader-wrapper").removeClass("hidden");
+            $(".step-content-wrapper").removeClass("active");
+          }
+          // theme_custom.globalLoaderhide();
+        }
+      });
+    }
+  }
+} 
+
+// remove Event Owener from Look
+theme_custom.removeOwnerFromLook = (look_id,event_id, event_member_id) => {
+  //  confirms = confirm("Are you sure you want to remove this?");
+  if (event_id) {
+    theme_custom.globalLoaderShow();
+    if (event_id) {
+      $.ajax({
+        url: `${theme_custom.base_url}/api/look/removeMemberOwner/${look_id}/${event_id}/${event_member_id}`,
+        method: "DELETE",
+        data: '',
+        dataType: "json",
+        headers: {
+          "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+        },
+        success: function (result) {
+          theme_custom.checkLooks(localStorage.getItem("set-event-id"));
+        },
+        error: function (xhr, status, error) {
+          if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+            alert('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>');
+            setTimeout(() => {
+              theme_custom.removeLocalStorage();
+              window.location.href = '/account/logout';
+            }, 5000);
+          } else {
+            $(".site-global-loader").addClass("hidden");
+            $(`[data-target="remove-data-for-user"]`).removeClass("active");
+            alert(xhr.responseJSON.message);
+            $('html,body').css({
+              'overflow' : "auto"
+            })
+            $(".loader-wrapper").removeClass("hidden");
+            $(".step-content-wrapper").removeClass("active");
           }
           // theme_custom.globalLoaderhide();
         }
@@ -1938,7 +1987,7 @@ theme_custom.eventPageClickEvent = function (){
       theme_custom.globalLoaderShow();
       var event_id = localStorage.getItem("set-event-id");
       var event_member_id =  parent.attr('data-host-id');
-      theme_custom.removeUserFromLook(look_id,event_id,event_member_id);
+      theme_custom.removeOwnerFromLook(look_id,event_id,event_member_id);
     }
   })
   $(document).on('click', '.custom-paginate-next', function (event) {

@@ -1935,7 +1935,8 @@ span.look-price {
 .add-remider-outer-wrapper .event-member-data .reminderMember{
   font-size: 14px;
 }
-#remiderName.disabled{
+#remiderName.disabled,
+.guest-top-looks .pay-info-confirmation-wrap .confirm-box-wrap span.active {
   cursor: not-allowed;
   pointer-events: none;
 }
