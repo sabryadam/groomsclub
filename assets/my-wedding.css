@@ -66,7 +66,8 @@
 
 .add-reminder-popup-wrapper #reminderDate,
 .edit-reminder-popup-wrapper #reminderDate,
-.suggested-edit-reminder-popup-wrapper #reminderDate{
+.suggested-edit-reminder-popup-wrapper #reminderDate,
+.reminder-redesign-popup #reminderDate{
   height: auto !important;
   min-height: auto;
 }
@@ -126,7 +127,8 @@
 .edit-reminder-popup-wrapper .button,
 .send-reminder-popup-wrapper .button,
 .update-profile-image-popup-wrapper .button,
-.suggested-edit-reminder-popup-wrapper .button{
+.suggested-edit-reminder-popup-wrapper .button,
+.reminder-redesign-popup .button{
   width: 100%;
 }
 
@@ -264,7 +266,8 @@ h5.title{
 .reminder-box-wrapper .reminder-data-wrap .edit-reminder-button .pipe{
   margin-right: 5px ;
 }
-.add-reminder-popup-wrapper .loading-overlay__spinner {
+.add-reminder-popup-wrapper .loading-overlay__spinner,
+.reminder-redesign-popup .loading-overlay__spinner {
   margin: 50px auto;
   display: block;
 }

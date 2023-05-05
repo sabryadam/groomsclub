@@ -850,6 +850,12 @@
   text-transform: uppercase;
   padding: 5px 10px;
 }
+.event-page-new-design-wrapper .page-width-inner-wrapper .look-card-block .assign-look-user-wrap .user-card-block .size-selected-info .size-select-check .not-ordered{
+  color: #FF9494;
+}
+.event-page-new-design-wrapper .page-width-inner-wrapper .look-card-block .assign-look-user-wrap .user-card-block .size-selected-info .size-select-check .ordered{
+  color: #4BB543;
+}
 .event-page-new-design-wrapper .page-width-inner-wrapper .look-card-block .assign-look-user-wrap .user-card-block .size-selected-info .pay-status {
   font-style: normal;
   font-weight: 400;
@@ -860,7 +866,7 @@
 .event-page-new-design-wrapper .page-width-inner-wrapper .look-card-block .assign-look-user-wrap .user-card-block .size-selected-info .reminder-wrap {
   background: rgba(6, 0, 0, 0.13);
   border: 1px solid #D9D9D9;
-  display: none;
+  /* display: none; */
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .look-card-block .assign-look-user-wrap .user-card-block .size-selected-info .size-select-check{
   background: #FFFFFF;
@@ -870,6 +876,7 @@
   max-width: 100%;
 }
 .final-summary-wrapper .page-width-inner-wrapper header .heading,
+.final-summary-wrapper .page-width-inner-wrapper .member-reminder-wrapper .heading,
 .final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper .heading{
   color: var(--color-primary);
   font-weight: 400;
@@ -878,6 +885,7 @@
   margin-bottom: 20px;
   text-transform: none;
 }
+.final-summary-wrapper .page-width-inner-wrapper .member-reminder-wrapper .heading.text-center,
 .final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper .heading.text-center{
   text-align: center;
   margin: 0;
@@ -942,7 +950,8 @@
   background: url('https://cdn.shopify.com/s/files/1/0585/3223/3402/files/down-arrow.png') 95% / 6% no-repeat #fff;
   color: var(--color-button-primary);
 }
-.final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper {
+.final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper,
+.final-summary-wrapper .page-width-inner-wrapper .member-reminder-wrapper {
   margin-top: 40px;
 }
 .final-summary-wrapper .page-width-inner-wrapper .summary-table-wrapper{
@@ -1849,4 +1858,84 @@ span.look-price {
   text-align: center;
   margin-bottom: 0;
   padding-bottom: 0;
+}
+.reminder-redesign-popup .bg-color{
+  background-color: #f5f5f5;
+  border-color: #f5f5f5;
+  border: none;
+  font-size: 12px!important;
+  text-transform: uppercase;
+  border-radius: 0;
+  color: var(--color-gray-text);
+  width: 100%;
+  box-sizing: border-box;
+  outline: 0!important;
+  box-shadow: none!important;
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-weight: var(--font-body-weight);
+  padding: 10px 10px;
+  display: block;
+}
+.reminder-redesign-popup .field-wrap.form-wrap{
+  margin-bottom: 15px;
+}
+.reminder-redesign-popup .loading-overlay__spinner{
+  margin: 0 auto;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+}
+.member-reminder-wrapper .reminder-block-wrap {
+  background-color: #f5f5f5;
+  border-color: #f5f5f5;
+  border: none;
+  font-size: 12px;
+  text-transform: uppercase;
+  border-radius: 0;
+  color: var(--color-gray-text);
+  width: 100%;
+  box-sizing: border-box;
+  outline: 0!important;
+  box-shadow: none!important;
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-weight: var(--font-body-weight);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 9px;
+}
+.member-reminder-wrapper .open-reminder-popup{
+  border-radius: 0;
+  font-size: 12px;
+  border: 1px solid;
+  background: transparent;
+  padding: 5px 15px;
+}
+@media(max-width : 767px){
+  .member-reminder-wrapper .reminder-block-wrap{
+    flex-wrap: wrap;
+  }
+  .member-reminder-wrapper .reminder-block-wrap span{
+    width: 100%;
+  }
+  .member-reminder-wrapper .open-reminder-popup{
+    margin-top: 5px;
+    font-size: 10px;
+  }
+}
+.reminderMember{
+  display: none;
+}
+.reminderMember.active{
+  display: block;
+}
+.add-remider-outer-wrapper .event-member-data .reminderMember{
+  font-size: 14px;
+}
+#remiderName.disabled{
+  cursor: not-allowed;
+  pointer-events: none;
 }

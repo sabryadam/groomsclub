@@ -374,7 +374,7 @@
                   </ul>
                   {% if link.title == 'Help Center' %} 
                   <div class="contact-us-header-menu caption-large motion-reduce{% if link.links.size > 5 %} menu-item-above-five{% endif %}" role="list" tabindex="-1">
-                    <h3>Contact us</h3>
+                    <h3>Contact Us</h3>
                     <ul class="contact-us-header-menu-inner">
                       <li>
                         <p><a href="tel:201-559-9715" target="_blank" title="tel:201-559-9715">201-559-9715</a></p>
@@ -461,8 +461,8 @@
           </span>
         </a>
       {%- endif -%}
-      <a class="link link-with-svg fav-icon" tabindex="0" title="Favorite Look" href="{%- if customer -%}/account?tab=favorite-look{%- else -%}{{ routes.account_login_url }}{%- endif -%}">
-        <img class="heart-icon-for-wishlist" src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/bookmark.png?v=1682365093" alt="wishlist icon" />
+      <a class="grooms-icon grooms-icon-wishlist link link-with-svg fav-icon" tabindex="0" title="Favorite Look" href="{%- if customer -%}/account?tab=favorite-look{%- else -%}{{ routes.account_login_url }}{%- endif -%}" aria-hidden="true" style="color: #000;">
+        <span class="sr-only hidden">wishlist</span>
       </a>
         {% comment %}if cart empty -- render 'icon-cart-empty' {% endcomment %}
          {% comment %}if cart not empty  render 'icon-cart' {% endcomment %}

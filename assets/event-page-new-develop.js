@@ -6,6 +6,46 @@ theme_custom.globalEventData = null;
 theme_custom.eventExpire = false;
 const APP_Token = 'Bearer ' + localStorage.getItem("customerToken");
 
+theme_custom.reminder = function (sendReminderDataObj, button) {
+  $.ajax({
+    url: `${theme_custom.base_url}/api/reminder/create`,
+    method: "POST",
+    data: sendReminderDataObj,
+    dataType: "json",
+    headers: {
+      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+    },
+    beforeSend: function () {
+      button.addClass("disabled");
+    },
+    success: function (result) {
+      button.addClass("disabled");
+      $('.api_error').addClass("success-event").show().html(result.message);
+      setTimeout(() => {
+        $('.api_error').removeClass("success-event").html('').hide();
+        button.removeClass("disabled");
+        $(".send-via-main .send-via").prop("checked",false);
+        $(".fancybox-button").click();
+      }, 3000);
+    },
+    error: function (xhr, status, error) {
+      button.removeClass('disabled')
+      if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+        $('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+          'text-align': 'center',
+          'color': 'red'
+        });
+        setTimeout(() => {
+          theme_custom.removeLocalStorage();
+          window.location.href = '/account/logout';
+        }, 5000);
+      } else {
+        alert(`${xhr.responseJSON.message} !`)
+      }
+    }
+  });
+};
+
 theme_custom.lookAssignToMember = function (member_id, look_id) {
   var selectedLook = look_id;
   var eventMemberId = member_id;
@@ -29,6 +69,24 @@ theme_custom.lookAssignToMember = function (member_id, look_id) {
       theme_custom.checkLooks(localStorage.getItem("set-event-id"));
       $('[data-target="add-guest-popup"]').removeClass('active');
       $('.member-added-into-event').removeClass('disabled');
+      fetch(`https://app.groomsclub.com/api/event/1016`, {
+        method: "GET",
+        headers: {
+          "Authorization": 'Bearer luN0XRv7Za0zbtdzxGG2d21si4fFRAMlpjLIICduiEs7OSEaiQZFBCFKTIvXn2AhsYQmnnjhiIk0TAhRVNza1hPSmtLdDgwbA'
+        },
+      }).then((data) => data.json()).then((data) => {
+        var memerData = '';
+        $.each(data.data.event_members, function (index, value) {
+          if (value.is_host == "1") {
+            eventDataObj.eventPhone = value.phone.replace("+1", "");
+            $("#event-phone-number").val(value.phone.replace("+1", ""));
+            $('#EventForm-EventOwnerContactNumber').val(value.phone.replace("+1", "")).trigger("keyup");
+          }
+          memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name}</span>`
+        });
+        $('.reminder-redesign-popup .event-member-data').html('');
+        $('.reminder-redesign-popup .event-member-data').append(memerData);
+      });
     },
     error: function (xhr, status, error) {
       $(this).removeClass("disabled");
@@ -133,19 +191,33 @@ $(".member-added-into-event").click(function (e) {
 });
 
 theme_custom.user = (user) => {
-  console.log("user",user);
+  var status_class = '';
   let { email, first_name, last_name, phone, status, is_host_paying, is_host } = user;
-  let whoPay = "", eventOwner = '';
+  let whoPay = "", eventOwner = reminder_hidden = '';
   if (is_host_paying.toLowerCase() == "self") {
     whoPay = "I pay";
   } else {
     whoPay = "They Pay";
   }
   if(is_host == 1 ){
-    eventOwner = 'event-owner'
+    eventOwner = 'event-owner';
+    reminder_hidden = 'hidden';
   } else {
-    eventOwner = ''
+    eventOwner = '';
+    reminder_hidden = '';
   }
+  if(status == 'In Progress'){
+    status = 'Not Ordered'
+    status_class = 'not-ordered'
+  } else {
+    status = 'Ordered',
+    status_class = 'ordered'
+  }
+  var d = new Date();
+  var month = d.getMonth()+1;
+  var day = d.getDate();
+  var showCurrentDate = (month<10 ? '0' : '') + month + '/' + (day<10 ? '0' : '') + day  + '/' + d.getFullYear();  
+  var currentDate = d.getFullYear() + '-' + (month<10 ? '0' : '') + month + '-' + (day<10 ? '0' : '') + day;
   const deleteIcon = `<div class="member-delete-icon payment-${status}" data-member-id="${user.event_member_id}">
       <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/delete.png?v=1678738752" alt="delete icon" />
     </div>`
@@ -163,8 +235,8 @@ theme_custom.user = (user) => {
     </div>
     <div class="size-selected-info">
       <div class="size-selected-wrap">
-        <span class="size-select-check">status : ${status}</span>
-        <span class="reminder-wrap">REMINDER</span>
+        <span class="size-select-check ">status : <span class="${status_class}">${status}</span></span>
+        <span class="reminder-wrap ${reminder_hidden}" data-member-id="${user.event_member_id}">REMINDER</span>
       </div>
       <spa class="pay-status" pay-info="${whoPay}">${whoPay}</span>
     </div>
@@ -857,6 +929,95 @@ theme_custom.dataURLtoFile = function (dataurl, filename) {
   return new File([u8arr], filename, { type: mime });
 }
 theme_custom.lookAddedIntoEvent = function () {
+  // individual member Reminder send API 
+  $(document).on("click", ".send-reminder", function (e) {
+    e.preventDefault();
+    var button = $(this);
+    var parent = $(this).closest('.reminder-redesign-popup')
+    var is_email_data = is_sms_data = 0;
+    if(parent.find('[value="email"]').prop('checked')){
+      is_email_data = 1;
+    }
+    if(parent.find('[value="text-sms"]').prop('checked')){
+      is_sms_data = 1;
+    }
+    var reminderMemberArray = [];
+    var member_id = '';
+    $('.reminderMember.active').each(function() {
+      member_id = $(this).attr("data-member-id");
+      reminderMemberArray.push(member_id);
+    })
+    var sendReminderDataObj = {
+      "name": parent.find("#remiderName").val(),
+      "event_id": localStorage.getItem("set-event-id"),
+      "scheduled_date": parent.find("#reminderDate").attr("data-current-data"),
+      "message": parent.find("#reminderMessage").text(),
+      "members": reminderMemberArray,
+      "is_email": is_email_data,
+      "is_sms": is_sms_data,
+    }
+    theme_custom.reminder(sendReminderDataObj, button);
+  });
+
+  // Reminder Option change
+  $(document).on('change','#remiderName', function() {
+    var targetMessage = $(this).find('option:selected').attr("data-message");
+    if(targetMessage == 'Please select title ...') {
+      $(this).closest('.reminder-redesign-popup').find('.send-reminder').addClass("disabled");
+    } else {
+      $(this).closest('.reminder-redesign-popup').find('.send-reminder').removeClass("disabled");
+    }
+    $(this).closest(".reminder-redesign-popup").find("#reminderMessage").text(targetMessage)
+  });
+  // open All Member send reminder popup
+  $(document).on("click", ".open-reminder-popup", function (e) {
+    e.preventDefault();
+    var targetReminder = $(this).closest(".reminder-block-wrap").find('.message-wrap').attr("data-value")
+    var addReminder = $(".reminder-redesign-popup");
+    $(".loading-overlay__spinner").removeClass("hidden");
+    $(".add-remider-outer-wrapper").addClass("hidden");
+    $(".form-error").removeClass("active");
+    $.fancybox.open(addReminder);
+    $("#remiderName").addClass("disabled").val(targetReminder).trigger("change");
+    $(`.reminder-redesign-popup .reminderMember`).addClass('active');
+    $(`.send-via-main input`).prop("checked",false);
+    setTimeout(() => {
+      $(".loading-overlay__spinner").addClass("hidden");
+      $(".add-remider-outer-wrapper").removeClass("hidden");
+    }, 1500);
+  })
+
+  // Open Individual member send reminder popup
+  $(document).on("click", ".reminder-wrap", function (e) {
+    e.preventDefault();
+    var addReminder = $(".reminder-redesign-popup");
+    var selecteMember = $(this).attr("data-member-id");
+    $(".loading-overlay__spinner").removeClass("hidden");
+    $(".add-remider-outer-wrapper").addClass("hidden");
+    $(".form-error").removeClass("active");
+    $.fancybox.open(addReminder);
+    $("#remiderName").val('Select Title').trigger("change");
+    $(`.send-via-main input`).prop("checked",false);
+    setTimeout(() => {
+      $(".loading-overlay__spinner").addClass("hidden");
+      $(".add-remider-outer-wrapper").removeClass("hidden");
+      $(`.reminder-redesign-popup .reminderMember`).removeClass('active');
+      $(`.reminder-redesign-popup .reminderMember[data-member-id="${selecteMember}"]`).addClass("active");
+    }, 1500);
+  })
+
+  // Open All member send Reminder Popup 
+  $(document).on("click", ".open-reminder-popup", function (e) {
+    e.preventDefault();
+    // $(".loader-wrapper").removeClass("hidden");
+    // $('.event-step-wrapper').addClass('hidden');
+    // setTimeout(() => {
+    //   $.fancybox.open(targetPopup);
+    //   $(".loader-wrapper").addClass("hidden");
+    //   $('.event-step-wrapper').removeClass('hidden');
+    // }, 1500);
+  });
+
   $(document).on("click", ".look-added-into-event", function (e) {
     e.preventDefault();
     var button = $(this);
@@ -1962,7 +2123,9 @@ theme_custom.calender = function () {
   var mm = String(today.getMonth() + 1).padStart(2, '0');
   var yyyy = today.getFullYear();
   today = yyyy + '-' + mm + '-' + dd;
+  var reminderDate = mm + '-' + dd + '-' + yyyy;
   $('#event_date').attr('min', today);
+  $("#reminderDate").attr("data-current-data",today).text(reminderDate);
 }
 theme_custom.eventLookSlider = function () {
   $('.create-event-look .event-look-inner-wrapper, .guest-top-looks .event-look-inner-wrapper').slick({
@@ -2068,14 +2231,17 @@ theme_custom.getEventDetails = function () {
       $(`.Squer-radio-button-inner input[name="event-role"][data-value="${result.data.event_role}"]`).prop('checked', true);
       $('#event_date').val(result.data.event_date);
       $('.event-data-first-step').datepicker('setDate', new Date(result.data.event_date));
-
+      var memerData = '';
       $.each(result.data.event_members, function (index, value) {
         if (value.is_host == "1") {
           eventDataObj.eventPhone = value.phone.replace("+1", "");
           $("#event-phone-number").val(value.phone.replace("+1", ""));
           $('#EventForm-EventOwnerContactNumber').val(value.phone.replace("+1", "")).trigger("keyup");
         }
+        memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}">${value.first_name} ${value.last_name}</span>`
       });
+      $('.reminder-redesign-popup .event-member-data').html('');
+      $('.reminder-redesign-popup .event-member-data').append(memerData);
       $(".create-event-button").addClass("next-button").removeClass("create-event-button").find(".look-add-btn").removeClass("hidden");
       $(`.step-content-wrapper[data-step-content-wrap="1"]`).addClass("active");
       $(`.step-content-wrapper[data-step-content-wrap="1"]`).find(".event-update-button").removeClass("disabled").removeClass("hidden")
