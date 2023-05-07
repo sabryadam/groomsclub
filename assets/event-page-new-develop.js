@@ -40,7 +40,11 @@ theme_custom.reminder = function (sendReminderDataObj, button) {
           window.location.href = '/account/logout';
         }, 5000);
       } else {
-        alert(`${xhr.responseJSON.message} !`)
+        if(xhr.responseJSON.message == 'Internal server error.'){
+          alert(`${xhr.responseJSON.data} !`)
+        } else {
+          alert(`${xhr.responseJSON.message} !`)
+        }
       }
     }
   });
@@ -69,23 +73,35 @@ theme_custom.lookAssignToMember = function (member_id, look_id) {
       theme_custom.checkLooks(localStorage.getItem("set-event-id"));
       $('[data-target="add-guest-popup"]').removeClass('active');
       $('.member-added-into-event').removeClass('disabled');
-      fetch(`https://app.groomsclub.com/api/event/1016`, {
+      $.ajax({
+        url: `${theme_custom.base_url}/api/event/${localStorage.getItem("set-event-id")}`,
         method: "GET",
+        data: '',
+        dataType: "json",
         headers: {
-          "Authorization": 'Bearer luN0XRv7Za0zbtdzxGG2d21si4fFRAMlpjLIICduiEs7OSEaiQZFBCFKTIvXn2AhsYQmnnjhiIk0TAhRVNza1hPSmtLdDgwbA'
+          // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
+          "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
         },
-      }).then((data) => data.json()).then((data) => {
-        var memerData = '';
-        $.each(data.data.event_members, function (index, value) {
-          if (value.is_host == "1") {
-            eventDataObj.eventPhone = value.phone.replace("+1", "");
-            $("#event-phone-number").val(value.phone.replace("+1", ""));
-            $('#EventForm-EventOwnerContactNumber').val(value.phone.replace("+1", "")).trigger("keyup");
-          }
-          memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name}</span>`
-        });
-        $('.reminder-redesign-popup .event-member-data').html('');
-        $('.reminder-redesign-popup .event-member-data').append(memerData);
+        beforeSend: function () {
+        },
+        success: function (result) {
+          var memerData = '';
+          var total = result.data.event_members.length;
+          $.each(result.data.event_members, function (index, value) {
+            if (value.is_host == "1") {
+              eventDataObj.eventPhone = value.phone.replace("+1", "");
+              $("#event-phone-number").val(value.phone.replace("+1", ""));
+              $('#EventForm-EventOwnerContactNumber').val(value.phone.replace("+1", "")).trigger("keyup");
+            }
+            if (index === total - 1) {
+              memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name}</span>`
+            } else {
+              memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name},</span>`
+            }
+          });
+          $('.reminder-redesign-popup .event-member-data').html('');
+          $('.reminder-redesign-popup .event-member-data').append(memerData);
+        }
       });
     },
     error: function (xhr, status, error) {
@@ -930,12 +946,35 @@ theme_custom.dataURLtoFile = function (dataurl, filename) {
   return new File([u8arr], filename, { type: mime });
 }
 theme_custom.lookAddedIntoEvent = function () {
-  // individual member Reminder send API 
+  $('.send-via-main input:checkbox').change(function() {
+    var parent = $(this).closest(".reminder-redesign-popup");
+    if(parent.find(`[value="email"]`).is(':checked') || parent.find(`[value="text-sms"]`).is(':checked')){
+      parent.find('.api_error').hide();
+    } else {
+      parent.find('.api_error').css({
+        "background":"transparent",
+        "text-align":"left",
+        "padding-left":"0"
+      }).text("Please select Email / SMS required*").show();
+      return false;
+    }
+  })
+
+  // Reminder send API 
   $(document).on("click", ".send-reminder", function (e) {
     e.preventDefault();
     var button = $(this);
-    var parent = $(this).closest('.reminder-redesign-popup')
+    var parent = $(this).closest('.reminder-redesign-popup');
     var is_email_data = is_sms_data = 0;
+    if($(`.send-via-main input`).is(':checked')){
+    } else {
+      parent.find('.api_error').css({
+        "background":"transparent",
+        "text-align":"left",
+        "padding-left":"0"
+      }).text("Please select Email / SMS required*").show();
+      return false;
+    }
     if(parent.find('[value="email"]').prop('checked')){
       is_email_data = 1;
     }
@@ -975,16 +1014,22 @@ theme_custom.lookAddedIntoEvent = function () {
     e.preventDefault();
     var targetReminder = $(this).closest(".reminder-block-wrap").find('.message-wrap').attr("data-value")
     var addReminder = $(".reminder-redesign-popup");
-    $(".loading-overlay__spinner").removeClass("hidden");
-    $(".add-remider-outer-wrapper").addClass("hidden");
+    $('.all-member-reminder-title .reminder-title').text(targetReminder);
+    $(".loading-overlay__spinner,.all-member-reminder-title").removeClass("hidden");
+    $(".add-remider-outer-wrapper,.add-remider-outer-wrapper .remiderName").addClass("hidden");
     $(".form-error").removeClass("active");
+    $('.reminder-redesign-popup').find('.send-reminder').addClass("disabled");
+    $('.reminder-redesign-popup').find('.api_error').hide();
+    $('.reminder-redesign-popup').find('.api_error').hide();
     $.fancybox.open(addReminder);
-    $("#remiderName").addClass("disabled").val(targetReminder).trigger("change");
+    $("#remiderName").addClass("hidden").val(targetReminder).trigger("change");
     $(`.reminder-redesign-popup .reminderMember`).addClass('active');
     $(`.send-via-main input`).prop("checked",false);
     setTimeout(() => {
       $(".loading-overlay__spinner").addClass("hidden");
       $(".add-remider-outer-wrapper").removeClass("hidden");
+      $(".loader-wrapper").addClass("hidden");
+      $(".event-step-wrapper").removeClass("hidden");
     }, 1500);
   })
 
@@ -993,9 +1038,11 @@ theme_custom.lookAddedIntoEvent = function () {
     e.preventDefault();
     var addReminder = $(".reminder-redesign-popup");
     var selecteMember = $(this).attr("data-member-id");
-    $(".loading-overlay__spinner").removeClass("hidden");
+    $('.all-member-reminder-title').addClass("hidden");
+    $(".loading-overlay__spinner, .remiderName, #remiderName").removeClass("hidden");
     $(".add-remider-outer-wrapper").addClass("hidden");
     $(".form-error").removeClass("active");
+    $('.reminder-redesign-popup').find('.api_error').hide();
     $.fancybox.open(addReminder);
     $("#remiderName").val('Select Title').trigger("change");
     $(`.send-via-main input`).prop("checked",false);
@@ -1006,18 +1053,6 @@ theme_custom.lookAddedIntoEvent = function () {
       $(`.reminder-redesign-popup .reminderMember[data-member-id="${selecteMember}"]`).addClass("active");
     }, 1500);
   })
-
-  // Open All member send Reminder Popup 
-  $(document).on("click", ".open-reminder-popup", function (e) {
-    e.preventDefault();
-    // $(".loader-wrapper").removeClass("hidden");
-    // $('.event-step-wrapper').addClass('hidden');
-    // setTimeout(() => {
-    //   $.fancybox.open(targetPopup);
-    //   $(".loader-wrapper").addClass("hidden");
-    //   $('.event-step-wrapper').removeClass('hidden');
-    // }, 1500);
-  });
 
   $(document).on("click", ".look-added-into-event", function (e) {
     e.preventDefault();
@@ -1715,7 +1750,28 @@ theme_custom.editItemPopup = function(parentEl){
 }
 
 theme_custom.eventPageClickEvent = function (){
-
+  $(document).on("click",".final-summary-wrapper .page-width-inner-wrapper .member-reminder-wrapper .heading, .final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper .heading",function(){
+    if($(this).hasClass('current')){
+      $(this).removeClass("current");
+      $(this).closest(".member-reminder-wrapper").removeClass("current")
+      $(".tab-content").find(".summary-table-wrapper").slideUp();
+    } else {
+      $(".member-reminder-wrapper").removeClass("current");
+      $(".final-summary-wrapper .page-width-inner-wrapper .member-reminder-wrapper .heading, .final-summary-wrapper .page-width-inner-wrapper .tab-content .heading").removeClass("current");
+      $(this).closest(".member-reminder-wrapper").addClass("current")
+      $(this).addClass("current");
+      $(this).parent(".tab-content").find(".summary-table-wrapper").slideToggle();
+      $(this).parent(".tab-content").prevAll(".tab-content").find(".summary-table-wrapper").slideUp();
+      $(this).parent(".tab-content").nextAll(".tab-content").find(".summary-table-wrapper").slideUp();
+    }
+  });
+  $('ul.tabs li').click(function(){
+		var tab_id = $(this).attr('data-tab');
+		$('ul.tabs li').removeClass('current');
+		$('.tab-content').removeClass('current');
+		$(this).addClass('current');
+		$("#"+tab_id).addClass('current');
+	})
   // product option popup open
   $(document).on("click", ".open-product-edit-popup", function(){
     var parentSelect = $(this).closest(".edit-product-data-card");
@@ -2281,13 +2337,19 @@ theme_custom.getEventDetails = function () {
       $('#event_date').val(result.data.event_date);
       $('.event-data-first-step').datepicker('setDate', new Date(result.data.event_date));
       var memerData = '';
+      var total = result.data.event_members.length;
       $.each(result.data.event_members, function (index, value) {
         if (value.is_host == "1") {
           eventDataObj.eventPhone = value.phone.replace("+1", "");
           $("#event-phone-number").val(value.phone.replace("+1", ""));
           $('#EventForm-EventOwnerContactNumber').val(value.phone.replace("+1", "")).trigger("keyup");
         }
-        memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}">${value.first_name} ${value.last_name}</span>`
+        if (index === total - 1) {
+          memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name}</span>`
+        } else {
+          memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name},</span>`
+        }
+        // memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}">${value.first_name} ${value.last_name}</span>`
       });
       $('.reminder-redesign-popup .event-member-data').html('');
       $('.reminder-redesign-popup .event-member-data').append(memerData);
