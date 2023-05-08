@@ -850,6 +850,12 @@
   text-transform: uppercase;
   padding: 5px 10px;
 }
+.event-page-new-design-wrapper .page-width-inner-wrapper .look-card-block .assign-look-user-wrap .user-card-block .size-selected-info .size-select-check .not-ordered{
+  color: #FF9494;
+}
+.event-page-new-design-wrapper .page-width-inner-wrapper .look-card-block .assign-look-user-wrap .user-card-block .size-selected-info .size-select-check .ordered{
+  color: #4BB543;
+}
 .event-page-new-design-wrapper .page-width-inner-wrapper .look-card-block .assign-look-user-wrap .user-card-block .size-selected-info .pay-status {
   font-style: normal;
   font-weight: 400;
