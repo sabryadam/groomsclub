@@ -3,6 +3,10 @@
 <input type="hidden" class="product-type" value="{{ product.type | downcase | handleize }}" />
 <input type="hidden" class="order-type" value="{{ cart.attributes.order_type }}">
 <style>
+  .var-select-custom,
+  .var-select-custom + .icon.icon-caret{
+    display: none;
+  }
   @media(min-width : 768px)   {
     .sm-hide {
       display: none !important;
@@ -609,7 +613,7 @@
                         </span>
                       </div> -->
                     {%- endif -%}
-                    <button type="button" name="add" class="product-form__submit button button--full-width button--primary">
+                    <button type="button" name="add" class="product-form__submit button button--full-width button--primary {% if product.metafields.custom.product_page_upsell != blank %}up-sell-popup{% endif %}">
                       {%- if products.product.sold_out -%}
                         <span class="btn-title">{{ 'products.product.sold_out' | t }}</span>
                       {% else %}
@@ -1277,6 +1281,10 @@
   $(document).on("click", ".product-form__submit", function(e){
     e.preventDefault();
     var button = $(this);
+    theme_custom.openUpsellPopup = false;
+    if(button.hasClass("up-sell-popup")){
+      theme_custom.openUpsellPopup = true;
+    }
     // button.addClass("disabled");
     // button.addClass("normal-product-disable");
     // if(getCookie("fit-finder-data") == '' && ($('.product-type').val() == 'shirt' || $('.product-type').val() != 'shoes') ){
@@ -1358,8 +1366,17 @@
             success: function() {
               button.find(".btn-title").text("Added to Cart");
               setTimeout(() => {
-                button.removeClass("disabled");
-                window.location.href = "/cart";
+                // button.removeClass("disabled");
+                // window.location.href = "/cart";
+                if(theme_custom.openUpsellPopup){
+                  $("html, body").css({
+                    "overflow" : "hidden"
+                  });
+                  $(".product-upsell-wrapper").addClass("show")
+                } else {
+                  button.removeClass("custom-top-look-disable").removeClass("disabled");
+                  window.location.href = "/cart";
+                }
               }, 2500);
             },
             error: function(xhr, status, error) {
@@ -1379,17 +1396,30 @@
         success: function() {
           button.find(".btn-title").text("Added to Cart");
           setTimeout(() => {
-            button.removeClass("disabled");
-            window.location.href = "/cart";
+            // button.removeClass("disabled");
+            // window.location.href = "/cart";
+            if(theme_custom.openUpsellPopup){
+              $("html, body").css({
+                "overflow" : "hidden"
+              });
+              $(".product-upsell-wrapper").addClass("show")
+            } else {
+              button.removeClass("custom-top-look-disable").removeClass("disabled");
+              window.location.href = "/cart";
+            }
           }, 2500);
         },
         error: function(xhr, status, error) {
         // alert(xhr.responseJSON.description);
               button.find(".btn-title").text("Add To Cart");
           button.removeClass("disabled");
-        
         }
       });
     }
   });
 </script>
+
+{% if product.metafields.custom.product_page_upsell != blank %}
+  <!-- Product Upsell Popup --> 
+  {% render 'product-upsell' %}
+{% endif %}
