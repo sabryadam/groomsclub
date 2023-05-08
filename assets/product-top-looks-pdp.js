@@ -1027,7 +1027,20 @@ $(document).ready(function(){
     var productTarget = $(this).closest(".variant-info-wrap").data('product-type');
     $(`.product-data-card-wrap[data-product-type="${productTarget}"]`).find('.cta-button-wrap .edit-item-btn').click();
   });
-
+  $(document).on("click",".add-vest-button",function(){
+    $(this).closest(".product-block-item").find('.variant-title').removeClass("hidden")
+    $(this).addClass("hidden");
+    $(this).closest(".product-block-item").addClass("product-data-card");
+    $(this).closest(".product-block-item").find(".remove-vest-wrapper").removeClass("hidden")
+    theme_custom.priceCalculator();
+  });
+  $(document).on("click",".remove-vest-item-btn",function(){
+    $(this).closest(".product-block-item").find('.variant-title').addClass("hidden")
+    $(this).closest(".remove-vest-wrapper").addClass("hidden");
+    $(this).closest(".product-block-item").removeClass("product-data-card");
+    $(this).closest(".product-block-item").find(".add-vest-button").removeClass("hidden")
+    theme_custom.priceCalculator();
+  });
   theme_custom.priceCalculator();
 });
 
