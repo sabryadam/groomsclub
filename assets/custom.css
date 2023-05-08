@@ -1025,7 +1025,7 @@ select#event-id.disabled {
 	left: 50%;
 	position: absolute;
 	width: 560px;
-	max-height: 70vh;
+	height: 70vh;
 	display: flex;
 	flex-direction: column;
 }
