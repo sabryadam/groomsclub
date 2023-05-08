@@ -142,10 +142,24 @@ theme_custom.user = (user) => {
     whoPay = "They Pay";
   }
   if(is_host == 1 ){
-    eventOwner = 'event-owner'
+    eventOwner = 'event-owner',
+    reminder_hidden = 'hidden';
   } else {
-    eventOwner = ''
+    eventOwner = '';
+    reminder_hidden = '';
   }
+  if(status == 'In Progress'){
+    status = 'Not Ordered'
+    status_class = 'not-ordered'
+  } else {
+    status = 'Ordered',
+    status_class = 'ordered'
+  }
+  var d = new Date();
+  var month = d.getMonth()+1;
+  var day = d.getDate();
+  var showCurrentDate = (month<10 ? '0' : '') + month + '/' + (day<10 ? '0' : '') + day  + '/' + d.getFullYear();  
+  var currentDate = d.getFullYear() + '-' + (month<10 ? '0' : '') + month + '-' + (day<10 ? '0' : '') + day;
   const deleteIcon = `<div class="member-delete-icon payment-${status}" data-member-id="${user.event_member_id}">
       <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/delete.png?v=1678738752" alt="delete icon" />
     </div>`
@@ -163,8 +177,8 @@ theme_custom.user = (user) => {
     </div>
     <div class="size-selected-info">
       <div class="size-selected-wrap">
-        <span class="size-select-check">status : ${status}</span>
-        <span class="reminder-wrap">REMINDER</span>
+        <span class="size-select-check">status : <span class="${status_class}">${status}</span></span>
+        <span class="reminder-wrap  ${reminder_hidden}">REMINDER</span>
       </div>
       <spa class="pay-status" pay-info="${whoPay}">${whoPay}</span>
     </div>
