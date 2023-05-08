@@ -834,126 +834,11 @@ theme_custom.tlpclickEvent = function(){
     }
   });
 
-  $(document).on("click",".product-upsell-wrapper .close-icon",function(){
-    $(".product-upsell-wrapper").removeClass("show");
-    $("html, body").css({
-      "overflow" : ""
-    });
-    window.location.reload();
-  });
-
-  $(document).on("click",".upsell-product-add",function(e){
-    e.preventDefault();
-    var button = $(this);
-    button.addClass("disabled").find(".btn-title").text(button.find(".btn-title").attr("data-text"));
-    var data = {
-      "id": button.closest(".product-item").find(".product-var-id").val(),
-      "quantity": 1,
-    }
-    jQuery.ajax({
-      type: 'POST',
-      url: '/cart/add.js',
-      data: data,
-      dataType: 'json',
-      success: function() {
-        setTimeout(() => {
-          button.addClass("disabled").find(".btn-title").text("ADDED");
-        }, 1000);
-      },
-      error: function(xhr, status, error) {
-        button.closest(".product-info-wrapper").append(`<p class="error-message error-show">${xhr.responseJSON.description}</p>`);
-        setTimeout(() => {
-          button.closest(".product-info-wrapper").find(".error-message").remove();
-          button.removeClass("disabled").find(".btn-title").text("ADD");
-        }, 1000);
-      }
-    });
-  })
-
-  $(document).on('change', `.upsell-product-items-wrapper input[type="radio"]`, function(){
-    var optionValue = $(this).val();
-    $(this).closest(".swatch-wrap").find(".option-value").text(optionValue);
-    var parent = $(this).closest(".product-item");
-    var selectOptionVar = parent.find('.single-option-selector option');
-    var productVariantTitle = [];
-    selectOptionVar.each(function(){
-      productVariantTitle.push($(this).attr("data-variant-title"));    
-    });
-    if(parent.find('[data-option-index="0"] input:checked').length > 0){
-      varintTitle = parent.find('[data-option-index="0"] input:checked').val();
-    }
-    if(parent.find('[data-option-index="1"] input:checked').length > 0){
-      varintTitle = varintTitle + ' / ' + parent.find('[data-option-index="1"] input:checked').val();
-    }
-    if(parent.find('[data-option-index="2"] input:checked').length > 0){
-      varintTitle = varintTitle + ' / ' + parent.find('[data-option-index="2"] input:checked').val();
-    }    
-    var selectedVar = parent.find($(`.single-option-selector option[data-variant-title="${varintTitle}"]`)).val();
-    var selectedVarInventoryQty = parent.find($(`.single-option-selector option[data-variant-title="${varintTitle}"]`)).attr("data-variant-inventory-qty");
-    var selectedVarInventoryPolicy = parent.find($(`.single-option-selector option[data-variant-title="${varintTitle}"]`)).attr("data-variant-inventory-policy");
-    if($.inArray(varintTitle,productVariantTitle) == -1){
-      parent.find(".error-message").addClass("error-show").text("Product is not available for this specific combination");
-      parent.find(".upsell-product-add").addClass("disabled");
-    } else {
-      var targetVariant = parent.find($(`.single-option-selector option[data-variant-title="${varintTitle}"]`))
-      parent.closest(".product-item").find(".img img").attr("src",targetVariant.attr("data-variant-image"));
-      if(selectedVarInventoryPolicy == 'continue'){
-        parent.find(".error-message").removeClass("error-show").text('');
-        parent.find(".upsell-product-add").removeClass("disabled").find(".btn-title").text("ADD");
-        parent.find(".product-var-id").val(selectedVar);
-      } else {
-        if(selectedVarInventoryQty <= 0){
-          parent.find(".error-message").addClass("error-show").text("This variant is Out of Stock. Please choose another variant.");
-          parent.find(".upsell-product-add").addClass("disabled");
-        } else {
-          parent.find(".error-message").removeClass("error-show").text('');
-          parent.find(".upsell-product-add").removeClass("disabled").find(".btn-title").text("ADD");
-          parent.find(".product-var-id").val(selectedVar);
-        }
-      }
-    }
-  })
-
   $(document).on('change','.suit_attr',function(){
     if($(this).val() != ''){
       $(this).siblings('.error_span').remove();
     }
   });
-
-  $(document).on("click",".product-upsell-wrapper .close-icon",function(){
-    $(".product-upsell-wrapper").removeClass("show");
-    $("html, body").css({
-      "overflow" : ""
-    });
-  });
-
-  $(document).on("click",".upsell-product-add",function(e){
-    e.preventDefault();
-    var button = $(this);
-    button.addClass("disabled").find(".btn-title").text(button.find(".btn-title").attr("data-text"));
-    var data = {
-      "id": button.closest(".product-item").find(".product-var-id").val(),
-      "quantity": 1,
-    }
-    jQuery.ajax({
-      type: 'POST',
-      url: '/cart/add.js',
-      data: data,
-      dataType: 'json',
-      success: function() {
-        setTimeout(() => {
-          button.addClass("disabled").find(".btn-title").text("ADDED");
-        }, 1000);
-      },
-      error: function(xhr, status, error) {
-        button.closest(".product-info-wrapper").append(`<p class="error-message error-show">${xhr.responseJSON.description}</p>`);
-        setTimeout(() => {
-          button.closest(".product-info-wrapper").find(".error-message").remove();
-          button.removeClass("disabled").find(".btn-title").text("ADD");
-        }, 1000);
-      }
-    });
-  })
 
   $(document).on("click", ".add_suite_btn", function(e){
     e.preventDefault();
@@ -1142,7 +1027,20 @@ $(document).ready(function(){
     var productTarget = $(this).closest(".variant-info-wrap").data('product-type');
     $(`.product-data-card-wrap[data-product-type="${productTarget}"]`).find('.cta-button-wrap .edit-item-btn').click();
   });
-
+  $(document).on("click",".add-vest-button",function(){
+    $(this).closest(".product-block-item").find('.variant-title').removeClass("hidden")
+    $(this).addClass("hidden");
+    $(this).closest(".product-block-item").addClass("product-data-card");
+    $(this).closest(".product-block-item").find(".remove-vest-wrapper").removeClass("hidden")
+    theme_custom.priceCalculator();
+  });
+  $(document).on("click",".remove-vest-item-btn",function(){
+    $(this).closest(".product-block-item").find('.variant-title').addClass("hidden")
+    $(this).closest(".remove-vest-wrapper").addClass("hidden");
+    $(this).closest(".product-block-item").removeClass("product-data-card");
+    $(this).closest(".product-block-item").find(".add-vest-button").removeClass("hidden")
+    theme_custom.priceCalculator();
+  });
   theme_custom.priceCalculator();
 });
 

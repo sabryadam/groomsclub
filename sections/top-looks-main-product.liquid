@@ -1048,7 +1048,8 @@
                               {%- assign accessoriesProdVarId = producthandleitem | split: '?' | last | remove: 'variant=' | plus: 0 -%}
                               {%- assign productHandle = all_products[accessoriesProdHandle] -%}
                               {% unless productHandle == blank %}
-                                <div class="product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
+                                {%- assign productSelectedType  = productHandle.type | downcase -%}
+                                <div class="{% if productSelectedType == 'vest' %} Vest Product{% endif %}product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
                                   <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
                                   <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ accessoriesProdVarId }}" data-inventory-policy="{{ productHandle.selected_or_first_available_variant.inventory_policy }}">
                                   <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
@@ -1087,7 +1088,6 @@
                                     </div>
                                     <div class="product-info">
                                       <h4 class="product-title">{{ productHandle.title }}</h4>
-                                      {%- assign productSelectedType  = productHandle.type | downcase -%}
                                       <span class="variant-title hidden">
                                         {% for option in productHandle.options_with_values  %}
                                           {% assign outer_forloop = forloop %}
@@ -1142,7 +1142,8 @@
                                 {% assign productData = producthandleData | split: '_' | last %}
                                 {%- assign productHandle = all_products[productData] -%}
                                 {%- unless productHandle == blank -%}
-                                  <div class="product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
+                                  {%- assign productHandleType = productHandle.type | downcase -%}
+                                  <div class="{% unless productHandleType == 'vest' %}product-data-card {% endunless %}product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
                                     <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
                                     <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ productHandle.selected_or_first_available_variant.id }}" data-inventory-policy="{{ productHandle.selected_or_first_available_variant.inventory_policy }}">
                                     <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
@@ -1204,6 +1205,27 @@
                                         </span>
                                         <div class="cta-button-wrap">
                                           {% if productHandle.variants.size > 1 %}
+                                            {% if template contains 'jacket-pant-combination' %}
+                                              {%- if productSelectedType == 'vest' -%}
+                                              <span class="add-vest-button btn">
+                                                Add Vest
+                                              </span>    
+                                              <div class="remove-vest-wrapper hidden">
+                                                <span class="edit-item-btn btn">
+                                                  Edit Item
+                                                </span>
+                                                <span class="remove-vest-item-btn btn">Remove</span>
+                                              </div>
+                                              {%- else -%}
+                                              <span class="edit-item-btn btn {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}" {% if productSelectedType == 'vest' or productSelectedType == 'shoes' %}data-button-label="select-size"{% endif %}>
+                                                {%- if productSelectedType == 'vest' or productSelectedType == 'shoes' -%}
+                                                  Select Size
+                                                {%- else -%}
+                                                  Edit Item
+                                                {%- endif -%}
+                                              </span>
+                                              {%- endif -%}
+                                            {%- else -%}
                                             <span class="edit-item-btn btn {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}" {% if productSelectedType == 'vest' or productSelectedType == 'shoes' %}data-button-label="select-size"{% endif %}>
                                               {%- if productSelectedType == 'vest' or productSelectedType == 'shoes' -%}
                                                 Select Size
@@ -1211,8 +1233,11 @@
                                                 Edit Item
                                               {%- endif -%}
                                             </span>
+                                            {%- endif -%}
                                           {%- endif -%}
-                                          <span class="remove-item-btn btn">Remove</span>
+                                          {%- unless productSelectedType == 'vest' -%}
+                                            <span class="remove-item-btn btn">Remove</span>
+                                          {%- endunless -%}
                                         </div>
                                         <div class="product-price mobile-small">
                                           <span class="money" data-price="{{ product.price}}">
