@@ -273,6 +273,7 @@ theme_custom.user = (user) => {
     status = 'Ordered',
     status_class = 'ordered'
   }
+
   var d = new Date();
   var month = d.getMonth()+1;
   var day = d.getDate();
