@@ -1048,7 +1048,8 @@
                               {%- assign accessoriesProdVarId = producthandleitem | split: '?' | last | remove: 'variant=' | plus: 0 -%}
                               {%- assign productHandle = all_products[accessoriesProdHandle] -%}
                               {% unless productHandle == blank %}
-                                <div class="product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
+                                {%- assign productSelectedType  = productHandle.type | downcase -%}
+                                <div class="{% if productSelectedType == 'vest' %} Vest Product{% endif %}product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
                                   <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
                                   <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ accessoriesProdVarId }}" data-inventory-policy="{{ productHandle.selected_or_first_available_variant.inventory_policy }}">
                                   <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
@@ -1087,7 +1088,6 @@
                                     </div>
                                     <div class="product-info">
                                       <h4 class="product-title">{{ productHandle.title }}</h4>
-                                      {%- assign productSelectedType  = productHandle.type | downcase -%}
                                       <span class="variant-title hidden">
                                         {% for option in productHandle.options_with_values  %}
                                           {% assign outer_forloop = forloop %}
