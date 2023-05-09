@@ -393,6 +393,7 @@
   .modal-wrapper[data-target="member-payment-complete"] .modal-wrapper-inner-wrapper,
   .modal-wrapper[data-target="delete-look-have-member"] .modal-wrapper-inner-wrapper{
     min-width: calc(100% - 30px);
+    max-width: fit-content;
   } 
 }
 .modal-wrapper[data-target="add-guest-popup"] .modal-wrapper-inner-wrapper .title,
@@ -2010,5 +2011,77 @@ select#remiderName{
   .final-summary-wrapper .page-width-inner-wrapper .heading.current::before,
   .final-summary-wrapper .page-width-inner-wrapper .heading.current::before{
     display: none;
+  }
+}
+@media(max-width : 767px){
+  .add-guest-inner-wrapper .form-outer-wrap{
+    display: block;
+    margin: 0;
+  }
+  .event-page-new-design-wrapper .page-width-inner-wrapper .add-guest-inner-wrapper .form-wrap{
+    max-width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .event-page-new-design-wrapper .page-width-inner-wrapper .slick-arrow.slick-prev{
+    left: -30px;
+  }
+  .event-page-new-design-wrapper .page-width-inner-wrapper .slick-arrow.slick-next{
+    right: -30px;
+  }
+  .event-page-new-design-wrapper .page-width-inner-wrapper .add-guest-inner-wrapper{
+    padding: 0 15px;
+    width: 100%;
+    max-width: 100%;
+  }
+  .event-page-new-design-wrapper .page-width-inner-wrapper .add-guest-inner-wrapper .look-dropdown .look-name{
+    margin-top: 5px;
+  }
+  .modal-wrapper[data-target=add-guest-popup] .modal-wrapper-inner-wrapper .title,
+  .modal-wrapper[data-target=update-guest-popup] .modal-wrapper-inner-wrapper .title{
+    padding: 25px 15px 15px;
+  }
+  .event-page-new-design-wrapper .page-width-inner-wrapper .add-guest-inner-wrapper .field__input,
+  .event-page-new-design-wrapper .page-width-inner-wrapper .add-guest-inner-wrapper .look-dropdown .look-label,
+  .event-page-new-design-wrapper .page-width-inner-wrapper .add-guest-inner-wrapper .look-dropdown .look-name{
+    font-size: 12px;
+  }
+  .event-page-new-design-wrapper .page-width-inner-wrapper .add-guest-inner-wrapper .member-added-into-event{
+    padding: 10px 3px;
+    font-size: 12px;
+  }
+  .modal-wrapper .modal-wrapper-inner-wrapper .title{
+    font-size: 14px;
+  }
+  .modal-wrapper .modal-wrapper-inner-wrapper .button{
+    font-size: 12px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height: auto;
+  }
+  .reminder-redesign-popup .add-remider-outer-wrapper{
+    padding: 0 15px;
+    margin-bottom: 20px;
+  }
+  .modal-wrapper.reminder-redesign-popup .modal-wrapper-inner-wrapper .title{
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .event-page-new-design-wrapper .form-error{
+    padding: 0;
+    margin-top: 0;
+  }
+  .modal-wrapper[data-target=add-guest-popup] .modal-wrapper-inner-wrapper, .modal-wrapper[data-target=update-guest-popup] .modal-wrapper-inner-wrapper, .modal-wrapper[data-target=member-payment-complete] .modal-wrapper-inner-wrapper, .modal-wrapper[data-target=delete-look-have-member] .modal-wrapper-inner-wrapper{
+    padding-bottom: 20px;
+  }
+  .modal-wrapper.reminder-redesign-popup .modal-wrapper-inner-wrapper{
+    min-height: auto;
+    max-height: 50vh;
+  }
+  .event-page-new-design-wrapper .page-width-inner-wrapper .form-wrap .phone-number-and-icon .call-icon img{
+    width: 15px !important;
+    height: 15px !important;
   }
 }

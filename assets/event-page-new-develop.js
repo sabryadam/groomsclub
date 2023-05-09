@@ -1065,7 +1065,8 @@ theme_custom.lookAddedIntoEvent = function () {
     $('.reminder-redesign-popup').find('.send-reminder').addClass("disabled");
     $('.reminder-redesign-popup').find('.api_error').hide();
     $('.reminder-redesign-popup').find('.api_error').hide();
-    $.fancybox.open(addReminder);
+    // $.fancybox.open(addReminder);
+    $(addReminder).addClass("active");
     $("#remiderName").addClass("hidden").val(targetReminder).trigger("change");
     $(`.reminder-redesign-popup .reminderMember`).addClass('active');
     $(`.send-via-main input`).prop("checked",false);
@@ -1087,7 +1088,7 @@ theme_custom.lookAddedIntoEvent = function () {
     $(".add-remider-outer-wrapper").addClass("hidden");
     $(".form-error").removeClass("active");
     $('.reminder-redesign-popup').find('.api_error').hide();
-    $.fancybox.open(addReminder);
+    $(addReminder).addClass("active");
     $("#remiderName").val('Select Title').trigger("change");
     $(`.send-via-main input`).prop("checked",false);
     setTimeout(() => {

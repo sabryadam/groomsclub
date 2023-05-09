@@ -9159,8 +9159,7 @@ img.crossed-out.hide {
 .edit-reminder-popup-wrapper,
 .suggested-edit-reminder-popup-wrapper,
 .update-profile-image-popup-wrapper,
-.member-send-reminder-popup-wrapper,
-.reminder-redesign-popup {
+.member-send-reminder-popup-wrapper{
   display: none;
   min-width: 500px;
   max-width: 500px;
@@ -10185,8 +10184,7 @@ body.template-product-jacket-pant-combination .loading-overlay svg circle {
   color: #fff;
   border: 2px solid var(--color-light-blue);
 }
-.add-reminder-popup-wrapper,
-.reminder-redesign-popup{
+.add-reminder-popup-wrapper{
   min-width: 500px;
 }
 

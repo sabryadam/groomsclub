@@ -36,50 +36,57 @@
       </div>
     </div>
   </div>
-  <div class="reminder-redesign-popup reminder-parent">
-    <h5 class="title">Send Reminder</h5>
-    <div class="invite-person">
-      <div class="grid_form">
-        <div class="loading-overlay__spinner">
-          <svg width="25" height="25" aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle></svg>
-        </div>
-        <div class="add-remider-outer-wrapper hidden">
-          <div class="all-member-reminder-title hidden">
-            <span class="form-label field__label">Title:</span>
-            <span class="reminder-title bg-color"></span>
+  <div class="modal-wrapper reminder-redesign-popup">
+    <div class="modal-wrapper-inner-wrapper">
+      <h4 class="title">
+        <span class="heading">Send Reminder</span>
+        <span class="close-icon">
+          <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/close_1.png" alt="close-icon" />
+        </span>
+      </h4>
+      <div class="invite-person">
+        <div class="grid_form">
+          <div class="loading-overlay__spinner">
+            <svg width="25" height="25" aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle></svg>
           </div>
-          <div class="field-wrap form-wrap">
-            <label class="form-label field__label remiderName" for="remiderName">Select Title:</label>
-            <select name="remiderName" id="remiderName" class="bg-color">
-              <option value="Select Title" data-message="Please select title ..." selected>Select Title</option>
-              <option value="I paid for you, just place the order!" data-message="Your look has been paid for! Simply log in and complete the final steps to have your suit shipped!">I paid for you, just place the order!</option>
-              <option value="Final Reminder" data-message="Final Reminder Message">Final Reminder</option>
-              <option value="Your Look Was Assigned!" data-message="Hi, just a reminder that I assigned your look! Log in to view and complete next steps to order.">Your Look Was Assigned!</option>
-            </select>
-          </div>
-          <div class="field-wrap form-wrap hidden">
-            <span class="form-label field__label">Reminder date:</span>
-            <span type="text" id="reminderDate" class="bg-color" data-current-data=""></span>
-          </div>
-          <div class="field-wrap form-wrap">
-            <span class="form-label field__label">Message:</span>
-            <span id="reminderMessage" class="bg-color">Please select title ...</span>
-          </div>
-          <div class="field-wrap form-wrap">
-            <label class="form-label field__label" for="sendVia">Send via:</label>
-            <div class="send-via-main field-wrap form-wrap">
-              <label><input type="checkbox" value="email" class="send-via"><span>Email</span></label>
+          <div class="add-remider-outer-wrapper hidden">
+            <div class="all-member-reminder-title hidden">
+              <span class="form-label field__label">Title:</span>
+              <span class="reminder-title bg-color"></span>
             </div>
-            <div class="send-via-main field-wrap form-wrap">
-              <label><input type="checkbox" value="text-sms" class="send-via"><span>Text / SMS</span></label>
+            <div class="field-wrap form-wrap">
+              <label class="form-label field__label remiderName" for="remiderName">Select Title:</label>
+              <select name="remiderName" id="remiderName" class="bg-color">
+                <option value="Select Title" data-message="Please select title ..." selected>Select Title</option>
+                <option value="I paid for you, just place the order!" data-message="Your look has been paid for! Simply log in and complete the final steps to have your suit shipped!">I paid for you, just place the order!</option>
+                <option value="Final Reminder" data-message="Final Reminder Message">Final Reminder</option>
+                <option value="Your Look Was Assigned!" data-message="Hi, just a reminder that I assigned your look! Log in to view and complete next steps to order.">Your Look Was Assigned!</option>
+              </select>
             </div>
+            <div class="field-wrap form-wrap hidden">
+              <span class="form-label field__label">Reminder date:</span>
+              <span type="text" id="reminderDate" class="bg-color" data-current-data=""></span>
+            </div>
+            <div class="field-wrap form-wrap">
+              <span class="form-label field__label">Message:</span>
+              <span id="reminderMessage" class="bg-color">Please select title ...</span>
+            </div>
+            <div class="field-wrap form-wrap">
+              <label class="form-label field__label" for="sendVia">Send via:</label>
+              <div class="send-via-main field-wrap form-wrap">
+                <label><input type="checkbox" value="email" class="send-via"><span>Email</span></label>
+              </div>
+              <div class="send-via-main field-wrap form-wrap">
+                <label><input type="checkbox" value="text-sms" class="send-via"><span>Text / SMS</span></label>
+              </div>
+            </div>
+            <div class="field-wrap form-wrap member-wrap">
+              <label class="form-label field__label" for="reminderMember">Members:</label>
+              <div class="event-member-data"></div>
+            </div>
+            <div class="api_error form-error text_center" style="margin-bottom : 10px"></div>
+            <button class="button button--primary send-reminder disabled">Send Reminder</button>
           </div>
-          <div class="field-wrap form-wrap member-wrap">
-            <label class="form-label field__label" for="reminderMember">Members:</label>
-            <div class="event-member-data"></div>
-          </div>
-          <div class="api_error form-error text_center" style="margin-bottom : 10px"></div>
-          <button class="button button--primary send-reminder disabled">Send Reminder</button>
         </div>
       </div>
     </div>
