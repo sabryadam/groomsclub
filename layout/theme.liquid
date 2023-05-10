@@ -281,6 +281,11 @@
     <script src="{{ 'event-page-new-develop.js' | asset_url }}" defer></script>
   {%- endif -%}
   {% render 'menu-css' %}
+
+  <!--  tourguidejs -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/LikaloLLC/tourguide.js@0.2.0/tourguide.css">
+  <script src="https://cdn.jsdelivr.net/gh/LikaloLLC/tourguide.js@0.2.0/tourguide.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 </head>
 {%- capture body_class -%}
 {%- if template.name == 'product' -%}
