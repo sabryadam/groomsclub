@@ -342,9 +342,10 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                                     <div class="event-title hidden"><span>${event.name}</span></div>
                                     ${btns}
                                 </div>
-                                <div class="event-container-arrow"><span data-href="${pageLink}" style="display:inline-block" class="${actionButton}" data-hosted-by="${event.hostedBy}" data-event-id="${event.event_id}">
+                                <div class="event-container-arrow">
+                                  <span data-href="${pageLink}" style="display:inline-block" class="${actionButton}" data-hosted-by="${event.hostedBy}" data-event-id="${event.event_id}">
                                    <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/next_1.png?v=1677956518" />
-                                </a>
+                                  </span>
                                 </div>
                             </div>`;
                             if(index == 0){
