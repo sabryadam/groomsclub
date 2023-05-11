@@ -385,6 +385,12 @@ theme_custom.clickEventInvited = function(){
     let parent = $(this).closest('.product-swatch-option');
     let select = $('.prod-variant-option',parent);
     let subParent = $(this).closest('.swatch');
+    var selectOptionVar = parent.find('.prod-variant-option option');
+    var productVariantTitle = [];
+    selectOptionVar.each(function() {
+        productVariantTitle.push($(this).attr("data-variant-title"));
+    });
+    
     $(this).siblings().removeClass('active');
     $(this).addClass('active');
 
@@ -395,36 +401,60 @@ theme_custom.clickEventInvited = function(){
         }else{  
           variantTitle = variantTitle + ' / ' + $('.swatch-element-item.active',item).attr('data-title');
         }
-    })
-         
-    let option = $(`select option[data-variant-title="${variantTitle}"]`,parent);
-    let btn = $('.exchange-look-item',parent);
-    let errorMsg = $('.error-message',parent); 
-    if(option.length > 0){
-      let qty = parseInt(option.attr('data-variant-inventory'))
-      if(qty <= 0){
-        $(btn).addClass('disabled');
-        $(btn).text('Out of stock'); 
-        errorMsg.text(`This Variant is Out of Stock. Please choose another variant.`).show();
+    })         
+    // let option = $(`select option[data-variant-title="${variantTitle}"]`,parent);
+    // let btn = $('.exchange-look-item',parent);
+    // let errorMsg = $('.error-message',parent); 
+    // if(option.length > 0){
+    //   let qty = parseInt(option.attr('data-variant-inventory'))
+    //   if(qty <= 0){
+    //     $(btn).addClass('disabled');
+    //     $(btn).text('Out of stock'); 
+    //     errorMsg.text(`This Variant is Out of Stock. Please choose another variant.`).show();
+    //   } else {
+    //     optionValue = option.val();
+    //     errorMsg.text('').hide();
+    //     $(`select`,parent).val(optionValue);
+    //     $(btn).text('Update');
+    //     let productType = $(btn).attr('data-product-type');
+    //     let selectedVid = $(`.look-product-wrapper[data-product-type="${productType}"] .overview-variant-id`).attr('data-variant-id')
+    //     if(selectedVid == optionValue){
+    //       $(btn).addClass('disabled');
+    //     }else{
+    //       $(btn).removeClass('disabled');
+    //     }
+    //     var producthandle = parent.attr("data-product-handle");
+    //     $(`.look-product-wrapper[data-prod-handle="${producthandle}"]`).find(".error-message").remove();
+    //   }
+    // }else{
+    //   $(btn).addClass('disabled');
+    //   $(btn).text('Unavailable');
+    //   errorMsg.text(`Product is not available for this specific combination.`).show();
+    // }
+
+    var selectedVar = parent.find($(`.prod-variant-option option[data-variant-title="${variantTitle}"]`)).val();
+    var selectedVarInventoryQty = parent.find($(`.prod-variant-option option[data-variant-title="${variantTitle}"]`)).attr("data-variant-inventory-quantity");
+    var selectedVarInventoryPolicy = parent.find($(`.prod-variant-option option[data-variant-title="${variantTitle}"]`)).attr("data-variant-inventory-policy");
+    if ($.inArray(variantTitle, productVariantTitle) == -1) {
+      parent.find(".error-message").addClass("error-show").text("Product is not available for this specific combination");
+      parent.find(".upsell-product-add").addClass("disabled");
+    } else {
+      var targetVariant = parent.find($(`.prod-variant-option option[data-variant-title="${variantTitle}"]`))
+      parent.closest(".product-item").find(".img img").attr("src", targetVariant.attr("data-variant-image"));
+      if (selectedVarInventoryPolicy == 'continue') {
+        parent.find(".error-message").removeClass("error-show").text('');
+        parent.find(".upsell-product-add").removeClass("disabled").find(".btn-title").text("ADD");
+        parent.find(".prod-variant-option").val(selectedVar);
       } else {
-        optionValue = option.val();
-        errorMsg.text('').hide();
-        $(`select`,parent).val(optionValue);
-        $(btn).text('Update');
-        let productType = $(btn).attr('data-product-type');
-        let selectedVid = $(`.look-product-wrapper[data-product-type="${productType}"] .overview-variant-id`).attr('data-variant-id')
-        if(selectedVid == optionValue){
-          $(btn).addClass('disabled');
-        }else{
-          $(btn).removeClass('disabled');
+        if (selectedVarInventoryQty <= 0) {
+          parent.find(".error-message").addClass("error-show").text("This variant is Out of Stock. Please choose another variant.");
+          parent.find(".upsell-product-add").addClass("disabled");
+        } else {
+          parent.find(".error-message").removeClass("error-show").text('');
+          parent.find(".upsell-product-add").removeClass("disabled").find(".btn-title").text("ADD");
+          parent.find(".prod-variant-option").val(selectedVar);
         }
-        var producthandle = parent.attr("data-product-handle");
-        $(`.look-product-wrapper[data-prod-handle="${producthandle}"]`).find(".error-message").remove();
       }
-    }else{
-      $(btn).addClass('disabled');
-      $(btn).text('Unavailable');
-      errorMsg.text(`Product is not available for this specific combination.`).show();
     }
   });
 
