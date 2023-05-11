@@ -2085,3 +2085,16 @@ select#remiderName{
     height: 15px !important;
   }
 }
+.modal-wrapper.reminder-redesign-popup .modal-wrapper-inner-wrapper{
+  max-width: 550px;
+  min-width: 550px;
+  padding: 0 15px;
+  max-height: 400px;
+  min-height: auto;
+}
+.button.send-reminder{
+  margin-bottom: 20px;
+}
+.modal-wrapper.reminder-redesign-popup .modal-wrapper-inner-wrapper .title {
+  padding: 25px 0 ;
+}

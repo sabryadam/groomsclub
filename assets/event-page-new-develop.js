@@ -24,51 +24,7 @@ theme_custom.reminder = function (sendReminderDataObj, button) {
         $('.api_error').removeClass("success-event").html('').hide();
         button.removeClass("disabled");
         $(".send-via-main .send-via").prop("checked",false);
-        $(".fancybox-button").click();
-      }, 3000);
-    },
-    error: function (xhr, status, error) {
-      button.removeClass('disabled')
-      if (xhr.responseJSON.message == 'Token is invalid or expired.') {
-        $('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
-          'text-align': 'center',
-          'color': 'red'
-        });
-        setTimeout(() => {
-          theme_custom.removeLocalStorage();
-          window.location.href = '/account/logout';
-        }, 5000);
-      } else {
-        if(xhr.responseJSON.message == 'Internal server error.'){
-          alert(`${xhr.responseJSON.data} !`)
-        } else {
-          alert(`${xhr.responseJSON.message} !`)
-        }
-      }
-    }
-  });
-};
-
-theme_custom.reminder = function (sendReminderDataObj, button) {
-  $.ajax({
-    url: `${theme_custom.base_url}/api/reminder/create`,
-    method: "POST",
-    data: sendReminderDataObj,
-    dataType: "json",
-    headers: {
-      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
-    },
-    beforeSend: function () {
-      button.addClass("disabled");
-    },
-    success: function (result) {
-      button.addClass("disabled");
-      $('.api_error').addClass("success-event").show().html(result.message);
-      setTimeout(() => {
-        $('.api_error').removeClass("success-event").html('').hide();
-        button.removeClass("disabled");
-        $(".send-via-main .send-via").prop("checked",false);
-        $(".fancybox-button").click();
+        $('.modal-wrapper.reminder-redesign-popup').removeClass("active");
       }, 3000);
     },
     error: function (xhr, status, error) {
