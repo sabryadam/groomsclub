@@ -360,10 +360,6 @@
   display: block;
 }
 .modal-wrapper .modal-wrapper-inner-wrapper{
-  max-width: 840px;
-  min-width: 840px;
-  min-height: 550px;
-  max-height: 50vh;
   margin: 0 auto;
   overflow: auto;
   background: #FFFFFF;
@@ -372,35 +368,28 @@
   top: 50%;
   left: 50%;
 }
-@media(max-width : 860px){
-  .modal-wrapper .modal-wrapper-inner-wrapper{
-    max-width: 90%;
-    min-width: 90%;
-  }  
-}
 .modal-wrapper[data-target="add-guest-popup"] .modal-wrapper-inner-wrapper,
 .modal-wrapper[data-target="update-guest-popup"] .modal-wrapper-inner-wrapper,
 .modal-wrapper[data-target="member-payment-complete"] .modal-wrapper-inner-wrapper,
-.modal-wrapper[data-target="delete-look-have-member"] .modal-wrapper-inner-wrapper{
+.modal-wrapper[data-target="delete-look-have-member"] .modal-wrapper-inner-wrapper,
+.modal-wrapper[data-target="remove-data-for-user"] .modal-wrapper-inner-wrapper{
   min-height: auto;
-  padding-bottom: 50px;
-  max-width: 587px;
-  min-width: 587px;
+  padding-bottom: 15px;
+  max-width: 550px;
 }
 @media(max-width:767px){
   .modal-wrapper[data-target="add-guest-popup"] .modal-wrapper-inner-wrapper,
   .modal-wrapper[data-target="update-guest-popup"] .modal-wrapper-inner-wrapper,
   .modal-wrapper[data-target="member-payment-complete"] .modal-wrapper-inner-wrapper,
-  .modal-wrapper[data-target="delete-look-have-member"] .modal-wrapper-inner-wrapper{
+  .modal-wrapper[data-target="delete-look-have-member"] .modal-wrapper-inner-wrapper,
+  .modal-wrapper[data-target="remove-data-for-user"] .modal-wrapper-inner-wrapper{
     min-width: calc(100% - 30px);
-    max-width: fit-content;
   } 
 }
 .modal-wrapper[data-target="add-guest-popup"] .modal-wrapper-inner-wrapper .title,
 .modal-wrapper[data-target="update-guest-popup"] .modal-wrapper-inner-wrapper .title{
   text-align: left;
-  padding-left: 40px;
-  padding: 25px 40px 15px;
+  padding: 15px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -429,7 +418,7 @@
 .modal-wrapper .modal-wrapper-inner-wrapper .title{
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 22px;
   color: #1075bc;
   text-align: center;
@@ -658,16 +647,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 -5px;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .add-guest-inner-wrapper .form-wrap{
-  max-width: calc(100% - 20px);
+  max-width: calc(100% - 10px);
   margin: 5px;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .add-guest-inner-wrapper{
-  padding: 0 40px;
+  padding: 0 10px;
   display: block;
-  min-width: auto;
+  min-width: 100%;
   max-width: inherit;
   max-height: inherit;
 }
@@ -794,10 +782,12 @@
 .event-page-new-design-wrapper .page-width-inner-wrapper .look-card-block .assign-look-user-wrap .user-card-block{
   background: #FFFFFF;
   border: 1px solid rgba(6, 0, 0, 0.14);
-  margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   padding: 12px;
   position: relative;
+}
+.event-page-new-design-wrapper .page-width-inner-wrapper .look-card-block .assign-look-user-wrap .user-card-block:last-child{
+  margin-bottom: 0;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .look-card-block .assign-look-user-wrap .user-card-block .action-icon{
   display: flex;
@@ -1422,13 +1412,13 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 30px;
-  height: 30px;
-  margin-top: -15px;
-  margin-left: -15px;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
   border-radius: 50%;
   border: 2px solid var(--color-button-light-blue);;
-  border-top-color: #000;
+  border-top-color: #fff;
   animation: btnSpinner 0.6s linear infinite;
 }
 .guest-top-looks .customise-look-button,
@@ -1611,18 +1601,13 @@ html .template-page-create-event .ui-button.ui-state-disabled:active{
   position: static;
 }
 .modal-wrapper[data-target="remove-data-for-user"] .modal-wrapper-inner-wrapper{
-  padding-bottom: 50px;
-  padding-top: 50px;
-  max-width: 587px;
-  min-width: 587px;
-  min-height: initial;
-  max-height: initial;
+  padding-bottom: 20px;
+  padding-top: 20px;
 }
-@media(max-width : 767px){
-  .modal-wrapper[data-target="remove-data-for-user"] .modal-wrapper-inner-wrapper {
-      max-width: 80%;
-      min-width: 80%;
-  }
+.modal-wrapper .modal-wrapper-inner-wrapper .button{
+  min-width: 150px;
+  padding: 10px 10px;
+  height: auto;
 }
 .modal-wrapper[data-target="remove-data-for-user"] .modal-wrapper-inner-wrapper .title .close-icon{
   display: none;
@@ -1631,10 +1616,12 @@ html .template-page-create-event .ui-button.ui-state-disabled:active{
   padding-top: 0;
   align-items: center;
   justify-content: center;
+  padding-bottom: 15px;
 }
 .assign-look-user-wrap{
-  max-height: 280px;
+  max-height: 265px;
   overflow: auto;
+  margin-top: 15px;
   /* padding-right: 5px; */
 }
 span.look-price {
@@ -1662,11 +1649,11 @@ span.look-price {
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  padding: 25px 15px 40px;
+  padding: 15px;
 }
-.modal-wrapper[data-target="delete-look-have-member"] .modal-wrapper-inner-wrapper .inner-wrapper,
-.modal-wrapper[data-target="member-payment-complete"] .modal-wrapper-inner-wrapper .inner-wrapper{
-  max-width: 80%;
+.modal-wrapper[data-target="delete-look-have-member"] .modal-wrapper-inner-wrapper p,
+.modal-wrapper[data-target="member-payment-complete"] .modal-wrapper-inner-wrapper p{
+  margin-top: 0;
 }
 .button{
   cursor: pointer;
@@ -1859,6 +1846,21 @@ span.look-price {
   text-align: center;
   margin-bottom: 0;
   padding-bottom: 0;
+}
+.guest-top-looks .pay-info-confirmation-wrap .confirm-box-wrap span.active {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+@media(max-width : 350px){
+  .modal-wrapper .modal-wrapper-inner-wrapper .button{
+    min-width: 125px;
+  }
+  .event-page-new-design-wrapper .page-width-inner-wrapper .slick-arrow.slick-next{
+    right: -20px;
+  }
+  .event-page-new-design-wrapper .page-width-inner-wrapper .slick-arrow.slick-prev{
+    left : -20px;
+  }
 }
 .reminder-redesign-popup .bg-color{
   background-color: #f5f5f5;

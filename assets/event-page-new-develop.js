@@ -141,6 +141,13 @@ $(".member-added-into-event").click(function (e) {
   error_count = error_count + theme_custom.textValidationWithSpacialChar(parent.find('.member-last-name'));
   error_count = error_count + theme_custom.emailValidation(parent.find('.member-email'));
   error_count = error_count + theme_custom.phoneValidation(parent.find('.member-phone'));
+  if($(`.custom-checkobx`).find(`[type="radio"]:checked`).length == 0){
+    $('.custom-checkobx').find(".form-error").show();
+    error_count = error_count + 1;
+  } else {
+    $('.custom-checkobx').find(".form-error").hide();
+    error_count = 0;
+  }
   if (error_count == 0) {
     var memberFirstName = $(".member-first-name", parent).val();
     var memberLastName = $(".member-last-name", parent).val();
@@ -2219,7 +2226,7 @@ theme_custom.eventPageClickEvent = function (){
     var look_title = $(this).closest(".look-card-block").find(".look-title").text();
     $(".look-dropdown").find(".look-name").attr("data-look-mapping-id", look_id).text(look_title);
     $('html,body').css({
-      "overflow" : ""
+      "overflow" : "hidden"
     })
   })
 }
@@ -2350,7 +2357,6 @@ theme_custom.getEventDetails = function () {
         } else {
           memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name},</span>`
         }
-        // memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}">${value.first_name} ${value.last_name}</span>`
       });
       $('.reminder-redesign-popup .event-member-data').html('');
       $('.reminder-redesign-popup .event-member-data').append(memerData);

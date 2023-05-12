@@ -1242,7 +1242,9 @@ select#event-id.disabled {
 	margin: 10px auto;
 	width: 90%;
 }
-
+#WebPixelsManagerSandboxContainer {
+	display: none !important;
+}
 /* custom css  */
 @font-face {
 	font-family: Susuicons;

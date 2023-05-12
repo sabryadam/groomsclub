@@ -1040,6 +1040,7 @@ $(document).ready(function(){
     $(this).closest(".product-block-item").addClass("product-data-card");
     $(this).closest(".product-block-item").find(".remove-vest-wrapper").removeClass("hidden")
     theme_custom.priceCalculator();
+    $(`.edit-item-popup[data-product-type="vest"]`).find(".pdp-updates-button button").removeClass("disabled");
     $(this).closest(".product-block-item").find(".edit-item-btn").click();
   });
   $(document).on("click",".remove-vest-item-btn",function(){
