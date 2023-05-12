@@ -1054,6 +1054,9 @@ theme_custom.lookAddedIntoEvent = function () {
     $(addReminder).addClass("active");
     $("#remiderName").val('Select Title').trigger("change");
     $(`.send-via-main input`).prop("checked",false);
+    $('html,body').css({
+      'overflow' : "hidden"
+    })
     setTimeout(() => {
       $(".loading-overlay__spinner").addClass("hidden");
       $(".add-remider-outer-wrapper").removeClass("hidden");

@@ -2074,10 +2074,6 @@ select#remiderName{
   .modal-wrapper[data-target=add-guest-popup] .modal-wrapper-inner-wrapper, .modal-wrapper[data-target=update-guest-popup] .modal-wrapper-inner-wrapper, .modal-wrapper[data-target=member-payment-complete] .modal-wrapper-inner-wrapper, .modal-wrapper[data-target=delete-look-have-member] .modal-wrapper-inner-wrapper{
     padding-bottom: 20px;
   }
-  .modal-wrapper.reminder-redesign-popup .modal-wrapper-inner-wrapper{
-    min-height: auto;
-    max-height: 50vh;
-  }
   .event-page-new-design-wrapper .page-width-inner-wrapper .form-wrap .phone-number-and-icon .call-icon img{
     width: 15px !important;
     height: 15px !important;
@@ -2087,8 +2083,6 @@ select#remiderName{
   max-width: 450px;
   min-width: 450px;
   padding: 0 15px;
-  max-height: 400px;
-  min-height: auto;
 }
 .button.send-reminder{
   margin-bottom: 20px;
@@ -2111,5 +2105,10 @@ select#remiderName{
   .send-via-main label span{
     font-size: 14px;
     font-weight: 400;
+  }
+}
+@media (min-width : 1200px) and (max-width : 1366px) {
+  .modal-wrapper.reminder-redesign-popup .modal-wrapper-inner-wrapper{
+    max-height: 525px;
   }
 }
