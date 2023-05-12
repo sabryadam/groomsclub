@@ -2014,7 +2014,7 @@ theme_custom.eventPageClickEvent = function (){
     var look_title = $(this).closest(".look-card-block").find(".look-title").text();
     $(".look-dropdown").find(".look-name").attr("data-look-mapping-id", look_id).text(look_title);
     $('html,body').css({
-      "overflow" : ""
+      "overflow" : "hidden"
     })
   })
 }

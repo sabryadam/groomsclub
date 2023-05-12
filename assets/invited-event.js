@@ -388,7 +388,7 @@ theme_custom.clickEventInvited = function(){
     var selectOptionVar = parent.find('.prod-variant-option option');
     var productVariantTitle = [];
     selectOptionVar.each(function() {
-        productVariantTitle.push($(this).attr("data-variant-title"));
+      productVariantTitle.push($(this).attr("data-variant-title"));
     });
     
     $(this).siblings().removeClass('active');
@@ -396,41 +396,12 @@ theme_custom.clickEventInvited = function(){
 
     let variantTitle = "";
     $('.swatches',parent).each((i,item)=>{
-        if(variantTitle == ""){
-          variantTitle = $('.swatch-element-item.active',item).attr('data-title');
-        }else{  
-          variantTitle = variantTitle + ' / ' + $('.swatch-element-item.active',item).attr('data-title');
-        }
-    })         
-    // let option = $(`select option[data-variant-title="${variantTitle}"]`,parent);
-    // let btn = $('.exchange-look-item',parent);
-    // let errorMsg = $('.error-message',parent); 
-    // if(option.length > 0){
-    //   let qty = parseInt(option.attr('data-variant-inventory'))
-    //   if(qty <= 0){
-    //     $(btn).addClass('disabled');
-    //     $(btn).text('Out of stock'); 
-    //     errorMsg.text(`This Variant is Out of Stock. Please choose another variant.`).show();
-    //   } else {
-    //     optionValue = option.val();
-    //     errorMsg.text('').hide();
-    //     $(`select`,parent).val(optionValue);
-    //     $(btn).text('Update');
-    //     let productType = $(btn).attr('data-product-type');
-    //     let selectedVid = $(`.look-product-wrapper[data-product-type="${productType}"] .overview-variant-id`).attr('data-variant-id')
-    //     if(selectedVid == optionValue){
-    //       $(btn).addClass('disabled');
-    //     }else{
-    //       $(btn).removeClass('disabled');
-    //     }
-    //     var producthandle = parent.attr("data-product-handle");
-    //     $(`.look-product-wrapper[data-prod-handle="${producthandle}"]`).find(".error-message").remove();
-    //   }
-    // }else{
-    //   $(btn).addClass('disabled');
-    //   $(btn).text('Unavailable');
-    //   errorMsg.text(`Product is not available for this specific combination.`).show();
-    // }
+      if(variantTitle == ""){
+        variantTitle = $('.swatch-element-item.active',item).attr('data-title');
+      }else{
+        variantTitle = variantTitle + ' / ' + $('.swatch-element-item.active',item).attr('data-title');
+      }
+    })        
 
     var selectedVar = parent.find($(`.prod-variant-option option[data-variant-title="${variantTitle}"]`)).val();
     var selectedVarInventoryQty = parent.find($(`.prod-variant-option option[data-variant-title="${variantTitle}"]`)).attr("data-variant-inventory-quantity");
@@ -676,8 +647,15 @@ theme_custom.getEventDetails = function(eventId) {
           }, 5000);
         } else {
           var erroData = '';
-          erroData = '<p>' + xhr.responseJSON.message + '</p>';
-          $('.mywedding_api_call_loading .loading-overlay').html(erroData);
+          if(xhr.responseJSON.message == 'Invalid request'){
+            $('.mywedding_api_call_loading .loading-overlay').html(`<p>Event owner Remove you from The look!</p>`);
+            setTimeout(() => {
+              window.location.href = '/account?tab=my-events'
+            }, 5000);
+          } else {
+            erroData = '<p>' + xhr.responseJSON.message + '</p>';
+            $('.mywedding_api_call_loading .loading-overlay').html(erroData);
+          }
         }
       }
     });

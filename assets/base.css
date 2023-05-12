@@ -9152,7 +9152,6 @@ img.crossed-out.hide {
   text-decoration: none;
 }
 
-.invite-another-member-popup-wrapper,
 .assign-member-look-popup-wrapper,
 .add-reminder-popup-wrapper,
 .send-reminder-popup-wrapper,
@@ -10220,7 +10219,6 @@ body.template-product-jacket-pant-combination .loading-overlay svg circle {
 }
 
 @media (max-width:767px){
-  .invite-another-member-popup-wrapper,
   .assign-member-look-popup-wrapper,
   .add-reminder-popup-wrapper,
   .send-reminder-popup-wrapper,

@@ -1242,3 +1242,6 @@ select#event-id.disabled {
 	margin: 10px auto;
 	width: 90%;
 }
+#WebPixelsManagerSandboxContainer {
+	display: none !important;
+}
