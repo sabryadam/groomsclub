@@ -8968,7 +8968,7 @@ img.crossed-out.hide {
   border-radius: 10px;
   display: none;
   max-width: 500px;
-  max-height: 500px;
+  /* max-height: 500px; */
   overflow-y: auto;
 }
 

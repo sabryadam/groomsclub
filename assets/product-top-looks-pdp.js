@@ -1035,7 +1035,7 @@ $(document).ready(function(){
     $(`.product-data-card-wrap[data-product-type="${productTarget}"]`).find('.cta-button-wrap .edit-item-btn').click();
   });
   $(document).on("click",".add-vest-button",function(){
-    // $(this).closest(".product-block-item").find('.variant-title').removeClass("hidden")
+    $(this).closest(".product-block-item").find('.variant-title').removeClass("hidden")
     $(this).addClass("hidden");
     $(this).closest(".product-block-item").addClass("product-data-card");
     $(this).closest(".product-block-item").find(".remove-vest-wrapper").removeClass("hidden")

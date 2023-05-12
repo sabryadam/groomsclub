@@ -1473,4 +1473,12 @@ select#event-id.disabled {
 .grooms-icon-youtube:before {
 	content: "\EA2A"
 }
+.collection-title-top-looks .card__badge{
+	display: none;
+}
+@media(min-width : 768px) and (max-width : 1024px) {
+	.footer .grid--4-col-tablet .grid__item{
+		width: calc(50% - .75rem);
+	}
+}
 /* custom css */
