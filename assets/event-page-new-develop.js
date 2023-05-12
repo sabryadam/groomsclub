@@ -5,6 +5,49 @@ theme_custom.allEvents = [];
 theme_custom.globalEventData = null;
 theme_custom.eventExpire = false;
 const APP_Token = 'Bearer ' + localStorage.getItem("customerToken");
+theme_custom.reminder = function (sendReminderDataObj, button) {
+  $.ajax({
+    url: `${theme_custom.base_url}/api/reminder/create`,
+    method: "POST",
+    data: sendReminderDataObj,
+    dataType: "json",
+    headers: {
+      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+    },
+    beforeSend: function () {
+      button.addClass("disabled");
+    },
+    success: function (result) {
+      button.addClass("disabled");
+      $('.api_error').addClass("success-event").show().html(result.message);
+      setTimeout(() => {
+        $('.api_error').removeClass("success-event").html('').hide();
+        button.removeClass("disabled");
+        $(".send-via-main .send-via").prop("checked",false);
+        $('.modal-wrapper.reminder-redesign-popup').removeClass("active");
+      }, 3000);
+    },
+    error: function (xhr, status, error) {
+      button.removeClass('disabled')
+      if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+        $('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+          'text-align': 'center',
+          'color': 'red'
+        });
+        setTimeout(() => {
+          theme_custom.removeLocalStorage();
+          window.location.href = '/account/logout';
+        }, 5000);
+      } else {
+        if(xhr.responseJSON.message == 'Internal server error.'){
+          alert(`${xhr.responseJSON.data} !`)
+        } else {
+          alert(`${xhr.responseJSON.message} !`)
+        }
+      }
+    }
+  });
+};
 
 theme_custom.lookAssignToMember = function (member_id, look_id) {
   var selectedLook = look_id;
@@ -29,6 +72,36 @@ theme_custom.lookAssignToMember = function (member_id, look_id) {
       theme_custom.checkLooks(localStorage.getItem("set-event-id"));
       $('[data-target="add-guest-popup"]').removeClass('active');
       $('.member-added-into-event').removeClass('disabled');
+      $.ajax({
+        url: `${theme_custom.base_url}/api/event/${localStorage.getItem("set-event-id")}`,
+        method: "GET",
+        data: '',
+        dataType: "json",
+        headers: {
+          // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
+          "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+        },
+        beforeSend: function () {
+        },
+        success: function (result) {
+          var memerData = '';
+          var total = result.data.event_members.length;
+          $.each(result.data.event_members, function (index, value) {
+            if (value.is_host == "1") {
+              eventDataObj.eventPhone = value.phone.replace("+1", "");
+              $("#event-phone-number").val(value.phone.replace("+1", ""));
+              $('#EventForm-EventOwnerContactNumber').val(value.phone.replace("+1", "")).trigger("keyup");
+            }
+            if (index === total - 1) {
+              memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name}</span>`
+            } else {
+              memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name},</span>`
+            }
+          });
+          $('.reminder-redesign-popup .event-member-data').html('');
+          $('.reminder-redesign-popup .event-member-data').append(memerData);
+        }
+      });
     },
     error: function (xhr, status, error) {
       $(this).removeClass("disabled");
@@ -141,15 +214,16 @@ $(".member-added-into-event").click(function (e) {
 });
 
 theme_custom.user = (user) => {
+  var status_class = '';
   let { email, first_name, last_name, phone, status, is_host_paying, is_host } = user;
-  let whoPay = "", eventOwner = '';
+  let whoPay = "", eventOwner = reminder_hidden = '';
   if (is_host_paying.toLowerCase() == "self") {
     whoPay = "I pay";
   } else {
     whoPay = "They Pay";
   }
   if(is_host == 1 ){
-    eventOwner = 'event-owner',
+    eventOwner = 'event-owner';
     reminder_hidden = 'hidden';
   } else {
     eventOwner = '';
@@ -162,6 +236,7 @@ theme_custom.user = (user) => {
     status = 'Ordered',
     status_class = 'ordered'
   }
+
   var d = new Date();
   var month = d.getMonth()+1;
   var day = d.getDate();
@@ -184,8 +259,8 @@ theme_custom.user = (user) => {
     </div>
     <div class="size-selected-info">
       <div class="size-selected-wrap">
-        <span class="size-select-check">status : <span class="${status_class}">${status}</span></span>
-        <span class="reminder-wrap  ${reminder_hidden}">REMINDER</span>
+        <span class="size-select-check ">status : <span class="${status_class}">${status}</span></span>
+        <span class="reminder-wrap ${reminder_hidden}" data-member-id="${user.event_member_id}">REMINDER</span>
       </div>
       <spa class="pay-status" pay-info="${whoPay}">${whoPay}</span>
     </div>
@@ -878,6 +953,118 @@ theme_custom.dataURLtoFile = function (dataurl, filename) {
   return new File([u8arr], filename, { type: mime });
 }
 theme_custom.lookAddedIntoEvent = function () {
+  $('.send-via-main input:checkbox').change(function() {
+    var parent = $(this).closest(".reminder-redesign-popup");
+    if(parent.find(`[value="email"]`).is(':checked') || parent.find(`[value="text-sms"]`).is(':checked')){
+      parent.find('.api_error').hide();
+    } else {
+      parent.find('.api_error').css({
+        "background":"transparent",
+        "text-align":"left",
+        "padding-left":"0"
+      }).text("Please select Email / SMS required*").show();
+      return false;
+    }
+  })
+
+  // Reminder send API 
+  $(document).on("click", ".send-reminder", function (e) {
+    e.preventDefault();
+    var button = $(this);
+    var parent = $(this).closest('.reminder-redesign-popup');
+    var is_email_data = is_sms_data = 0;
+    if($(`.send-via-main input`).is(':checked')){
+    } else {
+      parent.find('.api_error').css({
+        "background":"transparent",
+        "text-align":"left",
+        "padding-left":"0"
+      }).text("Please select Email / SMS required*").show();
+      return false;
+    }
+    if(parent.find('[value="email"]').prop('checked')){
+      is_email_data = 1;
+    }
+    if(parent.find('[value="text-sms"]').prop('checked')){
+      is_sms_data = 1;
+    }
+    var reminderMemberArray = [];
+    var member_id = '';
+    $('.reminderMember.active').each(function() {
+      member_id = $(this).attr("data-member-id");
+      reminderMemberArray.push(member_id);
+    })
+    var sendReminderDataObj = {
+      "name": parent.find("#remiderName").val(),
+      "event_id": localStorage.getItem("set-event-id"),
+      "scheduled_date": parent.find("#reminderDate").attr("data-current-data"),
+      "message": parent.find("#reminderMessage").text(),
+      "members": reminderMemberArray,
+      "is_email": is_email_data,
+      "is_sms": is_sms_data,
+    }
+    theme_custom.reminder(sendReminderDataObj, button);
+  });
+
+  // Reminder Option change
+  $(document).on('change','#remiderName', function() {
+    var targetMessage = $(this).find('option:selected').attr("data-message");
+    if(targetMessage == 'Please select title ...') {
+      $(this).closest('.reminder-redesign-popup').find('.send-reminder').addClass("disabled");
+    } else {
+      $(this).closest('.reminder-redesign-popup').find('.send-reminder').removeClass("disabled");
+    }
+    $(this).closest(".reminder-redesign-popup").find("#reminderMessage").text(targetMessage)
+  });
+  // open All Member send reminder popup
+  $(document).on("click", ".open-reminder-popup", function (e) {
+    e.preventDefault();
+    var targetReminder = $(this).closest(".reminder-block-wrap").find('.message-wrap').attr("data-value")
+    var addReminder = $(".reminder-redesign-popup");
+    $('.all-member-reminder-title .reminder-title').text(targetReminder);
+    $(".loading-overlay__spinner,.all-member-reminder-title").removeClass("hidden");
+    $(".add-remider-outer-wrapper,.add-remider-outer-wrapper .remiderName").addClass("hidden");
+    $(".form-error").removeClass("active");
+    $('.reminder-redesign-popup').find('.send-reminder').addClass("disabled");
+    $('.reminder-redesign-popup').find('.api_error').hide();
+    $('.reminder-redesign-popup').find('.api_error').hide();
+    // $.fancybox.open(addReminder);
+    $(addReminder).addClass("active");
+    $("#remiderName").addClass("hidden").val(targetReminder).trigger("change");
+    $(`.reminder-redesign-popup .reminderMember`).addClass('active');
+    $(`.send-via-main input`).prop("checked",false);
+    setTimeout(() => {
+      $(".loading-overlay__spinner").addClass("hidden");
+      $(".add-remider-outer-wrapper").removeClass("hidden");
+      $(".loader-wrapper").addClass("hidden");
+      $(".event-step-wrapper").removeClass("hidden");
+    }, 1500);
+  })
+
+  // Open Individual member send reminder popup
+  $(document).on("click", ".reminder-wrap", function (e) {
+    e.preventDefault();
+    var addReminder = $(".reminder-redesign-popup");
+    var selecteMember = $(this).attr("data-member-id");
+    $('.all-member-reminder-title').addClass("hidden");
+    $(".loading-overlay__spinner, .remiderName, #remiderName").removeClass("hidden");
+    $(".add-remider-outer-wrapper").addClass("hidden");
+    $(".form-error").removeClass("active");
+    $('.reminder-redesign-popup').find('.api_error').hide();
+    $(addReminder).addClass("active");
+    $("#remiderName").val('Select Title').trigger("change");
+    $(`.send-via-main input`).prop("checked",false);
+    $('html,body').css({
+      'overflow' : "hidden"
+    })
+    setTimeout(() => {
+      $(".loading-overlay__spinner").addClass("hidden");
+      $(".add-remider-outer-wrapper").removeClass("hidden");
+      $(`.reminder-redesign-popup .reminderMember`).removeClass('active');
+      $(`.reminder-redesign-popup .reminderMember[data-member-id="${selecteMember}"]`).addClass("active");
+    }, 1500);
+  })
+
   $(document).on("click", ".look-added-into-event", function (e) {
     e.preventDefault();
     var button = $(this);
@@ -1574,7 +1761,28 @@ theme_custom.editItemPopup = function(parentEl){
 }
 
 theme_custom.eventPageClickEvent = function (){
-
+  $(document).on("click",".final-summary-wrapper .page-width-inner-wrapper .member-reminder-wrapper .heading, .final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper .heading",function(){
+    if($(this).hasClass('current')){
+      $(this).removeClass("current");
+      $(this).closest(".member-reminder-wrapper").removeClass("current")
+      $(".tab-content").find(".summary-table-wrapper").slideUp();
+    } else {
+      $(".member-reminder-wrapper").removeClass("current");
+      $(".final-summary-wrapper .page-width-inner-wrapper .member-reminder-wrapper .heading, .final-summary-wrapper .page-width-inner-wrapper .tab-content .heading").removeClass("current");
+      $(this).closest(".member-reminder-wrapper").addClass("current")
+      $(this).addClass("current");
+      $(this).parent(".tab-content").find(".summary-table-wrapper").slideToggle();
+      $(this).parent(".tab-content").prevAll(".tab-content").find(".summary-table-wrapper").slideUp();
+      $(this).parent(".tab-content").nextAll(".tab-content").find(".summary-table-wrapper").slideUp();
+    }
+  });
+  $('ul.tabs li').click(function(){
+		var tab_id = $(this).attr('data-tab');
+		$('ul.tabs li').removeClass('current');
+		$('.tab-content').removeClass('current');
+		$(this).addClass('current');
+		$("#"+tab_id).addClass('current');
+	})
   // product option popup open
   $(document).on("click", ".open-product-edit-popup", function(){
     var parentSelect = $(this).closest(".edit-product-data-card");
@@ -2031,7 +2239,9 @@ theme_custom.calender = function () {
   var mm = String(today.getMonth() + 1).padStart(2, '0');
   var yyyy = today.getFullYear();
   today = yyyy + '-' + mm + '-' + dd;
+  var reminderDate = mm + '-' + dd + '-' + yyyy;
   $('#event_date').attr('min', today);
+  $("#reminderDate").attr("data-current-data",today).text(reminderDate);
 }
 theme_custom.eventLookSlider = function () {
   $('.create-event-look .event-look-inner-wrapper, .guest-top-looks .event-look-inner-wrapper').slick({
@@ -2137,14 +2347,22 @@ theme_custom.getEventDetails = function () {
       $(`.Squer-radio-button-inner input[name="event-role"][data-value="${result.data.event_role}"]`).prop('checked', true);
       $('#event_date').val(result.data.event_date);
       $('.event-data-first-step').datepicker('setDate', new Date(result.data.event_date));
-
+      var memerData = '';
+      var total = result.data.event_members.length;
       $.each(result.data.event_members, function (index, value) {
         if (value.is_host == "1") {
           eventDataObj.eventPhone = value.phone.replace("+1", "");
           $("#event-phone-number").val(value.phone.replace("+1", ""));
           $('#EventForm-EventOwnerContactNumber').val(value.phone.replace("+1", "")).trigger("keyup");
         }
+        if (index === total - 1) {
+          memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name}</span>`
+        } else {
+          memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name},</span>`
+        }
       });
+      $('.reminder-redesign-popup .event-member-data').html('');
+      $('.reminder-redesign-popup .event-member-data').append(memerData);
       $(".create-event-button").addClass("next-button").removeClass("create-event-button").find(".look-add-btn").removeClass("hidden");
       $(`.step-content-wrapper[data-step-content-wrap="1"]`).addClass("active");
       $(`.step-content-wrapper[data-step-content-wrap="1"]`).find(".event-update-button").removeClass("disabled").removeClass("hidden")

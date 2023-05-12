@@ -1245,3 +1245,232 @@ select#event-id.disabled {
 #WebPixelsManagerSandboxContainer {
 	display: none !important;
 }
+/* custom css  */
+@font-face {
+	font-family: Susuicons;
+	src: url(https://cdn.shopify.com/s/files/1/0585/3223/3402/files/Susuicons.woff2?v=1682517500) format("woff2");
+	font-display: block
+}
+.grooms-icon-arrow-back:before,
+.grooms-icon-arrow-forward:before,
+.grooms-icon-bag:before,
+.grooms-icon-call:before,
+.grooms-icon-check:before,
+.grooms-icon-chevron-down:before,
+.grooms-icon-chevron-left:before,
+.grooms-icon-chevron-right:before,
+.grooms-icon-chevron-up:before,
+.grooms-icon-clock:before,
+.grooms-icon-close:before,
+.grooms-icon-delivery:before,
+.grooms-icon-dot:before,
+.grooms-icon-edit:before,
+.grooms-icon-facebook:before,
+.grooms-icon-free-delivery:before,
+.grooms-icon-free-returns:before,
+.grooms-icon-hide:before,
+.grooms-icon-info-circle:before,
+.grooms-icon-info:before,
+.grooms-icon-instagram:before,
+.grooms-icon-location-full:before,
+.grooms-icon-location:before,
+.grooms-icon-menu:before,
+.grooms-icon-message:before,
+.grooms-icon-minus:before,
+.grooms-icon-personal-advice:before,
+.grooms-icon-phone:before,
+.grooms-icon-pickup:before,
+.grooms-icon-plus:before,
+.grooms-icon-profile:before,
+.grooms-icon-reset:before,
+.grooms-icon-search:before,
+.grooms-icon-share:before,
+.grooms-icon-show:before,
+.grooms-icon-store-appointment:before,
+.grooms-icon-store:before,
+.grooms-icon-twitter:before,
+.grooms-icon-whatsapp:before,
+.grooms-icon-wishlist-active:before,
+.grooms-icon-wishlist:before,
+.grooms-icon-youtube:before{
+	font-family: Susuicons;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: inherit;
+	text-decoration: none;
+	text-transform: none;
+	display: inline-block;
+	font-size: 22px;
+	line-height: normal;
+}
+
+.grooms-icon-arrow-back:before {
+	content: "\EA01"
+}
+
+.grooms-icon-arrow-forward:before {
+	content: "\EA02"
+}
+
+.grooms-icon-bag:before {
+	content: "\EA03"
+}
+
+.grooms-icon-call:before {
+	content: "\EA04"
+}
+
+.grooms-icon-check:before {
+	content: "\EA05"
+}
+
+.grooms-icon-chevron-down:before {
+	content: "\EA06"
+}
+
+.grooms-icon-chevron-left:before {
+	content: "\EA07"
+}
+
+.grooms-icon-chevron-right:before {
+	content: "\EA08"
+}
+
+.grooms-icon-chevron-up:before {
+	content: "\EA09"
+}
+
+.grooms-icon-clock:before {
+	content: "\EA0A"
+}
+
+.grooms-icon-close:before {
+	content: "\EA0B"
+}
+
+.grooms-icon-delivery:before {
+	content: "\EA0C"
+}
+
+.grooms-icon-dot:before {
+	content: "\EA0D"
+}
+
+.grooms-icon-edit:before {
+	content: "\EA0E"
+}
+
+.grooms-icon-facebook:before {
+	content: "\EA0F"
+}
+
+.grooms-icon-free-delivery:before {
+	content: "\EA10"
+}
+
+.grooms-icon-free-returns:before {
+	content: "\EA11"
+}
+
+.grooms-icon-hide:before {
+	content: "\EA12"
+}
+
+.grooms-icon-info-circle:before {
+	content: "\EA13"
+}
+
+.grooms-icon-info:before {
+	content: "\EA14"
+}
+
+.grooms-icon-instagram:before {
+	content: "\EA15"
+}
+
+.grooms-icon-location-full:before {
+	content: "\EA16"
+}
+
+.grooms-icon-location:before {
+	content: "\EA17"
+}
+
+.grooms-icon-menu:before {
+	content: "\EA18"
+}
+
+.grooms-icon-message:before {
+	content: "\EA19"
+}
+
+.grooms-icon-minus:before {
+	content: "\EA1A"
+}
+
+.grooms-icon-personal-advice:before {
+	content: "\EA1B"
+}
+
+.grooms-icon-phone:before {
+	content: "\EA1C"
+}
+
+.grooms-icon-pickup:before {
+	content: "\EA1D"
+}
+
+.grooms-icon-plus:before {
+	content: "\EA1E"
+}
+
+.grooms-icon-profile:before {
+	content: "\EA1F"
+}
+
+.grooms-icon-reset:before {
+	content: "\EA20"
+}
+
+.grooms-icon-search:before {
+	content: "\EA21"
+}
+
+.grooms-icon-share:before {
+	content: "\EA22"
+}
+
+.grooms-icon-show:before {
+	content: "\EA23"
+}
+
+.grooms-icon-store-appointment:before {
+	content: "\EA24"
+}
+
+.grooms-icon-store:before {
+	content: "\EA25"
+}
+
+.grooms-icon-twitter:before {
+	content: "\EA26"
+}
+
+.grooms-icon-whatsapp:before {
+	content: "\EA27"
+}
+
+.grooms-icon-wishlist-active:before {
+	content: "\EA28"
+}
+
+.grooms-icon-wishlist:before {
+	content: "\EA29"
+}
+
+.grooms-icon-youtube:before {
+	content: "\EA2A"
+}
+/* custom css */

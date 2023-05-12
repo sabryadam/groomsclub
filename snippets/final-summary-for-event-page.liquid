@@ -140,7 +140,28 @@
       </div>
     </div>
   </div>
-  <div class="member-summary-wrapper">
+  <ul class="tabs">
+		<li class="tab-link current" data-tab="member-reminder-wrapper">Reminder</li>
+		<li class="tab-link" data-tab="member-summary-wrapper">Summary</li>
+	</ul>
+  <div class="member-reminder-wrapper tab-content current" id="member-reminder-wrapper">
+    <h3 class="heading current">Reminder</h3>
+    <div class="summary-table-wrapper">
+      <div class="reminder-block-wrap">
+        <span class="message-wrap" data-value="I paid for you, just place the order!" data-message="Your look has been paid for! Simply log in and complete the final steps to have your suit shipped!">I paid for you, just place the order!</span>
+        <button class="open-reminder-popup">Send Reminder</button>
+      </div>
+      <div class="reminder-block-wrap">
+        <span class="message-wrap" data-value="Final Reminder" data-message="Final Reminder Message">Final Reminder</span>
+        <button class="open-reminder-popup">Send Reminder</button>
+      </div>
+      <div class="reminder-block-wrap">
+        <span class="message-wrap" data-value="Your Look Was Assigned!" data-message="Hi, just a reminder that I assigned your look! Log in to view and complete next steps to order.">Your Look Was Assigned!</span>
+        <button class="open-reminder-popup">Send Reminder</button>
+      </div>
+    </div>
+  </div>
+  <div class="member-summary-wrapper tab-content" id="member-summary-wrapper">
     <h3 class="heading">Summary</h3>
     <div class="summary-table-wrapper hidden">
       <table>
