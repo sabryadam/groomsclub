@@ -388,7 +388,7 @@ theme_custom.clickEventInvited = function(){
     var selectOptionVar = parent.find('.prod-variant-option option');
     var productVariantTitle = [];
     selectOptionVar.each(function() {
-      productVariantTitle.push($(this).attr("data-variant-title"));
+        productVariantTitle.push($(this).attr("data-variant-title"));
     });
     
     $(this).siblings().removeClass('active');
