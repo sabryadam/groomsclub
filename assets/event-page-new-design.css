@@ -2063,10 +2063,6 @@ select#remiderName{
     padding-bottom: 5px;
     height: auto;
   }
-  .reminder-redesign-popup .add-remider-outer-wrapper{
-    padding: 0 15px;
-    margin-bottom: 20px;
-  }
   .modal-wrapper.reminder-redesign-popup .modal-wrapper-inner-wrapper .title{
     padding-left: 15px;
     padding-right: 15px;
@@ -2088,8 +2084,8 @@ select#remiderName{
   }
 }
 .modal-wrapper.reminder-redesign-popup .modal-wrapper-inner-wrapper{
-  max-width: 550px;
-  min-width: 550px;
+  max-width: 450px;
+  min-width: 450px;
   padding: 0 15px;
   max-height: 400px;
   min-height: auto;
@@ -2099,4 +2095,21 @@ select#remiderName{
 }
 .modal-wrapper.reminder-redesign-popup .modal-wrapper-inner-wrapper .title {
   padding: 25px 0 ;
+}
+@media(max-width : 991px) {
+  .modal-wrapper.reminder-redesign-popup .modal-wrapper-inner-wrapper{
+    max-height: 80vh;
+    min-width: 300px;
+  }
+}
+@media(max-width : 767px){
+  .send-via-main label {
+    line-height: initial;
+    width: 8em;
+    height: 3em;
+  }
+  .send-via-main label span{
+    font-size: 14px;
+    font-weight: 400;
+  }
 }
