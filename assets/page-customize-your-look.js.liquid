@@ -1216,6 +1216,7 @@ theme_custom.customize_product_clickEvent = function () {
     if (targetVarTitleArr[2] != '') {
       $(`.customize-look-overview-product[data-product-handle="${productHandle}"]`).find(".option3").text(targetVarTitleArr[2]);
     }
+    $(`.customize-look-overview-product[data-product-handle="${productHandle}"]`).attr("data-variant-id",targetVarID);
     $(`.customize-look-overview-product[data-product-handle="${productHandle}"]`).find(".looks-product-var-id").val(targetVarID);
     $(`.customize-look-overview-product[data-product-handle="${productHandle}"]`).find(".product-image img").attr('src', productImg);
     $(`.customize-look-overview-product[data-product-handle="${productHandle}"]`).find(".overview-variant-id").attr("data-variant-id", targetVarID);

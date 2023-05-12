@@ -969,9 +969,12 @@ body::-webkit-scrollbar-track,
 
 body::-webkit-scrollbar ,
 .product-upsell-wrapper .prouct-upsell-inner-wrapper .upsell-product-items-wrapper::-webkit-scrollbar,
-.assign-look-user-wrap::-webkit-scrollbar,
 .tabbed-content-block-outer-wrapper .product-info-wrap .tabbed-content-block-inner-wrapper .product-info-top-block::-webkit-scrollbar{
   width: 5px;
+  background-color: #F5F5F5;
+}
+.assign-look-user-wrap::-webkit-scrollbar{
+  width: 2px;
   background-color: #F5F5F5;
 }
 

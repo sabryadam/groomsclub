@@ -68,6 +68,13 @@ $(".member-added-into-event").click(function (e) {
   error_count = error_count + theme_custom.textValidationWithSpacialChar(parent.find('.member-last-name'));
   error_count = error_count + theme_custom.emailValidation(parent.find('.member-email'));
   error_count = error_count + theme_custom.phoneValidation(parent.find('.member-phone'));
+  if($(`.custom-checkobx`).find(`[type="radio"]:checked`).length == 0){
+    $('.custom-checkobx').find(".form-error").show();
+    error_count = error_count + 1;
+  } else {
+    $('.custom-checkobx').find(".form-error").hide();
+    error_count = 0;
+  }
   if (error_count == 0) {
     var memberFirstName = $(".member-first-name", parent).val();
     var memberLastName = $(".member-last-name", parent).val();
