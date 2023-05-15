@@ -1181,6 +1181,19 @@ theme_custom.submitEvent = function () {
 // theme_custom.clickEvent
 theme_custom.clickEvent = function () {
 
+  $('[data-fancybox]').fancybox({
+    afterLoad: function(instance, current) {
+      // Add CSS to hide the scrollbar when the modal is open
+      $('html').css('overflow', 'hidden');
+      $('body').bind('touchmove', function(e) {e.preventDefault()});
+    },
+    beforeClose: function(instance, current) {
+      // Remove the CSS to show the scrollbar when the modal is closed
+      $('html').css('overflow', 'auto');
+      $('body').unbind('touchmove');
+    }
+  });
+
   $(document).on("click", ".black-bg",function(){
     $(".header__icon--menu").click() 
   });
