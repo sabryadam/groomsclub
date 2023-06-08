@@ -26,9 +26,15 @@ theme_custom.reminder = function (sendReminderDataObj, button) {
         $(".send-via-main .send-via").prop("checked",false);
         $('.modal-wrapper.reminder-redesign-popup').removeClass("active");
       }, 3000);
+      $('html,body').css({
+        'overflow' : "auto"
+      })
     },
     error: function (xhr, status, error) {
       button.removeClass('disabled')
+      $('html,body').css({
+        'overflow' : "auto"
+      })
       if (xhr.responseJSON.message == 'Token is invalid or expired.') {
         $('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
           'text-align': 'center',
@@ -86,20 +92,29 @@ theme_custom.lookAssignToMember = function (member_id, look_id) {
         success: function (result) {
           var memerData = '';
           var total = result.data.event_members.length;
+          var event_member = '';
           $.each(result.data.event_members, function (index, value) {
-            if (value.is_host == "1") {
+            if(value.is_host == 1){
+              event_member = '';
+            } else {
+              event_member = 'event-member';
+            }
+            if (value.is_host == 1) {
               eventDataObj.eventPhone = value.phone.replace("+1", "");
               $("#event-phone-number").val(value.phone.replace("+1", ""));
               $('#EventForm-EventOwnerContactNumber').val(value.phone.replace("+1", "")).trigger("keyup");
             }
             if (index === total - 1) {
-              memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name}</span>`
+              memerData += `<span type="text" class="reminderMember ${event_member}" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name}</span>`
             } else {
-              memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name},</span>`
+              memerData += `<span type="text" class="reminderMember ${event_member}" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name},</span>`
             }
           });
           $('.reminder-redesign-popup .event-member-data').html('');
           $('.reminder-redesign-popup .event-member-data').append(memerData);
+          $('html,body').css({
+            'overflow' : "auto"
+          })
         }
       });
     },
@@ -454,7 +469,7 @@ theme_custom.successCallback = (data, nextTarget) => {
   if (data.data.event_looks && data.data.event_looks.length > 0) {
     $(`.modal-wrapper[data-target="remove-data-for-user"]`).removeClass("active");
     $('html,body').css({
-      "overflow" : ""
+      "overflow" : "auto"
     })
     const looksDiv = $('.show-look-from-event-wrapper .event-look-inner-wrapper, .guest-top-looks .event-look-inner-wrapper');
     looksDiv.empty();
@@ -473,7 +488,7 @@ theme_custom.successCallback = (data, nextTarget) => {
         })
       }
     }
-    // theme_custom.eventExpired(data.data);
+    theme_custom.eventExpired(data.data);
     $(".close-icon").click();
     setTimeout(() => {
       theme_custom.lookItemsData(data);
@@ -763,9 +778,10 @@ theme_custom.createEventAPI = function (btn) {
               localStorage.setItem("set-event-id", result.data.eventId);
               $(".create-event-button").addClass("next-button").removeClass("create-event-button").find(".look-add-btn").removeClass("hidden");
               $("#event-id").val(result.data.eventId);
+              $(`.step-content-wrapper[data-step-content-wrap="1"]`).find(".api_error").addClass('hidden');
               $('.step-content-wrapper[data-step-content-wrap="1"]').find(".next-button").click();
               button.find(".label").text("Update Event");
-              button.removeClass('loading disabled');
+              button.removeClass('loading disabled');              
             }, 2500);
           } else {
             $('.step-content-wrapper.event-step-1 .api_error').show().html(result.message).css({
@@ -778,6 +794,7 @@ theme_custom.createEventAPI = function (btn) {
               $(".create-event-button").addClass("next-button").removeClass("create-event-button").find(".look-add-btn").removeClass("hidden");
               $('.step-content-wrapper[data-step-content-wrap="1"]').find(".next-button").click();
               button.removeClass('loading disabled');
+              $(`.step-content-wrapper[data-step-content-wrap="1"]`).find(".api_error").addClass('hidden');
             }, 2500);
           }
         }
@@ -791,6 +808,13 @@ theme_custom.createEventAPI = function (btn) {
           setTimeout(() => {
             theme_custom.removeLocalStorage();
             window.location.href = '/account/logout';
+          }, 5000);
+        } else if(xhr.responseJSON.message == 'Internal server error.'){
+          event_date_msg += `<span>Internal server error.</span>`;
+          $('.step-content-wrapper.event-step-1 .api_error').show().html(event_date_msg);
+          setTimeout(function () {
+            $('.step-content-wrapper.event-step-1 .api_error').fadeOut();
+            $(".step-content-wrapper.event-step-1 .button-wrapper").find("button").removeClass("loading").removeClass("disabled");
           }, 5000);
         } else {
           var event_date_msg = '';
@@ -1031,10 +1055,10 @@ theme_custom.lookAddedIntoEvent = function () {
     // $.fancybox.open(addReminder);
     $(addReminder).addClass("active");
     $("#remiderName").addClass("hidden").val(targetReminder).trigger("change");
-    $(`.reminder-redesign-popup .reminderMember`).addClass('active');
+    $(`.reminder-redesign-popup .reminderMember.event-member`).addClass('active');
     $(`.send-via-main input`).prop("checked",false);
     setTimeout(() => {
-      $(".loading-overlay__spinner").addClass("hidden");
+      $(".reminder-redesign-popup .loading-overlay__spinner").addClass("hidden");
       $(".add-remider-outer-wrapper").removeClass("hidden");
       $(".loader-wrapper").addClass("hidden");
       $(".event-step-wrapper").removeClass("hidden");
@@ -1058,7 +1082,7 @@ theme_custom.lookAddedIntoEvent = function () {
       'overflow' : "hidden"
     })
     setTimeout(() => {
-      $(".loading-overlay__spinner").addClass("hidden");
+      $(".reminder-redesign-popup .loading-overlay__spinner").addClass("hidden");
       $(".add-remider-outer-wrapper").removeClass("hidden");
       $(`.reminder-redesign-popup .reminderMember`).removeClass('active');
       $(`.reminder-redesign-popup .reminderMember[data-member-id="${selecteMember}"]`).addClass("active");
@@ -1535,7 +1559,7 @@ theme_custom.lookInfoData = function (result) {
       var lookTotalPrice = theme_custom.Shopify.formatMoney(totalPrice, theme_custom.money_format)
       $(`.summary-table-wrapper tfoot`).fadeIn().find('.total-price').text(lookTotalPrice);
     }, 3000);
-    // theme_custom.eventExpired(result.data);
+    theme_custom.eventExpired(result.data);
   })
   $(".loader-wrapper").addClass("hidden");
   $(".event-step-wrapper").removeClass("hidden");
@@ -2015,6 +2039,7 @@ theme_custom.eventPageClickEvent = function (){
         var event_id = $(this).closest(".modal-wrapper-inner-wrapper").find(".event_id").val();
         var member_id = $(this).closest(".modal-wrapper-inner-wrapper").find(".member_id").val();
         theme_custom.removeUserFromLook(event_id, member_id);
+        theme_custom.globalLoaderShow();
       }
       if (checkData == 'delete-look-block') {
         var eventLookId = $(this).closest(".modal-wrapper-inner-wrapper").find(".look_id").val();
@@ -2022,7 +2047,7 @@ theme_custom.eventPageClickEvent = function (){
       }
     } else {
       $('html,body').css({
-        "overflow" : ""
+        "overflow" : "auto"
       })
       $('.close-icon').click();
     }
@@ -2031,13 +2056,13 @@ theme_custom.eventPageClickEvent = function (){
   $(document).on("click", `[data-target="delete-look-have-member"] button`, function () {
     $(`.modal-wrapper[data-target="delete-look-have-member"]`).removeClass("active");
     $('html,body').css({
-      "overflow" : ""
+      "overflow" : "auto"
     })
   })
   $(document).on("click", `[data-target="member-payment-complete"] button`, function () {
     $(`.modal-wrapper[data-target="member-payment-complete"]`).removeClass("active");
     $('html,body').css({
-      "overflow" : ""
+      "overflow" : "auto"
     })
   })
   $(document).on('click', '.pay-info-confirmation-wrap .confirm-box-wrap .update-host-look', function (event) {
@@ -2288,20 +2313,21 @@ theme_custom.event_init_page = function () {
 theme_custom.eventExpired = function (data){
   if(theme_custom.eventExpire){
     // debugger;
-    if(data.event_looks.length <= 0){
-      $('.step-content-wrapper.create-event-look .next-button').addClass('next-disabled');
-    }
-    $('.event-update-button').hide()
-    $('.look-card-block .delete-icon').hide();
-    $('.look-card-block .customise-look-button').hide();
-    $('.user-card-block .edit-icon').hide();
-    $('.user-card-block .member-delete-icon').hide();
-    $('.look-card-block .confirm-box-wrap').hide();
-    $('.add-guest-button').hide();
-    $('.add-look-wrapper').hide();
-    $('.summary-table-wrapper .action-button').hide();
-    $('.action-btn-th').hide();
-    $('.summary-footer-cost-label').attr('colspan',2);
+    // if(data.event_looks.length <= 0){
+    //   $('.step-content-wrapper.create-event-look .next-button').addClass('next-disabled');
+    // }
+    // $('.event-update-button').hide()
+    // $('.look-card-block .delete-icon').hide();
+    // $('.look-card-block .customise-look-button').hide();
+    // $('.user-card-block .edit-icon').hide();
+    // $('.user-card-block .member-delete-icon').hide();
+    // $('.look-card-block .confirm-box-wrap').hide();
+    // $('.add-guest-button').hide();
+    // $('.add-look-wrapper').hide();
+    // $('.summary-table-wrapper .action-button').hide();
+    // $('.action-btn-th').hide();
+    // $('.summary-footer-cost-label').attr('colspan',2);
+    $('.reminder-wrap,.open-reminder-popup').addClass('disabled');
   }
 }
 theme_custom.getEventDetails = function () {
@@ -2329,10 +2355,10 @@ theme_custom.getEventDetails = function () {
       eventDataObj.eventType = result.data.event_type;
       eventDataObj.eventDate = result.data.event_date;
       eventDataObj.eventRole = result.data.event_role;
-      // if(new Date() > new Date(eventDataObj.eventDate)){
-      //   theme_custom.eventExpire = true;
-      //   theme_custom.eventExpired(result.data);
-      // }
+      if(new Date() > new Date(eventDataObj.eventDate)){
+        theme_custom.eventExpire = true;
+        theme_custom.eventExpired(result.data);
+      }
 
       $('#EventForm-EventName').val(result.data.event_name);
       $('#EventForm-id').val(result.data.event_id);
@@ -2349,16 +2375,22 @@ theme_custom.getEventDetails = function () {
       $('.event-data-first-step').datepicker('setDate', new Date(result.data.event_date));
       var memerData = '';
       var total = result.data.event_members.length;
+      var event_member = '';
       $.each(result.data.event_members, function (index, value) {
-        if (value.is_host == "1") {
+        if(value.is_host == 1){
+          event_member = '';
+        } else {
+          event_member = 'event-member';
+        }
+        if (value.is_host == 1) {
           eventDataObj.eventPhone = value.phone.replace("+1", "");
           $("#event-phone-number").val(value.phone.replace("+1", ""));
           $('#EventForm-EventOwnerContactNumber').val(value.phone.replace("+1", "")).trigger("keyup");
         }
         if (index === total - 1) {
-          memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name}</span>`
+          memerData += `<span type="text" class="reminderMember  ${event_member}" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name}</span>`
         } else {
-          memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name},</span>`
+          memerData += `<span type="text" class="reminderMember  ${event_member}" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name},</span>`
         }
       });
       $('.reminder-redesign-popup .event-member-data').html('');

@@ -367,6 +367,7 @@
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
+  height: fit-content;
 }
 .modal-wrapper[data-target="add-guest-popup"] .modal-wrapper-inner-wrapper,
 .modal-wrapper[data-target="update-guest-popup"] .modal-wrapper-inner-wrapper,
@@ -2111,4 +2112,12 @@ select#remiderName{
   .modal-wrapper.reminder-redesign-popup .modal-wrapper-inner-wrapper{
     max-height: 525px;
   }
+}
+#member-reminder-wrapper .summary-table-wrapper.hidden{
+  display: block !important;
+}
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
 }
