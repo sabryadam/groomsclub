@@ -19,24 +19,22 @@
   </div>
 </div>
 <div class="step-content-wrapper event-step-1 active" data-step-content-wrap="1">
-  <div class="text-center">
-    <button type="button" class="button button--secondary" id="tourbutton" style="margin-bottom: 15px;">
-      Click How to Create Event 
-    </button>
-  </div>
+  <button type="button" class="button button--secondary tourbutton">
+    Click How to Create Event 
+  </button>
   <input type="hidden" value="" id="event-id" />
   <div class="page-width-inner-wrapper">
     <h4 class="section-title xs-show">Create an Event</h4>
-    <div class="event-block-wrap event-type-block-wrap">
+    <div class="event-block-wrap event-type-block-wrap" data-for-loop-index="1" data-tour="step: 1; title: EVENT NAME; content: Example cart description text displays cart description">
       {% if section.settings.event_name_heading != blank %}
         <h1 class="heading">{{ section.settings.event_name_heading }}</h1>
       {% endif %}
-      <div class="field form-wrap" data-tour="step: 1; title: EVENT NAME; content: Example cart description text displays cart description">     
+      <div class="field form-wrap">     
         <input class="event-name" type="text" name="event_name" data-id="event-name" id="EventForm-EventName" autocomplete="given-name" placeholder="{{ section.settings.event_name_placeholder }}" maxlength="100" />
         <p class="form-error"></p>
       </div>
     </div>
-    <div class="event-block-wrap event-type-section-wrap event-radio-box-section" data-tour="step: 2; title: EVENT TYPE; content: Example cart description text displays cart description">
+    <div class="event-block-wrap event-type-section-wrap event-radio-box-section" data-for-loop-index="2" data-tour="step: 2; title: EVENT TYPE; content: Example cart description text displays cart description">
       {% if section.settings.event_type_heading != blank %}
         <h2 class="heading">{{ section.settings.event_type_heading }}</h2>
       {% endif %}
@@ -64,11 +62,11 @@
       <!-- <p class="event-type-error form-error"></p> -->
       <p class="form-error">Please select Event type.</p>
     </div>
-    <div class="event-block-wrap event-date-wrap">
+    <div class="event-block-wrap event-date-wrap" data-for-loop-index="3" data-tour="step: 3; title: WHEN IS YOUR EVENT DATE?; content: Example cart description text displays cart description">
       {% if section.settings.when_is_your_event_heading != blank %}
         <h3 class="heading">{{ section.settings.when_is_your_event_heading }}</h3>
       {% endif %}
-      <div class="field form-wrap event-date" data-tour="step: 3; title: WHEN IS YOUR EVENT DATE?; content: Example cart description text displays cart description">
+      <div class="field form-wrap event-date">
         <!-- <div class="fake-calender">
           <span class="selected_date">MM/DD/YYYY</span>
           <span class="date-icon">
@@ -80,11 +78,11 @@
       </div>
       <p class="form-error">Please select Event Date.</p>
     </div>
-    <div class="event-block-wrap event-radio-box-section role-in-event-wrap">
+    <div class="event-block-wrap event-radio-box-section role-in-event-wrap" data-for-loop-index="4" data-tour="step: 4; title: WHAT IS YOUR ROLE IN THE EVENT?; content: Example cart description text displays cart description">
       {% if section.settings.when_is_your_role_in_event_heading != blank %}
         <h3 class="heading">{{ section.settings.when_is_your_role_in_event_heading }}</h3>
       {% endif %}
-      <div class="box-wrap" data-tour="step: 4; title: WHAT IS YOUR ROLE IN THE EVENT?; content: Example cart description text displays cart description">
+      <div class="box-wrap">
         {%- for block in section.blocks -%}
           {%- assign event_type_text = block.settings.event_type | downcase  -%}
           {%- if block.type == 'event_role' -%}
@@ -109,11 +107,11 @@
       </div>
       <p class="form-error">Please select Event Role.</p>
     </div>
-    <div class="event-block-wrap event-radio-box-section border-bottom-none event-phone-number">
+    <div class="event-block-wrap event-radio-box-section border-bottom-none event-phone-number" data-for-loop-index="5"  data-tour="step: 5; title: PHONE NUMBER?; content: Example cart description text displays cart description">
       {% if section.settings.phone_number_title != blank %}
         <h3 class="heading">{{ section.settings.phone_number_title }}</h3>
       {% endif %}
-      <div class="field form-wrap" data-tour="step: 5; title: PHONE NUMBER?; content: Example cart description text displays cart description">  
+      <div class="field form-wrap">  
         <div class="phone-number-and-icon">
           <input class="phone-number form_phone" data-id="event-phone" type="text" name="event_name" id="EventForm-EventOwnerContactNumber"  placeholder="{{ section.settings.phone_number_placeholder }}" maxlength="14" minlength="10" required />
           <span class="call-icon">
@@ -134,7 +132,7 @@
           <img class="white-icon" src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/next-white-icon.png?v=1675601344" width="22" height="22" alt="Next Arrow">
         </span>
       </button>
-      <button type="button" class="btn-wrap button--secondary create-event-button">
+      <button type="button" class="btn-wrap button--secondary create-event-button" data-for-loop-index="6"  data-tour="step: 6; title: EVENT TYPE; content: Example cart description text displays cart description">
         <span class="label">
           Next <span class="look-add-btn hidden">(Add Look)</span>
         </span>
@@ -146,13 +144,3 @@
     </div>
   </div>
 </div>
-<script>
-  /* Initialize Tourguide.js */
-  var tourguide = new Tourguide();
-  function startTour() {
-    tourguide.start();
-  }
-  // Attach the touruide start evene to the button press
-  var tourbutton = document.getElementById("tourbutton");
-  tourbutton.addEventListener("click", startTour);
-</script>

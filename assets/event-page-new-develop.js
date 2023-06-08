@@ -26,9 +26,15 @@ theme_custom.reminder = function (sendReminderDataObj, button) {
         $(".send-via-main .send-via").prop("checked",false);
         $('.modal-wrapper.reminder-redesign-popup').removeClass("active");
       }, 3000);
+      $('html,body').css({
+        'overflow' : "auto"
+      })
     },
     error: function (xhr, status, error) {
-      button.removeClass('disabled')
+      button.removeClass('disabled');
+      $('html,body').css({
+        'overflow' : "auto"
+      })
       if (xhr.responseJSON.message == 'Token is invalid or expired.') {
         $('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
           'text-align': 'center',
@@ -86,20 +92,29 @@ theme_custom.lookAssignToMember = function (member_id, look_id) {
         success: function (result) {
           var memerData = '';
           var total = result.data.event_members.length;
+          var event_member = '';
           $.each(result.data.event_members, function (index, value) {
-            if (value.is_host == "1") {
+            if(value.is_host == 1){
+              event_member = '';
+            } else {
+              event_member = 'event-member';
+            }
+            if (value.is_host == 1) {
               eventDataObj.eventPhone = value.phone.replace("+1", "");
               $("#event-phone-number").val(value.phone.replace("+1", ""));
               $('#EventForm-EventOwnerContactNumber').val(value.phone.replace("+1", "")).trigger("keyup");
             }
             if (index === total - 1) {
-              memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name}</span>`
+              memerData += `<span type="text" class="reminderMember ${event_member}" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name}</span>`
             } else {
-              memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name},</span>`
+              memerData += `<span type="text" class="reminderMember ${event_member}" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name},</span>`
             }
           });
           $('.reminder-redesign-popup .event-member-data').html('');
           $('.reminder-redesign-popup .event-member-data').append(memerData);
+          $('html,body').css({
+            'overflow' : "auto"
+          })
         }
       });
     },
@@ -187,6 +202,9 @@ $(".member-added-into-event").click(function (e) {
         $('.event-step-wrapper').addClass('hidden');
         theme_custom.globalLoaderShow();
         theme_custom.lookAssignToMember(result.data.id, theme_custom.lookVal);
+        $('html,body').css({
+          'overflow' : "auto"
+        })
       },
       error: function (xhr, status, error) {
         let div = $('.invite-another-member-popup-wrapper .member-added-into-event').closest('.field');
@@ -405,9 +423,15 @@ theme_custom.favoriteLooks = function () {
       } else {
         // alert(result.data.success);
       }
+      $('html,body').css({
+        'overflow' : "auto"
+      })
     },
     error: function (xhr, status, error) {
       $('.feature-looks-slider-loader').hide();
+      $('html,body').css({
+        'overflow' : "auto"
+      })
       if (xhr.responseJSON.message == 'Token is invalid or expired.') {
         $('.feature-looks-slider').html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
           'text-align': 'center',
@@ -454,7 +478,7 @@ theme_custom.successCallback = (data, nextTarget) => {
   if (data.data.event_looks && data.data.event_looks.length > 0) {
     $(`.modal-wrapper[data-target="remove-data-for-user"]`).removeClass("active");
     $('html,body').css({
-      "overflow" : ""
+      "overflow" : "auto"
     })
     const looksDiv = $('.show-look-from-event-wrapper .event-look-inner-wrapper, .guest-top-looks .event-look-inner-wrapper');
     looksDiv.empty();
@@ -473,7 +497,7 @@ theme_custom.successCallback = (data, nextTarget) => {
         })
       }
     }
-    // theme_custom.eventExpired(data.data);
+    theme_custom.eventExpired(data.data);
     $(".close-icon").click();
     setTimeout(() => {
       theme_custom.lookItemsData(data);
@@ -509,6 +533,9 @@ theme_custom.successCallback = (data, nextTarget) => {
       }
     }, 2000);
   } else {
+    $('html,body').css({
+      "overflow" : "auto"
+    });
     $(`[data-target="remove-data-for-user"]`).removeClass("active");
     $(".step-content-wrapper.create-event-look .event-block-wrap").show();
     $('.show-look-from-event-wrapper,.guest-top-looks').hide();
@@ -522,6 +549,10 @@ theme_custom.successCallback = (data, nextTarget) => {
     }
     $(".next-button.disabled").removeClass("disabled");
     theme_custom.globalLoaderhide();
+    $(".step-content-wrapper.create-event-look").find(".next-button").addClass("disabled");
+    setTimeout(() => {
+      $(".tourbutton").click()
+    }, 1500);
   }
 
 }
@@ -759,13 +790,23 @@ theme_custom.createEventAPI = function (btn) {
               "color": "#270"
             });
             button.find(".label").text("Event Updated");
+            $(".event-step-1 .event-block-wrap,.event-step-1 .next-button,.event-step-1 .event-update-button").removeAttr("data-tour");
+            $(`.create-event-look .event-block-wrap .box-wrap .box-inner-wrap[data-for-loop-index="9"]`).attr("data-tour","step: 1; title: EVENT NAME; content: Example cart description text displays cart description");
+            $(`.create-event-look .event-block-wrap .box-wrap .box-inner-wrap[data-for-loop-index="10"]`).attr("data-tour","step: 2; title: EVENT NAME; content: Example cart description text displays cart description");
+            $(`.create-event-look .event-block-wrap .box-wrap .box-inner-wrap[data-for-loop-index="11"]`).attr("data-tour","step: 3; title: EVENT NAME; content: Example cart description text displays cart description");
             setTimeout(() => {
               localStorage.setItem("set-event-id", result.data.eventId);
               $(".create-event-button").addClass("next-button").removeClass("create-event-button").find(".look-add-btn").removeClass("hidden");
               $("#event-id").val(result.data.eventId);
+              $(`.step-content-wrapper[data-step-content-wrap="1"]`).find(".api_error").addClass('hidden');
               $('.step-content-wrapper[data-step-content-wrap="1"]').find(".next-button").click();
               button.find(".label").text("Update Event");
               button.removeClass('loading disabled');
+              $(".step-content-wrapper.event-step-1").find(".api_error").addClass('hidden');
+              localStorage.setItem("user-has-event","1");
+              setTimeout(() => {
+                $(".howToAddLook").click()
+              }, 1500)
             }, 2500);
           } else {
             $('.step-content-wrapper.event-step-1 .api_error').show().html(result.message).css({
@@ -774,10 +815,21 @@ theme_custom.createEventAPI = function (btn) {
             });
             localStorage.setItem("set-event-id", result.data.eventId);
             $("#event-id").val(result.data.eventId);
+            localStorage.setItem("user-has-event","1");
+            $(".create-event-button").addClass("next-button").removeClass("create-event-button").find(".look-add-btn").removeClass("hidden");
+            $(".event-step-1 .event-block-wrap,.event-step-1 .next-button,.event-step-1 .event-update-button").removeAttr("data-tour");
+            $(`.create-event-look .event-block-wrap .box-wrap .box-inner-wrap[data-for-loop-index="9"]`).attr("data-tour","step: 1; title: EVENT NAME; content: Example cart description text displays cart description");
+            $(`.create-event-look .event-block-wrap .box-wrap .box-inner-wrap[data-for-loop-index="10"]`).attr("data-tour","step: 2; title: EVENT NAME; content: Example cart description text displays cart description");
+            $(`.create-event-look .event-block-wrap .box-wrap .box-inner-wrap[data-for-loop-index="11"]`).attr("data-tour","step: 3; title: EVENT NAME; content: Example cart description text displays cart description");
             setTimeout(() => {
-              $(".create-event-button").addClass("next-button").removeClass("create-event-button").find(".look-add-btn").removeClass("hidden");
+              $(`.step-content-wrapper[data-step-content-wrap="1"]`).find(".event-update-button").removeClass("hidden");
               $('.step-content-wrapper[data-step-content-wrap="1"]').find(".next-button").click();
               button.removeClass('loading disabled');
+              $(`.step-content-wrapper[data-step-content-wrap="1"]`).find(".api_error").addClass('hidden');
+              $(".event-step-1 .event-block-wrap").removeAttr("data-tour");
+              setTimeout(() => {
+                $(".howToAddLook").click()
+              }, 1000)
             }, 2500);
           }
         }
@@ -791,6 +843,13 @@ theme_custom.createEventAPI = function (btn) {
           setTimeout(() => {
             theme_custom.removeLocalStorage();
             window.location.href = '/account/logout';
+          }, 5000);
+        } else if(xhr.responseJSON.message == 'Internal server error.'){
+          event_date_msg += `<span>${xhr.responseJSON.data}</span>`;
+          $('.step-content-wrapper.event-step-1 .api_error').show().html(event_date_msg);
+          setTimeout(function () {
+            $('.step-content-wrapper.event-step-1 .api_error').fadeOut();
+            $(".step-content-wrapper.event-step-1 .button-wrapper").find("button").removeClass("loading").removeClass("disabled");
           }, 5000);
         } else {
           var event_date_msg = '';
@@ -1031,10 +1090,10 @@ theme_custom.lookAddedIntoEvent = function () {
     // $.fancybox.open(addReminder);
     $(addReminder).addClass("active");
     $("#remiderName").addClass("hidden").val(targetReminder).trigger("change");
-    $(`.reminder-redesign-popup .reminderMember`).addClass('active');
+    $(`.reminder-redesign-popup .reminderMember.event-member`).addClass('active');
     $(`.send-via-main input`).prop("checked",false);
     setTimeout(() => {
-      $(".loading-overlay__spinner").addClass("hidden");
+      $(".reminder-redesign-popup .loading-overlay__spinner").addClass("hidden");
       $(".add-remider-outer-wrapper").removeClass("hidden");
       $(".loader-wrapper").addClass("hidden");
       $(".event-step-wrapper").removeClass("hidden");
@@ -1058,7 +1117,7 @@ theme_custom.lookAddedIntoEvent = function () {
       'overflow' : "hidden"
     })
     setTimeout(() => {
-      $(".loading-overlay__spinner").addClass("hidden");
+      $(".reminder-redesign-popup .loading-overlay__spinner").addClass("hidden");
       $(".add-remider-outer-wrapper").removeClass("hidden");
       $(`.reminder-redesign-popup .reminderMember`).removeClass('active');
       $(`.reminder-redesign-popup .reminderMember[data-member-id="${selecteMember}"]`).addClass("active");
@@ -1535,7 +1594,7 @@ theme_custom.lookInfoData = function (result) {
       var lookTotalPrice = theme_custom.Shopify.formatMoney(totalPrice, theme_custom.money_format)
       $(`.summary-table-wrapper tfoot`).fadeIn().find('.total-price').text(lookTotalPrice);
     }, 3000);
-    // theme_custom.eventExpired(result.data);
+    theme_custom.eventExpired(result.data);
   })
   $(".loader-wrapper").addClass("hidden");
   $(".event-step-wrapper").removeClass("hidden");
@@ -2015,6 +2074,7 @@ theme_custom.eventPageClickEvent = function (){
         var event_id = $(this).closest(".modal-wrapper-inner-wrapper").find(".event_id").val();
         var member_id = $(this).closest(".modal-wrapper-inner-wrapper").find(".member_id").val();
         theme_custom.removeUserFromLook(event_id, member_id);
+        theme_custom.globalLoaderShow();
       }
       if (checkData == 'delete-look-block') {
         var eventLookId = $(this).closest(".modal-wrapper-inner-wrapper").find(".look_id").val();
@@ -2022,7 +2082,7 @@ theme_custom.eventPageClickEvent = function (){
       }
     } else {
       $('html,body').css({
-        "overflow" : ""
+        "overflow" : "auto"
       })
       $('.close-icon').click();
     }
@@ -2031,13 +2091,13 @@ theme_custom.eventPageClickEvent = function (){
   $(document).on("click", `[data-target="delete-look-have-member"] button`, function () {
     $(`.modal-wrapper[data-target="delete-look-have-member"]`).removeClass("active");
     $('html,body').css({
-      "overflow" : ""
+      "overflow" : "auto"
     })
   })
   $(document).on("click", `[data-target="member-payment-complete"] button`, function () {
     $(`.modal-wrapper[data-target="member-payment-complete"]`).removeClass("active");
     $('html,body').css({
-      "overflow" : ""
+      "overflow" : "auto"
     })
   })
   $(document).on('click', '.pay-info-confirmation-wrap .confirm-box-wrap .update-host-look', function (event) {
@@ -2094,6 +2154,13 @@ theme_custom.eventPageClickEvent = function (){
     window.location.href = $(this).attr("data-href");
   })
 
+  $(document).on("click", ".howToAddLook", function(){
+    $(".add-look-wrapper").click();
+    setTimeout(function(){
+      $(".tourbutton").click()
+    },1000);
+  });
+
   // customise-look-button-for-add-look-into-event
   $(document).on("click", ".customise-look-button-for-add-look-into-event", function () {
 
@@ -2132,10 +2199,15 @@ theme_custom.eventPageClickEvent = function (){
     if ($(this).closest(`.step-content-wrapper[data-step-content-wrap="1"]`).length > 0) {
       $(`.step-content-wrapper[data-step-content-wrap="2"]`).find(".event-block-wrap").hide();
       theme_custom.checkLooks(localStorage.getItem("set-event-id"), nextTarget);
+      $(".event-step-1 .event-block-wrap,.event-step-1 .next-button,.event-step-1 .event-update-button").removeAttr("data-tour");
+      $(`.create-event-look .event-block-wrap .box-wrap .box-inner-wrap[data-for-loop-index="9"]`).attr("data-tour","step: 1; title: EVENT NAME; content: Example cart description text displays cart description");
+      $(`.create-event-look .event-block-wrap .box-wrap .box-inner-wrap[data-for-loop-index="10"]`).attr("data-tour","step: 2; title: EVENT NAME; content: Example cart description text displays cart description");
+      $(`.create-event-look .event-block-wrap .box-wrap .box-inner-wrap[data-for-loop-index="11"]`).attr("data-tour","step: 3; title: EVENT NAME; content: Example cart description text displays cart description");
       goNext = false;
     }
     if ($(this).closest(`.step-content-wrapper[data-step-content-wrap="2"]`).length > 0) {
       theme_custom.checkLooks(localStorage.getItem("set-event-id"), nextTarget, false);
+      $( `.create-event-look .event-block-wrap .box-wrap .box-inner-wrap`).removeAttr("data-tour");
       goNext = false;
     }
     if ($(this).closest(`.step-content-wrapper[data-step-content-wrap="3"]`).length > 0) {
@@ -2159,8 +2231,21 @@ theme_custom.eventPageClickEvent = function (){
     var currentTabHead = target.closest(".step-content-wrapper").attr("data-step-content-wrap");
     var prevTarget = target.closest(".step-content-wrapper").prev(".step-content-wrapper").attr("data-step-content-wrap");
     prevTarget = parseInt(prevTarget);
+    if ($(this).closest(`.step-content-wrapper[data-step-content-wrap="2"]`).length > 0) {
+      $(`.create-event-look .event-block-wrap .box-wrap .box-inner-wrap`).removeAttr("data-tour");
+      $(`.event-step-1 .event-block-wrap[data-for-loop-index="1"]`).attr("data-tour","step: 1; title: EVENT NAME; content: Example cart description text displays cart description");
+      $(`.event-step-1 .event-block-wrap[data-for-loop-index="2"]`).attr("data-tour","step: 2; title: EVENT NAME; content: Example cart description text displays cart description");
+      $(`.event-step-1 .event-block-wrap[data-for-loop-index="3"]`).attr("data-tour","step: 3; title: EVENT NAME; content: Example cart description text displays cart description");
+      $(`.event-step-1 .event-block-wrap[data-for-loop-index="4"]`).attr("data-tour","step: 4; title: EVENT NAME; content: Example cart description text displays cart description");
+      $(`.event-step-1 .event-block-wrap[data-for-loop-index="5"]`).attr("data-tour","step: 5; title: EVENT NAME; content: Example cart description text displays cart description");
+      $(`.event-step-1 .event-update-button`).attr("data-tour","step: 6; title: EVENT NAME; content: Example cart description text displays cart description");
+      $(`.event-step-1 .next-button`).attr("data-tour","step: 7; title: EVENT NAME; content: Example cart description text displays cart description");
+    }
     if ($(this).closest(`.step-content-wrapper[data-step-content-wrap="3"]`).length > 0) {
       theme_custom.checkLooks(localStorage.getItem("set-event-id"), prevTarget, false);
+      $(`.create-event-look .event-block-wrap .box-wrap .box-inner-wrap[data-for-loop-index="9"]`).attr("data-tour","step: 1; title: EVENT NAME; content: Example cart description text displays cart description");
+      $(`.create-event-look .event-block-wrap .box-wrap .box-inner-wrap[data-for-loop-index="10"]`).attr("data-tour","step: 2; title: EVENT NAME; content: Example cart description text displays cart description");
+      $(`.create-event-look .event-block-wrap .box-wrap .box-inner-wrap[data-for-loop-index="11"]`).attr("data-tour","step: 3; title: EVENT NAME; content: Example cart description text displays cart description");
       goNext = false;
     }
     if ($(this).closest(`.step-content-wrapper[data-step-content-wrap="4"]`).length > 0) {
@@ -2288,20 +2373,22 @@ theme_custom.event_init_page = function () {
 theme_custom.eventExpired = function (data){
   if(theme_custom.eventExpire){
     // debugger;
-    if(data.event_looks.length <= 0){
-      $('.step-content-wrapper.create-event-look .next-button').addClass('next-disabled');
-    }
-    $('.event-update-button').hide()
-    $('.look-card-block .delete-icon').hide();
-    $('.look-card-block .customise-look-button').hide();
-    $('.user-card-block .edit-icon').hide();
-    $('.user-card-block .member-delete-icon').hide();
-    $('.look-card-block .confirm-box-wrap').hide();
-    $('.add-guest-button').hide();
-    $('.add-look-wrapper').hide();
-    $('.summary-table-wrapper .action-button').hide();
-    $('.action-btn-th').hide();
-    $('.summary-footer-cost-label').attr('colspan',2);
+    // console.log("Event Expire")
+    // if(data.event_looks.length <= 0){
+    //   $('.step-content-wrapper.create-event-look .next-button').addClass('next-disabled');
+    // }
+    // $('.event-update-button').hide()
+    // $('.look-card-block .delete-icon').hide();
+    // $('.look-card-block .customise-look-button').hide();
+    // $('.user-card-block .edit-icon').hide();
+    // $('.user-card-block .member-delete-icon').hide();
+    // $('.look-card-block .confirm-box-wrap').hide();
+    // $('.add-guest-button').hide();
+    // $('.add-look-wrapper').hide();
+    // $('.summary-table-wrapper .action-button').hide();
+    // $('.action-btn-th').hide(); 
+    // $('.summary-footer-cost-label').attr('colspan',2);
+    $('.reminder-wrap,.open-reminder-popup').addClass('disabled');
   }
 }
 theme_custom.getEventDetails = function () {
@@ -2329,10 +2416,10 @@ theme_custom.getEventDetails = function () {
       eventDataObj.eventType = result.data.event_type;
       eventDataObj.eventDate = result.data.event_date;
       eventDataObj.eventRole = result.data.event_role;
-      // if(new Date() > new Date(eventDataObj.eventDate)){
-      //   theme_custom.eventExpire = true;
-      //   theme_custom.eventExpired(result.data);
-      // }
+      if(new Date() > new Date(eventDataObj.eventDate)){
+        theme_custom.eventExpire = true;
+        theme_custom.eventExpired(result.data);
+      }
 
       $('#EventForm-EventName').val(result.data.event_name);
       $('#EventForm-id').val(result.data.event_id);
@@ -2349,16 +2436,22 @@ theme_custom.getEventDetails = function () {
       $('.event-data-first-step').datepicker('setDate', new Date(result.data.event_date));
       var memerData = '';
       var total = result.data.event_members.length;
+      var event_member = '';
       $.each(result.data.event_members, function (index, value) {
-        if (value.is_host == "1") {
+        if(value.is_host == 1){
+          event_member = '';
+        } else {
+          event_member = 'event-member';
+        }
+        if (value.is_host == 1) {
           eventDataObj.eventPhone = value.phone.replace("+1", "");
           $("#event-phone-number").val(value.phone.replace("+1", ""));
           $('#EventForm-EventOwnerContactNumber').val(value.phone.replace("+1", "")).trigger("keyup");
         }
         if (index === total - 1) {
-          memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name}</span>`
+          memerData += `<span type="text" class="reminderMember ${event_member}" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name}</span>`
         } else {
-          memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name},</span>`
+          memerData += `<span type="text" class="reminderMember ${event_member}" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name},</span>`
         }
       });
       $('.reminder-redesign-popup .event-member-data').html('');
@@ -2696,3 +2789,11 @@ theme_custom.getAllEvents = function (modalTarget) {
     }
   });
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+  if(localStorage.getItem("user-has-event") == '' || localStorage.getItem("user-has-event") == null){
+    setTimeout(() => {
+      $(".tourbutton").click()
+    }, 1500);
+  }
+});

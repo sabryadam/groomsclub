@@ -387,8 +387,10 @@ theme_custom.geteventslist = function (eventtype = 1, pageno = 1, hostby = 0) {
                         $('.event-container-wrapper.event-container-1').prepend(`<p style="text-align:center">No Event found</p>`);
                     }
                     $(".event-list-top").removeClass("hidden");
-                   
+                   localStorage.setItem("user-has-event","1")
                 } else {
+                   localStorage.removeItem("user-has-event");
+                   localStorage.removeItem("set-event-id");
                     $(".events-main-container").css({
                         "display": "block",
                         "min-height": "auto",
@@ -439,6 +441,9 @@ $(document).on("click",".event-action-btns .event-delete-btn", function(){
     var eventLookId = $(this).closest(".events-container").find(".events-main-link").attr("data-event-id");
     $(`.modal-wrapper[data-target="delete-data-from-api"]`).addClass("active").find(".data_target_id").val(eventLookId).attr("data-type","event-remove-from-list");
     $(`.modal-wrapper[data-target="delete-data-from-api"]`).find(".heading").text("Are you sure you want to delete this event?");
+    $("html, body").css({
+        "overflow" : "hidden"
+    });
 });
 $(document).on("click",`[data-target="delete-data-from-api"] button`,function(){
     var target = $(this).attr('data-value');
@@ -456,6 +461,9 @@ $(document).on("click",`[data-target="delete-data-from-api"] button`,function(){
         }
     } else {
         $(`.modal-wrapper[data-target="delete-data-from-api"]`).removeClass("active");
+        $("html, body").css({
+            "overflow" : ""
+        });
     }
 })
 $(document).on("click", ".events-main-container .go-to-event-page, .event-edit-btn", function () {

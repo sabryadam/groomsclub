@@ -367,6 +367,7 @@
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
+  height: fit-content;
 }
 .modal-wrapper[data-target="add-guest-popup"] .modal-wrapper-inner-wrapper,
 .modal-wrapper[data-target="update-guest-popup"] .modal-wrapper-inner-wrapper,
@@ -2110,5 +2111,68 @@ select#remiderName{
 @media (min-width : 1200px) and (max-width : 1366px) {
   .modal-wrapper.reminder-redesign-popup .modal-wrapper-inner-wrapper{
     max-height: 525px;
+  }
+}
+@media (min-width : 1200px) and (max-width : 1366px) {
+  .modal-wrapper.reminder-redesign-popup .modal-wrapper-inner-wrapper{
+    max-height: 525px;
+  }
+}
+@media (min-width : 1200px) and (max-width : 1366px) {
+  .modal-wrapper.reminder-redesign-popup .modal-wrapper-inner-wrapper{
+    max-height: 525px;
+  }
+}
+@media (min-width : 768) and (max-width : 991px) {
+  .modal-wrapper.reminder-redesign-popup .modal-wrapper-inner-wrapper{
+    max-height: 525px;
+  }
+}
+#member-reminder-wrapper .summary-table-wrapper.hidden{
+  display: block !important;
+}
+.tourbutton,
+.howToAddLook{
+  margin: 0 auto 25px;  
+  display: block;
+}
+.guided-tour-step.active .guided-tour-step-tooltip .guided-tour-step-button-next,
+.guided-tour-step.active .guided-tour-step-tooltip .guided-tour-step-button-complete{
+  color: #1075bc !important;
+}
+.guided-tour-step.active .guided-tour-step-tooltip .guided-tour-step-title{
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--color-primary);
+  word-break: break-all;
+  line-height: normal;
+}
+.guided-tour-step {
+  font-size: 14px;
+  color: #001f49;
+  font-family: var(--font-body-family) !important;
+}
+.guided-tour-step.active .guided-tour-step-tooltip .guided-tour-step-footer-bullets ul li{
+  background-color: #1075bc !important;
+}
+.guided-tour-step.active .guided-tour-step-tooltip .guided-tour-step-footer-bullets ul li.current{
+  background-color: var(--color-primary) !important;
+}
+.guided-tour-step.active .guided-tour-step-tooltip .guided-tour-step-footer-bullets ul li.complete{
+  background-color: #dedede !important;
+}
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+#GuidedTourIconSet {
+  display: none !important;
+}
+@media screen and (max-width: 760px){
+  .guided-tour-step.active .guided-tour-step-tooltip .guided-tour-step-button-next,
+  .guided-tour-step.active .guided-tour-step-tooltip .guided-tour-step-button-complete{
+    width: 38px !important;
+    height: 38px !important;
   }
 }

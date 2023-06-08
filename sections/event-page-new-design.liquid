@@ -84,7 +84,7 @@
               <label class="form-label field__label" for="reminderMember">Members:</label>
               <div class="event-member-data"></div>
             </div>
-            <div class="api_error form-error text_center" style="margin-bottom : 10px"></div>
+            <div class="api_error sucess-message text_center" style="margin-bottom : 10px"></div>
             <button class="button button--primary send-reminder disabled">Send Reminder</button>
           </div>
         </div>
@@ -92,6 +92,18 @@
     </div>
   </div>
 </section>
+<script>
+  /* Initialize Tourguide.js */
+  var tourguide = new Tourguide();
+  function startTour() {
+    tourguide.start();
+  }
+  // Attach the touruide start evene to the button press
+  var tourbutton = $(".tourbutton");
+  $(document).on("click", ".tourbutton", function(){
+    startTour()
+  })
+</script>
 
 {% schema %}
 {

@@ -1,5 +1,8 @@
 <div class="step-content-wrapper create-event-look" data-step-content-wrap="2">
   <div class="page-width-inner-wrapper">
+    <button type="button" class="button button--secondary howToAddLook">
+      How to add Look
+    </button>
     <h4 class="section-title xs-show">Create Look</h4>
     <div class="event-block-wrap">
       {% if section.settings.create_look_title != blank %}
@@ -8,7 +11,9 @@
       <div class="box-wrap"> 
         {%- for block in section.blocks -%}
           {%- if block.type == 'event_look' -%}
-            <div class="Squer-radio-button-inner box-inner-wrap popup-button {% if block.settings.create_look_title == 'Suit Customizer' %}customise-look-button-for-add-look-into-event{% endif %}" data-href="/pages/customize-your-look?light-grey-suit=41097419653306&light-grey-jacket=41097359065274&light-grey-pants-1=41097369813178&light-grey-vest-1=41097382527162" data-title="{{ block.settings.create_look_title | downcase | handleize }}">
+            <div class="Squer-radio-button-inner box-inner-wrap popup-button {% if block.settings.create_look_title == 'Suit Customizer' %}customise-look-button-for-add-look-into-event{% endif %}" data-href="/pages/customize-your-look?light-grey-suit=41097419653306&light-grey-jacket=41097359065274&light-grey-pants-1=41097369813178&light-grey-vest-1=41097382527162" data-title="{{ block.settings.create_look_title | downcase | handleize }}"
+            data-for-loop-index="{{ forloop.index }}"
+            >
               <div class="checkmark">
                 {% if block.settings.create_look_icon != blank %}
                   <div class="event-type-icon icon-wrap">
@@ -159,4 +164,14 @@
       </button>
     </div>
   </div>
+  <script>
+    /* Initialize Tourguide.js */
+    var tourguide = new Tourguide();
+    function startTour() {
+      tourguide.start();
+    }
+    // Attach the touruide start evene to the button press
+    var addedLookInEvent = document.getElementById("addedLookInEvent");
+    addedLookInEvent.addEventListener("click", startTour);
+  </script>
 </div>
