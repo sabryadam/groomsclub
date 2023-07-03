@@ -730,10 +730,12 @@
 .event-page-new-design-wrapper .page-width-inner-wrapper .add-guest-inner-wrapper .form-error{
   position: absolute;
   top: -28px;
-  left: 10px;
   padding: 5px 5px 0;
   background: #fff;
-  font-size: 12px;
+  font-size: 11px;
+  width: 100%;
+  left: 0;
+  right: 0;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .add-guest-inner-wrapper.invite-another-member-popup-wrapper input[type=radio]:checked~.checkbox-label{
   background-color: #1075BC;

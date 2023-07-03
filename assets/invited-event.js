@@ -465,8 +465,13 @@ theme_custom.clickEventInvited = function(){
     $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".break").removeClass("hidden");
     $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".exchange-item-link").text("Edit Item");
     $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".prod-variant-data").val(targetVarID).attr("data-var-id",targetVarID);
+    $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(`.exchange-item-link`).attr("data-text","edit-size");
+    if($(`.look-product-wrapper`).find(`.exchange-item-link[data-text="select-size"]`).length == 0){
+      $(".return-suit-checkout-button .proceed-to-cart").removeClass("disabled");
+    }
     button.text("Updated");
     $(".fancybox-button").click();
+    
   })
 
   // product option popup open
@@ -817,7 +822,7 @@ theme_custom.getFitFinderData = function(payBy){
         theme_custom.cartButton = 'disabled';
         $(".account-event-step[data-event-step='verified-fit']").hide();
         // $('.product-size-type-exchange').addClass('hidden');
-        $('.exchange-item-link').text("Select Size");
+        $('.exchange-item-link').text("Select Size").attr("data-text","select-size");
       } else {
         $(".account-event-step[data-event-step='sized'], .account-event-step[data-event-step='verified-fit']").addClass("active");
         $(".product-size-type-exchange-wrapper .product-size-type-exchange").removeClass("hidden");

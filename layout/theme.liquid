@@ -282,7 +282,7 @@
 {%- endcapture -%}
 
 <body
-  class="{{ body_class | strip | strip_newlines | split: '|' | join: ' '}}{% if template == 'index' %} homepage{% endif %}{% unless customer %} customer-has-not-logged{% endunless %} template-{{ product.handle}}">
+  class="{{ body_class | strip | strip_newlines | split: '|' | join: ' '}}{% if template == 'index' %} homepage{% endif %}{% unless customer %} customer-has-not-logged{% endunless %} template-{{ product.handle}} {% if template contains 'product' %}product-type-{{ product.type | downcase | handleize }}{% endif  %}">
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WPZ3HG7" height="0" width="0"
       style="display:none;visibility:hidden"></iframe></noscript>

@@ -2327,7 +2327,7 @@ theme_custom.eventExpired = function (data){
     // $('.summary-table-wrapper .action-button').hide();
     // $('.action-btn-th').hide();
     // $('.summary-footer-cost-label').attr('colspan',2);
-    $('.reminder-wrap,.open-reminder-popup').addClass('disabled');
+    $('.reminder-wrap,.open-reminder-popup').hide();
   }
 }
 theme_custom.getEventDetails = function () {
