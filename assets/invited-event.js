@@ -421,7 +421,7 @@ theme_custom.clickEventInvited = function(){
           parent.find(".error-message").addClass("error-show").text("This variant is Out of Stock. Please choose another variant.").fadeIn();
           parent.find(".exchange-look-item").addClass("disabled");
         } else {
-          parent.find(".error-message").removeClass("error-show").text('').fadOut();
+          parent.find(".error-message").removeClass("error-show").text('').fadeOut();
           parent.find(".exchange-look-item").removeClass("disabled");
           parent.find(".prod-variant-option").val(selectedVar);
         }

@@ -1361,6 +1361,7 @@ theme_custom.customize_product_clickEvent = function () {
       $('html, body').stop().animate({
         'scrollTop': $(`[data-button-target="select-size"]:first`).offset().top - $("#shopify-section-header").height() + 10
       }, "slow");
+      $(".product-out-of-stock-error").removeClass("hidden").addClass("active");
       return false;
     }
     if($(".error-msg:visible").length > 0) {
