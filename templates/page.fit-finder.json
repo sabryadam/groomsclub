@@ -3,7 +3,7 @@
     "main": {
       "type": "main-fit-finder-page",
       "settings": {
-        "page_header": "Fit Finder",
+        "page_header": "Wedding Tuxedo Size Calculator",
         "size_content_bg_color": "#fafafa",
         "continue_btn_title": "Continue Shopping",
         "continue_btn_link": "shopify:\/\/collections\/all",
@@ -86,9 +86,28 @@
         "overlay_image_14": "shopify:\/\/shop_images\/Just_rings.png",
         "video_mp4_link_14": ""
       }
+    },
+    "6a11a044-b9fc-4e1a-8afd-1f63b7b9f602": {
+      "type": "rich-text",
+      "blocks": {
+        "template--16117520072890__6a11a044-b9fc-4e1a-8afd-1f63b7b9f602-1686082124cb529505-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Not sure what size tuxedo you need to order? Not a problem! With our suit size calculator, Groom’s Club will help you find out. You’ll just have to enter the information regarding your height, weight, age, body type, and other key details. From here, we’ll recommend which of our sizes would fit you best. Please <a href=\"https:\/\/www.groomsclub.com\/pages\/contact\" title=\"https:\/\/www.groomsclub.com\/pages\/contact\">contact<\/a> our support team if you have questions about our men’s suit size calculator.   <\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--16117520072890__6a11a044-b9fc-4e1a-8afd-1f63b7b9f602-1686082124cb529505-1"
+      ],
+      "settings": {
+        "color_scheme": "background-1",
+        "full_width": true
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "6a11a044-b9fc-4e1a-8afd-1f63b7b9f602"
   ]
 }

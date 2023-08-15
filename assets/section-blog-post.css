@@ -93,7 +93,7 @@
 .article-template__content {
   margin-top: 3rem;
   margin-bottom: 3rem;
-  word-break: break-all;
+  /* word-break: break-all; */
 }
 
 .article-template__content.rte img {

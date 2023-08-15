@@ -50,7 +50,7 @@ theme_custom.getEventData = function(modalTarget){
           if($(this).find(".looks-product-var-id").val() != ''){
             dataObj = {
               "product_id": $(this).find(".looks-product-id").val(),
-              "variant_id": $(this).find(".looks-product-var-id").val(),
+              "variant_id": $(this).find(".single-option-selector").find(`option:selected`).val(),
               "product_handle": $(this).find(".looks-product-handle").val(),
               "type": "looks"
             }
@@ -579,21 +579,21 @@ theme_custom.tlpclickEvent = function(){
   });
 
   $(document).on("click", ".add-event-look", function(){
-    if($(".error-message.error-show").length > 0) {
-      let parent = $(".error-message.error-show").closest('.product-data-card');
-      if(parent.length>0){
-        $('html, body').stop().animate({
-          'scrollTop': $(parent).offset().top - $("#shopify-section-header").height() + 10
-        }, "slow");
-        return false;
-      }
-      else{
-        $('html, body').stop().animate({
-          'scrollTop': $(".error-message.error-show").offset().top - $("#shopify-section-header").height() + 10
-        }, "slow");
-        return false;    
-      }
-    } 
+    // if($(".error-message.error-show").length > 0) {
+    //   let parent = $(".error-message.error-show").closest('.product-data-card');
+    //   if(parent.length>0){
+    //     $('html, body').stop().animate({
+    //       'scrollTop': $(parent).offset().top - $("#shopify-section-header").height() + 10
+    //     }, "slow");
+    //     return false;
+    //   }
+    //   else{
+    //     $('html, body').stop().animate({
+    //       'scrollTop': $(".error-message.error-show").offset().top - $("#shopify-section-header").height() + 10
+    //     }, "slow");
+    //     return false;    
+    //   }
+    // } 
     $("html,body").css("overflow","hidden");
     $(".page-loader").removeClass("hidden");
     var modalTarget = $(this).closest(".product__info-container").find(".create-event-look");
@@ -601,21 +601,21 @@ theme_custom.tlpclickEvent = function(){
   });
 
   $(document).on("click", ".favorite-event-button", function(){
-    if($(".error-message.error-show").length > 0) {
-      let parent = $(".error-message.error-show").closest('.product-data-card');
-      if(parent.length>0){
-        $('html, body').stop().animate({
-          'scrollTop': $(parent).offset().top - $("#shopify-section-header").height() + 10
-        }, "slow");
-        return false;
-      }
-      else{
-        $('html, body').stop().animate({
-          'scrollTop': $(".error-message.error-show").offset().top - $("#shopify-section-header").height() + 10
-        }, "slow");
-        return false;    
-      }
-    } 
+    // if($(".error-message.error-show").length > 0) {
+    //   let parent = $(".error-message.error-show").closest('.product-data-card');
+    //   if(parent.length>0){
+    //     $('html, body').stop().animate({
+    //       'scrollTop': $(parent).offset().top - $("#shopify-section-header").height() + 10
+    //     }, "slow");
+    //     return false;
+    //   }
+    //   else{
+    //     $('html, body').stop().animate({
+    //       'scrollTop': $(".error-message.error-show").offset().top - $("#shopify-section-header").height() + 10
+    //     }, "slow");
+    //     return false;    
+    //   }
+    // } 
     $(`[name="look-name"]`).val('');
     $(".page-loader").removeClass("hidden");
     var target = $(".favourite-look-wrapper");
@@ -632,7 +632,7 @@ theme_custom.tlpclickEvent = function(){
     productDataCardArr.each(function(){
       dataObj = {
         "product_id": $(this).find(".looks-product-id").val(),
-        "variant_id": $(this).find(".looks-product-var-id").val(),
+        "variant_id": $(this).find(".single-option-selector").find(`option:selected`).val(),
         "product_handle": $(this).find(".looks-product-handle").val(),
         "product_main_image": $(".looks-product-main-image").val(),
         "type": "looks"
@@ -645,9 +645,9 @@ theme_custom.tlpclickEvent = function(){
       var customizeURL = ''
       var isLastElement = index == productDataCardArr.length -1;
       if (isLastElement) {
-        customizeURL = $(this).find(".looks-product-handle").val() + '=' + $(this).find(".looks-product-var-id").val();
+        customizeURL = $(this).find(".looks-product-handle").val() + '=' + $(this).find(".single-option-selector").find(`option:selected`).val()
       } else {
-        customizeURL = $(this).find(".looks-product-handle").val() + '=' + $(this).find(".looks-product-var-id").val() + '&';
+        customizeURL = $(this).find(".looks-product-handle").val() + '=' + $(this).find(".single-option-selector").find(`option:selected`).val() + '&';
       }
       theme_custom.customizeURLData += customizeURL;
     });
@@ -1035,7 +1035,7 @@ $(document).ready(function(){
     $(`.product-data-card-wrap[data-product-type="${productTarget}"]`).find('.cta-button-wrap .edit-item-btn').click();
   });
   $(document).on("click",".add-vest-button",function(){
-    $(this).closest(".product-block-item").find('.variant-title').removeClass("hidden")
+    $(this).closest(".product-block-item").find('.variant-title').removeClass("hidden").show();
     $(this).addClass("hidden");
     $(this).closest(".product-block-item").addClass("product-data-card");
     $(this).closest(".product-block-item").find(".remove-vest-wrapper").removeClass("hidden")

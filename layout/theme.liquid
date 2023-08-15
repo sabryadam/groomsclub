@@ -23,6 +23,16 @@
   <link rel="icon" type="image/png" href="{{ settings.favicon | img_url:'master' }}" />
   <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
   <script src="{{ 'jquery-min.js' | asset_url }}"></script>
+
+ <!-- Global site tag (gtag.js) - Google Ads: 10983417033 -->
+        <script async src=https://www.googletagmanager.com/gtag/js?id=AW-10983417033></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'AW-10983417033');
+        </script>
+  
   <script>
     function setCookie(cname, cvalue, exdays) {
       const d = new Date();
@@ -187,6 +197,12 @@
   @media screen and (max-width:1199px) and (min-width:768px) {
   body {font-size: calc(var(--font-h6) - 2px);}
   }
+    #shopify-section-announcement-bar{
+      display : none ;
+    }
+/*     .template-cart #shopify-section-announcement-bar{
+      display : block ;
+    } */
   {% endstyle %}
   {{ 'base.css' | asset_url | stylesheet_tag }}
   {{ 'custom.css' | asset_url | stylesheet_tag }}
@@ -222,40 +238,8 @@
       We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
   </style>
 
-      <!-- Global site tag (gtag.js) - Google Ads: 10983417033 -->
-    
-    <script async src=https://www.googletagmanager.com/gtag/js?id=AW-10983417033></script>
-    
-    <script>
-    
-      window.dataLayer = window.dataLayer || [];
-    
-      function gtag(){dataLayer.push(arguments);}
-    
-      gtag('js', new Date());
-    
      
-    
-      gtag('config', 'AW-10983417033');
-    
-    </script>
-    <!-- Event snippet for **LP - Purchase conversion page -->
 
-  <script>
-  
-    gtag('event', 'conversion', {
-  
-        'send_to': 'AW-10983417033/exn5COrf3d4DEMnJpvUo',
-  
-        'value': 1.0,
-  
-        'currency': 'USD',
-  
-        'transaction_id': ''
-  
-    });
-  
-  </script>
 
   {%- if template contains 'index' or template contains 'virtual-consultant'  -%}
     <!-- Calendly badge widget begin -->
@@ -298,7 +282,7 @@
 {%- endcapture -%}
 
 <body
-  class="{{ body_class | strip | strip_newlines | split: '|' | join: ' '}}{% if template == 'index' %} homepage{% endif %}{% unless customer %} customer-has-not-logged{% endunless %} template-{{ product.handle}}">
+  class="{{ body_class | strip | strip_newlines | split: '|' | join: ' '}}{% if template == 'index' %} homepage{% endif %}{% unless customer %} customer-has-not-logged{% endunless %} template-{{ product.handle}} {% if template contains 'product' %}product-type-{{ product.type | downcase | handleize }}{% endif  %}">
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WPZ3HG7" height="0" width="0"
       style="display:none;visibility:hidden"></iframe></noscript>
@@ -306,8 +290,8 @@
   <a class="skip-to-content-link button visually-hidden" href="#MainContent">
     {{ "accessibility.skip_to_text" | t }}
   </a>
-  {% section 'announcement-bar' %}
   {% section 'header' %}
+  {% section 'announcement-bar' %}
   <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
     <input type="hidden" id="custom_id_num" value="{{ customer.id }}">
     {%- if customer -%}
@@ -400,6 +384,21 @@
       </svg>
   </div>
 </div>
+
+<script>
+  var contactFormLP = document.querySelectorAll('#create_customer');
+if (contactFormLP) {
+    contactFormLP.forEach(function(element) {
+        element.addEventListener('submit', function() {
+            gtag('event', 'conversion', {'send_to': 'AW-10983417033/1yfBCLzsj7gYEMnJpvUo'});
+        });
+    });}
+</script>
+
+
+
+
+  
   </body>
 
 </html>

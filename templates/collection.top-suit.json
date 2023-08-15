@@ -3,17 +3,36 @@
     "banner": {
       "type": "main-collection-banner",
       "settings": {
-        "show_collection_description": true,
+        "show_collection_description": false,
         "show_collection_image": false
       }
     },
     "product-grid": {
       "type": "top-suit",
       "settings": {
+        "products_per_page": 7,
         "image_ratio": "adapt",
-        "show_secondary_image": false, 
+        "show_secondary_image": false,
         "add_image_padding": false,
         "show_vendor": false
+      }
+    },
+    "af813652-8f02-4c54-83f2-f181d0cee3fa": {
+      "type": "rich-text",
+      "blocks": {
+        "template--16117519483066__af813652-8f02-4c54-83f2-f181d0cee3fa-168625227254786327-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The Grooms Club sells wedding suits and tuxedos custom-tailored to fit every groom and groomsman. And even better, the fabric has some stretch for maximum flexibility. As you celebrate the night with cake, drinks, and delicious food, you won’t have to worry about your suit feeling snug thanks to that 4-way stretch fabric.<br\/><br\/>We have various suit and tuxedo colors for sale, such as blue, charcoal, medium gray, classic black, and more. All prices start at $199. Not sure what size you are? With our <a href=\"https:\/\/www.groomsclub.com\/pages\/fit-finder\">Fit Finder<\/a>, you can find your ideal size based on height, weight, age, body type, and typical clothing measurements. Please <a href=\"https:\/\/www.groomsclub.com\/pages\/contact\">contact <\/a>our team with any questions regarding our wedding suits and tuxedos.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--16117519483066__af813652-8f02-4c54-83f2-f181d0cee3fa-168625227254786327-1"
+      ],
+      "settings": {
+        "color_scheme": "background-1",
+        "full_width": true
       }
     },
     "16372094347baae41f": {
@@ -23,7 +42,8 @@
           "type": "heading",
           "settings": {
             "heading": "Sizing & Fit",
-            "heading_count": ""
+            "heading_count": "",
+            "show_icon": false
           }
         },
         "16372094343ade45e4-1": {
@@ -37,6 +57,7 @@
           "settings": {
             "button_label": "Find Your Fit",
             "button_link": "shopify:\/\/pages\/fit-finder",
+            "open_new_tab": false,
             "button_style_secondary": true
           }
         }
@@ -65,7 +86,8 @@
           "type": "heading",
           "settings": {
             "heading": "Customize Your Look",
-            "heading_count": ""
+            "heading_count": "",
+            "show_icon": false
           }
         },
         "16372107114fe98658-1": {
@@ -79,6 +101,7 @@
           "settings": {
             "button_label": "Try Our Customizer",
             "button_link": "shopify:\/\/pages\/customize-your-look",
+            "open_new_tab": false,
             "button_style_secondary": true
           }
         }
@@ -188,6 +211,7 @@
   "order": [
     "banner",
     "product-grid",
+    "af813652-8f02-4c54-83f2-f181d0cee3fa",
     "16372094347baae41f",
     "1637210711c34d4210",
     "1637211120e90ee699"
