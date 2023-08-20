@@ -48,11 +48,11 @@
                     {%- endif -%}
                     {%- render 'customize-product-data' product: productData, vest_product_flag: vest_product_flag, vest_product_handle: vest_product_handle -%}
                   {%- endfor -%}
-                  {%- if personalizeProductType == 'vest' -%}
+                  {%- comment -%}{%- if personalizeProductType == 'vest' -%}
                     <div class="product-block product-item-wrap no-vest" data-title="No Vest">
                       <label><span>No Vest</span></label>                        
                     </div>
-                  {%- endif -%}
+                  {%- endif -%}{%- endcomment -%}
                 </div>
                 <div class="custom-tab-paddles">
                   <button class="left-paddle paddle hidden" aria-label="left-arrow">
@@ -183,11 +183,12 @@
                     {% for productData in collectionProducts %}
                       {%- render 'customize-product-data' product: productData -%}
                     {%- endfor -%}
+                    {%- comment -%}
                     {%- if customizeProductType == 'vest' -%}
                       <div class="product-block product-item-wrap no-vest">
                         <label><span>No Vest</span></label>                        
                       </div>
-                    {%- endif -%}
+                    {%- endif -%}{%- endcomment -%}
                     <span class="price-wrap mob-tab-price" data-product-price="0000" style="display: none;">$00.00</span>
                   </div>
                   <div class="custom-tab-paddles">
@@ -1207,7 +1208,7 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
       "type" : "textarea",
       "id" : "sub_heading",
       "label" : "Sub heading",
-      "default" : "<p>Starting at $199 (price includes suit jacket and pants)</p>"
+      "default" : "<p>Starting at $199 (Price Included Jacket pants and Vests)</p>"
     },
     {
       "type" : "image_picker",

@@ -76,8 +76,8 @@
                         {%- endif -%}
                       {%- endif -%}
                     {%- endif -%}
-                    {%- if lineItemType  == 'jacket' or lineItemType  == 'pants' -%}
-                      <tr class="cart-item{% if lineItemType == 'pants' %} hidden{% endif %}" line-item-product="{{ lineItemType }}" line-item-title="{{ item.options_with_values[2].value | downcase | handleize }}" line-item-product-handle="{{ item.product.handle}}" id="CartItem-{{ item.index | plus: 1 }}" line-item-id="{{ item.id }}" data-item-variant-title="{{ item.variant.title | downcase | handleize }}" data-pants-item-variant-title="{{ item.properties['variant-title'] | downcase | handleize }}" data-pants-item-variant-id="{{ item.properties['variant-id'] | downcase | handleize }}" data-jacket-item-variant-title="{{ item.variant.title | downcase | handleize }}" data-jacket-item-variant-id="{{ item.id | downcase | handleize }}" data-item-variant-title-name="{{ item.properties['variant-title']}}">
+                    {%- if lineItemType  == 'jacket' or lineItemType  == 'pants' or lineItemType == 'vest' -%}
+                      <tr class="cart-item{% if lineItemType == 'pants' or lineItemType == 'vest' %} hidden{% endif %}" line-item-product="{{ lineItemType }}" line-item-title="{{ item.options_with_values[2].value | downcase | handleize }}" line-item-product-handle="{{ item.product.handle}}" id="CartItem-{{ item.index | plus: 1 }}" line-item-id="{{ item.id }}" data-item-variant-title="{{ item.variant.title | downcase | handleize }}" data-pants-item-variant-title="{{ item.properties['variant-title'] | downcase | handleize }}" data-pants-item-variant-id="{{ item.properties['variant-id'] | downcase | handleize }}" data-jacket-item-variant-title="{{ item.variant.title | downcase | handleize }}" data-jacket-item-variant-id="{{ item.id | downcase | handleize }}" data-item-variant-title-name="{{ item.properties['variant-title']}}">
                     {%- else -%}
                       <tr class="cart-item" line-item-product="{{ lineItemType }}" line-item-title="{{ item.options_with_values[2].value | downcase | handleize }}" line-item-product-handle="{{ item.product.handle}}" id="CartItem-{{ item.index | plus: 1 }}" line-item-id="{{ item.id }}" data-item-variant-title="{{ item.variant.title | downcase | handleize }}">
 
@@ -122,6 +122,32 @@
                                   {%- comment -%}<span class="custom-edit-item" data-item-variant-title="{{ subitem.variant.title | downcase | handleize }}">Edit Item</span>{%- endcomment -%}
                                 </div>
                               {%- endif -%}
+                              {% for vestProperties in item.properties %}
+                                {% assign vastProductId = '' %}
+                                {%- if vestProperties contains 'vest-variant-id' -%}
+                                  {% assign vastProductId = vestProperties.last %}
+                                  <input type="hidden" id="suit-vest-product-info" data-variant-id="{{ vastProductId }}" />
+                                {%- endif -%}
+                                {%- if vestProperties contains 'vest-variant-title' -%}
+                                  <div class="suit-product-info">
+                                    {%- assign vestPropertiesTitle = vestProperties.last | split : ' / ' -%}
+                                    <span class="title">
+                                      Vest - 
+                                    </span>
+                                    <span class="option-wrap">
+                                      <div class="product-option">
+                                        <span>Chest Size : {{ vestPropertiesTitle[0] }}</span>
+                                      </div>
+                                      <div class="product-option">
+                                        <span>Style:</span> <span>{{ vestPropertiesTitle[1] }}</span>
+                                      </div>
+                                      <div class="product-option">
+                                        <span>Color:</span> <span>{{ vestPropertiesTitle[2] }}</span>
+                                      </div>
+                                    </span>
+                                  </div>
+                                {%- endif -%}
+                              {% endfor %}
                             {%- endcapture -%}
                           {%- endif -%}
                         {%- endfor -%}
@@ -266,8 +292,8 @@
                             {{ 'products.product.quantity.label' | t }}
                           </label>
                           {%- if lineItemType == 'jacket' -%}
-                            <div class="quantity custom-qty-button">
-                              <button class="quantity__button no-js-hidden" name="minus" type="button">
+                            <div class="quantity custom-qty-button jacket-combo-cta">
+                              <button class="quantity__button no-js-hidden quantity__button-minus" type="button">
                                 <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}</span>
                                 -
                               </button>
@@ -280,7 +306,7 @@
                                 id="Quantity-{{ item.index | plus: 1 }}"
                                 data-index="{{ item.index | plus: 1 }}" readonly
                               >
-                              <button class="quantity__button no-js-hidden" name="plus" type="button">
+                              <button class="quantity__button no-js-hidden quantity__button-plus" type="button">
                                 <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: item.product.title | escape }}</span>
                                 +
                               </button>
@@ -319,18 +345,32 @@
                         </div>
 
                         <div class="cart-item__price-wrapper medium-up">
+                          {%- assign vestPice = false -%}
+                          {%- for vestProperties in item.properties -%}
+                            {%- if vestProperties contains 'vest-variant-id' -%}
+                              {%- assign vestPice = true -%}
+                            {%- endif -%}
+                          {% endfor %}
                           {%- if item.original_line_price != item.final_line_price -%}
                             <dl class="cart-item__discounted-prices">
                               <dt class="visually-hidden">
                                 {{ 'products.product.price.sale_price' | t }}
                               </dt>
                               <dd class="price price--end" data-subitemvar-price="{{subitemvar.price}}">
-                                {{ item.final_line_price | plus: subitemvar.final_line_price | money }}
+                                {%- if vestPice -%}
+                                  {{ item.final_line_price | plus: subitemvar.final_line_price | plus : 4999 | money }}
+                                {%- else -%}
+                                  {{ item.final_line_price | plus: subitemvar.final_line_price | money }}
+                                {%- endif -%}
                               </dd>
                             </dl>
                           {%- else -%}
                             <span class="price price--end">
-                              {{ item.original_line_price | plus: subitemvar.original_line_price | money }}
+                              {%- if vestPice -%}
+                                {{ item.final_line_price | plus: subitemvar.final_line_price | plus : 4999 | money }}
+                              {%- else -%}
+                                {{ item.final_line_price | plus: subitemvar.final_line_price | money }}
+                              {%- endif -%}
                             </span>
                           {%- endif -%}
                         </div>

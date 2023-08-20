@@ -623,6 +623,8 @@
 .empty-fav-look-wrapper .product-wrapper .empty-message{
   display: block;
   margin: 0 auto;
+  min-width: 500px;
+  padding: 0 15px;
 }
 .guest-top-looks .look-image{
   position: relative;
@@ -1763,6 +1765,11 @@ span.look-price {
   width: 50%;
   display: inline-block;
   padding: 15px;
+}
+.event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .product-data-card[data-product-type="jacket"],
+.event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .product-data-card[data-product-type="pants"],
+.event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .product-data-card[data-product-type="vest"]{
+  display: none;
 }
 .event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .product-data-card {
   width: 100%;

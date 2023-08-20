@@ -172,16 +172,16 @@ $(document).on('click', '.updates-button button', function(){
   theme_custom.qty = parseInt($(`.cart-item[line-item-product-handle='${targetProduct}']`).find(".quantity__input").val());
   
   if(parent.find('[data-option-index="0"] input:checked').length > 0){
-    varintTitle = parent.find('[data-option-index="0"] input:checked').val();
+    variantTitle = parent.find('[data-option-index="0"] input:checked').val();
   }
   if(parent.find('[data-option-index="1"] input:checked').length > 0){
-    varintTitle = varintTitle + ' / ' + parent.find('[data-option-index="1"] input:checked').val();
+    variantTitle = variantTitle + ' / ' + parent.find('[data-option-index="1"] input:checked').val();
   }
   if(parent.find('[data-option-index="2"] input:checked').length > 0){
-    varintTitle = varintTitle + ' / ' + parent.find('[data-option-index="2"] input:checked').val();
+    variantTitle = variantTitle + ' / ' + parent.find('[data-option-index="2"] input:checked').val();
   }
-  updateVid = parent.find('.single-option-selector option[data-title="'+varintTitle+'"]').attr('value');
-  updatedTitle = parent.find('.single-option-selector option[data-title="'+varintTitle+'"]').attr('data-var-title');
+  updateVid = parent.find('.single-option-selector option[data-title="'+variantTitle+'"]').attr('value');
+  updatedTitle = parent.find('.single-option-selector option[data-title="'+variantTitle+'"]').attr('data-var-title');
 
   $(this).find(".loading-overlay").removeClass("hidden");
   var productVariantTitle = [];
@@ -189,7 +189,7 @@ $(document).on('click', '.updates-button button', function(){
   selectOptionVar.each(function(){
     productVariantTitle.push($(this).attr("data-var-title"));    
   });
-  if($.inArray(varintTitle,productVariantTitle) == -1){
+  if($.inArray(variantTitle,productVariantTitle) == -1){
     $(this).find(".loading-overlay").addClass("hidden");
     $(this).closest(".edit-item-popup").find(".error-message").text(theme_custom.productNotFoundError).show();
     setTimeout(() => {
@@ -304,14 +304,21 @@ $(document).on(`click`, `.custom-qty-button  .quantity__button[name="plus"]`, fu
   });
 })
 
+// Jacket Product combo addded or removed 
+$(document).on("click", ".jacket-combo-cta .quantity__button", function(){
+
+});
+
 // remove combine jacket / pants item
 $(document).on("click", ".suit-product-remove", function(){
-  var jacketId = pants_id = '';
+  var jacketId = pants_id = vest_id = '';
   jacketId = $(this).closest(".cart-item__details").find(`.suit-product-info[data-item-product-type='jacket']`).attr("data-variant-id");
   pants_id = $(this).closest(".cart-item__details").find(`.suit-product-info[data-item-product-type='pants']`).attr("data-variant-id");
+  vest_id = $(this).closest(".cart-item__details").find(`#suit-vest-product-info`).attr("data-variant-id");
   theme_custom.currnetBlock = $(this).closest(".cart-item");
   theme_custom.pantsRemove = $(`.cart-item[line-item-product="pants"][line-item-id="${pants_id}"]`);
-  var data = `updates[${jacketId}]=0&updates[${pants_id}]=0`;
+  theme_custom.vestRemove = $(`.cart-item[line-item-product="vest"][line-item-id="${vest_id}"]`);
+  var data = `updates[${jacketId}]=0&updates[${pants_id}]=0&updates[${vest_id}]=0`;
   $(".page-loader").removeClass("hidden");
   // $(".page-loader").append(`<p class="removing-combine-message" style="color:#fff;font-size : 14px">Please Note: We have removed the Jacket as well. As Jacket or Pants can't be sold individually</p>`)
   $.ajax({
@@ -322,12 +329,14 @@ $(document).on("click", ".suit-product-remove", function(){
       var responseJson = JSON.parse(response),
           currentItem = theme_custom.currnetBlock,
           pantsRemove = theme_custom.pantsRemove;
+          vestRemove = theme_custom.vestRemove;
       setTimeout(() => {
         $(".cart-count-bubble span[aria-hidden='true']").text(responseJson.item_count);
         $(".cart-count-bubble .visually-hidden").text(responseJson.item_count+' items');
         $(".totals__subtotal-value").text(theme_custom.Shopify.formatMoney(responseJson.original_total_price, theme_custom.money_format))
         currentItem.remove();
         pantsRemove.remove();
+        vestRemove.remove()
         $(".removing-combine-message").remove();
         $(".page-loader").addClass("hidden");
         if(responseJson.item_count==0){

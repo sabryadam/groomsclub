@@ -616,6 +616,8 @@ div.tab-top-border {
 
 #product_info_box .custom-tabs-scroll .product-block-wrapper[data-product-type="vest"] {
 	padding-bottom: 25px;
+	pointer-events: none;
+	cursor: not-allowed;
 }
 
 #acc-tabs-wr .user-info-top.page-top-headpadding-flex {
@@ -963,7 +965,8 @@ select#event-id.disabled {
 .edit-item-popup[data-product-type=shirt] .swatch.swatch-wrap.swatch-color{
 	display: none!important;
 }
-.open-product-edit-popup{
+.open-product-edit-popup,
+.combo-block-edit-item{
 	color: var(--color-light-blue);
   font-size: calc(var(--font-size-body) - 3px);
   font-weight: var(--font-weight-custom-medium);
@@ -1480,5 +1483,12 @@ select#event-id.disabled {
 	.footer .grid--4-col-tablet .grid__item{
 		width: calc(50% - .75rem);
 	}
+}
+.edit-item-popup .option-value{
+	display: none;
+}
+.variant-title[data-product-type="vest"] [data-button-label="select-size"],
+.customize-look-overview-product .product-info-edit .vest_option [data-button-target="select-size"]{
+	display: none !important;
 }
 /* custom css */

@@ -399,22 +399,22 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
 theme_custom.productVariantSeledtUpdate = function(){
   var target = $(".look-product-wrapper");
   $(target).each(function(){
-    var varintTitle='' ;
+    var variantTitle='' ;
     if($(this).find('.option1').length > 0){
-      varintTitle = $(this).find('.option1').attr("data-value");
+      variantTitle = $(this).find('.option1').attr("data-value");
     }
     if($(this).find('.option2').length > 0){
-      varintTitle = varintTitle + ' / ' + $(this).find('.option2').attr("data-value");
+      variantTitle = variantTitle + ' / ' + $(this).find('.option2').attr("data-value");
     }
     if($(this).find('.option3').length > 0){
-      varintTitle = varintTitle + ' / ' + $(this).find('.option3').attr("data-value");
+      variantTitle = variantTitle + ' / ' + $(this).find('.option3').attr("data-value");
     }
     
-    if ($(this).find('.prod-variant-option option').filter('[data-variant-title="'+varintTitle+'"]').length == 0) {
+    if ($(this).find('.prod-variant-option option').filter('[data-variant-title="'+variantTitle+'"]').length == 0) {
       $(this).removeClass("product-card-wrap")
       $(this).find(".product-info").append("<p class='error-msg' style='color:red; font-size : 14px; margin-top:5px'>"+theme_custom.productNotFoundError+"</p>");
     } else {
-      $(this).find('.prod-variant-option option').removeAttr('selected').filter('[data-variant-title="'+varintTitle+'"]').attr('selected', true);
+      $(this).find('.prod-variant-option option').removeAttr('selected').filter('[data-variant-title="'+variantTitle+'"]').attr('selected', true);
       var selectedvarId = $(this).find('.prod-variant-option').val();
       $(this).find(".prod-variant-data").attr("data-variant-id",selectedvarId).val(selectedvarId);
     }
@@ -642,9 +642,9 @@ theme_custom.setUrlData = function (eventId,memberId) {
   // variant update  
   $(document).on('change', '.prod-variant-option', function() {
     var targetVal = $(this).val(),
-        varintTitle = $(this).closest(".product-swatch-option").find(`.prod-variant-option option[value='${targetVal}']`).attr("data-variant-title"),
+        variantTitle = $(this).closest(".product-swatch-option").find(`.prod-variant-option option[value='${targetVal}']`).attr("data-variant-title"),
         productHandle = $(this).closest(".product-swatch-option").attr("data-product-handle");
-    if ($(this).find('option').filter('[data-variant-title="'+varintTitle+'"]').length == 0) {
+    if ($(this).find('option').filter('[data-variant-title="'+variantTitle+'"]').length == 0) {
       $(this).closest(".product-swatch-option").append("<p class='error-msg' style='color:red; text-align:center'>"+theme_custom.productNotFoundError+"</p>");
       $(this).closest(".product-swatch-option").find(".exchange-look-item").addClass("disabled");
       $(".return-suit-checkout-button .button").addClass("disabled")
