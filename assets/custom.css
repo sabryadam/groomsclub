@@ -1491,4 +1491,20 @@ select#event-id.disabled {
 .customize-look-overview-product .product-info-edit .vest_option [data-button-target="select-size"]{
 	display: none !important;
 }
+.belt-note-message{
+	margin-top: 0;
+}
+.product-block-wrap-suit-wrapper .suit-combo-wrapper{
+	display: flex;
+	flex-direction: column;
+}
+.product-block-wrap-suit-wrapper .suit-combo-wrapper .variant-info-wrap[data-product-type="jacket"]{
+	order: 0;
+}
+.product-block-wrap-suit-wrapper .suit-combo-wrapper .variant-info-wrap[data-product-type="vest"]{
+	order: 1;
+}
+.product-block-wrap-suit-wrapper .suit-combo-wrapper .variant-info-wrap[data-product-type="pants"]{
+	order: 2;
+}
 /* custom css */

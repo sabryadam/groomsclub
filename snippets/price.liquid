@@ -46,8 +46,13 @@
       <dd {% if show_badges == false %}class="price__last"{% endif %}>
         <span class="price-item price-item--regular">
           {%- if template contains 'collection' -%}
-            {% if collection.handle == 'looks'  %}Starting at {% endif %}
-            {{ price | money }}
+            {% if collection.handle == 'looks'  %}
+              Starting at {{ price | plus : 4999 | money }}
+            {% elsif collection.handle == 'suit'  %}
+              {{ price | plus : 4999 | money }}
+            {%- else -%}
+              {{ price | money }}
+            {% endif %}
           {%- else -%}
             {{ money_price }}
           {%- endif -%}

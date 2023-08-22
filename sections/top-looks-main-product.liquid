@@ -663,81 +663,83 @@
                         {% assign productHandleArrVarHandle = product.metafields.custom_look.products-0 %}
                         {% assign producthandleVarMeta = productHandleArrVarHandle | split : ',' %}
                         {%- capture productDataWrap -%}
-                          {%- for productItem in producthandleVarMeta -%}
-                            {%- assign productHandle = all_products[productItem] -%}
-                            {%- assign productSelectedType  = productHandle.type | downcase -%}
-                            {%- unless productHandle == blank -%}
-                              {%- if productSelectedType == "jacket" or productSelectedType == "pants"  -%}
-                                <div class="variant-title variant-info-wrap product-variant-wrap" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
-                                  <div class="option-title">
-                                    {%- if productSelectedType == 'jacket' %}
-                                      <span class="edit-size-title">Jacket Size </span>
-                                    {%- endif -%}
-                                    {%- if productSelectedType == 'pants' %}
-                                      <span class="edit-size-title">Pants Size </span>
-                                    {%- endif -%}
-                                    <div class="product-variant-value hidden">
-                                      {% for option in productHandle.options_with_values  %}
-                                        {% assign outer_forloop = forloop %}
-                                        {%- if productSelectedType == 'jacket' and forloop.first %}
-                                          <span class="option-label-wrap">Jacket - </span>
-                                        {%- endif -%}
-                                        {%- if productSelectedType == 'pants' and forloop.first %}
-                                          <span class="option-label-wrap">Pants - </span>
-                                        {%- endif -%}
-                                        
-                                        {%- unless productSelectedType == 'pants' or productSelectedType == 'jacket' %}
-                                          {%- unless forloop.last  -%}
-                                            {{ option }}
-                                          {%- endunless -%}
-                                        {%- endunless -%}
-                                        {%- assign variantOptions =  productHandle.selected_or_first_available_variant.title | split : '/' -%}
-                                        {%- for variantOptionsTitle in variantOptions -%}
-                                          {%- if outer_forloop.index == forloop.index -%}
-                                            <span class="option-name option-{{ forloop.index }}" data-option-title="{{ option.name }}">
-                                              {{- variantOptionsTitle | strip -}}
-                                            </span>
-                                            {%- if productSelectedType == 'pants' -%}
-                                              {%- if option == 'Waist' -%}W{%- endif -%}
-                                              {%- if option == 'Length' -%}H{%- endif -%}
-                                            {%- endif -%}
+                          <div class="suit-combo-wrapper">
+                            {%- for productItem in producthandleVarMeta -%}
+                              {%- assign productHandle = all_products[productItem] -%}
+                              {%- assign productSelectedType  = productHandle.type | downcase -%}
+                              {%- unless productHandle == blank -%}
+                                {%- if productSelectedType == "jacket" or productSelectedType == "pants"  -%}
+                                  <div class="variant-title variant-info-wrap product-variant-wrap" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
+                                    <div class="option-title">
+                                      {%- if productSelectedType == 'jacket' %}
+                                        <span class="edit-size-title">Jacket Size </span>
+                                      {%- endif -%}
+                                      {%- if productSelectedType == 'pants' %}
+                                        <span class="edit-size-title">Pants Size </span>
+                                      {%- endif -%}
+                                      <div class="product-variant-value hidden">
+                                        {% for option in productHandle.options_with_values  %}
+                                          {% assign outer_forloop = forloop %}
+                                          {%- if productSelectedType == 'jacket' and forloop.first %}
+                                            <span class="option-label-wrap">Jacket - </span>
                                           {%- endif -%}
-                                        {%- endfor -%}
-                                        {%- unless forloop.last -%},{%- endunless -%}
-                                      {% endfor %}
+                                          {%- if productSelectedType == 'pants' and forloop.first %}
+                                            <span class="option-label-wrap">Pants - </span>
+                                          {%- endif -%}
+                                          
+                                          {%- unless productSelectedType == 'pants' or productSelectedType == 'jacket' %}
+                                            {%- unless forloop.last  -%}
+                                              {{ option }}
+                                            {%- endunless -%}
+                                          {%- endunless -%}
+                                          {%- assign variantOptions =  productHandle.selected_or_first_available_variant.title | split : '/' -%}
+                                          {%- for variantOptionsTitle in variantOptions -%}
+                                            {%- if outer_forloop.index == forloop.index -%}
+                                              <span class="option-name option-{{ forloop.index }}" data-option-title="{{ option.name }}">
+                                                {{- variantOptionsTitle | strip -}}
+                                              </span>
+                                              {%- if productSelectedType == 'pants' -%}
+                                                {%- if option == 'Waist' -%}W{%- endif -%}
+                                                {%- if option == 'Length' -%}H{%- endif -%}
+                                              {%- endif -%}
+                                            {%- endif -%}
+                                          {%- endfor -%}
+                                          {%- unless forloop.last -%},{%- endunless -%}
+                                        {% endfor %}
+                                      </div>
                                     </div>
+                                    <div class="cta-button-wrap ">
+                                      <span class="edit-item-button btn select" data-button-label='select-size'> <span style="color:var(--color-gray-text);">-</span> Select Sizes</span>
+                                    </div>
+                                    <span class="error-message"></span>
                                   </div>
-                                  <div class="cta-button-wrap ">
-                                    <span class="edit-item-button btn select" data-button-label='select-size'> <span style="color:var(--color-gray-text);">-</span> Select Sizes</span>
-                                  </div>
-                                  <span class="error-message"></span>
+                                {%- endif -%}
+                              {%- endunless -%}
+                            {%- endfor -%}
+                            <div class="variant-title variant-info-wrap product-variant-wrap vest-not-selected" data-product-handle="{{ vestProductData.handle }}" data-product-type="{{ vestProductData.type | downcase }}">
+                              <div class="option-title">
+                                <span class="edit-size-title">Vest Size </span>
+                                <div class="product-variant-value hidden">
+                                  <span class="option-label-wrap">Vest - </span>
+                                  {% for option in vestProductData.options_with_values  %}
+                                    {% assign outer_forloop = forloop %}
+                                    {%- assign variantOptions =  vestProductData.selected_or_first_available_variant.title | split : '/' -%}
+                                    {%- for variantOptionsTitle in variantOptions -%}
+                                      {%- if outer_forloop.index == forloop.index -%}
+                                        <span class="option-name option-{{ forloop.index }}" data-option-title="{{ option.name }}">
+                                          {{- variantOptionsTitle | strip -}}
+                                        </span>
+                                      {%- endif -%}
+                                    {%- endfor -%}
+                                    {%- unless forloop.last -%},{%- endunless -%}
+                                  {% endfor %}
                                 </div>
-                              {%- endif -%}
-                            {%- endunless -%}
-                          {%- endfor -%}
-                          <div class="variant-title variant-info-wrap product-variant-wrap" data-product-handle="{{ vestProductData.handle }}" data-product-type="{{ vestProductData.type | downcase }}">
-                            <div class="option-title">
-                              <span class="edit-size-title">Vest Size </span>
-                              <div class="product-variant-value hidden">
-                                <span class="option-label-wrap">Vest - </span>
-                                {% for option in vestProductData.options_with_values  %}
-                                  {% assign outer_forloop = forloop %}
-                                  {%- assign variantOptions =  vestProductData.selected_or_first_available_variant.title | split : '/' -%}
-                                  {%- for variantOptionsTitle in variantOptions -%}
-                                    {%- if outer_forloop.index == forloop.index -%}
-                                      <span class="option-name option-{{ forloop.index }}" data-option-title="{{ option.name }}">
-                                        {{- variantOptionsTitle | strip -}}
-                                      </span>
-                                    {%- endif -%}
-                                  {%- endfor -%}
-                                  {%- unless forloop.last -%},{%- endunless -%}
-                                {% endfor %}
                               </div>
+                              <div class="cta-button-wrap ">
+                                <span class="edit-item-button btn select" data-button-label='select-size'> <span style="color:var(--color-gray-text);">-</span> Select Sizes</span>
+                              </div>
+                              <span class="error-message"></span>
                             </div>
-                            <div class="cta-button-wrap ">
-                              <span class="edit-item-button btn select" data-button-label='select-size'> <span style="color:var(--color-gray-text);">-</span> Select Sizes</span>
-                            </div>
-                            <span class="error-message"></span>
                           </div>
                         {%- endcapture -%}
                         <div id="suit_fit_finder" class="completefit product_fit_finder" style="display: none;">
@@ -866,10 +868,10 @@
                                           {%- unless forloop.last -%},{%- endunless -%}
                                         {% endfor %}
                                       </span>
-                                      <div class="cta-button-wrap product-variant-wrap"{% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %} style="margin-top : 10px" {% endif %}>
+                                      <div class="cta-button-wrap product-variant-wrap"{% if productSelectedType == 'shoes' or productSelectedType == 'shirt' %} style="margin-top : 10px" {% endif %}>
                                         {% if productHandle.variants.size > 1 %}
-                                          <span class="edit-item-btn btn {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}" {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}data-button-label="select-size"{% endif %}>
-                                            {%- if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' -%}
+                                          <span class="edit-item-btn btn {% if productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}" {% if productSelectedType == 'shoes' or productSelectedType == 'shirt' %}data-button-label="select-size"{% endif %}>
+                                            {%- if productSelectedType == 'shoes' or productSelectedType == 'shirt' -%}
                                               Select Size
                                             {%- else -%}
                                               Edit Item
@@ -977,8 +979,8 @@
                                                   <span class="remove-vest-item-btn btn">Remove</span>
                                                 </div>
                                               {%- else -%}
-                                                <span class="edit-item-btn btn {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}" {% if productSelectedType == 'vest' or productSelectedType == 'shoes' %}data-button-label="select-size"{% endif %}>
-                                                  {%- if productSelectedType == 'vest' or productSelectedType == 'shoes' -%}
+                                                <span class="edit-item-btn btn {% if productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}" {% if productSelectedType == 'shoes' %}data-button-label="select-size"{% endif %}>
+                                                  {%- if productSelectedType == 'shoes' -%}
                                                     Select Size
                                                   {%- else -%}
                                                     Edit Item
@@ -986,8 +988,8 @@
                                                 </span>
                                               {%- endif -%}
                                             {%- else -%}
-                                              <span class="edit-item-btn btn {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}" {% if productSelectedType == 'vest' or productSelectedType == 'shoes' %}data-button-label="select-size"{% endif %}>
-                                                {%- if productSelectedType == 'vest' or productSelectedType == 'shoes' -%}
+                                              <span class="edit-item-btn btn {% if productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}" {% if productSelectedType == 'shoes' %}data-button-label="select-size"{% endif %}>
+                                                {%- if productSelectedType == 'shoes' -%}
                                                   Select Size
                                                 {%- else -%}
                                                   Edit Item

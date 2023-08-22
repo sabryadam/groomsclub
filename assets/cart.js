@@ -252,13 +252,14 @@ $(document).on("click", ".custom-edit-item", function(){
 
 // suit qty plus minus cusom function
 $(document).on(`click`, `.custom-qty-button .quantity__button[name="minus"]`, function(){
-  var jacketId = pants_id = '';
+  var jacketId = pants_id = vest_id = '';
   jacketId = $(this).closest(".cart-item").find(`.suit-product-info[data-item-product-type='jacket']`).attr("data-variant-id");
   pants_id = $(this).closest(".cart-item").find(`.suit-product-info[data-item-product-type='pants']`).attr("data-variant-id");
+  vest_id = $(this).closest(".cart-item").find(`.suit-product-info[data-item-product-type='vest']`).attr("data-variant-id");
   quantity = parseInt($(this).closest(".cart-item").find(`.quantity__input_custom`).val())-1;
   $(".page-loader").removeClass("hidden");
   // $(".page-loader").append(`<p class="removing-combine-message" style="color:#fff;font-size : 14px">Please Note: We have Add Jacket and Pants both product. As Jacket or Pants can't be purcase individually</p>`);
-  var data = `updates[${jacketId}]=${quantity}&updates[${pants_id}]=${quantity}`;
+  var data = `updates[${jacketId}]=${quantity}&updates[${pants_id}]=${quantity}&updates[${vest_id}]=${quantity}`;
   $.ajax({
     type: 'POST',
     url: '/cart/update.js',
@@ -277,14 +278,15 @@ $(document).on(`click`, `.custom-qty-button .quantity__button[name="minus"]`, fu
 })
 
 // suit qty plus minus cusom function
-$(document).on(`click`, `.custom-qty-button  .quantity__button[name="plus"]`, function(){
-  var jacketId = pants_id = '';
+$(document).on(`click`, `.custom-qty-button .quantity__button[name="plus"]`, function(){
+  var jacketId = pants_id = vest_id = '';
   jacketId = $(this).closest(".cart-item").find(`.suit-product-info[data-item-product-type='jacket']`).attr("data-variant-id");
   pants_id = $(this).closest(".cart-item").find(`.suit-product-info[data-item-product-type='pants']`).attr("data-variant-id");
+  vest_id = $(this).closest(".cart-item").find(`.suit-product-info[data-item-product-type='vest']`).attr("data-variant-id");
   quantity = parseInt($(this).closest(".cart-item").find(`.quantity__input_custom`).val())+1;
   $(".page-loader").removeClass("hidden");
   // $(".page-loader").append(`<p class="removing-combine-message" style="color:#fff;font-size : 14px">Please Note: We have Add Jacket and Pants both product. As Jacket or Pants can't be purcase individually</p>`);
-  var data = `updates[${jacketId}]=${quantity}&updates[${pants_id}]=${quantity}`;
+  var data = `updates[${jacketId}]=${quantity}&updates[${pants_id}]=${quantity}&updates[${vest_id}]=${quantity}`;
   $.ajax({
     type: 'POST',
     url: '/cart/update.js',
@@ -304,17 +306,12 @@ $(document).on(`click`, `.custom-qty-button  .quantity__button[name="plus"]`, fu
   });
 })
 
-// Jacket Product combo addded or removed 
-$(document).on("click", ".jacket-combo-cta .quantity__button", function(){
-
-});
-
 // remove combine jacket / pants item
 $(document).on("click", ".suit-product-remove", function(){
   var jacketId = pants_id = vest_id = '';
   jacketId = $(this).closest(".cart-item__details").find(`.suit-product-info[data-item-product-type='jacket']`).attr("data-variant-id");
   pants_id = $(this).closest(".cart-item__details").find(`.suit-product-info[data-item-product-type='pants']`).attr("data-variant-id");
-  vest_id = $(this).closest(".cart-item__details").find(`#suit-vest-product-info`).attr("data-variant-id");
+  vest_id = $(this).closest(".cart-item").find(`.suit-product-info[data-item-product-type='vest']`).attr("data-variant-id");
   theme_custom.currnetBlock = $(this).closest(".cart-item");
   theme_custom.pantsRemove = $(`.cart-item[line-item-product="pants"][line-item-id="${pants_id}"]`);
   theme_custom.vestRemove = $(`.cart-item[line-item-product="vest"][line-item-id="${vest_id}"]`);

@@ -361,6 +361,9 @@
                     </button>
                   </div>
                 </div>
+                {%- if accessoriesProductType == 'belt' -%}
+                <p class="belt-note-message error-message">Tuxedo Pants doesn’t have loop holes for belts</p>
+                {%- endif -%}
               </div>
             {%- endif -%}
           {%- endfor -%}

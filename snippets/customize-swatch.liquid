@@ -91,8 +91,8 @@
                 {% assign values = values | join: ',' %}
                 {% assign values = values | append: ',' | append: value %} 
                 {% assign values = values | split: ',' %}
-                <div class="swatch-wrap {{ value | handle }} {% if variant.available %}available{% else %}soldout{% endif %}" data-value="{{ value | escape }}" data-product-title="{{ product.title }}" data-product-handle="{{product.handle}}" data-variant-id="{{ variant.id }}"{% if forloop.index.first %} checked{% endif %}>
-                  <input id="{{ product.handle }}-{{ forloop.index }}-{{ downcased_option }}-{{ value | handle }}" type="radio" name="{{product.handle}}-option-{{ option_index }}" value="{{ value | escape }}"{% unless variant.available %}disabled{% endunless %} />
+                <div class="swatch-wrap {{ value | handle }}" data-value="{{ value | escape }}" data-product-title="{{ product.title }}" data-product-handle="{{product.handle}}" data-variant-id="{{ variant.id }}"{% if forloop.index.first %} checked{% endif %}>
+                  <input id="{{ product.handle }}-{{ forloop.index }}-{{ downcased_option }}-{{ value | handle }}" type="radio" name="{{product.handle}}-option-{{ option_index }}" value="{{ value | escape }}" />
                   <label class="swatch-element" for="{{ product.handle }}-{{ forloop.index }}-{{ downcased_option }}-{{ value | handle }}" data-product-title="{{ product.title }}" data-product-id="{{ product.id }}" {% if checkProdType == 'jacket' or checkProdType == 'pants' %} data-variant-price="0000" {% else %}data-variant-price="{{ variant.price }}"{% endif %} data-variant-id="{{ variant.id }}" data-product-handle="{{ product.handle }}" data-variant-featured-img="{{ variant.image.src | img_url: 'master' }}" {% unless variant.metafields.my_fields.color_image_one == blank %}data-variant-image-one="{{ variant.metafields.my_fields.color_image_one | img_url : '1400x'}}"{% endunless %} data-variant-image="{{ variant.metafields.my_fields.color_image | img_url : 'master'}}" data-option-value="{{ value | escape }}">
                     {{ value }}
                   </label>

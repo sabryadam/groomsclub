@@ -358,7 +358,8 @@
   max-width: calc(100% - 535px);
   width: 100%;
 }
-.mywedding_section_wrap .invite-event-main-content .invited-assigned-look .right-assigned-look-list .look-product-wrapper{
+.mywedding_section_wrap .invite-event-main-content .invited-assigned-look .right-assigned-look-list .look-product-wrapper,
+.mywedding_section_wrap .invite-event-main-content .invited-assigned-look .right-assigned-look-list .suit-combo-product{
   background-color: #f5f5f5;
   padding: 20px;
   margin-bottom: 10px;
@@ -583,4 +584,9 @@
   height: 40px;
   border-radius: 100%;
   cursor: pointer;
+}
+.look-product-wrapper[data-product-type="jacket"],
+.look-product-wrapper[data-product-type="pants"],
+.look-product-wrapper[data-product-type="vest"] {
+  display: none !important;
 }

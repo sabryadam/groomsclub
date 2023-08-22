@@ -1465,15 +1465,15 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
                                         </div>
                                         <p class="error-message"></p>  
                                       </div>
-                                      <div class="pants-variant-title">
-                                        <div>
-                                          Pant : <span class="option-name option-1">${theme_custom.pants_option_one}</span> / <span class="option-name option-2">${theme_custom.pants_option_second}</span> / <span class="option-name option-3">${theme_custom.pants_option_third}</span> - <span class="combo-block-edit-item" data-product-type="pants">Edit Item</span>
-                                        </div>
-                                        <p class="error-message"></p>  
-                                      </div>
                                       <div class="vest-variant-title">
                                         <div>  
                                           Vest : <span class="option-name option-1">${theme_custom.vest_option_one}</span> / <span class="option-name option-2">${theme_custom.vest_option_second}</span> / <span class="option-name option-3">${theme_custom.vest_option_third}</span> - <span class="combo-block-edit-item" data-product-type="vest">Edit Item</span>                                            
+                                        </div>
+                                        <p class="error-message"></p>  
+                                      </div>
+                                      <div class="pants-variant-title">
+                                        <div>
+                                          Pant : <span class="option-name option-1">${theme_custom.pants_option_one}</span> / <span class="option-name option-2">${theme_custom.pants_option_second}</span> / <span class="option-name option-3">${theme_custom.pants_option_third}</span> - <span class="combo-block-edit-item" data-product-type="pants">Edit Item</span>
                                         </div>
                                         <p class="error-message"></p>  
                                       </div>
@@ -1761,79 +1761,32 @@ theme_custom.multiItemAddToCart = function (button) {
     var productType = $(this).attr("data-product-type");
     var varId = $(this).find(".product_var_id").val(),
       item = {};
+    var jacketOptionOne = $(`.multi-item-add-to-cart .product-data-card[data-product-type="jacket"]`).find(`.option-1`).text(),
+      jacketOptionSecond =$(`.multi-item-add-to-cart .product-data-card[data-product-type="jacket"]`).find(`.option-2`).text(),
+      jacketOptionThird = $(`.multi-item-add-to-cart .product-data-card[data-product-type="jacket"]`).find(`.option-3`).text(),
+      jacketOptionTitle = jacketOptionOne + ' / ' + jacketOptionSecond + ' / ' + jacketOptionThird;
     if (productType == 'jacket' || productType == 'Jacket') {
-      var pantsOptionOne = $(`.multi-item-add-to-cart .product-data-card[data-product-type="pants"]`).find(`.option-1`).text(),
-          pantsOptionSecond = $(`.multi-item-add-to-cart .product-data-card[data-product-type="pants"]`).find(`.option-2`).text(),
-          pantsOptionThird = $(`.multi-item-add-to-cart .product-data-card[data-product-type="pants"]`).find(`.option-3`).text(),
-          pantsOptionTitle = pantsOptionOne + ' / ' + pantsOptionSecond + ' / ' + pantsOptionThird;;
-
-      var vestOptionOne = $(`.multi-item-add-to-cart .product-data-card[data-product-type="vest"]`).find(`.option-1`).text(),
-      vestOptionSecond = $(`.multi-item-add-to-cart .product-data-card[data-product-type="vest"]`).find(`.option-2`).text(),
-      vestOptionThird = $(`.multi-item-add-to-cart .product-data-card[data-product-type="vest"]`).find(`.option-3`).text(),
-          vestOptionTitle = vestOptionOne + ' / ' + vestOptionSecond + ' / ' + vestOptionThird;
-
-      var pantsSelectedVariant = $(`.multi-item-add-to-cart`).find(`.product-data-card[data-product-type="pants"]`).find(`select.prod-variant-option option[data-variant-title="${pantsOptionTitle}"]`).val(),
-          pantsVarTitle = pantsOptionTitle,
-          vestelectedVariant = $(`.multi-item-add-to-cart`).find(`.product-data-card[data-product-type="vest"]`).find(`select.prod-variant-option option[data-variant-title="${vestOptionTitle}"]`).val(),
-          vestVarTitle = vestOptionTitle;
       item = {
         "id": varId,
         "quantity": 1,
         "properties": {
-          "variant-title": pantsVarTitle,
-          "variant-id": pantsSelectedVariant,
-          "vest-variant-title": vestVarTitle,
-          "vest-variant-id": vestelectedVariant
+          "combo-variant-title" : jacketOptionTitle
         }
       }
     } else if (productType == 'pants' || productType == 'Pants') {
-      var jacketOptionOne = $(`.multi-item-add-to-cart .product-data-card[data-product-type="jacket"]`).find(`.option-1`).text(),
-          jacketOptionSecond =$(`.multi-item-add-to-cart .product-data-card[data-product-type="jacket"]`).find(`.option-2`).text(),
-          jacketOptionThird = $(`.multi-item-add-to-cart .product-data-card[data-product-type="jacket"]`).find(`.option-3`).text(),
-          jacketOptionTitle = jacketOptionOne + ' / ' + jacketOptionSecond + ' / ' + jacketOptionThird;
-
-      var vestOptionOne = $(`.multi-item-add-to-cart .product-data-card[data-product-type="vest"]`).find(`.option-1`).text(),
-          vestOptionSecond = $(`.multi-item-add-to-cart .product-data-card[data-product-type="vest"]`).find(`.option-2`).text(),
-          vestOptionThird = $(`.multi-item-add-to-cart .product-data-card[data-product-type="vest"]`).find(`.option-3`).text(),
-          vestOptionTitle = vestOptionOne + ' / ' + vestOptionSecond + ' / ' + vestOptionThird;
-
-      var jacketSelectedVariant = $(`.multi-item-add-to-cart`).find(`.product-data-card[data-product-type="jacket"]`).find(`select.prod-variant-option option[data-variant-title="${jacketOptionTitle}"]`).val(),
-          jacketVarTitle = jacketOptionTitle,
-          vestelectedVariant = $(`.multi-item-add-to-cart`).find(`.product-data-card[data-product-type="vest"]`).find(`select.prod-variant-option option[data-variant-title="${vestOptionTitle}"]`).val(),
-          vestVarTitle = vestOptionTitle;
       item = {
         "id": varId,
         "quantity": 1,
         "properties": {
-          "variant-title": jacketVarTitle,
-          "variant-id": jacketSelectedVariant,
-          "vest-variant-title": vestVarTitle,
-          "vest-variant-id": vestelectedVariant
+          "combo-variant-title" : jacketOptionTitle
         }
       }
     } else if (productType == 'vest' || productType == 'vest') {
-      var jacketOptionOne = $(`.multi-item-add-to-cart .product-data-card[data-product-type="jacket"]`).find(`.option-1`).text(),
-          jacketOptionSecond =$(`.multi-item-add-to-cart .product-data-card[data-product-type="jacket"]`).find(`.option-2`).text(),
-          jacketOptionThird = $(`.multi-item-add-to-cart .product-data-card[data-product-type="jacket"]`).find(`.option-3`).text(),
-          jacketOptionTitle = jacketOptionOne + ' / ' + jacketOptionSecond + ' / ' + jacketOptionThird;
-
-      var pantsOptionOne = $(`.multi-item-add-to-cart .product-data-card[data-product-type="pants"]`).find(`.option-1`).text(),
-          pantsOptionSecond = $(`.multi-item-add-to-cart .product-data-card[data-product-type="pants"]`).find(`.option-2`).text(),
-          pantsOptionThird = $(`.multi-item-add-to-cart .product-data-card[data-product-type="pants"]`).find(`.option-3`).text(),
-          pantsOptionTitle = pantsOptionOne + ' / ' + pantsOptionSecond + ' / ' + pantsOptionThird;      
-
-      var jacketSelectedVariant = $(`.multi-item-add-to-cart`).find(`.product-data-card[data-product-type="jacket"]`).find(`select.prod-variant-option option[data-variant-title="${jacketOptionTitle}"]`).val(),
-          jacketVarTitle = jacketOptionTitle,
-          pantsSelectedVariant = $(`.multi-item-add-to-cart`).find(`.product-data-card[data-product-type="pants"]`).find(`select.prod-variant-option option[data-variant-title="${pantsOptionTitle}"]`).val(),
-          pantsVarTitle = pantsOptionTitle
       item = {
         "id": varId,
         "quantity": 1,
         "properties": {
-          "jacket-variant-title": jacketVarTitle,
-          "jacket-variant-id": jacketSelectedVariant,
-          "pants-variant-title": pantsVarTitle,
-          "pants-variant-id": pantsSelectedVariant
+          "combo-variant-title" : jacketOptionTitle
         }
       }
     } else {
