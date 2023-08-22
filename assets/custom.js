@@ -402,10 +402,10 @@ theme_custom.loadEvent = function () {
           }
           $(this).find("[data-option-title='Chest Size']").attr("data-variant-val", jacketType[0]).text(jacketType[0]);
           $(this).find("[data-option-title='Style']").attr("data-variant-val", jacketTypeVal).text(jacketTypeVal);
-          if ($(`.product-data-card-wrap[data-product-type="jacket"]`).find(`.error-message`).text() != '' > 0) {
+          if ($(`.product-data-card-wrap[data-product-type="vest"]`).find(`.error-message`).text() != '' > 0) {
             $(this).find(".error-message").text('').hide();
             $(".product-form__submit").addClass("normal-product-disable");
-            $(this).find(".error-message").text(`Jacket product is not available for that specific size`).show();
+            $(this).find(".error-message").text(`Vest product is not available for that specific size`).show();
           } else {
             $(this).find(".error-message").text('').hide();
           }
@@ -1916,7 +1916,7 @@ $(document).on('change', `.upsell-product-items-wrapper input[type="radio"]`, fu
   var selectedVarInventoryQty = parent.find($(`.single-option-selector option[data-variant-title="${variantTitle}"]`)).attr("data-variant-inventory-qty");
   var selectedVarInventoryPolicy = parent.find($(`.single-option-selector option[data-variant-title="${variantTitle}"]`)).attr("data-variant-inventory-policy");
   if($.inArray(variantTitle,productVariantTitle) == -1){
-    parent.find(".error-message").addClass("error-show").text("Product is not available for this specific combination");
+    parent.find(".error-message").addClass("error-show").text("Product is not available for this specific combination.");
     parent.find(".upsell-product-add").addClass("disabled");
   } else {
     var targetVariant = parent.find($(`.single-option-selector option[data-variant-title="${variantTitle}"]`))

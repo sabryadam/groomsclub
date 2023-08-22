@@ -22,50 +22,25 @@ theme_custom.multipleProductAjax = function(button, parent, payBy){
     var jacketSelectedVariant = $(`.product-card-wrap[data-product-type="jacket"]`).find(".prod-variant-data").attr("data-var-id"),
         jacketVarTitle = $(`.product-card-wrap[data-product-type="jacket"]`).find(`.prod-variant-option [value="${jacketSelectedVariant}"]`).attr("data-variant-title");
     if (productType == 'jacket') {
-      // var pantsSelectedVariant = $(`.product-card-wrap[data-product-type="pants"]`).find(".prod-variant-data").attr("data-var-id"),
-      //     pantsVarTitle = $(`.product-card-wrap[data-product-type="pants"]`).find(`.prod-variant-option [value="${pantsSelectedVariant}"]`).attr("data-variant-title"),
-      //     vestSelectedVariant = $(`.product-card-wrap[data-product-type="vest"]`).find(".prod-variant-data").attr("data-var-id"),
-      //     vestVarTitle = $(`.product-card-wrap[data-product-type="vest"]`).find(`.prod-variant-option [value="${vestSelectedVariant}"]`).attr("data-variant-title");
       item = {
         "id": varId,
         "quantity": 1,
         "properties": {
           "combo-variant-title" : jacketVarTitle
-          // "variant-title": pantsVarTitle,
-          // "variant-id": pantsSelectedVariant,
-          // "vest-variant-title": vestVarTitle,
-          // "vest-variant-id": vestSelectedVariant
         }
       }
     } else if (productType == 'pants') {
-      // var jacketSelectedVariant = $(`.product-card-wrap[data-product-type="jacket"]`).find(".prod-variant-data").attr("data-var-id"),
-      //     jacketVarTitle = $(`.product-card-wrap[data-product-type="jacket"]`).find(`.prod-variant-option [value="${jacketSelectedVariant}"]`).attr("data-variant-title"),
-      //     vestSelectedVariant = $(`.product-card-wrap[data-product-type="vest"]`).find(".prod-variant-data").attr("data-var-id"),
-      //     vestVarTitle = $(`.product-card-wrap[data-product-type="vest"]`).find(`.prod-variant-option [value="${vestSelectedVariant}"]`).attr("data-variant-title");
       item = {
         "id": varId,
         "quantity": 1,
-        "properties": {
-          // "variant-title": jacketVarTitle,
-          // "variant-id": jacketSelectedVariant,
-          // "vest-variant-title": vestVarTitle,
-          // "vest-variant-id": vestSelectedVariant
-          "combo-variant-title" : jacketVarTitle
+        "properties": {"combo-variant-title" : jacketVarTitle
         }
       }
     } else if (productType == 'vest' || productType == 'Vest') {
-      // var jacketSelectedVariant = $(`.product-card-wrap[data-product-type="jacket"]`).find(".prod-variant-data").attr("data-var-id"),
-      //     jacketVarTitle = $(`.product-card-wrap[data-product-type="jacket"]`).find(`.prod-variant-option [value="${jacketSelectedVariant}"]`).attr("data-variant-title"),
-      //     pantsSelectedVariant = $(`.product-card-wrap[data-product-type="pants"]`).find(".prod-variant-data").attr("data-var-id"),
-      //     pantsVarTitle = $(`.product-card-wrap[data-product-type="pants"]`).find(`.prod-variant-option [value="${pantsSelectedVariant}"]`).attr("data-variant-title");
       item = {
         "id": varId,
         "quantity": 1,
         "properties": {
-          // "jacket-variant-title": jacketVarTitle,
-          // "jacket-variant-id": jacketSelectedVariant,
-          // "pants-variant-title": pantsVarTitle,
-          // "pants-variant-id": pantsSelectedVariant
           "combo-variant-title" : jacketVarTitle
         }
       }
@@ -854,15 +829,15 @@ theme_custom.productVariantSeledtUpdate = function(){
       $(this).find('.prod-variant-option option:first').prop('selected', true);
       $(this).find(".product-info").append("<p class='error-message error-show'>Product is not available for this specific combination.</p>");
       if(productType == 'jacket' ){
-        $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).text(`Product is not available for this specific combination`).addClass("error-show").show();
+        $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).text(`Product is not available for this specific combination.`).addClass("error-show").show();
         $(`.product-swatch-option[data-type="${productType}"]`).find(`.button.exchange-look-item`).text("Unavailable").addClass("disabled");
       }
       if(productType == 'pants' ){
-        $(`.product-variant-wrap[data-product-type="${productType}"]`).find(`.error-message`).text(`Product is not available for this specific combination`).addClass("error-show").show();
+        $(`.product-variant-wrap[data-product-type="${productType}"]`).find(`.error-message`).text(`Product is not available for this specific combination.`).addClass("error-show").show();
         $(`.product-swatch-option[data-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.button.exchange-look-item`).text("Unavailable").addClass("disabled");
       }
       if(productType == 'vest' ){
-        $(`.product-variant-wrap[data-product-type="${productType}"]`).find(`.error-message`).text(`Product is not available for this specific combination`).addClass("error-show").show();
+        $(`.product-variant-wrap[data-product-type="${productType}"]`).find(`.error-message`).text(`Product is not available for this specific combination.`).addClass("error-show").show();
         $(`.product-swatch-option[data-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.button.exchange-look-item`).text("Unavailable").addClass("disabled");
       }
     } else {
@@ -879,15 +854,15 @@ theme_custom.productVariantSeledtUpdate = function(){
           $(this).find('.prod-variant-option option:first').prop('selected', true);
           $(this).find(".product-info").append("<p class='error-message error-show'>This Variant is Out of Stock. Please choose another variant.</p>");
           if(productType == 'jacket' ){
-            $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).text(`This Variant is Out of Stock. Please choose another variant`).addClass("error-show").show();
+            $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).text(`This Variant is Out of Stock. Please choose another variant.`).addClass("error-show").show();
             $(`.product-swatch-option[data-type="${productType}"]`).find(`.button.exchange-look-item`).text("Out Of Stock").addClass("disabled");
           }
           if(productType == 'pants' ){
-            $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).text(`This Variant is Out of Stock. Please choose another variant`).addClass("error-show").show();
+            $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).text(`This Variant is Out of Stock. Please choose another variant.`).addClass("error-show").show();
             $(`.product-swatch-option[data-type="${productType}"]`).find(`.button.exchange-look-item`).text("Out Of Stock").addClass("disabled");
           }
           if(productType == 'vest' ){
-            $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).text(`This Variant is Out of Stock. Please choose another variant`).addClass("error-show").show();
+            $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).text(`This Variant is Out of Stock. Please choose another variant.`).addClass("error-show").show();
             $(`.product-swatch-option[data-type="${productType}"]`).find(`.button.exchange-look-item`).text("Out Of Stock").addClass("disabled");
           }
         }
