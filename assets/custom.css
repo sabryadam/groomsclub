@@ -554,7 +554,7 @@ select.suit_attr + .icon {
 	max-width: 100%;
 }
 
-variant-radios fieldset.swatch-chest.size {
+body:noht(.product-type-vest) variant-radios fieldset.swatch-chest.size {
 	display: none;
 }
 

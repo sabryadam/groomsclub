@@ -11,6 +11,7 @@ theme_custom.reminder = function (sendReminderDataObj, button) {
     method: "POST",
     data: sendReminderDataObj,
     dataType: "json",
+    async: true,
     headers: {
       "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
     },
@@ -26,9 +27,15 @@ theme_custom.reminder = function (sendReminderDataObj, button) {
         $(".send-via-main .send-via").prop("checked",false);
         $('.modal-wrapper.reminder-redesign-popup').removeClass("active");
       }, 3000);
+      $('html,body').css({
+        'overflow' : "auto"
+      })
     },
     error: function (xhr, status, error) {
       button.removeClass('disabled')
+      $('html,body').css({
+        'overflow' : "auto"
+      })
       if (xhr.responseJSON.message == 'Token is invalid or expired.') {
         $('.api_error').show().html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
           'text-align': 'center',
@@ -62,6 +69,7 @@ theme_custom.lookAssignToMember = function (member_id, look_id) {
     method: "POST",
     data: data,
     dataType: "json",
+    async: true,
     headers: {
       "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
     },
@@ -77,6 +85,7 @@ theme_custom.lookAssignToMember = function (member_id, look_id) {
         method: "GET",
         data: '',
         dataType: "json",
+        async: true,
         headers: {
           // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
           "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
@@ -86,20 +95,29 @@ theme_custom.lookAssignToMember = function (member_id, look_id) {
         success: function (result) {
           var memerData = '';
           var total = result.data.event_members.length;
+          var event_member = '';
           $.each(result.data.event_members, function (index, value) {
-            if (value.is_host == "1") {
+            if(value.is_host == 1){
+              event_member = '';
+            } else {
+              event_member = 'event-member';
+            }
+            if (value.is_host == 1) {
               eventDataObj.eventPhone = value.phone.replace("+1", "");
               $("#event-phone-number").val(value.phone.replace("+1", ""));
               $('#EventForm-EventOwnerContactNumber').val(value.phone.replace("+1", "")).trigger("keyup");
             }
             if (index === total - 1) {
-              memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name}</span>`
+              memerData += `<span type="text" class="reminderMember ${event_member}" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name}</span>`
             } else {
-              memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name},</span>`
+              memerData += `<span type="text" class="reminderMember ${event_member}" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name},</span>`
             }
           });
           $('.reminder-redesign-popup .event-member-data').html('');
           $('.reminder-redesign-popup .event-member-data').append(memerData);
+          $('html,body').css({
+            'overflow' : "auto"
+          })
         }
       });
     },
@@ -146,7 +164,11 @@ $(".member-added-into-event").click(function (e) {
     error_count = error_count + 1;
   } else {
     $('.custom-checkobx').find(".form-error").hide();
-    error_count = 0;
+    if($(this).hasClass('update-guest') && error_count == 1){
+      error_count = 1;
+    } else {
+      error_count = 0;
+    }
   }
   if (error_count == 0) {
     var memberFirstName = $(".member-first-name", parent).val();
@@ -178,15 +200,26 @@ $(".member-added-into-event").click(function (e) {
       data: member_info_data,
       dataType: "json",
       crossDomain: true,
+      async: true,
       headers: {
         "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
       },
       beforeSend: function () {
       },
       success: function (result) {
-        $('.event-step-wrapper').addClass('hidden');
-        theme_custom.globalLoaderShow();
-        theme_custom.lookAssignToMember(result.data.id, theme_custom.lookVal);
+        if(result.message == 'Member already exist in event.'){
+          $(`<p class="member-error-msg" style="display: block;color: #fff!important;background-color: #7dce80!important;padding: 10px 5px;line-height: 1;text-align: center;border-radius: 5px;">${result.message}</p>`).insertAfter($(`[data-step-content-wrap="3"] [data-target="add-guest-popup"] .custom-checkobx.paying-wrap`));
+          setTimeout(function() {
+            $(`p.member-error-msg`).remove();
+            $('.event-step-wrapper').addClass('hidden');
+            theme_custom.globalLoaderShow();
+            theme_custom.lookAssignToMember(result.data.id, theme_custom.lookVal);
+          },5000)
+        } else {
+          $('.event-step-wrapper').addClass('hidden');
+          theme_custom.globalLoaderShow();
+          theme_custom.lookAssignToMember(result.data.id, theme_custom.lookVal);
+        }
       },
       error: function (xhr, status, error) {
         let div = $('.invite-another-member-popup-wrapper .member-added-into-event').closest('.field');
@@ -330,6 +363,7 @@ theme_custom.favoriteLooks = function () {
     method: "GET",
     data: '',
     dataType: "json",
+    async: true,
     headers: {
       "Authorization": APP_Token
     },
@@ -454,7 +488,7 @@ theme_custom.successCallback = (data, nextTarget) => {
   if (data.data.event_looks && data.data.event_looks.length > 0) {
     $(`.modal-wrapper[data-target="remove-data-for-user"]`).removeClass("active");
     $('html,body').css({
-      "overflow" : ""
+      "overflow" : "auto"
     })
     const looksDiv = $('.show-look-from-event-wrapper .event-look-inner-wrapper, .guest-top-looks .event-look-inner-wrapper');
     looksDiv.empty();
@@ -473,7 +507,7 @@ theme_custom.successCallback = (data, nextTarget) => {
         })
       }
     }
-    // theme_custom.eventExpired(data.data);
+    theme_custom.eventExpired(data.data);
     $(".close-icon").click();
     setTimeout(() => {
       theme_custom.lookItemsData(data);
@@ -608,6 +642,7 @@ theme_custom.updateEventAPI = function (btn) {
       method: 'PUT',
       data: event_data,
       dataType: "json",
+      async: true,
       headers: {
         "Authorization": APP_Token
       },
@@ -745,6 +780,7 @@ theme_custom.createEventAPI = function (btn) {
       method: 'POST',
       data: event_data,
       dataType: "json",
+      async: true,
       headers: {
         "Authorization": APP_Token
       },
@@ -763,9 +799,10 @@ theme_custom.createEventAPI = function (btn) {
               localStorage.setItem("set-event-id", result.data.eventId);
               $(".create-event-button").addClass("next-button").removeClass("create-event-button").find(".look-add-btn").removeClass("hidden");
               $("#event-id").val(result.data.eventId);
+              $(`.step-content-wrapper[data-step-content-wrap="1"]`).find(".api_error").addClass('hidden');
               $('.step-content-wrapper[data-step-content-wrap="1"]').find(".next-button").click();
               button.find(".label").text("Update Event");
-              button.removeClass('loading disabled');
+              button.removeClass('loading disabled');              
             }, 2500);
           } else {
             $('.step-content-wrapper.event-step-1 .api_error').show().html(result.message).css({
@@ -778,6 +815,7 @@ theme_custom.createEventAPI = function (btn) {
               $(".create-event-button").addClass("next-button").removeClass("create-event-button").find(".look-add-btn").removeClass("hidden");
               $('.step-content-wrapper[data-step-content-wrap="1"]').find(".next-button").click();
               button.removeClass('loading disabled');
+              $(`.step-content-wrapper[data-step-content-wrap="1"]`).find(".api_error").addClass('hidden');
             }, 2500);
           }
         }
@@ -791,6 +829,13 @@ theme_custom.createEventAPI = function (btn) {
           setTimeout(() => {
             theme_custom.removeLocalStorage();
             window.location.href = '/account/logout';
+          }, 5000);
+        } else if(xhr.responseJSON.message == 'Internal server error.'){
+          event_date_msg += `<span>Internal server error.</span>`;
+          $('.step-content-wrapper.event-step-1 .api_error').show().html(event_date_msg);
+          setTimeout(function () {
+            $('.step-content-wrapper.event-step-1 .api_error').fadeOut();
+            $(".step-content-wrapper.event-step-1 .button-wrapper").find("button").removeClass("loading").removeClass("disabled");
           }, 5000);
         } else {
           var event_date_msg = '';
@@ -848,6 +893,7 @@ theme_custom.lookImage = function (look_image, lookID, button) {
     "processData": false,
     "mimeType": "multipart/form-data",
     "contentType": false,
+    async: true,
     headers: {
       // "Authorization": 'Bearer BzuPQTFq84j4ZDX7EBpveJ0rzGo6Ljj1PQ4AXNMWtsnd5UsNn9kG1Pidd7EnFDVTadlI5eNpKOrfW5JoegG7FU3cXRQNjd0b3FMNA'
       "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
@@ -899,6 +945,7 @@ theme_custom.createLookAPI = function (lookName, eventId, lookUrl, produArray, b
     method: "POST",
     data: eventData,
     dataType: "json",
+    async: true,
     headers: {
       "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
     },
@@ -1031,10 +1078,10 @@ theme_custom.lookAddedIntoEvent = function () {
     // $.fancybox.open(addReminder);
     $(addReminder).addClass("active");
     $("#remiderName").addClass("hidden").val(targetReminder).trigger("change");
-    $(`.reminder-redesign-popup .reminderMember`).addClass('active');
+    $(`.reminder-redesign-popup .reminderMember.event-member`).addClass('active');
     $(`.send-via-main input`).prop("checked",false);
     setTimeout(() => {
-      $(".loading-overlay__spinner").addClass("hidden");
+      $(".reminder-redesign-popup .loading-overlay__spinner").addClass("hidden");
       $(".add-remider-outer-wrapper").removeClass("hidden");
       $(".loader-wrapper").addClass("hidden");
       $(".event-step-wrapper").removeClass("hidden");
@@ -1058,7 +1105,7 @@ theme_custom.lookAddedIntoEvent = function () {
       'overflow' : "hidden"
     })
     setTimeout(() => {
-      $(".loading-overlay__spinner").addClass("hidden");
+      $(".reminder-redesign-popup .loading-overlay__spinner").addClass("hidden");
       $(".add-remider-outer-wrapper").removeClass("hidden");
       $(`.reminder-redesign-popup .reminderMember`).removeClass('active');
       $(`.reminder-redesign-popup .reminderMember[data-member-id="${selecteMember}"]`).addClass("active");
@@ -1125,6 +1172,7 @@ theme_custom.removeUserFromLook = (eventId, memberId) => {
         method: "DELETE",
         data: '',
         dataType: "json",
+        async: true,
         headers: {
           "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
         },
@@ -1166,6 +1214,7 @@ theme_custom.removeOwnerFromLook = (look_id,event_id, event_member_id) => {
         method: "DELETE",
         data: '',
         dataType: "json",
+        async: true,
         headers: {
           "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
         },
@@ -1202,6 +1251,7 @@ theme_custom.ProductData = function (productItemsArr, lookName, lookId, memberId
   $.map(productItemsArr, function (productItems, index) {
     jQuery.ajax({
       type: 'GET',
+      async: true,
       url: `/products/${productItems.product_handle}.json`,
       success: function (response) {
         for (i = 0; i < response.product.variants.length; i++) {
@@ -1251,12 +1301,14 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
   $.ajax({
     url: `/search/?view=getData&q=${product_ids}`,
     dataType: "json",
+    async: true,
     headers: {
       "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
     },
     beforeSend: function () { },
     success: function (result) {
       var productsArray = result.products;
+      if(result.products.length > 0){
       $.map(productItemsArrayLooks, function (productItemInfo, index) {
         var product = productsArray.find((item) => item.id == parseInt(productItemInfo.product_id));
         var selectedVar = product.variants.find((variant) => variant.id == parseInt(productItemInfo.variant_id));
@@ -1411,6 +1463,7 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
       $(`.order-wrap-${index} .button`).attr("data-look-price", subTotal / 100).attr("data-look-total-price", subTotal);
       $(`.look-card-block[data-look-id="${orderItems.look_id}"] .look-price`).text(productSubTotalPrice).fadeIn();
       $(`.order-wrap-${index} .product-card-wrap`).html(productItemHTML);
+      }
     }
   });
 }
@@ -1535,7 +1588,7 @@ theme_custom.lookInfoData = function (result) {
       var lookTotalPrice = theme_custom.Shopify.formatMoney(totalPrice, theme_custom.money_format)
       $(`.summary-table-wrapper tfoot`).fadeIn().find('.total-price').text(lookTotalPrice);
     }, 3000);
-    // theme_custom.eventExpired(result.data);
+    theme_custom.eventExpired(result.data);
   })
   $(".loader-wrapper").addClass("hidden");
   $(".event-step-wrapper").removeClass("hidden");
@@ -1551,6 +1604,7 @@ theme_custom.eventMemberData = function () {
     method: "GET",
     data: '',
     dataType: "json",
+    async: true,
     headers: {
       // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
       "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
@@ -1902,6 +1956,7 @@ theme_custom.eventPageClickEvent = function (){
       method: "POST",
       data: data,
       dataType: "json",
+      async: true,
       headers: {
         "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
       },
@@ -1943,7 +1998,9 @@ theme_custom.eventPageClickEvent = function (){
       firstName.val(data.first_name).trigger('change');
       lastName.val(data.last_name).trigger('change');
       email.val(data.email).trigger('change');
-      phone.val(data.phone.slice(2)).trigger('change');
+      if(data.phone != null || data.phone != undefined){
+        phone.val(data.phone.slice(2)).trigger('change');
+      }
       lookName.text(data.look_name);
       if (data.is_host_paying.toLowerCase() == 'self') {
         $(payHost).prop('checked', true);
@@ -2015,6 +2072,7 @@ theme_custom.eventPageClickEvent = function (){
         var event_id = $(this).closest(".modal-wrapper-inner-wrapper").find(".event_id").val();
         var member_id = $(this).closest(".modal-wrapper-inner-wrapper").find(".member_id").val();
         theme_custom.removeUserFromLook(event_id, member_id);
+        theme_custom.globalLoaderShow();
       }
       if (checkData == 'delete-look-block') {
         var eventLookId = $(this).closest(".modal-wrapper-inner-wrapper").find(".look_id").val();
@@ -2022,7 +2080,7 @@ theme_custom.eventPageClickEvent = function (){
       }
     } else {
       $('html,body').css({
-        "overflow" : ""
+        "overflow" : "auto"
       })
       $('.close-icon').click();
     }
@@ -2031,13 +2089,13 @@ theme_custom.eventPageClickEvent = function (){
   $(document).on("click", `[data-target="delete-look-have-member"] button`, function () {
     $(`.modal-wrapper[data-target="delete-look-have-member"]`).removeClass("active");
     $('html,body').css({
-      "overflow" : ""
+      "overflow" : "auto"
     })
   })
   $(document).on("click", `[data-target="member-payment-complete"] button`, function () {
     $(`.modal-wrapper[data-target="member-payment-complete"]`).removeClass("active");
     $('html,body').css({
-      "overflow" : ""
+      "overflow" : "auto"
     })
   })
   $(document).on('click', '.pay-info-confirmation-wrap .confirm-box-wrap .update-host-look', function (event) {
@@ -2288,20 +2346,21 @@ theme_custom.event_init_page = function () {
 theme_custom.eventExpired = function (data){
   if(theme_custom.eventExpire){
     // debugger;
-    if(data.event_looks.length <= 0){
-      $('.step-content-wrapper.create-event-look .next-button').addClass('next-disabled');
-    }
-    $('.event-update-button').hide()
-    $('.look-card-block .delete-icon').hide();
-    $('.look-card-block .customise-look-button').hide();
-    $('.user-card-block .edit-icon').hide();
-    $('.user-card-block .member-delete-icon').hide();
-    $('.look-card-block .confirm-box-wrap').hide();
-    $('.add-guest-button').hide();
-    $('.add-look-wrapper').hide();
-    $('.summary-table-wrapper .action-button').hide();
-    $('.action-btn-th').hide();
-    $('.summary-footer-cost-label').attr('colspan',2);
+    // if(data.event_looks.length <= 0){
+    //   $('.step-content-wrapper.create-event-look .next-button').addClass('next-disabled');
+    // }
+    // $('.event-update-button').hide()
+    // $('.look-card-block .delete-icon').hide();
+    // $('.look-card-block .customise-look-button').hide();
+    // $('.user-card-block .edit-icon').hide();
+    // $('.user-card-block .member-delete-icon').hide();
+    // $('.look-card-block .confirm-box-wrap').hide();
+    // $('.add-guest-button').hide();
+    // $('.add-look-wrapper').hide();
+    // $('.summary-table-wrapper .action-button').hide();
+    // $('.action-btn-th').hide();
+    // $('.summary-footer-cost-label').attr('colspan',2);
+    $('.reminder-wrap,.open-reminder-popup').hide();
   }
 }
 theme_custom.getEventDetails = function () {
@@ -2313,6 +2372,7 @@ theme_custom.getEventDetails = function () {
     method: "GET",
     data: '',
     dataType: "json",
+    async: true,
     headers: {
       // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
       "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
@@ -2329,10 +2389,10 @@ theme_custom.getEventDetails = function () {
       eventDataObj.eventType = result.data.event_type;
       eventDataObj.eventDate = result.data.event_date;
       eventDataObj.eventRole = result.data.event_role;
-      // if(new Date() > new Date(eventDataObj.eventDate)){
-      //   theme_custom.eventExpire = true;
-      //   theme_custom.eventExpired(result.data);
-      // }
+      if(new Date() > new Date(eventDataObj.eventDate)){
+        theme_custom.eventExpire = true;
+        theme_custom.eventExpired(result.data);
+      }
 
       $('#EventForm-EventName').val(result.data.event_name);
       $('#EventForm-id').val(result.data.event_id);
@@ -2349,16 +2409,22 @@ theme_custom.getEventDetails = function () {
       $('.event-data-first-step').datepicker('setDate', new Date(result.data.event_date));
       var memerData = '';
       var total = result.data.event_members.length;
+      var event_member = '';
       $.each(result.data.event_members, function (index, value) {
-        if (value.is_host == "1") {
+        if(value.is_host == 1){
+          event_member = '';
+        } else {
+          event_member = 'event-member';
+        }
+        if (value.is_host == 1) {
           eventDataObj.eventPhone = value.phone.replace("+1", "");
           $("#event-phone-number").val(value.phone.replace("+1", ""));
           $('#EventForm-EventOwnerContactNumber').val(value.phone.replace("+1", "")).trigger("keyup");
         }
         if (index === total - 1) {
-          memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name}</span>`
+          memerData += `<span type="text" class="reminderMember  ${event_member}" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name}</span>`
         } else {
-          memerData += `<span type="text" class="reminderMember" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name},</span>`
+          memerData += `<span type="text" class="reminderMember  ${event_member}" name="reminderMember" data-member-id="${value.event_member_id}" style="font-size: 14px;">${value.first_name} ${value.last_name},</span>`
         }
       });
       $('.reminder-redesign-popup .event-member-data').html('');
@@ -2425,6 +2491,7 @@ theme_custom.deleteTheLooksItem = function (eventLookId) {
       method: "DELETE",
       data: '',
       dataType: "json",
+      async: true,
       headers: {
         "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
       },
@@ -2611,6 +2678,7 @@ theme_custom.eventPageEditMySize = function (btn) {
       method: "POST",
       data: fitFinder,
       dataType: "json",
+      async: true,
       header: {
         // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
         "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
@@ -2683,6 +2751,7 @@ theme_custom.getAllEvents = function (modalTarget) {
     method: "POST",
     data: data,
     dataType: "json",
+    async: true,
     headers: {
       // "Authorization": 'Bearer Am3Trk0xm4fR5SXdni5zilc1ffwxFFUWwwwnh2ZQ98wRSL9KDihFoBMnCJ9Dw8Kc8A5zkHnMZBot02nbyybQEtSd3dadnY4RFZZQQ'
       "Authorization": 'Bearer ' + localStorage.getItem("customerToken")

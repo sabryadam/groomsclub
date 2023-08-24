@@ -1,5 +1,43 @@
 {
   "sections": {
+    "5a5dfe16-e622-4d10-84f4-f50acd1fdd38": {
+      "type": "rich-text",
+      "disabled": true,
+      "blocks": {
+        "template--16117519777978__5a5dfe16-e622-4d10-84f4-f50acd1fdd38-1685169501f5a40959-0": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "heading": "Talk about your brand",
+            "heading_size": "medium"
+          }
+        },
+        "template--16117519777978__5a5dfe16-e622-4d10-84f4-f50acd1fdd38-1685169501f5a40959-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Attention Customers: Shipping Delays are expected due to Memorial Day on Monday May 28th. Any Orders after Saturday Evening will ship out on Tuesday May 30th.<\/strong><\/p>"
+          }
+        },
+        "template--16117519777978__5a5dfe16-e622-4d10-84f4-f50acd1fdd38-1685169501f5a40959-2": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "template--16117519777978__5a5dfe16-e622-4d10-84f4-f50acd1fdd38-1685169501f5a40959-0",
+        "template--16117519777978__5a5dfe16-e622-4d10-84f4-f50acd1fdd38-1685169501f5a40959-1",
+        "template--16117519777978__5a5dfe16-e622-4d10-84f4-f50acd1fdd38-1685169501f5a40959-2"
+      ],
+      "settings": {
+        "color_scheme": "background-1",
+        "full_width": true
+      }
+    },
     "1632391507005540a2": {
       "type": "banner-slider",
       "blocks": {
@@ -306,6 +344,24 @@
         "custom_class": "top-look"
       }
     },
+    "4ae0133c-9591-43eb-b50a-701f0384f27d": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Top Looks",
+        "collection": "looks",
+        "products_to_show": 12,
+        "show_view_all": false,
+        "swipe_on_mobile": true,
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "add_image_padding": false,
+        "show_vendor": false,
+        "autoplay": false,
+        "arrowprev": true,
+        "dots": false,
+        "loop": true
+      }
+    },
     "1632393733f78c28b7": {
       "type": "image-with-text",
       "blocks": {
@@ -550,9 +606,36 @@
         "loop": true,
         "custom_class": ""
       }
+    },
+    "857fb284-a07b-4759-a52a-14ddef8e3780": {
+      "type": "rich-text",
+      "blocks": {
+        "template--16117519777978__857fb284-a07b-4759-a52a-14ddef8e3780-16860811610d6dbb21-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Wedding Tuxedos & Groomsmen Suits",
+            "heading_size": "medium"
+          }
+        },
+        "template--16117519777978__857fb284-a07b-4759-a52a-14ddef8e3780-16860811610d6dbb21-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Every groom needs the perfect wedding tuxedo with the perfect fit on his big day. At Grooms Club, you can purchase a suit that fits your physique so you feel confident and stylish the day you say, “I do.” We also sell tuxedos for groomsmen that you can personalize for that cohesive, custom look you need for your wedding. Best of all, we tailor our suits to your measurements so the fit ensures a cool, comfortable look that lasts well into the night.  <\/p><p> <\/p><p>Your wedding is one of the biggest events of your life, and you should feel as amazing as you look. For this reason, we invite our customers to book a personalized online appointment to discuss size, style, and necessary tailoring. Buy the ideal wedding tuxedo for you! Please <a href=\"https:\/\/www.groomsclub.com\/pages\/contact\" target=\"_blank\"><span style=\"text-decoration:underline\">contact<\/span><\/a> our team if you have questions about sizing or a specific item in our collection.  <\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--16117519777978__857fb284-a07b-4759-a52a-14ddef8e3780-16860811610d6dbb21-0",
+        "template--16117519777978__857fb284-a07b-4759-a52a-14ddef8e3780-16860811610d6dbb21-1"
+      ],
+      "settings": {
+        "color_scheme": "background-1",
+        "full_width": true
+      }
     }
   },
   "order": [
+    "5a5dfe16-e622-4d10-84f4-f50acd1fdd38",
     "1632391507005540a2",
     "1632392239fe0110fd",
     "1632392241b5b3046e",
@@ -560,9 +643,11 @@
     "1632396202cb858d8f",
     "3c13ecf6-1f12-42f4-80b1-ff93e248fe2a",
     "163239632562541ac6",
+    "4ae0133c-9591-43eb-b50a-701f0384f27d",
     "1632393733f78c28b7",
     "1632393953de63a932",
     "166299585038981241",
-    "2090a493-beeb-4e64-a485-04649519dbb1"
+    "2090a493-beeb-4e64-a485-04649519dbb1",
+    "857fb284-a07b-4759-a52a-14ddef8e3780"
   ]
 }

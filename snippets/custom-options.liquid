@@ -40,12 +40,12 @@
     {%- if template == 'cart' -%}
       {% assign s_value = selectedOption.options_with_values[option_index].value %}
       {%- capture selected-value -%}
-        data-s_value="{{ s_value | downcase }}"
+        data-s_value="{{ s_value }}"
       {%- endcapture -%}
     {%- else -%}
       {% assign s_value = selectedOption.options[option_index] %}
       {%- capture selected-value -%}
-        data-s_value="{{ s_value | downcase }}"
+        data-s_value="{{ s_value }}"
       {%- endcapture -%}
     {%- endif -%}
     {% if is_color %}
