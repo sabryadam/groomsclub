@@ -16,7 +16,7 @@ theme_custom.multipleProductAjax = function(button, parent, payBy){
       attributes= {},
       payByValue = payBy;
   getProduct.each(function(){
-    var varId = $(this).find(".prod-variant-data").attr("data-var-id");
+    var varId = $(this).find(`.prod-variant-option`).val();
     var item = {},
         productType = $(this).attr("data-product-type").toLowerCase();
     var jacketSelectedVariant = $(`.product-card-wrap[data-product-type="jacket"]`).find(".prod-variant-data").attr("data-var-id"),
@@ -26,7 +26,9 @@ theme_custom.multipleProductAjax = function(button, parent, payBy){
         "id": varId,
         "quantity": 1,
         "properties": {
-          "combo-variant-title" : jacketVarTitle
+          "combo-variant-title" : jacketVarTitle,
+          "pant-variant-title":  $(`.product-card-wrap[data-product-type="pants"]`).find(".prod-variant-option option:selected").attr("data-variant-title"),
+          "vest-variant-title": $(`.product-card-wrap[data-product-type="vest"]`).find(".prod-variant-option option:selected").attr("data-variant-title")
         }
       }
     } else if (productType == 'pants') {
@@ -317,12 +319,12 @@ theme_custom.ProductData = function(productItemsArr){
                                   </div>
                                   <div class="product-variant-wrap vest-variant-title vest-not-selected" data-product-type="vest">
                                     <div>  
-                                      Vest -
+                                      Vest <span class="break hidden">-</span>
                                         <span class="option-name option-1 hidden"></span>
                                         <span class="option-name option-2 hidden"></span>
                                         <span class="option-name option-3 hidden"> / ${variantSelected.option3}</span>
                                         <span class="break hidden">|</span>
-                                        <span class="combo-block-edit-item" data-product-type="vest" data-text="select-size">Select Size</span>                                          
+                                        <span class="combo-block-edit-item" data-product-type="vest" data-text="edit-item"></span>                                          
                                     </div>
                                     <p class="error-message"></p>  
                                   </div>
@@ -545,6 +547,7 @@ theme_custom.clickEventInvited = function(){
           $(`.vest-variant-title`).find(".option-1,.option-2,.option-3,.break").removeClass("hidden");
           $(`.vest-variant-title .combo-block-edit-item`).attr("data-text","edit-size").text("Edit Size");
           $('.vest-variant-title').removeClass('vest-not-selected');
+          $(`.product-swatch-option[data-type="vest"]`).find(`.prod-variant-option option[data-variant-title="${targetVarTitle}"]`).prop("selected",true);
         }
         $(`.product-variant-wrap[data-product-type="${productType}"`).find(`.error-message`).removeClass(`error-show`).text('');
       }
@@ -558,6 +561,7 @@ theme_custom.clickEventInvited = function(){
         $(`.product-variant-wrap[data-product-type="${productType}"`).find(`.error-message`).removeClass(`error-show`).text('');
       }
     }
+    $(`.product-swatch-option[data-type="${productType}"]`).find(`.prod-variant-option option[data-variant-title="${targetVarTitle}"]`).prop("selected",true);
     $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".break").removeClass("hidden");
     $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".exchange-item-link").text("Edit Item");
     $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".prod-variant-data").val(targetVarID).attr("data-var-id",targetVarID);

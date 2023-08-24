@@ -884,14 +884,14 @@
                                         <span class="money" data-price="{{ product.price}}">
                                           {{ productHandle.selected_or_first_available_variant.price | money }}
                                         </span>
-                                      </div>        
+                                      </div>    
+                                      <span class="error-message"></span>    
                                     </div>
                                     <div class="product-price desktop-small">
                                       <span class="money" data-price="{{ product.price}}">
                                         {{ productHandle.price | plus : 4999 | money }}
                                       </span>
                                     </div>
-                                    <span class="error-message"></span>
                                   </div>
                                   {%- render 'edit-product-popup', productHandle : productHandle, currentProduct: productHandle, s_variant: productHandle.selected_or_first_available_variant -%}
                                 </div>
@@ -1005,14 +1005,14 @@
                                           <span class="money" data-price="{{ product.price}}">
                                             {{ productHandle.selected_or_first_available_variant.price | money }}
                                           </span>
-                                        </div>        
+                                        </div> 
+                                        <span class="error-message"></span>       
                                       </div>
                                       <div class="product-price desktop-small">
                                         <span class="money" data-price="{{ product.price}}">
                                           {{ productHandle.price | plus : 4999 | money }}
                                         </span>
                                       </div>
-                                      <span class="error-message"></span>
                                     </div>
                                     {%- render 'edit-product-popup', productHandle : productHandle, currentProduct: productHandle, s_variant: productHandle.selected_or_first_available_variant -%}
                                   </div>

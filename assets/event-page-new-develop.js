@@ -1397,10 +1397,10 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
               variantTitle += `<span class="option-name option-1 ${item.name}" data-value="${productItem.selectedVar.option1}">${productItem.selectedVar.option1}</span>`
             }
             if(index == 1){
-              variantTitle += ` / <span class="option-name option-2 ${item.name}" data-value="${productItem.selectedVar.option2}">${productItem.selectedVar.option2}</span>`
+              variantTitle += `<span class="break"> / </span><span class="option-name option-2 ${item.name}" data-value="${productItem.selectedVar.option2}">${productItem.selectedVar.option2}</span>`
             }
             if(index == 2){
-              variantTitle += ` / <span class="option-name option-3 ${item.name}" data-value="${productItem.selectedVar.option3}">${productItem.selectedVar.option3}</span>`              
+              variantTitle += `<span class="break"> / </span><span class="option-name option-3 ${item.name}" data-value="${productItem.selectedVar.option3}">${productItem.selectedVar.option3}</span>`              
             }
           });
           productLookItemList += `<div class="edit-product-data-card product-data-card ${variantNotFound}" data-product-type="${productType}" data-prod-handle="${productItem.product.handle}">
@@ -1420,13 +1420,13 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
                                       <div class="cta-button-wrap product-variant-wrap">
                                         <span class="open-product-edit-popup" data-button-label="edit-item">Edit Item</span>
                                       </div>
+                                      <span class="error-message ${showErrorClass}">${errorMsg}</span>
                                     </div>
                                     <div class="product-price">
                                       <span class="money" data-price="${productItem.selectedVar.price}">
                                         ${theme_custom.Shopify.formatMoney(productItem.selectedVar.price, theme_custom.money_format)}
                                       </span>
                                     </div>
-                                    <span class="error-message ${showErrorClass}">${errorMsg}</span>
                                   </div>
                                   <div class="product-edit-popup-wrap edit-item-popup" data-product-handle="${productItem.product.handle}" data-product-id="${productItem.product.id}" data-line-item-id="${productItem.selectedVar.id}" data-product-type="${productType}">
                                     <select class="prod-variant-option hidden">${prodOptionArray}</select>
@@ -1461,21 +1461,21 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
                                       <h4 class="product-title">${theme_custom.suit_title}</h4>
                                       <div class="jacket-variant-title">
                                         <div>
-                                          Jacket : <span class="option-name option-1">${theme_custom.jacket_option_one}</span> / <span class="option-name option-2">${theme_custom.jacket_option_second}</span> / <span class="option-name option-3">${theme_custom.jacket_option_third}</span> - <span class="combo-block-edit-item" data-product-type="jacket">Edit Item</span>
+                                          Jacket <span class="break">:</span> <span class="option-name option-1">${theme_custom.jacket_option_one}</span> <span class="break">/</span> <span class="option-name option-2">${theme_custom.jacket_option_second}</span> <span class="break">/</span> <span class="option-name option-3">${theme_custom.jacket_option_third}</span> - <span class="combo-block-edit-item" data-product-type="jacket">Edit Item</span>
                                         </div>
-                                        <p class="error-message"></p>  
+                                        <span class="error-message"></span>
                                       </div>
                                       <div class="vest-variant-title">
                                         <div>  
-                                          Vest : <span class="option-name option-1">${theme_custom.vest_option_one}</span> / <span class="option-name option-2">${theme_custom.vest_option_second}</span> / <span class="option-name option-3">${theme_custom.vest_option_third}</span> - <span class="combo-block-edit-item" data-product-type="vest">Edit Item</span>                                            
+                                          Vest <span class="break">:</span> <span class="option-name option-1">${theme_custom.vest_option_one}</span> <span class="break">/</span> <span class="option-name option-2">${theme_custom.vest_option_second}</span> <span class="break">/</span> <span class="option-name option-3">${theme_custom.vest_option_third}</span> <span class="break"> - </span> <span class="combo-block-edit-item" data-product-type="vest">Edit Item</span>                                            
                                         </div>
-                                        <p class="error-message"></p>  
+                                        <span class="error-message"></span>
                                       </div>
                                       <div class="pants-variant-title">
                                         <div>
-                                          Pant : <span class="option-name option-1">${theme_custom.pants_option_one}</span> / <span class="option-name option-2">${theme_custom.pants_option_second}</span> / <span class="option-name option-3">${theme_custom.pants_option_third}</span> - <span class="combo-block-edit-item" data-product-type="pants">Edit Item</span>
+                                          Pant <span class="break">:</span> <span class="option-name option-1">${theme_custom.pants_option_one}</span> <span class="break">/</span> <span class="option-name option-2">${theme_custom.pants_option_second}</span> <span class="break">/</span> <span class="option-name option-3">${theme_custom.pants_option_third}</span> - <span class="combo-block-edit-item" data-product-type="pants">Edit Item</span>
                                         </div>
-                                        <p class="error-message"></p>  
+                                        <span class="error-message"></span>
                                       </div>
                                     </div>
                                     <div class="product-price">
@@ -1548,12 +1548,17 @@ theme_custom.lookInfoData = function (result) {
         var lookTitle = element.name;
       }
     }
+    if (getCookie("fit-finder-data") == "") {  
+      var checkFitFinderData = `fit-finder-blank`;
+    } else {
+      var checkFitFinderData = ``
+    }
     if (orderItems.payment_status != "Complete") {
       var actionButton = payInfo = "";
       if (orderItems.is_host == 1) {
         payInfo = 'I pay';
         product_data_for_host = ''
-        actionButton = `<button class="button btn-wrap button--secondary cta-action-add-to-cart" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}" data-look-image="${lookImagePath}"  data-look-price="215.90">
+        actionButton = `<button class="button btn-wrap button--secondary cta-action-add-to-cart ${checkFitFinderData}" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}" data-look-image="${lookImagePath}"  data-look-price="215.90">
                           Proceed to Cart
                         </button>
                         <span class="view-look" data-text="Hide Look">View Look</span>`;
@@ -1568,7 +1573,7 @@ theme_custom.lookInfoData = function (result) {
       var actionButton = payInfo = "";
       if (orderItems.is_host == 1) {
         payInfo = 'I pay';
-        actionButton = `<button class="disabled button btn-wrap button--primary cta-action-add-to-cart" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}"  data-look-price="215.90">
+        actionButton = `<button class="disabled button btn-wrap button--primary cta-action-add-to-cart ${checkFitFinderData}" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}"  data-look-price="215.90">
                           Payment Completed
                         </button>`;
       } else {
@@ -1749,6 +1754,8 @@ theme_custom.setFitFinder = function () {
       $("#shoes-size").val(getFitFinderData.shoe_size);
       $("#shoes-size").attr('data-val', getFitFinderData.shoe_size);
     }
+  } else {
+    $(`.cta-action-add-to-cart`).addClass("fit-finder-blank");
   }
 }
 
@@ -1759,7 +1766,7 @@ theme_custom.multiItemAddToCart = function (button) {
   button.text("Adding...").addClass("disabled");
   getProduct.each(function () {
     var productType = $(this).attr("data-product-type");
-    var varId = $(this).find(".product_var_id").val(),
+    var varId = $(this).find(`.prod-variant-option`).val(),
       item = {};
     var jacketOptionOne = $(`.multi-item-add-to-cart .product-data-card[data-product-type="jacket"]`).find(`.option-1`).text(),
       jacketOptionSecond =$(`.multi-item-add-to-cart .product-data-card[data-product-type="jacket"]`).find(`.option-2`).text(),
@@ -1770,7 +1777,9 @@ theme_custom.multiItemAddToCart = function (button) {
         "id": varId,
         "quantity": 1,
         "properties": {
-          "combo-variant-title" : jacketOptionTitle
+          "combo-variant-title" : jacketOptionTitle,
+          "pant-variant-title" : $(`.edit-product-data-card[data-product-type="pants"]`).find(`.prod-variant-option option:selected`).attr("data-variant-title"),
+          "vest-variant-title" : $(`.edit-product-data-card[data-product-type="vest"]`).find(`.prod-variant-option option:selected`).attr("data-variant-title")
         }
       }
     } else if (productType == 'pants' || productType == 'Pants') {
@@ -1949,41 +1958,65 @@ theme_custom.eventPageClickEvent = function (){
     if(targetVarTitleArr[0]!=''){ 
       $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(".option-1").attr("data-value",targetVarTitleArr[0]).text(targetVarTitleArr[0]);
       if(dataProductType == 'jacket'){
-        $(`.jacket-variant-title`).find('.option-1').text(targetVarTitleArr[0])
+        $(`.jacket-variant-title`).find('.option-1').text(targetVarTitleArr[0]);
+        if($(`.vest-variant-title`).hasClass(`vest-not-selected`)){
+          $(`.vest-variant-title`).find('.option-1').text(targetVarTitleArr[0]);
+        }
       }
       if(dataProductType == 'pants'){
-        $(`.pants-variant-title`).find('.option-1').text(targetVarTitleArr[0])
+        $(`.pants-variant-title`).find('.option-1').text(targetVarTitleArr[0]);
       }
       if(dataProductType == 'vest'){
-        $(`.vest-variant-title`).find('.option-1').text(targetVarTitleArr[0])
+        $(`.vest-variant-title`).find('.option-1').text(targetVarTitleArr[0]);
       }
     } 
     if(targetVarTitleArr[1] != ''){
       $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(".option-2").attr("data-value",targetVarTitleArr[0]).text(targetVarTitleArr[1]);
       if(dataProductType == 'jacket'){
-        $(`.jacket-variant-title`).find('.option-2').text(targetVarTitleArr[1])
+        $(`.jacket-variant-title`).find('.option-2').text(targetVarTitleArr[1]);
+        if($(`.vest-variant-title`).hasClass(`vest-not-selected`)){
+          $(`.vest-variant-title`).find('.option-2').text(targetVarTitleArr[1]);
+          $(`.vest-variant-title`).find(`.combo-block-edit-item`).attr("data-button-label","edit-item").text("Edit Item");
+        }
       }
       if(dataProductType == 'pants'){
-        $(`.pants-variant-title`).find('.option-2').text(targetVarTitleArr[1])
+        $(`.pants-variant-title`).find('.option-2').text(targetVarTitleArr[1]);
       }
       if(dataProductType == 'vest'){
-        $(`.vest-variant-title`).find('.option-2').text(targetVarTitleArr[1])
+        $(`.vest-variant-title`).find('.option-2').text(targetVarTitleArr[1]);
       }
     } 
     if(targetVarTitleArr[2] != ''){
       $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(".option-3").attr("data-value",targetVarTitleArr[0]).text(targetVarTitleArr[2]); 
       if(dataProductType == 'jacket'){
-        $(`.jacket-variant-title`).find('.option-3').text(targetVarTitleArr[2])
+        $(`.jacket-variant-title`).find('.option-3').text(targetVarTitleArr[2]);
+        $(`.jacket-variant-title`).find(`.option-name, .break`).show();
+        $(`.jacket-variant-title`).find(`.error-message`).removeClass('error-show').text('');
+        $(`.jacket-variant-title`).find(`.combo-block-edit-item`).attr("data-button-label","edit-item").text("Edit Item");
+        if($(`.vest-variant-title`).hasClass(`vest-not-selected`)){
+          $(`.vest-variant-title`).find('.option-3').text(targetVarTitleArr[2]);
+          $(`.vest-variant-title`).find(`.error-message`).removeClass('error-show').text('');
+          $(`.vest-variant-title`).find(`.option-name, .break, .combo-block-edit-item`).show();
+          $(`.product-edit-popup-wrap[data-product-type="vest"]`).find(`.prod-variant-option option[data-variant-title="${targetVarTitle}"]`).prop("selected",true);
+        }
       }
       if(dataProductType == 'pants'){
-        $(`.pants-variant-title`).find('.option-3').text(targetVarTitleArr[2])
+        $(`.pants-variant-title`).find('.option-3').text(targetVarTitleArr[2]);
+        $(`.pants-variant-title`).find(`.option-name, .break`).show();
+        $(`.pants-variant-title`).find(`.error-message`).removeClass('error-show').text('');
+        $(`.pants-variant-title`).find(`.combo-block-edit-item`).attr("data-button-label","edit-item").text("Edit Item");
       }
       if(dataProductType == 'vest'){
-        $(`.vest-variant-title`).find('.option-3').text(targetVarTitleArr[2])
+        $(`.vest-variant-title`).find('.option-3').text(targetVarTitleArr[2]);
+        $(`.vest-variant-title`).find(`.option-name, .break`).show();
+        $(`.vest-variant-title`).find(`.error-message`).removeClass('error-show').text('');
       }
     }
+    $(`.product-edit-popup-wrap[data-product-type="${dataProductType}"]`).find(`.prod-variant-option option[data-variant-title="${targetVarTitle}"]`).prop("selected",true);
     $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(".product-image img").attr("src",targetVarImage);
-    $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(".error-message").removeClass("error-show")
+    $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(`.error-message`).removeClass(`error-show`).text('').hide();
+    $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(`.open-product-edit-popup`).attr(`data-button-label`,`edit-item`).text("Edit Item");
+    $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(`.variant-title .option-name,.break`).show()
     $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(".product_var_id").val(targetVarID).attr("data-inventory-quantity",targetVarInventoryQty).attr("data-inventory-policy",targetVarInventoryPolicy);
     button.text("Updated");
     $(".fancybox-button").click();
@@ -1991,6 +2024,22 @@ theme_custom.eventPageClickEvent = function (){
 
   // Product Add to cart Function
   $(document).on("click", ".cta-action-add-to-cart", function(e){
+    if($(this).hasClass('fit-finder-blank')){
+      $(`.jacket-variant-title .option-1, .jacket-variant-title .option-2, .jacket-variant-title .option-3,.vest-variant-title .option-1,.vest-variant-title .option-2,.vest-variant-title .option-3,.pants-variant-title .option-1,.pants-variant-title .option-2,.pants-variant-title .option-3, .break, .edit-product-data-card[data-product-type="shoes"] .option-1, .edit-product-data-card[data-product-type="shoes"] .option-2,.edit-product-data-card[data-product-type="shirt"] .option-1, .edit-product-data-card[data-product-type="shirt"] .option-2,.edit-product-data-card[data-product-type="shirt"] .option-3`).hide();
+      $(`.jacket-variant-title .combo-block-edit-item, .pants-variant-title .combo-block-edit-item, .edit-product-data-card[data-product-type="shirt"] .open-product-edit-popup, .edit-product-data-card[data-product-type="shoes"] .open-product-edit-popup`).text('Select size').attr("data-button-label","select-size");
+      $(`.jacket-variant-title, .pants-variant-title, .edit-product-data-card[data-product-type="shirt"], .edit-product-data-card[data-product-type="shoes"]`).find(`.error-message`).text("Please Select Size!")
+      $(`.vest-variant-title`).addClass("vest-not-selected");
+      $(`.vest-variant-title.vest-not-selected`).find(`.combo-block-edit-item, .break`).hide();
+      $(".view-look").trigger("click");
+      $(`.cta-action-add-to-cart`).removeClass("fit-finder-blank");
+    }
+    if($(`[data-button-label="select-size"]`).length > 0) {
+      $('.error-message').show();
+      $('html, body').stop().animate({
+        'scrollTop': $(`[data-button-label="select-size"]:first`).offset().top - $("#shopify-section-header").height() + 10
+      }, "slow");
+      return false;
+    }
     if($(".error-message.error-show").length > 0) {
       let parent = $(".error-message.error-show").closest('.product-data-card');
       if(parent.length>0){
@@ -2017,6 +2066,18 @@ theme_custom.eventPageClickEvent = function (){
 
   // view - hide look products
   $(document).on("click", ".view-look",function(){
+    if(getCookie("fit-finder-data") !='' || getCookie("fit-finder-data") != 'blank'){
+      $(`.jacket-variant-title .option-1, .jacket-variant-title .option-2, .jacket-variant-title .option-3,.vest-variant-title .option-1,.vest-variant-title .option-2,.vest-variant-title .option-3,.pants-variant-title .option-1,.pants-variant-title .option-2,.pants-variant-title .option-3, .break, .edit-product-data-card[data-product-type="shoes"] .option-1, .edit-product-data-card[data-product-type="shoes"] .option-2,.edit-product-data-card[data-product-type="shirt"] .option-1, .edit-product-data-card[data-product-type="shirt"] .option-2,.edit-product-data-card[data-product-type="shirt"] .option-3`).hide();
+      $(`.jacket-variant-title .combo-block-edit-item, .pants-variant-title .combo-block-edit-item, .edit-product-data-card[data-product-type="shirt"] .open-product-edit-popup, .edit-product-data-card[data-product-type="shoes"] .open-product-edit-popup`).text('Select size').attr("data-button-label","select-size");
+      $(`.jacket-variant-title, .pants-variant-title, .edit-product-data-card[data-product-type="shirt"], .edit-product-data-card[data-product-type="shoes"]`).find(`.error-message`).text("Please Select Size!")
+      $(`.vest-variant-title`).addClass("vest-not-selected");
+      $(` .vest-variant-title.vest-not-selected`).find(`.combo-block-edit-item, .break`).hide()
+    } else {
+      $(`.jacket-variant-title .option-1, .jacket-variant-title .option-2, .jacket-variant-title .option-3,.vest-variant-title .option-1,.vest-variant-title .option-2,.vest-variant-title .option-3,.pants-variant-title .option-1,.pants-variant-title .option-2,.pants-variant-title .option-3, .break, .edit-product-data-card[data-product-type="shoes"] .option-1, .edit-product-data-card[data-product-type="shoes"] .option-2,.edit-product-data-card[data-product-type="shirt"] .option-1, .edit-product-data-card[data-product-type="shirt"] .option-2,.edit-product-data-card[data-product-type="shirt"] .option-3`).show();
+      $(`.jacket-variant-title .combo-block-edit-item, .pants-variant-title .combo-block-edit-item, .edit-product-data-card[data-product-type="shirt"] .open-product-edit-popup, .edit-product-data-card[data-product-type="shoes"] .open-product-edit-popup`).text('Edit Item').attr("data-button-label","edit-size");
+      $(` .vest-variant-title.vest-not-selected`).find(`.combo-block-edit-item, .break`).show()
+      $(`.vest-variant-title`).removeClass("vest-not-selected");
+    }
     if($(this).attr("data-text")=='View Look') {
       $(this).text("View Look").attr("data-text","Hide Look");
       $(".event-owner-look-product-list.look-product-list-wrapper .look-product-details").removeClass("show");
@@ -2723,7 +2784,7 @@ theme_custom.eventPageEditMySize = function (btn) {
       jacketSize_result = fitFinderJsonData.jacketSize_result;
     var userID = $("#custom_id_num").val(),
       userEmail = $("#custom_email").val();
-    fitFinder = {
+    var fitFinder = {
       "customer_id": userID,
       "user_email": userEmail,
       "age_qus": age_qus,

@@ -98,18 +98,19 @@
                         {%- if section.settings.show_vendor -%}
                           <p class="caption-with-letter-spacing light">{{ item.product.vendor }}</p>
                         {%- endif -%}
-                        {%- assign subitemvar = '' -%}
-                        {%- for subitem in cart.items -%}
-                          {%- assign subItemProductType = subitem.product.type | downcase | handleize -%}
-                          {%- if item.properties['combo-variant-title'] == item.variant.title -%}
+                        {%- assign pantsItemData = '' -%}
+                        {%- for pantsItem in cart.items -%}
+                          {%- assign subItemProductType = pantsItem.product.type | downcase | handleize -%}
+                          {%- if item.properties['pant-variant-title'] == pantsItem.variant.title -%}
                             {% if subItemProductType == 'pants'  %}
+                              {%- assign pantsItemData = pantsItem -%}
                               {%- capture pantOption -%}
-                              <div class="suit-product-info" data-product-handle="{{ subitem.product.handle }}" data-item-product-type="{{ subItemProductType  }}" data-variant-id="{{ subitem.id }}">
+                              <div class="suit-product-info" data-product-handle="{{ pantsItem.product.handle }}" data-item-product-type="{{ subItemProductType  }}" data-variant-id="{{ pantsItem.id }}">
                                 <span class="title">
                                   Pants - 
                                 </span>
                                 <span class="option-wrap">
-                                  {%- for option in subitem.options_with_values -%}
+                                  {%- for option in pantsItem.options_with_values -%}
                                     <div class="product-option">
                                       <span>{{ option.name }}: </span>
                                       <span>{{ option.value }}</span>
@@ -118,15 +119,24 @@
                                 </span>
                               </div>
                               {%- endcapture -%}
-                            {% endif %}
+                            {%- endif -%}
+                          {%- endif -%}
+                        {%- endfor -%}
+
+                        <!-- vest data -->
+                        {%- assign vestItemData = '' -%}
+                        {%- for vestItem in cart.items -%}
+                          {%- assign subItemProductType = vestItem.product.type | downcase | handleize -%}
+                          {%- if item.properties['vest-variant-title'] == vestItem.variant.title -%}
                             {% if subItemProductType == 'vest'  %}
+                              {%- assign vestItemData = vestItem -%}
                               {%- capture vestOption -%}
-                                <div class="suit-product-info" data-product-handle="{{ subitem.product.handle }}" data-item-product-type="{{ subItemProductType  }}" data-variant-id="{{ subitem.id }}">
+                                <div class="suit-product-info" data-product-handle="{{ vestItem.product.handle }}" data-item-product-type="{{ subItemProductType  }}" data-variant-id="{{ vestItem.id }}">
                                   <span class="title">
                                     Vest - 
                                   </span>
                                   <span class="option-wrap">
-                                    {%- for option in subitem.options_with_values -%}
+                                    {%- for option in vestItem.options_with_values -%}
                                       <div class="product-option">
                                         <span>{{ option.name }}: </span>
                                         <span>{{ option.value }}</span>
@@ -138,6 +148,7 @@
                             {% endif %}
                           {%- endif -%}
                         {%- endfor -%}
+
                         {%- if lineItemType == 'jacket' -%}
                           <span class="cart-item__name break h3 suit-title">
                             {{ item.options_with_values[2].value }} Suit
@@ -335,7 +346,7 @@
                         <div class="cart-item__price-wrapper medium-up">
                           {%- assign vestPice = false -%}
                           {%- for vestProperties in item.properties -%}
-                            {%- if vestProperties contains 'vest-variant-id' -%}
+                            {%- if vestProperties contains 'vest-variant-title' -%}
                               {%- assign vestPice = true -%}
                             {%- endif -%}
                           {% endfor %}
@@ -346,18 +357,18 @@
                               </dt>
                               <dd class="price price--end" data-subitemvar-price="{{subitemvar.price}}">
                                 {%- if vestPice -%}
-                                  {{ item.final_line_price | plus: subitemvar.final_line_price | plus : 4999 | money }}
+                                  {{ item.final_line_price | plus : 11498 | money }}
                                 {%- else -%}
-                                  {{ item.final_line_price | plus: subitemvar.final_line_price | money }}
+                                  {{ item.final_line_price | money }}
                                 {%- endif -%}
                               </dd>
                             </dl>
                           {%- else -%}
                             <span class="price price--end">
                               {%- if vestPice -%}
-                                {{ item.final_line_price | plus: subitemvar.final_line_price | plus : 4999 | money }}
+                                {{ item.final_line_price | plus : 11498 | money }}
                               {%- else -%}
-                                {{ item.final_line_price | plus: subitemvar.final_line_price | money }}
+                                {{ item.final_line_price | money }}
                               {%- endif -%}
                             </span>
                           {%- endif -%}

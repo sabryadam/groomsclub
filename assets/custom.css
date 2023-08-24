@@ -1507,4 +1507,7 @@ select#event-id.disabled {
 .product-block-wrap-suit-wrapper .suit-combo-wrapper .variant-info-wrap[data-product-type="pants"]{
 	order: 2;
 }
+.product-block-outer-wrapper[data-collection-title="vest"] .price-wrap{
+	display: none !important;
+}
 /* custom css */

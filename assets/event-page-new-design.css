@@ -2130,3 +2130,22 @@ select#remiderName{
   pointer-events: none;
   cursor: not-allowed;
 }
+.event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper{
+  display: flex;
+  flex-direction: column;
+}
+.event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .suit-product-data-info-card-wrapper{
+  order: 0;
+}
+.event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .edit-product-data-card[data-product-type="shirt"]{
+  order: 1;
+}
+.event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .edit-product-data-card[data-product-type="neckties"]{
+  order: 2;
+}
+.event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .edit-product-data-card[data-product-type="hanky"]{
+  order: 3;
+}
+.event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .edit-product-data-card[data-product-type="shoes"]{
+  order: 4;
+}
