@@ -103,6 +103,9 @@
   .product-data-card.product-data-card-wrap[data-product-type="shoes"] .variant-title {
     /* display: none; */
   }
+  .hide-variant-value .variant-title{
+    display : none
+  }
 
   .suit_page_body div.product-data-card.product-data-card-wrap {
     background-color: transparent;
@@ -1143,7 +1146,7 @@
                                 {%- assign productHandle = all_products[productData] -%}
                                 {%- unless productHandle == blank -%}
                                   {%- assign productHandleType = productHandle.type | downcase -%}
-                                  <div class="{% unless productHandleType == 'vest' %}product-data-card {% endunless %}product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
+                                  <div class="{% if productHandleType == 'vest' %}hide-variant-value {% endif %}product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
                                     <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
                                     <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ productHandle.selected_or_first_available_variant.id }}" data-inventory-policy="{{ productHandle.selected_or_first_available_variant.inventory_policy }}">
                                     <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">

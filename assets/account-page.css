@@ -390,6 +390,7 @@
     color: #001F49;
     margin-bottom: 6px;
     font-weight: 500;
+    min-height: 50px;
 }
 
 .main-account-page #tabs-content .tab-content .feature-looks-slider .look-container .delete-fav-wrap{
@@ -552,10 +553,10 @@
     transform: translate(-50%,-50%);
     top: 50%;
     left: 50%;
-    padding-bottom: 50px;
-    padding-top: 50px;
-    max-width: 587px;
-    min-width: 587px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    max-width: fit-content;
+    min-width: fit-content;
     min-height: initial;
     max-height: initial;
 }

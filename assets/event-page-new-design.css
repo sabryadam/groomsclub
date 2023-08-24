@@ -367,6 +367,7 @@
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
+  height: fit-content;
 }
 .modal-wrapper[data-target="add-guest-popup"] .modal-wrapper-inner-wrapper,
 .modal-wrapper[data-target="update-guest-popup"] .modal-wrapper-inner-wrapper,
@@ -729,10 +730,12 @@
 .event-page-new-design-wrapper .page-width-inner-wrapper .add-guest-inner-wrapper .form-error{
   position: absolute;
   top: -28px;
-  left: 10px;
   padding: 5px 5px 0;
   background: #fff;
-  font-size: 12px;
+  font-size: 11px;
+  width: 100%;
+  left: 0;
+  right: 0;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .add-guest-inner-wrapper.invite-another-member-popup-wrapper input[type=radio]:checked~.checkbox-label{
   background-color: #1075BC;
@@ -2111,4 +2114,12 @@ select#remiderName{
   .modal-wrapper.reminder-redesign-popup .modal-wrapper-inner-wrapper{
     max-height: 525px;
   }
+}
+#member-reminder-wrapper .summary-table-wrapper.hidden{
+  display: block !important;
+}
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
 }

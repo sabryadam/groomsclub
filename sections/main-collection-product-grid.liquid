@@ -457,6 +457,13 @@
       </div>
     {%- endif -%}
   {%- endpaginate -%}
+  
+  <div style="max-width:80%; margin:0 auto;">
+    {%- if collection.description != blank -%}
+      <p>{{ collection.description }}</p>
+    {%- endif -%}
+  </div>
+
 </div>
 
 {% schema %}

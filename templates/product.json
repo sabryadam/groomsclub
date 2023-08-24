@@ -27,16 +27,14 @@
         },
         "subtitle": {
           "type": "text",
-          "disabled": true,
           "settings": {
-            "text": "<p>{{ product.metafields.descriptors.subtitle.value }}<\/p>",
-            "text_style": "subtitle"
+            "text": "<p>{{ product.metafields.extra_desc.short_description.value }}<\/p>"
           }
         },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
-            "picker_type": "dropdown"
+            "picker_type": "swatch"
           }
         },
         "quantity_selector": {
@@ -105,7 +103,7 @@
           "type": "icontext",
           "settings": {
             "icontitle": "100% Microfiber",
-            "iconsubtitle": "Lorem ipsum dolor sit amet, conse ctetur adipisicing elit.",
+            "iconsubtitle": "",
             "information_title": "",
             "information_content": "",
             "icon_image": "shopify:\/\/shop_images\/home_icon_6d6a5bb5-a9f6-445c-af00-7dddf9d461f8.png"
@@ -115,7 +113,7 @@
           "type": "icontext",
           "settings": {
             "icontitle": "100% Silk Satin Shawl Collar",
-            "iconsubtitle": "Lorem ipsum dolor sit amet, conse ctetur adipisicing elit.",
+            "iconsubtitle": "",
             "information_title": "",
             "information_content": "",
             "icon_image": "shopify:\/\/shop_images\/comfort_fit.png"
@@ -125,7 +123,7 @@
           "type": "icontext",
           "settings": {
             "icontitle": "One-Button Closure & Side Vents",
-            "iconsubtitle": "Lorem ipsum dolor sit amet, conse ctetur adipisicing elit.",
+            "iconsubtitle": "",
             "information_title": "",
             "information_content": "",
             "icon_image": "shopify:\/\/shop_images\/endless.png"
@@ -288,7 +286,8 @@
           "type": "heading",
           "settings": {
             "heading": "Sizing & Fit",
-            "heading_count": ""
+            "heading_count": "",
+            "show_icon": false
           }
         },
         "16372214311bceba87-1": {
@@ -302,6 +301,7 @@
           "settings": {
             "button_label": "Find Your Fit",
             "button_link": "shopify:\/\/pages\/fit-finder",
+            "open_new_tab": false,
             "button_style_secondary": true
           }
         }
@@ -330,7 +330,8 @@
           "type": "heading",
           "settings": {
             "heading": "Customize Your Look",
-            "heading_count": ""
+            "heading_count": "",
+            "show_icon": false
           }
         },
         "16372214390e7744a5-1": {
@@ -344,6 +345,7 @@
           "settings": {
             "button_label": "Try Our Customizer",
             "button_link": "shopify:\/\/pages\/customize-your-look",
+            "open_new_tab": false,
             "button_style_secondary": true
           }
         }
@@ -372,7 +374,8 @@
           "type": "heading",
           "settings": {
             "heading": "Our Top Looks",
-            "heading_count": ""
+            "heading_count": "",
+            "show_icon": false
           }
         },
         "1637221459d723b949-1": {
@@ -386,6 +389,7 @@
           "settings": {
             "button_label": "Browse Top Looks",
             "button_link": "shopify:\/\/collections\/looks",
+            "open_new_tab": false,
             "button_style_secondary": true
           }
         }

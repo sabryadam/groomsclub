@@ -192,7 +192,7 @@ theme_custom.productDataFromURL = function () {
           inputHiddenVal = `<input type="hidden" class="overview-variant-id" data-variant-id="${getProductvarID}">`;
           if (getProductvarQty == 0) {
             allProductsAvailable = false;
-            productBlockVarData = '';
+            productBlockVarData = 'product-block-var-data';
           } else {
             productBlockVarData = 'product-block-var-data';
           }
@@ -221,7 +221,7 @@ theme_custom.productDataFromURL = function () {
           variantTitle = `<p class="variant-title" style="line-height: 25px;${productVariantLink}"> ${variantTitleWithOption} </p>`;
           inputHiddenVal = `<input type="hidden" class="overview-variant-id" data-variant-id="${getProductvarID}">`;
           if (getProductvarQty == 0) {
-            productBlockVarData = '';
+            productBlockVarData = 'product-block-var-data';
           } else {
             productBlockVarData = 'product-block-var-data';
           }
@@ -237,7 +237,7 @@ theme_custom.productDataFromURL = function () {
           variantTitle = `<p class="variant-title" style="line-height: 25px;${productVariantLink}">${optionFirstName} <span class="option1">${optionFirstVal}</span>, <span class="option2">${optionSecondVal}</span> </p>`;
           inputHiddenVal = `<input type="hidden" class="overview-variant-id" data-variant-id="${getProductvarID}">`;
           if (getProductvarQty == 0) {
-            productBlockVarData = '';
+            productBlockVarData = 'product-block-var-data';
           } else {
             productBlockVarData = 'product-block-var-data';
           }
@@ -257,7 +257,7 @@ theme_custom.productDataFromURL = function () {
           variantTitle = `<p style="line-height: 25px;"> ${variantTitleWithOption} </p>`;
           inputHiddenVal = `<input type="hidden" class="overview-variant-id" data-variant-id="${getProductvarID}">`;
           if (getProductvarQty == 0) {
-            productBlockVarData = '';
+            productBlockVarData = 'product-block-var-data';
           } else {
             productBlockVarData = 'product-block-var-data';
           }
@@ -1264,7 +1264,7 @@ theme_custom.customize_product_clickEvent = function () {
       error.removeClass('active').hide();
       $(`.customize-look-overview-product[data-product-type="${productType}"]`).addClass('product-block-var-data');
     } else {
-      if(parseInt(selectedItem.attr("data-variant-inventory")).length > 0 ){
+      if(parseInt(selectedItem.attr("data-variant-inventory")) > 0 ){
       } else {
         $(`.customize-look-overview-product[data-product-type="${productType}"]`).removeClass('product-block-var-data');
         error.addClass('active').show();
@@ -1312,23 +1312,23 @@ theme_custom.customize_product_clickEvent = function () {
 
   // favorite-event-button 
   $(document).on("click", ".favorite-event-button", function () {
-    if($(".error-msg:visible").length > 0) {
-      let parent = $(".error-msg:visible").closest('.customize-look-overview-product');
-      if(parent.length>0){
-        $('html, body').stop().animate({
-          'scrollTop': $(parent).offset().top - $("#shopify-section-header").height() + 10
-        }, "slow");
-        $(".product-out-of-stock-error").removeClass("hidden").addClass("active");
-        return false;
-      }
-      else{
-        $('html, body').stop().animate({
-          'scrollTop': $(".error-msg:visible").offset().top - $("#shopify-section-header").height() + 10
-        }, "slow");
-        $(".product-out-of-stock-error").addClass("hidden").removeClass("active");
-        return false;    
-      }
-    } 
+    // if($(".error-msg:visible").length > 0) {
+    //   let parent = $(".error-msg:visible").closest('.customize-look-overview-product');
+    //   if(parent.length>0){
+    //     $('html, body').stop().animate({
+    //       'scrollTop': $(parent).offset().top - $("#shopify-section-header").height() + 10
+    //     }, "slow");
+    //     $(".product-out-of-stock-error").removeClass("hidden").addClass("active");
+    //     return false;
+    //   }
+    //   else{
+    //     $('html, body').stop().animate({
+    //       'scrollTop': $(".error-msg:visible").offset().top - $("#shopify-section-header").height() + 10
+    //     }, "slow");
+    //     $(".product-out-of-stock-error").addClass("hidden").removeClass("active");
+    //     return false;    
+    //   }
+    // } 
     if(localStorage.getItem("editLookName") != null && localStorage.getItem("editLookId") != null){
       $(`[name="look-name"]`).val(localStorage.getItem("editLookName"));
     }
@@ -1361,6 +1361,7 @@ theme_custom.customize_product_clickEvent = function () {
       $('html, body').stop().animate({
         'scrollTop': $(`[data-button-target="select-size"]:first`).offset().top - $("#shopify-section-header").height() + 10
       }, "slow");
+      $(".product-out-of-stock-error").removeClass("hidden").addClass("active");
       return false;
     }
     if($(".error-msg:visible").length > 0) {
@@ -1388,23 +1389,23 @@ theme_custom.customize_product_clickEvent = function () {
     //   'scrollTop': $(".error-msg").closest(".customize-look-overview-product").offset().top - 10 - $("#shopify-section-header").height()
     // }, 900);
     // return false
-    if($(".error-msg:visible").length > 0) {
-      let parent = $(".error-msg:visible").closest('.customize-look-overview-product');
-      if(parent.length>0){
-        $('html, body').stop().animate({
-          'scrollTop': $(parent).offset().top - $("#shopify-section-header").height() + 10
-        }, "slow");
-        $(".product-out-of-stock-error").removeClass("hidden").addClass("active");
-        return false;
-      }
-      else{
-        $('html, body').stop().animate({
-          'scrollTop': $(".error-msg:visible").offset().top - $("#shopify-section-header").height() + 10
-        }, "slow");
-        $(".product-out-of-stock-error").addClass("hidden").removeClass("active");
-        return false;    
-      }
-    } 
+    // if($(".error-msg:visible").length > 0) {
+    //   let parent = $(".error-msg:visible").closest('.customize-look-overview-product');
+    //   if(parent.length>0){
+    //     $('html, body').stop().animate({
+    //       'scrollTop': $(parent).offset().top - $("#shopify-section-header").height() + 10
+    //     }, "slow");
+    //     $(".product-out-of-stock-error").removeClass("hidden").addClass("active");
+    //     return false;
+    //   }
+    //   else{
+    //     $('html, body').stop().animate({
+    //       'scrollTop': $(".error-msg:visible").offset().top - $("#shopify-section-header").height() + 10
+    //     }, "slow");
+    //     $(".product-out-of-stock-error").addClass("hidden").removeClass("active");
+    //     return false;    
+    //   }
+    // } 
     $("html,body").css("overflow", "hidden");
     $(".page-loader").removeClass("hidden");
     var modalTarget = $(this).closest(".customize-your-look-page").find(".create-event-look");

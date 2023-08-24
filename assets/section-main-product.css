@@ -269,8 +269,6 @@ variant-selects {
 
 .product__text p {
   margin: 0 0 0 0;
-  color: var(--color-primary);
-  font-weight: var(--font-weight-custom-medium);
   letter-spacing: normal;
   line-height: normal;
 }

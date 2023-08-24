@@ -73,6 +73,7 @@ theme_custom.multipleProductAjax = function(button, parent, payBy){
     url: '/cart/clear.js',
     data: '',
     dataType: 'json',
+    async: true,
     success: function() {
       jQuery.ajax({
         type: 'POST',
@@ -108,6 +109,7 @@ theme_custom.draftOrderFunction = function(data){
     data: JSON.stringify(data),
     dataType: "json",
     contentType: 'application/json; charset=utf-8',
+    async: true,
     headers: {
       "Authorization": 'Bearer '+localStorage.getItem("customerToken")
     },
@@ -199,6 +201,7 @@ theme_custom.ProductData = function(productItemsArr){
     // url: `${theme_custom.base_url}/api/shopify/products`,
     url : `/search/?view=getData&q=${product_ids}`,
     dataType: "json",
+    async: true,
     headers: {
       // "Authorization": 'Bearer BzuPQTFq84j4ZDX7EBpveJ0rzGo6Ljj1PQ4AXNMWtsnd5UsNn9kG1Pidd7EnFDVTadlI5eNpKOrfW5JoegG7FU3cXRQNjd0b3FMNA'
       "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
@@ -214,7 +217,7 @@ theme_custom.ProductData = function(productItemsArr){
       });
       
       $.map(productItemsArrayLooks, function(productItem,index) {
-        var productTitle = productItem.product.title;
+        var productTitle = productItem.product.type;
         if(productTitle.indexOf('Suit') != -1){
         } else {
         let product = productItem.product; 
@@ -261,9 +264,9 @@ theme_custom.ProductData = function(productItemsArr){
           $.each(product.variants, function (key, value) {
             if(!value.title == ''){
               if(key == 0){
-                prodOptionArray += `<option value="${value.id}" data-variant-inventory-policy="${value.inventory_policy}" data-variant-inventory-quantity="${value.inventory_quantity}" data-product-id="${product.id}" data-variant-title="${value.title}" selected="selected">${value.title}</option>`;
+                prodOptionArray += `<option data-variant-image="${value.featured_image}" value="${value.id}" data-variant-inventory-policy="${value.inventory_policy}" data-variant-inventory-quantity="${value.inventory_quantity}" data-product-id="${product.id}" data-variant-title="${value.title}" selected="selected">${value.title}</option>`;
               } else {
-                prodOptionArray += `<option value="${value.id}" data-variant-inventory-policy="${value.inventory_policy}" data-variant-inventory-quantity="${value.inventory_quantity}" data-variant-inventory="${value.inventory_quantity}" data-product-id="${product.id}" data-variant-title="${value.title}">${value.title}</option>`;
+                prodOptionArray += `<option data-variant-image="${value.featured_image}" value="${value.id}" data-variant-inventory-policy="${value.inventory_policy}" data-variant-inventory-quantity="${value.inventory_quantity}" data-variant-inventory="${value.inventory_quantity}" data-product-id="${product.id}" data-variant-title="${value.title}">${value.title}</option>`;
               }
             }
           });
@@ -357,6 +360,10 @@ theme_custom.ProductData = function(productItemsArr){
         $(".product-data-wrapper").removeClass("hidden");
         }
       })
+      setTimeout(() => {
+        $('.mywedding_api_call_loading').addClass('hidden');
+        $('.mywedding_section_wrap').removeClass('hidden'); 
+      }, 5000);
     },
     error: function (xhr, status, error) {
       if(xhr.responseJSON.message=='Token is invalid or expired.'){
@@ -421,7 +428,7 @@ theme_custom.clickEventInvited = function(){
           parent.find(".error-message").addClass("error-show").text("This variant is Out of Stock. Please choose another variant.").fadeIn();
           parent.find(".exchange-look-item").addClass("disabled");
         } else {
-          parent.find(".error-message").removeClass("error-show").text('').fadOut();
+          parent.find(".error-message").removeClass("error-show").text('').fadeOut();
           parent.find(".exchange-look-item").removeClass("disabled");
           parent.find(".prod-variant-option").val(selectedVar);
         }
@@ -442,6 +449,7 @@ theme_custom.clickEventInvited = function(){
     var button = $(this),
         targetVarID = $(this).closest(".product-swatch-option").find("select.prod-variant-option").val(),
         targetVarTitle = $(this).closest(".product-swatch-option").find("select.prod-variant-option option:selected").data("variant-title"),
+        targetVarImg = $(this).closest(".product-swatch-option").find("select.prod-variant-option option:selected").attr("data-variant-image"),
         buttonText = button.data("text"),
         productHandle = button.parent(".product-swatch-option").data("product-handle");
         button.removeClass("disabled");
@@ -465,8 +473,15 @@ theme_custom.clickEventInvited = function(){
     $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".break").removeClass("hidden");
     $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".exchange-item-link").text("Edit Item");
     $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".prod-variant-data").val(targetVarID).attr("data-var-id",targetVarID);
+    $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(`.exchange-item-link`).attr("data-text","edit-size");
+    $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(`.prod-img`).attr("src",targetVarImg);
+    $(`.look-product-wrapper[data-prod-handle="${productHandle}"]`).find(".error-message").removeClass("error-show");
+    if($(`.look-product-wrapper`).find(`.exchange-item-link[data-text="select-size"]`).length == 0){
+      $(".return-suit-checkout-button .proceed-to-cart").removeClass("disabled");
+    }
     button.text("Updated");
     $(".fancybox-button").click();
+    
   })
 
   // product option popup open
@@ -575,6 +590,7 @@ theme_custom.getEventDetails = function(eventId) {
       method: "GET",
       data: '',
       dataType: "json",
+      async: true,
       headers: {
         // "Authorization": 'Bearer BzuPQTFq84j4ZDX7EBpveJ0rzGo6Ljj1PQ4AXNMWtsnd5UsNn9kG1Pidd7EnFDVTadlI5eNpKOrfW5JoegG7FU3cXRQNjd0b3FMNA'
         "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
@@ -623,8 +639,8 @@ theme_custom.getEventDetails = function(eventId) {
           eventNewArray.push(editEventData);
         }
         $(".party-invite-member-part").append(eventNewArray);
-        $('.mywedding_api_call_loading').addClass('hidden');
-        $('.mywedding_section_wrap').removeClass('hidden');
+        // $('.mywedding_api_call_loading').addClass('hidden');
+        // $('.mywedding_section_wrap').removeClass('hidden');
         theme_custom.getProfileImage(result);
 
 
@@ -708,7 +724,7 @@ theme_custom.productVariantSeledtUpdate = function(){
         var selectedvarId = $(this).find('.prod-variant-option').val();
         $(this).find(".prod-variant-data").attr("data-var-id",selectedvarId).val(selectedvarId);
       }  else {
-        if(parseInt(selectedTarget.attr("data-variant-inventory")).length > 0){
+        if(parseInt(selectedTarget.attr("data-variant-inventory")) > 0){
           $(this).find('.prod-variant-option option[data-variant-title="'+varintTitle+'"]').prop('selected', true);
           var selectedvarId = $(this).find('.prod-variant-option').val();
           $(this).find(".prod-variant-data").attr("data-var-id",selectedvarId).val(selectedvarId);
@@ -803,6 +819,7 @@ theme_custom.getFitFinderData = function(payBy){
     method: "GET",
     data: '',
     dataType: "json",
+    async: true,
     headers: {
       "Authorization": 'Bearer '+localStorage.getItem("customerToken")
     },
@@ -817,7 +834,11 @@ theme_custom.getFitFinderData = function(payBy){
         theme_custom.cartButton = 'disabled';
         $(".account-event-step[data-event-step='verified-fit']").hide();
         // $('.product-size-type-exchange').addClass('hidden');
-        $('.exchange-item-link').text("Select Size");
+        $('.exchange-item-link').text("Select Size").attr("data-text","select-size");
+        setTimeout(() => {
+          $(".mywedding_api_call_loading").addClass("hidden");
+          $(".mywedding_section_wrap").removeClass("hidden");
+        },5000)        
       } else {
         $(".account-event-step[data-event-step='sized'], .account-event-step[data-event-step='verified-fit']").addClass("active");
         $(".product-size-type-exchange-wrapper .product-size-type-exchange").removeClass("hidden");
@@ -826,7 +847,9 @@ theme_custom.getFitFinderData = function(payBy){
         $('.exchange-item-link').text("Edit Size");
         $('.size-wrap').removeClass("hidden");
         theme_custom.cartButton = '';
-        theme_custom.fitFinderDataSet(result.data);
+        setTimeout(() => {
+          theme_custom.fitFinderDataSet(result.data);
+        }, 1000);
       }
       
       if(checkPayBy=="Host" || checkPayBy=="host") {
@@ -870,13 +893,14 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
     method: "POST",
     data: data,
     dataType: "json",
+    async: true,
     headers: {
       // "Authorization": 'Bearer BzuPQTFq84j4ZDX7EBpveJ0rzGo6Ljj1PQ4AXNMWtsnd5UsNn9kG1Pidd7EnFDVTadlI5eNpKOrfW5JoegG7FU3cXRQNjd0b3FMNA'
       "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
     },
     beforeSend: function () {
-      $(".mywedding_api_call_loading").removeClass("hidden");
-      $(".mywedding_section_wrap").addClass("hidden");
+      // $(".mywedding_api_call_loading").removeClass("hidden");
+      // $(".mywedding_section_wrap").addClass("hidden");
     },
     success: function (result) {
       var htmlBlock = '';
@@ -963,6 +987,7 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
             } else {
               if(getCookie("fit-finder-data") == ''){
                 $(`.proceed-to-cart`).addClass("disabled");
+                $('.exchange-item-link').text("Select Size").attr("data-text","select-size");
                 clearInterval(CheckoutButtonDisabled);
               } else {
                 $(`.proceed-to-cart`).removeClass("disabled");
@@ -992,8 +1017,8 @@ theme_custom.getMemberLooksData = function(eventId,memberId){
           }
         }, 2000);
       }      
-      $('.mywedding_api_call_loading').addClass('hidden');
-      $('.mywedding_section_wrap').removeClass('hidden');
+      // $('.mywedding_api_call_loading').addClass('hidden');
+      // $('.mywedding_section_wrap').removeClass('hidden');
       
       let itemInterval = setInterval(()=>{
         if($('.invite-event-main-content [data-product-type="jacket"]').length > 0 && $('.invite-event-main-content [data-product-type="pants"]').length > 0){
