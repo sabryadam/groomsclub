@@ -145,12 +145,7 @@ theme_custom.getVariantData = function (parentEl) {
     variantTitle = variantTitle + ' / ' + parent.find('.option-2').text();
   }
   if (parent.find('.option-3').length > 0) {
-    if(productType == 'vest'){
-      var option3 = parent.find('[data-option-index="2"] input:checked').val();
-      variantTitle = variantTitle + ' / ' + option3;
-    }else{
-      variantTitle = variantTitle + ' / ' + parent.find('.option-3').text();
-    }
+    variantTitle = variantTitle + ' / ' + parent.find('.option-3').text();
   }
   setTimeout(function(){
     parent.find(`.single-option-selector option[data-var-title="${variantTitle}"]`).attr('selected','selected');

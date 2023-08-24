@@ -96,7 +96,6 @@ theme_custom.productDataFromURL = function () {
           if (currentInput.closest(".product-block-wrapper[data-product-type='suit']").length == 0) {
             currentInput.closest('.swatch-wrap').addClass("unchecked-product");
           }
-          debugger;
           var productType = currentOption.closest(".product-block-wrapper").attr("data-product-type");
           if(productType == 'suit' ){
             currentInput.closest('.product-block-outer-wrapper').find('.price-wrap').attr('data-product-price', currentVarintPrice).text(theme_custom.Shopify.formatMoney(24998, theme_custom.money_format)).show();
