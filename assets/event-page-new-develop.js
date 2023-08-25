@@ -2219,6 +2219,7 @@ theme_custom.eventPageClickEvent = function (){
           },1000)
         }
       })
+      $(` .vest-variant-title.vest-not-selected`).find(`.combo-block-edit-item, .break`).hide()
     }
     if($(this).attr("data-text")=='View Look') {
       $(this).text("View Look").attr("data-text","Hide Look");
