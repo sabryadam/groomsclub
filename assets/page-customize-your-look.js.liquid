@@ -1891,10 +1891,18 @@ theme_custom.customize_product_clickEvent = function () {
       }
       if (variantDataGet['variantPrice'] != undefined) {
         if ($(this).closest('.swatch-wrap').hasClass('.swatch-color')) {
-          $(this).closest(".product-block-outer-wrapper").find(".price-wrap").text('+' + parseInt(variantDataGet['variantPrice']) / 100).show();
+          if($(this).closest(".product-block-wrapper").attr("data-product-type") == 'suit') {
+            $(this).closest(".product-block-outer-wrapper").find(".price-wrap").text(`249.98`).show();
+          } else {
+            $(this).closest(".product-block-outer-wrapper").find(".price-wrap").text('+' + parseInt(variantDataGet['variantPrice']) / 100).show();
+          }
         } else {
           if ($(this).closest('.swatch-outer-wrapper').find('.swatch-color input:checked').length > 0) {
-            $(this).closest(".product-block-outer-wrapper").find(".price-wrap").text('+' + theme_custom.Shopify.formatMoney(variantDataGet['variantPrice'], theme_custom.money_format)).show();
+            if($(this).closest(".product-block-wrapper").attr("data-product-type") == 'suit') {
+              $(this).closest(".product-block-outer-wrapper").find(".price-wrap").text(theme_custom.Shopify.formatMoney(24998, theme_custom.money_format)).show();
+            } else {
+              $(this).closest(".product-block-outer-wrapper").find(".price-wrap").text('+' + theme_custom.Shopify.formatMoney(variantDataGet['variantPrice'], theme_custom.money_format)).show();
+            }
           }
         }
       }

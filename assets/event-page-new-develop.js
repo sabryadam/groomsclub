@@ -425,7 +425,7 @@ theme_custom.favoriteLooks = function () {
                 <div class="bundle-product-wrapper">${itemData}</div>
                 <h4 class="product-title">${result.data[i].name}</h4>
                 <p class="product-price">Starting at $199.99</p>
-                <p class="taxes-text">Price Included Jacket pants and Vests</p>
+                <p class="taxes-text">Price Included Jacket, Ves and  Pants </p>
                 <button class="button button--secondary look-added-into-event" data-text="Adding...">Add To Event</button>
               </div>
             </div>`;
@@ -2219,7 +2219,6 @@ theme_custom.eventPageClickEvent = function (){
           },1000)
         }
       })
-      $(` .vest-variant-title.vest-not-selected`).find(`.combo-block-edit-item, .break`).hide()
     }
     if($(this).attr("data-text")=='View Look') {
       $(this).text("View Look").attr("data-text","Hide Look");

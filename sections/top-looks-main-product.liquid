@@ -780,7 +780,11 @@
                             {{ productDataWrap }}
                             <div class="product-price mobile-small">
                               <span class="money" data-price="{{ product.price}}">
-                                {{ product.price | money }}
+                                {% if product.type == 'suit' or product.type == 'Suit'  %}
+                                  {{ 24998 | money }}
+                                {% else %}
+                                  {{ product.price | money }}
+                                {% endif %}
                               </span>
                             </div>
                           </div>

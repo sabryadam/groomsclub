@@ -1510,4 +1510,15 @@ select#event-id.disabled {
 .product-block-outer-wrapper[data-collection-title="vest"] .price-wrap{
 	display: none !important;
 }
+@media(max-width: 7667px){
+	.tabbed-content-block-outer-wrapper .product-info-wrap .product-title{
+		align-items: center !important;
+		padding-top: 10px !important;
+		padding-bottom: 10px !important;
+		padding-right: 0 !important;
+	}
+}
+.mob-tab-price {
+	display: none !important;
+}
 /* custom css */
