@@ -1521,4 +1521,7 @@ select#event-id.disabled {
 .mob-tab-price {
 	display: none !important;
 }
+.vest_option.vest-not-selected .combo-block-edit-item{
+	display: none;
+}
 /* custom css */

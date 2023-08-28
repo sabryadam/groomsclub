@@ -779,8 +779,8 @@
                             {%- endif -%}
                             {{ productDataWrap }}
                             <div class="product-price mobile-small">
-                              <span class="money" data-price="{{ product.price}}">
-                                {% if product.type == 'suit' or product.type == 'Suit'  %}
+                              <span test-mobile-2-{{ product.type }} class="money" data-price="{{ product.price}}">
+                                {% if product.type == 'suit' or product.type == 'Suit' or product.type == 'looks' or product.type == 'Looks'  %}
                                   {{ 24998 | money }}
                                 {% else %}
                                   {{ product.price | money }}
@@ -885,7 +885,7 @@
                                         <span class="remove-item-btn btn">Remove</span>
                                       </div>
                                       <div class="product-price mobile-small">
-                                        <span class="money" data-price="{{ product.price}}">
+                                        <span test-mobile-1 class="money" data-price="{{ product.price}}">
                                           {{ productHandle.selected_or_first_available_variant.price | money }}
                                         </span>
                                       </div>    
@@ -1006,7 +1006,7 @@
                                           {%- endunless -%}
                                         </div>
                                         <div class="product-price mobile-small">
-                                          <span class="money" data-price="{{ product.price}}">
+                                          <span test-mobile class="money" data-price="{{ product.price}}">
                                             {{ productHandle.selected_or_first_available_variant.price | money }}
                                           </span>
                                         </div> 

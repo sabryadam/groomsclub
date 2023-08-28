@@ -175,7 +175,7 @@
     "1632396205f946a5df": {
       "type": "featured-collection",
       "settings": {
-        "title": "Own for only $249.98",
+        "title": "Own for only $249",
         "collection": "suit",
         "products_to_show": 8,
         "show_view_all": false,
@@ -440,7 +440,7 @@
           "type": "before_after_text_groom",
           "settings": {
             "svg_img_groom": "",
-            "groomsuit_content": "BUY FROM $249.98"
+            "groomsuit_content": "BUY FROM $249"
           }
         },
         "a01aab63-37a0-434c-93bb-b491259ea7da": {
@@ -475,7 +475,7 @@
           "type": "before_after_text_rent",
           "settings": {
             "svg_img_rent": "",
-            "rent_content": "AVG. RENTAL $249.98"
+            "rent_content": "AVG. RENTAL $249"
           }
         },
         "52eb0c39-e038-4312-b6d1-7cb927f0ef37": {

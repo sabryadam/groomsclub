@@ -35,7 +35,8 @@ theme_custom.multipleProductAjax = function(button, parent, payBy){
       item = {
         "id": varId,
         "quantity": 1,
-        "properties": {"combo-variant-title" : jacketVarTitle
+        "properties": {
+          "combo-variant-title" : jacketVarTitle
         }
       }
     } else if (productType == 'vest' || productType == 'Vest') {
