@@ -150,7 +150,7 @@
           "type": "before_after_text_groom",
           "settings": {
             "svg_img_groom": "",
-            "groomsuit_content": "Buy from $199"
+            "groomsuit_content": "Buy from $249.98"
           }
         },
         "932d334b-ea81-4dc8-bc3f-9b70a8dcb705": {
@@ -185,7 +185,7 @@
           "type": "before_after_text_rent",
           "settings": {
             "svg_img_rent": "",
-            "rent_content": "Avg. Rental $199"
+            "rent_content": "Avg. Rental $249.98"
           }
         },
         "2d924c71-e435-43cb-9fc7-fdcba337dc28": {
