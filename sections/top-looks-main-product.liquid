@@ -973,9 +973,9 @@
                                           {% if productHandle.variants.size > 1 %}
                                             {% if template contains 'jacket-pant-combination' %}
                                               {%- if productSelectedType == 'vest' -%}
-                                                <span class="add-vest-button btn">
+                                                {%- comment -%}<span class="add-vest-button btn">
                                                   Add Vest
-                                                </span>  
+                                                </span>  {%- endcomment -%}
                                                 <div class="remove-vest-wrapper hidden">
                                                   <span class="edit-item-btn btn">
                                                     Edit Item

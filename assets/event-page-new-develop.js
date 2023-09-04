@@ -1846,7 +1846,7 @@ theme_custom.setFitFinder = function () {
 
 theme_custom.multiItemAddToCart = function (button) {
   var button = button;
-  var getProduct = $(".look-product-list-wrapper.multi-item-add-to-cart .edit-product-data-card")
+  var getProduct = $(".multi-item-add-to-cart .edit-product-data-card")
   var items = [];
   button.text("Adding...").addClass("disabled");
   getProduct.each(function () {
