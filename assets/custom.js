@@ -147,6 +147,7 @@ theme_custom.getVariantData = function (parentEl) {
   if (parent.find('.option-3').length > 0) {
     variantTitle = variantTitle + ' / ' + parent.find('.option-3').text();
   }
+  console.log("variantTitle",variantTitle);
   setTimeout(function(){
     parent.find(`.single-option-selector option[data-var-title="${variantTitle}"]`).attr('selected','selected');
 

@@ -1732,6 +1732,7 @@ theme_custom.getProductVariantData = function (parentEl) {
   if (parent.find('.option-3').length > 0) {
     variantTitle = variantTitle + ' / ' + parent.find('.option-3').text();
   }
+  console.log("variantTitle",variantTitle);
   setTimeout(function(){
     parent.find(`.prod-variant-option option[data-variant-title="${variantTitle}"]`).attr('selected','selected');
 
@@ -2151,7 +2152,7 @@ theme_custom.eventPageClickEvent = function (){
 
   // view - hide look products
   $(document).on("click", ".view-look",function(){
-    if(getCookie("fit-finder-data") =='' || getCookie("fit-finder-data") == 'blank'){
+    if(getCookie("fit-finder-data") == '' || getCookie("fit-finder-data") == 'blank'){
       $(`.jacket-variant-title .option-1, .jacket-variant-title .option-2, .jacket-variant-title .option-3,.vest-variant-title .option-1,.vest-variant-title .option-2,.vest-variant-title .option-3,.pants-variant-title .option-1,.pants-variant-title .option-2,.pants-variant-title .option-3, .break, .edit-product-data-card[data-product-type="shoes"] .option-1, .edit-product-data-card[data-product-type="shoes"] .option-2,.edit-product-data-card[data-product-type="shirt"] .option-1, .edit-product-data-card[data-product-type="shirt"] .option-2,.edit-product-data-card[data-product-type="shirt"] .option-3`).hide();
       $(`.jacket-variant-title .combo-block-edit-item, .pants-variant-title .combo-block-edit-item, .edit-product-data-card[data-product-type="shirt"] .open-product-edit-popup, .edit-product-data-card[data-product-type="shoes"] .open-product-edit-popup`).text('Select size').attr("data-button-label","select-size");
       $(`.jacket-variant-title, .pants-variant-title, .edit-product-data-card[data-product-type="shirt"], .edit-product-data-card[data-product-type="shoes"]`).find(`.error-message`).text("Please Select Size!")
@@ -2163,9 +2164,9 @@ theme_custom.eventPageClickEvent = function (){
         var parentEl = $(this);
         var productType = $(this).attr("data-product-type").toLowerCase();
         if (getFitFinderData.shoe_size && productType == 'shoes') {
-          parentEl.find(`.swatch-product-wrapper input[data-name='Size']:checked`).removeAttr("checked");
-          parentEl.find(`.swatch-product-wrapper input[data-name='Size'][value="${getFitFinderData.shoe_size}"]`).attr("checked", "checked");
-          parentEl.find(".option-name[data-option-title='Size']").text(`${getFitFinderData.shoe_size}`).attr("data-variant-val", getFitFinderData.shoe_size);
+          parentEl.find(`.swatch-product-wrapper input[data-name='Size']:checked`).prop("checked",false);
+          parentEl.find(`.swatch-product-wrapper input[data-name='Size'][value="${getFitFinderData.shoe_size}"]`).prop("checked",true);
+          parentEl.find(".option-name.option-2").text(`${getFitFinderData.shoe_size}`).attr("data-value", getFitFinderData.shoe_size);
           setTimeout(function(){
             theme_custom.getProductVariantData(parentEl);
           },1000)
@@ -2174,10 +2175,12 @@ theme_custom.eventPageClickEvent = function (){
           // var shirt_size =  getFitFinderData.shirt_sleeve + ' | ' + getFitFinderData.shirt_neck;
           var shirt_size = getFitFinderData.shirt_neck + ' ' + getFitFinderData.shirt_sleeve;
           var shirt_fit = getFitFinderData.fit;
-          parentEl.find(`.swatch-product-wrapper input[data-name='Size']:checked`).removeAttr("checked");
-          parentEl.find(`.swatch-product-wrapper input[data-name='Size'][value="${shirt_size}"]`).attr("checked", "checked");
-          parentEl.find(`.swatch-product-wrapper input[data-name='Style']:checked`).removeAttr("checked");
-          parentEl.find(`.swatch-product-wrapper input[data-name='Style'][value="${shirt_fit}"]`).attr("checked", "checked");
+          parentEl.find(`.swatch-product-wrapper input[data-name='Size']:checked`).prop("checked",false);
+          parentEl.find(`.swatch-product-wrapper input[data-name='Size'][value="${shirt_size}"]`).prop("checked",true);
+          parentEl.find(`.swatch-product-wrapper input[data-name='Style']:checked`).prop("checked",false);
+          parentEl.find(`.swatch-product-wrapper input[data-name='Style'][value="${shirt_fit}"]`).prop("checked",true);
+          parentEl.find(".option-name.option-1").text(`${shirt_size}`).attr("data-value", shirt_size);
+          parentEl.find(".option-name.option-2").text(`${shirt_fit}`).attr("data-value", shirt_fit);
           setTimeout(function(){
             theme_custom.getProductVariantData(parentEl);
           },1000)
@@ -2192,10 +2195,18 @@ theme_custom.eventPageClickEvent = function (){
           } else if (jacketType[1] == "L") {
             jacketTypeVal = 'Long'
           }
-          parentEl.find(`.swatch-product-wrapper input[data-name='Chest Size']:checked`).removeAttr("checked")
-          parentEl.find(`.swatch-product-wrapper input[data-name='Chest Size'][value="${jacketType[0]}"]`).attr("checked", "checked");
-          parentEl.find(`.swatch-product-wrapper input[data-name='Style']:checked`).removeAttr("checked");
-          parentEl.find(`.swatch-product-wrapper input[data-name='Style'][value="${jacketTypeVal}"]`).attr("checked", "checked");
+          if(productType == 'jacket'){
+            $(`.jacket-variant-title,.edit-product-data-card[data-product-type="jacket"]`).find(`.option-name.option-1`).text(jacketType[0]).attr("data-value",jacketType[0]);
+            $(`.jacket-variant-title,.edit-product-data-card[data-product-type="jacket"]`).find(`.option-name.option-2`).text(jacketTypeVal).attr("data-value",jacketTypeVal);
+          }
+          if(productType == 'vest'){
+            $(`.vest-variant-title,.edit-product-data-card[data-product-type="vest"]`).find(`.option-name.option-1`).text(jacketType[0]).attr("data-value",jacketType[0]);
+            $(`.vest-variant-title,.edit-product-data-card[data-product-type="vest"]`).find(`.option-name.option-2`).text(jacketTypeVal).attr("data-value",jacketTypeVal);
+          }
+          parentEl.find(`.swatch-product-wrapper input[data-name='Chest Size']:checked`).prop("checked",false)
+          parentEl.find(`.swatch-product-wrapper input[data-name='Chest Size'][value="${jacketType[0]}"]`).prop("checked",true);
+          parentEl.find(`.swatch-product-wrapper input[data-name='Style']:checked`).prop("checked",false);
+          parentEl.find(`.swatch-product-wrapper input[data-name='Style'][value="${jacketTypeVal}"]`).prop("checked",true);
           setTimeout(function(){
             theme_custom.getProductVariantData(parentEl);
           },1000)
@@ -2203,12 +2214,12 @@ theme_custom.eventPageClickEvent = function (){
         if (getFitFinderData.pants_waist && getFitFinderData.pants_hight && productType == 'pants') {
           var pants_waist = getFitFinderData.pants_waist;
           var pants_hight = getFitFinderData.pants_hight;
-          parentEl.find(`.swatch-product-wrapper input[data-name='Waist']:checked`).removeAttr("checked");
-          parentEl.find(`.swatch-product-wrapper input[data-name='Waist'][value="${pants_waist}"]`).attr("checked", "checked");
-          parentEl.find(`.swatch-product-wrapper input[data-name='Length']:checked`).removeAttr("checked");
-          parentEl.find(`.swatch-product-wrapper input[data-name='Length'][value="${pants_hight}"]`).attr("checked", "checked");
-          if (parentEl.find(`.swatch-product-wrapper input[data-name='Length'][value="${pants_hight}"]`).length > 0) {
-          }
+          $(`.edit-product-data-card[data-product-type="pants"],.pants-variant-title`).find(`.option-name.option-1`).text(pants_waist).attr("data-value",pants_waist);
+          $(`.edit-product-data-card[data-product-type="pants"],.pants-variant-title`).find(`.option-name.option-2`).text(pants_hight).attr("data-value",pants_hight);
+          parentEl.find(`.swatch-product-wrapper input[data-name='Waist']:checked`).prop("checked",false);
+          parentEl.find(`.swatch-product-wrapper input[data-name='Waist'][value="${pants_waist}"]`).prop("checked",true);
+          parentEl.find(`.swatch-product-wrapper input[data-name='Length']:checked`).prop("checked",false);
+          parentEl.find(`.swatch-product-wrapper input[data-name='Length'][value="${pants_hight}"]`).prop("checked",true);
           setTimeout(function(){
             theme_custom.getProductVariantData(parentEl);
           },1000)

@@ -483,6 +483,7 @@ theme_custom.getVariantDataEditItemPopup = function(parentEl){
   if(parent.find('[data-option-index="2"] input:checked').length > 0){
     variantTitle = variantTitle + ' / ' + parent.find('[data-option-index="2"] input:checked').val();
   }
+  console.log("variantTitle",variantTitle);
   selectedOption = parent.find(`[data-product-id="${productId}"][data-var-title="${variantTitle}"]`);
   $(`[data-product-id="${productId}"]`).attr('selected', false);
   selectedOption.attr('selected', true);

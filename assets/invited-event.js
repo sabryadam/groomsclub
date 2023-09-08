@@ -828,6 +828,7 @@ theme_custom.productVariantSeledtUpdate = function(){
       }
       $(this).find(".size-wrap.option-3").removeClass("hidden");
     }
+    console.log('variantTitle',variantTitle);
     $(this).find(".break").removeClass("hidden");
     var selectedTarget = $(this).find('.prod-variant-option option').filter('[data-variant-title="'+variantTitle+'"]');
     if($(this).find('.prod-variant-option option').filter('[data-variant-title="'+variantTitle+'"]').length == 0){
