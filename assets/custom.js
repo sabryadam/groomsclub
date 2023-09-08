@@ -416,6 +416,59 @@ theme_custom.loadEvent = function () {
     } else {
       $(".looks-add-to-cart").addClass("disabled");
     }
+    setTimeout(function(){
+      if($(`.product-data-card-wrap.product-block-item[data-product-type="neckties"]`).length > 0){
+        var targetVariant = $(`.product-data-card-wrap.product-block-item[data-product-type="neckties"]`).find(`.option-name.option-1`).text() + ' / ' + $(`.product-data-card-wrap.product-block-item[data-product-type="neckties"]`).find(`.option-name.option-2`).text();
+        $(`.product-data-card-wrap.product-block-item[data-product-type="neckties"]`).find(`.single-option-selector option[data-var-title="${targetVariant}"]`).prop("selected",true);
+        var selectedVarInventoryQty = parseInt($(`.product-data-card-wrap.product-block-item[data-product-type="neckties"]`).find($(`.single-option-selector option[data-var-title="${targetVariant}"]`)).attr("data-v-inventory"));
+        var selectedVarInventoryPolicy = $(`.product-data-card-wrap[data-product-type="hanky"]`).find($(`.single-option-selector option[data-var-title="${targetVariant}"]`)).attr("data-inventory-policy");
+        var productVariantTitle = [];
+        var selectOptionVar = $(`.product-data-card-wrap.product-block-item[data-product-type="neckties"]`).find('.single-option-selector option');
+        var productColor =  $(`.product-data-card-wrap.product-block-item[data-product-type="neckties"]`).find('.edit-item-popup  .swatch-color').attr("data-s_value");
+        selectOptionVar.each(function(){
+          productVariantTitle.push($(this).attr("data-var-title"));    
+        });
+        if ($.inArray(targetVariant, productVariantTitle) == -1) {
+          $(`.product-data-card-wrap.product-block-item[data-product-type="neckties"] .product-block-wrap, .product-data-card-wrap[data-product-type="neckties"] .edit-item-popup`).find(".error-message").addClass("error-show").text("Product is not available for this specific combination.").fadeIn();
+        } else {
+          if (selectedVarInventoryPolicy == 'continue') {
+            $(`.product-data-card-wrap.product-block-item[data-product-type="neckties"] .product-block-wrap, .product-data-card-wrap[data-product-type="neckties"] .edit-item-popup`).find(".error-message").removeClass("error-show").text('').fadeOut();
+          } else {
+            if (selectedVarInventoryQty <= 0) {
+              $(`.product-data-card-wrap.product-block-item[data-product-type="neckties"] .product-block-wrap, .product-data-card-wrap[data-product-type="neckties"] .edit-item-popup`).find(".error-message").addClass("error-show").text("This variant is Out of Stock. Please choose another variant.").fadeIn();
+              $(`.product-data-card-wrap[data-product-type="neckties"]`).find('.edit-item-popup .pdp-updates-button .button').addClass("disabled").find(".button-label").text('Out of Stock')
+            } else {
+              $(`.product-data-card-wrap.product-block-item[data-product-type="neckties"] .product-block-wrap, .product-data-card-wrap[data-product-type="neckties"] .edit-item-popup`).find(".error-message").removeClass("error-show").text('').fadeOut();
+            }
+          }
+        }
+      }
+      if($(`.product-data-card-wrap.product-block-item[data-product-type="hanky"]`).length > 0){
+        var targetVariant = $(`.product-data-card-wrap.product-block-item[data-product-type="hanky"]`).find(`.option-name.option-1`).text();
+        $(`.product-data-card-wrap.product-block-item[data-product-type="hanky"]`).find(`.single-option-selector option[data-var-title="${targetVariant}"]`).prop("selected",true);
+        var productVariantTitle = [];
+        var selectOptionVar = $(`.product-data-card-wrap.product-block-item[data-product-type="hanky"]`).find('.single-option-selector option');
+        selectOptionVar.each(function(){
+          productVariantTitle.push($(this).attr("data-var-title"));    
+        });
+        var selectedVarInventoryQty = parseInt($(`.product-data-card-wrap.product-block-item[data-product-type="hanky"]`).find($(`.single-option-selector option[data-var-title="${targetVariant}"]`)).attr("data-v-inventory"));
+        var selectedVarInventoryPolicy = $(`.product-data-card-wrap.product-block-item[data-product-type="hanky"]`).find($(`.single-option-selector option[data-var-title="${targetVariant}"]`)).attr("data-inventory-policy");
+        if ($.inArray(variantTitle, productVariantTitle) == -1) {
+          $(`.product-data-card[data-product-type="hanky"] .product-block-wrap, .product-data-card-wrap[data-product-type="hanky"] .edit-item-popup`).find(".error-message").addClass("error-show").text("Product is not available for this specific combination.").fadeIn();
+        } else {
+          if (selectedVarInventoryPolicy == 'continue') {
+            $(`.product-data-card[data-product-type="hanky"] .product-block-wrap, .product-data-card-wrap[data-product-type="hanky"] .edit-item-popup`).find(".error-message").removeClass("error-show").text('').fadeOut();
+          } else {
+            if (selectedVarInventoryQty <= 0) {
+              $(`.product-data-card[data-product-type="hanky"] .product-block-wrap, .product-data-card-wrap[data-product-type="hanky"] .edit-item-popup`).find(".error-message").addClass("error-show").text("This variant is Out of Stock. Please choose another variant.").fadeIn();
+              $(`.product-data-card-wrap[data-product-type="hanky"]`).find('.edit-item-popup .pdp-updates-button .button').addClass("disabled").find(".button-label").text('Out of Stock')
+            } else {
+              $(`.product-data-card[data-product-type="hanky"] .product-block-wrap, .product-data-card-wrap[data-product-type="hanky"] .edit-item-popup`).find(".error-message").removeClass("error-show").text('').fadeOut();
+            }
+          }
+        }
+      }
+    },1000)
   }
 };
 // theme_custom.updateProfileImage

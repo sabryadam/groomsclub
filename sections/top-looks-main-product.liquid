@@ -790,7 +790,11 @@
                           </div>
                           <div class="product-price desktop-small">
                             <span class="money" data-price="{{ product.price}}">
-                              {{ product.price | plus : 4999 | money }}
+                                {% if product.type == 'suit' or product.type == 'Suit' or product.type == 'looks' or product.type == 'Looks'  %}
+                                  {{ 24998 | money }}
+                                {% else %}
+                                  {{ product.price | money }}
+                                  {%- endif -%}
                             </span>
                           </div>
                         </div> 
@@ -885,15 +889,15 @@
                                         <span class="remove-item-btn btn">Remove</span>
                                       </div>
                                       <div class="product-price mobile-small">
-                                        <span test-mobile-1 class="money" data-price="{{ product.price}}">
+                                        <span test-mobile-1 class="money" data-price="{{ productHandle.selected_or_first_available_variant.price}}">
                                           {{ productHandle.selected_or_first_available_variant.price | money }}
                                         </span>
                                       </div>    
                                       <span class="error-message"></span>    
                                     </div>
                                     <div class="product-price desktop-small">
-                                      <span class="money" data-price="{{ product.price}}">
-                                        {{ productHandle.price | plus : 4999 | money }}
+                                      <span class="money" data-price="{{ productHandle.selected_or_first_available_variant.price}}">
+                                        {{ productHandle.selected_or_first_available_variant.price | money }}
                                       </span>
                                     </div>
                                   </div>
@@ -1006,15 +1010,15 @@
                                           {%- endunless -%}
                                         </div>
                                         <div class="product-price mobile-small">
-                                          <span test-mobile class="money" data-price="{{ product.price}}">
+                                          <span test-mobile class="money" data-price="{{ productHandle.selected_or_first_available_variant.price }}">
                                             {{ productHandle.selected_or_first_available_variant.price | money }}
                                           </span>
                                         </div> 
                                         <span class="error-message"></span>       
                                       </div>
                                       <div class="product-price desktop-small">
-                                        <span class="money" data-price="{{ product.price}}">
-                                          {{ productHandle.price | plus : 4999 | money }}
+                                        <span class="money" data-price="{{ productHandle.selected_or_first_available_variant.price }}">
+                                          {{ productHandle.selected_or_first_available_variant.price | money }}
                                         </span>
                                       </div>
                                     </div>

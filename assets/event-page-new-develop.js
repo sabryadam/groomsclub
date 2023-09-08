@@ -2166,7 +2166,7 @@ theme_custom.eventPageClickEvent = function (){
         if (getFitFinderData.shoe_size && productType == 'shoes') {
           parentEl.find(`.swatch-product-wrapper input[data-name='Size']:checked`).prop("checked",false);
           parentEl.find(`.swatch-product-wrapper input[data-name='Size'][value="${getFitFinderData.shoe_size}"]`).prop("checked",true);
-          parentEl.find(".option-name.option-2").text(`${getFitFinderData.shoe_size}`).attr("data-value", getFitFinderData.shoe_size);
+          parentEl.find(`.option-name.option-2`).text(`${getFitFinderData.shoe_size}`).attr("data-value", getFitFinderData.shoe_size);
           setTimeout(function(){
             theme_custom.getProductVariantData(parentEl);
           },1000)
@@ -2179,8 +2179,8 @@ theme_custom.eventPageClickEvent = function (){
           parentEl.find(`.swatch-product-wrapper input[data-name='Size'][value="${shirt_size}"]`).prop("checked",true);
           parentEl.find(`.swatch-product-wrapper input[data-name='Style']:checked`).prop("checked",false);
           parentEl.find(`.swatch-product-wrapper input[data-name='Style'][value="${shirt_fit}"]`).prop("checked",true);
-          parentEl.find(".option-name.option-1").text(`${shirt_size}`).attr("data-value", shirt_size);
-          parentEl.find(".option-name.option-2").text(`${shirt_fit}`).attr("data-value", shirt_fit);
+          parentEl.find(`.option-name.option-1`).text(`${shirt_size}`).attr("data-value", shirt_size);
+          parentEl.find(`.option-name.option-2`).text(`${shirt_fit}`).attr("data-value", shirt_fit);
           setTimeout(function(){
             theme_custom.getProductVariantData(parentEl);
           },1000)
@@ -2214,8 +2214,8 @@ theme_custom.eventPageClickEvent = function (){
         if (getFitFinderData.pants_waist && getFitFinderData.pants_hight && productType == 'pants') {
           var pants_waist = getFitFinderData.pants_waist;
           var pants_hight = getFitFinderData.pants_hight;
-          $(`.edit-product-data-card[data-product-type="pants"],.pants-variant-title`).find(`.option-name.option-1`).text(pants_waist).attr("data-value",pants_waist);
-          $(`.edit-product-data-card[data-product-type="pants"],.pants-variant-title`).find(`.option-name.option-2`).text(pants_hight).attr("data-value",pants_hight);
+          $(`.pants-variant-title,.edit-product-data-card[data-product-type="pants"]`).find(`.option-name.option-1`).text(pants_waist).attr("data-value",pants_waist);
+          $(`.pants-variant-title,.edit-product-data-card[data-product-type="pants"]`).find(`.option-name.option-2`).text(pants_hight).attr("data-value",pants_hight);
           parentEl.find(`.swatch-product-wrapper input[data-name='Waist']:checked`).prop("checked",false);
           parentEl.find(`.swatch-product-wrapper input[data-name='Waist'][value="${pants_waist}"]`).prop("checked",true);
           parentEl.find(`.swatch-product-wrapper input[data-name='Length']:checked`).prop("checked",false);
