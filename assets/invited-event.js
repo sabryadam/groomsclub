@@ -469,7 +469,7 @@ theme_custom.clickEventInvited = function(){
         parent.find(".exchange-look-item").removeClass("disabled").text("Update");
       } else {
         if (selectedVarInventoryQty <= 0) {
-          parent.find(".error-message").addClass("error-show").text("This variant is Out of Stock. Please choose another variant.").fadeIn();
+          parent.find(".error-message").addClass("error-show").text("This variant is out of stock. Please choose another variant.").fadeIn();
           parent.find(".exchange-look-item").addClass("disabled").text("Out of Stock");
         } else {
           parent.find(".error-message").removeClass("error-show").text('').fadeOut();
@@ -647,7 +647,7 @@ theme_custom.clickEventInvited = function(){
         variantTitle = $(this).closest(".product-swatch-option").find(`.prod-variant-option option[value='${targetVal}']`).attr("data-variant-title"),
         productHandle = $(this).closest(".product-swatch-option").attr("data-product-handle");
     if ($(this).find('option').filter('[data-variant-title="'+variantTitle+'"]').length == 0) {
-      $(this).closest(".product-swatch-option").append("<p class='error-message error-show'>This Variant is Out of Stock. Please choose another variant.</p>");
+      $(this).closest(".product-swatch-option").append("<p class='error-message error-show'>This Variant is out of stock. Please choose another variant.</p>");
       $(this).closest(".product-swatch-option").find(".exchange-look-item").addClass("disabled");
       $(".return-suit-checkout-button .button").addClass("disabled")
     } else {
@@ -858,17 +858,17 @@ theme_custom.productVariantSeledtUpdate = function(){
           $(this).find(".prod-variant-data").attr("data-var-id",selectedvarId).val(selectedvarId);
         } else {
           $(this).find('.prod-variant-option option:first').prop('selected', true);
-          $(this).find(".product-info").append("<p class='error-message error-show'>This Variant is Out of Stock. Please choose another variant.</p>");
+          $(this).find(".product-info").append("<p class='error-message error-show'>This Variant is out of stock. Please choose another variant.</p>");
           if(productType == 'jacket' ){
-            $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).text(`This Variant is Out of Stock. Please choose another variant.`).addClass("error-show").show();
+            $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).text(`This Variant is out of stock. Please choose another variant.`).addClass("error-show").show();
             $(`.product-swatch-option[data-type="${productType}"]`).find(`.button.exchange-look-item`).text("Out Of Stock").addClass("disabled");
           }
           if(productType == 'pants' ){
-            $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).text(`This Variant is Out of Stock. Please choose another variant.`).addClass("error-show").show();
+            $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).text(`This Variant is out of stock. Please choose another variant.`).addClass("error-show").show();
             $(`.product-swatch-option[data-type="${productType}"]`).find(`.button.exchange-look-item`).text("Out Of Stock").addClass("disabled");
           }
           if(productType == 'vest' ){
-            $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).text(`This Variant is Out of Stock. Please choose another variant.`).addClass("error-show").show();
+            $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).text(`This Variant is out of stock. Please choose another variant.`).addClass("error-show").show();
             $(`.product-swatch-option[data-type="${productType}"]`).find(`.button.exchange-look-item`).text("Out Of Stock").addClass("disabled");
           }
         }

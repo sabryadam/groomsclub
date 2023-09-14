@@ -515,7 +515,7 @@ theme_custom.getVariantDataEditItemPopup = function(parentEl){
         parent.find(".error-message").text('').hide().removeClass("error-show");
       } else {
         parent.find(".pdp-updates-button .button").addClass("disabled").find(".button-label").text("Out of Stock");
-        parent.find(".error-message").text('This Variant is Out of Stock. Please choose another variant.').show().addClass("error-show");
+        parent.find(".error-message").text('This Variant is out of stock. Please choose another variant.').show().addClass("error-show");
       }
     }
   }
@@ -1137,7 +1137,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="${productType}"], .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").removeClass("error-show").text('').fadeOut();
               } else {
                 if (selectedVarInventoryQty <= 0) {
-                  $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="${productType}"], .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").addClass("error-show").text("This variant is Out of Stock. Please choose another variant.").fadeIn();
+                  $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="${productType}"], .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").addClass("error-show").text("This variant is out of stock. Please choose another variant.").fadeIn();
                   $(`.product-data-card-wrap[data-product-type="${productType}"]`).find('.edit-item-popup .pdp-updates-button .button').addClass("disabled").find(".button-label").text('Out of Stock')
                 } else {
                   $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="${productType}"], .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").removeClass("error-show").text('').fadeOut();
@@ -1166,7 +1166,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="${productType}"], .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").removeClass("error-show").text('').fadeOut();
               } else {
                 if (selectedVarInventoryQty <= 0) {
-                  $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="${productType}"], .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").addClass("error-show").text("This variant is Out of Stock. Please choose another variant.").fadeIn();
+                  $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="${productType}"], .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").addClass("error-show").text("This variant is out of stock. Please choose another variant.").fadeIn();
                   $(`.product-data-card-wrap[data-product-type="${productType}"]`).find('.edit-item-popup .pdp-updates-button .button').addClass("disabled").find(".button-label").text('Out of Stock')
                 } else {
                   $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="${productType}"], .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").removeClass("error-show").text('').fadeOut();
@@ -1186,7 +1186,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="${productType}"], .product-data-card[data-product-type="${productType}"] .product-block-wrap, .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").removeClass("error-show").text('').fadeOut();
               } else {
                 if (selectedVarInventoryQty <= 0) {
-                  $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="${productType}"], .product-data-card[data-product-type="${productType}"] .product-block-wrap, .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").addClass("error-show").text("This variant is Out of Stock. Please choose another variant.").fadeIn();
+                  $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="${productType}"], .product-data-card[data-product-type="${productType}"] .product-block-wrap, .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").addClass("error-show").text("This variant is out of stock. Please choose another variant.").fadeIn();
                   $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="${productType}"], .product-data-card-wrap[data-product-type="${productType}"]`).find('.edit-item-popup .pdp-updates-button .button').addClass("disabled").find(".button-label").text('Out of Stock')
                 } else {
                   $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="${productType}"], .product-data-card[data-product-type="${productType}"] .product-block-wrap, .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").removeClass("error-show").text('').fadeOut();
@@ -1207,7 +1207,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 $(`.product-data-card[data-product-type="${productType}"] .product-block-wrap, .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").removeClass("error-show").text('').fadeOut();
               } else {
                 if (selectedVarInventoryQty <= 0) {
-                  $(`.product-data-card[data-product-type="${productType}"] .product-block-wrap, .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").addClass("error-show").text("This variant is Out of Stock. Please choose another variant.").fadeIn();
+                  $(`.product-data-card[data-product-type="${productType}"] .product-block-wrap, .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").addClass("error-show").text("This variant is out of stock. Please choose another variant.").fadeIn();
                   $(`.product-data-card-wrap[data-product-type="${productType}"]`).find('.edit-item-popup .pdp-updates-button .button').addClass("disabled").find(".button-label").text('Out of Stock')
                 } else {
                   $(`.product-data-card[data-product-type="${productType}"] .product-block-wrap, .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").removeClass("error-show").text('').fadeOut();
@@ -1230,7 +1230,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 $(`.product-data-card[data-product-type="${productType}"] .product-block-wrap, .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").removeClass("error-show").text('').fadeOut();
               } else {
                 if (selectedVarInventoryQty <= 0) {
-                  $(`.product-data-card[data-product-type="${productType}"] .product-block-wrap, .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").addClass("error-show").text("This variant is Out of Stock. Please choose another variant.").fadeIn();
+                  $(`.product-data-card[data-product-type="${productType}"] .product-block-wrap, .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").addClass("error-show").text("This variant is out of stock. Please choose another variant.").fadeIn();
                   $(`.product-data-card-wrap[data-product-type="${productType}"]`).find('.edit-item-popup .pdp-updates-button .button').addClass("disabled").find(".button-label").text('Out of Stock')
                 } else {
                   $(`.product-data-card[data-product-type="${productType}"] .product-block-wrap, .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").removeClass("error-show").text('').fadeOut();
@@ -1278,7 +1278,7 @@ document.addEventListener("DOMContentLoaded", function(){
       //         $(`.product-data-card-wrap.product-block-item[data-product-type="hanky"], .product-data-card-wrap[data-product-type="hanky"] .edit-item-popup`).find(".error-message").removeClass("error-show").text('').fadeOut();
       //       } else {
       //         if (selectedVarInventoryQty <= 0) {
-      //           $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="${productType}"], .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").addClass("error-show").text("This variant is Out of Stock. Please choose another variant.").fadeIn();
+      //           $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="${productType}"], .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").addClass("error-show").text("This variant is out of stock. Please choose another variant.").fadeIn();
       //           $(`.product-data-card-wrap[data-product-type="${productType}"]`).find('.edit-item-popup .pdp-updates-button .button').addClass("disabled").find(".button-label").text('Out of Stock')
       //         } else {
       //           $(`.product-data-card-wrap.product-block-item[data-product-type="hanky"], .product-data-card-wrap[data-product-type="hanky"] .edit-item-popup`).find(".error-message").removeClass("error-show").text('').fadeOut();

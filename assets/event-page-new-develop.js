@@ -424,7 +424,7 @@ theme_custom.favoriteLooks = function () {
               <div class="product-info">
                 <div class="bundle-product-wrapper">${itemData}</div>
                 <h4 class="product-title">${result.data[i].name}</h4>
-                <p class="product-price">Starting at $249</p>
+                <p class="product-price">Starting at $249.98</p>
                 <p class="taxes-text">Price Includes Jacket, Vest and  Pants</p>
                 <button class="button button--secondary look-added-into-event" data-text="Adding...">Add To Event</button>
               </div>
@@ -1322,7 +1322,7 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
           var variantNotFound = errorMsg = showErrorClass = '';
           if(productItem.selectedVar.inventory_policy == 'deny' && parseInt(productItem.selectedVar.inventory_quantity) <= 0){
             variantNotFound = 'variant-not-found';
-            errorMsg = `This Variant is Out of Stock. Please choose another variant.`
+            errorMsg = `This Variant is out of stock. Please choose another variant.`
             showErrorClass = 'error-show'
             ctaBtnText = 'Out of stock'
             ctaBtnTextDisable = "disabled"
@@ -1784,16 +1784,16 @@ theme_custom.getProductVariantData = function (parentEl) {
       } else {
         var parentType = parent.attr("data-product-type");
         if(parentType=='jacket'){
-          $(`.product-variant-wrap[data-product-type="jacket"]`).find(".product-block-wrap .error-message").addClass("error-show").text('This Variant is Out of Stock. Please choose another variant.').show();
+          $(`.product-variant-wrap[data-product-type="jacket"]`).find(".product-block-wrap .error-message").addClass("error-show").text('This Variant is out of stock. Please choose another variant.').show();
           $(`.product-variant-wrap[data-product-type="jacket"]`).find('.pdp-updates-button button').addClass('disabled').find(".button-label").text("Out of Stock");
         } else if (parentType=='pants') {
-          $(`.product-variant-wrap[data-product-type="pants"]`).find(".product-block-wrap .error-message").addClass("error-show").text('This Variant is Out of Stock. Please choose another variant.').show();
+          $(`.product-variant-wrap[data-product-type="pants"]`).find(".product-block-wrap .error-message").addClass("error-show").text('This Variant is out of stock. Please choose another variant.').show();
           $(`.product-variant-wrap[data-product-type="pants"]`).find('.pdp-updates-button button').addClass('disabled').find(".button-label").text("Out of Stock");
         } else if (parentType=='vest') {
-          $(`.product-variant-wrap[data-product-type="vest"]`).find(".product-block-wrap .error-message").addClass("error-show").text('This Variant is Out of Stock. Please choose another variant.').show();
+          $(`.product-variant-wrap[data-product-type="vest"]`).find(".product-block-wrap .error-message").addClass("error-show").text('This Variant is out of stock. Please choose another variant.').show();
           $(`.product-variant-wrap[data-product-type="vest"]`).find('.pdp-updates-button button').addClass('disabled').find(".button-label").text("Out of Stock");
         } else {
-          parent.find(".product-block-wrap .error-message").addClass("error-show").text('This Variant is Out of Stock. Please choose another variant.').show();
+          parent.find(".product-block-wrap .error-message").addClass("error-show").text('This Variant is out of stock. Please choose another variant.').show();
           parent.find('.pdp-updates-button button').addClass('disabled').find(".button-label").text("Out of Stock");
         }
       }
@@ -1960,7 +1960,7 @@ theme_custom.editItemPopup = function(parentEl){
         parent.find('.selected-variant-update').removeClass('disabled').text("Update");
         parent.find(".error-message").text('').hide().removeClass('error-show');
       } else {
-        parent.find(".error-message").text('This Variant is Out of Stock. Please choose another variant.').show().addClass('error-show');
+        parent.find(".error-message").text('This Variant is out of stock. Please choose another variant.').show().addClass('error-show');
         parent.find('.selected-variant-update').text("Out of Stock").addClass('disabled');
       }
     }
@@ -2429,6 +2429,7 @@ theme_custom.eventPageClickEvent = function (){
       success: function (data) {
         $("#browser-top-looks").find(".product-wrapper").html(data);
         theme_custom.updateSelectedLooks($('#browser-top-looks'))
+        $(`#browser-top-looks`).find(`.product-price`).text(`Starting at $249.98`)
       }
     });
   });
