@@ -2178,8 +2178,9 @@ $(document).ready(function () {
     if (parentBlock.find('[data-option-index="2"]').length > 0) {
       variantTitle = variantTitle + ' / ' + parentBlock.find('[data-option-index="2"]').val();
     }
-    // parentBlock.find('.product-var-dropdown option[data-variant-title="variantTitle"]').attr('selected','selected');
-    parentBlock.find('.product-var-dropdown option').removeAttr('selected').filter('[data-variant-title="' + variantTitle + '"]').attr('selected', true);
+    // parentBlock.find('.product-var-dropdown option[data-variant-title="variantTitle"]').prop('selected',true);
+    parentBlock.find('.product-var-dropdown option').removeAttr('selected').filter('[data-variant-title="' + variantTitle + '"]').prop('selected', true);
+    parentBlock.find(`.product-var-dropdown option[data-variant-title="${variantTitle}"]`).prop('selected', true);
     parentBlock.attr("data-var-id", parentBlock.find('.product-var-dropdown').val());
     parentBlock.find(".selected-variant-id").val(parentBlock.find('.product-var-dropdown').val()).attr("data-variant-id", parentBlock.find('.product-var-dropdown').val());
   });

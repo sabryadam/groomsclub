@@ -1732,10 +1732,10 @@ theme_custom.getProductVariantData = function (parentEl) {
   if (parent.find('.option-3').length > 0) {
     variantTitle = variantTitle + ' / ' + parent.find('.option-3').text();
   }
-  console.log("variantTitle",variantTitle);
+  console.log("variantTitle 14",variantTitle);
   setTimeout(function(){
-    parent.find(`.prod-variant-option option[data-variant-title="${variantTitle}"]`).attr('selected','selected');
-
+    parent.find(`.prod-variant-option option[data-variant-title="${variantTitle}"]`).prop('selected',true);
+    console.log("variantTitle 14 update",variantTitle,parent.find(`.prod-variant-option`).val());
   },100);
   if(variantTitle.includes("00")){
     checkSizeIsNotSelect = true;
