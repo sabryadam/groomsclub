@@ -483,7 +483,6 @@ theme_custom.getVariantDataEditItemPopup = function(parentEl){
   if(parent.find('[data-option-index="2"] input:checked').length > 0){
     variantTitle = variantTitle + ' / ' + parent.find('[data-option-index="2"] input:checked').val();
   }
-  console.log("variantTitle 12",variantTitle,parent.find(".single-option-selector").val());
   selectedOption = parent.find(`[data-product-id="${productId}"][data-var-title="${variantTitle}"]`);
   $(`[data-product-id="${productId}"]`).attr('selected', false);
   selectedOption.attr('selected', true);
@@ -501,7 +500,6 @@ theme_custom.getVariantDataEditItemPopup = function(parentEl){
   variantDataGetArr['variantInventoryPolicy'] = variantInventoryPolicy;
   parent.find('.looks-product-var-id').val(variantId);
   parent.find(`.single-option-selector option[data-var-title="${variantTitle}"]`).prop("selected",true)
-  console.log("variantTitle",variantTitle,parent.find(".single-option-selector").val())
   var targetElment = parent.attr("data-product-handle");
   $(`.product-data-card-wrap.product-block-item[data-product-handle="${targetElment}"]`).find(`.product-image img`).attr("src",'https:' + variantImage).attr("srcset",'');
   if(!variantId){
@@ -552,7 +550,7 @@ theme_custom.tlpclickEvent = function(){
     window.location.href = custom_look_url;
   });
 
-  $(document).on("click",".swatch-element [type='radio']", function(){
+  $(document).on("change",".swatch-element [type='radio']", function(){
     var parent = $(this).closest('.edit-item-popup');
     theme_custom.getVariantDataEditItemPopup(parent);
   })
@@ -723,7 +721,17 @@ theme_custom.tlpclickEvent = function(){
     var items = [];
     getProduct.each(function(){
       if($(this).find(".looks-product-var-id").val() != ""){
-        var varId = $(this).find(".single-option-selector").val();
+        var currentVar = '';
+        if($(this).find(".option-1").text().length > 0){
+          currentVar = $(this).find(".option-1").text();
+        }
+        if($(this).find(".option-2").text().length > 0){
+          currentVar = currentVar + ' / ' + $(this).find(".option-2").text();
+        }
+        if($(this).find(".option-3").text().length > 0){
+          currentVar = currentVar + ' / ' + $(this).find(".option-3").text();
+        }
+        var varId = $(this).find(`.single-option-selector option[data-var-title="${currentVar}"]`).val();
         var item = {}
         if ($(this).attr("data-product-type") == 'jacket') {
           item = {
@@ -760,7 +768,6 @@ theme_custom.tlpclickEvent = function(){
         items.push(item);
       }
     });
-    console.log("items",items)
     data = {
       items: items
     };

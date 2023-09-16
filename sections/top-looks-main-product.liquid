@@ -1380,6 +1380,9 @@ $(document).ready(function(){
     localStorage.setItem("bring_back_fit_finder_url", bring_back_url);
     window.location.href = fit_finder_url;
   });
+  if (getCookie("fit-finder-data") != '') {
+    localStorage.setItem("save-fit-finder-flag-replace", "false");
+  }
   if (getCookie("fit-finder-data") == '') {
     $("#suit_fit_finder").show();
   } else if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-flag-replace") == 'true') {

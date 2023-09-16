@@ -1496,6 +1496,9 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
             $(".event-owner-look-product-list.look-product-list-wrapper").find(".look-product-details").addClass("show");
           }, 1500);
         }
+        if(getCookie("fit-finder-data") != "") {  
+          console.log(getCookie("fit-finder-data"));
+        }
       } else {
         $.map(productItemsArrayLooks, function(productItem,index) {
           var productType = productItem.product.type;
@@ -1732,10 +1735,8 @@ theme_custom.getProductVariantData = function (parentEl) {
   if (parent.find('.option-3').length > 0) {
     variantTitle = variantTitle + ' / ' + parent.find('.option-3').text();
   }
-  console.log("variantTitle 14",variantTitle);
   setTimeout(function(){
     parent.find(`.prod-variant-option option[data-variant-title="${variantTitle}"]`).prop('selected',true);
-    console.log("variantTitle 14 update",variantTitle,parent.find(`.prod-variant-option`).val());
   },100);
   if(variantTitle.includes("00")){
     checkSizeIsNotSelect = true;

@@ -77,7 +77,6 @@ theme_custom.productDataFromURL = function () {
         if (variantTitle == undefined || variantTitle == '') {
           continue;
         }
-        console.log("variantTitleArr",variantTitle);
         var variantTitleArr = variantTitle.split(' / ');
         for (j = 0; j < variantTitleArr.length; j++) {
           var currentInput = $(`.swatch-wrap[data-value="${variantTitleArr[j]}"][data-product-handle="${productHandleTitle}"] input:radio`);

@@ -147,11 +147,8 @@ theme_custom.getVariantData = function (parentEl) {
   if (parent.find('.option-3').length > 0) {
     variantTitle = variantTitle + ' / ' + parent.find('.option-3').text();
   }
-  console.log("variantTitle 13",variantTitle);
   setTimeout(function(){
     parent.find(`.single-option-selector option[data-var-title="${variantTitle}"]`).prop('selected',true);
-    console.log("selected variant title",variantTitle)
-    console.log("selected variant value",parent.find(".single-option-selector").val())
   },100);
   if(variantTitle.includes("00")){
     checkSizeIsNotSelect = true;
@@ -454,7 +451,6 @@ theme_custom.loadEvent = function () {
         });
         var selectedVarInventoryQty = parseInt($(`.product-data-card-wrap.product-block-item[data-product-type="hanky"]`).find($(`.single-option-selector option[data-var-title="${targetVariant}"]`)).attr("data-v-inventory"));
         var selectedVarInventoryPolicy = $(`.product-data-card-wrap.product-block-item[data-product-type="hanky"]`).find($(`.single-option-selector option[data-var-title="${targetVariant}"]`)).attr("data-inventory-policy");
-        console.log("targetVariant",targetVariant);
         if ($.inArray(targetVariant, productVariantTitle) == -1) {
           $(`.product-data-card[data-product-type="hanky"] .product-block-wrap, .product-data-card-wrap[data-product-type="hanky"] .edit-item-popup`).find(".error-message").addClass("error-show").text("Product is not available for this specific combination.").fadeIn();
         } else {
