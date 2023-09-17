@@ -27,7 +27,6 @@ theme_custom.multipleProductAjax = function(button, parent, payBy){
     if($(this).find(".option-3").text().length > 0){
       currentVar = currentVar + " " + $(this).find(".option-3").text();
     }
-    console.log("currentVar",currentVar);
     var varId = $(this).find(`.prod-variant-option option[data-variant-title="${currentVar}"]`).val();
     var item = {},
         productType = $(this).attr("data-product-type").toLowerCase();

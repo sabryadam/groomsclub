@@ -2047,7 +2047,6 @@ theme_custom.multiItemAddToCart = function (button) {
   data = {
     items: items
   };
-  console.log("items",items);
   // return;
   jQuery.ajax({
     type: 'POST',

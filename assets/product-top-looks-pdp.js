@@ -745,7 +745,6 @@ theme_custom.tlpclickEvent = function(){
           if($(`.product-data-card[data-product-type="vest"]`).find(".option-3").length > 0){
             vestVariantTitle = vestVariantTitle + ' / ' + $(`.product-data-card[data-product-type="vest"]`).find(".option-3").text();
           }
-          console.log("vestVariantTitle",vestVariantTitle)
 
           // pents Variant Title
           var pantsVariantTitle = ''; 
@@ -758,7 +757,6 @@ theme_custom.tlpclickEvent = function(){
           if($(`.product-data-card[data-product-type="pants"]`).find(".option-3").length > 0){
             pantsVariantTitle = pantsVariantTitle + ' / ' + $(`.product-data-card[data-product-type="pants"]`).find(".option-3").text();
           }
-          console.log("vestVariantTitle",pantsVariantTitle)
 
           item = {
             "id": varId,
