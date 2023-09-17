@@ -378,7 +378,8 @@
 .mywedding_section_wrap .invite-event-main-content .invited-assigned-look .right-assigned-look-list .look-product-wrapper .exchange-item-link.link{
   font-weight: 400;
 }
-.mywedding_section_wrap .invite-event-main-content .invited-assigned-look .right-assigned-look-list .look-product-wrapper .product-price .price{
+.mywedding_section_wrap .invite-event-main-content .invited-assigned-look .right-assigned-look-list .look-product-wrapper .product-price .price,
+.mywedding_section_wrap .invite-event-main-content .invited-assigned-look .right-assigned-look-list .suit-combo-product .product-price .money{
   font-size: 16px;
 }
 
