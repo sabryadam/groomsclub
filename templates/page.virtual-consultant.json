@@ -7,7 +7,6 @@
     },
     "362452f0-a1b1-4b56-afd2-bcf3a656399a": {
       "type": "icon-text",
-      "disabled": true,
       "blocks": {
         "521adba8-3eea-40b2-95e8-2ac710e78b10": {
           "type": "icontext",
@@ -45,6 +44,7 @@
         "69f1843a-534d-4379-b6c5-894a3c5bfb94",
         "7305a823-f972-4bc0-a8ce-57941cb2eb15"
       ],
+      "disabled": true,
       "settings": {
         "title": "",
         "subtitle": "",
