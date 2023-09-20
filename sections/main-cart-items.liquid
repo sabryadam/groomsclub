@@ -357,7 +357,7 @@
                               </dt>
                               <dd class="price price--end" data-subitemvar-price="{{subitemvar.price}}">
                                 {%- if vestPice -%}
-                                  {{ item.final_line_price | plus : 11498 | money }}
+                                  {{ 24998 | times : item.quantity | money  }}
                                 {%- else -%}
                                   {{ item.final_line_price | money }}
                                 {%- endif -%}
@@ -366,7 +366,7 @@
                           {%- else -%}
                             <span class="price price--end">
                               {%- if vestPice -%}
-                                {{ item.final_line_price | plus : 11498 | money }}
+                                {{ 24998 | times : item.quantity | money }}
                               {%- else -%}
                                 {{ item.final_line_price | money }}
                               {%- endif -%}

@@ -426,7 +426,7 @@ theme_custom.favoriteLooks = function () {
                 <h4 class="product-title">${result.data[i].name}</h4>
                 <p class="product-price">Starting at $249.98</p>
                 <p class="taxes-text">Price Includes Jacket, Vest and  Pants</p>
-                <button class="button button--secondary look-added-into-event" data-text="Adding...">Add To Event</button>
+                <button class="button button--secondary added-look-into-event" data-text="Adding...">Add To Event</button>
               </div>
             </div>`;
           }
@@ -557,7 +557,15 @@ theme_custom.successCallback = (data, nextTarget) => {
     // $(".next-button.disabled").removeClass("disabled");
     theme_custom.globalLoaderhide();
   }
-
+  // Check Event in Guest available or not 
+  var checkTheyOtherUser = data.data.event_members;
+  for (let i = 0; i < checkTheyOtherUser.length; i++) {
+    if(checkTheyOtherUser[i].is_host == '0'){
+      $(`.open-reminder-popup`).removeClass("disabled")
+    } else {
+      $(`.open-reminder-popup`).addClass("disabled")
+    }
+  }
 }
 
 theme_custom.changeStep = (index) => {
@@ -1113,7 +1121,7 @@ theme_custom.lookAddedIntoEvent = function () {
   })
 
   $(document).on("click", ".look-added-into-event", function (e) {
-    e.preventDefault();
+    e.preventDefault(); 
     var button = $(this);
     button.text($(this).data("text"));
     var lookName = $(this).closest(".product-card").find(".product-title").text(),
@@ -1150,6 +1158,59 @@ theme_custom.lookAddedIntoEvent = function () {
     });
     theme_custom.createLookAPI(lookName, eventId, lookUrl, produArray, button);
   })
+
+  // added-look-into-event
+  $(document).on('click', '.added-look-into-event', function () {
+    var add_event_api_url = `${theme_custom.api_base_url}/api/look/addToEvent`;
+    var eventid = localStorage.getItem('set-event-id');
+    var favid = $(this).closest(".product-card").attr("data-id");
+    button = $(this);
+    button.text("Adding...")
+    var data = {
+        "event_id": eventid,
+        "look_id": favid
+    };
+    $.ajax({
+      url: add_event_api_url,
+      method: "POST",
+      data: data,
+      dataType: "json",
+      headers: {
+        "Authorization": APP_Token
+      },
+      beforeSend: function () {
+        button.addClass("disabled");
+      },
+      success: function (result) {
+        button.text("Look Added");
+        $('.event-step-wrapper').addClass('hidden');
+        theme_custom.globalLoaderShow();
+        theme_custom.checkLooks(localStorage.getItem("set-event-id"));
+        $('.event-step-wrapper').addClass('hidden');
+        theme_custom.globalLoaderShow();
+      },
+      error: function (xhr, status, error) {
+        if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+          $(".look-api-message").html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+            'text-align': 'center',
+            'color': 'red'
+          });
+          setTimeout(() => {
+            theme_custom.removeLocalStorage();
+            window.location.href = '/account/logout';
+          }, 5000);
+        } else {
+          button.addClass("disabled").css("margin-top", "15px");
+          button.removeClass("disabled").text("Add Look");
+          $(".look-api-message").html(xhr.responseJSON.message).removeClass("look-api-message");
+          setTimeout(() => {
+            $('.update-profile-image-popup-wrapper .api_error').hide();
+            $(".look-api-message").removeClass("look-api-message");
+          }, 3000);
+        }
+      }
+    });
+  });
 }
 theme_custom.globalLoaderShow = () => {
   // $('.site-global-loader').removeClass('hidden'); 
@@ -1444,7 +1505,7 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
           subTotal += productItem.selectedVar.price;
         });
         productLookList = `<td colspan="4" class="look-list">
-                            <div class="look-product-details">
+                            <div class="look-product-details show">
                               <div class="look-info-wrapper">
                                 <div class="look-img">
                                   <img src="${lookImagePath}" alt="${lookTitle}" />
@@ -1564,7 +1625,7 @@ theme_custom.lookInfoData = function (result) {
         actionButton = `<button class="button btn-wrap button--secondary cta-action-add-to-cart ${checkFitFinderData}" type="button" data-event-id="${localStorage.getItem('set-event-id')}" data-look-id="${orderItems.look_id}" data-member-id="${orderItems.member_id}" data-look-name="${orderItems.look_name}" data-look-image="${lookImagePath}"  data-look-price="215.90">
                           Proceed to Cart
                         </button>
-                        <span class="view-look" data-text="Hide Look">View Look</span>`;
+                        <span class="view-look" data-text="View Look">Hide Look</span>`;
       } else {
         payInfo = 'I Pay';
         product_data_for_host = 'hidden';
@@ -2149,9 +2210,9 @@ theme_custom.eventPageClickEvent = function (){
 		$('.tab-content').removeClass('current');
 		$(this).addClass('current');
 		$("#"+tab_id).addClass('current');
-    if(tab_id == 'member-summary-wrapper'){
-      $(`.view-look`).click();
-    }
+    // if(tab_id == 'member-summary-wrapper'){
+    //   $(`.view-look`).click();
+    // }
 	})
   // product option popup open
   $(document).on("click", ".open-product-edit-popup", function(){
@@ -3133,10 +3194,10 @@ theme_custom.updateSelectedLooks = (popup) => {
     let name = $(item).attr('data-name');
     let existLook = looks.find((look) => look.name == name);
     if (existLook) {
-      let btn = $(item).find('.look-added-into-event');
+      let btn = $(item).find('.look-added-into-event, .added-look-into-event');
       btn.addClass('disabled').text('Look Added')
     } else {
-      let btn = $(item).find('.look-added-into-event');
+      let btn = $(item).find('.look-added-into-event, .added-look-into-event');
       btn.removeClass("disabled").text('Add to Event');
     }
   })

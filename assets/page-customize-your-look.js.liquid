@@ -23,7 +23,7 @@ theme_custom.priceUpdate = function () {
       }
     }
   })
-  $(".product-info-footer").find(".money").attr("data-price", subTotal).text(theme_custom.Shopify.formatMoney(subTotal, theme_custom.money_format));
+  $(".product-info-footer").find(".money").attr("data-price", subTotal-4999).text(theme_custom.Shopify.formatMoney(subTotal-4999, theme_custom.money_format));
   if (subTotal == 0) {
     $(".tabbed-content-block-outer-wrapper:first").find(".next-step").addClass("disabled");
   }
@@ -133,7 +133,6 @@ theme_custom.productDataFromURL = function () {
           fitData = JSON.parse(getCookie('fit-finder-data'))
         }
         if(productType == 'suit') {
-          getVarPrice = parseInt(getVarPrice) + 4999;
           productPriceWithMoney = theme_custom.Shopify.formatMoney(getVarPrice, theme_custom.money_format)
         } else {
           productPriceWithMoney = theme_custom.Shopify.formatMoney(getVarPrice, theme_custom.money_format)
@@ -185,14 +184,21 @@ theme_custom.productDataFromURL = function () {
           } else {
             buttonLabel = 'Edit Item'
           }
-          
           if (optionFirstName && optionFirstVal && fitData.shirt_sleeve != "00" && fitData.shirt_neck != "00") {
-            variantTitleWithOption = `${optionFirstName} <span class="option1">${optionFirstVal}</span>`;
+            if(fitData.shirt_sleeve != '' && fitData.shirt_neck != '' ){
+              variantTitleWithOption = `${optionFirstName} <span class="option1">${fitData.shirt_neck} ${fitData.shirt_sleeve}</span>`;
+            } else {
+              variantTitleWithOption = `${optionFirstName} <span class="option1">${optionFirstVal}</span>`;
+            }
           }else{
             variantTitleWithOption = `${optionFirstName} <span class="option1">NA</span>`;
           }
-          if (optionSecondName && optionSecondVal && fitData.shirt_sleeve != "00" && fitData.shirt_neck != "00") {
-            variantTitleWithOption += `, ${optionSecondName} <span class="option2">${optionSecondVal}</span>`
+          if (optionSecondName && optionSecondVal && fitData.fit != "00") {
+            if(fitData.fit != '') {
+              variantTitleWithOption += `, ${optionSecondName} <span class="option2">${fitData.fit}</span>`
+            } else {
+              variantTitleWithOption += `, ${optionSecondName} <span class="option2">${optionSecondVal}</span>`
+            }
           }else{
             variantTitleWithOption += `, ${optionSecondName} <span class="option2">NA</span>`;
           }
@@ -1137,8 +1143,13 @@ theme_custom.setFitFinderData = function(){
 theme_custom.customize_product_clickEvent = function () {
   $(document).on("click",".combo-block-edit-item", function(){
     var target = $(this).closest(`.edit-remove-link`).attr("data-product-type");
-    var option1 = $(this).closest(`.edit-remove-link`).find('.option1').text().toLocaleLowerCase().replace(' / ','').replace("W",'').replace("w",'')
-    var option2 =  $(this).closest(`.edit-remove-link`).find('.option2').text().toLocaleLowerCase().replace(' / ','').replace("H",'').replace("h",'');
+    if(target == 'pants'){
+      var option1 = $(this).closest(`.edit-remove-link`).find('.option1').text().toLocaleLowerCase().replace(' / ','').replace("W",'').replace("w",'')
+      var option2 =  $(this).closest(`.edit-remove-link`).find('.option2').text().toLocaleLowerCase().replace(' / ','').replace("H",'').replace("h",'');
+    } else {
+      var option1 = $(this).closest(`.edit-remove-link`).find('.option1').text().toLocaleLowerCase().replace(' / ','')
+      var option2 =  $(this).closest(`.edit-remove-link`).find('.option2').text().toLocaleLowerCase().replace(' / ','');
+    }
     if(target == 'jacket' ){
       if(option1 != ''){
         $(`.product-block-var-data[data-product-type="jacket"] [data-option-swatch-index="0"]`).find(`.swatch-element-item`).removeClass('active').siblings(`.swatch-element-item[data-value="${option1}"]`).addClass("active");

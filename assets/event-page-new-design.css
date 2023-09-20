@@ -1225,6 +1225,7 @@
   .create-event-look .modal-wrapper .modal-wrapper-inner-wrapper{
     max-width: 90%;
     min-width: 90%;
+    height: 90%;
   }
   .create-event-look .modal-wrapper .modal-wrapper-inner-wrapper .product-wrapper{
     display: flex;
@@ -2087,6 +2088,11 @@ select#remiderName{
   .event-page-new-design-wrapper .page-width-inner-wrapper .form-wrap .phone-number-and-icon .call-icon img{
     width: 15px !important;
     height: 15px !important;
+  }
+}
+@media(min-width:768px) and (max-width : 1199px){
+  .modal-wrapper .modal-wrapper-inner-wrapper{
+    width: 80%;
   }
 }
 .modal-wrapper.reminder-redesign-popup .modal-wrapper-inner-wrapper{
