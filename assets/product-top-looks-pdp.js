@@ -825,7 +825,7 @@ theme_custom.tlpclickEvent = function(){
             data: data,
             dataType: 'json',
             success: function() {
-              button.find(".btn-title").text("Added to Cart");
+              button.find(".btn-title").text("Added to Cart").removeClass("disabled");
               if(theme_custom.openUpsellPopup){
                 $("html, body").css({
                   "overflow" : "hidden"
