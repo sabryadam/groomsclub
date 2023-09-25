@@ -825,20 +825,19 @@ theme_custom.tlpclickEvent = function(){
             data: data,
             dataType: 'json',
             success: function() {
-              button.find(".btn-title").text("Added to Cart").removeClass("disabled");
-              if(theme_custom.openUpsellPopup){
-                $("html, body").css({
-                  "overflow" : "hidden"
-                });
-                $(".product-upsell-wrapper").addClass("show")
-              } else {
-                button.removeClass("custom-top-look-disable").removeClass("disabled");
-                window.location.href = "/cart";
-              }
-              // setTimeout(() => {
-              //   button.removeClass("custom-top-look-disable");
-              //   window.location.href = "/cart";
-              // }, 2500);
+              button.find(".btn-title").text("Added to Cart");
+              setTimeout(() => {
+                button.removeClass("disableed").find(".btn-title").text("Add to Cart");
+                if(theme_custom.openUpsellPopup){
+                  $("html, body").css({
+                    "overflow" : "hidden"
+                  });
+                  $(".product-upsell-wrapper").addClass("show")
+                } else {
+                  button.removeClass("custom-top-look-disable").removeClass("disabled");
+                  window.location.href = "/cart";
+                }
+              }, 1500);
             },
             error: function(xhr, status, error) {
               alert(xhr.responseJSON.description);
@@ -856,19 +855,18 @@ theme_custom.tlpclickEvent = function(){
         dataType: 'json',
         success: function() {
           button.find(".btn-title").text("Added to Cart");
-          if(theme_custom.openUpsellPopup){
-            $("html, body").css({
-              "overflow" : "hidden"
-            });
-            $(".product-upsell-wrapper").addClass("show");
-          } else {
-            // button.removeClass("custom-top-look-disable").removeClass("disabled");
-            window.location.href = "/cart";
-          }
-          // setTimeout(() => {
-          //   button.removeClass("custom-top-look-disable");
-          //   window.location.href = "/cart";
-          // }, 2500);
+          setTimeout(() => {
+            button.removeClass("disableed").find(".btn-title").text("Add to Cart");
+            if(theme_custom.openUpsellPopup){
+              $("html, body").css({
+                "overflow" : "hidden"
+              });
+              $(".product-upsell-wrapper").addClass("show")
+            } else {
+              button.removeClass("custom-top-look-disable").removeClass("disabled");
+              window.location.href = "/cart";
+            }
+          }, 1500);
         },
         error: function(xhr, status, error) {
           alert(xhr.responseJSON.description);
@@ -1259,6 +1257,7 @@ document.addEventListener("DOMContentLoaded", function(){
             var selectedVarInventoryPolicy = $(`.product-data-card-wrap[data-product-type="${productType}"]`).find($(`.single-option-selector option[data-var-title="${variantTitle}"]`)).attr("data-inventory-policy");
             if ($.inArray(variantTitle, productVariantTitle) == -1) {
               $(`.product-data-card[data-product-type="${productType}"] .product-block-wrap, .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").addClass("error-show").text("Product is not available for this specific combination.").fadeIn();
+              $(`.product-data-card[data-product-type="${productType}"]`).find(".pdp-updates-button button").addClass("disabled").find(".button-label").text("Unavailable");
             } else {
               if (selectedVarInventoryPolicy == 'continue') {
                 $(`.product-data-card[data-product-type="${productType}"] .product-block-wrap, .product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").removeClass("error-show").text('').fadeOut();

@@ -347,7 +347,7 @@
   <script src="{{ 'variants.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
   <script src="{{ 'custom.js' | asset_url }}" defer></script>
-  <script src="{{ 'common-function.js' | asset_url }}" defer></script>
+  <!-- <script src="{{ 'common-function.js' | asset_url }}" defer></script> -->
 
   
   <script>
@@ -386,7 +386,8 @@
       $(".cart-page .header-bottom-link a.link").click(function(e){
         e.preventDefault();
         var tar = $(this).attr("href");
-        history.back();
+        window.history.back();
+        location.reload();
       });
 
       

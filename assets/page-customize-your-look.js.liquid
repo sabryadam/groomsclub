@@ -1350,12 +1350,14 @@ theme_custom.customize_product_clickEvent = function () {
       $(`[data-product-type="shirt"] .variant-title`).removeClass('hidden');
       $(`.customize-look-overview-product[data-product-type="shirt"]`).find(`.error-message`).removeClass("error-show");
       $(`.customize-look-overview-product[data-product-type="shirt"] .edit-remove-link`).find(".edit-item").text("Edit Item | ").attr('data-button-target','edit-item');
+      $(`[data-product-type="shirt"]`).find(`.error-message`).removeClass("error-show").text('');
     }  else if(productType == 'shoes'){
       $(`.customize-look-overview-product[data-product-type="shoes"] .product-variant-link .option2`).text(targetVarTitleArr[1]);
       $(`.customize-look-overview-product[data-product-type="shoes"] .edit-remove-link`).find(".edit-item").text("Edit Item | ").attr('data-button-target','edit-item');
       $(`.customize-look-overview-product[data-product-type="shoes"] .product-variant-link`).find(".variant-title").show();
       $(`.customize-look-overview-product[data-product-type="shoes"]`).find(`.error-message`).removeClass("error-show");
       $(`[data-product-type="shoes"] .variant-title`).removeClass('hidden');
+      $(`[data-product-type="shoes"]`).find(`.error-message`).removeClass("error-show").text('');
     }
     let parent = $(this).closest('.product-swatch-option'); 
     let error = $(`.customize-look-overview-product[data-product-handle="${parent.attr('data-product-handle')}"] .error-message`);
