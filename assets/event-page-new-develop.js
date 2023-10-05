@@ -2046,8 +2046,8 @@ theme_custom.multiItemAddToCart = function (button) {
       jacketOptionSecond =$(`.multi-item-add-to-cart .product-data-card[data-product-type="jacket"]`).find(`.option-2`).text(),
       jacketOptionThird = $(`.multi-item-add-to-cart .product-data-card[data-product-type="jacket"]`).find(`.option-3`).text(),
       jacketOptionTitle = jacketOptionOne + ' / ' + jacketOptionSecond + ' / ' + jacketOptionThird;
-    if (productType == 'jacket' || productType == 'Jacket') {
-      
+    
+    if (productType == 'jacket' || productType == 'pants' || productType == 'vest') {
       // vest Variant Title
       var vestVariantTitle = ''; 
       if($(`.edit-product-data-card[data-product-type="vest"]`).find(".option-1").length > 0){
@@ -2071,6 +2071,8 @@ theme_custom.multiItemAddToCart = function (button) {
       if($(`.edit-product-data-card[data-product-type="pants"]`).find(".option-3").length > 0){
         pantsVariantTitle = pantsVariantTitle + ' / ' + $(`.edit-product-data-card[data-product-type="pants"]`).find(".option-3").text();
       }
+    }
+    if (productType == 'jacket' || productType == 'Jacket') {
 
       item = {
         "id": varId,
@@ -2086,7 +2088,9 @@ theme_custom.multiItemAddToCart = function (button) {
         "id": varId,
         "quantity": 1,
         "properties": {
-          "combo-variant-title" : jacketOptionTitle
+          "combo-variant-title" : jacketOptionTitle,
+          "vest-variant-title" : $(`.edit-product-data-card[data-product-type="vest"]`).find(`.prod-variant-option option[data-variant-title="${vestVariantTitle}"]`).attr("data-variant-title"),
+          "pant-variant-title" : $(`.edit-product-data-card[data-product-type="pants"]`).find(`.prod-variant-option option[data-variant-title="${pantsVariantTitle}"]`).attr("data-variant-title")
         }
       }
     } else if (productType == 'vest' || productType == 'vest') {
@@ -2094,7 +2098,9 @@ theme_custom.multiItemAddToCart = function (button) {
         "id": varId,
         "quantity": 1,
         "properties": {
-          "combo-variant-title" : jacketOptionTitle
+          "combo-variant-title" : jacketOptionTitle,
+          "vest-variant-title" : $(`.edit-product-data-card[data-product-type="vest"]`).find(`.prod-variant-option option[data-variant-title="${vestVariantTitle}"]`).attr("data-variant-title"),
+          "pant-variant-title" : $(`.edit-product-data-card[data-product-type="pants"]`).find(`.prod-variant-option option[data-variant-title="${pantsVariantTitle}"]`).attr("data-variant-title")
         }
       }
     } else {

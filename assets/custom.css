@@ -1528,4 +1528,9 @@ select#event-id.disabled {
 .product-data-card-wrap.product-block-item[data-product-type="hanky"] .variant-title{
   display: block !important;
 }
+.template-cart .quantity__button.disabled{
+	cursor: not-allowed;
+	pointer-events: none;
+	opacity: 0.5;
+}
 /* custom css */

@@ -77,7 +77,7 @@
                       {%- endif -%}
                     {%- endif -%}
                     {%- if lineItemType  == 'jacket' or lineItemType  == 'pants' or lineItemType == 'vest' -%}
-                      <tr class="cart-item{% if lineItemType == 'pants' or lineItemType == 'vest' %} hidden{% endif %}" line-item-product="{{ lineItemType }}" line-item-title="{{ item.options_with_values[2].value | downcase | handleize }}" line-item-product-handle="{{ item.product.handle}}" id="CartItem-{{ item.index | plus: 1 }}" line-item-id="{{ item.id }}" data-item-variant-title="{{ item.variant.title | downcase | handleize }}" data-pants-item-variant-title="{{ item.properties['variant-title'] | downcase | handleize }}" data-pants-item-variant-id="{{ item.properties['variant-id'] | downcase | handleize }}" data-jacket-item-variant-title="{{ item.variant.title | downcase | handleize }}" data-jacket-item-variant-id="{{ item.id | downcase | handleize }}" data-item-variant-title-name="{{ item.properties['variant-title']}}">
+                      <tr class="cart-item{% if lineItemType == 'pants' or lineItemType == 'vest' %} hidden{% endif %}" line-item-product-type="{{ lineItemType }}" data-item-variant-qty="{{ item.variant.inventory_quantity }}" data-item-qty="{{ item.quantity }}" data-line-item-key="{{ item.key }}" data-jacket-variant="{{ item.properties['combo-variant-title'] | downcase | handleize }}" data-pants-variant="{{ item.properties['pant-variant-title'] | downcase | handleize }}" data-vest-variant="{{ item.properties['vest-variant-title'] | downcase | handleize}}" data-jacket-item-variant="{{ item.properties['combo-variant-title'] }}" data-pants-item-variant="{{ item.properties['pant-variant-title'] }}" data-vest-item-variant="{{ item.properties['vest-variant-title'] }}">
                     {%- else -%}
                       <tr class="cart-item" line-item-product="{{ lineItemType }}" line-item-title="{{ item.options_with_values[2].value | downcase | handleize }}" line-item-product-handle="{{ item.product.handle}}" id="CartItem-{{ item.index | plus: 1 }}" line-item-id="{{ item.id }}" data-item-variant-title="{{ item.variant.title | downcase | handleize }}">
 
@@ -105,7 +105,7 @@
                             {% if subItemProductType == 'pants'  %}
                               {%- assign pantsItemData = pantsItem -%}
                               {%- capture pantOption -%}
-                              <div class="suit-product-info" data-product-handle="{{ pantsItem.product.handle }}" data-item-product-type="{{ subItemProductType  }}" data-variant-id="{{ pantsItem.id }}">
+                              <div class="suit-product-info">
                                 <span class="title">
                                   Pants - 
                                 </span>
@@ -131,7 +131,7 @@
                             {% if subItemProductType == 'vest'  %}
                               {%- assign vestItemData = vestItem -%}
                               {%- capture vestOption -%}
-                                <div class="suit-product-info" data-product-handle="{{ vestItem.product.handle }}" data-item-product-type="{{ subItemProductType  }}" data-variant-id="{{ vestItem.id }}">
+                                <div class="suit-product-info">
                                   <span class="title">
                                     Vest - 
                                   </span>
@@ -292,7 +292,7 @@
                           </label>
                           {%- if lineItemType == 'jacket' -%}
                             <div class="quantity custom-qty-button">
-                              <button class="quantity__button no-js-hidden" name="minus" type="button">
+                              <button class="quantity__button no-js-hidden{% if item.quantity == 1 %} disabled{% endif %}" name="minus" type="button">
                                 <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}</span>
                                 -
                               </button>
