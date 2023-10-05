@@ -2,7 +2,6 @@
   "sections": {
     "5a5dfe16-e622-4d10-84f4-f50acd1fdd38": {
       "type": "rich-text",
-      "disabled": true,
       "blocks": {
         "template--16117519777978__5a5dfe16-e622-4d10-84f4-f50acd1fdd38-1685169501f5a40959-0": {
           "type": "heading",
@@ -33,6 +32,7 @@
         "template--16117519777978__5a5dfe16-e622-4d10-84f4-f50acd1fdd38-1685169501f5a40959-1",
         "template--16117519777978__5a5dfe16-e622-4d10-84f4-f50acd1fdd38-1685169501f5a40959-2"
       ],
+      "disabled": true,
       "settings": {
         "color_scheme": "background-1",
         "full_width": true
@@ -175,7 +175,7 @@
     "1632396205f946a5df": {
       "type": "featured-collection",
       "settings": {
-        "title": "Own for only $199",
+        "title": "Own for only $249",
         "collection": "suit",
         "products_to_show": 8,
         "show_view_all": false,
@@ -440,7 +440,7 @@
           "type": "before_after_text_groom",
           "settings": {
             "svg_img_groom": "",
-            "groomsuit_content": "BUY FROM $199"
+            "groomsuit_content": "BUY FROM $249"
           }
         },
         "a01aab63-37a0-434c-93bb-b491259ea7da": {
@@ -475,7 +475,7 @@
           "type": "before_after_text_rent",
           "settings": {
             "svg_img_rent": "",
-            "rent_content": "AVG. RENTAL $199"
+            "rent_content": "AVG. RENTAL $249"
           }
         },
         "52eb0c39-e038-4312-b6d1-7cb927f0ef37": {
@@ -535,7 +535,6 @@
     },
     "166299585038981241": {
       "type": "image-banner",
-      "disabled": true,
       "blocks": {
         "1662995850ba141913-0": {
           "type": "heading",
@@ -566,6 +565,7 @@
         "1662995850ba141913-1",
         "1662995850ba141913-2"
       ],
+      "disabled": true,
       "settings": {
         "image": "shopify:\/\/shop_images\/Home-Try-On-Mirror-2-closer.png",
         "desktop_text_box_position": "center",
@@ -576,7 +576,6 @@
     },
     "2090a493-beeb-4e64-a485-04649519dbb1": {
       "type": "banner-slider",
-      "disabled": true,
       "blocks": {
         "904b6910-9b63-46cb-93de-343d61096eb5": {
           "type": "video",
@@ -599,6 +598,7 @@
         "904b6910-9b63-46cb-93de-343d61096eb5",
         "dab27c21-6cea-4bd9-9367-cdb98e8000f0"
       ],
+      "disabled": true,
       "settings": {
         "autoplay": true,
         "arrowprev": true,

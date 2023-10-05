@@ -12,7 +12,7 @@
     {% render 'product-card', show_vendor: section.settings.show_vendor %}
 {% endcomment %}
 
-<div class="card-wrapper">
+<div class="card-wrapper" {{ product_card_product.type }}>
   <a href="{{ product_card_product.url | within : collection  }}" class="full-unstyled-link">
     <span class="visually-hidden">{{ product_card_product.title | escape }}</span>
 

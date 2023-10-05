@@ -76,8 +76,8 @@
                         {%- endif -%}
                       {%- endif -%}
                     {%- endif -%}
-                    {%- if lineItemType  == 'jacket' or lineItemType  == 'pants' -%}
-                      <tr class="cart-item{% if lineItemType == 'pants' %} hidden{% endif %}" line-item-product="{{ lineItemType }}" line-item-title="{{ item.options_with_values[2].value | downcase | handleize }}" line-item-product-handle="{{ item.product.handle}}" id="CartItem-{{ item.index | plus: 1 }}" line-item-id="{{ item.id }}" data-item-variant-title="{{ item.variant.title | downcase | handleize }}" data-pants-item-variant-title="{{ item.properties['variant-title'] | downcase | handleize }}" data-pants-item-variant-id="{{ item.properties['variant-id'] | downcase | handleize }}" data-jacket-item-variant-title="{{ item.variant.title | downcase | handleize }}" data-jacket-item-variant-id="{{ item.id | downcase | handleize }}" data-item-variant-title-name="{{ item.properties['variant-title']}}">
+                    {%- if lineItemType  == 'jacket' or lineItemType  == 'pants' or lineItemType == 'vest' -%}
+                      <tr class="cart-item{% if lineItemType == 'pants' or lineItemType == 'vest' %} hidden{% endif %}" line-item-product-type="{{ lineItemType }}" data-item-variant-qty="{{ item.variant.inventory_quantity }}" data-item-qty="{{ item.quantity }}" data-line-item-key="{{ item.key }}" data-jacket-variant="{{ item.properties['combo-variant-title'] | downcase | handleize }}" data-pants-variant="{{ item.properties['pant-variant-title'] | downcase | handleize }}" data-vest-variant="{{ item.properties['vest-variant-title'] | downcase | handleize}}" data-jacket-item-variant="{{ item.properties['combo-variant-title'] }}" data-pants-item-variant="{{ item.properties['pant-variant-title'] }}" data-vest-item-variant="{{ item.properties['vest-variant-title'] }}">
                     {%- else -%}
                       <tr class="cart-item" line-item-product="{{ lineItemType }}" line-item-title="{{ item.options_with_values[2].value | downcase | handleize }}" line-item-product-handle="{{ item.product.handle}}" id="CartItem-{{ item.index | plus: 1 }}" line-item-id="{{ item.id }}" data-item-variant-title="{{ item.variant.title | downcase | handleize }}">
 
@@ -98,33 +98,57 @@
                         {%- if section.settings.show_vendor -%}
                           <p class="caption-with-letter-spacing light">{{ item.product.vendor }}</p>
                         {%- endif -%}
-                        {%- assign subitemvar = '' -%}
-                        {%- for subitem in cart.items -%}
-                          {%- assign subItemProductType = subitem.product.type | downcase | handleize -%}
-                          {%- if item.properties['variant-title'] == subitem.variant.title and subitem.properties['variant-title'] == item.variant.title -%}
-                            {%- assign subitemvar = subitem -%}
-                            {%- capture pantsOption -%}
-                              {%- if subitem.product.has_only_default_variant == false -%}
-                                <div class="suit-product-info" data-product-handle="{{ subitem.product.handle }}" data-item-product-type="{{ subItemProductType  }}" data-variant-id="{{ subitem.id }}">
+                        {%- assign pantsItemData = '' -%}
+                        {%- for pantsItem in cart.items -%}
+                          {%- assign subItemProductType = pantsItem.product.type | downcase | handleize -%}
+                          {%- if item.properties['pant-variant-title'] == pantsItem.variant.title -%}
+                            {% if subItemProductType == 'pants'  %}
+                              {%- assign pantsItemData = pantsItem -%}
+                              {%- capture pantOption -%}
+                              <div class="suit-product-info">
+                                <span class="title">
+                                  Pants - 
+                                </span>
+                                <span class="option-wrap">
+                                  {%- for option in pantsItem.options_with_values -%}
+                                    <div class="product-option">
+                                      <span>{{ option.name }}: </span>
+                                      <span>{{ option.value }}</span>
+                                    </div>
+                                  {%- endfor -%}
+                                </span>
+                              </div>
+                              {%- endcapture -%}
+                            {%- endif -%}
+                          {%- endif -%}
+                        {%- endfor -%}
+
+                        <!-- vest data -->
+                        {%- assign vestItemData = '' -%}
+                        {%- for vestItem in cart.items -%}
+                          {%- assign subItemProductType = vestItem.product.type | downcase | handleize -%}
+                          {%- if item.properties['vest-variant-title'] == vestItem.variant.title -%}
+                            {% if subItemProductType == 'vest'  %}
+                              {%- assign vestItemData = vestItem -%}
+                              {%- capture vestOption -%}
+                                <div class="suit-product-info">
                                   <span class="title">
-                                    {% if subItemProductType == 'pants'  %}
-                                      Pants - 
-                                    {% endif %}
+                                    Vest - 
                                   </span>
                                   <span class="option-wrap">
-                                    {%- for option in subitem.options_with_values -%}
+                                    {%- for option in vestItem.options_with_values -%}
                                       <div class="product-option">
                                         <span>{{ option.name }}: </span>
                                         <span>{{ option.value }}</span>
                                       </div>
                                     {%- endfor -%}
                                   </span>
-                                  {%- comment -%}<span class="custom-edit-item" data-item-variant-title="{{ subitem.variant.title | downcase | handleize }}">Edit Item</span>{%- endcomment -%}
                                 </div>
-                              {%- endif -%}
-                            {%- endcapture -%}
+                              {%- endcapture -%}
+                            {% endif %}
                           {%- endif -%}
                         {%- endfor -%}
+
                         {%- if lineItemType == 'jacket' -%}
                           <span class="cart-item__name break h3 suit-title">
                             {{ item.options_with_values[2].value }} Suit
@@ -164,12 +188,13 @@
                               </div>
                             {%- endif -%}
                             {%- if lineItemType == 'jacket' %}
-                              {{ pantsOption }}
+                              {{ vestOption }}
+                              {{ pantOption }}
                             {%- endif -%}
                             {%- for property in item.properties -%}
                               {%- assign property_first_char = property.first | slice: 0 -%}
                               {%- if property.last != blank and property_first_char != '_' -%}
-                                {%- unless property.last contains 'Virtual' or property.first contains 'variant-title' or property.first contains 'variant-id' -%}
+                                {%- unless property.first contains 'combo-variant-title' or property.last contains 'Virtual' or property.first contains 'variant-title' or property.first contains 'variant-id' -%}
                                   <div class="item-properties">
                                     <dt>{{ property.first }} : </dt>
                                     <dd>
@@ -267,7 +292,7 @@
                           </label>
                           {%- if lineItemType == 'jacket' -%}
                             <div class="quantity custom-qty-button">
-                              <button class="quantity__button no-js-hidden" name="minus" type="button">
+                              <button class="quantity__button no-js-hidden{% if item.quantity == 1 %} disabled{% endif %}" name="minus" type="button">
                                 <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}</span>
                                 -
                               </button>
@@ -319,18 +344,32 @@
                         </div>
 
                         <div class="cart-item__price-wrapper medium-up">
+                          {%- assign vestPice = false -%}
+                          {%- for vestProperties in item.properties -%}
+                            {%- if vestProperties contains 'vest-variant-title' -%}
+                              {%- assign vestPice = true -%}
+                            {%- endif -%}
+                          {% endfor %}
                           {%- if item.original_line_price != item.final_line_price -%}
                             <dl class="cart-item__discounted-prices">
                               <dt class="visually-hidden">
                                 {{ 'products.product.price.sale_price' | t }}
                               </dt>
                               <dd class="price price--end" data-subitemvar-price="{{subitemvar.price}}">
-                                {{ item.final_line_price | plus: subitemvar.final_line_price | money }}
+                                {%- if vestPice -%}
+                                  {{ 24998 | times : item.quantity | money  }}
+                                {%- else -%}
+                                  {{ item.final_line_price | money }}
+                                {%- endif -%}
                               </dd>
                             </dl>
                           {%- else -%}
                             <span class="price price--end">
-                              {{ item.original_line_price | plus: subitemvar.original_line_price | money }}
+                              {%- if vestPice -%}
+                                {{ 24998 | times : item.quantity | money }}
+                              {%- else -%}
+                                {{ item.final_line_price | money }}
+                              {%- endif -%}
                             </span>
                           {%- endif -%}
                         </div>
