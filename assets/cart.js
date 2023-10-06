@@ -313,11 +313,11 @@ $(document).on(`click`, `.custom-qty-button .quantity__button[name="plus"]`, fun
     });
   } else {
     if(jacketTotalQty < quantity){
-      alert(`Combo in Jacket - ${jacketItemTitle} Out of stock, So we can't Add more combo.`)
+      alert(`Oops! We can't add more. We only have ${jacketTotalQty} Qty left for the Jacket ${jacketItemTitle} you are trying to purchase!`)
     } else if(vestTotalQty < quantity){
-      alert(`Combo in Vest - ${vestItemTitle} Out of stock, So we can't Add more combo.`)
+      alert(`Oops! We can't add more. We only have ${vestTotalQty} Qty left for the Vest ${vestItemTitle} you are trying to purchase!`)
     } else if(pantsTotalQty < quantity){
-      alert(`Combo in Pants - ${pantsItemTitle} Out of stock, So we can't Add more combo.`)
+      alert(`Oops! We can't add more. We only have ${pantsTotalQty} Qty left for the Pants ${pantsItemTitle} you are trying to purchase!`)
     }
   }
 })

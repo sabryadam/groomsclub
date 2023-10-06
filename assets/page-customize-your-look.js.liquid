@@ -205,7 +205,7 @@ theme_custom.productDataFromURL = function () {
           if (optionThirdval) {
             variantTitleWithOption += ` - <span class="option3">${optionThirdval}</span>`;
           }
-          if(fitData.shirt_sleeve != '' && fitData.shirt_neck != '' ){
+          if(fitData.shirt_sleeve != undefined && fitData.shirt_neck != undefined){
             var updatedVariant =` ${fitData.shirt_neck}  ${fitData.shirt_sleeve} / ${fitData.fit} / ${optionThirdval}`;
             var productVariantTitle = [];
             var selectOptionVar = $(this).closest(".product-block-var-data").find('.single-option-selector option');
@@ -450,13 +450,11 @@ theme_custom.mobile_accordion = function () {
 }
 
 // theme_custom.removeProductOnUncheck function 
-theme_custom.removeProductOnUncheck = function (productVarId, prodHandle, productDataVal) {
+theme_custom.removeProductOnUncheck = function (productVarId, prodHandle, productDataVal,target,checkParentRemoveProductFlag) {
   var newUrl = '',
     getProdVarId = productVarId,
     getProdHandle = prodHandle,
     removeProductVal = productDataVal;
-  // var getUrlData = localStorage.getItem("customizerlookUrl");
-  // if(getUrlData.includes('?')){
   var getProductData = localStorage.getItem("customizerlookUrl");
   var productData = getProductData.split('&');
   for (i = 0; i < productData.length; i++) {
@@ -468,16 +466,12 @@ theme_custom.removeProductOnUncheck = function (productVarId, prodHandle, produc
         variantTitleArr = variantTitle.split(' / ');
       for (j = 0; j < variantTitleArr.length; j++) {
         var currentInput = $(`.swatch-wrap[data-value="${variantTitleArr[j]}"][data-product-handle="${getProdHandle}"] input:radio`);
-        // if(currentInput.closest(".product-block-wrapper[data-product-type='neckties']").length > 0){
-        //   currentInput.prop('checked',false);
-        // }else{
         if (currentInput.closest('.swatch').hasClass('swatch-color')) {
           currentInput.prop('checked', false);
           if (currentInput.closest(".product-block-wrapper[data-product-type='neckties']").length > 0) {
             currentInput.closest(".product-block-wrapper[data-product-type='neckties']").find('.not-color input:radio').prop('checked', false);
           }
         }
-        // }
         currentInput.closest('.product-block-outer-wrapper').find(".color-title").text('');
         currentInput.closest('.swatch-wrap').removeClass("unchecked-product");
       }
@@ -506,8 +500,6 @@ theme_custom.removeProductOnUncheck = function (productVarId, prodHandle, produc
           $('.shirt-customize-image').attr('src', $('.shirt-customize-image').attr('data-open-collar-image'));
         }
       }
-      // $(".custom-look-image img." +dataTarget+"-customize-image").addClass("hide");
-      // $(".custom-look-image img." +dataTarget+"-customize-image").attr("src",'');
       currentOption.closest(".product-block-outer-wrapper").find(".price-wrap").hide();
       theme_custom.priceUpdate();
       $(".customize-look-overview-product[data-variant-id='" + getProdVarId + "']").remove();
@@ -518,11 +510,12 @@ theme_custom.removeProductOnUncheck = function (productVarId, prodHandle, produc
       }
       // var updateURl = newUrl.split("?")[1];
       localStorage.setItem("customizerlookUrl", newUrl);
-      window.location.reload();
-      localStorage.setItem("page-refresh","true");
     }
   }
-  // }
+  if(checkParentRemoveProductFlag == 'remove-item' && target.hasClass('remove-item')){
+    window.location.reload();
+    localStorage.setItem("page-refresh","true");
+  }
 }
 
 
@@ -2059,6 +2052,8 @@ theme_custom.customize_product_clickEvent = function () {
   });
 
   $(document).on("click", ".remove-item, .unchecked-product", function () {
+    var target = $(this);
+    theme_custom.checkParentRemoveProductFlag = 'remove-item';
     if ($(this).closest(`.product-block-wrapper[data-product-type="neckties"]`).length > 0) {
       theme_custom.removeTieBar();
     }
@@ -2070,7 +2065,7 @@ theme_custom.customize_product_clickEvent = function () {
     }
     var prodHandle = $(this).attr("data-product-handle"),
       productData = prodHandle + "=" + variantId;
-    theme_custom.removeProductOnUncheck(variantId, prodHandle, productData);
+    theme_custom.removeProductOnUncheck(variantId, prodHandle, productData,target,theme_custom.checkParentRemoveProductFlag);
   });
 
 }
