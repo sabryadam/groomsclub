@@ -48,11 +48,11 @@
                     {%- endif -%}
                     {%- render 'customize-product-data' product: productData, vest_product_flag: vest_product_flag, vest_product_handle: vest_product_handle -%}
                   {%- endfor -%}
-                  {%- if personalizeProductType == 'vest' -%}
+                  {%- comment -%}{%- if personalizeProductType == 'vest' -%}
                     <div class="product-block product-item-wrap no-vest" data-title="No Vest">
                       <label><span>No Vest</span></label>                        
                     </div>
-                  {%- endif -%}
+                  {%- endif -%}{%- endcomment -%}
                 </div>
                 <div class="custom-tab-paddles">
                   <button class="left-paddle paddle hidden" aria-label="left-arrow">
@@ -183,11 +183,12 @@
                     {% for productData in collectionProducts %}
                       {%- render 'customize-product-data' product: productData -%}
                     {%- endfor -%}
+                    {%- comment -%}
                     {%- if customizeProductType == 'vest' -%}
                       <div class="product-block product-item-wrap no-vest">
                         <label><span>No Vest</span></label>                        
                       </div>
-                    {%- endif -%}
+                    {%- endif -%}{%- endcomment -%}
                     <span class="price-wrap mob-tab-price" data-product-price="0000" style="display: none;">$00.00</span>
                   </div>
                   <div class="custom-tab-paddles">
@@ -360,6 +361,9 @@
                     </button>
                   </div>
                 </div>
+                {%- if accessoriesProductType == 'belt' -%}
+                <p class="belt-note-message" style="color:var(--color-button-light-blue);display: none">Note: Tuxedo Pants doesn’t have loop holes for belts</p>
+                {%- endif -%}
               </div>
             {%- endif -%}
           {%- endfor -%}
@@ -516,13 +520,13 @@
           <div class="wishlist-icon-wrap">
             <span data-href="{{ routes.account_login_url }}" class="link link-with-svg event-text {% unless customer %}event-or-fav-when-user-has-not-logged{% endunless %}">
               <i class="far fa-heart"></i> Favorite
-            </a>
+            </span>
           </div>
           <div class="add-to-event">
             <span data-href="{{ routes.account_login_url }}" class="link link-with-svg event-text {% unless customer %}event-or-fav-when-user-has-not-logged{% endunless %}">
               <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 19 18" style="enable-background:new 0 0 19 18;" xml:space="preserve"><style type="text/css">.plus-icon{fill:#1075BC;}</style><g><g><path class="plus-icon" d="M9.6,1.5c4.1,0,7.5,3.3,7.5,7.5s-3.4,7.5-7.5,7.5S2.1,13.1,2.1,9S5.5,1.5,9.6,1.5 M9.6,0c-5,0-9,4-9,9    s4,9,9,9s9-4,9-9S14.6,0,9.6,0L9.6,0z"/></g><g><rect x="8.6" y="5" class="plus-icon" width="2" height="8.1"/><rect x="8.6" y="5" transform="matrix(6.123234e-17 -1 1 6.123234e-17 0.6405 18.6186)" class="plus-icon" width="2" height="8.1"/></g></g></svg>
               Add to Event
-            </a>
+            </span>
           </div>
         </div>
       {%- endif -%}
@@ -532,7 +536,7 @@
         </span>
         {% render 'share-icons' %}
       </share-button>
-      <p class="product-out-of-stock-error error-msg hidden" style="color: red;">Some Product/Variant are Out of Available, Please refer to the Look above</p>
+      <p class="product-out-of-stock-error error-msg hidden" style="color: red;">Some Products/Variants are Out of Stock/Unavailable, Please select another variant.</p>
       <div class="button-wrapper">
         <div class="back-button link prev-step"><i class="fas fa-arrow-left"></i> Back to Find Your Fit</div>
         <div class="continue-button">
@@ -1207,7 +1211,7 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
       "type" : "textarea",
       "id" : "sub_heading",
       "label" : "Sub heading",
-      "default" : "<p>Starting at $199 (price includes suit jacket and pants)</p>"
+      "default" : "<p>Starting at $249 (Price Includes Jacket, Vest and  Pants)</p>"
     },
     {
       "type" : "image_picker",

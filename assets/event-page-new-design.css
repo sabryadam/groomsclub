@@ -623,6 +623,8 @@
 .empty-fav-look-wrapper .product-wrapper .empty-message{
   display: block;
   margin: 0 auto;
+  min-width: 500px;
+  padding: 0 15px;
 }
 .guest-top-looks .look-image{
   position: relative;
@@ -1223,6 +1225,7 @@
   .create-event-look .modal-wrapper .modal-wrapper-inner-wrapper{
     max-width: 90%;
     min-width: 90%;
+    height: 90%;
   }
   .create-event-look .modal-wrapper .modal-wrapper-inner-wrapper .product-wrapper{
     display: flex;
@@ -1764,6 +1767,11 @@ span.look-price {
   display: inline-block;
   padding: 15px;
 }
+.event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .product-data-card[data-product-type="jacket"],
+.event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .product-data-card[data-product-type="pants"],
+.event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .product-data-card[data-product-type="vest"]{
+  display: none;
+}
 .event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .product-data-card {
   width: 100%;
   background: #f5f5f5;
@@ -2082,6 +2090,11 @@ select#remiderName{
     height: 15px !important;
   }
 }
+@media(min-width:768px) and (max-width : 1199px){
+  .modal-wrapper .modal-wrapper-inner-wrapper{
+    width: 80%;
+  }
+}
 .modal-wrapper.reminder-redesign-popup .modal-wrapper-inner-wrapper{
   max-width: 450px;
   min-width: 450px;
@@ -2122,4 +2135,23 @@ select#remiderName{
   opacity: 0.5;
   pointer-events: none;
   cursor: not-allowed;
+}
+.event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper{
+  display: flex;
+  flex-direction: column;
+}
+.event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .suit-product-data-info-card-wrapper{
+  order: 0;
+}
+.event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .edit-product-data-card[data-product-type="shirt"]{
+  order: 1;
+}
+.event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .edit-product-data-card[data-product-type="neckties"]{
+  order: 2;
+}
+.event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .edit-product-data-card[data-product-type="hanky"]{
+  order: 3;
+}
+.event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .edit-product-data-card[data-product-type="shoes"]{
+  order: 4;
 }

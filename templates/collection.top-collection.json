@@ -7,24 +7,6 @@
         "show_collection_image": false
       }
     },
-    "3fdcbcf8-5cb0-46c2-a605-bb2111e3d724": {
-      "type": "rich-text",
-      "blocks": {
-        "template--16117519450298__3fdcbcf8-5cb0-46c2-a605-bb2111e3d724-16887427041d6074f8-1": {
-          "type": "text",
-          "settings": {
-            "text": "<p>The Grooms Club sells the best suits for men, and we have various styles for you to choose from. Browse the looks below to determine which option best aligns with your style based on the color of the suit, button-down, and accessories. Once you’ve selected the option you like most, send the name of it and our website to all your groomsmen to ensure everyone looks uniform on the big day. By selecting the More Details button beside each suit option, you can view size options or customize specific aspects of the look.   <\/p><p>Don’t hesitate to contact our customer support team if you have questions about our suits or sizing. Purchase the best suits for men to make certain you and your groomsmen look incredible. <\/p>"
-          }
-        }
-      },
-      "block_order": [
-        "template--16117519450298__3fdcbcf8-5cb0-46c2-a605-bb2111e3d724-16887427041d6074f8-1"
-      ],
-      "settings": {
-        "color_scheme": "background-1",
-        "full_width": true
-      }
-    },
     "product-grid": {
       "type": "top-looks-main-collection-product-grid",
       "settings": {
@@ -205,14 +187,32 @@
         "dots": false,
         "loop": true
       }
+    },
+    "3fdcbcf8-5cb0-46c2-a605-bb2111e3d724": {
+      "type": "rich-text",
+      "blocks": {
+        "template--16117519450298__3fdcbcf8-5cb0-46c2-a605-bb2111e3d724-16887427041d6074f8-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The Grooms Club sells the best suits for men, and we have various styles for you to choose from. Browse the looks below to determine which option best aligns with your style based on the color of the suit, button-down, and accessories. Once you’ve selected the option you like most, send the name of it and our website to all your groomsmen to ensure everyone looks uniform on the big day. By selecting the More Details button beside each suit option, you can view size options or customize specific aspects of the look.   <\/p><p>Don’t hesitate to contact our customer support team if you have questions about our suits or sizing. Purchase the best suits for men to make certain you and your groomsmen look incredible. <\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--16117519450298__3fdcbcf8-5cb0-46c2-a605-bb2111e3d724-16887427041d6074f8-1"
+      ],
+      "settings": {
+        "color_scheme": "background-1",
+        "full_width": true
+      }
     }
   },
   "order": [
     "banner",
-    "3fdcbcf8-5cb0-46c2-a605-bb2111e3d724",
     "product-grid",
     "16372094347baae41f",
     "1637210711c34d4210",
-    "1637211120e90ee699"
+    "1637211120e90ee699",
+    "3fdcbcf8-5cb0-46c2-a605-bb2111e3d724"
   ]
 }

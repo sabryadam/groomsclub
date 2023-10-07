@@ -87,6 +87,7 @@
               {%- case item.object_type -%}
                 {%- when 'product' -%}
                   {%- capture product_settings -%}{%- if section.settings.product_show_vendor -%}vendor,{%- endif -%}title,price{%- endcapture -%}
+                  {%- unless productType contains 'vest' -%}
                   {% render 'product-card',
                     product_card_product: item,
                     media_size: section.settings.image_ratio,
@@ -94,6 +95,7 @@
                     enable_image_padding: section.settings.enable_image_padding,
                     show_vendor: section.settings.show_vendor
                   %}
+                  {%- endunless -%}
                 {%- when 'article' -%}
                   <a href="{{ item.url }}" class="card-wrapper">
                     <div class="card card--search card--soft{% unless item.image %} card--text-only{% endunless %}">

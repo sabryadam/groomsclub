@@ -39,7 +39,6 @@ theme_custom.favoriteButtonEvent = function (eventButton) {
       if(window.location.pathname != '/pages/customize-your-look'){
         lookUrl = `/pages/customize-your-look?${theme_custom.customizeURLData}`;
       }
-      console.log("lookUrl",lookUrl)
       theme_custom.favouriteLookApi(lookName, lookUrl, produArray, button);
     }
   }
