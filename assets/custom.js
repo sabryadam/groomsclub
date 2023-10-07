@@ -1986,4 +1986,10 @@ $(document).on('change', `.upsell-product-items-wrapper input[type="radio"]`, fu
       }
     }
   }
-})
+});
+
+$(".cart-page .header-bottom-link a.link").click(function(e){
+  e.preventDefault();
+  var target =  document.referrer;
+  window.location.href = target ;
+});
