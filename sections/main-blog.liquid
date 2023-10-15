@@ -4,7 +4,15 @@
 
 
 {%- paginate blog.articles by section.settings.blog_number -%}
-
+  <div class="page-width-big">
+    <div id="breadcrumb" class="product_menu">
+      <div class="" aria-label="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+        <a href="/">Home</a>
+        <span class="separator"> / </span> 
+        <span>{{blog.title}}</span>
+      </div>
+    </div>
+  </div>
   <div class="main-blog page-width">
     <div class="main-heading-part">
       <h1 class="text-center-heading border-heading h1 margin-0">{{ blog.title | escape }}</h1>
@@ -141,6 +149,12 @@
           "id": "show_blog_type",
           "default": false,
           "label": "Show Category"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_blog_tag",
+          "default": false,
+          "label": "Show Tag"
         }
       ]
     },

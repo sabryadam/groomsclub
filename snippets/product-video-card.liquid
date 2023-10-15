@@ -18,7 +18,7 @@
 
     <div class="card card--product card--product-video" >
       <div class="card__inner">
-        {%- for media in product_card_product.media -%}
+        {%- comment -%}{%- for media in product_card_product.media -%}
           {% assign video_enable = false %}        
           {%- case media.media_type -%}
             {%- when 'external_video' -%}
@@ -44,8 +44,8 @@
               <div class="media" 3>
                 {{ media | media_tag: image_size: "2048x", toggleable: true }}
               </div>
-            {%- endcase -%}
-          {% endfor %}
+          {%- endcase -%}
+        {% endfor %}{%- endcomment -%}
           {% unless video_enable %}
             {%- if product_card_product.featured_media -%}
               {%- liquid

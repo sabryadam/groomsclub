@@ -204,8 +204,6 @@
     } */
   {% endstyle %}
   {{ 'base.css' | asset_url | stylesheet_tag }}
-  {{ 'custom.css' | asset_url | stylesheet_tag }}
-
   
   {%- unless settings.type_body_font.system? -%}
   <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
@@ -337,7 +335,7 @@
   {%- if template contains 'product' -%}
   <script src="{{ 'variants.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
-  <script src="{{ 'custom.js' | asset_url }}" defer></script>
+  <script src="{{ 'custom.js' | asset_url }}" async defer></script>
   <!-- <script src="{{ 'common-function.js' | asset_url }}" defer></script> -->
 
   
