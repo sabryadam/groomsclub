@@ -8,12 +8,12 @@
           "settings": {
             "show_date": true,
             "show_author": false,
-            "show_blog_type": false
+            "show_blog_type": false,
+            "show_blog_tag": false
           }
         },
         "0cd337a9-c0f6-4ff3-9a3f-6ecb44e11718": {
           "type": "summary",
-          "disabled": true,
           "settings": {}
         },
         "a32937aa-3234-4a47-ad5a-b9bafdda3fb3": {
@@ -32,7 +32,7 @@
         "show_image": true,
         "check_heading": "tips-tricks",
         "blog_description": "<p>Be smart about your style. Learn insider tips and tricks to show up as the sharpest dressed men<\/p>",
-        "blog_number": "3"
+        "blog_number": "9"
       }
     },
     "1633582106c1a3ae74": {

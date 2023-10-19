@@ -3,12 +3,14 @@
 <article class="article-template" itemscope itemtype="http://schema.org/BlogPosting">
   <div class="page-width-big">
     <div id="breadcrumb" class="product_menu">
-      <div class="" aria-label="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+      <div itemscope aria-label="breadcrumbs" itemtype="http://schema.org/BreadcrumbList">
         {%- comment -%}
         <span itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a href="/" class="homepage-link" title="Home" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1"></span>
         <span class="separator"> / </span> 
         {%- endcomment -%}
-        <a href="{{ blog.url }}" title="">{{blog.title}}</a>
+        <a href="/" class="homepage-link" title="Home" itemprop="url"><span itemprop="url">Home</span></a>
+        <span class="separator"><i class="fa fa-angle-right"></i></span>
+        <a href="{{ blog.url }}" title="{{blog.title}}" tabindex="0" itemprop="url">{{blog.title}}</a>
         <span class="separator"><i class="fa fa-angle-right"></i></span>
         <span class="page-title">{{article.title}}</span>
       </div>
