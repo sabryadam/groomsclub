@@ -423,7 +423,7 @@
         </div>
       </div>
     {%- else -%}
-      <div class="collection collection-product-list-wrap">
+      <div class="collection collection-product-list-wrap page-width">
         <div class="loading-overlay">
           <div class="loading-overlay__spinner">
             <svg width="25" height="25"  aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
@@ -439,17 +439,8 @@
         </p>
 
         <div class="main-collection-product-grid" data-id="{{ section.id }}">
-          {%- for product in collection.products reversed  limit: 7 -%}
-            {% if forloop.index == 1 %} 
-              <div class="product-grid-outer-wrapper">
-                <div class="page-width">
-            {%- endif -%}
-            {% if forloop.index == 2 or forloop.index == 5 %} 
-              <div class="product-grid-outer-wrapper outer-padding-product top-looks-side-part">
-            {%- endif -%}
-            {% if forloop.index == 2 or forloop.index == 3 or forloop.index == 5 or forloop.index == 6  %} 
-              <div class="product-grid-inner-wrapper">
-            {%- endif -%}
+          {%- for product in collection.products reversed  limit: 9 -%} 
+          <div class="product-grid-inner-wrapper">
             <div class="plp-top-looks-product-grid" data-index="{{ forloop.index }}">
               {% render 'product-card-top-plp',
                 product_card_product: product,
@@ -458,17 +449,8 @@
                 add_image_padding: section.settings.add_image_padding,
                 show_vendor: section.settings.show_vendor
               %}
-            </div>
-            {% if forloop.index == 1 %} 
-                </div>
-              </div>
-            {%- endif -%}
-            {% if forloop.index == 2 or forloop.index == 4 or forloop.index == 5 or forloop.index == 7 or forloop.last %} 
-              </div>
-            {%- endif -%}
-            {% if forloop.index == 4 or forloop.index == 7  or forloop.last %} 
-              </div>
-            {%- endif -%}
+            </div> 
+          </div>
           {%- endfor -%}
         </div>
 

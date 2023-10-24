@@ -11877,22 +11877,62 @@ header.header.header--middle-left.page-width-big.header--has-menu {
   }
 }
 
-.template-collection-top-collection .main-collection-product-grid {
+.template-collection-top-collection .main-collection-product-grid,
+.template-collection-top-suit .main-collection-product-grid {
   display: flex;
   flex-wrap: wrap;
 }
 
-.template-collection-top-collection .product-grid-inner-wrapper {
-  width: calc(50% - 20px);
+.template-collection-top-collection .product-grid-inner-wrapper,
+.template-collection-top-suit .product-grid-inner-wrapper {
+  width: calc(33.33% - 20px);
   margin: 10px;
   background-color: var(--color-light-gray-background);
   padding-right: 15px;
 }
+@media(min-width:768px) and (max-width:1024px){
+  .template-collection-top-collection .product-grid-inner-wrapper,
+  .template-collection-top-suit .product-grid-inner-wrapper {
+    width: calc(50% - 20px);
+  }
+  .template-collection-top-collection .plp-top-looks-product-grid .card-information__wrapper .card-information__text,
+  .template-collection-top-suit .plp-top-looks-product-grid .card-information__wrapper .card-information__text{
+    font-size: 16px;
+  }
+}
 
-.template-groomsclub-gift-card .product__info-container .product__title {
+.template-groomsclub-gift-card .product__info-container .product__title,
+.template-collection-top-suit .plp-top-looks-product-grid .card-information__wrapper .card-information__text,
+.template-collection-top-suit .plp-top-looks-product-grid .card-information__wrapper .jacket-and-pants-text {
   text-align: left;
 }
 
+.template-collection-top-collection .plp-top-looks-product-grid .card-wrapper .card__inner .media img,
+.template-collection-top-suit .plp-top-looks-product-grid .card-wrapper .card__inner .media img{
+  object-fit: contain!important;
+  max-height: 350px;
+  margin: 0 auto;
+  min-height: 350px;
+}
+.template-collection-top-collection .plp-top-looks-product-grid .card-wrapper,
+.template-collection-top-suit .plp-top-looks-product-grid .card-wrapper{
+  display: block;
+}
+.template-collection-top-collection .plp-top-looks-product-grid .card-wrapper>a,
+.template-collection-top-suit .plp-top-looks-product-grid .card-wrapper>a{
+  display: block;
+}
+.template-collection-top-collection .plp-top-looks-product-grid .card-information,
+.template-collection-top-suit .plp-top-looks-product-grid .card-information{
+  padding: 15px 15px 15px;
+}
+.template-collection-top-collection .plp-top-looks-product-grid .card-information .button,
+.template-collection-top-suit .plp-top-looks-product-grid .card-information .button{
+  padding: 15px 15px 10px;
+  display: block;
+  max-width: 250px;
+  margin: 0 auto;
+}
 .template-groomsclub-gift-card .product__info-container .price {
   justify-content: flex-start;
 }
