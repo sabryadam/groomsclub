@@ -12611,12 +12611,12 @@ select#event-id.disabled {
   flex-direction: column-reverse;
 }
 @media(min-width : 768px){
-  .template-blog .media--landscape{
+  /* .template-blog .media--landscape{
     padding-bottom: 100%;
   }
   .template-blog .media--landscape img{
     object-fit: contain;
-  }
+  } */
   .template-blog .article-card__info{
     padding-bottom: 0;
   }
@@ -12624,5 +12624,15 @@ select#event-id.disabled {
   .template-blog .article-card__excerpt{
     margin-bottom: 0;
   }
+  .index-icon-with-text-slider .section-loader,
+  .image-with-text .section-loader{
+    display: none;
+  }
+}
+@media(max-width : 767px){
+  .index-icon-with-text-slider .page-width-big,
+  .image-with-text .page-width-big{
+    display: none;
+  } 
 }
 /* custom css */

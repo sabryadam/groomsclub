@@ -1,37 +1,35 @@
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}">
-
 <head>
-  {% if page_title %}
-    {% if page_title == 'invited' %}
+  {%- if page_title -%}
+    {%- if page_title == 'invited' -%}
       <title>Invite Page | Grooms Club</title>
-    {% else %}
+    {%- else -%}
       <title>{{ page_title | escape }} </title>
-    {% endif %}
-  {% else %}
+    {%- endif -%}
+  {%- else -%}
   <title>{{ shop.name }}</title>
-  {% endif %}
+  {%- endif -%}
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="">
+  <meta name="theme-color" content="#1075bc">
   <meta name='robots' content='index, follow'>
-  {% if page_description %}
+  {%- if page_description -%}
   <meta name="description" content="{{ page_description | escape }}">
-  {% endif %}
+  {%- endif -%}
   <link rel="canonical" href="{{ canonical_url }}">
   <link rel="icon" type="image/png" href="{{ settings.favicon | img_url:'master' }}" />
   <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
   <script src="{{ 'jquery-min.js' | asset_url }}"></script>
-
- <!-- Global site tag (gtag.js) - Google Ads: 10983417033 -->
-        <script async src=https://www.googletagmanager.com/gtag/js?id=AW-10983417033></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'AW-10983417033');
-        </script>
+  <!-- Global site tag (gtag.js) - Google Ads: 10983417033 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10983417033"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-10983417033');
+  </script>
   <script>
     function setCookie(cname, cvalue, exdays) {
       const d = new Date();
@@ -41,8 +39,7 @@
     }
     if(window.location.pathname != "/pages/fit-finder"){
       setCookie('lastpage',window.location.pathname,1);
-    }
-    
+    }    
     function getCookie(cname) {
       let name = cname + "=";
       let ca = document.cookie.split(';');
@@ -75,12 +72,12 @@
   {%- unless settings.type_header_font.system? -%}
   <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
   {%- endunless -%}
-  {% render 'meta-tags' %}
+  {%- render 'meta-tags' -%}
   {% if template contains 'customize-your-look' or template contains 'top-looks-pdp' or template contains 'jacket-pant-combination' or template contains 'create-event' %}
   <script src="{{ 'check-same-name-event-look.js' | asset_url }}" defer="defer"></script>
   {% endif  %}
   <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'custom2.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'custom2.js' | asset_url }}" defer="defer"></script>
 
   {{ content_for_header }}
   {%- liquid
@@ -286,7 +283,7 @@
 {%- endcapture -%}
 
 <body
-  class="{{ body_class | strip | strip_newlines | split: '|' | join: ' '}}{% if template == 'index' %} homepage{% endif %}{% unless customer %} customer-has-not-logged{% endunless %} template-{{ product.handle}} {% if template contains 'product' %}product-type-{{ product.type | downcase | handleize }}{% endif  %}">
+  class="{{ body_class | strip | strip_newlines | split: '|' | join: ' '}}{% if template == 'index' %} homepage{% endif %}{% unless customer %} customer-has-not-logged{% endunless %}{% if template contains 'product' %} template-{{ product.handle}} product-type-{{ product.type | downcase | handleize }}{% endif  %}">
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WPZ3HG7" height="0" width="0"
       style="display:none;visibility:hidden"></iframe></noscript>

@@ -92,7 +92,7 @@
   {%- endfor -%}
 
   <div class="element-margin center button-wrap">
-    <a href="{{ blog.url }}" class="article-template__link button  button--secondary link{% if blog.comments_enabled? == false %} spaced-section{% endif %}">
+    <a href="/pages/fit-finder" class="article-template__link button  button--secondary link{% if blog.comments_enabled? == false %} spaced-section{% endif %}">
       {% comment %}{% render 'icon-arrow' %} {{ 'blogs.article.back_to_blog' | t: title: blog.title }}{% endcomment %}
       Try Our Fit Finder <i class="fas fa-arrow-right"></i>
     </a>

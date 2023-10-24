@@ -7,7 +7,7 @@ theme_custom.checkCustomizeProduct = function(){
 
 
 
-$(document).ready(function(){
+document.addEventListener("DOMContentLoaded", function() {
   $('.product-main-image').on('init', function (event, slick) {
     const product_main_image_slider = this;
     setTimeout(function() {
