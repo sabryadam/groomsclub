@@ -1,5 +1,15 @@
 {
   "sections": {
+    "2a15d3be-d1f2-4d33-b8cb-119d96bdee3f": {
+      "type": "breadcrumb",
+      "disabled": true,
+      "settings": {
+        "container": "page-width",
+        "text_alignment": "center",
+        "hide_current": false,
+        "hide_on_mb": false
+      }
+    },
     "main": {
       "type": "main-article",
       "blocks": {
@@ -31,6 +41,7 @@
     }
   },
   "order": [
+    "2a15d3be-d1f2-4d33-b8cb-119d96bdee3f",
     "main"
   ]
 }
