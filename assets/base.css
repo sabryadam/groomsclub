@@ -10746,7 +10746,7 @@ p.removing-combine-message
   }
 }
 
-@media screen and (min-width: 1025px) {
+@media screen and (min-width: 1520px) {
 
   .custom-collection-section.page-width {
     max-width: 1520px;
@@ -12628,7 +12628,21 @@ select#event-id.disabled {
   .image-with-text .section-loader{
     display: none;
   }
+  .section-loader{
+    display: none;
+  }
 }
+.product-main-image-loader-wrapper .product-main-image-loader img,
+.product-thumb-image-loader img{
+  width: 100%;
+  height: 600px;
+  margin: 0 auto;
+  max-width: 100%;
+}
+/* .product-main-image-loader-wrapper .product-main-image,
+.product-main-image-loader-wrapper .product-thumb-image{
+  display: none;
+} */
 @media(max-width : 767px){
   .index-icon-with-text-slider .page-width-big,
   .image-with-text .page-width-big{

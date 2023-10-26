@@ -52,7 +52,7 @@
                 <input id="{{ product.handle }}-{{ forloop.index }}-{{ downcased_option }}-{{ value | handle }}" type="radio" name="customizer-{{product.type | handleize}}" value="{{ value | escape }}" />
                 {%- assign checkProdType = product.type | downcase -%}
                 <label class="swatch-element" for="{{ product.handle }}-{{ forloop.index }}-{{ downcased_option }}-{{ value | handle }}" data-product-title="{{ product.title }}" data-product-id="{{ product.id }}" {% if checkProdType == 'jacket' or checkProdType == 'pants' %} data-variant-price="0000" {% else %}data-variant-price="{{ variant.price }}"{% endif %} data-variant-id="{{ variant.id }}" data-product-handle="{{ product.handle }}" data-variant-featured-img="{{ variant.image.src | img_url: 'master' }}" data-variant-image="{{ variant.metafields.my_fields.color_image | img_url : 'master'}}" data-option-value="{{ value | escape }}">
-                  <span style="background: {{ value | split: ' ' | last | handle }}; background: url({{ value | handle | prepend : 'color_' | append: '.' | append: file_extension | file_img_url: '50x' }})">{{ value }}</span>
+                  <span style="background-color: {{ value | split: ' ' | last | handle }}; background-image: url({{ value | handle | prepend : 'color_' | append: '.' | append: file_extension | file_img_url: '50x' }})">{{ value }}</span>
                   <div class="remove-product-icon product-{{ product.type }}">
                     {%- render 'radio-unchecked' -%}
                   </div>
