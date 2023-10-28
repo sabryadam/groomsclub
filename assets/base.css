@@ -12681,9 +12681,11 @@ select#event-id.disabled {
 
 .template-collection-top-collection .plp-top-looks-product-grid .card-information__wrapper .jacket-and-pants-text, 
 .template-collection-top-suit .plp-top-looks-product-grid .card-information__wrapper .jacket-and-pants-text{
-  font-size: 14px;
+  font-size: 12px;
   width: 100%;
   text-align: left;
+  color: #808080;
+  margin-top: 5px;
 }
 
 .template-collection-top-collection .plp-top-looks-product-grid .card-information__wrapper .card-information__text,
@@ -12699,7 +12701,7 @@ select#event-id.disabled {
 .template-collection-top-collection .plp-top-looks-product-grid .card-information__wrapper .price,
 .template-collection-top-suit .plp-top-looks-product-grid .card-information__wrapper .price,
 .template-collection .card-information .price{
-  justify-content: center;
+  justify-content: end;
   font-size: 13px;
   border: none;
   padding: 0;
