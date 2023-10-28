@@ -12644,8 +12644,7 @@ select#event-id.disabled {
   display: none;
 } */
 @media(max-width : 767px){
-  .index-icon-with-text-slider .page-width-big,
-  .image-with-text .page-width-big{
+  .index-icon-with-text-slider .page-width-big{
     display: none;
   } 
 }
