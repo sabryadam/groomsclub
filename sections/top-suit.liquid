@@ -439,7 +439,7 @@
         </p>
 
         <div class="main-collection-product-grid" data-id="{{ section.id }}">
-          {%- for product in collection.products reversed  limit: 9 -%} 
+          {%- for product in collection.products reversed  limit: products_per_page -%} 
             {%- comment -%}{% if forloop.index == 1 %} 
               <div class="product-grid-outer-wrapper">
                 <div class="page-width">

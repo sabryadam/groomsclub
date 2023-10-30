@@ -12727,13 +12727,13 @@ select#event-id.disabled {
   margin: 0;  
 }
 
-.template-collection-top-collection .plp-top-looks-product-grid .card-wrapper .card__inner .media img,
+/* .template-collection-top-collection .plp-top-looks-product-grid .card-wrapper .card__inner .media img,
 .template-collection-top-suit .plp-top-looks-product-grid .card-wrapper .card__inner .media img{
   object-fit: contain!important;
   margin: 0 auto;
-  /* max-height: 350px;
-  min-height: 350px; */
-}
+  max-height: 350px;
+  min-height: 350px;
+} */
 .template-collection-top-collection .plp-top-looks-product-grid .card-wrapper,
 .template-collection-top-suit .plp-top-looks-product-grid .card-wrapper{
   display: block;
