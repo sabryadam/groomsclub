@@ -56,14 +56,17 @@
                   {{- blog.title -}}
                 </div>
               {% endif %}
-              <h2 class="article-card__title h3" id="Article-{{ article.id }}">
+              <h2 class="article-card__title h6" id="Article-{{ article.id }}">
                 {{ article.title | escape }}
               </h2>
               {%- if block.settings.show_date -%}
-              {% comment %}<span class="circle-divider caption-with-letter-spacing">
-                {{- article.published_at | date: '%d %B, %Y' -}}
-              </span>{% endcomment %}
-                <div class="date-formte">{% render 'date-formate' article:article %} </div>
+                {%- if template contains 'blog' -%}
+                  <span class="circle-divider caption-with-letter-spacing" style="font-weight: 400;text-align: right;">
+                    {{- article.published_at | date: '%Y-%m-%d' -}}
+                  </span>
+                {%- else -%}
+                  <div class="date-formte">{% render 'date-formate' article:article %} </div>
+                {%- endif -%}
               {%- endif -%}
               {%- if block.settings.show_author -%}
                 <span class="caption-with-letter-spacing">{{ article.author -}}</span>

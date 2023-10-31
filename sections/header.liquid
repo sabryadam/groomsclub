@@ -116,7 +116,7 @@
                                   {%- for childlink in link.links -%}
                                     <li>
                                       {%- if childlink.links == blank -%}
-                                        <a href="{{ childlink.url }}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"{% if childlink.current %} aria-current="page"{% endif %}>
+                                        <a tabindex="0" title="{{ childlink.title | escape }}" href="{{ childlink.url }}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"{% if childlink.current %} aria-current="page"{% endif %}>
                                           {{ childlink.title | escape }}
                                         </a>
                                       {%- else -%}
@@ -134,7 +134,7 @@
                                             <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
                                               {%- for grandchildlink in childlink.links -%}
                                                 <li>
-                                                  <a href="{{ grandchildlink.url }}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if grandchildlink.current %} menu-drawer__menu-item--active{% endif %}"{% if grandchildlink.current %} aria-current="page"{% endif %}>
+                                                  <a tabindex="0" title="{{ grandchildlink.title | escape }}" href="{{ grandchildlink.url }}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if grandchildlink.current %} menu-drawer__menu-item--active{% endif %}"{% if grandchildlink.current %} aria-current="page"{% endif %}>
                                                     {{ grandchildlink.title | escape }}
                                                   </a>
                                                 </li>
@@ -146,7 +146,7 @@
                                     </li>
                                   {%- endfor -%}
                                   <li class="xs-show">
-                                    <a href="{{ link.url}}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">
+                                    <a tabindex="0" title="{{ link.title | escape }}" href="{{ link.url}}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">
                                       {{ link.title | escape }}
                                     </a>
                                   </li>
@@ -155,14 +155,14 @@
                             </div>
                           </details>
                         {%- else -%}
-                          <a href="{{ link.url }}" class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.current %} menu-drawer__menu-item--active{% endif %}"{% if link.current %} aria-current="page"{% endif %}>
+                          <a tabindex="0" title="{{ link.title | escape }}" href="{{ link.url }}" class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.current %} menu-drawer__menu-item--active{% endif %}"{% if link.current %} aria-current="page"{% endif %}>
                             {{ link.title | escape }}
                           </a>
                         {%- endif -%}
                       </li>
                     {%- endfor -%}
                     <li class="main-link">
-                       <a href="/pages/contact" class="menu-drawer__menu-item list-menu__item link link--text focus-inset"{% if link.current %} aria-current="page"{% endif %}>
+                       <a tabindex="0" title="{{ link.title | escape }}" href="/pages/contact" class="menu-drawer__menu-item list-menu__item link link--text focus-inset"{% if link.current %} aria-current="page"{% endif %}>
                           Contact Us
                         </a>
                     </li>
@@ -170,13 +170,13 @@
                   {% if section.settings.header-url_title %}
                     <div class="header_get_started_btn mobile-button">
                       {%- comment -%}<a class="button button--secondary btn-small" href="{% if customer %}{{ settings.create_event_url }}{% else %}{{ routes.account_login_url }}{% endif %}">{% unless customer %}{{ settings.create_event_before_login_btn_text }}{% else %}{{ settings.create_event_after_login_btn_text }}{% endunless %}</a>{%- endcomment -%}
-                      <a class="button button--secondary btn-small" href="{% if customer %}{{ settings.create_event_url }}{% else %}{{ routes.account_register_url }}{% endif %}">{% unless customer %}{{ settings.create_event_before_login_btn_text }}{% else %}{{ settings.create_event_after_login_btn_text }}{% endunless %}</a>
+                      <a tabindex="0" title="{{ settings.create_event_before_login_btn_text }}" class="button button--secondary btn-small" href="{% if customer %}{{ settings.create_event_url }}{% else %}{{ routes.account_register_url }}{% endif %}">{% unless customer %}{{ settings.create_event_before_login_btn_text }}{% else %}{{ settings.create_event_after_login_btn_text }}{% endunless %}</a>
                     </div>
                   {% endif %}
                 </nav>
                 <div class="menu-drawer__utility-links">
                   {%- if shop.customer_accounts_enabled -%}
-                    <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="menu-drawer__account link link--text focus-inset h5">
+                    <a tabindex="0" title="login" href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="menu-drawer__account link link--text focus-inset h5">
                       {% render 'icon-account' %}
                       {% comment %}<img src="{{ 'login.png' | asset_url }}"
                             loading="lazy"
@@ -194,7 +194,7 @@
                   <ul class="list list-social list-unstyled" role="list">
                     {%- if settings.social_twitter_link != blank -%}
                       <li class="list-social__item">
-                        <a href="{{ settings.social_twitter_link }}" class="link link--text list-social__link" aria-describedby="a11y-external-message">
+                        <a tabindex="0" title="twitter" href="{{ settings.social_twitter_link }}" class="link link--text list-social__link" aria-describedby="a11y-external-message">
                           {%- render 'icon-twitter' -%}
                           <span class="visually-hidden">{{ 'general.social.links.twitter' | t }}</span>
                         </a>
@@ -202,7 +202,7 @@
                     {%- endif -%}
                     {%- if settings.social_facebook_link != blank -%}
                       <li class="list-social__item">
-                        <a href="{{ settings.social_facebook_link }}" class="link link--text list-social__link" aria-describedby="a11y-external-message">
+                        <a tabindex="0" title="facebook" href="{{ settings.social_facebook_link }}" class="link link--text list-social__link" aria-describedby="a11y-external-message">
                           {%- render 'icon-facebook' -%}
                           <span class="visually-hidden">{{ 'general.social.links.facebook' | t }}</span>
                         </a>
@@ -210,7 +210,7 @@
                     {%- endif -%}
                     {%- if settings.social_pinterest_link != blank -%}
                       <li class="list-social__item">
-                        <a href="{{ settings.social_pinterest_link }}" class="link link--text list-social__link" aria-describedby="a11y-external-message">
+                        <a tabindex="0" title="pinterest" href="{{ settings.social_pinterest_link }}" class="link link--text list-social__link" aria-describedby="a11y-external-message">
                           {%- render 'icon-pinterest' -%}
                           <span class="visually-hidden">{{ 'general.social.links.pinterest' | t }}</span>
                         </a>
@@ -218,7 +218,7 @@
                     {%- endif -%}
                     {%- if settings.social_instagram_link != blank -%}
                       <li class="list-social__item">
-                        <a href="{{ settings.social_instagram_link }}" class="link link--text list-social__link" aria-describedby="a11y-external-message">
+                        <a tabindex="0" title="instagram" href="{{ settings.social_instagram_link }}" class="link link--text list-social__link" aria-describedby="a11y-external-message">
                           {%- render 'icon-instagram' -%}
                           <span class="visually-hidden">{{ 'general.social.links.instagram' | t }}</span>
                         </a>
@@ -226,7 +226,7 @@
                     {%- endif -%}
                     {%- if settings.social_tumblr_link != blank -%}
                       <li class="list-social__item">
-                        <a href="{{ settings.social_tumblr_link }}" class="link link--text list-social__link" aria-describedby="a11y-external-message">
+                        <a tabindex="0" title="tumblr" href="{{ settings.social_tumblr_link }}" class="link link--text list-social__link" aria-describedby="a11y-external-message">
                           {%- render 'icon-tumblr' -%}
                           <span class="visually-hidden">{{ 'general.social.links.tumblr' | t }}</span>
                         </a>
@@ -234,7 +234,7 @@
                     {%- endif -%}
                     {%- if settings.social_snapchat_link != blank -%}
                       <li class="list-social__item">
-                        <a href="{{ settings.social_snapchat_link }}" class="link link--text list-social__link" aria-describedby="a11y-external-message">
+                        <a tabindex="0" title="snapchat" href="{{ settings.social_snapchat_link }}" class="link link--text list-social__link" aria-describedby="a11y-external-message">
                           {%- render 'icon-snapchat' -%}
                           <span class="visually-hidden">{{ 'general.social.links.snapchat' | t }}</span>
                         </a>
@@ -242,7 +242,7 @@
                     {%- endif -%}
                     {%- if settings.social_youtube_link != blank -%}
                       <li class="list-social__item">
-                        <a href="{{ settings.social_youtube_link }}" class="link link--text list-social__link" aria-describedby="a11y-external-message">
+                        <a tabindex="0" title="youtube" href="{{ settings.social_youtube_link }}" class="link link--text list-social__link" aria-describedby="a11y-external-message">
                           {%- render 'icon-youtube' -%}
                           <span class="visually-hidden">{{ 'general.social.links.youtube' | t }}</span>
                         </a>
@@ -250,7 +250,7 @@
                     {%- endif -%}
                     {%- if settings.social_vimeo_link != blank -%}
                       <li class="list-social__item">
-                        <a href="{{ settings.social_vimeo_link }}" class="link link--text list-social__link" aria-describedby="a11y-external-message">
+                        <a tabindex="0" title="vimeo" href="{{ settings.social_vimeo_link }}" class="link link--text list-social__link" aria-describedby="a11y-external-message">
                           {%- render 'icon-vimeo' -%}
                           <span class="visually-hidden">{{ 'general.social.links.vimeo' | t }}</span>
                         </a>
@@ -307,7 +307,7 @@
     {%- if request.page_type == 'index' -%}
       <h1 class="header__heading">
     {%- endif -%}
-        <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
+        <a tabindex="0" title="{{shop.name }}" href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
           {%- if section.settings.svg_logo != blank -%}
           <div class="svg_logo_header">
             {{ section.settings.svg_logo }}
@@ -338,7 +338,7 @@
             <li>
               {%- if link.links != blank -%}
                 <div class="header__menu-item-wrap {% if link.title == 'Help Center' %} how-it-works{% endif %}">
-                  <a href="{{ link.url }}"  class="{{link.title | downcase | handleize }} header__menu-item list-menu__item link focus-inset{% if link.active or link.child_active  %} active{% endif %}">
+                  <a tabindex="0" title="{{ link.title }}" href="{{ link.url }}"  class="{{link.title | downcase | handleize }} header__menu-item list-menu__item link focus-inset{% if link.active or link.child_active  %} active{% endif %}">
                     <span {%- if link.child_active %} class="header__active-menu-item"{% endif %}>{{ link.title | escape }}</span>
                     {% render 'icon-caret' %}
                   </a>
@@ -349,7 +349,7 @@
                     {%- for childlink in link.links -%}
                       <li>
                         {%- if childlink.links == blank -%}
-                          <a href="{{ childlink.url }}" class="header__menu-item list-menu__item link link--text focus-inset caption-large{% if childlink.current %} list-menu__item--active{% endif %}"{% if childlink.current %} aria-current="page"{% endif %}>
+                          <a tabindex="0" title="{{ childlink.title }}" href="{{ childlink.url }}" class="header__menu-item list-menu__item link link--text focus-inset caption-large{% if childlink.current %} list-menu__item--active{% endif %}"{% if childlink.current %} aria-current="page"{% endif %}>
                             {{ childlink.title | escape }}
                           </a>
                         {%- else -%}
@@ -361,7 +361,7 @@
                             <ul class="header__submenu list-menu motion-reduce">
                               {%- for grandchildlink in childlink.links -%}
                                 <li>
-                                  <a href="{{ grandchildlink.url }}" class="header__menu-item list-menu__item link link--text focus-inset caption-large{% if grandchildlink.current %} list-menu__item--active{% endif %}"{% if grandchildlink.current %} aria-current="page"{% endif %}>
+                                  <a tabindex="0" title="{{ grandchildlink.title }}" href="{{ grandchildlink.url }}" class="header__menu-item list-menu__item link link--text focus-inset caption-large{% if grandchildlink.current %} list-menu__item--active{% endif %}"{% if grandchildlink.current %} aria-current="page"{% endif %}>
                                     {{ grandchildlink.title | escape }}
                                   </a>
                                 </li>
@@ -392,7 +392,7 @@
                   {% endif %}
                 </details-disclosure>
               {%- else -%}
-                <a href="{{ link.url }}" class="header__menu-item header__menu-item list-menu__item link link--text focus-inset{% if link.active %} active{% endif %}"{% if link.current %} aria-current="page"{% endif %}>
+                <a tabindex="0" title="{{ link.title }}" href="{{ link.url }}" class="header__menu-item header__menu-item list-menu__item link link--text focus-inset{% if link.active %} active{% endif %}"{% if link.current %} aria-current="page"{% endif %}>
                   <span {%- if link.current %} class="header__active-menu-item"{% endif %}>{{ link.title | escape }}</span>
                 </a>
               {%- endif -%}
@@ -447,7 +447,7 @@
       </details-modal>{% endcomment %}
 
       {%- if shop.customer_accounts_enabled -%}
-        <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="header__icon header__icon--account link link--text focus-inset">
+        <a tabindex="0" title="Login" href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="header__icon header__icon--account link link--text focus-inset">
           {% render 'icon-account' %}
           {% comment %}<i class="fas fa-user-tie"></i>{% endcomment %}
           <span class="visually-hidden">
@@ -466,7 +466,7 @@
       </a>
         {% comment %}if cart empty -- render 'icon-cart-empty' {% endcomment %}
          {% comment %}if cart not empty  render 'icon-cart' {% endcomment %}
-      <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link link--text focus-inset" id="cart-icon-bubble">
+      <a tabindex="0" title="Cart" href="{{ routes.cart_url }}" class="header__icon header__icon--cart link link--text focus-inset" id="cart-icon-bubble">
         
         {% comment %}{%- liquid
           if cart == empty

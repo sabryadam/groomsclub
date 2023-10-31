@@ -647,6 +647,9 @@ theme_custom.IconWithTextSlider = function () {
       adaptiveHeight: true,
       accessibility:false
     });
+    
+    $(`.index-icon-with-text-slider .section-loader`).fadeOut();
+    $(`.index-icon-with-text-slider .page-width-big`).fadeIn();
   }
 }
 //featureLooksSlider slider
@@ -1992,4 +1995,9 @@ $(".cart-page .header-bottom-link a.link").click(function(e){
   e.preventDefault();
   var target =  document.referrer;
   window.location.href = target ;
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  $(`.image-with-text`).find(`.section-loader`).hide();
+  $(`.image-with-text`).find(`.page-width-big`).show();
 });

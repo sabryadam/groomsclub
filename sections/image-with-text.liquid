@@ -16,6 +16,9 @@
   {% if section.settings.color_scheme == 'custom_color' %}
   style=" background-color: {{section.settings.background_color}};"
   {% endif %}>
+  {%- comment -%}<div class="section-loader">
+    <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/loading-animation.gif?v=1697641647" alt="loading-animation" width="500" height="250" style="width: 100%;height: auto;" />
+  </div>{%- endcomment -%}
   {%- if section.settings.check_width -%}
     <div
       class="page-width-big small-width-img-text">
@@ -42,8 +45,8 @@
               {{ section.settings.image | img_url: '1100x' }} 1100w{% endif %}"
             loading="lazy"
             class="deskimage"
-            width="auto"
-            height="auto"
+            width="550"
+            height="550"
             alt="{{ section.settings.image.alt | default : 'image with text' | escape }}">
             <img
               srcset="{% if section.settings.image_mobile.width >= 288 %}
@@ -60,8 +63,8 @@
               {{ section.settings.image_mobile | img_url: '1100x' }} 1100w{% endif %}"
             loading="lazy"
             class="mobileimage"
-            width="auto"
-            height="auto"
+            width="550"
+            height="550"
             alt="{{ section.settings.image_mobile.alt | escape }}">
           {%- else -%}
             {%- if section.settings.video_mp4_link != blank -%}

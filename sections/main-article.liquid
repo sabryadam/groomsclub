@@ -3,12 +3,10 @@
 <article class="article-template" itemscope itemtype="http://schema.org/BlogPosting">
   <div class="page-width-big">
     <div id="breadcrumb" class="product_menu">
-      <div class="" aria-label="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
-        {%- comment -%}
-        <span itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem"><a href="/" class="homepage-link" title="Home" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1"></span>
-        <span class="separator"> / </span> 
-        {%- endcomment -%}
-        <a href="{{ blog.url }}" title="">{{blog.title}}</a>
+      <div class="breadcrumb">
+        <a href="/" class="homepage-link" title="Home" itemprop="url"><span itemprop="url">Home</span></a>
+        <span class="separator"><i class="fa fa-angle-right"></i></span>
+        <a href="{{ blog.url }}" title="{{blog.title}}" tabindex="0" itemprop="url">{{blog.title}}</a>
         <span class="separator"><i class="fa fa-angle-right"></i></span>
         <span class="page-title">{{article.title}}</span>
       </div>
@@ -90,7 +88,7 @@
   {%- endfor -%}
 
   <div class="element-margin center button-wrap">
-    <a href="{{ blog.url }}" class="article-template__link button  button--secondary link{% if blog.comments_enabled? == false %} spaced-section{% endif %}">
+    <a href="/pages/fit-finder" class="article-template__link button  button--secondary link{% if blog.comments_enabled? == false %} spaced-section{% endif %}">
       {% comment %}{% render 'icon-arrow' %} {{ 'blogs.article.back_to_blog' | t: title: blog.title }}{% endcomment %}
       Try Our Fit Finder <i class="fas fa-arrow-right"></i>
     </a>
@@ -276,6 +274,70 @@
 <style>
   #related-blog-{{ section.id }} { background-color:#f5f5f5; }
 </style>
+
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "Home",
+    "item": "{{ shop.url }}"
+  },
+  {
+    "@type": "ListItem",
+    "position": 2,
+    "name": "{{ blog.title | strip_html | strip_newlines | strip | escape }}",
+    "item": "{{ shop.url }}{{ blog.url }}"
+  }, {
+    "@type": "ListItem",
+    "position": 3,
+    "name": "{{ article.title | strip_html | strip_newlines | strip | escape }}",
+    "item": "{{ shop.url }}{{ article.url }}"
+  }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "articleBody": {{ article.content | strip_html | json }},
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": {{ shop.url | append: page.url | json }}
+  },
+  "headline": {{ article.title | json }},
+  {% if article.excerpt != blank %}
+    "description": {{ article.excerpt | strip_html | json }},
+  {% endif %}
+  {% if article.image %}
+  {% assign image_size = article.image.width %}
+    "image": [
+      {{ article | image_url: width: image_size | prepend: "https:" | json }}
+    ],
+  {% endif %}
+  "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+  "dateCreated": {{ article.created_at | date: '%Y-%m-%dT%H:%M:%SZ' | json }},
+  "author": {
+    "@type": "Person",
+    "name": {{ article.author | json }}
+  },
+  "publisher": {
+    "@type": "Organization",
+    {% if page_image %}
+    {% assign image_size = page_image.width %}
+      "logo": {
+        "@type": "ImageObject",
+        "height": {{ page_image.height | json }},
+        "url": {{ page_image | image_url: width: image_size | prepend: "https:" | json }},
+        "width": {{ page_image.width | json }}
+      },
+    {% endif %}
+    "name": {{ shop.name | json }}
+  }
+}
+</script>
 
 {% schema %}
 {

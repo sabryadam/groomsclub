@@ -52,6 +52,7 @@
         },
         "a743bd95-27c7-4cb4-94bf-5970bd19675c": {
           "type": "block",
+          "disabled": true,
           "settings": {
             "links-pages": "shopify:\/\/pages\/at-home-try-on",
             "text-heading": "At Home Try On",
