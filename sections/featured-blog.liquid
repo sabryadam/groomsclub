@@ -30,7 +30,7 @@
     {%- if section.settings.blog != blank and section.settings.blog.articles_count > 0 -%}
       <slider-component class="slider-mobile-gutter">
         <ul id="Slider-{{ section.id }}"
-          class="blog__posts articles-wrapper grid grid--peek grid--2-col-tablet grid--3-col-desktop {% if posts_exceed_limit %} blog__posts--{{ section.settings.post_limit }}-items{% else %} blog__posts--{{ section.settings.blog.articles_count }}-items{% endif %}"
+          class="blog__posts articles-wrapper grid grid--peek grid--2-col-tablet grid--4-col-desktop {% if posts_exceed_limit %} blog__posts--{{ section.settings.post_limit }}-items{% else %} blog__posts--{{ section.settings.blog.articles_count }}-items{% endif %}"
           role="list"
         >
           {%- for article in section.settings.blog.articles limit: section.settings.post_limit -%}
@@ -99,9 +99,9 @@
       "type": "range",
       "id": "post_limit",
       "min": 1,
-      "max": 3,
+      "max": 6,
       "step": 1,
-      "default": 3,
+      "default": 4,
       "label": "t:sections.featured-blog.settings.post_limit.label"
     },
     {

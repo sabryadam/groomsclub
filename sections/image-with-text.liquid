@@ -16,9 +16,9 @@
   {% if section.settings.color_scheme == 'custom_color' %}
   style=" background-color: {{section.settings.background_color}};"
   {% endif %}>
-  <div class="section-loader">
+  {%- comment -%}<div class="section-loader">
     <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/loading-animation.gif?v=1697641647" alt="loading-animation" width="500" height="250" style="width: 100%;height: auto;" />
-  </div>
+  </div>{%- endcomment -%}
   {%- if section.settings.check_width -%}
     <div
       class="page-width-big small-width-img-text">

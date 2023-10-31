@@ -292,7 +292,7 @@
   .card .media.media--hover-effect > img:only-child,
   .card-wrapper .media.media--hover-effect > img:only-child {
     transition: transform var(--duration-long) ease;
-    object-fit: contain;
+    object-fit: cover;
     /* background-color: #f6f6f6; */
   }
 

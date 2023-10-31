@@ -267,8 +267,8 @@
       ],
       "settings": {
         "heading": "Tips & Tricks",
-        "blog": "tips-tricks",
-        "post_limit": 3,
+        "blog": "news",
+        "post_limit": 4,
         "show_view_all": false,
         "show_image": true,
         "soft_background": false,
