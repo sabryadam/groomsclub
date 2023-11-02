@@ -272,8 +272,8 @@
         "show_view_all": false,
         "show_image": true,
         "soft_background": false,
-        "btn_label": "",
-        "btn_link": "shopify:\/\/blogs\/tips-tricks",
+        "btn_label": "Blogs",
+        "btn_link": "shopify:\/\/blogs\/news",
         "button_style_secondary_blog": true
       }
     },
