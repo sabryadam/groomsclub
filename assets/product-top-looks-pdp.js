@@ -1297,6 +1297,7 @@ document.addEventListener("DOMContentLoaded", function(){
       $(`.product-block-wrap-suit-wrapper .product-variant-wrap[data-product-type="pants"]`).find('.error-message').text(`${errorMsg}`);
       $(`.product-data-card.product-data-card-wrap[data-product-type="shirt"] .product-block-wrap`).find('.error-message').text(`${errorMsg}`);
       $(`.product-data-card.product-data-card-wrap[data-product-type="shoes"] .product-block-wrap`).find('.error-message').text(`${errorMsg}`);
+      $(`.product-data-card.product-data-card-wrap.product-block-item[data-product-type="vest"] .product-block-wrap`).find('.error-message').text(`${errorMsg}`);
     }
       // if($(`.product-data-card-wrap.product-block-item[data-product-type="neckties"]`).length > 0){
       //   var targetVariant = $(`.product-data-card-wrap.product-block-item[data-product-type="neckties"]`).find(`.option-name.option-1`).text() + ' / ' + $(`.product-data-card-wrap.product-block-item[data-product-type="neckties"]`).find(`.option-name.option-2`).text();
