@@ -64,7 +64,7 @@ theme_custom.multipleProductAjax = function(button, parent, payBy){
         "quantity": 1,
         "properties": {
           "combo-variant-title" : jacketVarTitle,
-          "vest-variant-title": $(`.look-product-wrapper[data-product-type="vest"]`).find(`.prod-variant-option option[data-variant-title="${vestVariantTitle}"]`).attr("data-variant-title"),
+          // "vest-variant-title": $(`.look-product-wrapper[data-product-type="vest"]`).find(`.prod-variant-option option[data-variant-title="${vestVariantTitle}"]`).attr("data-variant-title"),
           "pant-variant-title":  $(`.look-product-wrapper[data-product-type="pants"]`).find(`.prod-variant-option option[data-variant-title="${pantsVariantTitle}"]`).attr("data-variant-title")
         }
       }
@@ -74,21 +74,23 @@ theme_custom.multipleProductAjax = function(button, parent, payBy){
         "quantity": 1,
         "properties": {
           "combo-variant-title" : jacketVarTitle,
-          "vest-variant-title": $(`.look-product-wrapper[data-product-type="vest"]`).find(`.prod-variant-option option[data-variant-title="${vestVariantTitle}"]`).attr("data-variant-title"),
+          // "vest-variant-title": $(`.look-product-wrapper[data-product-type="vest"]`).find(`.prod-variant-option option[data-variant-title="${vestVariantTitle}"]`).attr("data-variant-title"),
           "pant-variant-title":  $(`.look-product-wrapper[data-product-type="pants"]`).find(`.prod-variant-option option[data-variant-title="${pantsVariantTitle}"]`).attr("data-variant-title")
         }
       }
-    } else if (productType == 'vest' || productType == 'Vest') {
-      item = {
-        "id": varId,
-        "quantity": 1,
-        "properties": {
-          "combo-variant-title" : jacketVarTitle,
-          "vest-variant-title": $(`.look-product-wrapper[data-product-type="vest"]`).find(`.prod-variant-option option[data-variant-title="${vestVariantTitle}"]`).attr("data-variant-title"),
-          "pant-variant-title":  $(`.look-product-wrapper[data-product-type="pants"]`).find(`.prod-variant-option option[data-variant-title="${pantsVariantTitle}"]`).attr("data-variant-title")
-        }
-      }
-    } else {
+    } 
+    // else if (productType == 'vest' || productType == 'Vest') {
+    //   item = {
+    //     "id": varId,
+    //     "quantity": 1,
+    //     "properties": {
+    //       "combo-variant-title" : jacketVarTitle,
+    //       // "vest-variant-title": $(`.look-product-wrapper[data-product-type="vest"]`).find(`.prod-variant-option option[data-variant-title="${vestVariantTitle}"]`).attr("data-variant-title"),
+    //       "pant-variant-title":  $(`.look-product-wrapper[data-product-type="pants"]`).find(`.prod-variant-option option[data-variant-title="${pantsVariantTitle}"]`).attr("data-variant-title")
+    //     }
+    //   }
+    // } 
+    else {
       item = {
         "id": varId,
         "quantity": 1
@@ -359,7 +361,7 @@ theme_custom.ProductData = function(productItemsArr){
                                     </div>
                                     <p class="error-message"></p>  
                                   </div>
-                                  <div class="product-variant-wrap vest-variant-title vest-not-selected" data-product-type="vest">
+                                  <div class="product-variant-wrap vest-variant-title vest-not-selected hidden" data-product-type="vest">
                                     <div>  
                                       Vest <span class="break hidden">-</span>
                                         <span class="option-name option-1 hidden"></span>
@@ -1012,7 +1014,7 @@ theme_custom.fitFinderDataSet = function(data){
     if(theme_custom.discount_code != '' || getCookie("fit-finder-data") == ''){
       $(".return-suit-checkout-button .button").addClass("disabled").fadeIn();
     } else {
-      $(".vest-variant-title.vest-not-selected").removeClass("vest-not-selected")
+      // $(".vest-variant-title.vest-not-selected").removeClass("vest-not-selected")
       $(".return-suit-checkout-button .button").removeClass("disabled").fadeIn();
     }
   }

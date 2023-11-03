@@ -1526,7 +1526,7 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
                                         </div>
                                         <span class="error-message"></span>
                                       </div>
-                                      <div class="vest-variant-title">
+                                      <div class="vest-variant-title" style="display: none !important">
                                         <div>  
                                           Vest <span class="break">:</span> <span class="option-name option-1">${theme_custom.vest_option_one}</span> <span class="break">/</span> <span class="option-name option-2">${theme_custom.vest_option_second}</span> <span class="break">/</span> <span class="option-name option-3">${theme_custom.vest_option_third}</span> <span class="break"> - </span> <span class="combo-block-edit-item" data-product-type="vest">Edit Item</span>                                            
                                         </div>
@@ -2077,7 +2077,7 @@ theme_custom.multiItemAddToCart = function (button) {
         "quantity": 1,
         "properties": {
           "combo-variant-title" : jacketOptionTitle,
-          "vest-variant-title" : $(`.edit-product-data-card[data-product-type="vest"]`).find(`.prod-variant-option option[data-variant-title="${vestVariantTitle}"]`).attr("data-variant-title"),
+          // "vest-variant-title" : $(`.edit-product-data-card[data-product-type="vest"]`).find(`.prod-variant-option option[data-variant-title="${vestVariantTitle}"]`).attr("data-variant-title"),
           "pant-variant-title" : $(`.edit-product-data-card[data-product-type="pants"]`).find(`.prod-variant-option option[data-variant-title="${pantsVariantTitle}"]`).attr("data-variant-title")
         }
       }
@@ -2087,21 +2087,23 @@ theme_custom.multiItemAddToCart = function (button) {
         "quantity": 1,
         "properties": {
           "combo-variant-title" : jacketOptionTitle,
-          "vest-variant-title" : $(`.edit-product-data-card[data-product-type="vest"]`).find(`.prod-variant-option option[data-variant-title="${vestVariantTitle}"]`).attr("data-variant-title"),
+          // "vest-variant-title" : $(`.edit-product-data-card[data-product-type="vest"]`).find(`.prod-variant-option option[data-variant-title="${vestVariantTitle}"]`).attr("data-variant-title"),
           "pant-variant-title" : $(`.edit-product-data-card[data-product-type="pants"]`).find(`.prod-variant-option option[data-variant-title="${pantsVariantTitle}"]`).attr("data-variant-title")
         }
       }
-    } else if (productType == 'vest' || productType == 'vest') {
-      item = {
-        "id": varId,
-        "quantity": 1,
-        "properties": {
-          "combo-variant-title" : jacketOptionTitle,
-          "vest-variant-title" : $(`.edit-product-data-card[data-product-type="vest"]`).find(`.prod-variant-option option[data-variant-title="${vestVariantTitle}"]`).attr("data-variant-title"),
-          "pant-variant-title" : $(`.edit-product-data-card[data-product-type="pants"]`).find(`.prod-variant-option option[data-variant-title="${pantsVariantTitle}"]`).attr("data-variant-title")
-        }
-      }
-    } else {
+    } 
+    // else if (productType == 'vest' || productType == 'vest') {
+    //   item = {
+    //     "id": varId,
+    //     "quantity": 1,
+    //     "properties": {
+    //       "combo-variant-title" : jacketOptionTitle,
+    //       "vest-variant-title" : $(`.edit-product-data-card[data-product-type="vest"]`).find(`.prod-variant-option option[data-variant-title="${vestVariantTitle}"]`).attr("data-variant-title"),
+    //       "pant-variant-title" : $(`.edit-product-data-card[data-product-type="pants"]`).find(`.prod-variant-option option[data-variant-title="${pantsVariantTitle}"]`).attr("data-variant-title")
+    //     }
+    //   }
+    // } 
+    else {
       item = {
         "id": varId,
         "quantity": 1
