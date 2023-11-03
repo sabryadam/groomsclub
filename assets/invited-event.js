@@ -368,7 +368,7 @@ theme_custom.ProductData = function(productItemsArr){
                                         <span class="option-name option-2 hidden"></span>
                                         <span class="option-name option-3 hidden"> / ${variantSelected.option3}</span>
                                         <span class="break hidden">|</span>
-                                        <span class="combo-block-edit-item" data-product-type="vest" data-text="edit-item"></span>                                          
+                                        <span class="combo-block-edit-item" data-product-type="vest" data-text="select-size">Select Size</span>                                          
                                     </div>
                                     <p class="error-message"></p>  
                                   </div>
@@ -1047,7 +1047,7 @@ theme_custom.getFitFinderData = function(payBy){
         setTimeout(() => {
           $(".mywedding_api_call_loading").addClass("hidden");
           $(".mywedding_section_wrap").removeClass("hidden");
-          $(`.look-product-wrapper[data-product-type="vest"]`).find('.exchange-item-link').text("").attr("data-text","")
+          // $(`.look-product-wrapper[data-product-type="vest"]`).find('.exchange-item-link').text("").attr("data-text","")
         },5000)  
       } else {
         $(".account-event-step[data-event-step='sized'], .account-event-step[data-event-step='verified-fit']").addClass("active");
