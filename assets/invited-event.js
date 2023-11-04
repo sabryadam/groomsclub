@@ -386,7 +386,7 @@ theme_custom.ProductData = function(productItemsArr){
                                 </div>
                                 <div class="product-price">
                                   <p class="money">
-                                    $249.98
+                                    $199.99
                                   </p>
                                 </div>
                               </div>`

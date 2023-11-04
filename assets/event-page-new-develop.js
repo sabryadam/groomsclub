@@ -336,7 +336,7 @@ theme_custom.createLookHtml = (index, div, item, eventMembers, event_id) => {
     <div class="look-title-and-price">
       <div class="look-title">${item.name}</div>
       <div class="look-price-wrap">
-        <span class="look-price">$249.98</span>
+        <span class="look-price">$199.99</span>
       </div>
     </div>
     <div class="look-image">
@@ -424,8 +424,8 @@ theme_custom.favoriteLooks = function () {
               <div class="product-info">
                 <div class="bundle-product-wrapper">${itemData}</div>
                 <h4 class="product-title">${result.data[i].name}</h4>
-                <p class="product-price">Starting at $249.98</p>
-                <p class="taxes-text">Price Includes Jacket, Vest and  Pants</p>
+                <p class="product-price">Starting at $199.99</p>
+                <p class="taxes-text">Price Includes Jacket and Pants</p>
                 <button class="button button--secondary added-look-into-event" data-text="Adding...">Add To Event</button>
               </div>
             </div>`;
@@ -1541,7 +1541,7 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
                                     </div>
                                     <div class="product-price">
                                       <span class="money">
-                                        $249.98
+                                        $199.99
                                       </span>
                                     </div>
                                   </div> 
@@ -2592,7 +2592,7 @@ theme_custom.eventPageClickEvent = function (){
       success: function (data) {
         $("#browser-top-looks").find(".product-wrapper").html(data);
         theme_custom.updateSelectedLooks($('#browser-top-looks'))
-        $(`#browser-top-looks`).find(`.product-price`).text(`Starting at $249.98`)
+        $(`#browser-top-looks`).find(`.product-price`).text(`Starting at $199.99`)
       }
     });
   });

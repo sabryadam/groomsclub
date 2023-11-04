@@ -23,7 +23,7 @@ theme_custom.priceUpdate = function () {
       }
     }
   })
-  $(".product-info-footer").find(".money").attr("data-price", subTotal-4999).text(theme_custom.Shopify.formatMoney(subTotal-4999, theme_custom.money_format));
+  $(".product-info-footer").find(".money").attr("data-price", subTotal).text(theme_custom.Shopify.formatMoney(subTotal, theme_custom.money_format));
   if (subTotal == 0) {
     $(".tabbed-content-block-outer-wrapper:first").find(".next-step").addClass("disabled");
   }
@@ -98,7 +98,7 @@ theme_custom.productDataFromURL = function () {
           }
           var productType = currentOption.closest(".product-block-wrapper").attr("data-product-type");
           if(productType == 'suit' ){
-            currentInput.closest('.product-block-outer-wrapper').find('.price-wrap').attr('data-product-price', currentVarintPrice).text(theme_custom.Shopify.formatMoney(24998, theme_custom.money_format)).show();
+            currentInput.closest('.product-block-outer-wrapper').find('.price-wrap').attr('data-product-price', currentVarintPrice).text(theme_custom.Shopify.formatMoney(currentVarintPrice, theme_custom.money_format)).show();
           }else {
             currentInput.closest('.product-block-outer-wrapper').find('.price-wrap').attr('data-product-price', currentVarintPrice).text(theme_custom.Shopify.formatMoney(currentVarintPrice, theme_custom.money_format)).show();
           }
@@ -1956,7 +1956,7 @@ theme_custom.customize_product_clickEvent = function () {
       if (variantDataGet['variantPrice'] != undefined) {
         if ($(this).closest('.swatch-wrap').hasClass('.swatch-color')) {
           if($(this).closest(".product-block-wrapper").attr("data-product-type") == 'suit') {
-            $(this).closest(".product-block-outer-wrapper").find(".price-wrap").text(`249.98`).show();
+            $(this).closest(".product-block-outer-wrapper").find(".price-wrap").text(`199.99`).show();
           } else {
             $(this).closest(".product-block-outer-wrapper").find(".price-wrap").text('+' + parseInt(variantDataGet['variantPrice']) / 100).show();
           }

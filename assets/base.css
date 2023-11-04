@@ -12571,9 +12571,9 @@ select#event-id.disabled {
   order: 2;
 }
 
-.product-block-outer-wrapper[data-collection-title="vest"] .price-wrap {
+/* .product-block-outer-wrapper[data-collection-title="vest"] .price-wrap {
   display: none !important;
-}
+} */
 
 @media(max-width: 7667px) {
   .tabbed-content-block-outer-wrapper .product-info-wrap .product-title {
