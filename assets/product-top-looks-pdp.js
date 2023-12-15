@@ -6,7 +6,7 @@ theme_custom.selectedEventLooks = [];
 theme_custom.priceCalculator = function(){
   if($(".product-data-card").length>0){
     var subTotal = 00;
-    $(".product-data-card").each(function(){
+    $(".product-data-card.product-block-item").each(function(){
       var productSelectedVar = $(this).find(".single-option-selector").val(),
           productPrice = $(this).find(`.single-option-selector option[value="${productSelectedVar}"]`).attr("data-v-price");
       subTotal = subTotal + parseInt(productPrice);
