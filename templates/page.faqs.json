@@ -14,18 +14,10 @@
             "title": "Why Buy Instead of Rent?",
             "description": "Is a rental suit brand new? Nope... for the cost of one rental you could BUY one of ours. And in the end, it's yours to use again and again. Oh, and it's tailored to your body. Need we say more?"
           }
-        },
-        "39d2eb4b-c587-4388-8b74-2648d4dd2276": {
-          "type": "faqs",
-          "settings": {
-            "title": "Can I Try The Suit On Before Buying It?",
-            "description": "Yes! Try it on with free shipping\/returns for up to 7 days. If you like it simply keep it, if not, we'll send a return label and your card won't be charged."
-          }
         }
       },
       "block_order": [
-        "99e12c86-8742-4832-bc5f-1ebde33a1354",
-        "39d2eb4b-c587-4388-8b74-2648d4dd2276"
+        "99e12c86-8742-4832-bc5f-1ebde33a1354"
       ],
       "settings": {
         "product-title": "FAQ's",

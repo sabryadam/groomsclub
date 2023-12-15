@@ -332,7 +332,7 @@
   {%- if template contains 'product' -%}
   <script src="{{ 'variants.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
-  <script src="{{ 'custom.js' | asset_url }}" async defer></script>
+  <script src="{{ 'custom.js' | asset_url }}"></script>
   <!-- <script src="{{ 'common-function.js' | asset_url }}" defer></script> -->
 
   
@@ -356,9 +356,9 @@
     if (window.location.href.indexOf("virtual-product") > -1) {
       window.location.href = '/collections/all';
     }
-    if ((window.location.href.indexOf("waist") > -1) || $(`body.product-type-vest`).length > 0) {
-      window.location.href = '/collections/all';
-    }
+    // if ((window.location.href.indexOf("waist") > -1) || $(`body.product-type-vest`).length > 0) {
+      // window.location.href = '/collections/all';
+    // }
     if ($(".template-page-customize-your-look").length == 0 && $(".template-page-home-try-on-checkout").length == 0) {
       // if (window.location.href.indexOf('-pants') > -1 || window.location.href.indexOf('-jacket') > -1 || window.location.href.indexOf('-vest') > -1) {
        if (window.location.href.indexOf('-pants') > -1 || window.location.href.indexOf('-jacket') > -1) {

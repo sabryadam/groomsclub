@@ -614,11 +614,11 @@ div.tab-top-border {
 	line-height: 1;
 }
 
-#product_info_box .custom-tabs-scroll .product-block-wrapper[data-product-type="vest"] {
+/* #product_info_box .custom-tabs-scroll .product-block-wrapper[data-product-type="vest"] {
 	padding-bottom: 25px;
 	pointer-events: none;
 	cursor: not-allowed;
-}
+} */
 
 #acc-tabs-wr .user-info-top.page-top-headpadding-flex {
 	align-items: center;
@@ -1507,9 +1507,9 @@ select#event-id.disabled {
 .product-block-wrap-suit-wrapper .suit-combo-wrapper .variant-info-wrap[data-product-type="pants"]{
 	order: 2;
 }
-.product-block-outer-wrapper[data-collection-title="vest"] .price-wrap{
+/* .product-block-outer-wrapper[data-collection-title="vest"] .price-wrap{
 	display: none !important;
-}
+} */
 @media(max-width: 7667px){
 	.tabbed-content-block-outer-wrapper .product-info-wrap .product-title{
 		align-items: center !important;

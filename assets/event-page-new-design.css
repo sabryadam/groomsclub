@@ -1768,8 +1768,9 @@ span.look-price {
   padding: 15px;
 }
 .event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .product-data-card[data-product-type="jacket"],
-.event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .product-data-card[data-product-type="pants"],
-.event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .product-data-card[data-product-type="vest"]{
+.event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .product-data-card[data-product-type="pants"]
+/* .event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .product-data-card[data-product-type="vest"] */
+{
   display: none;
 }
 .event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .product-data-card {

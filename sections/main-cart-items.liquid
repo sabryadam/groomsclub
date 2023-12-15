@@ -76,8 +76,8 @@
                         {%- endif -%}
                       {%- endif -%}
                     {%- endif -%}
-                    {%- if lineItemType  == 'jacket' or lineItemType  == 'pants' or lineItemType == 'vest' -%}
-                      <tr class="cart-item{% if lineItemType == 'pants' or lineItemType == 'vest' %} hidden{% endif %}" line-item-product-type="{{ lineItemType }}" data-item-variant-qty="{{ item.variant.inventory_quantity }}" data-item-qty="{{ item.quantity }}" data-line-item-key="{{ item.key }}" data-jacket-variant="{{ item.properties['combo-variant-title'] | downcase | handleize }}" data-pants-variant="{{ item.properties['pant-variant-title'] | downcase | handleize }}" data-vest-variant="{{ item.properties['vest-variant-title'] | downcase | handleize}}" data-jacket-item-variant="{{ item.properties['combo-variant-title'] }}" data-pants-item-variant="{{ item.properties['pant-variant-title'] }}" data-vest-item-variant="{{ item.properties['vest-variant-title'] }}">
+                    {%- if lineItemType  == 'jacket' or lineItemType  == 'pants'  -%}
+                      <tr class="cart-item{% if lineItemType == 'pants' %} hidden{% endif %}" line-item-product-type="{{ lineItemType }}" data-item-variant-qty="{{ item.variant.inventory_quantity }}" data-item-qty="{{ item.quantity }}" data-line-item-key="{{ item.key }}" data-jacket-variant="{{ item.properties['combo-variant-title'] | downcase | handleize }}" data-pants-variant="{{ item.properties['pant-variant-title'] | downcase | handleize }}" data-vest-variant="{{ item.properties['vest-variant-title'] | downcase | handleize}}" data-jacket-item-variant="{{ item.properties['combo-variant-title'] }}" data-pants-item-variant="{{ item.properties['pant-variant-title'] }}" data-vest-item-variant="{{ item.properties['vest-variant-title'] }}">
                     {%- else -%}
                       <tr class="cart-item" line-item-product="{{ lineItemType }}" line-item-title="{{ item.product.title }}" data-item-variant-qty="{{ item.variant.inventory_quantity }}" data-item-qty="{{ item.quantity }}" line-item-product-handle="{{ item.product.handle}}" id="CartItem-{{ item.index | plus: 1 }}" line-item-id="{{ item.id }}" data-item-variant-title="{{ item.variant.title | downcase | handleize }}" data-variant-title="{{ item.variant.title }}">
 
@@ -346,7 +346,7 @@
                         <div class="cart-item__price-wrapper medium-up">
                           {%- assign vestPice = false -%}
                           {%- for vestProperties in item.properties -%}
-                            {%- if vestProperties contains 'vest-variant-title' -%}
+                            {%- if vestProperties contains 'pant-variant-title' -%}
                               {%- assign vestPice = true -%}
                             {%- endif -%}
                           {% endfor %}
@@ -357,7 +357,7 @@
                               </dt>
                               <dd class="price price--end" data-subitemvar-price="{{subitemvar.price}}">
                                 {%- if vestPice -%}
-                                  {{ 24998 | times : item.quantity | money  }}
+                                  {{ 19999 | times : item.quantity | money  }}
                                 {%- else -%}
                                   {{ item.final_line_price | money }}
                                 {%- endif -%}
@@ -366,7 +366,7 @@
                           {%- else -%}
                             <span class="price price--end">
                               {%- if vestPice -%}
-                                {{ 24998 | times : item.quantity | money }}
+                                {{ 19999 | times : item.quantity | money }}
                               {%- else -%}
                                 {{ item.final_line_price | money }}
                               {%- endif -%}
