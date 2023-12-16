@@ -1524,10 +1524,10 @@ select#event-id.disabled {
 .vest_option.vest-not-selected .combo-block-edit-item{
 	display: none;
 }
-.product-data-card-wrap.product-block-item[data-product-type="neckties"] .variant-title,
+/* .product-data-card-wrap.product-block-item[data-product-type="neckties"] .variant-title,
 .product-data-card-wrap.product-block-item[data-product-type="hanky"] .variant-title{
   display: block !important;
-}
+} */
 .template-cart .quantity__button.disabled{
 	cursor: not-allowed;
 	pointer-events: none;
