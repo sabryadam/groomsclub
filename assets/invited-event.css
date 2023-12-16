@@ -148,6 +148,7 @@
 }
 .invited-assigned-look .horizontal-product-part-big[data-product-type="neckties"],
 .invited-assigned-look .horizontal-product-part-big[data-product-type="bow-ties"],
+.invited-assigned-look .horizontal-product-part-big[data-product-type="bow ties"],
 .invited-assigned-look .horizontal-product-part-big[data-product-type="tie bar"]{
   order: 5;
 }
@@ -587,7 +588,6 @@
   cursor: pointer;
 }
 .look-product-wrapper[data-product-type="jacket"],
-.look-product-wrapper[data-product-type="pants"],
-.look-product-wrapper[data-product-type="vest"] {
+.look-product-wrapper[data-product-type="pants"] {
   display: none !important;
 }

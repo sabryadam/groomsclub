@@ -68,9 +68,9 @@
       padding: 0 0;
     } 
   }
+  /* .product-data-card.product-data-card-wrap[data-product-type="vest"]{ */
   .product-data-card.product-data-card-wrap[data-product-type="jacket"],
-  .product-data-card.product-data-card-wrap[data-product-type="pants"],
-  .product-data-card.product-data-card-wrap[data-product-type="vest"]{
+  .product-data-card.product-data-card-wrap[data-product-type="pants"]{
     display: none;
   }
   .bundle-product-wrapper{
@@ -99,8 +99,8 @@
     order: 2;
   }
 
+  /* .product-data-card.product-data-card-wrap[data-product-type="vest"] .variant-title, */
   .product-data-card.product-data-card-wrap[data-product-type="shirt"] .variant-title,
-  .product-data-card.product-data-card-wrap[data-product-type="vest"] .variant-title,
   .product-data-card.product-data-card-wrap[data-product-type="shoes"] .variant-title {
     /* display: none; */
   }
@@ -716,7 +716,7 @@
                               {%- endif -%}
                             {%- endunless -%}
                           {%- endfor -%}
-                          <div class="variant-title variant-info-wrap product-variant-wrap vest-not-selected" data-product-handle="{{ vestProductData.handle }}" data-product-type="{{ vestProductData.type | downcase }}">
+                          <div class="variant-title variant-info-wrap product-variant-wrap vest-not-selected" data-product-handle="{{ vestProductData.handle }}" data-product-type="{{ vestProductData.type | downcase }}" style="display: none !important;">
                             <div class="option-title">
                               <span class="edit-size-title">Vest Size </span>
                               <div class="product-variant-value hidden">
@@ -736,7 +736,7 @@
                               </div>
                             </div>
                             <div class="cta-button-wrap ">
-                              <span class="edit-item-button btn select" data-button-label='select-size'> <span style="color:var(--color-gray-text);">-</span> Select Sizes</span>
+                              <span class="edit-item-button btn select"> <span style="color:var(--color-gray-text);">-</span> Select Sizes</span>
                             </div>
                             <span class="error-message"></span>
                           </div>
@@ -781,7 +781,7 @@
                             <div class="product-price mobile-small">
                               <span test-mobile-2-{{ product.type }} class="money" data-price="{{ product.price}}">
                                 {% if product.type == 'suit' or product.type == 'Suit' or product.type == 'looks' or product.type == 'Looks'  %}
-                                  {{ 24998 | money }}
+                                  {{ 19999 | money }}
                                 {% else %}
                                   {{ product.price | money }}
                                 {% endif %}
@@ -791,7 +791,7 @@
                           <div class="product-price desktop-small">
                             <span class="money" data-price="{{ product.price}}">
                                 {% if product.type == 'suit' or product.type == 'Suit' or product.type == 'looks' or product.type == 'Looks'  %}
-                                  {{ 24998 | money }}
+                                  {{ 19999 | money }}
                                 {% else %}
                                   {{ product.price | money }}
                                   {%- endif -%}
@@ -818,7 +818,7 @@
                               {%- assign accessoriesProdVarId = producthandleitem | split: '?' | last | remove: 'variant=' | plus: 0 -%}
                               {%- assign productHandle = all_products[accessoriesProdHandle] -%}
                               {% unless productHandle == blank %}
-                                <div class="product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
+                                <div class="product-data-card product-data-card-wrap" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
                                   <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
                                   <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ accessoriesProdVarId }}" data-inventory-policy="{{ productHandle.selected_or_first_available_variant.inventory_policy }}">
                                   <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
@@ -876,17 +876,18 @@
                                           {%- unless forloop.last -%},{%- endunless -%}
                                         {% endfor %}
                                       </span>
-                                      <div class="cta-button-wrap product-variant-wrap"{% if productSelectedType == 'shoes' or productSelectedType == 'shirt' %} style="margin-top : 10px" {% endif %}>
+                                      <div class="cta-button-wrap product-variant-wrap" style="margin-top : 10px">
                                         {% if productHandle.variants.size > 1 %}
-                                          <span class="edit-item-btn btn {% if productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}" {% if productSelectedType == 'shoes' or productSelectedType == 'shirt' %}data-button-label="select-size"{% endif %}>
-                                            {%- if productSelectedType == 'shoes' or productSelectedType == 'shirt' -%}
-                                              Select Size
-                                            {%- else -%}
-                                              Edit Item
-                                            {%- endif -%}
+                                          <span class="add-vest-button btn">
+                                            Add Vest
                                           </span>
+                                          <div class="remove-vest-wrapper hidden">
+                                            <span class="edit-item-btn btn {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}">
+                                              Edit Item
+                                            </span>
+                                            <span class="remove-vest-item-btn btn">Remove</span>
+                                          </div>
                                         {%- endif -%}
-                                        <span class="remove-item-btn btn">Remove</span>
                                       </div>
                                       <div class="product-price mobile-small">
                                         <span test-mobile-1 class="money" data-price="{{ productHandle.selected_or_first_available_variant.price}}">
@@ -913,7 +914,7 @@
                                 {%- assign productHandle = all_products[productData] -%}
                                 {%- unless productHandle == blank -%}
                                   {%- assign productHandleType = productHandle.type | downcase -%}
-                                  <div class="product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
+                                  <div class="product-data-card product-data-card-wrap {% unless productHandleType == 'vest' %}product-block-item{% endunless %}" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
                                     <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
                                     <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ productHandle.selected_or_first_available_variant.id }}" data-inventory-policy="{{ productHandle.selected_or_first_available_variant.inventory_policy }}">
                                     <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
@@ -973,13 +974,13 @@
                                             {%- unless forloop.last -%}{%- endunless -%}
                                           {% endfor %}
                                         </span>
-                                        <div class="cta-button-wrap">
+                                        <div class="cta-button-wrap" style="margin-top: 10px;">
                                           {% if productHandle.variants.size > 1 %}
                                             {% if template contains 'jacket-pant-combination' %}
                                               {%- if productSelectedType == 'vest' -%}
-                                                {%- comment -%}<span class="add-vest-button btn">
+                                                <span class="add-vest-button btn">
                                                   Add Vest
-                                                </span>  {%- endcomment -%}
+                                                </span>
                                                 <div class="remove-vest-wrapper hidden">
                                                   <span class="edit-item-btn btn">
                                                     Edit Item
@@ -987,8 +988,8 @@
                                                   <span class="remove-vest-item-btn btn">Remove</span>
                                                 </div>
                                               {%- else -%}
-                                                <span class="edit-item-btn btn {% if productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}" {% if productSelectedType == 'shoes' or productSelectedType == 'shirt' %}data-button-label="select-size"{% endif %}>
-                                                  {%- if productSelectedType == 'shoes' -%}
+                                                <span class="edit-item-btn btn {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}">
+                                                  {%- if productSelectedType == 'vest' or productSelectedType == 'shoes' -%}
                                                     Select Size
                                                   {%- else -%}
                                                     Edit Item
@@ -996,8 +997,8 @@
                                                 </span>
                                               {%- endif -%}
                                             {%- else -%}
-                                              <span class="edit-item-btn btn {% if productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}" {% if productSelectedType == 'shoes' or productSelectedType == 'shirt' %}data-button-label="select-size"{% endif %}>
-                                                {%- if productSelectedType == 'shoes' or productSelectedType == 'shirt' -%}
+                                              <span class="edit-item-btn btn {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}">
+                                                {%- if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' -%}
                                                   Select Size
                                                 {%- else -%}
                                                   Edit Item

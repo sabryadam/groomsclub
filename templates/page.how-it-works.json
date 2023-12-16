@@ -192,13 +192,6 @@
             "answer": "<p>Is a rental suit brand new? Nope… for the cost of one rental you could BUY one of ours. And in the end, it’s yours to use again and again. Oh, and it’s tailored to your body. Need we say more?<\/p>"
           }
         },
-        "949fb08f-b538-4fe4-8bb8-b8a45ef1ae7f": {
-          "type": "accordion",
-          "settings": {
-            "question": "<p>can i try the suit on before buying it?<\/p>",
-            "answer": "<p>Yes! Try it on with free shipping\/returns for up to 7 days. If<br\/>you like it simply keep it, if not we'll send a return label and your card won’t be charged.<\/p>"
-          }
-        },
         "ee50bac6-66e5-406e-9bd1-f3bc8188948c": {
           "type": "accordion",
           "settings": {
@@ -223,7 +216,6 @@
       },
       "block_order": [
         "e01514a9-2792-4029-a0d7-38397576deac",
-        "949fb08f-b538-4fe4-8bb8-b8a45ef1ae7f",
         "ee50bac6-66e5-406e-9bd1-f3bc8188948c",
         "3b07a4b5-34c7-48d7-9be3-4be959c31532",
         "625681e5-5f28-4247-b5f4-069565d6cadf"
@@ -272,8 +264,8 @@
         "show_view_all": false,
         "show_image": true,
         "soft_background": false,
-        "btn_label": "",
-        "btn_link": "shopify:\/\/blogs\/tips-tricks",
+        "btn_label": "Blogs",
+        "btn_link": "shopify:\/\/blogs\/news",
         "button_style_secondary_blog": true
       }
     },

@@ -253,16 +253,16 @@ $(document).on("click", ".custom-edit-item", function(){
 // suit qty plus minus cusom function
 $(document).on(`click`, `.custom-qty-button .quantity__button[name="minus"]`, function(){
   var jacketVariantTitle = $(this).closest(`.cart-item`).attr(`data-jacket-variant`),
-      vestVariantTitle = $(this).closest(`.cart-item`).attr(`data-vest-variant`),
+      // vestVariantTitle = $(this).closest(`.cart-item`).attr(`data-vest-variant`),
       pantsVariantTitle = $(this).closest(`.cart-item`).attr(`data-pants-variant`);
 
   var jacketId = $(this).closest(`.cart-item`).attr(`data-line-item-key`),
-      vestId = $(`.cart-item[line-item-product-type="vest"][data-jacket-variant="${jacketVariantTitle}"][data-pants-variant="${pantsVariantTitle}"][data-vest-variant="${vestVariantTitle}"]`).attr(`data-line-item-key`),
-      pantsId = $(`.cart-item[line-item-product-type="pants"][data-jacket-variant="${jacketVariantTitle}"][data-pants-variant="${pantsVariantTitle}"][data-vest-variant="${vestVariantTitle}"]`).attr(`data-line-item-key`);  
+      // vestId = $(`.cart-item[line-item-product-type="vest"][data-jacket-variant="${jacketVariantTitle}"][data-pants-variant="${pantsVariantTitle}"]`).attr(`data-line-item-key`),
+      pantsId = $(`.cart-item[line-item-product-type="pants"][data-jacket-variant="${jacketVariantTitle}"][data-pants-variant="${pantsVariantTitle}"]`).attr(`data-line-item-key`);  
   quantity = parseInt($(this).closest(".cart-item").find(`.quantity__input_custom`).val())-1;
   $(".page-loader").removeClass("hidden");
   // $(".page-loader").append(`<p class="removing-combine-message" style="color:#fff;font-size : 14px">Please Note: We have Add Jacket and Pants both product. As Jacket or Pants can't be purcase individually</p>`);
-  var data = `updates[${jacketId}]=${quantity}&updates[${pantsId}]=${quantity}&updates[${vestId}]=${quantity}`;
+  var data = `updates[${jacketId}]=${quantity}&updates[${pantsId}]=${quantity}`;
   $.ajax({
     type: 'POST',
     url: '/cart/update.js',
@@ -283,22 +283,22 @@ $(document).on(`click`, `.custom-qty-button .quantity__button[name="minus"]`, fu
 // suit qty plus minus cusom function
 $(document).on(`click`, `.custom-qty-button .quantity__button[name="plus"]`, function(){
   var jacketVariantTitle = $(this).closest(`.cart-item`).attr(`data-jacket-variant`),
-      vestVariantTitle = $(this).closest(`.cart-item`).attr(`data-vest-variant`),
+      // vestVariantTitle = $(this).closest(`.cart-item`).attr(`data-vest-variant`),
       pantsVariantTitle = $(this).closest(`.cart-item`).attr(`data-pants-variant`);
   var jacketId = $(this).closest(`.cart-item`).attr(`data-line-item-key`),
-      vestId = $(`.cart-item[line-item-product-type="vest"][data-jacket-variant="${jacketVariantTitle}"][data-pants-variant="${pantsVariantTitle}"][data-vest-variant="${vestVariantTitle}"]`).attr(`data-line-item-key`),
-      pantsId = $(`.cart-item[line-item-product-type="pants"][data-jacket-variant="${jacketVariantTitle}"][data-pants-variant="${pantsVariantTitle}"][data-vest-variant="${vestVariantTitle}"]`).attr(`data-line-item-key`);  
+      // vestId = $(`.cart-item[line-item-product-type="vest"][data-jacket-variant="${jacketVariantTitle}"][data-pants-variant="${pantsVariantTitle}"]`).attr(`data-line-item-key`),
+      pantsId = $(`.cart-item[line-item-product-type="pants"][data-jacket-variant="${jacketVariantTitle}"][data-pants-variant="${pantsVariantTitle}"]`).attr(`data-line-item-key`);  
   quantity = parseInt($(this).closest(".cart-item").find(`.quantity__input_custom`).val())+1;
   var jacketTotalQty = parseInt($(`.cart-item[data-line-item-key="${jacketId}"]`).attr(`data-item-variant-qty`)),
-      vestTotalQty = parseInt($(`.cart-item[line-item-product-type="vest"][data-line-item-key="${vestId}"]`).attr(`data-item-variant-qty`)),
+      // vestTotalQty = parseInt($(`.cart-item[line-item-product-type="vest"][data-line-item-key="${vestId}"]`).attr(`data-item-variant-qty`)),
       pantsTotalQty = parseInt($(`.cart-item[line-item-product-type="pants"][data-line-item-key="${pantsId}"]`).attr(`data-item-variant-qty`));
   var jacketItemTitle = $(`.cart-item[data-line-item-key="${jacketId}"]`).attr(`data-jacket-item-variant`),
-      vestItemTitle = $(`.cart-item[line-item-product-type="vest"][data-line-item-key="${vestId}"]`).attr(`data-vest-item-variant`),
+      // vestItemTitle = $(`.cart-item[line-item-product-type="vest"][data-line-item-key="${vestId}"]`).attr(`data-vest-item-variant`),
       pantsItemTitle = $(`.cart-item[line-item-product-type="pants"][data-line-item-key="${pantsId}"]`).attr(`data-pants-item-variant`);
-  if(jacketTotalQty >= quantity && vestTotalQty >= quantity && pantsTotalQty >= quantity){
+  if(jacketTotalQty >= quantity && pantsTotalQty >= quantity){
     $(".page-loader").removeClass("hidden");
     // $(".page-loader").append(`<p class="removing-combine-message" style="color:#fff;font-size : 14px">Please Note: We have Add Jacket and Pants both product. As Jacket or Pants can't be purcase individually</p>`);
-    var data = `updates[${jacketId}]=${quantity}&updates[${pantsId}]=${quantity}&updates[${vestId}]=${quantity}`;
+    var data = `updates[${jacketId}]=${quantity}&updates[${pantsId}]=${quantity}`;
     $.ajax({
       type: 'POST',
       url: '/cart/update.js',
@@ -314,8 +314,8 @@ $(document).on(`click`, `.custom-qty-button .quantity__button[name="plus"]`, fun
   } else {
     if(jacketTotalQty < quantity){
       alert(`Oops! We can't add more. We only have ${jacketTotalQty} Qty left for the Jacket ${jacketItemTitle} you are trying to purchase!`)
-    } else if(vestTotalQty < quantity){
-      alert(`Oops! We can't add more. We only have ${vestTotalQty} Qty left for the Vest ${vestItemTitle} you are trying to purchase!`)
+    // } else if(vestTotalQty < quantity){
+    //   alert(`Oops! We can't add more. We only have ${vestTotalQty} Qty left for the Vest ${vestItemTitle} you are trying to purchase!`)
     } else if(pantsTotalQty < quantity){
       alert(`Oops! We can't add more. We only have ${pantsTotalQty} Qty left for the Pants ${pantsItemTitle} you are trying to purchase!`)
     }
@@ -325,14 +325,14 @@ $(document).on(`click`, `.custom-qty-button .quantity__button[name="plus"]`, fun
 // remove combine jacket / pants item
 $(document).on("click", ".suit-product-remove", function(){
   var jacketVariantTitle = $(this).closest(`.cart-item`).attr(`data-jacket-variant`),
-      vestVariantTitle = $(this).closest(`.cart-item`).attr(`data-vest-variant`),
+      // vestVariantTitle = $(this).closest(`.cart-item`).attr(`data-vest-variant`),
       pantsVariantTitle = $(this).closest(`.cart-item`).attr(`data-pants-variant`);
 
   var jacketId = $(this).closest(`.cart-item`).attr(`data-line-item-key`),
-      vestId = $(`.cart-item[line-item-product-type="vest"][data-jacket-variant="${jacketVariantTitle}"][data-pants-variant="${pantsVariantTitle}"][data-vest-variant="${vestVariantTitle}"]`).attr(`data-line-item-key`),
-      pantsId = $(`.cart-item[line-item-product-type="pants"][data-jacket-variant="${jacketVariantTitle}"][data-pants-variant="${pantsVariantTitle}"][data-vest-variant="${vestVariantTitle}"]`).attr(`data-line-item-key`);  
+      // vestId = $(`.cart-item[line-item-product-type="vest"][data-jacket-variant="${jacketVariantTitle}"][data-pants-variant="${pantsVariantTitle}"][data-vest-variant="${vestVariantTitle}"]`).attr(`data-line-item-key`),
+      pantsId = $(`.cart-item[line-item-product-type="pants"][data-jacket-variant="${jacketVariantTitle}"][data-pants-variant="${pantsVariantTitle}"]`).attr(`data-line-item-key`);  
   
-  var data = `updates[${jacketId}]=0&updates[${pantsId}]=0&updates[${vestId}]=0`;
+  var data = `updates[${jacketId}]=0&updates[${pantsId}]=0`;
   $(".page-loader").removeClass("hidden");
   // $(".page-loader").append(`<p class="removing-combine-message" style="color:#fff;font-size : 14px">Please Note: We have removed the Jacket as well. As Jacket or Pants can't be sold individually</p>`)
   $.ajax({

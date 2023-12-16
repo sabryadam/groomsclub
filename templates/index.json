@@ -81,10 +81,10 @@
         "3cfe1b42-c37f-4687-b1e2-3d0104c1a91f": {
           "type": "icontext",
           "settings": {
-            "icontitle": "Free Shipping & Returns",
-            "iconsubtitle": "30 Day Money Back Guarantee",
-            "information_title": "",
-            "information_content": "Free Home Try On is reservered for events created within your account.<a href=\"\/pages\/how-it-works\">How It Works <i class=\"fas fa-arrow-right\"><\/i><\/a>",
+            "icontitle": "30 Day Money Back Guarantee",
+            "iconsubtitle": "",
+            "information_title": "Free Shipping & Exchanges",
+            "information_content": "All orders over $99",
             "icon_image": "shopify:\/\/shop_images\/New_Home_2.png"
           }
         },
@@ -175,7 +175,7 @@
     "1632396205f946a5df": {
       "type": "featured-collection",
       "settings": {
-        "title": "Own for only $249",
+        "title": "Own for only $199.99",
         "collection": "suit",
         "products_to_show": 8,
         "show_view_all": false,
@@ -440,7 +440,7 @@
           "type": "before_after_text_groom",
           "settings": {
             "svg_img_groom": "",
-            "groomsuit_content": "BUY FROM $249"
+            "groomsuit_content": "BUY FROM $199.99"
           }
         },
         "a01aab63-37a0-434c-93bb-b491259ea7da": {
@@ -475,7 +475,7 @@
           "type": "before_after_text_rent",
           "settings": {
             "svg_img_rent": "",
-            "rent_content": "AVG. RENTAL $249"
+            "rent_content": "AVG. RENTAL $199.99"
           }
         },
         "52eb0c39-e038-4312-b6d1-7cb927f0ef37": {

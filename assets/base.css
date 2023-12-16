@@ -11567,11 +11567,11 @@ div.tab-top-border {
   line-height: 1;
 }
 
-#product_info_box .custom-tabs-scroll .product-block-wrapper[data-product-type="vest"] {
+/* #product_info_box .custom-tabs-scroll .product-block-wrapper[data-product-type="vest"] {
   padding-bottom: 25px;
   pointer-events: none;
   cursor: not-allowed;
-}
+} */
 
 #acc-tabs-wr .user-info-top.page-top-headpadding-flex {
   align-items: center;
@@ -12571,9 +12571,9 @@ select#event-id.disabled {
   order: 2;
 }
 
-.product-block-outer-wrapper[data-collection-title="vest"] .price-wrap {
+/* .product-block-outer-wrapper[data-collection-title="vest"] .price-wrap {
   display: none !important;
-}
+} */
 
 @media(max-width: 7667px) {
   .tabbed-content-block-outer-wrapper .product-info-wrap .product-title {
@@ -12592,10 +12592,10 @@ select#event-id.disabled {
   display: none;
 }
 
-.product-data-card-wrap.product-block-item[data-product-type="neckties"] .variant-title,
+/* .product-data-card-wrap.product-block-item[data-product-type="neckties"] .variant-title,
 .product-data-card-wrap.product-block-item[data-product-type="hanky"] .variant-title {
   display: block !important;
-}
+} */
 
 .template-cart .quantity__button.disabled {
   cursor: not-allowed;
