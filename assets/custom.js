@@ -202,6 +202,12 @@ theme_custom.getVariantData = function (parentEl) {
         } else if (parentType=='pants') {
           $(`.product-variant-wrap[data-product-type="pants"]`).find(".product-block-wrap .error-message").addClass("error-show").text('This Variant is out of stock. Please choose another variant.').show();
           $(`.product-variant-wrap[data-product-type="pants"]`).find('.pdp-updates-button button').addClass('disabled').find(".button-label").text("Out of Stock");
+        } else if (parentType=='vest') {
+          $(`.product-variant-wrap[data-product-type="vest"]`).find(".product-block-wrap .error-message").addClass("error-show").text('This Variant is out of stock. Please choose another variant.').show();
+          $(`.product-variant-wrap[data-product-type="vest"]`).find('.pdp-updates-button button').addClass('disabled').find(".button-label").text("Out of Stock");
+        } else {
+          parent.find(".product-block-wrap .error-message").addClass("error-show").text('This Variant is out of stock. Please choose another variant.').show();
+          parent.find('.pdp-updates-button button').addClass('disabled').find(".button-label").text("Out of Stock");
         }
       }
     }

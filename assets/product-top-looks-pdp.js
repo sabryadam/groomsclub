@@ -1249,7 +1249,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 $(`.product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").removeClass("error-show").text('').fadeOut();
               } else {
                 if (selectedVarInventoryQty <= 0) {
-                  $(`.product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").addClass("error-show").text("5 -  This variant is out of stock. Please choose another variant.").fadeIn();
+                  $(`.product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").addClass("error-show").text("This variant is out of stock. Please choose another variant.").fadeIn();
                   $(`.product-data-card-wrap[data-product-type="${productType}"]`).find('.edit-item-popup .pdp-updates-button .button').addClass("disabled").find(".button-label").text('Out of Stock')
                 } else {
                   $(`.product-data-card-wrap[data-product-type="${productType}"] .edit-item-popup`).find(".error-message").removeClass("error-show").text('').fadeOut();

@@ -784,7 +784,7 @@
                             {%- endif -%}
                             {{ productDataWrap }}
                             <div class="product-price mobile-small">
-                              <span test-mobile-2-{{ product.type }} class="money" data-price="{{ product.price}}">
+                              <span class="money" data-price="{{ product.price}}">
                                 {% if product.type == 'suit' or product.type == 'Suit' or product.type == 'looks' or product.type == 'Looks'  %}
                                   {{ 19999 | money }}
                                 {% else %}
@@ -895,11 +895,11 @@
                                         {%- endif -%}
                                       </div>
                                       <div class="product-price mobile-small">
-                                        <span test-mobile-1 class="money" data-price="{{ productHandle.selected_or_first_available_variant.price}}">
+                                        <span class="money" data-price="{{ productHandle.selected_or_first_available_variant.price}}">
                                           {{ productHandle.selected_or_first_available_variant.price | money }}
                                         </span>
                                       </div>    
-                                      <span class="error-message"></span>    
+                                      {%- comment -%}<span class="error-message"></span>{%- endcomment -%}    
                                     </div>
                                     <div class="product-price desktop-small">
                                       <span class="money" data-price="{{ productHandle.selected_or_first_available_variant.price}}">
@@ -1016,11 +1016,11 @@
                                           {%- endunless -%}
                                         </div>
                                         <div class="product-price mobile-small">
-                                          <span test-mobile class="money" data-price="{{ productHandle.selected_or_first_available_variant.price }}">
+                                          <span class="money" data-price="{{ productHandle.selected_or_first_available_variant.price }}">
                                             {{ productHandle.selected_or_first_available_variant.price | money }}
                                           </span>
                                         </div> 
-                                        <span class="error-message"></span>       
+                                        <span class="error-message"></span>     
                                       </div>
                                       <div class="product-price desktop-small">
                                         <span class="money" data-price="{{ productHandle.selected_or_first_available_variant.price }}">
