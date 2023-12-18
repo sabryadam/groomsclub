@@ -175,10 +175,6 @@ theme_custom.getVariantData = function (parentEl) {
     parent.find(".error-message").text('Please select the size!').show();
     parent.find('.product-block-wrap .error-message').addClass("error-show");
   }
-  if(parent.attr("data-product-type") == 'vest' ){
-    $(`[data-product-type="vest"] .remove-vest-wrapper`).removeClass("hidden");
-    $(`[data-product-type="vest"] .add-vest-button`).addClass("hidden")
-  }  
   if(!variantId){
     var parentType = parent.attr("data-product-type");
     if(parentType=='jacket'){

@@ -12824,4 +12824,15 @@ select#event-id.disabled {
     padding-right: 0;
   }
 }
+.cta-button-wrap.product-variant-wrap{
+  margin-top: 10px !important;
+}
+.template-product-top-looks-pdp [data-product-type="shirt"] .product-info .error-message,
+.template-product-top-looks-pdp [data-product-type="hanky"] .product-info .error-message,
+.template-product-top-looks-pdp [data-product-type="vest"] .product-info .error-message,
+.template-product-top-looks-pdp [data-product-type="bow ties"] .product-info .error-message,
+.template-product-top-looks-pdp [data-product-type="shies"] .product-info .error-message,
+.template-product-top-looks-pdp [data-product-type="neckties"] .product-info .error-message{
+  display: none !important;
+}
 /* custom css */
