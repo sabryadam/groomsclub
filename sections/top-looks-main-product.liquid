@@ -99,11 +99,12 @@
     order: 2;
   }
 
-  /* .product-data-card.product-data-card-wrap[data-product-type="vest"] .variant-title, */
+  /* .product-data-card.product-data-card-wrap[data-product-type="vest"] .variant-title, 
   .product-data-card.product-data-card-wrap[data-product-type="shirt"] .variant-title,
   .product-data-card.product-data-card-wrap[data-product-type="shoes"] .variant-title {
-    /* display: none; */
+    display: none;
   }
+  */
   .hide-variant-value .variant-title{
     display : none
   }
@@ -165,6 +166,10 @@
     .edit-item-popup .swatch.suit-select-box {
       width: 50%;
     }
+  }
+  .product-info .variant-title{
+    margin-top: 10px;
+    display: block;
   }
 </style>
 
@@ -876,16 +881,16 @@
                                           {%- unless forloop.last -%},{%- endunless -%}
                                         {% endfor %}
                                       </span>
-                                      <div class="cta-button-wrap product-variant-wrap" style="margin-top : 10px">
+                                      <div class="cta-button-wrap product-variant-wrap">
                                         {% if productHandle.variants.size > 1 %}
-                                          <span class="add-vest-button btn">
-                                            Add Vest
+                                          <span class="add-optional-item-button btn">
+                                            Add this to my Look
                                           </span>
-                                          <div class="remove-vest-wrapper hidden">
+                                          <div class="remove-optional-item-wrapper hidden">
                                             <span class="edit-item-btn btn {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}">
                                               Edit Item
                                             </span>
-                                            <span class="remove-vest-item-btn btn">Remove</span>
+                                            <span class="remove-optional-item-button btn">Remove</span>
                                           </div>
                                         {%- endif -%}
                                       </div>
@@ -978,14 +983,14 @@
                                           {% if productHandle.variants.size > 1 %}
                                             {% if template contains 'jacket-pant-combination' %}
                                               {%- if productSelectedType == 'vest' -%}
-                                                <span class="add-vest-button btn">
-                                                  Add Vest
+                                                <span class="add-optional-item-button btn">
+                                                  Add this to my Look
                                                 </span>
-                                                <div class="remove-vest-wrapper hidden">
+                                                <div class="remove-optional-item-wrapper hidden">
                                                   <span class="edit-item-btn btn">
                                                     Edit Item
                                                   </span>
-                                                  <span class="remove-vest-item-btn btn">Remove</span>
+                                                  <span class="remove-optional-item-button btn">Remove</span>
                                                 </div>
                                               {%- else -%}
                                                 <span class="edit-item-btn btn {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}">

@@ -175,10 +175,6 @@ theme_custom.getVariantData = function (parentEl) {
     parent.find(".error-message").text('Please select the size!').show();
     parent.find('.product-block-wrap .error-message').addClass("error-show");
   }
-  if(parent.attr("data-product-type") == 'vest' ){
-    $(`[data-product-type="vest"] .remove-vest-wrapper`).removeClass("hidden");
-    $(`[data-product-type="vest"] .add-vest-button`).addClass("hidden")
-  }  
   if(!variantId){
     var parentType = parent.attr("data-product-type");
     if(parentType=='jacket'){
@@ -206,12 +202,6 @@ theme_custom.getVariantData = function (parentEl) {
         } else if (parentType=='pants') {
           $(`.product-variant-wrap[data-product-type="pants"]`).find(".product-block-wrap .error-message").addClass("error-show").text('This Variant is out of stock. Please choose another variant.').show();
           $(`.product-variant-wrap[data-product-type="pants"]`).find('.pdp-updates-button button').addClass('disabled').find(".button-label").text("Out of Stock");
-        } else if (parentType=='vest') {
-          $(`.product-variant-wrap[data-product-type="vest"]`).find(".product-block-wrap .error-message").addClass("error-show").text('This Variant is out of stock. Please choose another variant.').show();
-          $(`.product-variant-wrap[data-product-type="vest"]`).find('.pdp-updates-button button').addClass('disabled').find(".button-label").text("Out of Stock");
-        } else {
-          parent.find(".product-block-wrap .error-message").addClass("error-show").text('This Variant is out of stock. Please choose another variant.').show();
-          parent.find('.pdp-updates-button button').addClass('disabled').find(".button-label").text("Out of Stock");
         }
       }
     }
