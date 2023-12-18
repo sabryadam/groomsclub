@@ -567,9 +567,6 @@ theme_custom.tlpclickEvent = function(){
     if(option3 != '' ){
       target.find(`[data-option-index="2"]`).find(`[type="radio"][data-value="${option3}"]`).prop("checked", true);
     }
-    if($(this).closest(`.product-data-card`).find(".edit-item-popup .pdp-updates-button .button-label").text() == 'Update'){
-      $(this).closest(`.product-data-card`).find(".edit-item-popup .pdp-updates-button button").removeClass("disabled")
-    }
     $.fancybox.open(target);
   });
 
@@ -993,8 +990,8 @@ theme_custom.tlpclickEvent = function(){
         // $(`.edit-item-popup[data-product-type="vest"]`).find(`input[data-name='Style'][value="${parent.find('[data-option-index="1"] input:checked').val()}"]`).prop("checked", true);
       }
       currentVariantVal = parent.find('.single-option-selector option[data-title="'+variantTitle+'"]').attr('value');
-      v_price = parent.find('.single-option-selector option[data-title="'+variantTitle+'"]').data('v-price');
-      v_img = parent.find('.single-option-selector option[data-title="'+variantTitle+'"]').data('data-variant-image');
+      v_price = parent.find('.single-option-selector option[data-title="'+variantTitle+'"]').attr('data-v-price');
+      v_img = parent.find('.single-option-selector option[data-title="'+variantTitle+'"]').attr('data-variant-image');
       // console.log("v_img",v_img);
       if(parent.find('[data-option-index="0"] input:checked').length > 0){
         itemParent.find(".variant-title .option-1").text(parent.find('[data-option-index="0"] input:checked').val());
