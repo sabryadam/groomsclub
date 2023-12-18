@@ -1644,7 +1644,7 @@ h5,
 .h5 {
   font-family: var(--font-heading-family);
   font-style: var(--font-heading-style);
-  font-weight: normal;
+  /* font-weight: normal; */
   letter-spacing: normal;
   color: var(--color-primary);
   line-height: 1.3;
@@ -12682,7 +12682,7 @@ select#event-id.disabled {
 .template-collection-top-suit .plp-top-looks-product-grid .card-information__wrapper .jacket-and-pants-text{
   font-size: 12px;
   width: 100%;
-  text-align: left;
+  text-align: center;
   color: #808080;
   margin-top: 5px;
 }
@@ -12697,8 +12697,8 @@ select#event-id.disabled {
   width: 70%;
 }
 
-.template-collection-top-collection .plp-top-looks-product-grid .card-information__wrapper .price,
-.template-collection-top-suit .plp-top-looks-product-grid .card-information__wrapper .price,
+/* .template-collection-top-collection .plp-top-looks-product-grid .card-information__wrapper .price,
+.template-collection-top-suit .plp-top-looks-product-grid .card-information__wrapper .price,*/
 .template-collection .card-information .price{
   justify-content: end;
   font-size: 13px;
@@ -12706,9 +12706,9 @@ select#event-id.disabled {
   padding: 0;
   margin: 0 !important;
   width: 30%;
-}
-.template-collection-top-collection .plp-top-looks-product-grid .card-information__wrapper .price .price__regular,
-.template-collection-top-suit .plp-top-looks-product-grid .card-information__wrapper .price .price__regular,
+} 
+/* .template-collection-top-collection .plp-top-looks-product-grid .card-information__wrapper .price .price__regular,
+.template-collection-top-suit .plp-top-looks-product-grid .card-information__wrapper .price .price__regular, */
 .template-collection .card-information .price .price__regular{
   color: #001f49;
 }
@@ -12815,7 +12815,8 @@ select#event-id.disabled {
   .template-collection-top-collection .plp-top-looks-product-grid .card-information__wrapper .card-information__text, .template-collection-top-suit .plp-top-looks-product-grid .card-information__wrapper .card-information__text, .template-collection .card-information .card-information__text{
     width: 75%;
   }
-  .template-collection-top-collection .plp-top-looks-product-grid .card-information__wrapper .price, .template-collection-top-suit .plp-top-looks-product-grid .card-information__wrapper .price, .template-collection .card-information .price{
+  /* .template-collection-top-collection .plp-top-looks-product-grid .card-information__wrapper .price, .template-collection-top-suit .plp-top-looks-product-grid .card-information__wrapper .price,  */
+  .template-collection .card-information .price{
     width: 25%;
     text-align: right;
   }
@@ -12825,3 +12826,81 @@ select#event-id.disabled {
   }
 }
 /* custom css */
+
+
+.banner-sub-heading{
+	position: relative;
+	padding-left: 10px;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	letter-spacing: 0.7px;
+}
+.banner-sub-heading::before {
+	content: '';
+	position: absolute;
+	width: 6px;
+	height: 100%;
+	top: 0;
+	bottom: 0;
+	background: #497EBE;
+	left: 0;
+}
+
+.collection-hero--with-image .collection-hero__title{
+  margin-top: 5px !important;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.collection-hero--with-image .collection-hero__description{
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #484848;
+}
+.collection-hero__image-container {
+  min-height: auto;
+  background: transparent;
+}
+.collection-hero__image-container img{
+  position: static !important;
+}
+
+.template-collection-top-suit .plp-top-looks-product-grid .card-information__wrapper{
+  display: block;
+}
+
+.template-collection-top-suit .plp-top-looks-product-grid .card-information__wrapper .card-information__text{
+  font-family: 'Poppins';
+  text-align: center !important;
+  width: 100%;
+  padding: 0;
+  font-size: 15px;
+  font-style: normal;
+  line-height: normal;
+  font-weight: bold;
+}
+.template-collection-top-suit .plp-top-looks-product-grid .card-information__wrapper .price{
+  width: 100%;
+  justify-content: center !important;
+  margin-top: 5px!important;
+}
+.collection-breadcrumb-wrapper{
+  border-bottom: 1px solid #A1A1A1;
+  padding-bottom: 21px;
+  padding-top: 21px;
+  margin-bottom: 17px;
+}
+.template-collection-top-collection .plp-top-looks-product-grid .card-information__wrapper .price__regular,
+.template-collection-top-suit .plp-top-looks-product-grid .card-information__wrapper .price__regular{
+  color: #666;
+  text-align: center;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
