@@ -5,7 +5,7 @@
 <div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %}">
   <div class="collection-hero__inner page-width">
     <div class="collection-hero__text-wrapper">
-      <div class="collection-hero__description description--primary h5 banner-sub-heading">{{ collection.metafields.custom.banner_sub_heading }}</div>
+      <p class="banner-sub-heading">{{ collection.metafields.custom.banner_sub_heading }}</p>
       <h1 class="collection-hero__title h1 margin-0">
         <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
         {{- collection.title | escape -}}
@@ -24,12 +24,12 @@
           {%- if collection.metafields.custom.banner_collection_image.width >= 720 -%}{{ collection.metafields.custom.banner_collection_image | img_url: '720x' }} 720w,{%- endif -%}
           {%- if collection.metafields.custom.banner_collection_image.width >= 940 -%}{{ collection.metafields.custom.banner_collection_image | img_url: '940x' }} 940w,{%- endif -%}
           {%- if collection.metafields.custom.banner_collection_image.width >= 1070 -%}{{ collection.metafields.custom.banner_collection_image | img_url: '1070x' }} 1070w{%- endif -%}"
-          src="{{ collection.metafields.custom.banner_collection_image | img_url: '533x' }}"
+          src="{{ collection.metafields.custom.banner_collection_image | img_url: 'master' }}"
           sizes="(min-width: 1100px) 535px, (min-width: 750px) calc(50vw - 130px), calc(50vw - 55px)"
           alt="{{ collection.title | escape }}"
           loading="lazy"
-          width="{{ collection.image.width }}"
-          height="{{ collection.image.height }}"
+          width="{{ collection.metafields.custom.banner_collection_image.width }}"
+          height="{{ collection.metafields.custom.banner_collection_image.height }}"
         >
       </div>
     {%- endif -%}
@@ -45,7 +45,7 @@
         <span class="active-page">{{ collection.title}}</span>
       </div>
     </div>
-    <span>{{ collection.all_products_count }} Products</span>
+    <div class="product-count">{{ collection.all_products_count }} Products</div>
   </div> 
 </div>
 

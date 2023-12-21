@@ -338,7 +338,7 @@
             <li>
               {%- if link.links != blank -%}
                 <div class="header__menu-item-wrap {% if link.title == 'Help Center' %} how-it-works{% endif %}">
-                  <a tabindex="0" title="{{ link.title }}" href="{{ link.url }}"  class="{{link.title | downcase | handleize }} header__menu-item list-menu__item link focus-inset{% if link.active or link.child_active  %} active{% endif %}">
+                  <a tabindex="0" title="{{ link.title }}" href="{{ link.url }}"  class="drop-down-link {{link.title | downcase | handleize }} header__menu-item list-menu__item link focus-inset{% if link.active or link.child_active  %} active{% endif %}">
                     <span {%- if link.child_active %} class="header__active-menu-item"{% endif %}>{{ link.title | escape }}</span>
                     {% render 'icon-caret' %}
                   </a>
@@ -410,47 +410,12 @@
           <a class="button button--secondary btn-small" href="{% if customer %}{{ settings.create_event_url }}{% else %}{{ routes.account_register_url }}{% endif %}">{{ settings.create_event_before_login_btn_text }}</a>
         {% endif %}
       </div>
-     {% comment %} <details-modal class="header__search">
-        <details>
-          <summary class="header__icon header__icon--search header__icon--summary link link--text focus-inset modal__toggle" aria-haspopup="dialog" aria-label="{{ 'general.search.search' | t }}">
-            <span>
-              <svg class="modal__toggle-open icon icon-search" aria-hidden="true" focusable="false" role="presentation">
-                <use href="#icon-search">
-              </svg>
-              <svg class="modal__toggle-close icon icon-close" aria-hidden="true" focusable="false" role="presentation">
-                <use href="#icon-close">
-              </svg>
-            </span>
-          </summary>
-          <div class="search-modal modal__content" role="dialog" aria-modal="true" aria-label="{{ 'general.search.search' | t }}">
-            <div class="search-modal__content" tabindex="-1">
-              <form action="{{ routes.search_url }}" method="get" role="search" class="search search-modal__form">
-                <div class="field">
-                  <input class="search__input field__input" id="Search-In-Modal" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.search' | t }}">
-                  <label class="field__label" for="Search-In-Modal">{{ 'general.search.search' | t }}</label>
-                  <input type="hidden" name="options[prefix]" value="last">
-                  <button class="search__button field__button focus-inset" aria-label="{{ 'general.search.search' | t }}">
-                    <svg class="icon icon-search" aria-hidden="true" focusable="false" role="presentation">
-                      <use href="#icon-search">
-                    </svg>
-                  </button>
-                </div>
-              </form>
-              <button type="button" class="search-modal__close-button modal__close-button link link--text focus-inset" aria-label="{{ 'accessibility.close' | t }}">
-                <svg class="icon icon-close" aria-hidden="true" focusable="false" role="presentation">
-                  <use href="#icon-close">
-                </svg>
-              </button>
-            </div>
-          </div>
-        </details>
-      </details-modal>{% endcomment %}
 
       {%- if shop.customer_accounts_enabled -%}
         <a tabindex="0" title="Login" href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="header__icon header__icon--account link link--text focus-inset">
           {% render 'icon-account' %}
           {% comment %}<i class="fas fa-user-tie"></i>{% endcomment %}
-          <span class="visually-hidden">
+          <span class="account-label">
             {%- liquid
               if customer
                 echo 'customer.account_fallback' | t
@@ -461,24 +426,13 @@
           </span>
         </a>
       {%- endif -%}
-      <a class="grooms-icon grooms-icon-wishlist link link-with-svg fav-icon" tabindex="0" title="Favorite Look" href="{%- if customer -%}/account?tab=favorite-look{%- else -%}{{ routes.account_login_url }}{%- endif -%}" aria-hidden="true" style="color: #000;">
+      <a class="header__icon grooms-icon link link-with-svg fav-icon" tabindex="0" title="Favorite Look" href="{%- if customer -%}/account?tab=favorite-look{%- else -%}{{ routes.account_login_url }}{%- endif -%}" aria-hidden="true" style="color: #000;">
+        <!-- <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="21" height="23" viewBox="0 0 21 23" fill="none"><rect width="21" height="23" fill="url(#pattern0)"/><defs><pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1"><use xlink:href="#image0_99_145" transform="matrix(0.00917431 0 0 0.00837655 0 -0.0486637)"/></pattern><image id="image0_99_145" width="109" height="131" xlink:href="data:image/png;base64,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"/></defs></svg> -->
+        <span class="grooms-icon-wishlist"></span>
         <span class="sr-only hidden">wishlist</span>
       </a>
-        {% comment %}if cart empty -- render 'icon-cart-empty' {% endcomment %}
-         {% comment %}if cart not empty  render 'icon-cart' {% endcomment %}
       <a tabindex="0" title="Cart" href="{{ routes.cart_url }}" class="header__icon header__icon--cart link link--text focus-inset" id="cart-icon-bubble">
-        
-        {% comment %}{%- liquid
-          if cart == empty
-            echo 'cart.png' | asset_url | img_tag 
-          else
-            echo 'cart.png' | asset_url | img_tag
-          endif
-        -%}
-        {% endcomment %}
-        {% comment %}<i class="fas fa-shopping-cart"></i>{% endcomment %}
         {% render 'icon-cart' %}
-        
         <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
         {%- if cart != empty -%}
           <div class="cart-count-bubble">

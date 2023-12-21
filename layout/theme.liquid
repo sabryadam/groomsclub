@@ -197,6 +197,10 @@
   {% endstyle %}
   {{ 'base.css' | asset_url | stylesheet_tag }}
   
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   {%- unless settings.type_body_font.system? -%}
   <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
   {%- endunless -%}
@@ -216,13 +220,6 @@
   <!-- End Google Tag Manager -->
 
   <style type="text/css">
-    #mc_embed_signup {
-      background: #fff;
-      clear: left;
-      /*         font:14px Helvetica,Arial,sans-serif;  */
-      width: 100%;
-    }
-
     /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
       We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
   </style>
