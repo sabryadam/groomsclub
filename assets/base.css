@@ -7160,7 +7160,20 @@ progress[value]::-webkit-progress-value {
   }
 
   .icontexthover_container .information_title {
-    font-size: 10px;
+    /* font-size: 10px; */
+    margin: 12px auto 20px;
+    font-size: 12px;
+  }
+  .information_content:before{
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid white;
+    right: auto;
+    left: 45px;
+  }
+  .information_content{
+    padding: 4px 15px;
+    top: 20px;
   }
 
   .information_content {
@@ -7168,13 +7181,15 @@ progress[value]::-webkit-progress-value {
   }
 
   .icontexthover_container .information_content {
-    width: 180px;
-    right: -115px;
+    width: 125px;
+    right: -60px;
+    padding-left: 5px;
+    padding-right: 5px;
   }
 
   .icontexthover_container .information_content:before {
     right: auto;
-    left: 35px;
+    left: 45px;
   }
 
   .icontextblock_container .icontext_icon_image {
