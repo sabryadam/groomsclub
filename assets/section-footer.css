@@ -57,13 +57,15 @@
 .custom-mailchimp-signup-form#mc_embed_signup #mc-embedded-subscribe-form div.mce_inline_error {
   color: red;
   text-align: left;
-  margin: 15px 0 0;
-  font-size: calc(var(--font-size-body) - 2px);
-  font-weight: var(--font-weight-custom-book);
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.43;
-  letter-spacing: normal;
+  margin: 5px 0 0;
+  color: #842029;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+  font-size: 14px;
+  font-family: 'Poppins';
+  font-weight: 500;
+  padding: 5px 10px;
+  line-height: 28.8px;
 }
 
 @media screen and (max-width: 749px) {
@@ -523,12 +525,12 @@ footer details[open] summary~* {
 }
 
 .footer__list-social i {
-  color: #A0A0A0;
+  color: #fff;
   font-size: 22px;
 }
-.footer__list-social i:hover {
+/* .footer__list-social i:hover {
   color: #ffffff;
-}
+} */
 
 .footer__list-social .list-social__link {
   padding: 0 !important;

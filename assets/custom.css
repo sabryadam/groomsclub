@@ -863,9 +863,9 @@ header.header.header--middle-left.page-width-big.header--has-menu {
   header.header.header--middle-left.page-width-big.header--has-menu .list-menu__item{
     font-size: 12px;
   }
-  .svg_logo_header{
+  /* .svg_logo_header{
     width: 120px;
-  }
+  } */
   .header--middle-left .header__inline-menu{
     padding-left: 25px;
     text-align: left;
