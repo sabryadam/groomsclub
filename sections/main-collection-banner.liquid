@@ -1,16 +1,15 @@
 {{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
 
 {%- unless template contains 'top-suit'  -%}
-<div class="page-width">
-  <div class="page-top-headpadding-flex collection-breadcrumb-wrapper">
-    <div class="breadcrumb">
-      <div class="breadcrumb-links">
-        <a href="/collections/all">Shop Collection</a>
-        <span class="breadcrumb__sep">{% include 'breadcrumb-arrow' %}</span>
-        <span class="active-page">{{ collection.title}}</span>
+<div class="page-width-big">
+  <div class="page-top-headpadding-flex">
+      <div class="breadcrumb">
+          <div class="breadcrumb-links">
+              <a href="/collections/all">Shop Collection</a>
+              <span class="breadcrumb__sep">{% include 'breadcrumb-arrow' %}</span>
+              <span class="active-page">{{ collection.title}}</span>
+          </div>
       </div>
-    </div>
-    {%- comment -%}<div class="product-count">{{ collection.all_products_count }} Products</div>{%- endcomment -%}
   </div> 
 </div>
 {%- endunless -%}
