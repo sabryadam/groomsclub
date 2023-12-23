@@ -16,9 +16,9 @@
 
 <div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %}">
   <div class="collection-hero__inner page-width">
-    <div class="collection-hero__text-wrapper">
+    <div class="collection-hero__text-wrapper {% unless template contains 'top-suit' %}main-heading-part{% endunless%}">
       {%- if template contains 'top-suit'  -%}<p class="banner-sub-heading">{{ collection.metafields.custom.banner_sub_heading }}</p>{%- endif -%}
-      <h1 class="collection-hero__title h1 margin-0">
+      <h1 class="collection-hero__title {% unless template contains 'top-suit' %}text-center-heading border-heading{% endunless%} h1 margin-0">
         <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
         {{- collection.title | escape -}}
       </h1>
