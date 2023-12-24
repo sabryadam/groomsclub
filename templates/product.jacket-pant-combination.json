@@ -145,6 +145,13 @@
     "1637218881c7cbe80b": {
       "type": "before-after-image",
       "blocks": {
+        "77a9c5bc-eb5f-4c30-8e71-f66a5bebeee0": {
+          "type": "before_after_text_groom",
+          "settings": {
+            "svg_img_groom": "",
+            "groomsuit_content": "BUY FROM $199.99"
+          }
+        },
         "932d334b-ea81-4dc8-bc3f-9b70a8dcb705": {
           "type": "before_after_text_groom",
           "settings": {
@@ -171,6 +178,13 @@
           "settings": {
             "svg_img_groom": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" version=\"1.1\" id=\"Layer_1\" x=\"0px\" y=\"0px\" viewbox=\"0 0 27 27\" style=\"enable-background:new 0 0 27 27;\" xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\" xml:space=\"preserve\">\n<style type=\"text\/css\">\n\t.before-after-right-icon{fill:#2AC2BE;}\n\t.before-after-right-icon-one{fill:none;stroke:#2AC2BE;stroke-width:2;stroke-miterlimit:10;}\n<\/style>\n<g>\n\t<g>\n\t\t<path class=\"before-after-right-icon\" d=\"M13.1,2.4c6.1,0,11,4.9,11,11s-4.9,11-11,11s-11-4.9-11-11S7.1,2.4,13.1,2.4 M13.1,0.4c-7.2,0-13,5.8-13,13    s5.8,13,13,13s13-5.8,13-13S20.3,0.4,13.1,0.4L13.1,0.4z\"><\/path>\n\t<\/g>\n\t<polyline class=\"before-after-right-icon-one\" points=\"6.1,11.4 11.1,18.4 20.1,8.4  \"><\/polyline>\n<\/g>\n<\/svg>",
             "groomsuit_content": "Custom Fit"
+          }
+        },
+        "21ec732a-ad16-4bb6-b534-c76bfcd7cdca": {
+          "type": "before_after_text_rent",
+          "settings": {
+            "svg_img_rent": "",
+            "rent_content": "AVG. RENTAL $199.99"
           }
         },
         "2d924c71-e435-43cb-9fc7-fdcba337dc28": {
@@ -203,10 +217,12 @@
         }
       },
       "block_order": [
+        "77a9c5bc-eb5f-4c30-8e71-f66a5bebeee0",
         "932d334b-ea81-4dc8-bc3f-9b70a8dcb705",
         "0741a324-ed4e-458c-9885-a4295101f50c",
         "f45abde0-b9bc-4f91-9870-aa8c8ed7f72c",
         "15a51603-8616-48b1-9ec2-edc79c6b1163",
+        "21ec732a-ad16-4bb6-b534-c76bfcd7cdca",
         "2d924c71-e435-43cb-9fc7-fdcba337dc28",
         "c9db0b73-617f-445a-8b54-9af1b7bfa3ca",
         "13f7c8ed-9252-4a34-b782-39080ebcd17a",
@@ -307,7 +323,8 @@
           "type": "heading",
           "settings": {
             "heading": "Sizing & Fit",
-            "heading_count": ""
+            "heading_count": "",
+            "show_icon": false
           }
         },
         "16372214311bceba87-1": {
@@ -321,6 +338,7 @@
           "settings": {
             "button_label": "Find Your Fit",
             "button_link": "shopify:\/\/pages\/fit-finder",
+            "open_new_tab": false,
             "button_style_secondary": true
           }
         }
@@ -349,7 +367,8 @@
           "type": "heading",
           "settings": {
             "heading": "Customize Your Look",
-            "heading_count": ""
+            "heading_count": "",
+            "show_icon": false
           }
         },
         "16372214390e7744a5-1": {
@@ -363,6 +382,7 @@
           "settings": {
             "button_label": "Try Our Customizer",
             "button_link": "shopify:\/\/pages\/customize-your-look",
+            "open_new_tab": false,
             "button_style_secondary": true
           }
         }
@@ -389,7 +409,8 @@
           "type": "heading",
           "settings": {
             "heading": "Our Top Looks",
-            "heading_count": ""
+            "heading_count": "",
+            "show_icon": false
           }
         },
         "1637221459d723b949-1": {
@@ -403,6 +424,7 @@
           "settings": {
             "button_label": "Browse Top Looks",
             "button_link": "shopify:\/\/collections\/looks",
+            "open_new_tab": false,
             "button_style_secondary": true
           }
         }
