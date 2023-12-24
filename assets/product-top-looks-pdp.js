@@ -248,14 +248,6 @@ theme_custom.getFitFinderCookie = function(){
     $(".variant-info-wrap").find(".edit-size-title").addClass("hidden");
     $(".variant-info-wrap").find(".product-variant-value").removeClass("hidden");
     $(".variant-info-wrap").find(".edit-item-button").text("- Edit Item");
-    $(".product-data-card").each(function(){
-      if($(this).attr("data-product-type") == 'vest' || $(this).attr("data-product-type") == 'shoes' || $(this).attr("data-product-type") == 'shirt'){
-        $(this).find(".variant-title").removeClass('hidden');
-        // $(this).find(".cta-button-wrap").css('margin-top','0');
-        // $(this).find(".edit-item-btn").text('Edit Item');
-        $(this).find(".edit-item-btn,.edit-item-button").text('Edit Item').attr("data-button-label","edit-item");
-      }
-    });
   } else {
     $(".my-size-block-main").css({
       "display":"block",
