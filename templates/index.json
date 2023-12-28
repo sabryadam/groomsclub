@@ -167,7 +167,7 @@
         "image_mobile": "shopify:\/\/shop_images\/New-Vert_8ece258b-3d99-4571-818e-682110ac7709.gif",
         "height": "adapt",
         "color_scheme": "custom_color",
-        "background_color": "#f5f5f5",
+        "background_color": "rgba(0,0,0,0)",
         "layout": "image_first",
         "custom_class": "customize-look"
       }
@@ -333,7 +333,7 @@
         "163239632562541ac6-2"
       ],
       "settings": {
-        "check_width": false,
+        "check_width": true,
         "image": "shopify:\/\/shop_images\/TOP_Looks_HP.png",
         "video_mp4_link": "",
         "image_mobile": "shopify:\/\/shop_images\/TOP_Looks_HP.png",
@@ -422,13 +422,13 @@
         "1632393733f78c28b7-2"
       ],
       "settings": {
-        "check_width": false,
+        "check_width": true,
         "image": "shopify:\/\/shop_images\/Home_Page_How_It_Works_smaller.png",
         "video_mp4_link": "",
         "image_mobile": "shopify:\/\/shop_images\/works-mobile.png",
         "height": "adapt",
         "color_scheme": "custom_color",
-        "background_color": "#f5f5f5",
+        "background_color": "rgba(0,0,0,0)",
         "layout": "text_first",
         "custom_class": "how-work"
       }
@@ -571,7 +571,9 @@
         "desktop_text_box_position": "center",
         "color_scheme": "background-1",
         "stack_images_on_mobile": true,
-        "adapt_height_first_image": false
+        "adapt_height_first_image": false,
+        "banner_img_link": "",
+        "custom_class": ""
       }
     },
     "2090a493-beeb-4e64-a485-04649519dbb1": {

@@ -21,6 +21,11 @@
 
 
 <div class="card-wrapper">
+  {% for product_tag in product_card_product.tags %}
+    {%- if product_tag contains 'custom-tag_' -%}
+      <span class="{{ product_tag | remove : 'custom-tag_' | downcase | handle }}-badge"><img src="{{ product_tag | split : '_' | last | handle | append : '.png' | file_img_url : 'master' }}" alt="{{  product_tag | split : '_' | last }}"></span>
+    {%- endif -%}
+  {% endfor %}
   <a href="{{ product_card_product.url | within : collection }}" class="full-unstyled-link" name="card-unstyled-link">
     <span class="visually-hidden">{{ product_card_product.title | escape }}</span>
 

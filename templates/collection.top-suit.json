@@ -3,18 +3,40 @@
     "banner": {
       "type": "main-collection-banner",
       "settings": {
-        "show_collection_description": false,
-        "show_collection_image": false
+        "show_collection_description": true,
+        "show_collection_image": true
       }
     },
     "product-grid": {
       "type": "top-suit",
+      "custom_css": [
+        "#CollectionProductGrid {border: none;}",
+        "#CollectionProductGrid {margin-bottom: 0;}"
+      ],
       "settings": {
         "products_per_page": 12,
         "image_ratio": "adapt",
         "show_secondary_image": false,
         "add_image_padding": false,
         "show_vendor": false
+      }
+    },
+    "7e45f0b1-d9bf-4e64-b73f-48ee89a9048b": {
+      "type": "image-banner",
+      "custom_css": [
+        ".banner {max-width: 1920px; margin: 0 auto; min-height: auto; padding: 0 5%;}",
+        ".media {background: transparent; padding: 0; position: static; height: auto; margin-bottom: 53px;}",
+        "img {position: static; width: 100%; height: auto; max-width: 100%;}",
+        ".banner__content {display: none;}"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/Sizing_Fit_banner.png",
+        "desktop_text_box_position": "center",
+        "color_scheme": "background-1",
+        "stack_images_on_mobile": true,
+        "adapt_height_first_image": false,
+        "banner_img_link": "shopify:\/\/pages\/fit-and-sizing",
+        "custom_class": "sizing-and-fit-wrapper-mobile-hide"
       }
     },
     "16372094347baae41f": {
@@ -50,15 +72,14 @@
         "16372094343ade45e4-2"
       ],
       "settings": {
-        "check_width": false,
+        "check_width": true,
         "image": "shopify:\/\/shop_images\/homw-how-it-work-2x.png",
         "video_mp4_link": "",
-        "image_mobile": "shopify:\/\/shop_images\/homw-how-it-work-2x.png",
         "height": "adapt",
         "color_scheme": "background-1",
         "background_color": "#ffffff",
         "layout": "text_first",
-        "custom_class": "top-look"
+        "custom_class": "sizing-and-fit-wrapper-mobile-show"
       }
     },
     "1637210711c34d4210": {
@@ -108,24 +129,6 @@
     "1637211120e90ee699": {
       "type": "collection-list",
       "blocks": {
-        "16372111202d44f879-0": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "suit"
-          }
-        },
-        "0e560a21-d053-4f78-9336-cc772de1ed64": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "looks"
-          }
-        },
-        "a4e71386-a36b-4b28-af7b-a9034d8c235e": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "shirt"
-          }
-        },
         "0fafbb81-d18b-4cbc-bf7a-e2374ccee9ef": {
           "type": "featured_collection",
           "settings": {
@@ -144,16 +147,34 @@
             "collection": "pocket-square"
           }
         },
+        "aecab2f2-438e-4492-9a17-4d45439cb723": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "socks"
+          }
+        },
         "0418f087-2798-4fdb-bd24-f0ebad117038": {
           "type": "featured_collection",
           "settings": {
             "collection": "shoes"
           }
         },
-        "aecab2f2-438e-4492-9a17-4d45439cb723": {
+        "16372111202d44f879-0": {
           "type": "featured_collection",
           "settings": {
-            "collection": "socks"
+            "collection": "suit"
+          }
+        },
+        "0e560a21-d053-4f78-9336-cc772de1ed64": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "looks"
+          }
+        },
+        "a4e71386-a36b-4b28-af7b-a9034d8c235e": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "shirt"
           }
         },
         "f4c1faab-f6d0-415f-ab1a-44419cb1f003": {
@@ -165,15 +186,19 @@
         }
       },
       "block_order": [
-        "16372111202d44f879-0",
-        "0e560a21-d053-4f78-9336-cc772de1ed64",
-        "a4e71386-a36b-4b28-af7b-a9034d8c235e",
         "0fafbb81-d18b-4cbc-bf7a-e2374ccee9ef",
         "083efab5-fc36-4414-9387-876d0a6d7a1f",
         "4f888897-0939-4b31-b230-5c8003298604",
-        "0418f087-2798-4fdb-bd24-f0ebad117038",
         "aecab2f2-438e-4492-9a17-4d45439cb723",
+        "0418f087-2798-4fdb-bd24-f0ebad117038",
+        "16372111202d44f879-0",
+        "0e560a21-d053-4f78-9336-cc772de1ed64",
+        "a4e71386-a36b-4b28-af7b-a9034d8c235e",
         "f4c1faab-f6d0-415f-ab1a-44419cb1f003"
+      ],
+      "custom_css": [
+        ".background-color-collection {padding-top: 94px; padding-bottom: 108px;}",
+        "@media (max-width: 767px) {.background-color-collection {padding-bottom: 25px; padding-top: 20px; }}"
       ],
       "settings": {
         "background_color": "#ffffff",
@@ -183,7 +208,7 @@
         "swipe_on_mobile": false,
         "image_padding": false,
         "show_view_all": false,
-        "autoplay": false,
+        "autoplay": true,
         "arrowprev": true,
         "dots": false,
         "loop": true
@@ -202,18 +227,65 @@
       "block_order": [
         "template--16117519483066__af813652-8f02-4c54-83f2-f181d0cee3fa-168625227254786327-1"
       ],
+      "disabled": true,
       "settings": {
         "color_scheme": "background-1",
         "full_width": true
+      }
+    },
+    "1a2d28bc-5601-4470-ac32-792a73c9ad6f": {
+      "type": "image-with-text",
+      "blocks": {
+        "template--16476452880570__1a2d28bc-5601-4470-ac32-792a73c9ad6f-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "About this Collection",
+            "heading_count": "",
+            "show_icon": false
+          }
+        },
+        "template--16476452880570__1a2d28bc-5601-4470-ac32-792a73c9ad6f-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The Grooms Club sells wedding suits and tuxedos custom-tailored to fit every groom and groomsman. And even better, the fabric has some stretch for maximum flexibility. As you celebrate the night with cake, drinks, and delicious food, you won’t have to worry about your suit feeling snug thanks to that 4-way stretch fabric.<br\/><br\/>We have various suit and tuxedo colors for sale, such as blue, charcoal, medium gray, classic black, and more. All prices start at $199.99. Not sure what size you are? With our <a href=\"https:\/\/www.groomsclub.com\/pages\/fit-finder\">Fit Finder<\/a>, you can find your ideal size based on height, weight, age, body type, and typical clothing measurements. Please <a href=\"https:\/\/www.groomsclub.com\/pages\/contact\">contact <\/a>our team with any questions regarding our wedding suits and tuxedos.<\/p>"
+          }
+        },
+        "template--16476452880570__1a2d28bc-5601-4470-ac32-792a73c9ad6f-button-1": {
+          "type": "button",
+          "disabled": true,
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "open_new_tab": false,
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "template--16476452880570__1a2d28bc-5601-4470-ac32-792a73c9ad6f-heading-1",
+        "template--16476452880570__1a2d28bc-5601-4470-ac32-792a73c9ad6f-text-1",
+        "template--16476452880570__1a2d28bc-5601-4470-ac32-792a73c9ad6f-button-1"
+      ],
+      "settings": {
+        "check_width": true,
+        "image": "shopify:\/\/shop_images\/Suit_page_image.png",
+        "video_mp4_link": "",
+        "height": "adapt",
+        "color_scheme": "background-1",
+        "background_color": "#ffffff",
+        "layout": "text_first",
+        "custom_class": "about-collection-wrapper"
       }
     }
   },
   "order": [
     "banner",
     "product-grid",
+    "7e45f0b1-d9bf-4e64-b73f-48ee89a9048b",
     "16372094347baae41f",
     "1637210711c34d4210",
     "1637211120e90ee699",
-    "af813652-8f02-4c54-83f2-f181d0cee3fa"
+    "af813652-8f02-4c54-83f2-f181d0cee3fa",
+    "1a2d28bc-5601-4470-ac32-792a73c9ad6f"
   ]
 }

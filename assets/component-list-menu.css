@@ -47,6 +47,11 @@
 
 .footer-contact-us-wrapper ul li p{
   margin: 0;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  color: #fff;
 }
 .contact-us-header-menu ul li p a,
 .footer-contact-us-wrapper ul li p a{
@@ -74,10 +79,23 @@
 .footer-contact-us-wrapper h3{
   text-align: center;
 }
-.footer-contact-us-wrapper h3,
-.footer-contact-us-wrapper ul li p a,
-.footer-contact-us-wrapper ul li p{
+.footer-contact-us-wrapper .footer-block__heading3,
+.footer-contact-us-wrapper ul li p a{
   color: #fff;
+  text-align: left;
+  font-size: 17px;
+  font-style: normal;
+  line-height: 28px;
+  font-weight: 500;
+}
+@media(max-width: 767px){
+  .footer-contact-us-wrapper h3,
+  .footer-contact-us-wrapper ul li p a{
+    font-size: 14px;
+  }
+}
+.footer-contact-us-wrapper ul li p{
+  text-align: left;
 }
 @media(max-width : 767px){
   .footer-contact-us-wrapper ul {
