@@ -13219,6 +13219,10 @@ h1,h2,h3,h4,h5,h6{
   } 
 }
 @media(max-width:767px){
+  .svg_logo_header svg{
+    height: auto;
+    margin-bottom: 5px;
+  }
   .template-collection-top-suit .image-with-text__heading, 
   .template-collection-top-suit .collection-list-title{
     font-size: 18px;
