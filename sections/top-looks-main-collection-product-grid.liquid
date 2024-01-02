@@ -14,6 +14,34 @@
 {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
 
 <div class="page-width collection-filters" id="main-collection-filters" data-id="{{ section.id }}">
+  <div class="filter-wrapper">
+    <span class="filter-label">Filter By:</span>
+    <div class="filter-option-wrapper">
+      <div class="suit-filter-wrapper suit-dropdown"> 
+        <select name="suit_color_option" id="suit_color_option">
+          <option value="">Suit Color</option>
+          {% assign suit_color_option = section.settings.suit_color_downdown_option | split : ', ' %}
+          {%- for suit_color_val in suit_color_option -%}
+            <option value="{{ suit_color_val }}">{{ suit_color_val }}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+      <div class="suit-filter-wrapper tie-dropdown">
+        <select name="tie_color_option" id="tie_color_option">
+          <option value="">Tie Color</option>
+          {% assign tie_color_option = section.settings.tie_color_downdown_option | split : ', ' %}
+          {%- for tie_color_val in tie_color_option -%}
+            <option value="{{ tie_color_val }}">{{ tie_color_val }}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+      <div class="submit-button-wrapper">
+        <button type="button" class="button button--secondary btn-small filter-submit-btn disabled">Submit</button>  
+        <button type="button" class="button button--secondary btn-small filter-reset-btn disabled">Reset</button>  
+      </div>
+    </div>
+  </div>
+
   {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
     {%- assign total_active_values = 0 -%}
     <collection-filters-form class="facets small-hide">
@@ -384,9 +412,8 @@
 </div>
 
 <script src="{{ 'collection-filters-form.js' | asset_url }}" defer="defer"></script>
-{%- assign products_per_page = 12 -%}
 <div id="CollectionProductGrid">
-  {%- paginate collection.products by products_per_page -%}
+  {%- paginate collection.products by section.settings.products_per_page -%}
     {%- if collection.products.size == 0 -%}
       <div class="collection collection--empty page-width" id="main-collection-product-grid" data-id="{{ section.id }}">
         <div class="loading-overlay">
@@ -426,9 +453,9 @@
           {{ 'sections.collection_template.product_count' | t: product_count: collection.products_count, count: collection.all_products_count }}{%- endcomment -%}
         </p>
 
-        <div class="main-collection-product-grid" data-id="{{ section.id }}">
-          {%- for product in collection.products reversed  limit: 12 -%}
-            <div class="product-grid-inner-wrapper">
+        <div class="main-collection-product-grid" class="main-collection-product-grid-wrapper" data-id="{{ section.id }}">
+          {%- for product in collection.products reversed -%}
+            <div class="product-grid-inner-wrapper" {% if product.metafields.custom.suit_color %}data-suit-color="{{ product.metafields.custom.suit_color }}"{% endif %} {% if product.metafields.custom.tie_color %}data-tie-color="{{ product.metafields.custom.tie_color }}"{% endif %}>
               <div class="plp-top-looks-product-grid" data-index="{{ forloop.index }}">
                 {% render 'product-card-top-plp',
                   product_card_product: product,
@@ -440,24 +467,18 @@
               </div>
             </div>
           {%- endfor -%}
+          <p class="product-not-found-message"></p>
         </div>
 
         <div class="page-width">
-          <div data-id="{{ section.id }}" class="
-        maging-top main-collection-product-grid grid grid--2-col
-        {% if collection.products_count < 4 %} grid--{{ collection.products_count }}-col-tablet{% else %}
-          {% if collection.products_count == 4 %} grid--4-col-desktop{% else %} grid--3-col-tablet grid--one-third-max grid--3-col-desktop grid--quarter-max{% endif %}
-        {% endif %} negative-margin">
-          </div>
-
+          <div data-id="{{ section.id }}" class="maging-top main-collection-product-grid grid grid--2-col {% if collection.products_count < 4 %} grid--{{ collection.products_count }}-col-tablet{% else %} {% if collection.products_count == 4 %} grid--4-col-desktop{% else %} grid--3-col-tablet grid--one-third-max grid--3-col-desktop grid--quarter-max{% endif %}{% endif %} negative-margin"></div>
           {%- if paginate.pages > 1 -%}
             {% render 'pagination', paginate: paginate, anchor: '', class: '' %}
-          {%- endif -%}
+            {%- endif -%}
+          </div>
         </div>
-      </div>
     {%- endif -%}
   {%- endpaginate -%}
-  ..
 </div>
 
 {% schema %}
@@ -465,6 +486,15 @@
   "name": "t:sections.main-collection-product-grid.name",
   "class": "spaced-section collection-grid-section",
   "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 9,
+      "max": 99,
+      "step": 3,
+      "default": 9,
+      "label": "t:sections.main-collection-product-grid.settings.products_per_page.label"
+    },
     {
       "type": "header",
       "content": "t:sections.main-collection-product-grid.settings.header__3.content"
@@ -506,6 +536,20 @@
       "id": "show_vendor",
       "default": false,
       "label": "t:sections.main-collection-product-grid.settings.show_vendor.label"
+    },
+    {
+      "type" : "header",
+      "content" : "Filter Drop-down Options"
+    },
+    {
+      "type" : "textarea",
+      "id" : "suit_color_downdown_option",
+      "label" : "Suit Color Dropdown Option (Option value with ',')"
+    },
+    {
+      "type" : "textarea",
+      "id" : "tie_color_downdown_option", 
+      "label" : "Tie Color Dropdown Option (Option value with ',')"
     }
   ]
 }

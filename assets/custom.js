@@ -2001,3 +2001,41 @@ document.addEventListener("DOMContentLoaded", function() {
   $(`.image-with-text`).find(`.section-loader`).hide();
   $(`.image-with-text`).find(`.page-width-big`).show();
 });
+
+if($(`.template-collection-top-collection`).length > 0 ){
+  $(document).on("change", ".suit-filter-wrapper select", function(){
+    $(`.submit-button-wrapper .filter-submit-btn,.submit-button-wrapper .filter-reset-btn`).removeClass("disabled")
+  });
+  $(document).on("click",".filter-reset-btn",function(){
+    $(`.suit-filter-wrapper select`).val('').change();
+    $(`.submit-button-wrapper .filter-submit-btn, .submit-button-wrapper .filter-reset-btn`).addClass(`disabled`)
+    $(`.product-grid-inner-wrapper`).show();
+  })
+  $(document).on("click",".filter-submit-btn",function(){
+    var parent = $(this).closest(`.filter-option-wrapper`);
+    if(parent.find(`.suit-filter-wrapper #suit_color_option`).val() != '' ||  parent.find(`.suit-filter-wrapper #tie_color_downdown_option`).val() != ''){
+      if(parent.find(`.suit-filter-wrapper #suit_color_option`).val() != '' && parent.find(`.suit-filter-wrapper #tie_color_option`).val() != ''){
+        var suitTarget = parent.find(`.suit-filter-wrapper #suit_color_option option:selected`).val();
+        var tieTarget = parent.find(`.suit-filter-wrapper #tie_color_option option:selected`).val();
+        if($(`.product-grid-inner-wrapper[data-suit-color="${suitTarget}"][data-tie-color="${tieTarget}"]`).length > 0){
+          $(`.product-grid-inner-wrapper`).hide();
+          $(`.product-grid-inner-wrapper[data-suit-color="${suitTarget}"][data-tie-color="${tieTarget}"]`).show()
+          $(`.main-collection-product-grid`).find(`.product-not-found-message`).text(``).hide();
+        } else  {
+          $(`.product-grid-inner-wrapper`).hide();
+          $(`.main-collection-product-grid`).find(`.product-not-found-message`).text(`Sorry, We have no any product about this filter!`).show();
+        }
+      } else if(parent.find(`.suit-filter-wrapper #suit_color_option`).val() != '' ){
+        var suitTarget = parent.find(`.suit-filter-wrapper #suit_color_option option:selected`).val();
+        $(`.product-grid-inner-wrapper`).hide()
+        $(`.product-grid-inner-wrapper[data-suit-color="${suitTarget}"]`).show()
+      } else if(parent.find(`.suit-filter-wrapper #tie_color_downdown_option`).val() != ''){
+        var tieTarget = parent.find(`.suit-filter-wrapper #tie_color_option option:selected`).val();
+        $(`.product-grid-inner-wrapper`).hide()
+        $(`.product-grid-inner-wrapper[data-tie-color="${tieTarget}"]`).show()
+      }
+    } else {
+      alert("Please Select both filter option!")
+    }
+  }) 
+}
