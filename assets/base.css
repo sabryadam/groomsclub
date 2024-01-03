@@ -3845,7 +3845,7 @@ details[open]>.header__icon--menu .icon-hamburger {
 }
 
 .header__menu-item {
-  padding: 30px 20px 40px;
+  padding: 30px 0 40px 0;
   text-decoration: none;
   letter-spacing: 0.7px;
   position: relative;
@@ -3860,7 +3860,7 @@ details[open]>.header__icon--menu .icon-hamburger {
 
 @media(min-width: 1440px){
   .header__menu-item {
-    padding: 30px 30px 40px;
+    padding: 30px 0 40px 0;
   }
 }
 
@@ -3886,7 +3886,7 @@ details[open]>.header__icon--menu .icon-hamburger {
 .header__menu-item:after {
   content: "";
   position: absolute;
-  left: 10px;
+  left: 0;
   bottom: 25px;
   width: 0;
   height: 3px;
@@ -3895,7 +3895,7 @@ details[open]>.header__icon--menu .icon-hamburger {
 }
 
 .header__menu-item:hover:after {
-  width: calc(100% - 20px);
+  width: 100%;
 }
 
 .header__submenu .header__menu-item:after {
@@ -3966,7 +3966,7 @@ details-disclosure>details {
   position: relative;
 }
 
-.header__menu-item-wrap:hover .header__menu-item .icon-caret {
+.header__menu-item-wrap.drop-down-menu-hover:hover .header__menu-item .icon-caret {
   transform: rotate(180deg);
 }
 
@@ -3974,7 +3974,7 @@ details-disclosure>details {
   display: none;
 }
 
-.header__menu-item-wrap:hover .header__submenu {
+.header__menu-item-wrap.drop-down-menu-hover:hover .header__submenu {
   min-width: 200px;
   display: block;
 }
@@ -4005,7 +4005,7 @@ details-disclosure>details {
   left: 0;
 }
 
-.header__menu-item-wrap:hover .header__submenu.menu-item-above-five {
+.header__menu-item-wrap.drop-down-menu-hover:hover .header__submenu.menu-item-above-five {
   min-width: 500px;
   vertical-align: top;
   flex-wrap: wrap;
@@ -4014,7 +4014,7 @@ details-disclosure>details {
   background: #fff;
 }
 
-.header__menu-item-wrap:hover .header__submenu.menu-item-above-five li {
+.header__menu-item-wrap.drop-down-menu-hover:hover .header__submenu.menu-item-above-five li {
   width: 50%;
 }
 
@@ -6654,7 +6654,7 @@ progress[value]::-webkit-progress-value {
 }
 
 @media screen and (max-width: 1280px) {
-  .header__menu-item:hover:after {
+  /* .header__menu-item:hover:after {
     width: calc(100% - 2.6rem);
   }
 
@@ -6662,7 +6662,7 @@ progress[value]::-webkit-progress-value {
     left: 1.3rem;
   }
 
-  /* .header__menu-item {
+  .header__menu-item {
     padding: 4rem 1.3rem;
   } */
 }
@@ -8507,7 +8507,7 @@ progress[value]::-webkit-progress-value {
 } */
 
 .header__menu-item.active:after {
-  width: calc(100% - 10px);
+  width: 100%;
 }
 
 ul.list-menu li a.shop-collection.header__menu-item.active:after,
@@ -10842,16 +10842,23 @@ p.removing-combine-message
 
   .header__heading,
   .header__heading-link {
-    width: 10%;
+    width: 340px;
   }
 
   .header__inline-menu {
-    width: 64%;
+    width: calc(100% - 680px);
   }
 
   .header__icons {
-    width: 450px;
+    width: 340px;
     justify-content: right;
+  }
+}
+@media(min-width: 1025px) and (max-width: 1199px) {
+  .header__heading, .header__heading-link{
+    text-align: center;
+    justify-content: center;
+    display: flex;
   }
 }
 
@@ -12902,10 +12909,10 @@ select#event-id.disabled {
   font-weight: 500;
   line-height: normal;
 }
-.drop-down-link.header__menu-item:hover:after,
+/* .drop-down-link.header__menu-item:hover:after,
 .drop-down-link.header__menu-item.active:after {
   width: calc(100% - 30px);
-}
+} */
 .header__icon--account .account-label{
   margin-left: 10px;
   color: #000;
@@ -13408,9 +13415,9 @@ h1,h2,h3,h4,h5,h6{
     padding-left: 3.1%;
     padding-right: 3.1%;
   }
-  .header__heading, .header__heading-link{
+  /* .header__heading, .header__heading-link{
     width: 15%;
-  }
+  } */
   /* .header__inline-menu {
     width: 75%;
     min-width: auto;
@@ -13427,7 +13434,7 @@ h1,h2,h3,h4,h5,h6{
     width: 250px;
   }
   .header__menu-item{
-    padding: 30px 10px 40px;
+    padding: 30px 0 40px 0;
   }
   /* .svg_logo_header{
     width: 100px;
@@ -13529,6 +13536,9 @@ h1,h2,h3,h4,h5,h6{
   .template-collection-top-suit .breadcrumb .breadcrumb-links *, .collection-breadcrumb-wrapper .product-count{
     font-size: 10px !important;
   }
+}
+.header__inline-menu ul .parent-list-item{
+  padding: 0 30px;
 }
 /* Dec - 2023 */
 /* custom css */
