@@ -15,7 +15,7 @@
     padding-left: 6px;
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1280px) {
     header-drawer {
       display: none;
     }
@@ -34,6 +34,8 @@
   .list-menu--inline {
     display: inline-flex;
     flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
   }
 
   .list-menu__item {
@@ -335,7 +337,7 @@
       <nav class="header__inline-menu ">
         <ul class="list-menu list-menu--inline" role="list">
           {%- for link in section.settings.menu.links -%}
-            <li>
+            <li class="parent-list-item">
               {%- if link.links != blank -%}
                 <div class="header__menu-item-wrap {% if link.title == 'Help Center' %} how-it-works{% endif %}">
                   <a tabindex="0" title="{{ link.title }}" href="{{ link.url }}"  class="drop-down-link {{link.title | downcase | handleize }} header__menu-item list-menu__item link focus-inset{% if link.active or link.child_active  %} active{% endif %}">
