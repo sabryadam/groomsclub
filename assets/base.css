@@ -10304,9 +10304,9 @@ body.template-product-jacket-pant-combination .loading-overlay svg circle {
     padding: 4rem 2rem;
   } */
 
-  ul.list-menu li:first-child a.header__menu-item {
+  /* ul.list-menu li:first-child a.header__menu-item {
     padding-left: 0;
-  }
+  } */
 
   ul.list-menu li:last-child a.header__menu-item {
     padding-right: 0;
@@ -10318,9 +10318,9 @@ body.template-product-jacket-pant-combination .loading-overlay svg circle {
     margin-left: 0;
   }
 
-  ul.list-menu li:first-child a.header__menu-item {
+  /* ul.list-menu li:first-child a.header__menu-item {
     padding-left: 0;
-  }
+  } */
 
   ul.list-menu li:last-child a.header__menu-item {
     padding-right: 0;
