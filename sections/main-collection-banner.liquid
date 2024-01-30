@@ -1,6 +1,6 @@
 {{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
 
-{%- unless template contains 'top-suit'  -%}
+{%- unless template contains 'top-suit' or template contains 'top-collection'  -%}
 <div class="page-width-big">
   <div class="page-top-headpadding-flex">
       <div class="breadcrumb">
@@ -16,14 +16,14 @@
 
 <div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %}">
   <div class="collection-hero__inner page-width">
-    <div class="collection-hero__text-wrapper {% unless template contains 'top-suit' %}main-heading-part{% endunless%}">
-      {%- if template contains 'top-suit'  -%}<p class="banner-sub-heading">{{ collection.metafields.custom.banner_sub_heading }}</p>{%- endif -%}
-      <h1 class="collection-hero__title {% unless template contains 'top-suit' %}text-center-heading border-heading{% endunless%} h1 margin-0">
+    <div class="collection-hero__text-wrapper {% unless template contains 'top-suit' or template contains 'top-collection' %}main-heading-part{% endunless%}">
+      {%- if template contains 'top-suit' or template contains 'top-collection'  -%}<p class="banner-sub-heading">{{ collection.metafields.custom.banner_sub_heading }}</p>{%- endif -%}
+      <h1 class="collection-hero__title {% unless template contains 'top-suit' or template contains 'top-collection' %}text-center-heading border-heading{% endunless%} h1 margin-0">
         <span class="visually-hidden">{{ 'sections.collection_template.title' | t }}: </span>
         {{- collection.title | escape -}}
       </h1>
 
-      {%- if template contains 'top-suit'  -%}
+      {%- if template contains 'top-suit' or template contains 'top-collection'  -%}
         {%- if collection.metafields.custom.banner_content != blank -%}
           <div class="collection-hero__description description--primary h5">{{ collection.metafields.custom.banner_content }}</div>
         {%- endif -%}
@@ -32,7 +32,7 @@
     </div>
     
     {%- if section.settings.show_collection_image and collection.image -%}
-      {%- if template contains 'top-suit'  -%}
+      {%- if template contains 'top-suit' or template contains 'top-collection'  -%}
         <div class="collection-hero__image-container media">
           <img srcset="{%- if collection.metafields.custom.banner_collection_image.width >= 165 -%}{{ collection.metafields.custom.banner_collection_image | img_url: '165x' }} 165w,{%- endif -%}
             {%- if collection.metafields.custom.banner_collection_image.width >= 360 -%}{{ collection.metafields.custom.banner_collection_image | img_url: '360x' }} 360w,{%- endif -%}
@@ -69,7 +69,7 @@
   </div>
 </div>
 
-{%- if template contains 'top-suit'  -%}
+{%- if template contains 'top-suit' or template contains 'top-collection'  -%}
 <div class="page-width">
   <div class="page-top-headpadding-flex collection-breadcrumb-wrapper">
     <div class="breadcrumb">

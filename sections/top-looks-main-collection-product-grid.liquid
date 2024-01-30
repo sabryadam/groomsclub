@@ -14,21 +14,28 @@
 {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
 
 <div class="page-width collection-filters" id="main-collection-filters" data-id="{{ section.id }}">
+
   {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
     {%- assign total_active_values = 0 -%}
-    <collection-filters-form class="facets small-hide">
+    <collection-filters-form class="facets" style="margin: 0;width: 100%;">
       <form id="CollectionFiltersForm" class="facets__form">
         {% if section.settings.enable_filtering %}
           <div class="facets__wrapper">
+            {%- comment -%}
             {%- unless collection.filters == empty -%}
               <p class="facets__heading">{{ 'sections.collection_template.filter_by_label' | t }}</p>
             {%- endunless -%}
+            {%- endcomment -%}
 
             {%- for filter in collection.filters -%}
               {%- assign total_active_values = total_active_values | plus: filter.active_values.size -%}
+              {% assign is_color = false %}
+              {% if filter.label contains 'Color' or filter.label contains 'color' %}
+                {% assign is_color = true %}
+              {% endif %}
               {% case filter.type %}
               {% when 'list' %}
-                <details class="disclosure-has-popup facets__disclosure js-filter" data-index="{{ forloop.index }}">
+                <details class="disclosure-has-popup facets__disclosure js-filter" data-index="{{ forloop.index }}" open>
                   <summary class="facets__summary">
                     <div>
                       <span>{{ filter.label | escape }}</span>
@@ -36,7 +43,7 @@
                       {% render 'icon-caret' %}
                     </div>
                   </summary>
-                  <div class="facets__display">
+                  <div class="facets__display custom-tabs-scroll">
                     <div class="facets__header">
                       <span class="facets__selected no-js-hidden">{{ 'sections.collection_template.filters_selected' | t: count: filter.active_values.size }}</span>
                       <a href="{{ filter.url_to_remove }}" class="facets__reset link underlined-link js-facet-remove" >{{ 'sections.collection_template.reset' | t }}</a>
@@ -44,28 +51,43 @@
 
                     <ul class="facets__list list-unstyled" role="list">
                       {%- for value in filter.values -%}
-                        <li class="list-menu__item facets__item">
-                          <label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="facet-checkbox{% if value.count == 0 and value.active == false %} facet-checkbox--disabled{% endif %}">
-                            <input type="checkbox"
-                              name="{{ value.param_name }}"
-                              value="{{ value.value }}"
-                              id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
-                              {% if value.active %}checked{% endif %}
-                              {% if value.count == 0 and value.active == false %}disabled{% endif %}
-                            >
-
-                            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                              <rect width="16" height="16" stroke="currentColor" fill="none" stroke-width="1"></rect>
-                            </svg>
-
-                            <svg class="icon icon-checkmark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 9" fill="none" width="10px" height="10px">
-                              <path fill-rule="evenodd" clip-rule="evenodd" d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z" fill="currentColor"/>
-                            </svg>
+                        <li class="list-menu__item facets__item facet-checkbox">
+                          <input type="checkbox"
+                            name="{{ value.param_name }}"
+                            value="{{ value.value }}"
+                            id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
+                            {% if value.active %}checked{% endif %}
+                            {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                          >
+                          <label for="Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="{% if value.active %}active-filter-color{% endif  %}{% if value.count == 0 and value.active == false %} facet-checkbox--disabled{% endif %}">
+                            {% if is_color %}
+                              {% assign h = value.label | handle %}
+                              {% assign handleVal = value.value | handle %}
+                              {% assign val =  'color_' | append: h | append:'.png' %}
+                              <span class="color-swatch-img" style="background-image: url({{ val | file_img_url }});"></span>
+                            {% else %}
+                                <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                                  <rect width="16" height="16" stroke="currentColor" fill="none" stroke-width="1"></rect>
+                                </svg>
+                                <svg class="icon icon-checkmark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 9" fill="none" width="10px" height="10px">
+                                  <path fill-rule="evenodd" clip-rule="evenodd" d="M11.35.643a.5.5 0 01.006.707l-6.77 6.886a.5.5 0 01-.719-.006L.638 4.845a.5.5 0 11.724-.69l2.872 3.011 6.41-6.517a.5.5 0 01.707-.006h-.001z" fill="currentColor"/>
+                                </svg>                          
+                              {% endif %}
                             {{ value.label | escape }} ({{ value.count }})
                           </label>
                         </li>
                       {%- endfor -%}
                     </ul>
+
+                    <div class="custom-tab-paddles">
+                      <button class="left-paddle paddle hidden" aria-label="left-arrow">
+                        <span class="arrow"></span>
+                      </button>
+                      <button class="right-paddle paddle hidden" aria-label="right-arrow">
+                        <span class="arrow"></span>
+                      </button>
+                    </div>
+                    
                   </div>
                 </details>
               {% when 'price_range' %}
@@ -76,7 +98,7 @@
                     assign uses_comma_decimals = true
                   endif
                 %}
-                <details class="disclosure-has-popup facets__disclosure js-filter" data-index="{{ forloop.index }}">
+                <details class="disclosure-has-popup facets__disclosure js-filter" data-index="{{ forloop.index }}" open>
                   <summary class="facets__summary">
                     <div>
                       <span>{{ filter.label | escape }}</span>
@@ -140,30 +162,32 @@
           </div>
 
           <div class="active-facets active-facets-desktop">
-            <a href="{{ collection.url }}?sort_by={{ sort_by }}" class="active-facets__button button button--secondary js-facet-remove">{{ 'sections.collection_template.clear_all' | t }}</a>
-            {%- for filter in collection.filters -%}
-              {%- for value in filter.active_values -%}
-                <a class="active-facets__button active-facets__button--light button button--tertiary js-facet-remove" href="{{ value.url_to_remove }}">
-                  {{ value.label | escape }}
-                  {% render 'icon-close-small' %}
-                </a>
-              {%- endfor -%}
-              {% if filter.type == "price_range" %}
-                {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
-                  <a class="active-facets__button active-facets__button--light button button--tertiary js-facet-remove" href="{{ filter.url_to_remove }}">
-                    {%- if filter.min_value.value -%}{{ filter.min_value.value | money }}{%- else -%}{{ 0 | money }}{%- endif -%}-{%- if filter.max_value.value -%}{{ filter.max_value.value | money }}{%- else -%}{{ filter.range_max | money }}{%- endif -%}
+            <div class="active-facets">
+              {%- for filter in collection.filters -%}
+                {%- for value in filter.active_values -%}
+                  <a class="active-facets__button active-facets__button--light button button--tertiary js-facet-remove" href="{{ value.url_to_remove }}">
+                    {{ value.label | escape }}
                     {% render 'icon-close-small' %}
                   </a>
-                {%- endif -%}
-              {% endif %}
-            {%- endfor -%}
+                {%- endfor -%}
+                {% if filter.type == "price_range" %}
+                  {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+                    <a class="active-facets__button active-facets__button--light button button--tertiary js-facet-remove" href="{{ filter.url_to_remove }}">
+                      {%- if filter.min_value.value -%}{{ filter.min_value.value | money }}{%- else -%}{{ 0 | money }}{%- endif -%}-{%- if filter.max_value.value -%}{{ filter.max_value.value | money }}{%- else -%}{{ filter.range_max | money }}{%- endif -%}
+                      {% render 'icon-close-small' %}
+                    </a>
+                  {%- endif -%}
+                {% endif %}
+              {%- endfor -%}
+            </div>
+            <a href="{{ collection.url }}" class="active-facets__button button button--secondary js-facet-remove reset-button">Reset</a>
           </div>
         {% endif %}
 
         {% if collection.current_vendor or collection.current_type %}
           <input type="hidden" name="q" value="{{ collection.current_vendor }}{{ collection.current_type }}">
         {% endif %}
-
+        {%- comment -%}
         {%- if section.settings.enable_sorting -%}
           <div class="collection-filters__item sorting">
             <div class="collection-filters__field">
@@ -183,10 +207,10 @@
               <button type="submit" class="button button--small">{{ 'sections.collection_template.sort_button' | t }}</button>
             </noscript>
           </div>
-        {%- endif -%}
+        {%- endif -%}{%- endcomment -%}
       </form>
     </collection-filters-form>
-    <menu-drawer class="mobile-facets__wrapper">
+    <menu-drawer class="mobile-facets__wrapper" style="display: none;">
       <details class="disclosure-has-popup medium-hide large-up-hide">
         <summary>
           <span class="mobile-facets__open button button--secondary">
@@ -255,6 +279,14 @@
                             </li>
                           {%- endfor -%}
                         </ul>
+                        <div class="custom-tab-paddles">
+                          <button class="left-paddle paddle hidden" aria-label="left-arrow">
+                            <span class="arrow"></span>
+                          </button>
+                          <button class="right-paddle paddle hidden" aria-label="right-arrow">
+                            <span class="arrow"></span>
+                          </button>
+                        </div>
 
                         <div class="no-js-hidden mobile-facets__footer">
                           <a href="{{ collection.url }}" class="mobile-facets__clear button button--secondary js-facet-remove">{{ 'sections.collection_template.clear' | t }}</a>
@@ -361,32 +393,33 @@
     </menu-drawer>
 
     <div class="active-facets active-facets-mobile">
-      <a href="{{ collection.url }}?sort_by={{ sort_by }}" class="active-facets__button button button--secondary js-facet-remove">{{ 'sections.collection_template.clear_all' | t }}</a>
-      {%- for filter in collection.filters -%}
-        {%- for value in filter.active_values -%}
-          <a class="active-facets__button active-facets__button--light button button--tertiary js-facet-remove" href="{{ value.url_to_remove }}">
-            {{ value.label | escape }}
-            {% render 'icon-close-small' %}
-          </a>
-        {%- endfor -%}
-
-        {% if filter.type == "price_range" %}
-          {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
-            <a class="active-facets__button active-facets__button--light button button--tertiary js-facet-remove" href="{{ filter.url_to_remove }}">
-              {%- if filter.min_value.value -%}{{ filter.min_value.value | money }}{%- else -%}{{ 0 | money }}{%- endif -%}-{%- if filter.max_value.value -%}{{ filter.max_value.value | money }}{%- else -%}{{ filter.range_max | money }}{%- endif -%}
+      <div class="active-facets">
+        {%- for filter in collection.filters -%}
+          {%- for value in filter.active_values -%}
+            <a class="active-facets__button active-facets__button--light button button--tertiary js-facet-remove" href="{{ value.url_to_remove }}">
+              {{ value.label | escape }}
               {% render 'icon-close-small' %}
             </a>
-          {%- endif -%}
-        {% endif %}
-      {%- endfor -%}
+          {%- endfor -%}
+  
+          {% if filter.type == "price_range" %}
+            {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+              <a class="active-facets__button active-facets__button--light button button--tertiary js-facet-remove" href="{{ filter.url_to_remove }}">
+                {%- if filter.min_value.value -%}{{ filter.min_value.value | money }}{%- else -%}{{ 0 | money }}{%- endif -%}-{%- if filter.max_value.value -%}{{ filter.max_value.value | money }}{%- else -%}{{ filter.range_max | money }}{%- endif -%}
+                {% render 'icon-close-small' %}
+              </a>
+            {%- endif -%}
+          {% endif %}
+        {%- endfor -%}
+      </div>
+      <a href="{{ collection.url }}" class="active-facets__button button button--secondary js-facet-remove reset-button">Reset</a>
     </div>
   {%- endif -%}
 </div>
 
 <script src="{{ 'collection-filters-form.js' | asset_url }}" defer="defer"></script>
-{%- assign products_per_page = 12 -%}
 <div id="CollectionProductGrid">
-  {%- paginate collection.products by products_per_page -%}
+  {%- paginate collection.products by section.settings.products_per_page -%}
     {%- if collection.products.size == 0 -%}
       <div class="collection collection--empty page-width" id="main-collection-product-grid" data-id="{{ section.id }}">
         <div class="loading-overlay">
@@ -426,9 +459,9 @@
           {{ 'sections.collection_template.product_count' | t: product_count: collection.products_count, count: collection.all_products_count }}{%- endcomment -%}
         </p>
 
-        <div class="main-collection-product-grid" data-id="{{ section.id }}">
-          {%- for product in collection.products reversed  limit: 12 -%}
-            <div class="product-grid-inner-wrapper">
+        <div class="main-collection-product-grid" class="main-collection-product-grid-wrapper" data-id="{{ section.id }}">
+          {%- for product in collection.products reversed -%}
+            <div class="product-grid-inner-wrapper" {% if product.metafields.custom.suit_color %}data-suit-color="{{ product.metafields.custom.suit_color }}"{% endif %} {% if product.metafields.custom.tie_color %}data-tie-color="{{ product.metafields.custom.tie_color }}"{% endif %}>
               <div class="plp-top-looks-product-grid" data-index="{{ forloop.index }}">
                 {% render 'product-card-top-plp',
                   product_card_product: product,
@@ -440,24 +473,18 @@
               </div>
             </div>
           {%- endfor -%}
+          <p class="product-not-found-message"></p>
         </div>
 
         <div class="page-width">
-          <div data-id="{{ section.id }}" class="
-        maging-top main-collection-product-grid grid grid--2-col
-        {% if collection.products_count < 4 %} grid--{{ collection.products_count }}-col-tablet{% else %}
-          {% if collection.products_count == 4 %} grid--4-col-desktop{% else %} grid--3-col-tablet grid--one-third-max grid--3-col-desktop grid--quarter-max{% endif %}
-        {% endif %} negative-margin">
-          </div>
-
+          <div data-id="{{ section.id }}" class="maging-top main-collection-product-grid grid grid--2-col {% if collection.products_count < 4 %} grid--{{ collection.products_count }}-col-tablet{% else %} {% if collection.products_count == 4 %} grid--4-col-desktop{% else %} grid--3-col-tablet grid--one-third-max grid--3-col-desktop grid--quarter-max{% endif %}{% endif %} negative-margin"></div>
           {%- if paginate.pages > 1 -%}
             {% render 'pagination', paginate: paginate, anchor: '', class: '' %}
-          {%- endif -%}
+            {%- endif -%}
+          </div>
         </div>
-      </div>
     {%- endif -%}
   {%- endpaginate -%}
-  ..
 </div>
 
 {% schema %}
@@ -465,6 +492,15 @@
   "name": "t:sections.main-collection-product-grid.name",
   "class": "spaced-section collection-grid-section",
   "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 9,
+      "max": 99,
+      "step": 3,
+      "default": 9,
+      "label": "t:sections.main-collection-product-grid.settings.products_per_page.label"
+    },
     {
       "type": "header",
       "content": "t:sections.main-collection-product-grid.settings.header__3.content"
@@ -506,7 +542,172 @@
       "id": "show_vendor",
       "default": false,
       "label": "t:sections.main-collection-product-grid.settings.show_vendor.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-collection-product-grid.settings.header__1.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_filtering",
+      "default": true,
+      "label": "t:sections.main-collection-product-grid.settings.enable_filtering.label",
+      "info": "t:sections.main-collection-product-grid.settings.enable_filtering.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "default": true,
+      "label": "t:sections.main-collection-product-grid.settings.enable_sorting.label"
     }
   ]
 }
 {% endschema %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // custom-tabs-scroll start
+    var filterWrapWidth,
+        scrollSize = 350,
+        totalScrollSize,
+        swatchTotalScrollSize,
+        blankSpace;
+
+    if (window.matchMedia("(max-width: 749px)").matches) {
+      blankSpace = 19.5;
+    } else {
+      blankSpace = 19.5;
+    }
+    $(document).on("click", ".custom-tabs-scroll .left-paddle", function (e) {
+      e.preventDefault();
+      var parent = $(this).closest(".custom-tabs-scroll");
+      var filterWrap = parent.find(".facets__list");
+      var filterWrapLeftArrow = parent.find(".left-paddle");
+      var filterWrapRightArrow = parent.find(".right-paddle");
+      totalScrollSize = filterWrap.scrollLeft() - scrollSize;
+      filterWrap.animate({ scrollLeft: totalScrollSize }, 300);
+      filterWrapRightArrow.removeClass("hidden");
+      if (totalScrollSize <= 0) {
+        filterWrapLeftArrow.addClass("hidden");
+      }
+    });
+    $(document).on("click", ".custom-tabs-scroll .right-paddle", function (e) {
+      e.preventDefault();
+      var parent = $(this).closest(".custom-tabs-scroll");
+      var filterWrap = parent.find(".facets__list");
+      var filterWrapLeftArrow = parent.find(".left-paddle");
+      var filterWrapRightArrow = parent.find(".right-paddle");
+      totalScrollSize = filterWrap.scrollLeft() + scrollSize;
+      filterWrap.animate({ scrollLeft: totalScrollSize }, 300);
+      filterWrapLeftArrow.removeClass("hidden");
+      var filterWrapWidth = 0;
+      parent.find(".facets__list .list-menu__item").each(function (index, value) {
+        filterWrapWidth += $(value).width();
+      });
+      console.log("filterWrapWidth",filterWrapWidth,"totalScrollSize",totalScrollSize);
+      if (totalScrollSize >= filterWrapWidth) {
+        filterWrapRightArrow.addClass("hidden");
+      }
+    });
+    theme_custom.customTabsScroll = function ($this) {
+      filterWrapWidth = 0;
+      var parent = $this.closest(".custom-tabs-scroll");
+      var filterWrap = parent.find(".facets__list");
+      var filterWrapLeftArrow = parent.find(".left-paddle");
+      var filterWrapRightArrow = parent.find(".right-paddle");
+      parent.closest('.tabbed-content-block-inner-wrapper:not(.active)').css({ position: "absolute",left: 0,right: 0, visibility: "hidden", display: "block" });
+      parent.closest('.product-block-outer-wrapper:not(.active)').addClass('customize_visible').css({ position: "absolute", visibility: "hidden", display: "block" });
+      var parentWidth = parent.width();
+      if(parent.find(".facets__list").length > 0){
+        parent.closest('.tabbed-content-block-inner-wrapper:not(.active)').css({ position: "",left: '',right: '', visibility: "", display: "" });
+        parent.closest('.product-block-outer-wrapper:not(.active)').removeClass('customize_visible').css({ position: "", visibility: "", display: "" });
+      }
+      var filterWrapWidth = 0;
+      parent.find(".facets__list .list-menu__item:visible").each(function (index, value) {
+        filterWrapWidth += $(value).width() + blankSpace;
+      });
+      if(parent.find(".custom-tabs-scroll-swatch").length > 0){
+        parent.closest('.tabbed-content-block-inner-wrapper:not(.active)').css({ position: "",left: '',right: '', visibility: "", display: "" });
+        parent.closest('.product-block-outer-wrapper:not(.active)').removeClass('customize_visible').css({ position: "", visibility: "", display: "" });
+      }
+      totalScrollSize = filterWrap.scrollLeft() + parentWidth;
+      if ((totalScrollSize >= filterWrapWidth - 5 || filterWrapWidth < parentWidth) && parent.find(".facets__list").length > 0) {
+        filterWrapRightArrow.addClass("hidden");
+      } else{
+        filterWrapRightArrow.removeClass("hidden");
+      }
+      if (filterWrap.scrollLeft() <= 0 && parent.find(".facets__list").length > 0) {
+        filterWrapLeftArrow.addClass("hidden");
+      } else {
+        filterWrapLeftArrow.removeClass("hidden");
+      }
+    };
+    setTimeout(function() {
+      $(".custom-tabs-scroll").each(function (index, item) {
+        theme_custom.customTabsScroll($(item).find(".facets__list"));
+      },500);
+    })
+  })  
+  $(window).resize(function () {
+    $(".custom-tabs-scroll").each(function (index, item) {
+      theme_custom.customTabsScroll($(item).find(".facets__list"));
+    });
+    if (window.matchMedia("(max-width: 749px)").matches) {
+      blankSpace = 19.5;
+    } else {
+      blankSpace = 19.5;
+    }
+  });
+</script>
+<style>
+  .custom-tabs-scroll .custom-tab-paddles .paddle {
+    cursor: pointer;
+    background-color: transparent !important;
+    position: absolute;
+    top: 50%;
+    cursor: pointer;
+    z-index: 1;
+    left: 0;
+    transform: translateY(-50%);
+    box-shadow: none;
+    color: #000 !important;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 20px !important;
+    line-height: 30px;
+    font-weight: 700;
+    margin-top: -5px;
+    border: 0;
+  }
+  .custom-tabs-scroll .custom-tab-paddles .paddle.right-paddle {
+    left: auto;
+    right: 0;
+  }
+  .custom-tabs-scroll .custom-tab-paddles .paddle span.arrow {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #fff;
+    display: block;
+    position: absolute;
+    top: 9px;
+    left: 12px;
+    border-color: #d9d9d9 transparent transparent #d9d9d9;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+  .facets__wrapper{align-items: flex-start; flex-direction: inherit;}
+  .custom-tabs-scroll {
+    position: relative !important;
+  }
+  .custom-tabs-scroll .custom-tab-paddles .right-paddle.paddle .arrow{
+    -moz-transform: rotate(135deg);
+    -ms-transform: rotate(135deg);
+    -o-transform: rotate(135deg);
+    transform: rotate(135deg);
+    left: 0;
+  }
+</style>

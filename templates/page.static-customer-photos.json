@@ -4,9 +4,351 @@
       "type": "main-page",
       "disabled": true,
       "settings": {}
+    },
+    "multicolumn_mHGbPj": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_QmxLzr": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Michelle-Behre-Photography-Alyssa-and-Kevin-Park-Chateau-Estate-and-Gardens-NJ-Wedding-Photographer-79.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_Xm7hLM": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8692.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_nq64aN": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_0231.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_c4c7Pz": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_0306.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_nrHKWK": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Michelle-Behre-Photography-Alyssa-and-Kevin-Park-Chateau-Estate-and-Gardens-NJ-Wedding-Photographer-102.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_NU4kYj": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_0740.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_KNrdMA": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Michelle-Behre-Photography-Alyssa-and-Kevin-Park-Chateau-Estate-and-Gardens-NJ-Wedding-Photographer-2.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_R3KjRF": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8782.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_PDBPiM": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8789.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_mJDKWi": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Screenshot_2024-01-24_at_4.52.05_PM.png",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_CU6DJf": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8788.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_E83xYU": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8787.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_kAT97P": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_0131.jpg",
+            "title": "Column",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>"
+          }
+        },
+        "column_aCVMHx": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8811.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_dVdwch": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8799.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_XY7hx7": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8801.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_HrApD9": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8785.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_rDnYVN": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8798.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_xJU4rz": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8814.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_TwBNtN": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8786.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_4WPwYi": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8802.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_Eg7mKT": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8794.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_XRVDGW": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8796.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_nrh9yD": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8792.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_BeMwAV": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Screenshot_2024-01-04_at_5.16.48_PM.png",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_6dNmBT": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8779.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_XGALXE": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8807.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_xRYibf": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8790.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_Ck9kah": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8810.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_ytMXHW": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Screenshot_2024-01-24_at_4.53.00_PM.png",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_cEGB77": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8791.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_nUwyiU": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8808.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_7CJkNA": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8797.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_ew6jwr": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8803.jpg",
+            "title": "",
+            "text": ""
+          }
+        },
+        "column_cGh9FK": {
+          "type": "column",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/IMG_8813.jpg",
+            "title": "",
+            "text": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_QmxLzr",
+        "column_Xm7hLM",
+        "column_nq64aN",
+        "column_c4c7Pz",
+        "column_nrHKWK",
+        "column_NU4kYj",
+        "column_KNrdMA",
+        "column_R3KjRF",
+        "column_PDBPiM",
+        "column_mJDKWi",
+        "column_CU6DJf",
+        "column_E83xYU",
+        "column_kAT97P",
+        "column_aCVMHx",
+        "column_dVdwch",
+        "column_XY7hx7",
+        "column_HrApD9",
+        "column_rDnYVN",
+        "column_xJU4rz",
+        "column_TwBNtN",
+        "column_4WPwYi",
+        "column_Eg7mKT",
+        "column_XRVDGW",
+        "column_nrh9yD",
+        "column_BeMwAV",
+        "column_6dNmBT",
+        "column_XGALXE",
+        "column_xRYibf",
+        "column_Ck9kah",
+        "column_ytMXHW",
+        "column_cEGB77",
+        "column_nUwyiU",
+        "column_7CJkNA",
+        "column_ew6jwr",
+        "column_cGh9FK"
+      ],
+      "custom_css": [],
+      "settings": {
+        "title": "Photo Gallery",
+        "content": "<p>Our photo gallery captures the essence of unforgettable moments, showcasing why you should choose Grooms Club for your special event.<\/p>",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "column_alignment": "left",
+        "background_style": "none",
+        "button_label": "",
+        "button_link": "",
+        "swipe_on_mobile": false
+      }
+    },
+    "custom_liquid_q9FCBf": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<style>\n.multicolumn-list {\n    display: grid;\n    gap: 0.75rem;\n    grid-template-columns: repeat(12, minmax(0px, 1fr));\nmargin: 0;\n} \n.multicolumn-list__item {\n  grid-column: span 6 \/ span 6;\n  width: auto;\n  max-width: none;\n  min-width: auto;\n}\n\n.multicolumn-list__item .media--adapt img {\n  width: 100%;\n  object-fit: cover;\n  position: static;\nheight : 24rem;\n}\n\n.background-none .multicolumn-card__image-wrapper .media {\n  padding-bottom: 0 !important;\n}\n\n.multicolumn-card {\n  width: 100%;\n  min-width: 100%;\n}\n.multicolumn-list__item {\n  grid-column: span 12 \/ span 12;\n  margin: 0px;\n    width: auto !important;\n    max-width: none !important;\n    min-width: auto;\nmargin: 0 !important;\n    padding: 0 !important;\n}\n.multicolumn-card__info{\ndisplay: none;}\n.background-none .multicolumn-card__image-wrapper{\nmargin : 0 !important}\n\n@media(min-width: 1024px) {\n  .multicolumn-list__item {\n    grid-column: span 6 \/ span 6;\n  }\n}\n\n@media(min-width: 1280px){\n  .multicolumn-list__item {\n    grid-column: span 3 \/ span 3;\n  }\n}\n<\/style>"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "multicolumn_mHGbPj",
+    "custom_liquid_q9FCBf"
   ]
 }
