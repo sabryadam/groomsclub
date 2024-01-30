@@ -8,6 +8,11 @@
       <h2 class="title">
         {{ section.settings.title | escape }}
       </h2>
+      {%- if section.settings.content != blank -%}
+        <div class="description">
+          {{ section.settings.content }}
+        </div>
+      {%- endif -%}
       {%- if section.settings.button_label != blank and section.settings.swipe_on_mobile -%}
         <a href="{{ section.settings.button_link }}" class="link underlined-link large-up-hide">{{ section.settings.button_label | escape }}</a>
       {%- endif -%}
@@ -101,6 +106,11 @@
       "id": "title",
       "default": "Multicolumn",
       "label": "t:sections.multicolumn.settings.title.label"
+    },
+    {
+      "type" : "richtext",
+      "id" : "content",
+      "label" : "Content"
     },
     {
       "type": "select",

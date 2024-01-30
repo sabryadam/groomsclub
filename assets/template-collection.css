@@ -444,9 +444,9 @@ a.active-facets__button:focus {
   pointer-events: none;
 }
 
-.active-facets__button:only-child {
+/* .active-facets__button:only-child {
   display: none;
-}
+} */
 
 .active-facets__button.disabled,
 .mobile-facets__clear.disabled {

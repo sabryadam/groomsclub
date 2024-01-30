@@ -231,7 +231,7 @@
     <!-- Calendly badge widget begin -->
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
-    <script type="text/javascript">window.onload = function() { Calendly.initBadgeWidget({ url: 'https://calendly.com/groomsclub/30min', text: 'Schedule time with me', color: '#0069ff', textColor: '#ffffff', branding: true }); }</script>
+    <script type="text/javascript">window.onload = function() { Calendly.initBadgeWidget({ url: 'https://calendly.com/groomsclubappointment/30min', text: 'Schedule time with me', color: '#0069ff', textColor: '#ffffff', branding: undefined }); }</script>
     <!-- Calendly badge widget end -->
     <script>
       $(document).on("click", ".appointment-button", function(){
@@ -358,6 +358,9 @@
          window.location.href = `/products/${match}-suit`
       }
     }
+    if (window.location.href.indexOf('at-home-try-on') > -1) {
+      window.location.href = `/`
+    }
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <div class="site-global-loader hidden">
@@ -380,7 +383,11 @@ if (contactFormLP) {
 
 
 
-
+  <script>
+    $(window).on('load',function(){
+      $(`.header__menu-item-wrap`).addClass("drop-down-menu-hover");
+    })
+  </script>
   
   </body>
 

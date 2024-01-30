@@ -24,7 +24,7 @@
 }
 
 .collection-hero--with-image .collection-hero__inner {
-  margin-bottom: 3rem !important;
+  margin-bottom: 1rem !important;
 }
 
 @media screen and (min-width: 750px) {
