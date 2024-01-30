@@ -147,11 +147,13 @@
                                       {%- endif -%}
                                     </li>
                                   {%- endfor -%}
+                                  {%- if link.title contains 'How It Works' -%}
                                   <li class="xs-show">
                                     <a tabindex="0" title="{{ link.title | escape }}" href="{{ link.url}}" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">
                                       {{ link.title | escape }}
                                     </a>
                                   </li>
+                                  {%- endif -%}
                                 </ul>
                               </div>
                             </div>
