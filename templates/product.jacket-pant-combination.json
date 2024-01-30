@@ -60,7 +60,7 @@
           "type": "productaccordion",
           "settings": {
             "title": "<p>Shipping & returns<\/p>",
-            "description": "<p>Free shipping and free returns! All items that are unworn, unwashed, and have the original tags attached are eligible for a full refund up 30 days from purchase.<\/p>"
+            "description": "<p>Free shipping and free returns on order above $99. Items that are unworn, unwashed, and have the original tags attached are eligible for a full refund up 30 days from purchase.<\/p>"
           }
         },
         "share": {
