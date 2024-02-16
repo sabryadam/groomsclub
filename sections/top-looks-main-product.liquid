@@ -994,11 +994,11 @@
                                                 </div>
                                               {%- else -%}
                                                 <span class="edit-item-btn btn {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}">
-                                                  {%- if productSelectedType == 'vest' or productSelectedType == 'shoes' -%}
+                                                  {%- comment -%}{%- if productSelectedType == 'vest' or productSelectedType == 'shoes' -%}
                                                     Select Size
                                                   {%- else -%}
-                                                    Edit Item
-                                                  {%- endif -%}
+                                                  {%- endif -%}{%- endcomment -%}
+                                                  Edit Item
                                                 </span>
                                               {%- endif -%}
                                             {%- else -%}

@@ -62,6 +62,11 @@ class CollectionFiltersForm extends HTMLElement {
         this.filterData = [...this.filterData, { html, url }];
         this.renderFilters(html, event);
         this.renderProductGrid(html);
+        setTimeout(() => {
+          $(".custom-tabs-scroll").each(function (index, item) {
+            theme_custom.customTabsScroll($(item).find(".facets__list"));
+          });
+        }, 1000);
       });
   }
 

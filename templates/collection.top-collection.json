@@ -14,11 +14,13 @@
         "#CollectionProductGrid {margin-bottom: 0;}"
       ],
       "settings": {
-        "products_per_page": 51,
+        "products_per_page": 12,
         "image_ratio": "adapt",
         "show_secondary_image": false,
         "add_image_padding": false,
-        "show_vendor": false
+        "show_vendor": false,
+        "enable_filtering": true,
+        "enable_sorting": true
       }
     },
     "ca408e75-d4c9-4d34-ae28-9e8ddade37f9": {
