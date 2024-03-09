@@ -775,6 +775,14 @@ theme_custom.fitFinderClickEvent = function () {
     theme_custom.windowScrolTop();
   });
 
+  $(document).on("keyup","#weight",function(){
+    if($(this).val() < 90 && $(this).val() != ''){
+      $(`.confirm-weight-msg`).removeClass(`hide`);
+    } else {
+      $(`.confirm-weight-msg`).addClass(`hide`);
+    }
+  })
+
   // Save Fit Finder when User Logged out
   $(document).on("click", ".save-fit-finder-with-email", function (e) {
     var error_count = 0;

@@ -14025,5 +14025,18 @@ a.active-facets__button.button.button--secondary:hover{
     height: auto;
   }
 }
+.confirm-weight-msg {
+  color: #d8000c;
+  padding: 10px;
+  max-width: 100%;
+  font-size: 16px;
+  line-height: 30px;
+  margin: 0 auto;
+  width: calc(100% - 10px);
+  text-align: center;
+}
+.confirm-weight-msg.hide {
+  display: none;
+}
 /* look page filter */
 /* custom css */
