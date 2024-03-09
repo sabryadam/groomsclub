@@ -707,7 +707,8 @@ theme_custom.updateEventAPI = function (btn) {
           $('.api_error').show().html(event_date_msg);
           setTimeout(function () {
             $('.api_error').fadeOut();
-            button.removeClass("disable");
+            btn.removeClass('loading');
+            btn.find(".label").text("Update Event");
           }, 5000);
         }
       }
@@ -2856,7 +2857,13 @@ theme_custom.getEventDetails = function () {
       eventDataObj.eventType = result.data.event_type;
       eventDataObj.eventDate = result.data.event_date;
       eventDataObj.eventRole = result.data.event_role;
-      if(new Date() > new Date(eventDataObj.eventDate)){
+      var currentDate = new Date();
+      year  = currentDate.getFullYear();
+      month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+      day   = (currentDate.getDate() + 1).toString().padStart(2, "0");
+      var checkEventExpireate = year + '-' + month + '-' + day;
+      console.log(checkEventExpireate,eventDataObj.eventDate);
+      if(new Date(checkEventExpireate) >= new Date(eventDataObj.eventDate)){
         theme_custom.eventExpire = true;
         theme_custom.eventExpired(result.data);
       }

@@ -507,6 +507,12 @@
         "dots": false,
         "loop": true
       }
+    },
+    "custom_liquid_NQWykU": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<script type=\"text\/javascript\">\nvar _learnq = _learnq || [];\n  var classname = document.getElementsByClassName(\"product-form__submit button button--full-width button--primary\");\nvar addToCart = function() {\n_learnq.push(['track', 'Added to Cart', item]);\n}; for (var i = 0; i < classname.length; i++) {\nclassname[i].addEventListener('click', addToCart, false);\n}\n<\/script>"
+      }
     }
   },
   "order": [
@@ -519,6 +525,7 @@
     "1637221439d4df7908",
     "16372214599f5ccf5a",
     "16376728137efbe4bf",
-    "1637755728898af7e9"
+    "1637755728898af7e9",
+    "custom_liquid_NQWykU"
   ]
 }
