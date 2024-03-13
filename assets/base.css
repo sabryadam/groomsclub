@@ -14035,8 +14035,30 @@ a.active-facets__button.button.button--secondary:hover{
   width: calc(100% - 10px);
   text-align: center;
 }
+.cross-sell-message{
+  color: #d8000c;
+  font-size: 14px;
+  line-height: inherit;
+}
 .confirm-weight-msg.hide {
   display: none;
+}
+.jacket-pant-separate-product .product-block-wrap-suit-wrapper .product-info .product-title{
+  margin: 0;
+}
+.jacket-pant-separate-product .product-block-wrap-suit-wrapper .remove-item-btn{
+  display: none !important;
+}
+.jacket-pant-separate-product .product-block-wrap-suit-wrapper .product-info .variant-title .option-name {
+  margin-right: 5px;
+}
+.jacket-pant-separate-product .product-block-wrap-suit-wrapper .edit-item-custom-btn{
+  color: var(--color-light-blue);
+  font-size: calc(var(--font-size-body) - 2px);
+  font-weight: 600;
+  line-height: 1;
+  display: inline-block;
+  cursor: pointer;
 }
 /* look page filter */
 /* custom css */

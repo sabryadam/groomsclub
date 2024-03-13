@@ -64,43 +64,11 @@
       padding: 0 0;
     } 
   }
-  /* .product-data-card.product-data-card-wrap[data-product-type="vest"]{ */
-  .product-data-card.product-data-card-wrap[data-product-type="jacket"],
-  .product-data-card.product-data-card-wrap[data-product-type="pants"]{
-    display: none;
-  }
   .bundle-product-wrapper{
     display: flex;
     flex-direction: column;
   }
-  .bundle-product-wrapper .product-data-card-wrap[data-product-handle="light-grey-suit"]{
-    display: none;
-  }
-  .bundle-product-wrapper .product-block-wrap-suit-wrapper{
-    order: 0;
-  }
-  .bundle-product-wrapper [data-product-type="vest"]{
-    order: 1;
-  }
-  .bundle-product-wrapper [data-product-type="shoes"]{
-    order: 5;
-  }
-  .bundle-product-wrapper [data-product-type="neckties"]{
-    order: 3;
-  }
-  .bundle-product-wrapper [data-product-type="hanky"]{
-    order: 4;
-  }
-  .bundle-product-wrapper [data-product-type="shirt"]{
-    order: 2;
-  }
-
-  /* .product-data-card.product-data-card-wrap[data-product-type="vest"] .variant-title, 
-  .product-data-card.product-data-card-wrap[data-product-type="shirt"] .variant-title,
-  .product-data-card.product-data-card-wrap[data-product-type="shoes"] .variant-title {
-    display: none;
-  }
-  */
+  
   .hide-variant-value .variant-title{
     display : none
   }
@@ -196,7 +164,6 @@
   <link id="ModelViewerStyle" rel="stylesheet" href="https://cdn.shopify.com/shopifycloud/model-viewer-ui/assets/v1.0/model-viewer-ui.css" media="print" onload="this.media='all'">
   <link id="ModelViewerOverride" rel="stylesheet" href="{{ 'component-model-viewer-ui.css' | asset_url }}" media="print" onload="this.media='all'">
 {%- endif -%}
-
 <div class="page-width-big">
   <div class="page-top-headpadding-flex">
     <div class="breadcrumb">
@@ -213,7 +180,7 @@
   </div> 
 </div>
 
-<section class="page-width looks-product">
+<section class="page-width jacket-pant-separate-product">
   <div class="product grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
     <div class="grid__item product__media-wrapper">
       <!-- Original Product -->
@@ -385,11 +352,6 @@
                 {%- if settings.social_instagram_link != blank -%}
                 <li class="list-social__item">
                   <a href="{{ settings.social_instagram_link }}" class="link list-social__link" aria-describedby="a11y-external-message">
-                    {% comment %}{%- render 'icon-instagram' -%}
-                    <img src="{{ 'footer_instagram.png' | asset_url }}"
-                        loading="lazy"
-                        class="footer__footer-social-logo"
-                    >{% endcomment %}
                     <i class="fab fa-instagram"></i>
                     <span class="visually-hidden">{{ 'general.social.links.instagram' | t }}</span>
                   </a>
@@ -399,11 +361,6 @@
                 {%- if settings.social_facebook_link != blank -%}
                   <li class="list-social__item">
                     <a href="{{ settings.social_facebook_link }}" class="link list-social__link" aria-describedby="a11y-external-message">
-                      {% comment %}{%- render 'icon-facebook' -%} 
-                      <img src="{{ 'footer_facebook.png' | asset_url }}"
-                              loading="lazy"
-                              class="footer__footer-social-logo"
-                          >{% endcomment %}
                         <i class="fab fa-facebook-f"></i>
                       <span class="visually-hidden">{{ 'general.social.links.facebook' | t }}</span>
                     </a>
@@ -420,11 +377,6 @@
                 {%- if settings.social_twitter_link != blank -%}
                   <li class="list-social__item">
                     <a href="{{ settings.social_twitter_link }}" class="link list-social__link" aria-describedby="a11y-external-message">
-                      {% comment %}{%- render 'icon-twitter' -%}
-                          <img src="{{ 'footer_twitter.png' | asset_url }}"
-                              loading="lazy"
-                              class="footer__footer-social-logo"
-                          >{% endcomment %}
                           <i class="fab fa-twitter"></i>
                       <span class="visually-hidden">{{ 'general.social.links.twitter' | t }}</span>
                     </a>
@@ -457,11 +409,6 @@
                 {%- if settings.social_youtube_link != blank -%}
                   <li class="list-social__item">
                     <a href="{{ settings.social_youtube_link }}" class="link list-social__link" aria-describedby="a11y-external-message">
-                      {% comment %}{%- render 'icon-youtube' -%}
-                      <img src="{{ 'footer_youtube.png' | asset_url }}"
-                          loading="lazy"
-                          class="footer__footer-social-logo"
-                      >{% endcomment %}
                       <i class="fab fa-youtube"></i>
                       <span class="visually-hidden">{{ 'general.social.links.youtube' | t }}</span>
                     </a>
@@ -475,38 +422,8 @@
                     </a>
                   </li>
                 {%- endif -%}
-                {%- comment -%}<li class="list-social__item--placeholder">{{ 'general.footer.social_placeholder' | t }}</li>{%- endcomment -%}
               </ul>
-
-              {% comment %}<details>
-                <summary class="share-button__button button button--tertiary">
-                  {% render 'icon-share' %}
-                  Share
-                  {{ 'general.share.share' | t }}
-                </summary>
-                <div class="share-button__fallback">
-                  <div class="field">
-                    <input type="text"
-                          class="field__input"
-                          id="url"
-                          value="{{ shop.url | append: product.url }}"
-                          placeholder="{{ 'general.share.share_url' | t }}"
-                          onclick="this.select();"
-                          readonly
-                    >
-                    <label class="field__label" for="url">{{ 'general.share.share_url' | t }}</label>
-                  </div>
-                  <button class="button button--tertiary">
-                    {% render 'icon-clipboard' %}
-                    {{ 'general.share.copy_to_clipboard' | t }}
-                  </button>
-                  <span id="ShareMessage-{{ section.id }}" class="share-button__message hidden" role="status" aria-hidden="true">
-                    {{ 'general.share.success_message' | t }}
-                  </span>
-                </div>
-              </details>{% endcomment %}
             </share-button>
-            {% comment %}<script src="{{ 'share.js' | asset_url }}" defer="defer"></script>{% endcomment %}
           {%- when 'variant_picker' -%}
             {%- unless product.has_only_default_variant -%}
               {%- if block.settings.picker_type == 'button' -%}
@@ -633,474 +550,174 @@
               {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
                 <div class="product-form__buttons display-login">
-                  <div class="bundle-product-wrapper">
-                    {%- assign suitProdHandle = product.metafields.my_fields.jacket_pants_title | downcase | handleize | strip -%}
-                    {%- assign suitProdu = all_products[suitProdHandle] -%}
-                    {%- assign looksProductType =  product.type %}
-                    {%- if product.type == 'suit' or product.type == 'Suit' -%} 
-                      {%- assign looksProductType =  'looks' %}
-                    {%- endif -%}
-                    <div class="product-data-card-wrap" data-product-handle="{{ suitProdHandle }}" data-product-type="{{ looksProductType }}">
-                      <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ suitProdu.id }}">
-                      <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ suitProdu.selected_or_first_available_variant.id }}">
-                      <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ suitProdHandle}}">
-                      <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ suitProdu.selected_or_first_available_variant.id }}">
-                      <input type="hidden" name="looks-product-main-image" class="looks-product-main-image" value="{{ product.featured_image | img_url: 'master' }}">
+                  <div class="bundle-product-wrapper" style="margin: 20px auto;">
+                    <div id="suit_fit_finder" class="completefit product_fit_finder">
+                      <a href="https://www.groomsclub.com/pages/fit-finder">
+                        <div class="fit-finder-info-block">
+                          <h4>Not sure of your size? Try our fit finder</h4>
+                          <p>Answer a few simple questions to help you find the perfect fit</p>
+                        </div>
+                        <i class="fas fa-chevron-right"></i>
+                      </a>
                     </div>
-                    {% assign customLookProducts = product.metafields.custom_look %}
-                    {%- assign customLookProductsVar = false -%}
-                    {%- if customLookProducts.size > 0 -%}
-                      {%- assign customLookProductsVar = true -%}
-                    {%- endif -%}
-                    {%- if customLookProductsVar -%}
-                      {% capture productMerge %}
-                        {%- if product.metafields.custom_look.products-1 contains '?variant=' -%}
-                          {% assign vestProductHandle = product.metafields.custom_look.products-1 | split : '?variant=' | first %}
-                        {%- else -%}
-                          {% assign vestProductHandle = product.metafields.custom_look.products-1 %}
-                        {%- endif -%}
-                        {%- assign vestProductData = all_products[vestProductHandle] -%}
-
-                        {% assign productHandleArrVarHandle = product.metafields.custom_look.products-0 %}
-                        {% assign producthandleVarMeta = productHandleArrVarHandle | split : ',' %}
-                        {%- capture productDataWrap -%}
-                          <div class="suit-combo-wrapper">
-                          {%- for productItem in producthandleVarMeta -%}
-                            {%- assign productHandle = all_products[productItem] -%}
-                            {%- assign productSelectedType  = productHandle.type | downcase -%}
-                            {%- unless productHandle == blank -%}
-                              {%- if productSelectedType == "jacket" or productSelectedType == "pants"  -%}
-                                <div class="variant-title variant-info-wrap product-variant-wrap" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
-                                  <div class="option-title">
-                                    {%- if productSelectedType == 'jacket' %}
-                                      <span class="edit-size-title">Jacket Size </span>
-                                    {%- endif -%}
-                                    {%- if productSelectedType == 'pants' %}
-                                      <span class="edit-size-title">Pants Size </span>
-                                    {%- endif -%}
-                                    <div class="product-variant-value hidden">
-                                      {% for option in productHandle.options_with_values  %}
-                                        {% assign outer_forloop = forloop %}
-                                        {%- if productSelectedType == 'jacket' and forloop.first %}
-                                          <span class="option-label-wrap">Jacket - </span>
-                                        {%- endif -%}
-                                        {%- if productSelectedType == 'pants' and forloop.first %}
-                                          <span class="option-label-wrap">Pants - </span>
-                                        {%- endif -%}
-                                        
-                                        {%- unless productSelectedType == 'pants' or productSelectedType == 'jacket' %}
-                                          {%- unless forloop.last  -%}
-                                            {{ option }}
-                                          {%- endunless -%}
-                                        {%- endunless -%}
-                                        {%- assign variantOptions =  productHandle.selected_or_first_available_variant.title | split : '/' -%}
-                                        {%- for variantOptionsTitle in variantOptions -%}
-                                          {%- if outer_forloop.index == forloop.index -%}
-                                            <span class="option-name option-{{ forloop.index }}" data-option-title="{{ option.name }}">
-                                              {{- variantOptionsTitle | strip -}}
-                                            </span>
-                                            {%- if productSelectedType == 'pants' -%}
-                                              {%- if option == 'Waist' -%}W{%- endif -%}
-                                              {%- if option == 'Length' -%}H{%- endif -%}
-                                            {%- endif -%}
-                                          {%- endif -%}
-                                        {%- endfor -%}
-                                        {%- unless forloop.last -%},{%- endunless -%}
-                                      {% endfor %}
-                                    </div>
-                                  </div>
-                                  <div class="cta-button-wrap ">
-                                    <span class="edit-item-button btn select" data-button-label='select-size'> <span style="color:var(--color-gray-text);">-</span> Select Sizes</span>
-                                  </div>
-                                  <span class="error-message"></span>
-                                </div>
-                              {%- endif -%}
-                            {%- endunless -%}
-                          {%- endfor -%}
-                          <div class="variant-title variant-info-wrap product-variant-wrap vest-not-selected" data-product-handle="{{ vestProductData.handle }}" data-product-type="{{ vestProductData.type | downcase }}" style="display: none !important;">
-                            <div class="option-title">
-                              <span class="edit-size-title">Vest Size </span>
-                              <div class="product-variant-value hidden">
-                                <span class="option-label-wrap">Vest - </span>
-                                {% for option in vestProductData.options_with_values  %}
-                                  {% assign outer_forloop = forloop %}
-                                  {%- assign variantOptions =  vestProductData.selected_or_first_available_variant.title | split : '/' -%}
-                                  {%- for variantOptionsTitle in variantOptions -%}
-                                    {%- if outer_forloop.index == forloop.index -%}
-                                      <span class="option-name option-{{ forloop.index }}" data-option-title="{{ option.name }}">
-                                        {{- variantOptionsTitle | strip -}}
-                                      </span>
-                                    {%- endif -%}
-                                  {%- endfor -%}
-                                  {%- unless forloop.last -%},{%- endunless -%}
-                                {% endfor %}
-                              </div>
+                    <div id="fit_finder_data_auto" style="display: none;">
+                      <div class="ff-top-box">
+                        <h3>Your Sizes</h3>
+                        <span>Calculated based on your fit responses.</span>
+                        <a href="https://www.groomsclub.com/pages/fit-finder">Retry fit finder</a>
+                      </div>
+                      <div id="ff-data-box"></div>
+                    </div>
+                  </div>
+                  <div class="product-block-wrap-suit-wrapper product-block-item" data-product-handle="{{ product.handle }}" data-product-type="{{ product.type | downcase }}">
+                    <div class="product-image">
+                      <img srcset="{{ product.featured_media.image.src | img_url: 'medium' }} 1x, {{ product.featured_media.image.src | img_url: 'medium', scale: 2 }} 2x"
+                        src="{{ product.featured_media.image.src | img_url: image_size }}"
+                        loading="lazy"
+                        class="header__heading-logo prod-img"
+                        width="{{ product.featured_media.image.src.width }}"
+                        height="{{ product.featured_media.image.src.height }}"
+                        alt="{{ product.title }}"
+                      >
+                    </div>
+                    <div class="product-info">
+                      <h2 class="product-title h4">{{ product.title }}</h2>
+                      <div class="suit-combo-wrapper">
+                        <div class="variant-title variant-info-wrap product-variant-wrap" data-product-handle="{{ product.handle }}" data-product-type="{{ product.type | downcase }}">
+                          <div class="option-title">
+                            {%- if product.type == 'jacket' %}
+                              <span class="edit-size-title">Jacket Size </span>
+                            {%- endif -%}
+                            {%- if product.type == 'pants' %}
+                              <span class="edit-size-title">Pants Size </span>
+                            {%- endif -%}
+                            <div class="product-variant-value hidden">
+                              {% for option in product.options_with_values  %}
+                                {% assign outer_forloop = forloop %}
+                                {%- if product.type == 'jacket' and forloop.first %}
+                                  <span class="option-label-wrap">Jacket - </span>
+                                {%- endif -%}
+                                {%- if product.type == 'pants' and forloop.first %}
+                                  <span class="option-label-wrap">Pants - </span>
+                                {%- endif -%}
+                                {%- assign variantOptions =  product.selected_or_first_available_variant.title | split : '/' -%}
+                                {%- for variantOptionsTitle in variantOptions -%}
+                                  {%- if outer_forloop.index == forloop.index -%}
+                                    <span class="option-name option-{{ forloop.index }}" data-option-title="{{ option.name }}">
+                                      {{- variantOptionsTitle | strip -}}
+                                    </span>
+                                  {%- endif -%}
+                                {%- endfor -%}
+                                {%- unless forloop.last -%} / {%- endunless -%}
+                              {% endfor %}
                             </div>
-                            <div class="cta-button-wrap ">
-                              <span class="edit-item-button btn select"> <span style="color:var(--color-gray-text);">-</span> Select Sizes</span>
-                            </div>
-                            <span class="error-message"></span>
                           </div>
-                        </div>
-                        {%- endcapture -%}
-                        <div id="suit_fit_finder" class="completefit product_fit_finder" style="display: none;">
-                          <a href="https://www.groomsclub.com/pages/fit-finder">
-                            <div class="fit-finder-info-block">
-                              <h4>Not sure of your size? Try our fit finder</h4>
-                              <p>Answer a few simple questions to help you find the perfect fit</p>
-                            </div>
-                            <i class="fas fa-chevron-right"></i>
-                          </a>
-                        </div>
-                        <div id="fit_finder_data_auto" style="display: none;">
-                          <div class="ff-top-box">
-                            <h3>Your Sizes</h3>
-                            <span>Calculated based on your fit responses.</span>
-                            <a href="https://www.groomsclub.com/pages/fit-finder">Retry fit finder</a>
+                          <div class="cta-button-wrap ">
+                            <span class="edit-item-custom-btn" data-button-label='edit-size'>Edit Item</span>
                           </div>
-                          <div id="ff-data-box">
-                          </div>
+                          <span class="error-message"></span>
                         </div>
-                        <div class="product-block-wrap-suit-wrapper product-block-item">
-                          <div class="product-image">
-                            <img srcset="{{ product.featured_media.image.src | img_url: 'medium' }} 1x, {{ product.featured_media.image.src | img_url: 'medium', scale: 2 }} 2x"
-                              src="{{ product.featured_media.image.src | img_url: image_size }}"
+                      </div>
+                      <div class="product-price mobile-small">
+                        <span class="money" data-price="{{ product.price}}">
+                          {{ product.price | money }}
+                        </span>
+                      </div>
+                      <div class="cross-sell-message">
+                        Save Additional $10 on Pant by adding Jacket to your Look 
+                      </div>
+                    </div>
+                    <div class="product-price desktop-small">
+                      <span class="money" data-price="{{ product.price}}">
+                        {{ product.price | money }}
+                      </span>
+                    </div>
+                    {%- render 'edit-product-popup', productHandle : product, currentProduct: product, s_variant: product.selected_or_first_available_variant -%}
+                  </div> 
+                  {%- if product.metafields.custom.cross_sell_product_jacket_or_pant != blank -%}
+                    {% assign cross_sell_product = all_products[product.metafields.custom.cross_sell_product_jacket_or_pant] %}
+                    <div class="product-data-card product-data-card-wrap" data-product-handle="{{ cross_sell_product.handle }}" data-product-type="{{ cross_sell_product.type | downcase }}">
+                      <input type="hidden" name="cross-sell-product-id" class="cross-sell-product-id" value="{{ cross_sell_product.id }}">
+                      <input type="hidden" name="cross-sell-product-var-id" class="cross-sell-product-var-id" value="{{ cross_sell_product.selected_or_first_available_variant.id }}" data-inventory-policy="{{ cross_sell_product.selected_or_first_available_variant.inventory_policy }}">
+                      <input type="hidden" name="cross-sell-product-handle" class="cross-sell-product-handle" value="{{ cross_sell_product.handle }}">
+                      <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ cross_sell_product.selected_or_first_available_variant.id }}">
+                      <div class="product-block-wrap product-block-wrap-suit-wrapper">
+                        <div class="product-image">
+                          {%- if cross_sell_product.selected_or_first_available_variant.image != blank -%}
+                            <img srcset="{{ cross_sell_product.selected_or_first_available_variant.image.src | img_url: 'medium' }} 1x, {{ cross_sell_product.selected_or_first_available_variant.image.src | img_url: 'medium', scale: 2 }} 2x"
+                              src="{{ cross_sell_product.selected_or_first_available_variant.image.src | img_url: image_size }}"
+                              loading="lazy"
+                              class="header__heading-logo var-img"
+                              width="{{ cross_sell_product.selected_or_first_available_variant.image.src.width }}"
+                              height="{{ cross_sell_product.selected_or_first_available_variant.image.src.height }}"
+                              alt="{{ cross_sell_product.title }}"
+                            >
+                          {%- else -%}
+                            <img srcset="{{ cross_sell_product.featured_media.image.src | img_url: 'medium' }} 1x, {{ cross_sell_product.featured_media.image.src | img_url: 'medium', scale: 2 }} 2x"
+                              src="{{ cross_sell_product.featured_media.image.src | img_url: image_size }}"
                               loading="lazy"
                               class="header__heading-logo prod-img"
-                              width="{{ product.featured_media.image.src.width }}"
-                              height="{{ product.featured_media.image.src.height }}"
-                              alt="{{ product.title }}"
+                              width="{{ cross_sell_product.featured_media.image.src.width }}"
+                              height="{{ cross_sell_product.featured_media.image.src.height }}"
+                              alt="{{ cross_sell_product.title }}"
                             >
-                          </div>
-                          <div class="product-info">
-                            {%- if product.metafields.my_fields.jacket_pants_title != blank -%}
-                              <h2 class="product-title h4">{{ product.metafields.my_fields.jacket_pants_title }}</h2>
-                            {%- else -%}
-                              <h2 class="product-title h4">{{ product.title }}</h2>
-                            {%- endif -%}
-                            {{ productDataWrap }}
-                            <div class="product-price mobile-small">
-                              <span class="money" data-price="{{ product.price}}">
-                                {% if product.type == 'suit' or product.type == 'Suit' or product.type == 'looks' or product.type == 'Looks'  %}
-                                  {{ 19999 | money }}
-                                {% else %}
-                                  {{ product.price | money }}
-                                {% endif %}
-                              </span>
-                            </div>
-                          </div>
-                          <div class="product-price desktop-small">
-                            <span class="money" data-price="{{ product.price}}">
-                                {% if product.type == 'suit' or product.type == 'Suit' or product.type == 'looks' or product.type == 'Looks'  %}
-                                  {{ 19999 | money }}
-                                {% else %}
-                                  {{ product.price | money }}
-                                  {%- endif -%}
-                            </span>
-                          </div>
-                        </div> 
-                        {%- assign jacket_pant_data = product.metafields.custom_look.products-0 -%}
-                        {%- assign jacket_pant_data_arr = jacket_pant_data | split : ',' -%}
-                        <div class="product-block-wrap-suit-wrappertwo product-block-item">
-                          <div class="row">
-                            <h4>SELECT SIZES:</h4>
-                          </div>
-                        </div>
-                      {% endcapture %}
-                      {%- capture customLookProductsInfo -%}
-                        {{ productMerge }}
-                        {%- for i in (i..customLookProducts.size) -%}
-                          {%- assign customLookProd = 'products-' | append : i -%}
-                          {% assign productHandleArr = product.metafields.custom_look[customLookProd] %}
-                          {%- if productHandleArr contains '?variant=' -%}
-                            {%- assign productHandleVal = productHandleArr | split : ',' -%}
-                            {%- for producthandleitem in productHandleVal -%}
-                              {%- assign accessoriesProdHandle = producthandleitem | split: '?' | first -%}
-                              {%- assign accessoriesProdVarId = producthandleitem | split: '?' | last | remove: 'variant=' | plus: 0 -%}
-                              {%- assign productHandle = all_products[accessoriesProdHandle] -%}
-                              {% unless productHandle == blank %}
-                                <div class="product-data-card product-data-card-wrap" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
-                                  <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
-                                  <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ accessoriesProdVarId }}" data-inventory-policy="{{ productHandle.selected_or_first_available_variant.inventory_policy }}">
-                                  <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
-                                  <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ accessoriesProdVarId }}">
-                                  <div class="product-block-wrap">
-                                    <div class="product-image">
-                                      {%- assign variantAvailavle = false -%}
-                                      {%- for variantVal in productHandle.variants -%}
-                                        {%- assign varIdVal = variantVal.id -%} 
-                                        {% if varIdVal == accessoriesProdVarId  %}
-                                          {%- assign variantAvailavle = true -%}
-                                          {%- assign variantOptionsTitleValue =  variantVal.title -%}
-                                          {%- assign variantOptionsImage =  variantVal.image -%}
-                                          {%- break -%}
-                                        {%- endif -%}
-                                      {%- endfor -%}
-                                      {%- if variantOptionsImage != blank -%}
-                                        <img srcset="{{ variantOptionsImage.src | img_url: 'medium' }} 1x, {{ variantOptionsImage.src | img_url: 'medium', scale: 2 }} 2x"
-                                          src="{{ variantOptionsImage.src | img_url: image_size }}"
-                                          loading="lazy"
-                                          class="header__heading-logo var-img"
-                                          width="{{ variantOptionsImage.src.width }}"
-                                          height="{{ variantOptionsImage.src.height }}"
-                                          alt="{{ productHandle.title }}"
-                                        >
-                                      {%- else -%}
-                                        <img srcset="{{ productHandle.featured_media.image.src | img_url: 'medium' }} 1x, {{ productHandle.featured_media.image.src | img_url: 'medium', scale: 2 }} 2x"
-                                          src="{{ productHandle.featured_media.image.src | img_url: image_size }}"
-                                          loading="lazy"
-                                          class="header__heading-logo prod-img"
-                                          width="{{ productHandle.featured_media.image.src.width }}"
-                                          height="{{ productHandle.featured_media.image.src.height }}"
-                                          alt="{{ productHandle.title }}"
-                                        >
-                                      {%- endif -%}
-                                    </div>
-                                    <div class="product-info">
-                                      <h4 class="product-title">{{ productHandle.title }}</h4>
-                                      {%- assign productSelectedType  = productHandle.type | downcase -%}
-                                      <span class="variant-title hidden">
-                                        {% for option in productHandle.options_with_values  %}
-                                          {% assign outer_forloop = forloop %}
-                                          {% if variantAvailavle  %}
-                                            {%- assign variantOptions =  variantOptionsTitleValue | split: ' / ' -%}
-                                          {% else %}
-                                            {%- assign variantOptions =  productHandle.selected_or_first_available_variant.title | split : ' / ' -%}
-                                          {% endif %}
-                                          {%- for variantOptionsTitle in variantOptions -%}
-                                            {%- if outer_forloop.index == forloop.index -%}
-                                              <span class="option-name option-{{ forloop.index }}" data-option-title="{{ option.name }}">
-                                                {{- variantOptionsTitle | strip -}}
-                                              </span>
-                                            {%- endif -%}
-                                          {%- endfor -%}
-                                          {%- unless forloop.last -%},{%- endunless -%}
-                                        {% endfor %}
-                                      </span>
-                                      <div class="cta-button-wrap product-variant-wrap">
-                                        {% if productHandle.variants.size > 1 %}
-                                          <span class="add-optional-item-button btn">
-                                            Add this to my Look
-                                          </span>
-                                          <div class="remove-optional-item-wrapper hidden">
-                                            <span class="edit-item-btn btn {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}">
-                                              Edit Item
-                                            </span>
-                                            <span class="remove-optional-item-button btn">Remove</span>
-                                          </div>
-                                        {%- endif -%}
-                                      </div>
-                                      <div class="product-price mobile-small">
-                                        <span class="money" data-price="{{ productHandle.selected_or_first_available_variant.price}}">
-                                          {{ productHandle.selected_or_first_available_variant.price | money }}
-                                        </span>
-                                      </div>    
-                                      {%- comment -%}<span class="error-message"></span>{%- endcomment -%}    
-                                    </div>
-                                    <div class="product-price desktop-small">
-                                      <span class="money" data-price="{{ productHandle.selected_or_first_available_variant.price}}">
-                                        {{ productHandle.selected_or_first_available_variant.price | money }}
-                                      </span>
-                                    </div>
-                                  </div>
-                                  {%- render 'edit-product-popup', productHandle : productHandle, currentProduct: productHandle, s_variant: productHandle.selected_or_first_available_variant -%}
-                                </div>
-                              {%- endunless -%}
-                            {%- endfor -%}
-                          {%- else -%}
-                            {%- unless customLookProd == 'products-1' or customLookProd == 'products-2' -%}
-                              {% assign producthandle = productHandleArr | split : ',' %}
-                              {%- for producthandleData in producthandle -%}
-                                {% assign productData = producthandleData | split: '_' | last %}
-                                {%- assign productHandle = all_products[productData] -%}
-                                {%- unless productHandle == blank -%}
-                                  {%- assign productHandleType = productHandle.type | downcase -%}
-                                  <div class="product-data-card product-data-card-wrap {% unless productHandleType == 'vest' %}product-block-item{% endunless %}" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
-                                    <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
-                                    <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ productHandle.selected_or_first_available_variant.id }}" data-inventory-policy="{{ productHandle.selected_or_first_available_variant.inventory_policy }}">
-                                    <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
-                                    <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ productHandle.selected_or_first_available_variant.id }}">
-                                    <div class="product-block-wrap">
-                                      <div class="product-image">
-                                        {%- if productHandle.selected_or_first_available_variant.image != blank -%}
-                                          <img srcset="{{ productHandle.selected_or_first_available_variant.image.src | img_url: 'medium' }} 1x, {{ productHandle.selected_or_first_available_variant.image.src | img_url: 'medium', scale: 2 }} 2x"
-                                            src="{{ productHandle.selected_or_first_available_variant.image.src | img_url: image_size }}"
-                                            loading="lazy"
-                                            class="header__heading-logo var-img"
-                                            width="{{ productHandle.selected_or_first_available_variant.image.src.width }}"
-                                            height="{{ productHandle.selected_or_first_available_variant.image.src.height }}"
-                                            alt="{{ productHandle.title }}"
-                                          >
-                                        {%- else -%}
-                                          <img srcset="{{ productHandle.featured_media.image.src | img_url: 'medium' }} 1x, {{ productHandle.featured_media.image.src | img_url: 'medium', scale: 2 }} 2x"
-                                            src="{{ productHandle.featured_media.image.src | img_url: image_size }}"
-                                            loading="lazy"
-                                            class="header__heading-logo prod-img"
-                                            width="{{ productHandle.featured_media.image.src.width }}"
-                                            height="{{ productHandle.featured_media.image.src.height }}"
-                                            alt="{{ productHandle.title }}"
-                                          >
-                                        {%- endif -%}
-                                      </div>
-                                      <div class="product-info">
-                                        <h4 class="product-title">{{ productHandle.title }}</h4>
-                                        {%- assign productSelectedType  = productHandle.type | downcase -%}
-                                        <span class="variant-title hidden">
-                                          {% for option in productHandle.options_with_values  %}
-                                            {% assign outer_forloop = forloop %}
-                                              {%- if productSelectedType == 'pants' and  forloop.first %}
-                                                Pants&nbsp;
-                                              {%- endif -%}
-                                              {%- if productSelectedType == 'jacket' and  forloop.first %}
-                                                Jacket&nbsp;
-                                              {%- endif -%}
-                                            
-                                              {%- unless productSelectedType == 'pants' or productSelectedType == 'jacket' or productSelectedType == 'vest' %}
-                                                {%- unless forloop.last  -%}
-                                                  {{ option }}
-                                                {%- endunless -%}
-                                              {%- endunless -%}
-                                              {%- assign variantOptions =  productHandle.selected_or_first_available_variant.title | split : '/' -%}
-                                              {%- for variantOptionsTitle in variantOptions -%}
-                                                {%- if outer_forloop.index == forloop.index -%}
-                                                  <span class="option-name option-{{ forloop.index }}" data-option-title="{{ option.name }}">
-                                                    {{- variantOptionsTitle | strip -}}
-                                                  </span>
-                                                  {%- if productSelectedType == 'pants' -%}
-                                                    {%- if option == 'Waist' -%}W{%- endif -%}
-                                                    {%- if option == 'Length' -%}H{%- endif -%}
-                                                  {%- endif -%}
-                                                {%- endif -%}
-                                              {%- endfor -%}
-                                            {%- unless forloop.last -%}{%- endunless -%}
-                                          {% endfor %}
-                                        </span>
-                                        <div class="cta-button-wrap" style="margin-top: 10px;">
-                                          {% if productHandle.variants.size > 1 %}
-                                            {% if template contains 'jacket-pant-combination' %}
-                                              {%- if productSelectedType == 'vest' -%}
-                                                <span class="add-optional-item-button btn">
-                                                  Add this to my Look
-                                                </span>
-                                                <div class="remove-optional-item-wrapper hidden">
-                                                  <span class="edit-item-btn btn">
-                                                    Edit Item
-                                                  </span>
-                                                  <span class="remove-optional-item-button btn">Remove</span>
-                                                </div>
-                                              {%- else -%}
-                                                <span class="edit-item-btn btn {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}">
-                                                  {%- comment -%}{%- if productSelectedType == 'vest' or productSelectedType == 'shoes' -%}
-                                                    Select Size
-                                                  {%- else -%}
-                                                  {%- endif -%}{%- endcomment -%}
-                                                  Edit Item
-                                                </span>
-                                              {%- endif -%}
-                                            {%- else -%}
-                                              <span class="edit-item-btn btn {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}">
-                                                {%- if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' -%}
-                                                  Select Size
-                                                {%- else -%}
-                                                  Edit Item
-                                                {%- endif -%}
-                                              </span>
-                                            {%- endif -%}
-                                          {%- endif -%}
-                                          {%- unless productSelectedType == 'vest' -%}
-                                            <span class="remove-item-btn btn">Remove</span>
-                                          {%- endunless -%}
-                                        </div>
-                                        <div class="product-price mobile-small">
-                                          <span class="money" data-price="{{ productHandle.selected_or_first_available_variant.price }}">
-                                            {{ productHandle.selected_or_first_available_variant.price | money }}
-                                          </span>
-                                        </div> 
-                                        <span class="error-message"></span>     
-                                      </div>
-                                      <div class="product-price desktop-small">
-                                        <span class="money" data-price="{{ productHandle.selected_or_first_available_variant.price }}">
-                                          {{ productHandle.selected_or_first_available_variant.price | money }}
-                                        </span>
-                                      </div>
-                                    </div>
-                                    {%- render 'edit-product-popup', productHandle : productHandle, currentProduct: productHandle, s_variant: productHandle.selected_or_first_available_variant -%}
-                                  </div>
-                                {%- endunless -%}
-                              {%- endfor -%}
-                            {%- endunless -%}
                           {%- endif -%}
-                        {%- endfor -%}
-                      {%- endcapture -%}
-                    {%- endif -%}
-                    {{ customLookProductsInfo }}
-                  </div>
-                    {%- if customLookProductsVar -%}
-                      <div class = "customize-button-customize-look desktop">
-                        <span class="custom-look-new-url button button--secondary" style="line-height: inherit;">Customize This Look</span>
-                      </div>
-                    {%- endif -%}
-                    <input type="hidden" name="sizing-and-fit-wrapper" class="sizing-and-fit-wrapper" data-product-type="{{ productType }}">
-<!--                     <div class="sizing-and-fit-wrapper" data-product-type="{{ productType }}">
-                      <div class="filed-wrapper empty-fit-fider-wrapper hidden">
-                        <p class="field__label title" style="text-align: center;font-size: 16px;margin: 0;">Please use the Fit Finder below for sizing to Continue</p>
-                      </div>
-                    </div>
-                    <div class = "customize-button-fit-your-find">
-                      <span class="button button--secondary top-look-fit-finder" data-product-url="{{ product.url }}">
-                        <span class="icon">{%- render 'icon-size-chart' -%}</span>
-                        <span class="button-title">Find Your Fit</span>
-                      </span>
-                    </div> -->
-                    <div class="favorite-event-cart-wrapper">
-                      {%- if customer -%}
-                        <div class="wishlist-icon-wrap">
-                          <a href="javascript:void(0)" class="link link-with-svg event-text favorite-event-button">
-                            <i class="far fa-heart"></i>
-                            Favorite
-                          </a>
                         </div>
-                        <div class="add-to-event">
-                          <a href="javascript:void(0)" class="link link-with-svg event-text add-event-look">
-                            <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 19 18" style="enable-background:new 0 0 19 18;" xml:space="preserve"><style type="text/css">.plus-icon{fill:#1075BC;}</style><g><g><path class="plus-icon" d="M9.6,1.5c4.1,0,7.5,3.3,7.5,7.5s-3.4,7.5-7.5,7.5S2.1,13.1,2.1,9S5.5,1.5,9.6,1.5 M9.6,0c-5,0-9,4-9,9    s4,9,9,9s9-4,9-9S14.6,0,9.6,0L9.6,0z"/></g><g><rect x="8.6" y="5" class="plus-icon" width="2" height="8.1"/><rect x="8.6" y="5" transform="matrix(6.123234e-17 -1 1 6.123234e-17 0.6405 18.6186)" class="plus-icon" width="2" height="8.1"/></g></g></svg>
-                            Add to Event
-                          </a>
+                        <div class="product-info">
+                          <h4 class="product-title">{{ cross_sell_product.title }}</h4>
+                          {%- assign productSelectedType  = cross_sell_product.type | downcase -%}
+                          <div class="variant-title hidden">
+                            {%- assign variantOptions =  cross_sell_product.selected_or_first_available_variant.title | split : '/' -%}
+                            {%- for variantOptionsTitle in variantOptions -%}
+                              <span class="option-name option-{{ forloop.index }}">
+                                {{- variantOptionsTitle | strip -}}
+                              </span>
+                              {% unless forloop.last == true %}<span style="margin-right: 10px;"> / </span>{%- endunless -%}
+                            {%- endfor -%}
+                          </div>
+                          <div class="cta-button-wrap">
+                            {% if cross_sell_product.variants.size > 1 %}
+                              <span class="add-optional-item-button btn">
+                                Add this to my Look
+                              </span>
+                              <div class="remove-optional-item-wrapper hidden">
+                                <span class="edit-item-btn btn">
+                                  Edit Item
+                                </span>
+                                <span class="remove-optional-item-button btn">Remove</span>
+                              </div>
+                            {%- endif -%}
+                            <span class="remove-item-btn btn">Remove</span>
+                          </div>
+                          <div class="cross-sell-message">
+                            Complete your suit by adding {{ cross_sell_product.type }} to your look.
+                          </div>
+                          <div class="product-price mobile-small">
+                            <span class="money" data-price="{{ cross_sell_product.selected_or_first_available_variant.price }}">
+                              {{ cross_sell_product.selected_or_first_available_variant.price | money }}
+                            </span>
+                          </div> 
+                          <span class="error-message"></span>
                         </div>
-                      {%- else -%} 
-                        <div class="wishlist-icon-wrap">
-                          <span data-href="{{ routes.account_login_url }}" class="link link-with-svg event-text {% unless customer %}event-or-fav-when-user-has-not-logged{% endunless %}">
-                            <i class="far fa-heart"></i>
-                            Favorite
+                        <div class="product-price desktop-small">
+                          <span class="money" data-price="{{ cross_sell_product.selected_or_first_available_variant.price }}">
+                            {{ cross_sell_product.selected_or_first_available_variant.price | money }}
                           </span>
                         </div>
-                        <div class="add-to-event">
-                          <span data-href="{{ routes.account_login_url }}" class="link link-with-svg event-text {% unless customer %}event-or-fav-when-user-has-not-logged{% endunless %}">
-                            <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 19 18" style="enable-background:new 0 0 19 18;" xml:space="preserve"><style type="text/css">.plus-icon{fill:#1075BC;}</style><g><g><path class="plus-icon" d="M9.6,1.5c4.1,0,7.5,3.3,7.5,7.5s-3.4,7.5-7.5,7.5S2.1,13.1,2.1,9S5.5,1.5,9.6,1.5 M9.6,0c-5,0-9,4-9,9    s4,9,9,9s9-4,9-9S14.6,0,9.6,0L9.6,0z"/></g><g><rect x="8.6" y="5" class="plus-icon" width="2" height="8.1"/><rect x="8.6" y="5" transform="matrix(6.123234e-17 -1 1 6.123234e-17 0.6405 18.6186)" class="plus-icon" width="2" height="8.1"/></g></g></svg>
-                            Add to Event
-                          </span>
-                        </div>
-                      {%- endif -%}
-                      <button type="button"  name="add" class="product-form__submit button button--full-width button--primary custom-top-look-disable {% if product.metafields.custom.product_page_upsell != blank %}up-sell-popup{% endif %}">
-                        <span class="btn-title" data-text="Adding...">{{ 'products.product.add_to_cart' | t }}</span>
-                        <i class="fas fa-shopping-cart"></i>
-                      </button>
-                      <!-- <button type="submit" name="add" class="button button--full-width button--primary add_suite_btn">
-                        <span class="btn-title" data-text="Adding...">{{ 'products.product.add_to_cart' | t }}</span>
-                        <i class="fas fa-shopping-cart"></i>
-                      </button> -->
-                      {%- if block.settings.show_dynamic_checkout -%}
-                        {{ form | payment_button }}
-                      {%- endif -%}
-                      <div class = "customize-button-customize-look mobile">
-                        <span class="custom-look-new-url button button--secondary" style="line-height: inherit;height: auto">Customize This Look</span>
-                        <!--<a href="/pages/customize-your-look" class="button button--secondary btn-small">Customize This Look</a> -->
                       </div>
+                      {%- render 'edit-product-popup', productHandle : cross_sell_product, currentProduct: cross_sell_product, s_variant: cross_sell_product.selected_or_first_available_variant -%}
                     </div>
+                  {%- endif -%}
+                  <button type="button"  name="add" class="product-form___submit button button--full-width button--primary ">
+                    <span class="btn-title" data-text="Adding...">{{ 'products.product.add_to_cart' | t }}</span>
+                    <i class="fas fa-shopping-cart"></i>
+                  </button>
+                  {%- if block.settings.show_dynamic_checkout -%}
+                    {{ form | payment_button }}
+                  {%- endif -%}
                 </div>
               {%- endform -%}
             </product-form>
-            <!-- Look added into event popup -->
-            {% render 'look-added-into-event-popup' %}
 
             {{ 'component-pickup-availability.css' | asset_url | stylesheet_tag }}
 
