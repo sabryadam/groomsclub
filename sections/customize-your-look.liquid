@@ -612,7 +612,7 @@
         <button class="download-img-btn customiser-download-img-btn hidden">
           {% render 'image-download-icon' %}
         </button>
-        <div class="custom-look-image image-zoom">
+        <div class="custom-look-image">
           {%- if variant.metafields.my_fields.color_image_one != blank -%}
             <link rel="preload" as="image" href="{{ section.settings.shirt_image | img_url : '1400x'}}">
             <link rel="preload" as="image" href="{{ section.settings.jacket_image | img_url : '1400x'}}">

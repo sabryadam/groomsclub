@@ -14039,4 +14039,11 @@ a.active-facets__button.button.button--secondary:hover{
   display: none;
 }
 /* look page filter */
-/* custom css */
+.event-look-inner-wrapper .slick-list{
+  padding-right: 15%;
+}
+button.btn-wrap.button--secondary.event-update-button {
+    background: #1075bc;
+    color: #fff;
+}
+/* custom css */  
