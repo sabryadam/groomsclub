@@ -634,6 +634,28 @@
         "color_scheme": "background-1",
         "full_width": true
       }
+    },
+    "17103616899c584e1f": {
+      "type": "apps",
+      "blocks": {
+        "google_reviews_carousel_widget_block_rHifxr": {
+          "type": "shopify:\/\/apps\/google-reviews\/blocks\/carousel-widget-block\/8b378e9e-c56d-47ce-a754-feca5e0caf59",
+          "settings": {
+            "themeId": "light",
+            "autoscroll": true,
+            "showRating": true,
+            "showReviewPhotos": true,
+            "writeReview": true,
+            "fixedReviewsHeight": false
+          }
+        }
+      },
+      "block_order": [
+        "google_reviews_carousel_widget_block_rHifxr"
+      ],
+      "settings": {
+        "include_margins": false
+      }
     }
   },
   "order": [
@@ -650,6 +672,7 @@
     "1632393953de63a932",
     "166299585038981241",
     "2090a493-beeb-4e64-a485-04649519dbb1",
-    "857fb284-a07b-4759-a52a-14ddef8e3780"
+    "857fb284-a07b-4759-a52a-14ddef8e3780",
+    "17103616899c584e1f"
   ]
 }
