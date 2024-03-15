@@ -672,7 +672,7 @@
                               <span class="option-name option-{{ forloop.index }}">
                                 {{- variantOptionsTitle | strip -}}
                               </span>
-                              {% unless forloop.last == true %}<span style="margin-right: 10px;"> / </span>{%- endunless -%}
+                              {% unless forloop.last == true %}<span style="margin-right: 5px;"> / </span>{%- endunless -%}
                             {%- endfor -%}
                           </div>
                           <div class="cta-button-wrap">
@@ -708,7 +708,7 @@
                       {%- render 'edit-product-popup', productHandle : cross_sell_product, currentProduct: cross_sell_product, s_variant: cross_sell_product.selected_or_first_available_variant -%}
                     </div>
                   {%- endif -%}
-                  <button type="button"  name="add" class="product-form___submit button button--full-width button--primary ">
+                  <button type="button"  name="add" class="add-tocart-btn button button--full-width button--primary ">
                     <span class="btn-title" data-text="Adding...">{{ 'products.product.add_to_cart' | t }}</span>
                     <i class="fas fa-shopping-cart"></i>
                   </button>

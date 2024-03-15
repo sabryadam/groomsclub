@@ -542,7 +542,7 @@ theme_custom.fitFinderClickEvent = function () {
       } else if ((userNewHeight >= 1.0 && userNewHeight <= 5.09) && (userWeight >= 161 && userWeight <= 180)) {
         theme_custom.jacketSizefunction("38:S", "38S", "32x30", fitFinder);
       } else if ((userNewHeight >= 1.0 && userNewHeight <= 5.09) && (userWeight >= 181 && userWeight <= 195)) {
-        theme_custom.jacketSizefunction("40:S", "40S", "34x32", fitFinder);
+        theme_custom.jacketSizefunction("40:S", "40S", "34x30", fitFinder);
       } else if ((userNewHeight >= 1.0 && userNewHeight <= 5.09) && (userWeight >= 196 && userWeight <= 210)) {
         theme_custom.jacketSizefunction("42:S", "42S", "36x30", fitFinder);
       } else if ((userNewHeight >= 1.0 && userNewHeight <= 5.09) && (userWeight >= 211 && userWeight <= 225)) {
@@ -572,15 +572,15 @@ theme_custom.fitFinderClickEvent = function () {
       } else if ((userNewHeight >= 5.09 && userNewHeight <= 6.01) && (userWeight >= 251 && userWeight <= 260)) {
         theme_custom.jacketSizefunction("50:R", "50R", "44x32", fitFinder);
       } else if ((userNewHeight >= 1.0 && userNewHeight <= 6.01) && (userWeight >= 261 && userWeight <= 270)) {
-        theme_custom.jacketSizefunction("52:R", "52R", "46x32", fitFinder);
+        theme_custom.jacketSizefunction("52:R", "52R", "44x32", fitFinder);
       } else if ((userNewHeight >= 1.0 && userNewHeight <= 6.01) && (userWeight >= 271 && userWeight <= 280)) {
-        theme_custom.jacketSizefunction("54:R", "54R", "48x32", fitFinder);
+        theme_custom.jacketSizefunction("54:R", "54R", "46x32", fitFinder);
       } else if ((userNewHeight >= 1.0 && userNewHeight <= 6.01) && (userWeight >= 281 && userWeight <= 290)) {
-        theme_custom.jacketSizefunction("56:R", "56R", "50x32", fitFinder);
+        theme_custom.jacketSizefunction("56:R", "56R", "48x32", fitFinder);
       } else if ((userNewHeight >= 1.0 && userNewHeight <= 6.01) && (userWeight >= 291 && userWeight <= 300)) {
-        theme_custom.jacketSizefunction("58:R", "58R", "52x32", fitFinder);
+        theme_custom.jacketSizefunction("58:R", "58R", "50x32", fitFinder);
       } else if ((userNewHeight >= 1.0 && userNewHeight <= 6.01) && (userWeight >= 301 && userWeight <= 999)) {
-        theme_custom.jacketSizefunction("60:R", "60R", "54x32", fitFinder);
+        theme_custom.jacketSizefunction("60:R", "60R", "52x32", fitFinder);
       } else if ((userNewHeight >= 6.02 && userNewHeight <= 9.0) && (userWeight >= 165 && userWeight <= 185)) {
         theme_custom.jacketSizefunction("38:L", "38L", "32x34", fitFinder);
       } else if ((userNewHeight >= 6.02 && userNewHeight <= 9.0) && (userWeight >= 186 && userWeight <= 199)) {
@@ -596,15 +596,15 @@ theme_custom.fitFinderClickEvent = function () {
       } else if ((userNewHeight >= 6.02 && userNewHeight <= 9.0) && (userWeight >= 251 && userWeight <= 260)) {
         theme_custom.jacketSizefunction("50:L", "50L", "44x34", fitFinder);
       } else if ((userNewHeight >= 6.02 && userNewHeight <= 9.0) && (userWeight >= 261 && userWeight <= 270)) {
-        theme_custom.jacketSizefunction("52:L", "52L", "46x34", fitFinder);
+        theme_custom.jacketSizefunction("52:L", "52L", "44x34", fitFinder);
       } else if ((userNewHeight >= 6.02 && userNewHeight <= 9.0) && (userWeight >= 271 && userWeight <= 280)) {
-        theme_custom.jacketSizefunction("54:L", "54L", "48x34", fitFinder);
+        theme_custom.jacketSizefunction("54:L", "54L", "46x34", fitFinder);
       } else if ((userNewHeight >= 6.02 && userNewHeight <= 9.0) && (userWeight >= 281 && userWeight <= 290)) {
-        theme_custom.jacketSizefunction("56:L", "56L", "50x34", fitFinder);
+        theme_custom.jacketSizefunction("56:L", "56L", "48x34", fitFinder);
       } else if ((userNewHeight >= 6.02 && userNewHeight <= 9.0) && (userWeight >= 291 && userWeight <= 300)) {
-        theme_custom.jacketSizefunction("58:L", "58L", "52x34", fitFinder);
+        theme_custom.jacketSizefunction("58:L", "58L", "50x34", fitFinder);
       } else if ((userNewHeight >= 6.02 && userNewHeight <= 9.0) && (userWeight >= 301 && userWeight <= 999)) {
-        theme_custom.jacketSizefunction("60:L", "60L", "54x34", fitFinder);
+        theme_custom.jacketSizefunction("60:L", "60L", "52x34", fitFinder);
       } else {
         theme_custom.jacketSizefunction("0:0", "0", fitFinder);
       }
