@@ -14068,4 +14068,30 @@ button.btn-wrap.button--secondary.event-update-button {
     background: #1075bc;
     color: #fff;
 }
+.jacket-pant-saparate-wrapper .product-block-wrap{
+  display: flex;
+  align-items: center;
+}
+.jacket-pant-saparate-wrapper .product-block-wrap .product-image{
+  width: 150px;
+  line-height: 0;
+  padding-right: 10px;
+}
+.jacket-pant-saparate-wrapper .product-block-wrap .product-info{
+  width: calc(100% - 150px);
+  padding-left: 10px;
+}
+.product-suit-wrapper.show .remove-optional-item-wrapper{
+  display: flex;
+}
+.product-suit-wrapper.show .remove-optional-item-button{
+  margin-left: 5px;
+}
+.product-suit-wrapper.show .button{
+  height: auto;
+  padding: 5px;
+}
+.product-suit-wrapper.show .title{
+  display: none;
+}
 /* custom css */

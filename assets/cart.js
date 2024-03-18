@@ -140,9 +140,18 @@ customElements.define('cart-items', CartItems);
 
 // Add to cart AJAX API
 theme_custom.addToCart = function(variantId,qty){
+  var properties = {}
+  if(theme_custom.saparate_product == true){
+    var properties = {
+      "saparate-product": "saparate-product"
+    }
+  } else {
+    properties = {}
+  }
   var items = {
-    "quantity" : qty,
-    "id" : variantId
+    "quantity" : "1",
+    "id" : variantId,
+    "properties" : properties
   }
   $.ajax({
     type: 'POST',
@@ -224,6 +233,7 @@ $(document).on("click", ".remove-upsell-item", function(){
 // edit-item-title
 $(document).on("click", ".edit-item-title", function(){
   var target = $(this).closest(".cart-item").find(".edit-item-popup");
+  theme_custom.saparate_product = true;
   $.fancybox.open(target);
 });
 
