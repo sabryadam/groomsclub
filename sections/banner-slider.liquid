@@ -30,7 +30,7 @@
                                 {% elsif block.settings.video_mp4_link != blank %}
                                     <div class="item slide-videexternal_videoo1 mp4" id="slide-{{ block.id }}">
                                         <div class="fluid-width-video-wrapper">
-                                            <video class="video lazyvideo" width="100%" poster="{{ block.settings.overlay_image | img_url:'1920x' }}" style="max-height:{{block.settings.video_mp4_height}}px" muted playsinline preload="auto" autoplay loop>
+                                            <video class="video lazyvideo" width="100%" style="max-height:{{block.settings.video_mp4_height}}px" muted playsinline preload="auto" autoplay loop>
                                                 <source type="video/mp4" src="{{ block.settings.video_mp4_link }}">
                                             </video>
                                         </div>
