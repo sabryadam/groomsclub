@@ -14049,7 +14049,7 @@ button.btn-wrap.button--secondary.event-update-button {
 .wedding-gallery .multicolumn-list__item.hidden {
   display: none;
 }
-#load-more-btn {
+.template-page-static-customer-photos #load-more-btn {
   margin-top: 10px;
   padding: 8px 16px;
   cursor: pointer;
@@ -14057,5 +14057,15 @@ button.btn-wrap.button--secondary.event-update-button {
   max-width: 200px;  
   display: block;
   margin-bottom: 50px;
+}
+.wedding-gallery .multicolumn-list__item .image-wrap{
+  display: block;
+  height: 300px;
+}
+.wedding-gallery .multicolumn-list__item .image-wrap img{
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  object-fit: cover;
 }
 /* custom css */  

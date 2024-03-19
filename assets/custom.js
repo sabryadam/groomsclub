@@ -2007,7 +2007,7 @@ document.addEventListener("DOMContentLoaded", function() {
 $('.wedding-gallery .multicolumn-list__item:lt(12)').removeClass('hidden');
 
 // Handle click event for the load more button
-$(document).on("click",'#load-more-btn',function() {
+$(document).on("click",'#load-more-btn',function() { 
   // Find the next set of hidden blocks
   var hiddenBlocks = $('.multicolumn-list__item.hidden:lt(12)');
   

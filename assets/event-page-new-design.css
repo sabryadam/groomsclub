@@ -367,7 +367,7 @@
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
-  height: 50vh;
+  height: auto;
 }
 .modal-wrapper[data-target="add-guest-popup"] .modal-wrapper-inner-wrapper,
 .modal-wrapper[data-target="update-guest-popup"] .modal-wrapper-inner-wrapper,
@@ -530,7 +530,15 @@
 .event-page-new-design-wrapper .page-width-inner-wrapper .look-card-block .look-title-and-price .look-title{
   color: #000;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  min-height: 55px;
+  display: flex;
+  align-items: center;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .look-card-block .look-title-and-price .look-price-wrap{
   font-size: 14px;
@@ -578,7 +586,7 @@
 .event-page-new-design-wrapper .page-width-inner-wrapper  .look-card-block img.look-img  {
   min-height: 450px;
   height: 450px;  
-  object-fit: contain;
+  object-fit: inherit;
 }
 @media(max-width : 767px){
    .event-page-new-design-wrapper .page-width-inner-wrapper  .look-card-block img.look-img  {
