@@ -177,6 +177,7 @@ $(document).on('click', '.updates-button button', function(){
   var parent = $(this).closest(".edit-item-popup"),
       variantId = $(this).closest('.edit-item-popup').data("line-item-id");
       targetProduct = $(this).closest(".edit-item-popup").attr("data-product-handle");
+      button = $(this)
   
   theme_custom.qty = parseInt($(`.cart-item[line-item-product-handle='${targetProduct}']`).find(".quantity__input").val());
   
@@ -201,10 +202,11 @@ $(document).on('click', '.updates-button button', function(){
   if($.inArray(variantTitle,productVariantTitle) == -1){
     $(this).find(".loading-overlay").addClass("hidden");
     $(this).closest(".edit-item-popup").find(".error-message").text(theme_custom.productNotFoundError).show();
-    setTimeout(() => {
-      $(".error-message").text('').hide();
-      $(".fancybox-button").click();
-    }, 3000);
+    // setTimeout(() => {
+    //   $(".error-message").text('').hide();
+    //   $(".fancybox-button").click();
+    // }, 3000);
+    button.addClass("disabled")
   } else {
     jQuery.ajax({
       type: 'POST',
@@ -232,8 +234,23 @@ $(document).on("click", ".remove-upsell-item", function(){
 
 // edit-item-title
 $(document).on("click", ".edit-item-title", function(){
+  theme_custom.saparate_product = false;
   var target = $(this).closest(".cart-item").find(".edit-item-popup");
-  theme_custom.saparate_product = true;
+  if($(this).closest(".cart-item").hasClass(`saparate-product`)){
+    theme_custom.saparate_product = true;
+  }
+  if($(this).closest(`.cart-item`).find(`.option-wrap [data-option-index="1"]`).length > 0){
+    var optionFirstValue = parseInt($(this).closest(`.cart-item`).find(`.option-wrap [data-option-index="1"]`).text())
+    $(this).closest(`.cart-item`).find(`.edit-item-popup [data-option-index="0"]`).find(`label[data-option-value="${optionFirstValue}"]`).click()
+  }
+  if($(this).closest(`.cart-item`).find(`.option-wrap [data-option-index="2"]`).length > 0){
+    var optionFirstValue = parseInt($(this).closest(`.cart-item`).find(`.option-wrap [data-option-index="2"]`).text())
+    $(this).closest(`.cart-item`).find(`.edit-item-popup [data-option-index="1"]`).find(`label[data-option-value="${optionFirstValue}"]`).click()
+  }
+  if($(this).closest(`.cart-item`).find(`.option-wrap [data-option-index="3"]`).length > 0){
+    var optionFirstValue = parseInt($(this).closest(`.cart-item`).find(`.option-wrap [data-option-index="3"]`).text())
+    $(this).closest(`.cart-item`).find(`.edit-item-popup [data-option-index="2"]`).find(`label[data-option-value="${optionFirstValue}"]`).click()
+  }
   $.fancybox.open(target);
 });
 
