@@ -14094,4 +14094,7 @@ button.btn-wrap.button--secondary.event-update-button {
 .product-suit-wrapper.show .title{
   display: none;
 }
+.template-cart .edit-item-popup .title{
+  display: none !important;
+}
 /* custom css */

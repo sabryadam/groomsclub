@@ -130,7 +130,6 @@
                             {%- endif -%}
                           {%- endif -%}
                         {%- endfor -%}
-
                         <!-- vest data -->
                         {%- assign vestItemData = '' -%}
                         {%- for vestItem in cart.items -%}
@@ -201,10 +200,13 @@
                               {%- endif -%}{%- endcomment -%}
                               </div>
                             {%- endif -%}
-                            {%- if lineItemType == 'jacket' %}
-                              {{ vestOption }}
-                              {{ pantOption }}
-                            {%- endif -%}
+                            {%- if saparate_product -%}
+                            {% else %}
+                              {%- if lineItemType == 'jacket' %}
+                                {{ vestOption }}
+                                {{ pantOption }}
+                              {%- endif -%}
+                            {% endif %}
                             {%- for property in item.properties -%}
                               {%- assign property_first_char = property.first | slice: 0 -%}
                               {%- if property.last != blank and property_first_char != '_' -%}
