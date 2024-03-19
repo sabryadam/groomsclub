@@ -2001,3 +2001,20 @@ document.addEventListener("DOMContentLoaded", function() {
   $(`.image-with-text`).find(`.section-loader`).hide();
   $(`.image-with-text`).find(`.page-width-big`).show();
 });
+
+$(document).on("click", ".edit-item-custom-btn", function(){
+  var target = $(this).closest(".product-block-wrap-suit-wrapper").find(".edit-item-popup");
+  var option1 = $(this).closest(".product-block-wrap-suit-wrapper").find(".option-1").text().toLocaleLowerCase(),
+      option2 = $(this).closest(".product-block-wrap-suit-wrapper").find(".option-2").text().toLocaleLowerCase(),
+      option3 = $(this).closest(".product-block-wrap-suit-wrapper").find(".option-3").text().toLocaleLowerCase();
+  if(option1 != '' ){
+    target.find(`[data-option-index="0"]`).find(`[type="radio"][data-value="${option1}"]`).prop("checked", true);
+  }
+  if(option2 != '' ){
+    target.find(`[data-option-index="1"]`).find(`[type="radio"][data-value="${option2}"]`).prop("checked", true);
+  }
+  if(option3 != '' ){
+    target.find(`[data-option-index="2"]`).find(`[type="radio"][data-value="${option3}"]`).prop("checked", true);
+  }
+  $.fancybox.open(target);
+});
