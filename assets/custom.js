@@ -2018,3 +2018,20 @@ $(document).on("click", ".edit-item-custom-btn", function(){
   }
   $.fancybox.open(target);
 });
+
+// Show the first 12 blocks
+$('.wedding-gallery .multicolumn-list__item:lt(12)').removeClass('hidden');
+
+// Handle click event for the load more button
+$(document).on("click",'#load-more-btn',function() { 
+  // Find the next set of hidden blocks
+  var hiddenBlocks = $('.multicolumn-list__item.hidden:lt(12)');
+  
+  // Remove the 'hidden' class from the next set of blocks
+  hiddenBlocks.removeClass('hidden');
+
+  // If there are no more hidden blocks, hide the load more button
+  if ($('.multicolumn-list__item.hidden').length === 0) {
+    $(this).hide();
+  }
+});

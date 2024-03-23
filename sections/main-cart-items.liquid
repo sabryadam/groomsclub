@@ -84,7 +84,11 @@
                       {%- endif-%}
                     {%- endfor -%}
                     {%- if lineItemType  == 'jacket' or lineItemType  == 'pants'  -%}
-                      <tr class="cart-item{% if saparate_product %} saparate-product{% else %}{% if lineItemType == 'pants' %} hidden{% endif %}{% endif %}" line-item-product-type="{{ lineItemType }}" data-item-variant-qty="{{ item.variant.inventory_quantity }}" data-item-qty="{{ item.quantity }}" data-line-item-key="{{ item.key }}" data-jacket-variant="{{ item.properties['combo-variant-title'] | downcase | handleize }}" data-pants-variant="{{ item.properties['pant-variant-title'] | downcase | handleize }}" data-vest-variant="{{ item.properties['vest-variant-title'] | downcase | handleize}}" data-jacket-item-variant="{{ item.properties['combo-variant-title'] }}" data-pants-item-variant="{{ item.properties['pant-variant-title'] }}" data-vest-item-variant="{{ item.properties['vest-variant-title'] }}">
+                      {%- if saparate_product -%}
+                        <tr class="cart-item" line-item-product="{{ lineItemType }}" line-item-title="{{ item.product.title }}" data-item-variant-qty="{{ item.variant.inventory_quantity }}" data-item-qty="{{ item.quantity }}" line-item-product-handle="{{ item.product.handle}}" id="CartItem-{{ item.index | plus: 1 }}" line-item-id="{{ item.id }}" data-item-variant-title="{{ item.variant.title | downcase | handleize }}" data-variant-title="{{ item.variant.title }}">
+                      {%- else -%}
+                        <tr class="cart-item{% if saparate_product %} saparate-product{% else %}{% if lineItemType == 'pants' %} hidden{% endif %}{% endif %}" line-item-product-type="{{ lineItemType }}" data-item-variant-qty="{{ item.variant.inventory_quantity }}" data-item-qty="{{ item.quantity }}" data-line-item-key="{{ item.key }}" data-jacket-variant="{{ item.properties['combo-variant-title'] | downcase | handleize }}" data-pants-variant="{{ item.properties['pant-variant-title'] | downcase | handleize }}" data-vest-variant="{{ item.properties['vest-variant-title'] | downcase | handleize}}" data-jacket-item-variant="{{ item.properties['combo-variant-title'] }}" data-pants-item-variant="{{ item.properties['pant-variant-title'] }}" data-vest-item-variant="{{ item.properties['vest-variant-title'] }}">
+                      {%- endif -%}
                     {%- else -%}
                       <tr class="cart-item" line-item-product="{{ lineItemType }}" line-item-title="{{ item.product.title }}" data-item-variant-qty="{{ item.variant.inventory_quantity }}" data-item-qty="{{ item.quantity }}" line-item-product-handle="{{ item.product.handle}}" id="CartItem-{{ item.index | plus: 1 }}" line-item-id="{{ item.id }}" data-item-variant-title="{{ item.variant.title | downcase | handleize }}" data-variant-title="{{ item.variant.title }}">
 
@@ -325,7 +329,11 @@
                             {{ 'products.product.quantity.label' | t }}
                           </label>
                           {%- if lineItemType == 'jacket' -%}
+                            {% if saparate_product %}
+                            <quantity-input class="quantity">
+                            {%- else-%}
                             <div class="quantity custom-qty-button">
+                            {% endif %}
                               <button class="quantity__button no-js-hidden{% unless saparate_product %}{% if item.quantity == 1 %} disabled{% endif %}{% endunless %}" name="minus" type="button">
                                 <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}</span>
                                 -
@@ -343,7 +351,11 @@
                                 <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: item.product.title | escape }}</span>
                                 +
                               </button>
+                            {% if saparate_product %}
+                            </quantity-input>
+                            {%- else-%}
                             </div>
+                            {% endif %}
                           {%- else -%}
                             <quantity-input class="quantity">
                               <button class="quantity__button no-js-hidden" name="minus" type="button">

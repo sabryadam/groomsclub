@@ -249,6 +249,12 @@ $(".member-added-into-event").click(function (e) {
 theme_custom.user = (user) => {
   var status_class = '';
   let { email, first_name, last_name, phone, status, is_host_paying, is_host } = user;
+  var phone_val;
+  if (phone.indexOf('+1') == -1){
+    phone_val = `+1${phone}`
+  } else {
+    phone_val = phone
+  }
   let whoPay = "", eventOwner = reminder_hidden = '';
   if (is_host_paying.toLowerCase() == "self") {
     whoPay = "I pay";
@@ -288,7 +294,7 @@ theme_custom.user = (user) => {
     <h3 class="user-name">${first_name} ${last_name}</h3>
     <div class="user-email-phone">
       <span class="user-email">${email}</span>
-      <span class="user-phone"> | ${phone}</span>
+      <span class="user-phone"> | ${phone_val}</span>
     </div>
     <div class="size-selected-info">
       <div class="size-selected-wrap">
@@ -2467,7 +2473,15 @@ theme_custom.eventPageClickEvent = function (){
       lastName.val(data.last_name).trigger('change');
       email.val(data.email).trigger('change');
       if(data.phone != null || data.phone != undefined){
-        phone.val(data.phone.slice(2)).trigger('change');
+        var phone_number; 
+        if (data.phone.indexOf('+1') == -1){
+          phone_number = `+1${data.phone}`
+        } else {
+          phone_number = data.phone
+        }
+        console.log('phone_number',phone_number);
+        phone.val(phone_number.slice(2)).trigger('change');
+        $(`[name="phone"]`).keydown()
       }
       lookName.text(data.look_name);
       if (data.is_host_paying.toLowerCase() == 'self') {
