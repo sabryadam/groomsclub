@@ -7,8 +7,8 @@
     "colors_outline_button_labels": "#121212",
     "colors_background_1": "#FFFFFF",
     "colors_background_2": "#f5f5f5",
-    "type_header_font": "assistant_n4",
-    "type_body_font": "assistant_n4",
+    "type_header_font": "poppins_n4",
+    "type_body_font": "poppins_n4",
     "share_twitter": false,
     "share_pinterest": false,
     "social_twitter_link": "",
@@ -37,8 +37,7 @@
         "block_order": [
           "announcement-bar-0"
         ],
-        "settings": {
-        }
+        "settings": {}
       },
       "header": {
         "type": "header",
@@ -56,24 +55,17 @@
       "footer": {
         "type": "footer",
         "blocks": {
-          "a7fc1dee-c0d4-4d1c-a215-ba262c5359a2": {
-            "type": "text",
-            "settings": {
-              "heading": "Join Our Mailing List",
-              "subtext": "<p>Sign up for new arrivals, sales and expert style advice<\/p>",
-              "subscribe_id": "#",
-              "url_title": "Subscribe",
-              "mail_header_color": "#ffffff",
-              "mail_subtitle_color": "#ffffff"
-            }
-          },
           "e17b631e-7950-4def-9680-79ba0a0cb07c": {
             "type": "logo",
             "settings": {
               "svg_logo": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" id=\"\" data-name=\"Layer 1\" viewbox=\"0 0 427.08 132.83\"><defs><style>.cls-1s{fill:#fff;}<\/style><\/defs><path class=\"cls-1s\" d=\"M186.92,84.45h-3.19a12.26,12.26,0,0,0-9.18-5.63,21.27,21.27,0,0,0-.08,15.61,19.8,19.8,0,0,0,9.19-5.8H187a19.79,19.79,0,0,0,9.18,5.8,21.3,21.3,0,0,0-.07-15.61A12.27,12.27,0,0,0,186.92,84.45Z\"><\/path><path class=\"cls-1s\" d=\"M155.15,52.33c0-16.92,11.31-31.76,30.21-31.76a29.8,29.8,0,0,1,16.88,4.91,39.77,39.77,0,0,1,5.16-5.22,39,39,0,0,0-22-6.54c-21.91,0-38.3,16.29-38.3,38.61,0,17.43,10,31.19,24.84,36.37a23,23,0,0,1,.59-7.28C161.45,76.41,155.15,65,155.15,52.33Z\"><\/path><path class=\"cls-1s\" d=\"M215,77.44c.64-.77,1.24-1.57,1.81-2.39a39.55,39.55,0,0,0,6.82-22.72,39.56,39.56,0,0,0-6.82-22.73,26,26,0,0,0-5.31,6.22,35.81,35.81,0,0,1,0,33,28.89,28.89,0,0,1-1.73,2.83,23.94,23.94,0,0,1-1.89,2.46c-.4.46-.8.91-1.21,1.34q-1,1-2.13,2c-.74.61-1.51,1.19-2.32,1.74a27.19,27.19,0,0,1-4.07,2.26,23,23,0,0,1,.58,7.28,37.06,37.06,0,0,0,8.65-4.33c.82-.56,1.62-1.15,2.39-1.77s1.51-1.27,2.22-1.94c.35-.33.69-.66,1-1C213.72,79,214.39,78.2,215,77.44Z\"><\/path><path class=\"cls-1s\" d=\"M253.64,18.65l5.85-2.12,4.78-1.74-5.79-2.71-.45.4-6,5.29-1-.51,6.49-5.67-8.83-4.14-.2,8.77-1.07-.38.2-8.28V7l-5.79-2.71L243.47,9l2.29,6.32a41.25,41.25,0,0,0-11.54-1.62,38.89,38.89,0,0,0-22,6.5c-.85.58-1.67,1.18-2.45,1.81-.46.37-.9.74-1.33,1.13a3.22,3.22,0,0,0-.28.24l-1.09,1a1.58,1.58,0,0,0-.22.23q-.47.46-.9.93c-.13.13-.24.26-.35.39-.37.4-.72.81-1.07,1.24-.63.75-1.22,1.54-1.79,2.35a39.62,39.62,0,0,0-6.83,22.76,39.59,39.59,0,0,0,6.84,22.76c.61-.53,1.22-1.1,1.81-1.71.35-.35.71-.75,1.08-1.18A21.91,21.91,0,0,0,207.35,70c.25-.37.5-.75.74-1.13A34.6,34.6,0,0,1,204,52.33a34.68,34.68,0,0,1,4.07-16.57,26.23,26.23,0,0,1,1.7-2.76,9.7,9.7,0,0,1,.56-.8c.18-.26.38-.52.59-.77a6.61,6.61,0,0,1,.47-.58A27.51,27.51,0,0,1,215,27.22a26.93,26.93,0,0,1,2.47-1.85,29.87,29.87,0,0,1,16.73-4.8c18.89,0,30.2,14.84,30.2,31.76s-11.31,31.76-30.2,31.76a29.81,29.81,0,0,1-16.84-4.88l-.1.12c-.66.81-1.39,1.62-2.14,2.39-.33.35-.7.71-1.07,1.08-.6.56-1.21,1.11-1.84,1.62a38.91,38.91,0,0,0,22,6.51c21.9,0,38.3-16.29,38.3-38.6C272.52,37.35,265.12,25.09,253.64,18.65Z\"><\/path><polygon class=\"cls-1s\" points=\"253.53 1.59 250.12 0 241.85 3 247.92 5.84 253.53 1.59\"><\/polygon><polygon class=\"cls-1s\" points=\"249.82 6.72 257.2 10.18 258 10.55 257.66 3.53 257.45 3.43 254.83 2.21 254.63 2.11 249.02 6.35 249.82 6.72\"><\/polygon><polygon class=\"cls-1s\" points=\"265.16 13.91 262.17 5.64 258.76 4.04 259.1 11.07 265.16 13.91\"><\/polygon><path class=\"cls-1s\" d=\"M40.05,91.14c11.89,0,22.9-3.71,30.1-9.82V50.68h-32v8.61H60.66V76c-5.78,4.36-12.87,6.43-20.61,6.43C22.71,82.41,11.26,69.54,11.26,52c0-18.54,12.1-30.54,28.35-30.54,9,0,16.69,2.94,22.9,8.94l6.66-5.89C61,16,50.3,12.4,39.72,12.4,16.38,12.4,1.33,29,1.33,52,1.33,76,17.8,91.14,40.05,91.14Z\"><\/path><path class=\"cls-1s\" d=\"M116.06,60.17c12.22-2.51,19.31-10,19.31-23,0-13.74-7.75-24-25.63-24H82.25V90.59h9.49V61h13.85L126.1,90.59h11.34ZM91.74,52.42V21.78h16.69c10.69,0,17.12,5.23,17.12,15.16,0,8.94-5.56,15.48-18.43,15.48Z\"><\/path><polygon class=\"cls-1s\" points=\"293.98 31.59 294.09 31.59 319.28 75 325.72 75 350.91 31.59 351.13 31.59 351.13 90.59 360.62 90.59 360.62 13.16 351.13 13.16 322.66 63.22 322.44 63.22 293.98 13.16 284.38 13.16 284.38 90.59 293.98 90.59 293.98 31.59\"><\/polygon><path class=\"cls-1s\" d=\"M399.9,82.41a27.79,27.79,0,0,1-21.38-10.47l-6.1,7.31a37.05,37.05,0,0,0,27.37,12c13.52,0,26-7.64,26-21.81,0-14.51-11-18-24-23.13-9.7-3.7-16.68-6.43-16.57-13.85S391.72,21.12,399,21.12c5.78,0,12.43,2.73,18.65,7.85l5.78-7.52a39,39,0,0,0-24.43-9c-13.31,0-23.67,8.94-23.67,20.5,0,13.63,11.67,18.54,23.12,22.79,10.36,3.93,17.34,6.22,17.34,14.84C415.82,78.05,409.39,82.41,399.9,82.41Z\"><\/path><path class=\"cls-1s\" d=\"M141.69,131.33c-5.92,0-10-4.05-10-9.1s4.08-9.1,10-9.1a9.37,9.37,0,0,1,8.14,4.22l1.52-.79a11.27,11.27,0,0,0-9.66-4.93c-6.85,0-11.71,4.73-11.71,10.6s4.86,10.6,11.71,10.6a11.24,11.24,0,0,0,9.72-5l-1.51-.8A9.37,9.37,0,0,1,141.69,131.33Z\"><\/path><polygon class=\"cls-1s\" points=\"186.73 111.95 185.02 111.95 185.02 132.5 197.35 132.5 197.35 131.04 186.73 131.04 186.73 111.95\"><\/polygon><path class=\"cls-1s\" d=\"M244.64,125.63c0,3.35-2.29,5.7-6.57,5.7s-6.53-2.35-6.53-5.7V112h-1.71v13.68c0,4.35,3.29,7.2,8.24,7.2s8.27-2.85,8.27-7.2V112h-1.7Z\"><\/path><path class=\"cls-1s\" d=\"M293.21,121.85a5,5,0,0,0,2.9-4.5,5.69,5.69,0,0,0-5.92-5.4h-9V132.5h9.72a5.87,5.87,0,0,0,6.14-5.6A5.44,5.44,0,0,0,293.21,121.85Zm-10.3-8.43h7.28a3.94,3.94,0,1,1,0,7.87h-7.28Zm8,17.62h-8v-8.28h8a4.15,4.15,0,1,1,0,8.28Z\"><\/path><rect class=\"cls-1s\" y=\"121.53\" width=\"119.25\" height=\"1.39\"><\/rect><rect class=\"cls-1s\" x=\"307.83\" y=\"121.53\" width=\"119.25\" height=\"1.39\"><\/rect><\/svg>",
-              "logo_image": "shopify:\/\/shop_images\/footer_logo.png",
-              "logo_width": 230,
               "show_social": true
+            }
+          },
+          "0def7462-2908-46a6-9c26-a7ad9760d391": {
+            "type": "contact_us",
+            "settings": {
+              "contact_us": "<div class=\"footer-contact-us-wrapper\">\n  <h2 class=\"footer-block__heading h4\">Contact Us<\/h2>\n  <ul class=\"contact-us-header-menu-inner\">\n    <li>\n      <p><a href=\"tel:201-559-9715\" target=\"_blank\" title=\"tel:201-559-9715\">201-559-9715<\/a><\/p>\n      <p>Call us from 10am - 9pm EST (Mon-Sat).<\/p>\n    <\/li>\n    <li class=\"email-id-wrapper\">\n      <p><a href=\"mailto:info@groomsclub.com.com\" target=\"_blank\" title=\"info@groomsclub.com.com\">info@groomsclub.com<\/a><\/p>\n      <p style=\"font-size : 14px\">Our team typically answers within 24 hrs.<\/p>\n    <\/li>\n<li class=\"address-wrapper\">\n      <p style=\"font-size : 14px;display:flex;align-items:center\"><svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" viewbox=\"0 0 384 512\" width=\"14\" style=\"margin-right:5px\"><path d=\"m172.268 501.67c-145.298-210.639-172.268-232.257-172.268-309.67 0-106.039 85.961-192 192-192s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zm19.732-229.67c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z\" style=\"fill:#fff\"><\/path><\/svg> 318 Route 4 East\nParamus, NJ 07652<\/p>\n    <\/li>\n  <\/ul>\n<\/div><style>@media(max-width: 767px){\n.address-wrapper p{\njustify-content: center;\n}\n}<\/style>"
             }
           },
           "footer-0": {
@@ -84,12 +76,25 @@
               "header_color": "#ffffff",
               "menu_color": "#ffffff"
             }
+          },
+          "a7fc1dee-c0d4-4d1c-a215-ba262c5359a2": {
+            "type": "text",
+            "settings": {
+              "heading": "Join Our Mailing List",
+              "subtext": "<p>Sign up for new arrivals, sales and expert style advice<\/p>",
+              "subscribe_id": "#",
+              "url_title": "Subscribe",
+              "mail_header_color": "#ffffff",
+              "mail_subtitle_color": "#ffffff",
+              "show_social": true
+            }
           }
         },
         "block_order": [
-          "a7fc1dee-c0d4-4d1c-a215-ba262c5359a2",
           "e17b631e-7950-4def-9680-79ba0a0cb07c",
-          "footer-0"
+          "0def7462-2908-46a6-9c26-a7ad9760d391",
+          "footer-0",
+          "a7fc1dee-c0d4-4d1c-a215-ba262c5359a2"
         ],
         "settings": {
           "color_scheme": "background-1",
@@ -98,8 +103,8 @@
           "enable_country_selector": false,
           "enable_language_selector": false,
           "payment_enable": false,
-          "footer_bg_color": "#0f75bc",
-          "copyright": "<span class=\"copyright-text\"><small class=\"copyright__content\">© <span>Copyright<\/span> {{ shop.name | link_to: routes.root_url }} {{ 'now' | date: \"%Y\" }},<\/small>\n            {% comment%}<small class=\"copyright__content\">{{ powered_by_link }}<\/small>{% endcomment %}\n            <small>All Rights Reserved.<\/small><\/span> <span class=\"mobile-none\">|<\/span> \n            <small><a href=\" \/policies\/terms-of-service\">Terms of Use<\/a><\/small> <span>|<\/span> \n            <small><a href=\"\/policies\/privacy-policy\">Privacy Policy <\/a><\/small>"
+          "footer_bg_color": "#001f49",
+          "copyright": "<div class=\"copyright-text\"><small class=\"copyright__content\">© <span>Copyright<\/span> {{ shop.name | link_to: routes.root_url }} {{ 'now' | date: \"%Y\" }},<\/small>\n<span><small>All Rights Reserved.<\/small><\/span>\n<\/div>\n<div class=\"footer-bottom-links\">\n  <small><a href=\" \/policies\/terms-of-service\">Terms of Use<\/a><\/small> <span>|<\/span> \n  <small><a href=\"\/policies\/privacy-policy\">Privacy Policy <\/a><\/small>\n  <span>|<\/span> \n  <small><a href=\" \/blogs\/news\">Blog<\/a><\/small>\n<\/div>\n{% comment%}<small class=\"copyright__content\">{{ powered_by_link }}<\/small>{% endcomment %}"
         }
       },
       "customize-your-look": {
@@ -110,7 +115,7 @@
             "settings": {
               "title": "Suit Color",
               "product_type": "Suit",
-              "collection": "suit"
+              "collection": "customizer-suits"
             }
           },
           "48709491-b26f-4723-a091-027475f7b1c2": {
@@ -233,7 +238,7 @@
         "settings": {
           "heading": "Customize Your Look",
           "description": "<p>Dress it up however you like! Choose your color, accessories, and more!<\/p>",
-          "sub_heading": "<p>Starting at $199 (price includes suit jacket and pants)<\/p>",
+          "sub_heading": "<p>Starting at $199.99 (Price Includes Jacket and  Pants)<\/p>",
           "shirt_image": "shopify:\/\/shop_images\/default-shirt-image.png",
           "open_shirt_image": "shopify:\/\/shop_images\/Shirt_White_Open_Collar_c9e87ed1-ca9f-43b5-b7dc-115619cb66ac.png",
           "jacket_image": "shopify:\/\/shop_images\/default-jacket-image.png",
@@ -371,7 +376,7 @@
             "type": "icontext",
             "settings": {
               "icon_image_svg": "<svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" x=\"0px\" y=\"0px\" viewbox=\"0 0 65 50\" style=\"enable-background:new 0 0 65 50;\" xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\" xml:space=\"preserve\">\n<style type=\"text\/css\">\n.heart-border{fill:#0776BD;}\n<\/style>\n<g>\n<path class=\"heart-border\" d=\"M19,3.4c0.5,0,1.1,0.1,1.6,0.2c3.5,0.7,6.5,2.6,9,5.9l2.5,3.2l2.3-3.4c0.1-0.2,2.9-4.1,8.9-5.5\n   c0.9-0.2,1.8-0.3,2.7-0.3c2.3,0,4.5,0.7,6.2,2c1.2,0.9,2.3,2.1,3,3.4c2.7,4.6,1.9,10.6-2,14.6L32,45.7L11.4,24.1\n   c-2.4-2.5-3.8-5.7-3.8-9c0-4.2,2.2-7.7,6.5-10.3C15.6,3.9,17.3,3.4,19,3.4 M19,0.4c-2.3,0-4.6,0.7-6.5,1.9C6.3,6.1,4.6,11,4.6,15.1\n   c0,4.1,1.8,8.1,4.6,11.1L32,50l23.6-24.5c4.7-4.9,5.8-12.4,2.4-18.2c-1.1-1.9-2.5-3.2-3.8-4.3c-2.3-1.8-5.2-2.6-8-2.6\n   c-1.1,0-2.3,0.1-3.4,0.4C35.4,2.5,32,7.5,32,7.5c-3.6-4.6-7.6-6.4-10.8-7C20.5,0.4,19.8,0.4,19,0.4L19,0.4z\"><\/path>\n<\/g>\n<\/svg>",
-              "title": "Choose from Favorites",
+              "title": "Choose from favorite",
               "url": "\/account#tab-3"
             }
           },
@@ -530,8 +535,7 @@
       },
       "payment-confirmation-modal": {
         "type": "payment-confirmation-modal",
-        "settings": {
-        }
+        "settings": {}
       },
       "update-event-owner-contact-number": {
         "type": "update-event-owner-contact-number",
@@ -607,7 +611,7 @@
           "5b2ab700-b7b6-43e0-ae8d-9fb3307ac456": {
             "type": "event_look",
             "settings": {
-              "create_look_title": "Choose from Favourite",
+              "create_look_title": "Choose from Favorite",
               "create_look_icon": "shopify:\/\/shop_images\/favorite-heart-icon.png"
             }
           },
@@ -654,7 +658,26 @@
         }
       }
     },
-    "content_for_index": []
+    "content_for_index": [],
+    "blocks": {
+      "15683396631634586217": {
+        "type": "shopify:\/\/apps\/inbox\/blocks\/chat\/841fc607-4181-4ad1-842d-e24d7f8bad6b",
+        "disabled": false,
+        "settings": {
+          "button_color": "#1075bc",
+          "button_icon": "chat_bubble",
+          "button_text": "live_chat",
+          "button_horizontal_position": "bottom_right",
+          "button_vertical_position": "lowest",
+          "greeting_message": "👋 Hi, message us with any questions. We have live professionals waiting to help you."
+        }
+      },
+      "855628211100114053": {
+        "type": "shopify:\/\/apps\/klaviyo-email-marketing-sms\/blocks\/klaviyo-onsite-embed\/2632fe16-c075-4321-a88b-50b567f42507",
+        "disabled": false,
+        "settings": {}
+      }
+    }
   },
   "presets": {
     "Default": {
@@ -681,8 +704,7 @@
           "block_order": [
             "announcement-bar-0"
           ],
-          "settings": {
-          }
+          "settings": {}
         }
       }
     },
@@ -702,13 +724,11 @@
           "blocks": {
             "menu": {
               "type": "link_list",
-              "settings": {
-              }
+              "settings": {}
             },
             "text": {
               "type": "text",
-              "settings": {
-              }
+              "settings": {}
             }
           },
           "block_order": [
