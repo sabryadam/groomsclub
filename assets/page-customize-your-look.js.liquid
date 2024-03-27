@@ -1298,14 +1298,21 @@ theme_custom.customize_product_clickEvent = function () {
 
   // exchange-look-item
   $(document).on("click", ".exchange-look-item", function () {
+    // new code update
+    var current_product_option_first = $(this).closest(`.product-swatch-option`).find(`[data-option-swatch-index="0"]`).find(`.swatch-element-item.active`).attr(`data-title`);
+    var current_product_option_second = $(this).closest(`.product-swatch-option`).find(`[data-option-swatch-index="1"]`).find(`.swatch-element-item.active`).attr(`data-title`);
+    var current_product_option_third = $(this).closest(`.product-swatch-option`).find(`[data-option-swatch-index="2"]`).find(`.swatch-element-item.active`).attr(`data-title`);
+    // alert(current_product_option_first, current_product_option_second,  current_product_option_third);
+    var targetVarTitle = `${current_product_option_first} / ${current_product_option_second} / ${current_product_option_third}`;
+    $(this).closest(".product-swatch-option").find(`select.prod-variant-option option[data-variant-title='${targetVarTitle}']`).prop("selected",true); 
     var button = $(this),
-      // productType = $(this).attr('data-product-type');
       targetVarID = $(this).closest(".product-swatch-option").find("select.prod-variant-option").val(),
-      targetVarTitle = $(this).closest(".product-swatch-option").find("select.prod-variant-option option:selected").attr("data-variant-title"),
+      // targetVarTitle = `${current_product_option_first} / ${current_product_option_second} / ${current_product_option_third}`
+      // targetVarTitle = $(this).closest(".product-swatch-option").find("select.prod-variant-option option:selected").attr("data-variant-title"),
       buttonText = button.attr("data-text"),
       productHandle = button.parent(".product-swatch-option").attr("data-product-handle"),
       productType = button.attr('data-product-type');
-    button.removeClass("disabled"),
+      button.removeClass("disabled"),
       productImg = $(this).closest(".product-swatch-option").find("select.prod-variant-option option[data-variant-title='" + targetVarTitle + "']").attr("data-variant-featured-img");
     button.text(buttonText);
     var targetVarTitleArr = targetVarTitle.split(" / ");
@@ -1329,7 +1336,7 @@ theme_custom.customize_product_clickEvent = function () {
       targetVarTitleArr[0];
       $(`.customize-look-overview-product[data-product-type="suit"] .jacket_option`).find(".combo-block-edit-item").text("| Edit Item").attr('data-button-target','edit-item');
       $(`.product-data-card[data-product-type="jacket"]`).find(`.error-message`).removeClass("error-show").text('');
-      $(`.jacket_option`).find(`.error-message`).removeClass("error-show").text('');
+      $(`.jacket_option`).find(`.error-message`).removeClass("error-show").text('');     
       // if($(".vest_option").hasClass("vest-not-selected")){
       //   $(`.customize-look-overview-product[data-product-type="suit"] .vest_option .option1`).text(targetVarTitleArr[0]);
       //   $(`.customize-look-overview-product[data-product-type="suit"] .vest_option .option2`).text(" / " + targetVarTitleArr[1]);
@@ -1348,11 +1355,11 @@ theme_custom.customize_product_clickEvent = function () {
       $(`.pants_option`).find(`.error-message`).removeClass("error-show").text('');
       $(`.customize-look-overview-product[data-product-type="suit"] .pants_option`).find(".combo-block-edit-item").text("| Edit Item").attr('data-button-target','edit-item');
       $(`.customize-look-overview-product[data-product-type="suit"] .pants_option`).find(".error-message").removeClass("error-show").addClass("hidden");
-    } else if(productType == 'vest'){
+    } else if(productType == 'vest'){  
       // $(`.customize-look-overview-product[data-product-type="suit"] .vest_option .option1`).text(targetVarTitleArr[0]);
       // $(`.customize-look-overview-product[data-product-type="suit"] .vest_option .option2`).text(" / " + targetVarTitleArr[1]);
       // $(`.customize-look-overview-product[data-product-type="suit"] .vest_option .option3`).text(" / " + targetVarTitleArr[2]);
-
+    
       $(`.customize-look-overview-product[data-product-type="vest"] .product-variant-link .option1`).text(targetVarTitleArr[0]);
       $(`.customize-look-overview-product[data-product-type="vest"] .product-variant-link .option2`).text(targetVarTitleArr[1]);
       $(`.customize-look-overview-product[data-product-type="vest"] .product-variant-link`).find(".variant-title").show();

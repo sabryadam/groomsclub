@@ -904,42 +904,54 @@ function suitSizeDataNonLogged(){
 
 $(document).ready(function(){
 
-$(".ff-top-box a").click(function(e){
-  e.preventDefault();
-  var fit_finder_url = $(this).attr("href");
-  var bring_back_url = window.location.href;
-  localStorage.setItem("bring_back_fit_finder_url", bring_back_url);
-  localStorage.setItem("open_recomm_size", '1');
-  window.location.href = fit_finder_url;
-});
+  $(".ff-top-box a").click(function(e){
+    e.preventDefault();
+    var fit_finder_url = $(this).attr("href");
+    var bring_back_url = window.location.href;
+    localStorage.setItem("bring_back_fit_finder_url", bring_back_url);
+    localStorage.setItem("open_recomm_size", '1');
+    window.location.href = fit_finder_url;
+  });
 
-$("#suit_fit_finder a").click(function(e){
-  e.preventDefault();
-  var fit_finder_url = $(this).attr("href");
-  var bring_back_url = window.location.href;
-  localStorage.setItem("bring_back_fit_finder_url", bring_back_url);
-  localStorage.setItem("open_recomm_size", '1');
-  window.location.href = fit_finder_url;
-});
-
-
-setTimeout(function(){
-  $("#product_info_box .next-step").removeClass("disabled");
-}, 2000);
+  $("#suit_fit_finder a").click(function(e){
+    e.preventDefault();
+    var fit_finder_url = $(this).attr("href");
+    var bring_back_url = window.location.href;
+    localStorage.setItem("bring_back_fit_finder_url", bring_back_url);
+    localStorage.setItem("open_recomm_size", '1');
+    window.location.href = fit_finder_url;
+  });
 
 
-$(document).on("click", ".no-vest label", function () {
-  $(this).addClass("active");
-  $(".product-block-wrapper[data-product-type=vest] .unchecked-product").trigger("click");
-});
+  setTimeout(function(){
+    $("#product_info_box .next-step").removeClass("disabled");
+  }, 2000);
 
-$(document).on("change", ".product-block-wrapper[data-product-type=vest] input", function () {
-  $(".no-vest label").removeClass("active");
-});
 
-setTimeout(function(){
-  var currShirt = $('input[name="customizer-suit"]:checked').val();
-  if(currShirt){
+  $(document).on("click", ".no-vest label", function () {
+    $(this).addClass("active");
+    $(".product-block-wrapper[data-product-type=vest] .unchecked-product").trigger("click");
+  });
+
+  $(document).on("change", ".product-block-wrapper[data-product-type=vest] input", function () {
+    $(".no-vest label").removeClass("active");
+  });
+
+  setTimeout(function(){
+    var currShirt = $('input[name="customizer-suit"]:checked').val();
+    if(currShirt){
+      var vestHandle = $(".tabbed-content-block-inner-wrapper[data-tab-content='personalize']").find("input:radio:checked").closest(".product-block.product-item-wrap").attr("data-vest-handle");
+      $(`.product-block-wrapper[data-product-type="vest"]`).find(".product-block.product-item-wrap").hide();
+      if ($(`.product-block-wrapper[data-product-type="vest"]`).find(".product-block.product-item-wrap[data-product-handle='" + vestHandle + "']").length > 0) {
+        $(`.product-block-outer-wrapper.product-block-wrapper[data-product-type="vest"]`).show();
+        $(`.product-block-wrapper[data-product-type="vest"]`).find(".product-block.product-item-wrap[data-product-handle='" + vestHandle + "']").show();
+      } else {
+        $(`.product-block-outer-wrapper.product-block-wrapper[data-product-type="vest"]`).hide();
+      }
+    }
+  }, 500);
+
+  $(document).on("change", "input[name=customizer-suit]", function () {
     var vestHandle = $(".tabbed-content-block-inner-wrapper[data-tab-content='personalize']").find("input:radio:checked").closest(".product-block.product-item-wrap").attr("data-vest-handle");
     $(`.product-block-wrapper[data-product-type="vest"]`).find(".product-block.product-item-wrap").hide();
     if ($(`.product-block-wrapper[data-product-type="vest"]`).find(".product-block.product-item-wrap[data-product-handle='" + vestHandle + "']").length > 0) {
@@ -948,60 +960,50 @@ setTimeout(function(){
     } else {
       $(`.product-block-outer-wrapper.product-block-wrapper[data-product-type="vest"]`).hide();
     }
-  }
-}, 500);
+  });
 
-$(document).on("change", "input[name=customizer-suit]", function () {
-  var vestHandle = $(".tabbed-content-block-inner-wrapper[data-tab-content='personalize']").find("input:radio:checked").closest(".product-block.product-item-wrap").attr("data-vest-handle");
-  $(`.product-block-wrapper[data-product-type="vest"]`).find(".product-block.product-item-wrap").hide();
-  if ($(`.product-block-wrapper[data-product-type="vest"]`).find(".product-block.product-item-wrap[data-product-handle='" + vestHandle + "']").length > 0) {
-    $(`.product-block-outer-wrapper.product-block-wrapper[data-product-type="vest"]`).show();
-    $(`.product-block-wrapper[data-product-type="vest"]`).find(".product-block.product-item-wrap[data-product-handle='" + vestHandle + "']").show();
-  } else {
-    $(`.product-block-outer-wrapper.product-block-wrapper[data-product-type="vest"]`).hide();
-  }
-});
-
-var openOverviewTab = localStorage.getItem("openOverviewTab");
-if(openOverviewTab){
-  theme_custom.fitFinderData();    
-  $(".tabbed-content-block-inner-wrapper").removeClass("active");
-  $(".tabbed-content-block-inner-wrapper[data-tab-content='overview']").addClass("active");    
-  $(".tabbed-content-wrapper .tabbed-content-header li").removeClass("active");
-  $(".tabbed-content-title[data-target='overview']").addClass("active");
-  // $('html, body').stop().animate({
+  var openOverviewTab = localStorage.getItem("openOverviewTab");
+  if(openOverviewTab){
+    theme_custom.fitFinderData();    
+    $(".tabbed-content-block-inner-wrapper").removeClass("active");
+    $(".tabbed-content-block-inner-wrapper[data-tab-content='overview']").addClass("active");    
+    $(".tabbed-content-wrapper .tabbed-content-header li").removeClass("active");
+    $(".tabbed-content-title[data-target='overview']").addClass("active");
+    // $('html, body').stop().animate({
   //   'scrollTop': $(".tabbed-content-wrapper").offset().top - $("#shopify-section-header").height() + 30
   // }, 900);
   // theme_custom.setFinderData();
   // setTimeout(() => {
   //   theme_custom.productDataFromURL();
   // }, 500);
-  
 
-  localStorage.removeItem("openOverviewTab");
-  
-}
 
-if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-flag-replace") == 'true') {
-  $("#suit_fit_finder").show();
-  $("#fit_finder_data_auto").hide();
-}else{
-  {% if customer %}
-    suitSizeData();
-  {% else %}
-    suitSizeDataNonLogged();
-      {% endif %}
+    localStorage.removeItem("openOverviewTab");  
+  }
+
+  if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-flag-replace") == 'true') {
+    {% if customer %}
+      suitSizeData();
+    {% else %}
+      suitSizeDataNonLogged();
+    {% endif %}
+  }else{
+    {% if customer %}
+      suitSizeData();
+    {% else %}
+      suitSizeDataNonLogged();
+    {% endif %}
+  }
+
+  $(document).on("change", ".recomm_select", function () {
+    var select_name = $(this).attr("data-row");
+    var select_data = $(this).val();
+    
+    if( $(`select[name="properties[Jacket Chest Size]"]`).val() && $(`select[name="properties[Jacket Length]"]`).val() && $(`select[name="properties[Pant Waist Size]"]`).val() && $(`select[name="properties[Pant Length]"]`).val()  ){
+      $(`.tabbed-content-block-inner-wrapper[data-tab-content="find-your-fit"] .next-step`).removeClass("disabled");
+    }else{
+      $(`.tabbed-content-block-inner-wrapper[data-tab-content="find-your-fit"] .next-step`).addClass("disabled");
     }
-
-    $(document).on("change", ".recomm_select", function () {
-      var select_name = $(this).attr("data-row");
-      var select_data = $(this).val();
-      
-      if( $(`select[name="properties[Jacket Chest Size]"]`).val() && $(`select[name="properties[Jacket Length]"]`).val() && $(`select[name="properties[Pant Waist Size]"]`).val() && $(`select[name="properties[Pant Length]"]`).val()  ){
-        $(`.tabbed-content-block-inner-wrapper[data-tab-content="find-your-fit"] .next-step`).removeClass("disabled");
-      }else{
-        $(`.tabbed-content-block-inner-wrapper[data-tab-content="find-your-fit"] .next-step`).addClass("disabled");
-      }
 
 
       /*var jack_chest_size = $(`select[name="properties[Jacket Chest Size]"]`).val();
@@ -1025,119 +1027,31 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
       }*/
       
 
-      if(select_data){
-        //alert(select_name + ' | ' + select_data);
-        var getFitFinder = getCookie("fit-finder-data");
+    if(select_data){
+      //alert(select_name + ' | ' + select_data);
+      var getFitFinder = getCookie("fit-finder-data");
 
-        if(getFitFinder){
-          getFitFinder = JSON.parse(getCookie("fit-finder-data"));
+      if(getFitFinder){
+        getFitFinder = JSON.parse(getCookie("fit-finder-data"));
+        
 
+        var jacketFullSize = '';
+        var jacketChest = '';
+        var jacketTypeSize = '';
 
-          var jacketFullSize = '';
-          var jacketChest = '';
-          var jacketTypeSize = '';
+        var pantFullSize = '';
+        var pantWaist = '';
+        var pantLength = '';
 
-          var pantFullSize = '';
-          var pantWaist = '';
-          var pantLength = '';
-
-          if($(`select[name="properties[Jacket Chest Size]"]`).val()){
-            //getFitFinder.jacket_size = $(`select[name="properties[Jacket Chest Size]"]`).val();
-            jacketChest = $(`select[name="properties[Jacket Chest Size]"]`).val();
-          }
-
-          if($(`select[name="properties[Jacket Length]"]`).val()){
-            //getFitFinder.jacket_type = $(`select[name="properties[Jacket Length]"]`).val();
-            var jacketType = $(`select[name="properties[Jacket Length]"]`).val();
-
-            if (jacketType == "Short") {
-              jacketTypeSize = 'S'
-            } else if (jacketType == "Regular") {
-              jacketTypeSize = 'R'
-            } else if (jacketType == "Long") {
-              jacketTypeSize = 'L'
-            }
-          }
-
-          if(jacketChest || jacketTypeSize){
-            jacketFullSize = jacketChest + ':' + jacketTypeSize;
-            getFitFinder.jacketSize = jacketFullSize;
-          }
-
-          if($(`select[name="properties[Pant Waist Size]"]`).val()){
-            getFitFinder.pants_waist = $(`select[name="properties[Pant Waist Size]"]`).val();
-            pantWaist = $(`select[name="properties[Pant Waist Size]"]`).val();
-          }
-
-          if($(`select[name="properties[Pant Length]"]`).val()){
-            getFitFinder.pants_hight = $(`select[name="properties[Pant Length]"]`).val();
-            pantLength = $(`select[name="properties[Pant Length]"]`).val();
-          }
-
-          if(pantWaist || pantLength){
-            pantFullSize = pantWaist + 'x' + pantLength;
-            getFitFinder.pantSize = pantFullSize;
-          }
-
-          setCookie("fit-finder-data", '');
-          setCookie("fit-finder-data", JSON.stringify(getFitFinder), 365);
-
-          {% if customer %}
-            $.ajax({
-                url: `${theme_custom.base_url}/api/customer/myFit`,
-                method: "POST",
-                data: getFitFinder,
-                dataType: "json",
-                header: {
-                    // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
-                    "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
-                },
-                beforeSend: function () {
-                },
-                success: function (result) {
-                    localStorage.setItem("save-fit-finder-flag-replace", "false");
-                },
-                error: function (xhr, status, error) {
-                    if (xhr.responseJSON.message == 'Token is invalid or expired.') {
-                        $('.api_error').removeClass("hidden").html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
-                            'text-align': 'center',
-                            'color': 'red'
-                        });
-                        setTimeout(() => {
-                            theme_custom.removeLocalStorage();
-                            window.location.href = '/account/logout';
-                        }, 3000);
-                    } else {
-                        var event_date_msg = '';
-                        if (xhr.responseJSON.data != '') {
-                            $.map(xhr.responseJSON.data, function (value, index) {
-                                event_date_msg += `<span>${value}</span>`;
-                            });
-                        } else {
-                            event_date_msg += `<span>${xhr.responseJSON.message}</span>`;
-                        }
-                        $('.api_error').removeClass("hidden").html(event_date_msg);
-                        setTimeout(function () {
-                            $('.api_error').addClass("hidden")
-                        }, 10000);
-                    }
-                }
-            });
-          {% endif %}
-      
-        }else{
-
-          var jacketFullSize = '';
-          var jacketChest = '';
-          var jacketTypeSize = '';
-
-          var pantFullSize = '';
-          var pantWaist = '';
-          var pantLength = '';
-
+        if($(`select[name="properties[Jacket Chest Size]"]`).val()){
+          //getFitFinder.jacket_size = $(`select[name="properties[Jacket Chest Size]"]`).val();
           jacketChest = $(`select[name="properties[Jacket Chest Size]"]`).val();
+        }
 
+        if($(`select[name="properties[Jacket Length]"]`).val()){
+          //getFitFinder.jacket_type = $(`select[name="properties[Jacket Length]"]`).val();
           var jacketType = $(`select[name="properties[Jacket Length]"]`).val();
+
           if (jacketType == "Short") {
             jacketTypeSize = 'S'
           } else if (jacketType == "Regular") {
@@ -1145,44 +1059,132 @@ if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-
           } else if (jacketType == "Long") {
             jacketTypeSize = 'L'
           }
-
-          if(jacketChest && jacketTypeSize){
-            jacketFullSize = jacketChest + ':' + jacketTypeSize;
-          }
-
-          pantWaist = $(`select[name="properties[Pant Waist Size]"]`).val();
-          pantLength = $(`select[name="properties[Pant Length]"]`).val();
-
-          if(pantWaist && pantLength){
-            pantFullSize = pantWaist + 'x' + pantLength;
-          }
-
-          var defaultData = {
-            "height_qus":"How tall are you?",
-            "height":"",
-            "weight_qus":"What is your weight (lbs)?",
-            "weight":"",
-            "build":"00",
-            "stomach":"00",
-            "shoe_size":"00",
-            "shirt_neck":"00",
-            "shirt_sleeve":"00",
-            "jacket_size":"00",
-            "jacket_type":"00",
-            "jacketSize":jacketFullSize,
-            "pantSize":pantFullSize,
-            "pants_waist":pantWaist,
-            "pants_hight":pantLength,
-            "jacketSize_result":"Your Jacket size result",
-            "fit":"00"
-          };
-
-          setCookie("fit-finder-data", JSON.stringify(defaultData));
         }
-      }
-    });
 
+        if(jacketChest || jacketTypeSize){
+          jacketFullSize = jacketChest + ':' + jacketTypeSize;
+          getFitFinder.jacketSize = jacketFullSize;
+        }
+
+        if($(`select[name="properties[Pant Waist Size]"]`).val()){
+          getFitFinder.pants_waist = $(`select[name="properties[Pant Waist Size]"]`).val();
+          pantWaist = $(`select[name="properties[Pant Waist Size]"]`).val();
+        }
+
+        if($(`select[name="properties[Pant Length]"]`).val()){
+          getFitFinder.pants_hight = $(`select[name="properties[Pant Length]"]`).val();
+          pantLength = $(`select[name="properties[Pant Length]"]`).val();
+        }
+
+        if(pantWaist || pantLength){
+          pantFullSize = pantWaist + 'x' + pantLength;
+          getFitFinder.pantSize = pantFullSize;
+        }
+
+        setCookie("fit-finder-data", '');
+        setCookie("fit-finder-data", JSON.stringify(getFitFinder), 365);
+
+        {% if customer %}
+          $.ajax({
+              url: `${theme_custom.base_url}/api/customer/myFit`,
+              method: "POST",
+              data: getFitFinder,
+              dataType: "json",
+              header: {
+                  // "Authorization": 'Bearer OsAKcJ5BUDxjOxIlt2Iv4SJlTZwkVaueTThLIpPHIE8GI4LwV8OV9LiaDbt3yjlrbWgMVzhqQmhitmYXxCc05iUXpxSTVtVlJaQg'
+                  "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+              },
+              beforeSend: function () {
+              },
+              success: function (result) {
+                  localStorage.setItem("save-fit-finder-flag-replace", "false");
+              },
+              error: function (xhr, status, error) {
+                  if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+                      $('.api_error').removeClass("hidden").html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
+                          'text-align': 'center',
+                          'color': 'red'
+                      });
+                      setTimeout(() => {
+                          theme_custom.removeLocalStorage();
+                          window.location.href = '/account/logout';
+                      }, 3000);
+                  } else {
+                      var event_date_msg = '';
+                      if (xhr.responseJSON.data != '') {
+                          $.map(xhr.responseJSON.data, function (value, index) {
+                              event_date_msg += `<span>${value}</span>`;
+                          });
+                      } else {
+                          event_date_msg += `<span>${xhr.responseJSON.message}</span>`;
+                      }
+                      $('.api_error').removeClass("hidden").html(event_date_msg);
+                      setTimeout(function () {
+                          $('.api_error').addClass("hidden")
+                      }, 10000);
+                  }
+              }
+          });
+        {% endif %}
+    
+      }else{
+
+        var jacketFullSize = '';
+        var jacketChest = '';
+        var jacketTypeSize = '';
+
+        var pantFullSize = '';
+        var pantWaist = '';
+        var pantLength = '';
+
+        jacketChest = $(`select[name="properties[Jacket Chest Size]"]`).val();
+
+        var jacketType = $(`select[name="properties[Jacket Length]"]`).val();
+        if (jacketType == "Short") {
+          jacketTypeSize = 'S'
+        } else if (jacketType == "Regular") {
+          jacketTypeSize = 'R'
+        } else if (jacketType == "Long") {
+          jacketTypeSize = 'L'
+        }
+
+        if(jacketChest && jacketTypeSize){
+          jacketFullSize = jacketChest + ':' + jacketTypeSize;
+        }
+
+        pantWaist = $(`select[name="properties[Pant Waist Size]"]`).val();
+        pantLength = $(`select[name="properties[Pant Length]"]`).val();
+
+        if(pantWaist && pantLength){
+          pantFullSize = pantWaist + 'x' + pantLength;
+        }
+
+        var defaultData = {
+          "height_qus":"How tall are you?",
+          "height":"",
+          "weight_qus":"What is your weight (lbs)?",
+          "weight":"",
+          "build":"00",
+          "stomach":"00",
+          "shoe_size":"00",
+          "shirt_neck":"00",
+          "shirt_sleeve":"00",
+          "jacket_size":"00",
+          "jacket_type":"00",
+          "jacketSize":jacketFullSize,
+          "pantSize":pantFullSize,
+          "pants_waist":pantWaist,
+          "pants_hight":pantLength,
+          "jacketSize_result":"Your Jacket size result",
+          "fit":"00"
+        };
+
+        setCookie("fit-finder-data", JSON.stringify(defaultData));
+      }
+    }
   });
+
+});
 </script>
 
 {% schema %}

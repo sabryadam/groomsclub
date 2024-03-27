@@ -336,13 +336,14 @@
         "background_style": "none",
         "button_label": "",
         "button_link": "",
-        "swipe_on_mobile": false
+        "swipe_on_mobile": false,
+        "custom_class": "wedding-gallery"
       }
     },
     "custom_liquid_q9FCBf": {
       "type": "custom-liquid",
       "settings": {
-        "custom_liquid": "<style>\n.multicolumn-list {\n    display: grid;\n    gap: 0.75rem;\n    grid-template-columns: repeat(12, minmax(0px, 1fr));\nmargin: 0;\n} \n.multicolumn-list__item {\n  grid-column: span 6 \/ span 6;\n  width: auto;\n  max-width: none;\n  min-width: auto;\n}\n\n.multicolumn-list__item .media--adapt img {\n  width: 100%;\n  object-fit: cover;\n  position: static;\nheight : 24rem;\n}\n\n.background-none .multicolumn-card__image-wrapper .media {\n  padding-bottom: 0 !important;\n}\n\n.multicolumn-card {\n  width: 100%;\n  min-width: 100%;\n}\n.multicolumn-list__item {\n  grid-column: span 12 \/ span 12;\n  margin: 0px;\n    width: auto !important;\n    max-width: none !important;\n    min-width: auto;\nmargin: 0 !important;\n    padding: 0 !important;\n}\n.multicolumn-card__info{\ndisplay: none;}\n.background-none .multicolumn-card__image-wrapper{\nmargin : 0 !important}\n\n@media(min-width: 1024px) {\n  .multicolumn-list__item {\n    grid-column: span 6 \/ span 6;\n  }\n}\n\n@media(min-width: 1280px){\n  .multicolumn-list__item {\n    grid-column: span 3 \/ span 3;\n  }\n}\n<\/style>"
+        "custom_liquid": "<!-- Load more button -->\n  <button type=\"button\" id=\"load-more-btn\" class=\"button  button--primary\">Load More<\/button>\n<style>\n.multicolumn-list {\n    display: grid;\n    gap: 0.75rem;\n    grid-template-columns: repeat(12, minmax(0px, 1fr));\nmargin: 0;\n} \n.multicolumn-list__item {\n  grid-column: span 6 \/ span 6;\n  width: auto;\n  max-width: none;\n  min-width: auto;\n}\n\n.multicolumn-list__item .media--adapt img {\n  width: 100%;\n  object-fit: cover;\n  position: static;\nheight : 24rem;\n}\n\n.background-none .multicolumn-card__image-wrapper .media {\n  padding-bottom: 0 !important;\n}\n\n.multicolumn-card {\n  width: 100%;\n  min-width: 100%;\n}\n.multicolumn-list__item {\n  grid-column: span 12 \/ span 12;\n  margin: 0px;\n    width: auto !important;\n    max-width: none !important;\n    min-width: auto;\nmargin: 0 !important;\n    padding: 0 !important;\n}\n.multicolumn-card__info{\ndisplay: none;}\n.background-none .multicolumn-card__image-wrapper{\nmargin : 0 !important}\n\n@media(min-width: 1024px) {\n  .multicolumn-list__item {\n    grid-column: span 6 \/ span 6;\n  }\n}\n\n@media(min-width: 1280px){\n  .multicolumn-list__item {\n    grid-column: span 3 \/ span 3;\n  }\n}\n<\/style>"
       }
     }
   },
