@@ -14068,4 +14068,9 @@ button.btn-wrap.button--secondary.event-update-button {
   max-width: 100%;
   object-fit: cover;
 }
+.jacket_option .option3,
+.pants_option .option3,
+.product-block-wrap-suit-wrapper .option-name.option-3{
+  display : none !important;
+}
 /* custom css */  

@@ -983,8 +983,11 @@ if(openOverviewTab){
 }
 
 if (getCookie("fit-finder-data") != '' && localStorage.getItem("save-fit-finder-flag-replace") == 'true') {
-  $("#suit_fit_finder").show();
-  $("#fit_finder_data_auto").hide();
+  {% if customer %}
+    suitSizeData();
+  {% else %}
+    suitSizeDataNonLogged();
+  {% endif %}
 }else{
   {% if customer %}
     suitSizeData();
