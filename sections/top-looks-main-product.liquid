@@ -709,7 +709,13 @@
                                             {%- endif -%}
                                           {%- endif -%}
                                         {%- endfor -%}
-                                        {%- unless forloop.last -%},{%- endunless -%}
+                                        {%- if productSelectedType == 'pants' or productSelectedType == 'jacket' %}
+                                          {%- if productSelectedType == 'pants' %}
+                                            {%- if forloop.first -%}x{%- endif -%}
+                                          {%- endif  -%}
+                                        {%- else -%}
+                                          {%- unless forloop.last -%},{%- endunless -%}
+                                        {%- endif -%}
                                       {% endfor %}
                                     </div>
                                   </div>
@@ -758,9 +764,9 @@
                         </div>
                         <div id="fit_finder_data_auto" style="display: none;">
                           <div class="ff-top-box">
-                            <h3>Your Sizes</h3>
-                            <span>Calculated based on your fit responses.</span>
-                            <a href="https://www.groomsclub.com/pages/fit-finder">Retry fit finder</a>
+                            <h3>Recommended Size</h3>
+                            {%- comment -%}<span>Calculated based on your fit responses.</span>
+                            <a href="https://www.groomsclub.com/pages/fit-finder">Retry fit finder</a>{%- endcomment -%}
                           </div>
                           <div id="ff-data-box">
                           </div>
@@ -1259,26 +1265,24 @@ function suitSizeData() {
                 $(`.edit-item-popup[data-product-type="length"] select[data-name="style"]`).val(result.data[0].pants_hight);
               },200);
               ff_html += `<div class="ff-data">
-                              <strong>Jacket</strong>
-                              <span>Chest: ${jacket_size}</span>
-                              <span>Length: ${jacket_type}</span>
+                              <strong>Jacket Size :</strong>
+                              <span>${jacket_size} - ${jacket_type}</span>
                           </div>`;
               if( result.data[0].pants_waist || result.data[0].pants_hight ){
                 ff_html += `<div class="ff-data">
-                                <strong>Pants</strong>
-                                <span>Waist: ${result.data[0].pants_waist}</span>
-                                <span>Length: ${result.data[0].pants_hight}</span>
+                                <strong>Pants Size :</strong>
+                                <span>${result.data[0].pants_waist} x ${result.data[0].pants_hight}</span>
                             </div>`;
               }
               if( result.data[0].shirt_neck || result.data[0].shirt_sleeve ){
-                ff_html += `<div class="ff-data">
+                ff_html += `<div class="ff-data hidden">
                                 <strong>Shirt</strong>
                                 <span>Neck: ${result.data[0].shirt_neck}</span>
                                 <span>Sleeve: ${result.data[0].shirt_sleeve}</span>
                             </div>`;
               }
               if( result.data[0].shoe_size ){
-                ff_html += `<div class="ff-data">
+                ff_html += `<div class="ff-data hidden">
                                 <strong>Shoes</strong>
                                 <span>Size: ${result.data[0].shoe_size}</span>
                             </div>`;
@@ -1342,14 +1346,14 @@ function suitSizeDataNonLogged(){
                   </div>`;
     }
     if( getFitFinder.shirt_neck || getFitFinder.shirt_sleeve ){
-      ff_html += `<div class="ff-data">
+      ff_html += `<div class="ff-data hidden">
                       <strong>Shirt</strong>
                       <span>Neck: ${getFitFinder.shirt_neck}</span>
                       <span>Sleeve: ${getFitFinder.shirt_sleeve}</span> 
                   </div>`;
     }
     if( getFitFinder.shoe_size ){
-      ff_html += `<div class="ff-data">
+      ff_html += `<div class="ff-data hidden">
                       <strong>Shoes</strong>
                       <span>Size: ${getFitFinder.shoe_size}</span>
                   </div>`;

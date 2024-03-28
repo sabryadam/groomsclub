@@ -6,7 +6,7 @@
   flex-grow: 0;
 }
 
-@media screen and (min-width:768px){
+/* @media screen and (min-width:768px){
   .collection .grid .grid__item {
     width: calc(33.33% - 0rem * 2 / 3);
   } 
@@ -16,7 +16,7 @@
   .collection .grid .grid__item {
     width: calc(50% - 0rem / 2);
   } 
-}
+} */
 
 
 @media screen and (max-width: 749px) {
