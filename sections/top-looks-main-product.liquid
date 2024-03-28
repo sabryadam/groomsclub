@@ -682,8 +682,8 @@
                                     {%- if productSelectedType == 'pants' %}
                                       <span class="edit-size-title">Pants Size </span>
                                     {%- endif -%}
-                                    <div class="product-variant-value hidden">
-                                      {% for option in productHandle.options_with_values  %}
+                                    <div class="product-variant-value hidden {{ productSelectedType }}">
+                                      {%- for option in productHandle.options_with_values -%}
                                         {% assign outer_forloop = forloop %}
                                         {%- if productSelectedType == 'jacket' and forloop.first %}
                                           <span class="option-label-wrap">Jacket - </span>
@@ -703,10 +703,6 @@
                                             <span class="option-name option-{{ forloop.index }}" data-option-title="{{ option.name }}">
                                               {{- variantOptionsTitle | strip -}}
                                             </span>
-                                            {%- if productSelectedType == 'pants' -%}
-                                              {%- if option == 'Waist' -%}W{%- endif -%}
-                                              {%- if option == 'Length' -%}H{%- endif -%}
-                                            {%- endif -%}
                                           {%- endif -%}
                                         {%- endfor -%}
                                         {%- if productSelectedType == 'pants' or productSelectedType == 'jacket' %}
@@ -716,7 +712,7 @@
                                         {%- else -%}
                                           {%- unless forloop.last -%},{%- endunless -%}
                                         {%- endif -%}
-                                      {% endfor %}
+                                      {%- endfor -%}
                                     </div>
                                   </div>
                                   <div class="cta-button-wrap ">
@@ -764,7 +760,7 @@
                         </div>
                         <div id="fit_finder_data_auto" style="display: none;">
                           <div class="ff-top-box">
-                            <h3>Recommended Size</h3>
+                            <h3>Recommended Size:</h3>
                             {%- comment -%}<span>Calculated based on your fit responses.</span>
                             <a href="https://www.groomsclub.com/pages/fit-finder">Retry fit finder</a>{%- endcomment -%}
                           </div>
@@ -1271,7 +1267,7 @@ function suitSizeData() {
               if( result.data[0].pants_waist || result.data[0].pants_hight ){
                 ff_html += `<div class="ff-data">
                                 <strong>Pants Size :</strong>
-                                <span>${result.data[0].pants_waist} x ${result.data[0].pants_hight}</span>
+                                <span>${result.data[0].pants_waist}x${result.data[0].pants_hight}</span>
                             </div>`;
               }
               if( result.data[0].shirt_neck || result.data[0].shirt_sleeve ){
@@ -1335,14 +1331,12 @@ function suitSizeDataNonLogged(){
     },200);
     ff_html += `<div class="ff-data">
                     <strong>Jacket</strong>
-                    <span>Chest: ${jacket_size}</span>
-                    <span>Length: ${jacket_type}</span>
+                    <span>${jacket_size} ${jacket_type}</span>
                 </div>`;
     if( getFitFinder.pants_waist || getFitFinder.pants_hight ){
       ff_html += `<div class="ff-data">
                       <strong>Pants</strong>
-                      <span>Waist: ${getFitFinder.pants_waist}</span>
-                      <span>Length: ${getFitFinder.pants_hight}</span>
+                      <span>${getFitFinder.pants_waist}x${getFitFinder.pants_hight}</span>
                   </div>`;
     }
     if( getFitFinder.shirt_neck || getFitFinder.shirt_sleeve ){

@@ -12,7 +12,7 @@
     {% render 'product-card', show_vendor: section.settings.show_vendor %}
 {% endcomment %}
 
-<div class="card-wrapper" {{ product_card_product.type }}>
+<div class="card-wrapper">
   <a href="{{ product_card_product.url | within : collection  }}" class="full-unstyled-link">
     <span class="visually-hidden">{{ product_card_product.title | escape }}</span>
 
@@ -101,5 +101,18 @@
         {% render 'price', product: product_card_product, price_class: '' %}
       </div>
     </div>
+    {%- if collection.handle contains 'shoes' -%}
+      <div class="custom-swatches-wrapper">
+        {%- for option in product_card_product.options_with_values -%}
+          {% if option.name contains 'Color' or option.name contains 'color'  %}
+            {%- for value in option.values -%}
+              <div data-option-type="{{ picker_type }}" data-view="product" class="option-img-wrap" style="background-color: {{ value | split: ' ' | last | handle }}; background-image: url({{ value | handle | prepend : 'color_' | append: '.png' | file_url }})">
+                <span>{{- value -}}</span>
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}    
   </a>
 </div>
