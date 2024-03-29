@@ -14137,4 +14137,12 @@ button.btn-wrap.button--secondary.event-update-button {
     padding-left: 0;
   }
 }
+.template-collection-top-collection .main-collection-product-grid .media img ,
+.template-collection-top-suit .main-collection-product-grid .media img ,
+.template-collection .main-collection-product-grid .media img {
+  width: 100%;
+  object-fit: cover !important;
+  margin:  0 auto; 
+  height: 520px;
+}
 /* custom css */  
