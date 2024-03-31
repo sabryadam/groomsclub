@@ -17,7 +17,7 @@
   {%- if collection.handle == 'looks' -%}
   {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
     {%- assign total_active_values = 0 -%}
-    <collection-filters-form class="facets " demo-{{ collection.handle }}>
+    <collection-filters-form class="facets ">
       <form id="CollectionFiltersForm" class="facets__form">
         {% if section.settings.enable_filtering %}
           <div class="facets__wrapper">
