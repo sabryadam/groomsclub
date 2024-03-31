@@ -14050,8 +14050,30 @@ a.active-facets__button.button.button--secondary:hover{
   width: calc(100% - 10px);
   text-align: center;
 }
+.cross-sell-message{
+  color: #d8000c;
+  font-size: 14px;
+  line-height: inherit;
+}
 .confirm-weight-msg.hide {
   display: none;
+}
+.jacket-pant-separate-product .product-block-wrap-suit-wrapper .product-info .product-title{
+  margin: 0;
+}
+.jacket-pant-separate-product .product-block-wrap-suit-wrapper .remove-item-btn{
+  display: none !important;
+}
+.jacket-pant-separate-product .product-block-wrap-suit-wrapper .product-info .variant-title .option-name {
+  margin-right: 5px;
+}
+.jacket-pant-separate-product .product-block-wrap-suit-wrapper .edit-item-custom-btn{
+  color: var(--color-light-blue);
+  font-size: calc(var(--font-size-body) - 2px);
+  font-weight: 600;
+  line-height: 1;
+  display: inline-block;
+  cursor: pointer;
 }
 /* look page filter */
 .event-look-inner-wrapper .slick-list{
@@ -14060,6 +14082,35 @@ a.active-facets__button.button.button--secondary:hover{
 button.btn-wrap.button--secondary.event-update-button {
     background: #1075bc;
     color: #fff;
+}
+.jacket-pant-saparate-wrapper .product-block-wrap{
+  display: flex;
+  align-items: center;
+}
+.jacket-pant-saparate-wrapper .product-block-wrap .product-image{
+  width: 150px;
+  line-height: 0;
+  padding-right: 10px;
+}
+.jacket-pant-saparate-wrapper .product-block-wrap .product-info{
+  width: calc(100% - 150px);
+  padding-left: 10px;
+}
+.product-suit-wrapper.show .remove-optional-item-wrapper{
+  display: flex;
+}
+.product-suit-wrapper.show .remove-optional-item-button{
+  margin-left: 5px;
+}
+.product-suit-wrapper.show .button{
+  height: auto;
+  padding: 5px;
+}
+.product-suit-wrapper.show .title{
+  display: none;
+}
+.template-cart .edit-item-popup .title{
+  display: none !important;
 }
 .wedding-gallery .multicolumn-list__item.hidden {
   display: none;
