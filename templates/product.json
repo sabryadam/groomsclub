@@ -54,7 +54,7 @@
           "type": "productaccordion",
           "settings": {
             "title": "<p>Product Details<\/p>",
-            "description": "<p>{{ product.metafields.my_fields.product_description_details | metafield_tag }}<\/p><p><strong>Poly 67%<\/strong><\/p><p><strong>Rayon 29%<\/strong><\/p><p><strong>Spandex 4%<\/strong><\/p>"
+            "description": "<p>{{ product.metafields.my_fields.product_description_details | metafield_tag }}<\/p>{{ product.metafields.custom.shirt_fabric_informations | metafield_tag }}"
           }
         },
         "c7d2c046-6efa-4696-961a-3d3898c8ddf7": {
