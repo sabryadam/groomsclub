@@ -24,10 +24,6 @@
       width: 15px !important;
     }
   }
-  div.edit-item-popup,
-  .edit-item-popup select.single-option-selector {
-    /* display: block; */
-  }
   .product__title.h2 {
     margin-top: -5px;
   }
@@ -683,7 +679,7 @@
                                       <span class="edit-size-title">Pants Size </span>
                                     {%- endif -%}
                                     <div class="product-variant-value hidden">
-                                      {% for option in productHandle.options_with_values  %}
+                                      {%- for option in productHandle.options_with_values  -%}
                                         {% assign outer_forloop = forloop %}
                                         {%- if productSelectedType == 'jacket' and forloop.first %}
                                           <span class="option-label-wrap">Jacket - </span>
@@ -703,13 +699,15 @@
                                             <span class="option-name option-{{ forloop.index }}" data-option-title="{{ option.name }}">
                                               {{- variantOptionsTitle | strip -}}
                                             </span>
-                                            {%- if productSelectedType == 'pants' -%}
-                                              {%- if option == 'Waist' -%}W{%- endif -%}
-                                              {%- if option == 'Length' -%}H{%- endif -%}
-                                            {%- endif -%}
                                           {%- endif -%}
                                         {%- endfor -%}
-                                        {%- unless forloop.last -%},{%- endunless -%}
+                                        {%- if productSelectedType == 'pants' or productSelectedType == 'jacket' %}
+                                          {%- if productSelectedType == 'pants' %}
+                                            {%- if forloop.first -%}x{%- endif -%}
+                                          {%- endif  -%}
+                                        {%- else -%}
+                                          {%- unless forloop.last -%},{%- endunless -%}
+                                        {%- endif -%}
                                       {% endfor %}
                                     </div>
                                   </div>
@@ -758,9 +756,9 @@
                         </div>
                         <div id="fit_finder_data_auto" style="display: none;">
                           <div class="ff-top-box">
-                            <h3>Your Sizes</h3>
-                            <span>Calculated based on your fit responses.</span>
-                            <a href="https://www.groomsclub.com/pages/fit-finder">Retry fit finder</a>
+                            <h3>Recommended Size</h3>
+                            {%- comment -%}<span>Calculated based on your fit responses.</span>
+                            <a href="https://www.groomsclub.com/pages/fit-finder">Retry fit finder</a>{%- endcomment -%}
                           </div>
                           <div id="ff-data-box">
                           </div>
@@ -1258,27 +1256,25 @@ function suitSizeData() {
                 $(`.edit-item-popup[data-product-type="waist"] select[data-name="chest size"]`).val(result.data[0].pants_waist);
                 $(`.edit-item-popup[data-product-type="length"] select[data-name="style"]`).val(result.data[0].pants_hight);
               },200);
-              ff_html += `<div class="ff-data">
-                              <strong>Jacket</strong>
-                              <span>Chest: ${jacket_size}</span>
-                              <span>Length: ${jacket_type}</span>
+              ff_html += `<div class="ff-data jacket-wrap">
+                              <strong>Jacket : </strong>
+                              <span>${jacket_size} ${jacket_type}</span>
                           </div>`;
               if( result.data[0].pants_waist || result.data[0].pants_hight ){
                 ff_html += `<div class="ff-data">
-                                <strong>Pants</strong>
-                                <span>Waist: ${result.data[0].pants_waist}</span>
-                                <span>Length: ${result.data[0].pants_hight}</span>
+                                <strong>Pants : </strong>
+                                <span>${result.data[0].pants_waist}x${result.data[0].pants_hight}</span>
                             </div>`;
               }
               if( result.data[0].shirt_neck || result.data[0].shirt_sleeve ){
-                ff_html += `<div class="ff-data">
+                ff_html += `<div class="ff-data hidden">
                                 <strong>Shirt</strong>
                                 <span>Neck: ${result.data[0].shirt_neck}</span>
                                 <span>Sleeve: ${result.data[0].shirt_sleeve}</span>
                             </div>`;
               }
               if( result.data[0].shoe_size ){
-                ff_html += `<div class="ff-data">
+                ff_html += `<div class="ff-data hidden">
                                 <strong>Shoes</strong>
                                 <span>Size: ${result.data[0].shoe_size}</span>
                             </div>`;
@@ -1329,27 +1325,25 @@ function suitSizeDataNonLogged(){
       $(`.edit-item-popup[data-product-type="pants"] select[data-name="waist"]`).val(getFitFinder.pants_waist);
       $(`.edit-item-popup[data-product-type="pants"] select[data-name="length"]`).val(getFitFinder.pants_hight);
     },200);
-    ff_html += `<div class="ff-data">
-                    <strong>Jacket</strong>
-                    <span>Chest: ${jacket_size}</span>
-                    <span>Length: ${jacket_type}</span>
+    ff_html += `<div class="ff-data jacket-wrap">
+                    <strong>Jacket : </strong>
+                    <span>${jacket_size} ${jacket_type}</span>
                 </div>`;
     if( getFitFinder.pants_waist || getFitFinder.pants_hight ){
       ff_html += `<div class="ff-data">
-                      <strong>Pants</strong>
-                      <span>Waist: ${getFitFinder.pants_waist}</span>
-                      <span>Length: ${getFitFinder.pants_hight}</span>
+                      <strong>Pants : </strong>
+                      <span>${getFitFinder.pants_waist}x${getFitFinder.pants_hight}</span>
                   </div>`;
     }
     if( getFitFinder.shirt_neck || getFitFinder.shirt_sleeve ){
-      ff_html += `<div class="ff-data">
+      ff_html += `<div class="ff-data hidden">
                       <strong>Shirt</strong>
                       <span>Neck: ${getFitFinder.shirt_neck}</span>
                       <span>Sleeve: ${getFitFinder.shirt_sleeve}</span> 
                   </div>`;
     }
     if( getFitFinder.shoe_size ){
-      ff_html += `<div class="ff-data">
+      ff_html += `<div class="ff-data hidden">
                       <strong>Shoes</strong>
                       <span>Size: ${getFitFinder.shoe_size}</span>
                   </div>`;
