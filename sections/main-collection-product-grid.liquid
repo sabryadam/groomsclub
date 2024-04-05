@@ -14,6 +14,7 @@
 {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
 
 <div class="page-width collection-filters" id="main-collection-filters" data-id="{{ section.id }}">
+  {%- if collection.handle == 'looks' -%}
   {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
     {%- assign total_active_values = 0 -%}
     <collection-filters-form class="facets ">
@@ -391,6 +392,7 @@
     {% endcomment %}
 
   {%- endif -%}
+  {%- endif -%}
 </div>
 
 <script src="{{ 'collection-filters-form.js' | asset_url }}" defer="defer"></script>
@@ -431,15 +433,11 @@
         </div>
 
 
-        <ul id="main-collection-product-grid" data-id="{{ section.id }}" class="
-          grid grid--2-col
-          {% if collection.products_count < 3 %} grid--{{ collection.products_count }}-col-tablet{% else %}
-            {% if collection.products_count == 3 %} grid--3-col-desktop{% else %} grid--3-col-tablet grid--one-third-max grid--3-col-desktop grid--quarter-max{% endif %}
-          {% endif %} negative-margin">
+        <div class="main-collection-product-grid" data-id="{{ section.id }}">
           {%- for product in collection.products -%}
           {%- assign productType = product.type | downcase -%}
             {%- unless productType contains 'vest' -%}{%- endunless -%}
-              <li class="grid__item">
+              <div class="product-grid-inner-wrapper">
                 {% render 'product-card',
                   product_card_product: product,
                   media_size: section.settings.image_ratio,
@@ -447,9 +445,9 @@
                   add_image_padding: section.settings.add_image_padding,
                   show_vendor: section.settings.show_vendor
                 %}
-              </li>
+              </div>
           {%- endfor -%}
-        </ul>
+        </div>
 
         {%- if paginate.pages > 1 -%}
           {% render 'pagination', paginate: paginate, anchor: '', class: '' %}
@@ -458,7 +456,7 @@
     {%- endif -%}
   {%- endpaginate -%}
   
-  <div style="max-width:80%; margin:0 auto;">
+  <div class="collection page-width">
     {%- if collection.description != blank -%}
       <p>{{ collection.description }}</p>
     {%- endif -%}

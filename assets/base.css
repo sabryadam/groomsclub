@@ -11907,14 +11907,16 @@ div.tab-top-border {
 }
 
 .template-collection-top-collection .main-collection-product-grid,
-.template-collection-top-suit .main-collection-product-grid {
+.template-collection-top-suit .main-collection-product-grid,
+.template-collection .main-collection-product-grid {
   display: flex;
   flex-wrap: wrap;
   margin: 0 -8px;
 }
 
 .template-collection-top-collection .product-grid-inner-wrapper,
-.template-collection-top-suit .product-grid-inner-wrapper {
+.template-collection-top-suit .product-grid-inner-wrapper,
+.template-collection .product-grid-inner-wrapper {
   width: calc(25% - 16px);
   margin: 0 8px;
 }
@@ -12685,7 +12687,8 @@ select#event-id.disabled {
 }
 @media(min-width:768px) and (max-width:1024px){
   .template-collection-top-collection .product-grid-inner-wrapper,
-  .template-collection-top-suit .product-grid-inner-wrapper {
+  .template-collection-top-suit .product-grid-inner-wrapper,
+  .template-collection .product-grid-inner-wrapper {
     width: calc(50% - 16px);
   }
   .template-collection-top-collection .plp-top-looks-product-grid .card-information__wrapper .card-information__text,
@@ -12778,8 +12781,8 @@ select#event-id.disabled {
 .template-collection-top-collection .plp-top-looks-product-grid .card-information{
   padding: 10px 15px 35px 18px;
 }
-.template-collection-top-collection .plp-top-looks-product-grid .card-information{
-  padding: 15px 15px 15px;
+.template-collection .card-information{
+  padding: 10px 0 20px 0;
 }
 .template-collection-top-collection .plp-top-looks-product-grid .card-information .button,
 .template-collection-top-suit .plp-top-looks-product-grid .card-information .button{
@@ -13069,7 +13072,8 @@ select#event-id.disabled {
 .template-collection-top-suit .page-width-big,
 .template-collection-top-collection .page-width-big,
 header.page-width-big,
-footer .page-width{
+footer .page-width,
+.template-collection .page-width{
   max-width: 1920px;
   padding-left: 5.1%;
   padding-right: 5.1%;
@@ -13309,7 +13313,8 @@ h1,h2,h3,h4,h5,h6{
     width: calc(50% - 16px);
   }
   .template-collection-top-suit .product-grid-inner-wrapper,
-  .template-collection .collection .grid .grid__item{
+  .template-collection .collection .grid .grid__item,
+  .template-collection .product-grid-inner-wrapper{
     padding: 0;
     width: 100%;
     margin: 0;
@@ -13407,7 +13412,8 @@ h1,h2,h3,h4,h5,h6{
     display: none !important;
   }
   .template-collection-top-collection .main-collection-product-grid,
-  .template-collection-top-suit .main-collection-product-grid {
+  .template-collection-top-suit .main-collection-product-grid,
+  .template-collection .main-collection-product-grid {
     margin: 0;
     padding-left: 5.1%;
     padding-right: 5.1%;
@@ -13466,7 +13472,7 @@ h1,h2,h3,h4,h5,h6{
   }
 } */
 @media(min-width: 1280px) and (max-width: 1680px){
-  .template-index .page-width, .template-index .page-width-big, .template-collection-top-suit .page-width, .template-collection-top-suit .page-width-big, header.page-width-big, footer .page-width{
+  .template-index .page-width, .template-index .page-width-big, .template-collection-top-suit .page-width, .template-collection-top-suit .page-width-big, header.page-width-big, footer .page-width, .template-collection .page-width{
     padding-left: 2.25rem;
     padding-right: 2.25rem;
   }
@@ -14073,6 +14079,24 @@ button.btn-wrap.button--secondary.event-update-button {
 .product-block-wrap-suit-wrapper .option-name.option-3{
   display : none !important;
 }
+.custom-swatches-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.custom-swatches-wrapper .option-img-wrap{
+  width: 34px;
+  height: 34px;
+  border-radius: 100%;
+  overflow: hidden;
+  margin-right:5px;
+}
+.custom-swatches-wrapper .option-img-wrap span{
+  display: none;
+}
+.template-collection .collection-hero__title{
+  margin-top: 25px;
+}
 .template-product-top-looks-pdp #fit_finder_data_auto,
 .template-product-jacket-pant-combination #fit_finder_data_auto {
   display: flex;
@@ -14166,5 +14190,13 @@ button.btn-wrap.button--secondary.event-update-button {
   .template-product-top-looks-pdp .ff-top-box, .template-product-jacket-pant-combination .ff-top-box {
     min-width: 117px;
   }
+}
+.template-collection-top-collection .main-collection-product-grid .media img ,
+.template-collection-top-suit .main-collection-product-grid .media img ,
+.template-collection .main-collection-product-grid .media img {
+  width: 100%;
+  object-fit: cover !important;
+  margin:  0 auto; 
+  height: 520px;
 }
 /* custom css */  
