@@ -12783,12 +12783,6 @@ select#event-id.disabled {
 }
 .template-collection .card-information{
   padding: 10px 0 20px 0;
-<<<<<<< HEAD
-}
-.template-collection-top-collection .plp-top-looks-product-grid .card-information{
-  padding: 15px 15px 15px;
-=======
->>>>>>> 351ff1576a16e475b0fdb5c138d1ed38c3898c7b
 }
 .template-collection-top-collection .plp-top-looks-product-grid .card-information .button,
 .template-collection-top-suit .plp-top-looks-product-grid .card-information .button{
@@ -13478,7 +13472,6 @@ h1,h2,h3,h4,h5,h6{
   }
 } */
 @media(min-width: 1280px) and (max-width: 1680px){
-<<<<<<< HEAD
   .template-index .page-width, 
   .template-index .page-width-big, 
   .template-collection .page-width, 
@@ -13486,9 +13479,6 @@ h1,h2,h3,h4,h5,h6{
   .template-collection-top-suit .page-width-big, 
   header.page-width-big, 
   footer .page-width{
-=======
-  .template-index .page-width, .template-index .page-width-big, .template-collection-top-suit .page-width, .template-collection-top-suit .page-width-big, header.page-width-big, footer .page-width, .template-collection .page-width{
->>>>>>> 351ff1576a16e475b0fdb5c138d1ed38c3898c7b
     padding-left: 2.25rem;
     padding-right: 2.25rem;
   }
@@ -14238,13 +14228,12 @@ button.btn-wrap.button--secondary.event-update-button {
   .template-product-top-looks-pdp #fit_finder_data_auto .ff-data strong, .template-product-jacket-pant-combination #fit_finder_data_auto .ff-data strong, .template-product-top-looks-pdp #fit_finder_data_auto .ff-data span, .template-product-jacket-pant-combination #fit_finder_data_auto .ff-data span{
     font-size: 12px;
   }
-<<<<<<< HEAD
-=======
+
   .template-product-jacket-pant-combination #fit_finder_data_auto .ff-data.jacket-wrap{
     padding-right: 5px;
     margin-right: 5px;
   }
->>>>>>> 351ff1576a16e475b0fdb5c138d1ed38c3898c7b
+
 }
 @media(max-width : 430px){
   .template-product-top-looks-pdp #ff-data-box, .template-product-jacket-pant-combination #ff-data-box{
@@ -14254,15 +14243,14 @@ button.btn-wrap.button--secondary.event-update-button {
   .template-product-jacket-pant-combination .ff-data{
     padding-left: 0;
   }
-<<<<<<< HEAD
-=======
+
   .template-product-top-looks-pdp #fit_finder_data_auto .ff-data strong, .template-product-jacket-pant-combination #fit_finder_data_auto .ff-data strong, .template-product-top-looks-pdp #fit_finder_data_auto .ff-data span, .template-product-jacket-pant-combination #fit_finder_data_auto .ff-data span{
     font-size: 10px;
   }
   .template-product-top-looks-pdp .ff-top-box, .template-product-jacket-pant-combination .ff-top-box {
     min-width: 117px;
   }
->>>>>>> 351ff1576a16e475b0fdb5c138d1ed38c3898c7b
+
 }
 .template-collection-top-collection .main-collection-product-grid .media img ,
 .template-collection-top-suit .main-collection-product-grid .media img ,
@@ -14272,8 +14260,5 @@ button.btn-wrap.button--secondary.event-update-button {
   margin:  0 auto; 
   height: 520px;
 }
-<<<<<<< HEAD
+
 /* custom css */  
-=======
-/* custom css */  
->>>>>>> 351ff1576a16e475b0fdb5c138d1ed38c3898c7b
