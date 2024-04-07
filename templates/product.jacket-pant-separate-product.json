@@ -19,7 +19,7 @@
           "type": "price",
           "settings": {}
         },
-        "9c0b38ac-0f09-4bed-9016-0b432b9cbf28": {
+        "f08855fd-3bfb-4f55-95fd-472544dee118": {
           "type": "short_description",
           "settings": {
             "short_desc": "<p>{{ product.metafields.my_fields.short_description | metafield_tag }}<\/p>"
@@ -27,6 +27,7 @@
         },
         "subtitle": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "text": "<p>{{ product.metafields.descriptors.subtitle.value }}<\/p>",
             "text_style": "subtitle"
@@ -49,14 +50,14 @@
             "show_dynamic_checkout": true
           }
         },
-        "f7551950-20af-45f0-aedd-33c54fe16081": {
+        "d5b5c2fe-6060-4b63-ac48-c6785a2e9bc0": {
           "type": "productaccordion",
           "settings": {
             "title": "<p>Product Details<\/p>",
-            "description": "<p><strong>JACKET<\/strong><\/p><p>4 Way Stretch Fabric<\/p><p>Stretch Lining<\/p><p>2-Button Single Breasted<\/p><p>Notch Lapel<\/p><p>Side Vents<\/p><p>Flap Pockets<\/p><p><strong>PANTS<\/strong><\/p><p>4 Way Stretch Fabric<\/p><p>SuperFlex Waistband<\/p><p>Flat Front<\/p><p>Line To The Knee<\/p>"
+            "description": "<p>{{ product.metafields.my_fields.product_description_details | metafield_tag }}<\/p>"
           }
         },
-        "092a5e0a-daad-4cec-9d6a-087c07972fba": {
+        "c7d2c046-6efa-4696-961a-3d3898c8ddf7": {
           "type": "productaccordion",
           "settings": {
             "title": "<p>Shipping & returns<\/p>",
@@ -72,13 +73,13 @@
         "vendor",
         "title",
         "price",
-        "9c0b38ac-0f09-4bed-9016-0b432b9cbf28",
+        "f08855fd-3bfb-4f55-95fd-472544dee118",
         "subtitle",
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "f7551950-20af-45f0-aedd-33c54fe16081",
-        "092a5e0a-daad-4cec-9d6a-087c07972fba",
+        "d5b5c2fe-6060-4b63-ac48-c6785a2e9bc0",
+        "c7d2c046-6efa-4696-961a-3d3898c8ddf7",
         "share"
       ],
       "settings": {
@@ -103,31 +104,31 @@
         "759ef02f-3761-48d2-9c30-25ba2791b0ab": {
           "type": "icontext",
           "settings": {
-            "icontitle": "2-Button Single Breasted",
-            "iconsubtitle": "Notch Lapel",
+            "icontitle": "100% Microfiber",
+            "iconsubtitle": "",
             "information_title": "",
             "information_content": "",
-            "icon_image": "shopify:\/\/shop_images\/Suit_buttons.png"
+            "icon_image": "shopify:\/\/shop_images\/home_icon_6d6a5bb5-a9f6-445c-af00-7dddf9d461f8.png"
           }
         },
         "d69aab98-8f99-4cee-81c8-9eaf3c86132d": {
           "type": "icontext",
           "settings": {
-            "icontitle": "4 Way Stretch Fabric",
-            "iconsubtitle": "A suit that moves with you",
+            "icontitle": "100% Silk Satin Shawl Collar",
+            "iconsubtitle": "",
             "information_title": "",
             "information_content": "",
-            "icon_image": "shopify:\/\/shop_images\/4-way-stretch-01-light-blue.png"
+            "icon_image": "shopify:\/\/shop_images\/comfort_fit.png"
           }
         },
         "32de98e0-8f5b-44fa-b5a7-6df0eda5455a": {
           "type": "icontext",
           "settings": {
-            "icontitle": "Waistband Flex",
-            "iconsubtitle": "Waistband stretches up to 2 inches for maximum comfort.",
+            "icontitle": "One-Button Closure & Side Vents",
+            "iconsubtitle": "",
             "information_title": "",
             "information_content": "",
-            "icon_image": "shopify:\/\/shop_images\/Waistband.png"
+            "icon_image": "shopify:\/\/shop_images\/endless.png"
           }
         }
       },
@@ -145,11 +146,11 @@
     "1637218881c7cbe80b": {
       "type": "before-after-image",
       "blocks": {
-        "77a9c5bc-eb5f-4c30-8e71-f66a5bebeee0": {
+        "061a8420-f501-4019-8b18-ebe2eaf179a7": {
           "type": "before_after_text_groom",
           "settings": {
             "svg_img_groom": "",
-            "groomsuit_content": "BUY FROM $199.99"
+            "groomsuit_content": "Buy from $199.99"
           }
         },
         "932d334b-ea81-4dc8-bc3f-9b70a8dcb705": {
@@ -180,11 +181,11 @@
             "groomsuit_content": "Custom Fit"
           }
         },
-        "21ec732a-ad16-4bb6-b534-c76bfcd7cdca": {
+        "95ede730-cfb0-4925-9cfb-70cacccbc63f": {
           "type": "before_after_text_rent",
           "settings": {
             "svg_img_rent": "",
-            "rent_content": "AVG. RENTAL $199.99"
+            "rent_content": "Avg. Rental $199.99"
           }
         },
         "2d924c71-e435-43cb-9fc7-fdcba337dc28": {
@@ -217,12 +218,12 @@
         }
       },
       "block_order": [
-        "77a9c5bc-eb5f-4c30-8e71-f66a5bebeee0",
+        "061a8420-f501-4019-8b18-ebe2eaf179a7",
         "932d334b-ea81-4dc8-bc3f-9b70a8dcb705",
         "0741a324-ed4e-458c-9885-a4295101f50c",
         "f45abde0-b9bc-4f91-9870-aa8c8ed7f72c",
         "15a51603-8616-48b1-9ec2-edc79c6b1163",
-        "21ec732a-ad16-4bb6-b534-c76bfcd7cdca",
+        "95ede730-cfb0-4925-9cfb-70cacccbc63f",
         "2d924c71-e435-43cb-9fc7-fdcba337dc28",
         "c9db0b73-617f-445a-8b54-9af1b7bfa3ca",
         "13f7c8ed-9252-4a34-b782-39080ebcd17a",
@@ -233,8 +234,8 @@
         "subtitle": "",
         "btntitle": "Learn More",
         "btnlink": "shopify:\/\/pages\/quality-and-comfort",
-        "button_style_secondary": false,
-        "groom_text_title": "Groomsclub Suit",
+        "button_style_secondary": true,
+        "groom_text_title": "Grooms Club Suit",
         "rent_text_title": "Rental Suit",
         "banner_image": "shopify:\/\/shop_images\/before-desktop.png",
         "banner_image_mobile": "shopify:\/\/shop_images\/before-desktop.png",
@@ -252,8 +253,8 @@
             "subtitle": "",
             "button_link": "",
             "button_name": "",
-            "desktop_image": "shopify:\/\/shop_images\/Stretch_Adrian_neck_cropped.png",
-            "mobile_image": "shopify:\/\/shop_images\/Stretch_Adrian_neck_cropped.png"
+            "desktop_image": "shopify:\/\/shop_images\/Stretch_Adrian_cropped.png",
+            "mobile_image": "shopify:\/\/shop_images\/Stretch_Adrian_cropped.png"
           }
         },
         "d5454a5d-9276-4c5b-a0e1-31537926adee": {
@@ -263,50 +264,14 @@
             "subtitle": "",
             "button_link": "",
             "button_name": "",
-            "desktop_image": "shopify:\/\/shop_images\/Stretch_Adrian_cropped.png",
-            "mobile_image": "shopify:\/\/shop_images\/Stretch_Adrian_cropped.png"
-          }
-        },
-        "4a231ef1-817f-4e52-86f5-5e6f10cae1cb": {
-          "type": "sliderimage",
-          "settings": {
-            "title": "",
-            "subtitle": "",
-            "button_link": "",
-            "button_name": "",
-            "desktop_image": "shopify:\/\/shop_images\/Don-split.png",
-            "mobile_image": "shopify:\/\/shop_images\/Don-split.png"
-          }
-        },
-        "4ac0da4d-7621-4c67-be7b-9c43fd1b694f": {
-          "type": "sliderimage",
-          "settings": {
-            "title": "",
-            "subtitle": "",
-            "button_link": "",
-            "button_name": "",
-            "desktop_image": "shopify:\/\/shop_images\/new-Stretch-sleeve.png",
-            "mobile_image": "shopify:\/\/shop_images\/new-Stretch-sleeve.png"
-          }
-        },
-        "16f44468-c5df-4ce8-bac5-8b8b539a10c2": {
-          "type": "sliderimage",
-          "settings": {
-            "title": "",
-            "subtitle": "",
-            "button_link": "",
-            "button_name": "",
-            "desktop_image": "shopify:\/\/shop_images\/Ethan-slide.png",
-            "mobile_image": "shopify:\/\/shop_images\/Ethan-slide.png"
+            "desktop_image": "shopify:\/\/shop_images\/Stretch_Adrian_neck_cropped.png",
+            "mobile_image": "shopify:\/\/shop_images\/Stretch_Adrian_neck_cropped.png"
           }
         }
       },
       "block_order": [
         "8270513a-f10e-4cb1-ab0d-8f0084a3a890",
-        "d5454a5d-9276-4c5b-a0e1-31537926adee",
-        "4a231ef1-817f-4e52-86f5-5e6f10cae1cb",
-        "4ac0da4d-7621-4c67-be7b-9c43fd1b694f",
-        "16f44468-c5df-4ce8-bac5-8b8b539a10c2"
+        "d5454a5d-9276-4c5b-a0e1-31537926adee"
       ],
       "settings": {
         "autoplay": true,
@@ -394,7 +359,9 @@
       ],
       "settings": {
         "check_width": false,
-        "video_mp4_link": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/5ce7f5dfe9b344db9efeb9442de8d151.mp4",
+        "image": "shopify:\/\/shop_images\/customize-look-2x.png",
+        "video_mp4_link": "",
+        "image_mobile": "shopify:\/\/shop_images\/customize-look-2x.png",
         "height": "adapt",
         "color_scheme": "background-2",
         "background_color": "#ffffff",
@@ -436,9 +403,9 @@
       ],
       "settings": {
         "check_width": false,
-        "image": "shopify:\/\/shop_images\/TOP_Looks_HP.png",
+        "image": "shopify:\/\/shop_images\/slider-2_cb72172c-7809-47dd-bc2b-3a9957ccb46d.png",
         "video_mp4_link": "",
-        "image_mobile": "shopify:\/\/shop_images\/TOP_Looks_HP.png",
+        "image_mobile": "shopify:\/\/shop_images\/slider-2_cb72172c-7809-47dd-bc2b-3a9957ccb46d.png",
         "height": "large",
         "color_scheme": "background-1",
         "background_color": "#ffffff",
@@ -446,41 +413,86 @@
         "custom_class": ""
       }
     },
-    "16376739206d7c2bdd": {
+    "16376728137efbe4bf": {
+      "type": "featured-collection",
+      "disabled": true,
+      "settings": {
+        "title": "Shop Essentials",
+        "collection": "suit",
+        "products_to_show": 4,
+        "show_view_all": false,
+        "swipe_on_mobile": true,
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "add_image_padding": false,
+        "show_vendor": false,
+        "autoplay": false,
+        "arrowprev": true,
+        "dots": false,
+        "loop": true
+      }
+    },
+    "1637755728898af7e9": {
       "type": "collection-list",
       "blocks": {
-        "16376739206da0534c-0": {
+        "1637755728e8744fc5-0": {
           "type": "featured_collection",
           "settings": {
             "collection": "suit"
           }
         },
-        "16376739206da0534c-1": {
+        "1637755728e8744fc5-1": {
           "type": "featured_collection",
-          "disabled": true,
           "settings": {
-            "collection": "jacket"
+            "collection": "looks"
           }
         },
-        "16376739206da0534c-2": {
-          "type": "featured_collection",
-          "disabled": true,
-          "settings": {
-            "collection": "pants"
-          }
-        },
-        "142b31de-8c71-40ce-9df0-d1c48ea9505e": {
+        "1637755728e8744fc5-2": {
           "type": "featured_collection",
           "settings": {
             "collection": "shirt"
           }
+        },
+        "8f5ee97d-c51c-40eb-ad14-26665a46b830": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "bow-ties"
+          }
+        },
+        "06156198-9465-4c00-b27c-73b3e0d81d3f": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "neckties"
+          }
+        },
+        "f2860173-facb-43b6-b297-6245b4d52f27": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "pocket-square"
+          }
+        },
+        "a2defb61-813e-4899-8b71-392d80eba27a": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "shoes"
+          }
+        },
+        "05065c49-1206-4c8d-b0e9-88df0703b2ed": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "socks"
+          }
         }
       },
       "block_order": [
-        "16376739206da0534c-0",
-        "16376739206da0534c-1",
-        "16376739206da0534c-2",
-        "142b31de-8c71-40ce-9df0-d1c48ea9505e"
+        "1637755728e8744fc5-0",
+        "1637755728e8744fc5-1",
+        "1637755728e8744fc5-2",
+        "8f5ee97d-c51c-40eb-ad14-26665a46b830",
+        "06156198-9465-4c00-b27c-73b3e0d81d3f",
+        "f2860173-facb-43b6-b297-6245b4d52f27",
+        "a2defb61-813e-4899-8b71-392d80eba27a",
+        "05065c49-1206-4c8d-b0e9-88df0703b2ed"
       ],
       "settings": {
         "background_color": "#f5f5f5",
@@ -496,10 +508,10 @@
         "loop": true
       }
     },
-    "custom_liquid_rDVehw": {
+    "custom_liquid_NQWykU": {
       "type": "custom-liquid",
       "settings": {
-        "custom_liquid": "<script type=\"text\/javascript\">\nvar _learnq = _learnq || [];\n  var classname = document.getElementsByClassName(\"product-form__submit button button--full-width button--primary custom-top-look-disable\");\nvar addToCart = function() {\n_learnq.push(['track', 'Added to Cart', item]);\n}; for (var i = 0; i < classname.length; i++) {\nclassname[i].addEventListener('click', addToCart, false);\n}\n<\/script>"
+        "custom_liquid": "<script type=\"text\/javascript\">\nvar _learnq = _learnq || [];\n  var classname = document.getElementsByClassName(\"product-form__submit button button--full-width button--primary\");\nvar addToCart = function() {\n_learnq.push(['track', 'Added to Cart', item]);\n}; for (var i = 0; i < classname.length; i++) {\nclassname[i].addEventListener('click', addToCart, false);\n}\n<\/script>"
       }
     }
   },
@@ -512,7 +524,8 @@
     "16372214325ca32849",
     "1637221439d4df7908",
     "16372214599f5ccf5a",
-    "16376739206d7c2bdd",
-    "custom_liquid_rDVehw"
+    "16376728137efbe4bf",
+    "1637755728898af7e9",
+    "custom_liquid_NQWykU"
   ]
 }

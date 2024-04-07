@@ -1112,8 +1112,7 @@ a.product__text {
 }
 
 .when-customer-logged .bundle-product-wrapper .product-block-wrap,
-.when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper,
-.jacket-pant-separate-product .product-block-wrap-suit-wrapper{
+.when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper{
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -1134,14 +1133,12 @@ a.product__text {
 }
 
 .when-customer-logged .bundle-product-wrapper .product-block-wrap .product-image,
-.when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-image,
-.jacket-pant-separate-product .product-block-wrap-suit-wrapper .product-image{
+.when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-image{
   width: 10%;
 }
 
 .when-customer-logged .bundle-product-wrapper .product-block-wrap .product-image img,
-.when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-image img,
-.jacket-pant-separate-product .product-block-wrap-suit-wrapper .product-image img{
+.when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-image img{
   width: 100%;
   height: 100px;
   max-width: 85px;
@@ -1150,37 +1147,32 @@ a.product__text {
 }
 
 .when-customer-logged .bundle-product-wrapper .product-block-wrap .product-info,
-.when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-info,
-.jacket-pant-separate-product .product-block-wrap-suit-wrapper .product-info{
+.when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-info{
   width: 75%;
   padding: 0 15px;
 }
 
 .when-customer-logged .bundle-product-wrapper .product-block-wrap .product-info .product-title,
-.when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-info .product-title,
-.jacket-pant-separate-product .product-block-wrap-suit-wrapper .product-info .product-tilte{
+.when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-info .product-title{
   margin: 0;
   font-size: 18px;
 }
 
 @media(max-width:767px){
   .when-customer-logged .bundle-product-wrapper .product-block-wrap .product-info .product-title,
-  .when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-info .product-title,
-  .jacket-pant-separate-product .product-block-wrap-suit-wrapper .product-info .product-title{
+  .when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-info .product-title{
     margin: 0;
     font-size: 16px;
   } 
 }
 .when-customer-logged .bundle-product-wrapper .product-block-wrap .product-info .cta-button-wrap,
-.when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-info .cta-button-wrap,
-.jacket-pant-separate-product .product-block-wrap-suit-wrapper .product-info .cta-button-wrap{
+.when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-info .cta-button-wrap{
   /* margin-top :  8px; */
   line-height: initial;
 }
 
 .when-customer-logged .bundle-product-wrapper .product-block-wrap .product-info .cta-button-wrap .btn,
-.when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-info .cta-button-wrap .btn,
-.jacket-pant-separate-product .product-block-wrap-suit-wrapper .product-info .cta-button-wrap .btn{
+.when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-info .cta-button-wrap .btn{
   color: var(--color-light-blue);
   font-size:calc(var(--font-size-body) - 2px);
   font-weight: 600;
@@ -1191,8 +1183,7 @@ a.product__text {
 
 .open-product-edit-popup,
 .when-customer-logged .bundle-product-wrapper .product-block-wrap .product-info .cta-button-wrap .btn.edit-item-btn,
-.when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-info .cta-button-wrap .btn.edit-item-btn,
-.jacket-pant-separate-product .product-block-wrap-suit-wrapper .product-info .cta-button-wrap .btn.edit-item-btn{
+.when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-info .cta-button-wrap .btn.edit-item-btn{
   border-right: 1px solid #000;
   padding-right: 10px;
   margin-right: 5px;
@@ -1200,15 +1191,13 @@ a.product__text {
   text-transform: capitalize;
 }
 .when-customer-logged .bundle-product-wrapper .product-block-wrap .product-price,
-.when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-price,
-.jacket-pant-separate-product .product-block-wrap-suit-wrapper .product-price{
+.when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-price{
   width: 15%;
   text-align: right;
   padding-right: 20px;
 }
 .when-customer-logged .bundle-product-wrapper .product-block-wrap .product-price .money,
-.when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-price .money,
-.jacket-pant-separate-product .product-block-wrap-suit-wrapper .product-price .money {
+.when-customer-logged .bundle-product-wrapper .product-block-wrap-suit-wrapper .product-price .money {
   font-weight: var(--font-weight-custom-medium);
   color: var(--color-primary);
 }

@@ -444,7 +444,7 @@ body .collection .plp-top-looks-product-grid .card-wrapper .card__inner .media{
   text-align: left;
 }
 .plp-top-looks-product-grid .card-wrapper .card__inner .media img {
-  width: auto;   position: unset; object-fit: cover !important; margin:  0 auto;
+  width: 100%;   position: unset; object-fit: cover !important; margin:  0 auto; 
 }
 
 

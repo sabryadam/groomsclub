@@ -1298,10 +1298,25 @@ theme_custom.customize_product_clickEvent = function () {
 
   // exchange-look-item
   $(document).on("click", ".exchange-look-item", function () {
+    // new code update
+    var current_product_option = ''
+    if($(this).closest(`.product-swatch-option`).find(`[data-option-swatch-index="0"]`).length > 0){
+      current_product_option = $(this).closest(`.product-swatch-option`).find(`[data-option-swatch-index="0"]`).find(`.swatch-element-item.active`).attr(`data-title`);
+    }
+    if($(this).closest(`.product-swatch-option`).find(`[data-option-swatch-index="1"]`).length > 0){
+      current_product_option = current_product_option + ' / ' + $(this).closest(`.product-swatch-option`).find(`[data-option-swatch-index="1"]`).find(`.swatch-element-item.active`).attr(`data-title`);
+    }
+    if($(this).closest(`.product-swatch-option`).find(`[data-option-swatch-index="2"]`).length > 0){
+      current_product_option = current_product_option + ' / ' + $(this).closest(`.product-swatch-option`).find(`[data-option-swatch-index="2"]`).find(`.swatch-element-item.active`).attr(`data-title`);
+    }
+    // alert(current_product_option_first, current_product_option_second,  current_product_option_third);
+    var targetVarTitle = `${current_product_option}`;
+    $(this).closest(".product-swatch-option").find(`select.prod-variant-option option[data-variant-title='${targetVarTitle}']`).prop("selected",true); 
+    
     var button = $(this),
       // productType = $(this).attr('data-product-type');
       targetVarID = $(this).closest(".product-swatch-option").find("select.prod-variant-option").val(),
-      targetVarTitle = $(this).closest(".product-swatch-option").find("select.prod-variant-option option:selected").attr("data-variant-title"),
+      // targetVarTitle = $(this).closest(".product-swatch-option").find("select.prod-variant-option option:selected").attr("data-variant-title"),
       buttonText = button.attr("data-text"),
       productHandle = button.parent(".product-swatch-option").attr("data-product-handle"),
       productType = button.attr('data-product-type');
