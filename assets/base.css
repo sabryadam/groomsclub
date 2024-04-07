@@ -14199,4 +14199,28 @@ button.btn-wrap.button--secondary.event-update-button {
   margin:  0 auto; 
   height: 520px;
 }
+.main-collection-product-grid .color-swatches{
+  margin-bottom: 5px;
+  margin-top: 15px; 
+}
+.main-collection-product-grid .swatch-title{
+  display: none;
+}
+.main-collection-product-grid .color-swatches label {
+  width: 34px;
+  display: block;
+  height: 34px;
+  border-radius: 100%;
+  overflow: hidden;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.main-collection-product-grid .swatches.swatch-title-size {
+  display: none;
+}
+.main-collection-product-grid .swatch.color {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 /* custom css */  
