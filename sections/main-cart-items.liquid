@@ -4,6 +4,7 @@
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 
 <input type="hidden" class="order-type" value="{{ cart.attributes.order_type }}">
 {%- assign orderType = false -%}
@@ -20,33 +21,23 @@
        <a href="{{ routes.all_products_collection_url }}" class="link"> <i class="fas fa-arrow-left"></i> {{ 'general.continue_shopping' | t }}</a>
     </div>
   </div>
-  
+  <div class="main-heading-part">
+    <h1 class="text-center-heading border-heading title h1">{{ 'sections.cart.title' | t }}</h1>
+  </div>
   <div class="page-width">
-    <div class="cart-custom-padding">
-      <div class="main-heading-part">
-        <h1 class="text-center-heading border-heading title h1">{{ 'sections.cart.title' | t }}</h1>
-      </div>
-
+    <div class="cart-page-wrapper">
+    <div class="cart-items-wrapper{% if cart.item_count == 0 %} full-width{% endif %}">
       <div class="cart__warnings">
         <h2 class="cart__empty-text">{{ 'sections.cart.empty' | t }}</h2>
         <a href="{{ routes.all_products_collection_url }}" class="button button--primary">
           {{ 'general.continue_shopping' | t }}
         </a>
-      </div>
-
+      </div>  
       <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart">
         <div class="cart__items" id="main-cart-items" data-id="{{ section.id }}">
           <div class="js-contents">
             {%- if cart != empty -%}
               <table class="cart-items">
-                <thead>
-                  {% comment %}<tr>
-                    <th class="caption-with-letter-spacing" colspan="2" scope="col">{{ 'sections.cart.headings.product' | t }}</th>
-                    <th class="right caption-with-letter-spacing" colspan="1" scope="col">{{ 'sections.cart.headings.price' | t }}</th>
-                    <th class="cart-items__heading--wide medium-up caption-with-letter-spacing" colspan="1" scope="col">{{ 'sections.cart.headings.quantity' | t }}</th>
-                    <th class="medium-up right caption-with-letter-spacing" colspan="1" scope="col">{{ 'sections.cart.headings.total' | t }}</th>
-                  </tr>{% endcomment %}
-                </thead>
                 <tbody>
                   {%- assign cartItemIds = '' -%}
                   {% assign uniqueProductIdsArray= cart.items | map: 'product_id'| uniq | join: ','  %}
@@ -447,15 +438,105 @@
         <p class="visually-hidden" id="shopping-cart-line-item-status" aria-live="polite" aria-hidden="true" role="status">{{ 'accessibility.loading' | t }}</p>
       </form>
     </div>
+    {%- unless cart.item_count == 0 -%}
+    <div class="cart-fit-finder-wrapper">
+      <div class="order-details-wrapper">
+        <p class="summary-heading">Order Details</p>
+        <p class="sub-title">Please provide some information about your order.</p>
+        <div class="fit-finder-wrapper">
+          <div class="height-input">
+            <label for="height_val" class="label">Height*</label>
+            <select name="height_val" class="height_val">
+              <option value="">—</option>
+              <option value="5.03">5'3"</option>
+              <option value="5.04">5'4"</option>
+              <option value="5.05">5'5"</option>
+              <option value="5.06">5'6"</option>
+              <option value="5.07">5'7"</option>
+              <option value="5.08">5'8"</option>
+              <option value="5.09">5'9"</option>
+              <option value="5.10">5'10"</option>
+              <option value="5.11">5'11"</option>
+              <option value="6.0">6'0"</option>
+              <option value="6.01">6'1"</option>
+              <option value="6.02">6'2"</option>
+              <option value="6.03">6'3"</option>
+              <option value="6.04">6'4"</option>
+              <option value="6.05">6'5"</option>
+              <option value="6.06">6'6"</option>
+              <option value="6.06">9.0</option>
+            </select>
+            <div class="error-message">Height is required.</div>
+          </div>
+          <div class="weight-input">
+            <label for="weight" class="label">Weight*</label>
+            <input type="text" id="weight" min="90" max="400" maxlength="3" pattern="[0-9]" class="field__input form_phone text-field weight-value" placeholder="Enter Weight...">
+            <div class="error-message">Weight is required.</div>
+            <div class="confirm-weight-msg less-then-weight hide">Please, recheck your weight for accuracy</div>
+          </div>
+          <div class="pant-input pant-waist-wrap">
+            <label for="Pant Waist" class="label">Pant Waist*</label>
+            <select name="pant-waist" id="pant-waist">
+              <option value="">—</option>
+              <option value="26">26"</option>
+              <option value="28">28"</option>
+              <option value="30">30"</option>
+              <option value="32">32"</option>
+              <option value="34">34"</option>
+              <option value="36">36"</option>
+              <option value="38">38"</option>
+              <option value="40">40"</option>
+              <option value="42">42"</option>
+              <option value="44">44"</option>
+              <option value="46">46"</option>
+              <option value="50">50"</option>
+              <option value="52">52"</option>
+              <option value="54">54"</option>
+            </select>
+            <div class="error-message">Waist size is required.</div>
+          </div>
+        </div>
+        <div class="fit-finder-output hidden">
+          <div class="ff-top-box"><h3>Recommended Size</h3></div>
+          <div id="ff-data-box"></div>
+        </div>
+      </div>
+      <div class="cart__footer__wrap">
+        <div class="js-contents-wrap">
+          <div class="totals ">
+            <h6 class="totals__subtotal">{{ 'sections.cart.subtotal' | t }}:</h6> 
+            <p class="totals__subtotal-value">{{ cart.original_total_price | money_without_trailing_zeros }}</p>
+          </div>
+          <div class="totals">
+            <h3 class="totals__subtotal main-total">Total <span>- Free U.S. Shipping & Returns</span></h3>
+            <p class="totals__subtotal-value total-value">{{ cart.total_price | money_without_trailing_zeros }}</p>
+          </div>
+          <div>
+            {%- if cart.cart_level_discount_applications.size > 0 -%}
+              <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
+                {%- for discount in cart.cart_level_discount_applications -%}
+                  <li class="discounts__discount discounts__discount--end">
+                    {%- render 'icon-discount' -%}
+                    {{ discount.title }}
+                    (-{{ discount.total_allocated_amount | money }})
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </div>
+        </div>
+        <button type="button" name="add" class="contiune-payment button button--full-width button--primary">
+          <span class="btn-title" data-text="Processing...">Contiune to Payment</span>
+        </button>
+      </div>
+    </div>
+    {%- endunless -%}
+    </div>
   </div> 
-
 </cart-items>
-
-<script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 
 <script>
   $(document).ready(function(){
-
     if( $(".template-cart .edit-item-popup .swatch.swatch-wrap.swatch-color").length ){
       $(".template-cart .edit-item-popup .swatch.swatch-wrap.swatch-color").each(function(){
         if( $(this).find(".swatch-element").length < 2 ){
@@ -463,39 +544,54 @@
         }
       });
     }
-
     if( $(".product_var_cart").length ){
       $(".product_var_cart").each(function(){
         $(this).find(".product-option").each(function(){
-          var data_name = $(this).data("name");
-          
+          var data_name = $(this).data("name");          
           var data_value = $(this).find(".product-option-val").text();
           $(`input[type="radio"][data-name="${data_name}"][value="${data_value}"]`).prop('checked', true);
-          $(`input[type="radio"][data-name="${data_name}"][value="${data_value}"] + label`).trigger("click");
-          
+          $(`input[type="radio"][data-name="${data_name}"][value="${data_value}"] + label`).trigger("click");          
         });
       });
     }
-
   });
+  // get fit-finder and set Cart attribute
+  window.addEventListener('DOMContentLoaded', function() {
+    if(getCookie('fit-finder-data')){
+      var fitData = JSON.parse(getCookie('fit-finder-data'))
+      var height = fitData.height;
+      $(`.height_val`).val(height).change();      
+      var weight = fitData.weight;
+      $(`#weight`).val(weight);
+      var age = fitData.age;
+      $(`#age`).val(age);
+      var ff_html = '';
+      var jacket_size = fitData.jacketSize.split(':');
+      if (jacket_size[1] == "S") {
+        jacket_type = 'Short'
+      } else if (jacket_size[1] == "R") {
+        jacket_type = 'Regular'
+      } else if (jacket_size[1] == "L") {
+        jacket_type = 'Long'
+      }           
+      var ff_html = `<div class="ff-data jacket-wrap"><strong>Jacket : </strong><span>${jacket_size[0]} ${jacket_type}</span></div>`;''
+      if(fitData.pantSize ) {
+        var pants_size = fitData.pantSize.split('x');
+        var pants_hight = pants_size[1];
+        var pants_waist = pants_size[0];
+        $(`#pant-waist`).val(pants_waist).change();
+        ff_html += `<div class="ff-data"><strong>Pants : </strong><span>${pants_waist} x ${pants_hight}</span></div>`;
+      } else {
+        var pants_hight = fitData.pants_hight_output;
+        var pants_waist = fitData.pants_waist_output;        
+        $(`#pant-waist`).val(pants_waist).change();
+        ff_html += `<div class="ff-data"><strong>Pants : </strong><span>${pants_waist} x ${pants_hight}</span></div>`;
+      }
+      $(".fit-finder-output #ff-data-box").html(ff_html);
+      $(`.fit-finder-output`).removeClass("hidden")      
+    } 
+  })
 </script>
-
-<style>
-
-/* .edit-item-popup,
-.edit-item-popup .single-option-selector {
-	display: block !important;
-}
-
-.edit-item-popup .swatch-product-wrapper input[type="radio"] {
-	clip: unset;
-	overflow: visible;
-	display: block;
-	height: auto;
-	width: auto;
-} */
-
-</style>
 
 {% schema %}
 {
