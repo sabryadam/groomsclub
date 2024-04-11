@@ -14193,6 +14193,12 @@ button.btn-wrap.button--secondary.event-update-button {
   align-items: center;
   justify-content: center;
 }
+div#choose-form-favorite {
+  height: 48vh;
+}
+.member-delete-icon.payment-ordered {
+  display: none;
+}
 .cart-page-wrapper {
   display: flex;
   align-items: flex-start;

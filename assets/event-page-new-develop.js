@@ -155,10 +155,6 @@ $(".member-added-into-event").click(function (e) {
   var error_count = 0,
     eventId = localStorage.getItem("set-event-id"),
     button = $(this);
-  error_count = error_count + theme_custom.textValidationWithSpacialChar(parent.find('.member-first-name'));
-  error_count = error_count + theme_custom.textValidationWithSpacialChar(parent.find('.member-last-name'));
-  error_count = error_count + theme_custom.emailValidation(parent.find('.member-email'));
-  error_count = error_count + theme_custom.phoneValidation(parent.find('.member-phone'));
   if($(`.custom-checkobx`).find(`[type="radio"]:checked`).length == 0){
     $('.custom-checkobx').find(".form-error").show();
     error_count = error_count + 1;
@@ -169,6 +165,14 @@ $(".member-added-into-event").click(function (e) {
     } else {
       error_count = 0;
     }
+  }
+  error_count = error_count + theme_custom.textValidationWithSpacialChar(parent.find('.member-first-name'));
+  error_count = error_count + theme_custom.textValidationWithSpacialChar(parent.find('.member-last-name'));
+  error_count = error_count + theme_custom.emailValidation(parent.find('.member-email'));
+  error_count = error_count + theme_custom.phoneValidation(parent.find('.member-phone'));
+  
+  if(error_count == 1) {
+    return
   }
   if (error_count == 0) {
     var memberFirstName = $(".member-first-name", parent).val();
@@ -250,10 +254,12 @@ theme_custom.user = (user) => {
   var status_class = '';
   let { email, first_name, last_name, phone, status, is_host_paying, is_host } = user;
   var phone_val;
-  if (phone.indexOf('+1') == -1){
-    phone_val = `+1${phone}`
-  } else {
-    phone_val = phone
+  if(phone != null) {
+    if (phone.indexOf('+1') == -1){
+      phone_val = `+1${phone}`
+    } else {
+      phone_val = phone
+    }
   }
   let whoPay = "", eventOwner = reminder_hidden = '';
   if (is_host_paying.toLowerCase() == "self") {
@@ -268,7 +274,16 @@ theme_custom.user = (user) => {
     eventOwner = '';
     reminder_hidden = '';
   }
-  if(status == 'In Progress'){
+  console.log("user.order_number",user.order_number);
+  // if(status == 'In Progress'){
+  //   status = 'Not Ordered'
+  //   status_class = 'not-ordered'
+  // } else {
+  //   status = 'Ordered',
+  //   status_class = 'ordered'
+  // }
+
+  if(user.order_number == null){
     status = 'Not Ordered'
     status_class = 'not-ordered'
   } else {
@@ -281,7 +296,7 @@ theme_custom.user = (user) => {
   var day = d.getDate();
   var showCurrentDate = (month<10 ? '0' : '') + month + '/' + (day<10 ? '0' : '') + day  + '/' + d.getFullYear();  
   var currentDate = d.getFullYear() + '-' + (month<10 ? '0' : '') + month + '-' + (day<10 ? '0' : '') + day;
-  const deleteIcon = `<div class="member-delete-icon payment-${status}" data-member-id="${user.event_member_id}">
+  const deleteIcon = `<div class="member-delete-icon payment-${status_class}" data-member-id="${user.event_member_id}">
       <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/delete.png?v=1678738752" alt="delete icon" />
     </div>`
   return `<div class="user-card-block ${eventOwner}">
@@ -702,9 +717,14 @@ theme_custom.updateEventAPI = function (btn) {
                   event_date_msg += `<div>${membererror}</div>`;
                 }
               } else {
-                for (let i = 0; i < xhr.responseJSON.data.members.length; i++) {
-                  event_date_msg += `<span>${xhr.responseJSON.data.members[i]}</span>`;
+                if(xhr.responseJSON.data.members != undefined){
+                  for (let i = 0; i < xhr.responseJSON.data.members.length; i++) {
+                    event_date_msg += `<span>${xhr.responseJSON.data.members[i]}</span>`;
+                  }
+                } else {
+                    event_date_msg += `<span>${xhr.responseJSON.data.owner_phone_number[0]}</span>`;
                 }
+                
               }
             }
           } else {
@@ -870,8 +890,12 @@ theme_custom.createEventAPI = function (btn) {
                   event_date_msg += `<div>${membererror}</div>`;
                 }
               } else {
-                for (let i = 0; i < xhr.responseJSON.data.members.length; i++) {
-                  event_date_msg += `<span>${xhr.responseJSON.data.members[i]}</span>`;
+                if(xhr.responseJSON.data.members != undefined){
+                  for (let i = 0; i < xhr.responseJSON.data.members.length; i++) {
+                    event_date_msg += `<span>${xhr.responseJSON.data.members[i]}</span>`;
+                  }
+                } else {
+                    event_date_msg += `<span>${xhr.responseJSON.data.owner_phone_number[0]}</span>`;
                 }
               }
             }
@@ -1770,9 +1794,13 @@ theme_custom.eventMemberData = function () {
                 event_date_msg += `<div>${membererror}</div>`;
               }
             } else {
-              for (let i = 0; i < xhr.responseJSON.data.members.length; i++) {
-                event_date_msg += `<span>${xhr.responseJSON.data.members[i]}</span>`;
-              }
+              if(xhr.responseJSON.data.members != undefined){
+                  for (let i = 0; i < xhr.responseJSON.data.members.length; i++) {
+                    event_date_msg += `<span>${xhr.responseJSON.data.members[i]}</span>`;
+                  }
+                } else {
+                    event_date_msg += `<span>${xhr.responseJSON.data.owner_phone_number[0]}</span>`;
+                }
             }
           }
         } else {
