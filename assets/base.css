@@ -14160,6 +14160,7 @@ button.btn-wrap.button--secondary.event-update-button {
   .template-product-top-looks-pdp #fit_finder_data_auto, .template-product-jacket-pant-combination #fit_finder_data_auto{
     flex-wrap: nowrap;
     padding: 10px 5px;
+    width : 100%;
   }
   .template-product-top-looks-pdp .ff-top-box, .template-product-jacket-pant-combination .ff-top-box{
     min-width: 125px;
@@ -14177,9 +14178,10 @@ button.btn-wrap.button--secondary.event-update-button {
   }
 }
 @media(max-width : 430px){
-  .template-product-top-looks-pdp #ff-data-box, .template-product-jacket-pant-combination #ff-data-box{
+  /* .template-product-top-looks-pdp #ff-data-box, 
+  .template-product-jacket-pant-combination #ff-data-box{
     min-width: 100%;
-  }
+  } */
   .template-product-top-looks-pdp .ff-data,
   .template-product-jacket-pant-combination .ff-data{
     padding-left: 0;
@@ -14187,8 +14189,17 @@ button.btn-wrap.button--secondary.event-update-button {
   .template-product-top-looks-pdp #fit_finder_data_auto .ff-data strong, .template-product-jacket-pant-combination #fit_finder_data_auto .ff-data strong, .template-product-top-looks-pdp #fit_finder_data_auto .ff-data span, .template-product-jacket-pant-combination #fit_finder_data_auto .ff-data span{
     font-size: 10px;
   }
-  .template-product-top-looks-pdp .ff-top-box, .template-product-jacket-pant-combination .ff-top-box {
+  /* .template-product-top-looks-pdp .ff-top-box, .template-product-jacket-pant-combination .ff-top-box {
     min-width: 117px;
+  } */
+}
+@media(max-width : 375px){
+  .template-product-top-looks-pdp .ff-top-box, .template-product-jacket-pant-combination .ff-top-box{
+    min-width: 120px;
+  }
+  .template-product-jacket-pant-combination #fit_finder_data_auto .ff-top-box h3, .template-product-top-looks-pdp #fit_finder_data_auto .ff-top-box h3, .template-product-top-looks-pdp #fit_finder_data_auto .ff-data strong, .template-product-jacket-pant-combination #fit_finder_data_auto .ff-data strong, .template-product-top-looks-pdp #fit_finder_data_auto .ff-data span, .template-product-jacket-pant-combination #fit_finder_data_auto .ff-data span,
+  .template-product-top-looks-pdp #fit_finder_data_auto .ff-data strong, .template-product-jacket-pant-combination #fit_finder_data_auto .ff-data strong, .template-product-top-looks-pdp #fit_finder_data_auto .ff-data span, .template-product-jacket-pant-combination #fit_finder_data_auto .ff-data span{
+    font-size: 11px;    
   }
 }
 .template-collection-top-collection .main-collection-product-grid .media img ,
@@ -14222,5 +14233,11 @@ button.btn-wrap.button--secondary.event-update-button {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+div#choose-form-favorite {
+    height: 48vh;
+}
+.member-delete-icon.payment-ordered {
+    display: none;
 }
 /* custom css */  
