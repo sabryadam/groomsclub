@@ -2035,3 +2035,14 @@ $(document).on("click",'#load-more-btn',function() {
     $(this).hide();
   }
 });
+
+// shoes collection page on Color Swatch Click event 
+$(document).on("click",".main-collection-product-grid .swatch-title-color .swatch-element-item",function(){
+  var variant_color = $(this).closest(`.swatch-element-item`).attr(`data-title`);
+  var variant_size = $(`.swatch-title-size`).find(`.swatch-element-item:first`).attr(`data-title`);
+  var selected_var = `${variant_color} / ${variant_size}`;
+  var get_variant_id = $(this).closest(`.card-wrapper`).find(`.product-variant option[data-variant-title="${selected_var}"]`).attr(`data-variant-id`);
+  var product_url = $(this).closest(`.card-wrapper`).find(`.full-unstyled-link`).attr("href");
+  var variant_link = `${product_url}?variant=${get_variant_id}`;
+  window.location.href = variant_link;
+})

@@ -82,7 +82,22 @@
       </div>
     </div>
 
-    <div class="card-information">
+  </a>
+  {%- if collection.handle contains 'shoes' -%}
+    <div class="color-swatches">
+      {%- for product_option in product_card_product.options_with_values -%} 
+        {%- render 'swatch' with swatch: product_option.name, product: product_card_product, variantId : s_variant.id, selectedOption: s_variant, currentItemTitle : currentItemTitle  -%}
+      {%- endfor -%}
+      <select name="id" class="product-variant hidden" form="product-form">
+        {%- for variant in product_card_product.variants -%}
+          <option data-variant-title="{{ variant.title }}" data-variant-id="{{ variant.id }}" value="{{ variant.id }}">
+            {{ variant.title }}
+          </option>
+        {%- endfor -%}
+      </select>
+    </div>
+  {% endif  %}
+  <div class="card-information">
       <div class="card-information__wrapper">
         {%- if show_vendor -%}
           <span class="visually-hidden">{{ 'accessibility.vendor' | t }}</span>
@@ -101,18 +116,4 @@
         {% render 'price', product: product_card_product, price_class: '' %}
       </div>
     </div>
-    {%- if collection.handle contains 'shoes' -%}
-      <div class="custom-swatches-wrapper">
-        {%- for option in product_card_product.options_with_values -%}
-          {% if option.name contains 'Color' or option.name contains 'color'  %}
-            {%- for value in option.values -%}
-              <div data-option-type="{{ picker_type }}" data-view="product" class="option-img-wrap" style="background-color: {{ value | split: ' ' | last | handle }}; background-image: url({{ value | handle | prepend : 'color_' | append: '.png' | file_url }})">
-                <span>{{- value -}}</span>
-              </div>
-            {%- endfor -%}
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
-    {%- endif -%}    
-  </a>
 </div>

@@ -16,7 +16,7 @@
 {% endif %}
 {% endfor %}
 {% if option_index != -1 %}
-<div class="swatches text-center {% if size <= 1 %} hidden{% endif %}">
+<div class="swatches text-center swatch-title-{{ swatch | handle }} {% if size <= 1 %} hidden{% endif %}">
   <p class="swatch-title">{{ swatch }}</p>
   <div class="swatch {{ swatch }} {{ swatch | handle }}" data-option-swatch-index="{{ option_index }}">
     {% assign values = '' %}
