@@ -144,27 +144,6 @@ $(document).on("click", ".product-form__submit", function (e) {
         }
       ]
     };
-    if($(`.jacket-pant-saparate-wrapper[data-product-type="jacket"]`).length > 0){
-      var jacket_selected_var = $(`.jacket-pant-saparate-wrapper[data-product-type="jacket"]`).find(`.single-option-selector`).val();
-      item = [
-        {
-          "id": varId,
-          "quantity": 1,
-          "properties": {
-            "combo-variant-title" : $(`.jacket-pant-saparate-wrapper[data-product-type="jacket"]`).find(`.single-option-selector option[data-v-id="${jacket_selected_var}"]`).attr(`data-title`),
-            "pant-variant-title" : target_variant
-          }
-        },
-        {
-          "id": jacket_selected_var,
-          "quantity": 1,
-          "properties": {
-            "combo-variant-title" : $(`.jacket-pant-saparate-wrapper[data-product-type="jacket"]`).find(`.single-option-selector option[data-v-id="${jacket_selected_var}"]`).attr(`data-title`),
-            "pant-variant-title" : target_variant
-          }
-        }
-      ]
-    }
     data = {
       items: item
     };
@@ -367,15 +346,10 @@ $(document).on("click",".frequently-bought-together .checkbox",function(){
     target_price = parseInt($(`.frequently-bought-together .footer-wrap .price-wrap .price`).attr(`data-price`));
     final_price = target_price + parseInt($(this).closest(`.upsell-product-wrap`).find(`.product-price .money`).attr("data-price"));
   }
-  if($(`.frequently-bought-together .checkbox.checked`).length == 2){
+  if($(`.frequently-bought-together .checkbox.checked`).length >= 1){
     $(`.fbt-add-to-cart`).removeClass("disabled");
   } else {
     $(`.fbt-add-to-cart`).addClass("disabled");
   }  
   $(".frequently-bought-together .footer-wrap .price-wrap .price").attr("data-price", final_price).text(theme_custom.Shopify.formatMoney(final_price, theme_custom.money_format));
-})
-
-$(document).on("click",".fbt-add-to-cart",function(){
-  debugger;
-  
 })

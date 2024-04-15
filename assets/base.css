@@ -14325,15 +14325,21 @@ div#choose-form-favorite {
   padding-left: 10px;
   padding-right: 10px;
   margin-bottom: 10px;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 10px;
 }
 .cart-fit-finder-wrapper #ff-data-box{
   padding: 0 10px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .cart-fit-finder-wrapper .ff-data{
   padding: 0;
   display: flex;
   align-items: center;
+  width: fit-content;
+  padding-right: 15px;
 }
 .cart-fit-finder-wrapper .ff-data span{
   margin-left: 5px;
