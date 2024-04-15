@@ -81,6 +81,30 @@ class CartItems extends HTMLElement {
             this.getSectionInnerHTML(parsedState.sections[section.section], section.selector);
         }));
         $(".totals__subtotal-value,.totals__subtotal-value.total-value").text(theme_custom.Shopify.formatMoney(parsedState.items_subtotal_price, theme_custom.money_format));
+        if(parsedState.item_count == 0) {
+          $(`.cart-fit-finder-wrapper`).remove();
+        }        
+        console.log(parsedState);
+        var cart_items = parsedState.items;
+        var fit_finder_data_enable = false;
+        $(cart_items).each(function(index, value) {
+          var check_product_type = value.product_type;
+          if (check_product_type.includes("Jacket") || check_product_type.includes("Pants") || check_product_type.includes("Vest")) {
+            // String contains "a", continue to next iteration
+            fit_finder_data_enable = true;
+            return true;
+          }
+        });
+        if(fit_finder_data_enable) {
+          $(`.order-details-wrapper`).show();
+          $(`.contiune-payment`).removeClass(`hidden`);
+          $(`.cart__ctas.checkout_btn_link`).addClass(`hidden`)
+        } else {
+          $(`.order-details-wrapper`).hide();
+          $(`.contiune-payment`).addClass(`hidden`);
+          $(`.cart__ctas.checkout_btn_link`).removeClass(`hidden`)
+        }
+
         this.updateLiveRegions(line, parsedState.item_count);
         document.getElementById(`CartItem-${line}`)?.querySelector(`[name="${name}"]`)?.focus();
         this.disableLoading();
@@ -351,6 +375,8 @@ $(document).on("click",".contiune-payment",function(){
   if(error_count == 1 ){
     return;
   } else {
+    var button = $(this); 
+    $(this).addClass('disabled').find(`span`).text(button.find(`span`).attr('data-text'));
     var data = {
       attributes:{
         "height_val" : $(`.height_val`).val(),

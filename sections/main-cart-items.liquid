@@ -14,6 +14,13 @@
   {%- assign orderTypeClass = 'event-order' -%}
 {%- endif -%}
 
+{%- assign fit_finder_data_enable = false -%}
+{% for cart_item in cart.items  %}
+  {%- if cart_item.product.type contains 'Jacket' or cart_item.product.type contains 'Pants' or cart_item.product.type contains 'Vest'  -%} 
+    {%- assign fit_finder_data_enable = true -%}
+  {%- endif %}
+{% endfor  %}
+
 <cart-items class="cart-page {% if cart == empty %} is-empty{% endif %}" data-value="{{ cart.attributes.order_type }}">
 
   <div class="page-width-big">
@@ -438,9 +445,10 @@
         <p class="visually-hidden" id="shopping-cart-line-item-status" aria-live="polite" aria-hidden="true" role="status">{{ 'accessibility.loading' | t }}</p>
       </form>
     </div>
+    
     {%- unless cart.item_count == 0 -%}
     <div class="cart-fit-finder-wrapper">
-      <div class="order-details-wrapper">
+      <div class="order-details-wrapper {{ fit_finder_data_enable  }} {% unless fit_finder_data_enable  %}hidden{% endunless %}">
         <p class="summary-heading">Order Details</p>
         <p class="sub-title">Please provide some information about your order.</p>
         <div class="fit-finder-wrapper">
@@ -448,6 +456,8 @@
             <label for="height_val" class="label">Height*</label>
             <select name="height_val" class="height_val">
               <option value="">—</option>
+              <option value="5.01">5'1"</option>
+              <option value="5.02">5'2"</option>
               <option value="5.03">5'3"</option>
               <option value="5.04">5'4"</option>
               <option value="5.05">5'5"</option>
@@ -464,7 +474,8 @@
               <option value="6.04">6'4"</option>
               <option value="6.05">6'5"</option>
               <option value="6.06">6'6"</option>
-              <option value="6.06">9.0</option>
+              <option value="6.07">6'7"</option>
+              <option value="6.08">6'8"</option>
             </select>
             <div class="error-message">Height is required.</div>
           </div>
@@ -525,12 +536,23 @@
             {%- endif -%}
           </div>
         </div>
-        <button type="button" name="add" class="contiune-payment button button--full-width button--primary">
+        <button type="button" name="add" class="contiune-payment button button--full-width button--primary {% unless fit_finder_data_enable  %}hidden{% endunless %}">
           <span class="btn-title" data-text="Processing...">Contiune to Payment</span>
         </button>
+        <div class="cart__ctas checkout_btn_link {% if fit_finder_data_enable  %}hidden{% endif %}">
+          <noscript>
+            <button type="submit" class="cart__update-button button button--secondary" form="cart">
+              {{ 'sections.cart.update' | t }}
+            </button>
+          </noscript>
+
+          <button type="submit" class="button--primary button" name="checkout"{% if cart == empty %} disabled{% endif %} form="cart">
+            {{ 'sections.cart.checkout' | t }} <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
       </div>
     </div>
-    {%- endunless -%}
+    {%- endunless -%}    
     </div>
   </div> 
 </cart-items>
