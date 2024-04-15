@@ -448,7 +448,7 @@
     
     {%- unless cart.item_count == 0 -%}
     <div class="cart-fit-finder-wrapper">
-      <div class="order-details-wrapper {{ fit_finder_data_enable  }} {% unless fit_finder_data_enable  %}hidden{% endunless %}">
+      <div class="order-details-wrapper {% unless fit_finder_data_enable  %}hidden{% endunless %}">
         <p class="summary-heading">Order Details</p>
         <p class="sub-title">Please provide some information about your order.</p>
         <div class="fit-finder-wrapper">
@@ -552,7 +552,7 @@
         </div>
       </div>
     </div>
-    {%- endunless -%}    
+    {%- endunless -%}
     </div>
   </div> 
 </cart-items>

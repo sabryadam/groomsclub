@@ -83,8 +83,7 @@ class CartItems extends HTMLElement {
         $(".totals__subtotal-value,.totals__subtotal-value.total-value").text(theme_custom.Shopify.formatMoney(parsedState.items_subtotal_price, theme_custom.money_format));
         if(parsedState.item_count == 0) {
           $(`.cart-fit-finder-wrapper`).remove();
-        }        
-        console.log(parsedState);
+        }
         var cart_items = parsedState.items;
         var fit_finder_data_enable = false;
         $(cart_items).each(function(index, value) {
@@ -104,7 +103,6 @@ class CartItems extends HTMLElement {
           $(`.contiune-payment`).addClass(`hidden`);
           $(`.cart__ctas.checkout_btn_link`).removeClass(`hidden`)
         }
-
         this.updateLiveRegions(line, parsedState.item_count);
         document.getElementById(`CartItem-${line}`)?.querySelector(`[name="${name}"]`)?.focus();
         this.disableLoading();
