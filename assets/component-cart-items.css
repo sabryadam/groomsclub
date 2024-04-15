@@ -473,7 +473,7 @@ cart-remove-button .button {
    .also-like-part .product-image-name-part {width: 100%;}
    .also-like-part .product-remove-cart{justify-content: unset; margin-left: 110px;  width: calc(100% - 110px);     margin-top: 10px;} 
 
-   .cart__ctas button{max-width: 249px!important; height: 55px;  padding: 12px 20px;}
+   .cart__ctas button{max-width: 100%!important; height: 55px;  padding: 12px 20px;}
 }
 
 @media screen and (max-width:512px) {

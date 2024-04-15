@@ -14379,10 +14379,7 @@ div#choose-form-favorite {
 }
 @media(max-width : 767px){
   .cart-page-wrapper .cart-fit-finder-wrapper .fit-finder-wrapper .height-input, .cart-page-wrapper .cart-fit-finder-wrapper .fit-finder-wrapper .weight-input, .cart-page-wrapper .cart-fit-finder-wrapper .fit-finder-wrapper .pant-input{
-    width: 50%;
-  }
-  .cart-page-wrapper .cart-fit-finder-wrapper .fit-finder-wrapper .weight-input{
-    padding-right: 0;
+    width: 33.33%;
   }
   .cart-page-wrapper .cart-fit-finder-wrapper .fit-finder-wrapper .age-input{
     width: 100%;
@@ -14596,4 +14593,9 @@ div#choose-form-favorite {
   }
 }
 /* FBT Product */
+@media(max-width: 767px){
+  .icontext_container.top-bottom-border .section-loader{
+    display: none;
+  }
+}
 /* custom css */  
