@@ -88,16 +88,23 @@ class QuantityInput extends HTMLElement {
     event.preventDefault();
     const previousValue = this.input.value;
     
-    var dataItemVariantQty = $(this).closest(`.cart-item`).attr('data-item-variant-qty')
+    var dataItemVariantQty = $(this).closest(`.cart-item`).attr('data-item-variant-qty');
+    var dataItemVariantInventoryPolicy = $(this).closest(`.cart-item`).attr('data-item-variant-inventory-policy');
     if(event.target.name === 'plus'){
       var productTitle = $(this).closest(`.cart-item`).attr('line-item-title'),
           lineItemTitle = $(this).closest(`.cart-item`).attr('data-variant-title');
-      if(parseInt(dataItemVariantQty) >= (parseInt(previousValue)+ 1)){
-        event.target.name === 'plus' ? this.input.stepUp() : this.input.stepDown();
-        if (previousValue !== this.input.value) this.input.dispatchEvent(this.changeEvent);
+      if(dataItemVariantInventoryPolicy == 'continue') {
+          event.target.name === 'plus' ? this.input.stepUp() : this.input.stepDown();
+          if (previousValue !== this.input.value) this.input.dispatchEvent(this.changeEvent);
       } else {
-        alert(`Oops! We can't add more. We only have ${dataItemVariantQty} Qty left for the ${productTitle} ${lineItemTitle} you are trying to purchase!`);
+        if(parseInt(dataItemVariantQty) >= (parseInt(previousValue)+ 1)){
+          event.target.name === 'plus' ? this.input.stepUp() : this.input.stepDown();
+          if (previousValue !== this.input.value) this.input.dispatchEvent(this.changeEvent);
+        } else {
+          alert(`Oops! We can't add more. We only have ${dataItemVariantQty} Qty left for the ${productTitle} ${lineItemTitle} you are trying to purchase!`);
+        }
       }
+      
     } else {
       event.target.name === 'plus' ? this.input.stepUp() : this.input.stepDown();
       if (previousValue !== this.input.value) this.input.dispatchEvent(this.changeEvent);

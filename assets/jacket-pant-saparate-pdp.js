@@ -105,10 +105,9 @@ $(document).on("click", ".product-form__submit", function (e) {
   e.preventDefault();
   var button = $(this);
   button.addClass(`disabled`);
-  var btnText = button.find(".btn-title").attr("data-text");
   var current_product = button.parents('.product__info-container');
-  var variantTitle = '', varId;
-  button.find(".btn-title").text(btnText);
+  var variantTitle = '';
+  button.find(".btn-title").text(button.find(".btn-title").attr("data-text"));
   if (current_product.find('.swatch-product-form[data-option-index="0"] input:checked').length > 0) {
     variantTitle = current_product.find('.swatch-product-form[data-option-index="0"] input:checked').val();
   }
@@ -118,34 +117,72 @@ $(document).on("click", ".product-form__submit", function (e) {
   if (current_product.find('.swatch-product-form[data-option-index="2"] input:checked').length > 0) {
     variantTitle = variantTitle + ' / ' + current_product.find('.swatch-product-form[data-option-index="2"] input:checked').val();
   }
-  varId = current_product.find(`.single-option-selector option[data-var-title="${variantTitle}"]`).attr('data-v-id');
-  var item = {};
-  var selectedvar = $(`[name="id"]`).val();
-  var target_variant =  $(`.single-option-selector option[data-v-id="${selectedvar}"]`).attr(`data-title`);
-  if ($(`.product-form__submit`).hasClass(`combo-product`)) {
-    if($(`.jacket-pant-saparate-wrapper[data-product-type="pants"]`).length > 0){
-      var pants_selected_var = $(`.jacket-pant-saparate-wrapper[data-product-type="pants"]`).find(`.single-option-selector`).val();
-      item = [
-        {
-          "id": varId,
-          "quantity": 1,
-          "properties": {
-            "combo-variant-title" : target_variant,
-            "pant-variant-title" : $(`.jacket-pant-saparate-wrapper[data-product-type="pants"]`).find(`.single-option-selector option[data-v-id="${pants_selected_var}"]`).attr(`data-title`)
+  var varId = current_product.find(`.single-option-selector option[data-var-title="${variantTitle}"]`).attr('data-v-id');
+  jQuery.ajax({
+    type: 'POST',
+    url: '/cart/add.js',
+    data: {
+      "id": varId,
+      "quantity": 1,
+      "properties": {
+        "saparate-product": "saparate-product"
+      }
+    },
+    dataType: 'json',
+    success: function () {
+      button.find(".btn-title").text("Added to Cart");
+      window.location.href = "/cart";
+    },
+    error: function (xhr, status, error) {
+      button.find(".btn-title").text("Add To Cart");
+      button.removeClass("disabled");
+    }
+  });
+});
+$(document).on("click", ".fbt-add-to-cart", function (e) {
+  e.preventDefault();
+  var button = $(this);
+  button.addClass(`disabled`).find(".btn-title").text(button.find(".btn-title").attr("data-text"));
+  if ($(`.upsell-product-wrap[data-product-type="pants"]`).find(`.checkbox`).hasClass(`checked`)) {
+    var productArray = $(`.upsell-product-wrapper .upsell-product-wrap`);
+    var selected_variant = $(`.upsell-product-wrap[data-product-type="jacket"]`).find(`.single-option-selector`).val();
+    var selected_variant_title = $(`.upsell-product-wrap[data-product-type="jacket"]`).find(`.single-option-selector option[value="${selected_variant}"]`).attr("data-var-title");
+    if($(`.upsell-product-wrapper .upsell-product-wrap[data-product-type="pants"]`).find(".checkbox").hasClass("checked")) {
+      var pant_selected_variant = $(`.upsell-product-wrapper .upsell-product-wrap`).find(`.single-option-selector`).val();
+      var pant_selected_variant_title = $(`.upsell-product-wrapper .upsell-product-wrap`).find(`.single-option-selector option[value="${pant_selected_variant}"]`).attr("data-var-title");
+    }
+    var items = [
+      {
+        "id": $(`.upsell-product-wrap[data-product-type="jacket"]`).find(`.single-option-selector`).val(),
+        "quantity": 1,
+        "properties": {
+          "combo-variant-title" : selected_variant_title,
+          "pant-variant-title" : pant_selected_variant_title
+        }
+      }
+    ];
+    productArray.each(function(){
+      if($(this).find(`.checkbox`).hasClass("checked")){
+        if($(this).attr("data-product-type") == "pants") {
+          item = {
+            "id": $(this).closest(`.upsell-product-wrap`).find(`.single-option-selector`).val(),
+            "quantity": 1,
+            "properties": {
+              "combo-variant-title" : selected_variant_title,
+              "pant-variant-title" : pant_selected_variant_title
+            }
           }
-        },
-        {
-          "id": pants_selected_var,
-          "quantity": 1,
-          "properties": {
-            "combo-variant-title" : target_variant,
-            "pant-variant-title" : $(`.jacket-pant-saparate-wrapper[data-product-type="pants"]`).find(`.single-option-selector option[data-v-id="${pants_selected_var}"]`).attr(`data-title`)
+        } else {
+          item = {
+            "id": $(this).closest(`.upsell-product-wrap`).find(`.single-option-selector`).val(),
+            "quantity": 1
           }
         }
-      ]
-    };
+        items.push(item);
+      }
+    })
     data = {
-      items: item
+      items: items
     };
     jQuery.ajax({
       type: 'POST',
@@ -162,17 +199,33 @@ $(document).on("click", ".product-form__submit", function (e) {
       }
     });
   } else {
-    item = {
-      "id": varId,
-      "quantity": 1,
-      "properties": {
-        "saparate-product": "saparate-product"
+    var productArray = $(`.upsell-product-wrapper .upsell-product-wrap`);
+    item = {};
+    var items = [
+      {
+        "id": $(`.upsell-product-wrap[data-product-type="jacket"]`).find(`.single-option-selector`).val(),
+        "quantity": 1,
+        "properties": {
+          "saparate-product": "saparate-product"
+        }
       }
+    ];
+    productArray.each(function(){
+      if($(this).find(`.checkbox`).hasClass("checked")){
+        item = {
+          "id": $(this).closest(`.upsell-product-wrap`).find(`.single-option-selector`).val(),
+          "quantity": 1
+        }
+        items.push(item);
+      }
+    })
+    data = {
+      items: items
     };
     jQuery.ajax({
       type: 'POST',
       url: '/cart/add.js',
-      data: item,
+      data: data,
       dataType: 'json',
       success: function () {
         button.find(".btn-title").text("Added to Cart");
@@ -184,7 +237,6 @@ $(document).on("click", ".product-form__submit", function (e) {
       }
     });
   }
-  
 });
 $(document).on("click", ".edit-item-button", function () {
   var target = $(this).closest(".upsell-product-wrap").find(".edit-item-popup");
