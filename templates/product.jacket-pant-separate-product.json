@@ -53,7 +53,7 @@
           "type": "productaccordion",
           "settings": {
             "title": "<p>Product Details<\/p>",
-            "description": "<p><strong>JACKET<\/strong><\/p><p>4 Way Stretch Fabric<\/p><p>Stretch Lining<\/p><p>2-Button Single Breasted<\/p><p>Notch Lapel<\/p><p>Side Vents<\/p><p>Flap Pockets<\/p><p><strong>PANTS<\/strong><\/p><p>4 Way Stretch Fabric<\/p><p>SuperFlex Waistband<\/p><p>Flat Front<\/p><p>Line To The Knee<\/p>"
+            "description": "<p>{{ product.metafields.my_fields.product_description_details | metafield_tag }}<\/p>"
           }
         },
         "092a5e0a-daad-4cec-9d6a-087c07972fba": {

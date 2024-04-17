@@ -1072,9 +1072,6 @@ theme_custom.tlpclickEvent = function(){
       $(`.product-data-card[data-product-handle='${dataHandle}']`).find(".remove-optional-item-wrapper").removeClass("hidden")
       $(`.product-data-card[data-product-handle='${dataHandle}']`).find('.variant-title').removeClass("hidden").show();
       $(`.product-data-card[data-product-handle='${dataHandle}']`).addClass("product-block-item");
-      if($(`.template-product-jacket-pant-separate-product`).length > 0 && $(`.template-product-jacket-pant-separate-product .product-data-card-wrap`).hasClass(`product-block-item`)){
-        $(`.product-block-wrap-suit-wrapper[data-product-type="jacket"],.product-block-wrap-suit-wrapper[data-product-type="pants"]`).find(`.cross-sell-message`).hide()
-      }
       setTimeout(() => {
         theme_custom.priceCalculator();
       }, 500);
@@ -1137,9 +1134,6 @@ $(document).ready(function(){
     $(this).closest(`.product-data-card`).removeClass("product-block-item");
     $(this).closest(`.product-data-card`).find('.variant-title').addClass("hidden")
     $(this).closest(`.product-data-card`).find(".add-optional-item-button").removeClass("hidden")
-    if($(`.template-product-jacket-pant-separate-product`).length > 0){
-      $(`.product-block-wrap-suit-wrapper[data-product-type="jacket"],.product-block-wrap-suit-wrapper[data-product-type="pants"]`).find(`.cross-sell-message`).show()
-    }
     theme_custom.priceCalculator();
   });
   theme_custom.priceCalculator();
