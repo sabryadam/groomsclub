@@ -494,7 +494,6 @@
                   <a href="https://www.groomsclub.com/pages/fit-finder">
                     <div class="fit-finder-info-block">
                       <h4>Not sure of your size? Try our fit finder</h4>
-                      <p>Answer a few simple questions to help you find the perfect fit</p>
                     </div>
                     <i class="fas fa-chevron-right"></i>
                   </a>
@@ -609,8 +608,8 @@
                 Frequently bought together
               </h4>
               <div class="frequently-bought-together-inner-wrapper">
-                <div class="parent-product">
-                  {% assign current_product = product %}
+                {% assign current_product = product %}
+                <div class="parent-product product-type-{{ current_product.type | downcase }}">
                   <div class="upsell-product-wrap" data-product-handle="{{ current_product.handle }}" data-product-type="{{ current_product.type | downcase }}">
                     <div class="product-block-wrap">
                       <div class="product-image">
@@ -660,7 +659,8 @@
                           <span class="money" data-price="{{ current_product.selected_or_first_available_variant.price }}">
                             {{ current_product.selected_or_first_available_variant.price | money }}
                           </span>
-                        </div>         
+                        </div>   
+                        <span class="error-message parent-error-msg">Please select size</span>       
                       </div>
                     </div>
                     {%- render 'edit-product-popup', productHandle : current_product, currentProduct: current_product, s_variant: current_product.selected_or_first_available_variant -%}
@@ -697,7 +697,7 @@
                         </div>
                         <div class="product-info">
                           <h4 class="product-title">{{ productHandle.title }}</h4>
-                          <div class="variant-wrap">
+                          <div class="variant-wrap hidden">
                             <span class="variant-title variant-info-wrap" data-product-handle="{{ productHandle.handle }}">
                               {% for option in productHandle.options_with_values  %}
                                 {% assign outer_forloop = forloop %}
@@ -717,11 +717,13 @@
                             <span class="edit-item-button" data-button-label="edit-item"> - Edit Size</span>
                             <span class="edit-item-button mobile-show" data-button-label="edit-item">Edit Size</span>
                           </div>
+                          <span class="selecte-size-button" data-size-selected="select-size">Select Size</span>
                           <div class="product-price">
                             <span class="money" data-price="{{ productHandle.selected_or_first_available_variant.price }}">
                               {{ productHandle.selected_or_first_available_variant.price | money }}
                             </span>
                           </div>                               
+                          <span class="error-message parent-error-msg">Please select size</span>  
                         </div>
                       </div>
                       {%- render 'edit-product-popup', productHandle : productHandle, currentProduct: productHandle, s_variant: productHandle.selected_or_first_available_variant -%}

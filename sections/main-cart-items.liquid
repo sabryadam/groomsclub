@@ -191,7 +191,7 @@
                                       {% unless option.name == 'Denominations' %}
                                         <div>{{ option.name }}: </div>
                                       {% endunless %}
-                                      <div class="product-option-val">{{ option.value }}</div>
+                                      <div class="product-option-val option-{{ forloop.index }}">{{ option.value }}</div>
                                     </div>
                                   {%- endfor -%}
                                 </span>
@@ -211,7 +211,7 @@
                             {%- for property in item.properties -%}
                               {%- assign property_first_char = property.first | slice: 0 -%}
                               {%- if property.last != blank and property_first_char != '_' -%}
-                                {%- unless property.first contains 'combo-variant-title' or property.last contains 'Virtual' or property.first contains 'variant-title' or property.first contains 'variant-id' -%}
+                                {%- unless property.first contains 'combo-variant-title' or property.last contains 'Virtual' or property.first contains 'variant-title' or property.first contains 'variant-id' or property.first contains 'saparate-product' -%}
                                   <div class="item-properties">
                                     <dt>{{ property.first }} : </dt>
                                     <dd>
@@ -284,7 +284,7 @@
                           <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</p>
                           <!-- edit item  -->
                           {%- assign cuurentItemTitle = item.properties['variant-title'] | append : '-' | append : item.id | downcase | handleize -%}
-                          {%- render 'edit-product-popup' currentProduct : currentProduct, s_variant: item, orderTypeClass : orderTypeClass, currentItemTitle : cuurentItemTitle, product_has_saparate : saparate_product_class  -%}
+                          {%- render 'edit-product-popup' currentProduct : currentProduct, s_variant: item, orderTypeClass : orderTypeClass, currentItemTitle : cuurentItemTitle, product_has_saparate : saparate_product_class, item_key : item.key  -%}
 
                         {%- endif -%}
 

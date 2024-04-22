@@ -157,7 +157,7 @@ customElements.define('cart-items', CartItems);
 
 // Add to cart AJAX API
 theme_custom.addToCart = function(variantId,qty,product_has_saparate){
-  if(product_has_saparate) {
+  if(product_has_saparate == "saparate_product") {
     var items = {
       "quantity" : qty,
       "id" : variantId,
@@ -190,7 +190,7 @@ $(document).on('click', '.upsell_product_added', function(){
 })
 // Update cart 
 $(document).on('click', '.updates-button button', function(){
-  var product_has_saparate = $(this).closest("data-product-type");
+  var product_has_saparate = $(this).closest(`.edit-item-popup`).attr("data-product-has-saparate");
   var parent = $(this).closest(".edit-item-popup"),
       variantId = $(this).closest('.edit-item-popup').data("line-item-id");
       targetProduct = $(this).closest(".edit-item-popup").attr("data-product-handle");  
@@ -215,10 +215,10 @@ $(document).on('click', '.updates-button button', function(){
   if($.inArray(variantTitle,productVariantTitle) == -1){
     $(this).find(".loading-overlay").addClass("hidden");
     $(this).closest(".edit-item-popup").find(".error-message").text(theme_custom.productNotFoundError).show();
-    setTimeout(() => {
-      $(".error-message").text('').hide();
-      $(".fancybox-button").click();
-    }, 3000);
+    // setTimeout(() => {
+    //   $(".error-message").text('').hide();
+    //   $(".fancybox-button").click();
+    // }, 3000);
   } else {
     jQuery.ajax({
       type: 'POST',
@@ -245,6 +245,18 @@ $(document).on("click", ".remove-upsell-item", function(){
 // edit-item-title
 $(document).on("click", ".edit-item-title", function(){
   var target = $(this).closest(".cart-item").find(".edit-item-popup");
+  var option1 = $(this).closest(".cart-item").find(".option-1").text().toLocaleLowerCase(),
+      option2 = $(this).closest(".cart-item").find(".option-2").text().toLocaleLowerCase(),
+      option3 = $(this).closest(".cart-item").find(".option-3").text().toLocaleLowerCase();
+  if(option1 != '' ){
+    target.find(`[data-option-index="0"]`).find(`[type="radio"][data-value="${option1}"]`).prop("checked", true);
+  }
+  if(option2 != '' ){
+    target.find(`[data-option-index="1"]`).find(`[type="radio"][data-value="${option2}"]`).prop("checked", true);
+  }
+  if(option3 != '' ){
+    target.find(`[data-option-index="2"]`).find(`[type="radio"][data-value="${option3}"]`).prop("checked", true);
+  }
   $.fancybox.open(target);
 });
 // Edit suit-item product
@@ -414,7 +426,7 @@ $(document).on("keyup","#weight",function(){
   $(this).closest(`.weight-input`).find(`.error-message`).hide();
   if($(this).val() < 90 && $(this).val() != ''){
     $(`.confirm-weight-msg.less-then-weight`).removeClass(`hide`);
-  } else if($(this).val() > 999){
+  } else if($(this).val() > 400){
     $(`.confirm-weight-msg.more-then-weight`).removeClass(`hide`);
   } else {
     $(`.confirm-weight-msg`).addClass(`hide`);
