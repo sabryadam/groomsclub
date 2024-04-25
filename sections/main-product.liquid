@@ -654,7 +654,7 @@
                 </div>
               {%- endform -%}
             </product-form>
-            {% comment %}
+            {% comment  %}
             {%- if product.metafields.custom.cross_sell_product_jacket_or_pant != blank  -%}
               <div class="frequently-bought-together">
                 <h4 class="heading">
@@ -793,7 +793,7 @@
                 </div>
               </div>
             {%- endif -%}
-            {% endcomment %}
+          {% endcomment  %}
 
             {{ 'component-pickup-availability.css' | asset_url | stylesheet_tag }}
 

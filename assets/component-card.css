@@ -195,7 +195,7 @@
   }
 }
 .collection .card-wrapper .card.card--product .media {
-  padding-bottom: 124.4% !important;
+  padding-bottom: 0 !important;
   overflow: hidden;
 }
 .collection .card-wrapper .card.card--product .media video {
