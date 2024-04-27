@@ -403,7 +403,7 @@ $(document).on("keyup","#weight",function(){
   $(this).closest(`.weight-input`).find(`.error-message`).hide();
   if($(this).val() < 90 && $(this).val() != ''){
     $(`.confirm-weight-msg.less-then-weight`).removeClass(`hide`);
-  } else if($(this).val() > 999){
+  } else if($(this).val() > 400){
     $(`.confirm-weight-msg.more-then-weight`).removeClass(`hide`);
   } else {
     $(`.confirm-weight-msg`).addClass(`hide`);
