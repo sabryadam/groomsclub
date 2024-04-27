@@ -430,11 +430,17 @@ $(document).on("keyup","#weight",function(){
     $(`.confirm-weight-msg.more-then-weight`).removeClass(`hide`);
   } else {
     $(`.confirm-weight-msg`).addClass(`hide`);
+    if(getCookie("fit-finder-data") == '') {
+      theme_custom.recommandation_size();
+    }
   }
 })
 $(`.height_val`).on("change",function(){
   if($(this).val() != ''){
     $(this).closest(`.height-input`).find(`.error-message`).hide();
+    if(getCookie("fit-finder-data") == '') {
+      theme_custom.recommandation_size();
+    }
   } else {
     $(this).closest(`.height-input`).find(`.error-message`).show();
   }
@@ -446,3 +452,146 @@ $(`#pant-waist`).on("change",function(){
     $(this).closest(`.pant-waist-wrap`).find(`.error-message`).show();
   }
 })
+
+theme_custom.recommandation_size = function(){
+  var userNewHeight = $(`.height_val`).val(), userWeight = $(`#weight`).val(), recommand_jacket_size = "0:0", recommand_pants_size = "0";
+  $(`.recommand-error-message`).text(``).hide();
+  if(userNewHeight == ''){
+    $(`.recommand-error-message`).text(`please Select user Height!`).show();
+    return false;
+  }
+  if(userWeight == ''){
+    $(`.recommand-error-message`).text(`please Select user Weight!`).show();
+    return false;
+  }
+  if ((userNewHeight >= 1.0 && userNewHeight <= 5.09) && (userWeight >= 1 && userWeight <= 124)) {
+    recommand_jacket_size = "32:S"
+    recommand_pants_size = "26x30";
+  } else if ((userNewHeight >= 1.0 && userNewHeight <= 5.09) && (userWeight >= 125 && userWeight <= 140)) {
+    recommand_jacket_size = "34:S"
+    recommand_pants_size = "28x30";
+  } else if ((userNewHeight >= 1.0 && userNewHeight <= 5.09) && (userWeight >= 141 && userWeight <= 160)) {
+    recommand_jacket_size = "36:S"
+    recommand_pants_size = "30x30";
+  } else if ((userNewHeight >= 1.0 && userNewHeight <= 5.09) && (userWeight >= 161 && userWeight <= 180)) {
+    recommand_jacket_size = "38:S"
+    recommand_pants_size = "32x30";
+  } else if ((userNewHeight >= 1.0 && userNewHeight <= 5.09) && (userWeight >= 181 && userWeight <= 195)) {
+    recommand_jacket_size = "40:S"
+    recommand_pants_size = "34x30";
+  } else if ((userNewHeight >= 1.0 && userNewHeight <= 5.09) && (userWeight >= 196 && userWeight <= 210)) {
+    recommand_jacket_size = "42:S"
+    recommand_pants_size = "36x30";
+  } else if ((userNewHeight >= 1.0 && userNewHeight <= 5.09) && (userWeight >= 211 && userWeight <= 225)) {
+    recommand_jacket_size = "44:S"
+    recommand_pants_size = "38x30";
+  } else if ((userNewHeight >= 1.0 && userNewHeight <= 5.08) && (userWeight >= 226 && userWeight <= 240)) {
+    recommand_jacket_size = "46:S"
+    recommand_pants_size = "40x30";
+  } else if ((userNewHeight >= 1.0 && userNewHeight <= 5.08) && (userWeight >= 241 && userWeight <= 250)) {
+    recommand_jacket_size = "48:S"
+    recommand_pants_size = "42x30";
+  } else if ((userNewHeight >= 1.0 && userNewHeight <= 5.08) && (userWeight >= 251 && userWeight <= 260)) {
+    recommand_jacket_size = "50:S"
+    recommand_pants_size = "44x30";
+  } else if ((userNewHeight >= 5.10 && userNewHeight <= 9.0) && (userWeight >= 1 && userWeight <= 140)) {
+    recommand_jacket_size = "34:R"
+    recommand_pants_size = "28x32";
+  } else if ((userNewHeight >= 5.10 && userNewHeight <= 9.0) && (userWeight >= 141 && userWeight <= 160)) {
+    recommand_jacket_size = "36:R"
+    recommand_pants_size = "30x32";
+  } else if ((userNewHeight >= 5.10 && userNewHeight <= 6.01) && (userWeight >= 161 && userWeight <= 180)) {
+    recommand_jacket_size = "38:R"
+    recommand_pants_size = "32x32";
+  } else if ((userNewHeight >= 5.10 && userNewHeight <= 6.01) && (userWeight >= 181 && userWeight <= 195)) {
+    recommand_jacket_size = "40:R"
+    recommand_pants_size = "34x32";
+  } else if ((userNewHeight >= 5.10 && userNewHeight <= 6.01) && (userWeight >= 196 && userWeight <= 210)) {
+    recommand_jacket_size = "42:R"
+    recommand_pants_size = "36x32";
+  } else if ((userNewHeight >= 5.10 && userNewHeight <= 6.01) && (userWeight >= 211 && userWeight <= 225)) {
+    recommand_jacket_size = "44:R"
+    recommand_pants_size = "38x32";
+  } else if ((userNewHeight >= 5.09 && userNewHeight <= 6.01) && (userWeight >= 226 && userWeight <= 240)) {
+    recommand_jacket_size = "46:R"
+    recommand_pants_size = "40x32";
+  } else if ((userNewHeight >= 5.09 && userNewHeight <= 6.01) && (userWeight >= 241 && userWeight <= 250)) {
+    recommand_jacket_size = "48:R"
+    recommand_pants_size = "42x32";
+  } else if ((userNewHeight >= 5.09 && userNewHeight <= 6.01) && (userWeight >= 251 && userWeight <= 260)) {
+    recommand_jacket_size = "50:R"
+    recommand_pants_size = "44x32";
+  } else if ((userNewHeight >= 1.0 && userNewHeight <= 6.01) && (userWeight >= 261 && userWeight <= 270)) {
+    recommand_jacket_size = "52:R"
+    recommand_pants_size = "44x32";
+  } else if ((userNewHeight >= 1.0 && userNewHeight <= 6.01) && (userWeight >= 271 && userWeight <= 280)) {
+    recommand_jacket_size = "54:R"
+    recommand_pants_size = "46x32";
+  } else if ((userNewHeight >= 1.0 && userNewHeight <= 6.01) && (userWeight >= 281 && userWeight <= 290)) {
+    recommand_jacket_size = "56:R"
+    recommand_pants_size = "48x32";
+  } else if ((userNewHeight >= 1.0 && userNewHeight <= 6.01) && (userWeight >= 291 && userWeight <= 300)) {
+    recommand_jacket_size = "58:R"
+    recommand_pants_size = "50x32";
+  } else if ((userNewHeight >= 1.0 && userNewHeight <= 6.01) && (userWeight >= 301 && userWeight <= 999)) {
+    recommand_jacket_size = "60:R"
+    recommand_pants_size = "52x32";
+  } else if ((userNewHeight >= 6.02 && userNewHeight <= 9.0) && (userWeight >= 165 && userWeight <= 185)) {
+    recommand_jacket_size = "38:L"
+    recommand_pants_size = "32x34";
+  } else if ((userNewHeight >= 6.02 && userNewHeight <= 9.0) && (userWeight >= 186 && userWeight <= 199)) {
+    recommand_jacket_size = "40:L"
+    recommand_pants_size = "34x34";
+  } else if ((userNewHeight >= 6.02 && userNewHeight <= 9.0) && (userWeight >= 200 && userWeight <= 212)) {
+    recommand_jacket_size = "42:L"
+    recommand_pants_size = "36x34";
+  } else if ((userNewHeight >= 6.02 && userNewHeight <= 9.0) && (userWeight >= 213 && userWeight <= 228)) {
+    recommand_jacket_size = "44:L"
+    recommand_pants_size = "38x34";
+  } else if ((userNewHeight >= 6.02 && userNewHeight <= 9.0) && (userWeight >= 229 && userWeight <= 240)) {
+    recommand_jacket_size = "46:L"
+    recommand_pants_size = "40x34";
+  } else if ((userNewHeight >= 6.02 && userNewHeight <= 9.0) && (userWeight >= 241 && userWeight <= 250)) {
+    recommand_jacket_size = "48:L"
+    recommand_pants_size = "42x34";
+  } else if ((userNewHeight >= 6.02 && userNewHeight <= 9.0) && (userWeight >= 251 && userWeight <= 260)) {
+    recommand_jacket_size = "50:L"
+    recommand_pants_size = "44x34";
+  } else if ((userNewHeight >= 6.02 && userNewHeight <= 9.0) && (userWeight >= 261 && userWeight <= 270)) {
+    recommand_jacket_size = "52:L"
+    recommand_pants_size = "44x34";
+  } else if ((userNewHeight >= 6.02 && userNewHeight <= 9.0) && (userWeight >= 271 && userWeight <= 280)) {
+    recommand_jacket_size = "54:L"
+    recommand_pants_size = "46x34";
+  } else if ((userNewHeight >= 6.02 && userNewHeight <= 9.0) && (userWeight >= 281 && userWeight <= 290)) {
+    recommand_jacket_size = "56:L"
+    recommand_pants_size = "48x34";
+  } else if ((userNewHeight >= 6.02 && userNewHeight <= 9.0) && (userWeight >= 291 && userWeight <= 300)) {
+    recommand_jacket_size = "58:L"
+    recommand_pants_size = "50x34";
+  } else if ((userNewHeight >= 6.02 && userNewHeight <= 9.0) && (userWeight >= 301 && userWeight <= 999)) {
+    recommand_jacket_size = "60:L"
+    recommand_pants_size = "52x34";
+  }
+  
+  // jacket Size
+  var jacket_size = recommand_jacket_size.split(':');
+  if (jacket_size[1] == "S") {
+    jacket_type = 'Short'
+  } else if (jacket_size[1] == "R") {
+    jacket_type = 'Regular'
+  } else if (jacket_size[1] == "L") {
+    jacket_type = 'Long'
+  }           
+  var ff_html = `<div class="ff-data jacket-wrap"><strong>Jacket : </strong><span>${jacket_size[0]} ${jacket_type}</span></div>`;''
+
+  // Panst size 
+  var pants_size = recommand_pants_size.split('x');
+  var pants_hight = pants_size[1];
+  var pants_waist = pants_size[0];
+  $(`#pant-waist`).val(pants_waist).change();
+  ff_html += `<div class="ff-data"><strong>Pants : </strong><span>${pants_waist} x ${pants_hight}</span></div>`;
+ 
+  $(".fit-finder-output #ff-data-box").html(ff_html);
+  $(`.fit-finder-output`).removeClass("hidden");
+}
