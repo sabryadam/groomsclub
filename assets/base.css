@@ -9841,7 +9841,8 @@ main#MainContent {
   line-height: 20px;
 }
 
-.error-message {
+.error-message,
+.recommand-error-message  {
   display: none;
   font-size: 14px;
   padding: 5px 0;
