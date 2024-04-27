@@ -14,6 +14,13 @@
   {%- assign orderTypeClass = 'event-order' -%}
 {%- endif -%}
 
+{%- assign fit_finder_data_enable = false -%}
+{% for cart_item in cart.items  %}
+  {%- if cart_item.product.type contains 'Jacket' or cart_item.product.type contains 'Pants' or cart_item.product.type contains 'Vest'  -%} 
+    {%- assign fit_finder_data_enable = true -%}
+  {%- endif %}
+{% endfor  %}
+
 <cart-items class="cart-page {% if cart == empty %} is-empty{% endif %}" data-value="{{ cart.attributes.order_type }}">
 
   <div class="page-width-big">
@@ -67,22 +74,22 @@
                         {%- endif -%}
                       {%- endif -%}
                     {%- endif -%}
-                    {%- assign saparate_product = false -%}
+                    {% assign saparate_product = false %}
+                    {% assign saparate_product_class = '' %}
                     {%- for property in item.properties -%}
-                      {%- if property.last contains 'saparate-product' -%} 
-                        {%- assign saparate_product = true -%}
-                        {%- break -%}
-                      {%- endif-%}
-                    {%- endfor -%}
-                    {%- if lineItemType  == 'jacket' or lineItemType  == 'pants'  -%}
-                      {%- if saparate_product -%}
-                        <tr class="cart-item" line-item-product="{{ lineItemType }}" line-item-title="{{ item.product.title }}" data-item-variant-qty="{{ item.variant.inventory_quantity }}" data-item-qty="{{ item.quantity }}" line-item-product-handle="{{ item.product.handle}}" id="CartItem-{{ item.index | plus: 1 }}" line-item-id="{{ item.id }}" data-item-variant-title="{{ item.variant.title | downcase | handleize }}" data-variant-title="{{ item.variant.title }}">
+                      {%- if property.first contains 'saparate-product' -%}
+                        {% assign saparate_product = true %}
+                        {% assign saparate_product_class = 'saparate_product' %}
+                      {% endif  %}
+                    {% endfor  %}
+                    {% if saparate_product %}
+                      <tr class="cart-item saparate-product" line-item-product="{{ lineItemType }}" line-item-title="{{ item.product.title }}" data-item-variant-inventory-policy="{{ item.variant.inventory_policy }}" data-item-variant-qty="{{ item.variant.inventory_quantity }}" data-item-qty="{{ item.quantity }}" line-item-product-handle="{{ item.product.handle}}" id="CartItem-{{ item.index | plus: 1 }}" line-item-id="{{ item.id }}" data-item-variant-title="{{ item.variant.title | downcase | handleize }}" data-variant-title="{{ item.variant.title }}">
+                    {% else  %}
+                      {%- if lineItemType  == 'jacket' or lineItemType  == 'pants'  -%}
+                        <tr class="cart-item{% if lineItemType == 'pants' %} hidden{% endif %}" line-item-product-type="{{ lineItemType }}" data-item-variant-inventory-policy="{{ item.variant.inventory_policy }}" data-item-variant-qty="{{ item.variant.inventory_quantity }}" data-item-qty="{{ item.quantity }}" data-line-item-key="{{ item.key }}" data-jacket-variant="{{ item.properties['combo-variant-title'] | downcase | handleize }}" data-pants-variant="{{ item.properties['pant-variant-title'] | downcase | handleize }}" data-vest-variant="{{ item.properties['vest-variant-title'] | downcase | handleize}}" data-jacket-item-variant="{{ item.properties['combo-variant-title'] }}" data-pants-item-variant="{{ item.properties['pant-variant-title'] }}" data-vest-item-variant="{{ item.properties['vest-variant-title'] }}">
                       {%- else -%}
-                        <tr class="cart-item{% if saparate_product %} saparate-product{% else %}{% if lineItemType == 'pants' %} hidden{% endif %}{% endif %}" line-item-product-type="{{ lineItemType }}" data-item-variant-qty="{{ item.variant.inventory_quantity }}" data-item-qty="{{ item.quantity }}" data-line-item-key="{{ item.key }}" data-jacket-variant="{{ item.properties['combo-variant-title'] | downcase | handleize }}" data-pants-variant="{{ item.properties['pant-variant-title'] | downcase | handleize }}" data-vest-variant="{{ item.properties['vest-variant-title'] | downcase | handleize}}" data-jacket-item-variant="{{ item.properties['combo-variant-title'] }}" data-pants-item-variant="{{ item.properties['pant-variant-title'] }}" data-vest-item-variant="{{ item.properties['vest-variant-title'] }}">
+                        <tr class="cart-item" line-item-product="{{ lineItemType }}" line-item-title="{{ item.product.title }}" data-item-variant-inventory-policy="{{ item.variant.inventory_policy }}" data-item-variant-qty="{{ item.variant.inventory_quantity }}" data-item-qty="{{ item.quantity }}" line-item-product-handle="{{ item.product.handle}}" id="CartItem-{{ item.index | plus: 1 }}" line-item-id="{{ item.id }}" data-item-variant-title="{{ item.variant.title | downcase | handleize }}" data-variant-title="{{ item.variant.title }}">
                       {%- endif -%}
-                    {%- else -%}
-                      <tr class="cart-item" line-item-product="{{ lineItemType }}" line-item-title="{{ item.product.title }}" data-item-variant-qty="{{ item.variant.inventory_quantity }}" data-item-qty="{{ item.quantity }}" line-item-product-handle="{{ item.product.handle}}" id="CartItem-{{ item.index | plus: 1 }}" line-item-id="{{ item.id }}" data-item-variant-title="{{ item.variant.title | downcase | handleize }}" data-variant-title="{{ item.variant.title }}">
-
                     {%- endif -%}
                       
                       <td class="cart-item__media">
@@ -151,6 +158,9 @@
                           {%- endif -%}
                         {%- endfor -%}
 
+                        {% if saparate_product  %}
+                          <a href="{{ item.product.url }}" class="cart-item__name break h3">{{ item.product.title | escape }}</a>
+                        {% else  %}
                         {%- if lineItemType == 'jacket' -%}
                           {% if saparate_product  %}
                             <a href="{{ item.product.url }}" class="cart-item__name break h3">{{ item.product.title | escape }}</a>
@@ -162,6 +172,7 @@
                         {%- else -%}
                           <a href="{{ item.product.url }}" class="cart-item__name break h3">{{ item.product.title | escape }}</a>
                         {%- endif -%}
+                        {%- endif -%}                          
 
                         {%- if item.product.has_only_default_variant == false or item.properties.size != 0 or item.selling_plan_allocation != nil -%}
                           <!-- edit item  -->
@@ -171,10 +182,11 @@
                               {%- if lineItemType == 'jacket' -%}
                                 {%- unless saparate_product -%}
                                 <div class="suit-product-info" data-item-product-type="{{ lineItemType }}" data-variant-id="{{ item.id }}">
-                                  <span class="title">
-                                    Jacket - 
-                                  </span>
-                                {%- endunless -%}
+                                  {% unless saparate_product %}
+                                    <span class="title">
+                                      Jacket - 
+                                    </span>
+                                  {% endunless %}
                               {%- else -%}
                                 <div class="suit-product-info" data-item-product-type="{{ lineItemType }}" data-variant-id="{{ item.id }}">
                               {%- endif -%}
@@ -184,7 +196,7 @@
                                       {% unless option.name == 'Denominations' %}
                                         <div>{{ option.name }}: </div>
                                       {% endunless %}
-                                      <div class="product-option-val" data-option-index="{{ forloop.index }}">{{ option.value }}</div>
+                                      <div class="product-option-val option-{{ forloop.index }}">{{ option.value }}</div>
                                     </div>
                                   {%- endfor -%}
                                 </span>
@@ -195,17 +207,16 @@
                               {%- endif -%}{%- endcomment -%}
                               </div>
                             {%- endif -%}
-                            {%- if saparate_product -%}
-                            {% else %}
-                              {%- if lineItemType == 'jacket' %}
-                                {{ vestOption }}
-                                {{ pantOption }}
-                              {%- endif -%}
-                            {% endif %}
+                            {% unless saparate_product %}
+                            {%- if lineItemType == 'jacket' %}
+                              {{ vestOption }}
+                              {{ pantOption }}
+                            {%- endif -%}
+                            {% endunless  %}
                             {%- for property in item.properties -%}
                               {%- assign property_first_char = property.first | slice: 0 -%}
                               {%- if property.last != blank and property_first_char != '_' -%}
-                                {%- unless property.first contains 'saparate-product' or property.first contains 'combo-variant-title' or property.last contains 'Virtual' or property.first contains 'variant-title' or property.first contains 'variant-id' -%}
+                                {%- unless property.first contains 'combo-variant-title' or property.last contains 'Virtual' or property.first contains 'variant-title' or property.first contains 'variant-id' or property.first contains 'saparate-product' -%}
                                   <div class="item-properties">
                                     <dt>{{ property.first }} : </dt>
                                     <dd>
@@ -229,8 +240,8 @@
                               {%- endif -%}
                             {%- endfor -%} 
                             <div class="cart-edit-remove-option" {% if invitedEventClass %}data-item-properties="{{ invitedEventClass }}"{% endif %}>
-                              {%- if saparate_product -%}
-                                {%- if currentProduct.variants.size > 1 %} 
+                              {% if saparate_product %}
+                                <div class="cart-edit-remove-option"> 
                                   <span class="cart-edit item link">
                                     <div class="edit-item-title" >
                                       Edit Item
@@ -239,13 +250,13 @@
                                       {%- endunless -%}
                                     </div>
                                   </span>
-                                {%- endif -%}
-                                <cart-remove-button id="Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
-                                  <a href="{{ item.url_to_remove }}" class="link" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
-                                    <span class="cart-remove">Remove</span>
-                                  </a>
-                                </cart-remove-button>
-                              {%- else -%}
+                                  <cart-remove-button id="Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
+                                    <a href="{{ item.url_to_remove }}" class="link" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
+                                      <span class="cart-remove">Remove</span>
+                                    </a>
+                                  </cart-remove-button>
+                                </div>
+                              {% else  %}
                               {% unless lineItemType == 'jacket' %}
                                 {%- unless orderType == 'virtual' and lineItemType == 'neckties' or orderType and lineItemType == 'bow ties' or  orderType and lineItemType == 'hanky' -%}
                                   {%- if currentProduct.variants.size > 1 %} 
@@ -271,14 +282,14 @@
                                   </cart-remove-button>
                                 {%- endif -%}
                               {%- endunless -%}
-                              {%- endif -%}
+                              {% endif  %}
                             </div>
                           </div>
 
                           <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</p>
                           <!-- edit item  -->
                           {%- assign cuurentItemTitle = item.properties['variant-title'] | append : '-' | append : item.id | downcase | handleize -%}
-                          {%- render 'edit-product-popup' currentProduct : currentProduct, s_variant: item, orderTypeClass : orderTypeClass, currentItemTitle : cuurentItemTitle -%}
+                          {%- render 'edit-product-popup' currentProduct : currentProduct, s_variant: item, orderTypeClass : orderTypeClass, currentItemTitle : cuurentItemTitle, product_has_saparate : saparate_product_class, item_key : item.key  -%}
 
                         {%- endif -%}
 
@@ -322,7 +333,25 @@
                           {%- if lineItemType == 'jacket' -%}
                             {% if saparate_product %}
                             <quantity-input class="quantity">
-                            {%- else-%}
+                              <button class="quantity__button no-js-hidden" name="minus" type="button">
+                                <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}</span>
+                                -
+                              </button>
+                              <input class="quantity__input"
+                                type="number"
+                                name="updates[]"
+                                value="{{ item.quantity }}"
+                                min="0"
+                                aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
+                                id="Quantity-{{ item.index | plus: 1 }}"
+                                data-index="{{ item.index | plus: 1 }}" readonly
+                              >
+                              <button class="quantity__button no-js-hidden" name="plus" type="button">
+                                <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: item.product.title | escape }}</span>
+                                +
+                              </button>
+                            </quantity-input>
+                            {% else %}
                             <div class="quantity custom-qty-button">
                             {% endif %}
                               <button class="quantity__button no-js-hidden{% unless saparate_product %}{% if item.quantity == 1 %} disabled{% endif %}{% endunless %}" name="minus" type="button">
@@ -346,7 +375,7 @@
                             </quantity-input>
                             {%- else-%}
                             </div>
-                            {% endif %}
+                            {% endif  %}
                           {%- else -%}
                             <quantity-input class="quantity">
                               <button class="quantity__button no-js-hidden" name="minus" type="button">
@@ -484,9 +513,10 @@
         <p class="visually-hidden" id="shopping-cart-line-item-status" aria-live="polite" aria-hidden="true" role="status">{{ 'accessibility.loading' | t }}</p>
       </form>
     </div>
+    
     {%- unless cart.item_count == 0 -%}
     <div class="cart-fit-finder-wrapper">
-      <div class="order-details-wrapper">
+      <div class="order-details-wrapper {% unless fit_finder_data_enable  %}hidden{% endunless %}">
         <p class="summary-heading">Order Details</p>
         <p class="sub-title">Please provide some information about your order.</p>
         <div class="fit-finder-wrapper">
@@ -494,6 +524,8 @@
             <label for="height_val" class="label">Height*</label>
             <select name="height_val" class="height_val">
               <option value="">—</option>
+              <option value="5.01">5'1"</option>
+              <option value="5.02">5'2"</option>
               <option value="5.03">5'3"</option>
               <option value="5.04">5'4"</option>
               <option value="5.05">5'5"</option>
@@ -510,7 +542,8 @@
               <option value="6.04">6'4"</option>
               <option value="6.05">6'5"</option>
               <option value="6.06">6'6"</option>
-              <option value="6.06">9.0</option>
+              <option value="6.07">6'7"</option>
+              <option value="6.08">6'8"</option>
             </select>
             <div class="error-message">Height is required.</div>
           </div>
@@ -571,9 +604,20 @@
             {%- endif -%}
           </div>
         </div>
-        <button type="button" name="add" class="contiune-payment button button--full-width button--primary">
+        <button type="button" name="add" class="contiune-payment button button--full-width button--primary {% unless fit_finder_data_enable  %}hidden{% endunless %}">
           <span class="btn-title" data-text="Processing...">Contiune to Payment</span>
         </button>
+        <div class="cart__ctas checkout_btn_link {% if fit_finder_data_enable  %}hidden{% endif %}">
+          <noscript>
+            <button type="submit" class="cart__update-button button button--secondary" form="cart">
+              {{ 'sections.cart.update' | t }}
+            </button>
+          </noscript>
+
+          <button type="submit" class="button--primary button" name="checkout"{% if cart == empty %} disabled{% endif %} form="cart">
+            {{ 'sections.cart.checkout' | t }} <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
       </div>
     </div>
     {%- endunless -%}

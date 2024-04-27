@@ -217,7 +217,10 @@ cart-remove-button .button {
     display: grid;
     grid-template: repeat(2, auto) / repeat(4, 1fr);
     gap: 1.5rem;
-    margin-bottom: 3.5rem;
+    margin-bottom: 1rem;
+  }
+  .cart-page-wrapper .cart-fit-finder-wrapper .order-details-wrapper{
+    margin-top: 0;
   }
 
   .cart-item:last-child {
@@ -473,7 +476,7 @@ cart-remove-button .button {
    .also-like-part .product-image-name-part {width: 100%;}
    .also-like-part .product-remove-cart{justify-content: unset; margin-left: 110px;  width: calc(100% - 110px);     margin-top: 10px;} 
 
-   .cart__ctas button{max-width: 249px!important; height: 55px;  padding: 12px 20px;}
+   .cart__ctas button{max-width: 100%!important; height: 55px;  padding: 12px 20px;}
 }
 
 @media screen and (max-width:512px) {

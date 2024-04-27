@@ -147,7 +147,7 @@ cart-items {
 
 .cart__ctas button {
   width: 100%;
-  max-width: 285px;
+  max-width: 100%;
   margin-left: auto;
 }
 

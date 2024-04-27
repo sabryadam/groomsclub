@@ -14,6 +14,7 @@
 </div>
 {%- endunless -%}
 {%- endcomment -%}
+
 <div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %}">
   <div class="collection-hero__inner page-width">
     <div class="collection-hero__text-wrapper {% unless template contains 'top-suit' or template contains 'top-collection' %}main-heading-part{% endunless%}">
@@ -74,7 +75,7 @@
   <div class="page-top-headpadding-flex collection-breadcrumb-wrapper">
     <div class="breadcrumb">
       <div class="breadcrumb-links">
-        <a href="/collections/all">Shop Collection</a> 
+        <a href="/collections/all">Shop Collection</a>
         <span class="breadcrumb__sep">{% include 'breadcrumb-arrow' %}</span>
         <span class="active-page">{{ collection.title}}</span>
       </div>
