@@ -1,4 +1,5 @@
 {{ 'product-page.js' |  asset_url | script_tag  }}
+{{ 'jacket-pant-saparate-pdp.js' |  asset_url | script_tag  }}
 {% assign current_var = product.selected_or_first_available_variant.id %}
 <input type="hidden" class="product-type" value="{{ product.type | downcase | handleize }}" />
 <input type="hidden" class="order-type" value="{{ cart.attributes.order_type }}">
@@ -45,6 +46,11 @@
       padding: 0 0;
     } 
   }
+  .product-form__input.size input[type=radio]:checked+label{
+    background-color: black !important;
+    color: #fff !important;
+    border-color: var(--color-light-blue);
+  }
 </style>
 
 <script>
@@ -52,10 +58,10 @@
   let clickedImage = x.dataset.mediaId;
   const newImage = document.querySelector(`[data-media-id="${clickedImage}"]`);
   const parentData = newImage.parentElement;
-  parentData.prepend(newImage);
-  newImage.style.display = "block";
+    parentData.prepend(newImage);
+    newImage.style.display = "block";
   };
-  </script>
+</script>
 {% comment %}theme-check-disable TemplateLength{% endcomment %}
 {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
 {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
@@ -263,11 +269,6 @@
                 {%- if settings.social_instagram_link != blank -%}
                 <li class="list-social__item">
                   <a href="{{ settings.social_instagram_link }}" class="link list-social__link" aria-describedby="a11y-external-message">
-                    {% comment %}{%- render 'icon-instagram' -%}
-                    <img src="{{ 'footer_instagram.png' | asset_url }}"
-                        loading="lazy"
-                        class="footer__footer-social-logo"
-                    >{% endcomment %}
                     <i class="fab fa-instagram"></i>
                     <span class="visually-hidden">{{ 'general.social.links.instagram' | t }}</span>
                   </a>
@@ -277,11 +278,6 @@
                 {%- if settings.social_facebook_link != blank -%}
                   <li class="list-social__item">
                     <a href="{{ settings.social_facebook_link }}" class="link list-social__link" aria-describedby="a11y-external-message">
-                      {% comment %}{%- render 'icon-facebook' -%} 
-                      <img src="{{ 'footer_facebook.png' | asset_url }}"
-                              loading="lazy"
-                              class="footer__footer-social-logo"
-                          >{% endcomment %}
                         <i class="fab fa-facebook-f"></i>
                       <span class="visually-hidden">{{ 'general.social.links.facebook' | t }}</span>
                     </a>
@@ -298,11 +294,6 @@
                 {%- if settings.social_twitter_link != blank -%}
                   <li class="list-social__item">
                     <a href="{{ settings.social_twitter_link }}" class="link list-social__link" aria-describedby="a11y-external-message">
-                      {% comment %}{%- render 'icon-twitter' -%}
-                          <img src="{{ 'footer_twitter.png' | asset_url }}"
-                              loading="lazy"
-                              class="footer__footer-social-logo"
-                          >{% endcomment %}
                           <i class="fab fa-twitter"></i>
                       <span class="visually-hidden">{{ 'general.social.links.twitter' | t }}</span>
                     </a>
@@ -335,11 +326,6 @@
                 {%- if settings.social_youtube_link != blank -%}
                   <li class="list-social__item">
                     <a href="{{ settings.social_youtube_link }}" class="link list-social__link" aria-describedby="a11y-external-message">
-                      {% comment %}{%- render 'icon-youtube' -%}
-                      <img src="{{ 'footer_youtube.png' | asset_url }}"
-                          loading="lazy"
-                          class="footer__footer-social-logo"
-                      >{% endcomment %}
                       <i class="fab fa-youtube"></i>
                       <span class="visually-hidden">{{ 'general.social.links.youtube' | t }}</span>
                     </a>
@@ -433,16 +419,7 @@
                         {% render 'icon-caret' %}
                       </div>
                     </div>
-
-
-               
-
-
-
-
                   {%- endfor -%}
-               
-
                   <script type="application/json">
                     {{ product.variants | json }}
                   </script>
@@ -499,9 +476,6 @@
                     {{ product.variants | json }}
                   </script>
                 </variant-radios>
-
-
-                
               {% else %}
                 <div class="produ-var-option hidden">
                   <select id="Option-{{ section.id }}-{{ forloop.index0 }}"
@@ -515,6 +489,22 @@
                       </option>
                     {%- endfor -%}
                   </select>
+                </div>
+                <div id="suit_fit_finder" class="completefit product_fit_finder" style="display: none;">
+                  <a href="https://www.groomsclub.com/pages/fit-finder">
+                    <div class="fit-finder-info-block">
+                      <h4>Not sure of your size? Try our fit finder</h4>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                </div>
+                <div id="fit_finder_data_auto" style="display: none;">
+                  <div class="ff-top-box">
+                    <h3>Recommended Size</h3>
+                    {%- comment -%}<span>Calculated based on your fit responses.</span>
+                    <a href="https://www.groomsclub.com/pages/fit-finder">Retry fit finder</a>{%- endcomment -%}
+                  </div>
+                  <div id="ff-data-box"></div>
                 </div>
                   <variant-radios class="no-js-hidden" data-section="{{ section.id }}" data-url="{{ product.url }}">
                     {%- for option in product.options_with_values -%}
@@ -596,204 +586,161 @@
               {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
                 <!-- when customer is not logged in -->
-                <div class="product-form__buttons display-logout">
-                  {%- if productType == 'shirt' -%}
-<!--                     <div class="sizing-and-fit-wrapper" data-product-type="{{ productType }}">
-                      <div class="filed-wrapper empty-fit-fider-wrapper">
-                        <p class="field__label title" style="font-size: 16px;margin: 0;">Please use the Fit Finder below for sizing to Continue</p>
-                      </div>
-                    </div> -->
-                  {%- endif -%}
+                <div class="product-form__buttons display-logout">                  
                   <div class="customize-cart-wrapper cutommain-pdp{% unless productType == 'shirt' %} justify-start{% endunless %}">
-                    {%- if productType == 'shirt' -%}
-<!--                       <div class = "customize-button-fit-your-find">
-                        <span class="button button--secondary product-fit-finder" data-product-url="{{ product.url }}">
-                          <span class="icon">{%- render 'icon-size-chart' -%}</span>
-                          <span class="button-title">Find Your Fit</span>
-                        </span>
-                      </div> -->
-                    {%- endif -%}
                     <button type="button" name="add" class="product-form__submit button button--full-width button--primary {% if product.metafields.custom.product_page_upsell != blank %}up-sell-popup{% endif %}">
                       {%- if products.product.sold_out -%}
                         <span class="btn-title">{{ 'products.product.sold_out' | t }}</span>
                       {% else %}
                        <span class="btn-title" data-text="Adding...">{{ 'products.product.add_to_cart' | t }}</span>
-                          <i class="fas fa-shopping-cart"></i>
                       {%- endif -%}
                     </button>
                     {%- if block.settings.show_dynamic_checkout -%}
                       {{ form | payment_button }}
                     {%- endif -%}
                   </div>
-                  <div class="customize-favorite-event-wrapper" style="display: none">
-                    <div class = "customize-button-customize-look">
-                      <a href="/pages/customize-your-look" class="button button--secondary btn-small">Customize This Look</a>
-                    </div>
-                    <div class="add-to-event">
-                      <a href="#" class="link link-with-svg event-text">
-                          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                            viewBox="0 0 19 18" style="enable-background:new 0 0 19 18;" xml:space="preserve">
-                          <style type="text/css">
-                            .plus-icon{fill:#1075BC;}
-                          </style>
-                          <g>
-                            <g>
-                              <path class="plus-icon" d="M9.6,1.5c4.1,0,7.5,3.3,7.5,7.5s-3.4,7.5-7.5,7.5S2.1,13.1,2.1,9S5.5,1.5,9.6,1.5 M9.6,0c-5,0-9,4-9,9
-                                s4,9,9,9s9-4,9-9S14.6,0,9.6,0L9.6,0z"/>
-                            </g>
-                            <g>
-                              <rect x="8.6" y="5" class="plus-icon" width="2" height="8.1"/>
-                              <rect x="8.6" y="5" transform="matrix(6.123234e-17 -1 1 6.123234e-17 0.6405 18.6186)" class="plus-icon" width="2" height="8.1"/>
-                            </g>
-                          </g>
-                          </svg>
-                        Add to Event
-                      </a>
-                    </div>
-                  </div>
                 </div>
               {%- endform -%}
             </product-form>
-            {% comment  %}
             {%- if product.metafields.custom.cross_sell_product_jacket_or_pant != blank  -%}
-              <div class="frequently-bought-together">
-                <h4 class="heading">
-                  Frequently bought together
-                </h4>
-                <div class="frequently-bought-together-inner-wrapper">
-                  {% assign current_product = product %}
-                  <div class="parent-product product-type-{{ current_product.type | downcase }}">
-                    <div class="upsell-product-wrap" data-product-handle="{{ current_product.handle }}" data-product-type="{{ current_product.type | downcase }}">
+            <div class="frequently-bought-together">
+              <h4 class="heading">
+                Frequently bought together
+              </h4>
+              <div class="frequently-bought-together-inner-wrapper">
+                {% assign current_product = product %}
+                <div class="parent-product product-type-{{ current_product.type | downcase }}">
+                  <div class="upsell-product-wrap" data-product-handle="{{ current_product.handle }}" data-product-type="{{ current_product.type | downcase }}">
+                    <div class="product-block-wrap">
+                      <div class="product-image">
+                        {%- if current_product.selected_or_first_available_variant.image != blank -%}
+                          <img srcset="{{ current_product.selected_or_first_available_variant.image.src | img_url: 'medium' }} 1x, {{ current_product.selected_or_first_available_variant.image.src | img_url: 'medium', scale: 2 }} 2x"
+                            src="{{ current_product.selected_or_first_available_variant.image.src | img_url: image_size }}"
+                            loading="lazy"
+                            class="header__heading-logo var-img"
+                            width="{{ current_product.selected_or_first_available_variant.image.src.width }}"
+                            height="{{ current_product.selected_or_first_available_variant.image.src.height }}"
+                            alt="{{ current_product.title }}"
+                          >
+                        {%- else -%}
+                          <img srcset="{{ current_product.featured_media.image.src | img_url: 'medium' }} 1x, {{ current_product.featured_media.image.src | img_url: 'medium', scale: 2 }} 2x"
+                            src="{{ current_product.featured_media.image.src | img_url: image_size }}"
+                            loading="lazy"
+                            class="header__heading-logo prod-img"
+                            width="{{ current_product.featured_media.image.src.width }}"
+                            height="{{ current_product.featured_media.image.src.height }}"
+                            alt="{{ current_product.title }}"
+                          >
+                        {%- endif -%}
+                      </div>
+                      <div class="product-info">
+                        <h4 class="product-title">{{ current_product.title }}</h4>
+                        <div class="variant-wrap">
+                          <span class="variant-title variant-info-wrap" data-product-type="{{ current_product.type }}" data-product-handle="{{ current_product.handle }}">
+                            {% for option in current_product.options_with_values  %}
+                              {% assign outer_forloop = forloop %}
+                              {%- assign variantOptions =  current_product.selected_or_first_available_variant.title | split : '/' -%}
+                              {%- for variantOptionsTitle in variantOptions -%}
+                                {%- if outer_forloop.index == forloop.index -%}
+                                  <span class="option-name option-{{ forloop.index }}" data-option-title="{{ option.name }}">
+                                    {{- variantOptionsTitle | strip -}}
+                                    {%- if current_product.type contains 'Pants' and forloop.first  -%}
+                                      &nbsp; x
+                                    {%- endif -%}
+                                  </span>
+                                {%- endif -%}
+                              {% endfor %}
+                              {%- endfor -%}  
+                          </span>
+                          <span class="edit-item-button" data-button-label="edit-item"> - Edit Size</span>
+                          <span class="edit-item-button mobile-show" data-button-label="edit-item">Edit Size</span>
+                        </div>
+                        <div class="product-price">
+                          <span class="money" data-price="{{ current_product.selected_or_first_available_variant.price }}">
+                            {{ current_product.selected_or_first_available_variant.price | money }}
+                          </span>
+                        </div>   
+                        <span class="error-message parent-error-msg">Please select size</span>       
+                      </div>
+                    </div>
+                    {%- render 'edit-product-popup', productHandle : current_product, currentProduct: current_product, s_variant: current_product.selected_or_first_available_variant -%}
+                  </div>
+                  <span class="plus-sign">+</span>
+                </div>
+                <div class="upsell-product-wrapper">
+                  {% assign upsell_product_array = product.metafields.custom.cross_sell_product_jacket_or_pant | split : ',' %}
+                  {%- for upsell_product in upsell_product_array -%}
+                    {% assign productHandle = all_products[upsell_product] %}
+                    <div class="upsell-product-wrap" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
                       <div class="product-block-wrap">
                         <div class="product-image">
-                          {%- if current_product.selected_or_first_available_variant.image != blank -%}
-                            <img srcset="{{ current_product.selected_or_first_available_variant.image.src | img_url: 'medium' }} 1x, {{ current_product.selected_or_first_available_variant.image.src | img_url: 'medium', scale: 2 }} 2x"
-                              src="{{ current_product.selected_or_first_available_variant.image.src | img_url: image_size }}"
+                          {%- if productHandle.selected_or_first_available_variant.image != blank -%}
+                            <img srcset="{{ productHandle.selected_or_first_available_variant.image.src | img_url: 'medium' }} 1x, {{ productHandle.selected_or_first_available_variant.image.src | img_url: 'medium', scale: 2 }} 2x"
+                              src="{{ productHandle.selected_or_first_available_variant.image.src | img_url: image_size }}"
                               loading="lazy"
                               class="header__heading-logo var-img"
-                              width="{{ current_product.selected_or_first_available_variant.image.src.width }}"
-                              height="{{ current_product.selected_or_first_available_variant.image.src.height }}"
-                              alt="{{ current_product.title }}"
+                              width="{{ productHandle.selected_or_first_available_variant.image.src.width }}"
+                              height="{{ productHandle.selected_or_first_available_variant.image.src.height }}"
+                              alt="{{ productHandle.title }}"
                             >
                           {%- else -%}
-                            <img srcset="{{ current_product.featured_media.image.src | img_url: 'medium' }} 1x, {{ current_product.featured_media.image.src | img_url: 'medium', scale: 2 }} 2x"
-                              src="{{ current_product.featured_media.image.src | img_url: image_size }}"
+                            <img srcset="{{ productHandle.featured_media.image.src | img_url: 'medium' }} 1x, {{ productHandle.featured_media.image.src | img_url: 'medium', scale: 2 }} 2x"
+                              src="{{ productHandle.featured_media.image.src | img_url: image_size }}"
                               loading="lazy"
                               class="header__heading-logo prod-img"
-                              width="{{ current_product.featured_media.image.src.width }}"
-                              height="{{ current_product.featured_media.image.src.height }}"
-                              alt="{{ current_product.title }}"
+                              width="{{ productHandle.featured_media.image.src.width }}"
+                              height="{{ productHandle.featured_media.image.src.height }}"
+                              alt="{{ productHandle.title }}"
                             >
                           {%- endif -%}
+                          <div class="checkbox"></div>
                         </div>
                         <div class="product-info">
-                          <h4 class="product-title">{{ current_product.title }}</h4>
+                          <h4 class="product-title">{{ productHandle.title }}</h4>
                           <div class="variant-wrap hidden">
-                            <span class="variant-title variant-info-wrap" data-product-type="{{ current_product.type }}" data-product-handle="{{ current_product.handle }}">
-                              {% for option in current_product.options_with_values  %}
+                            <span class="variant-title variant-info-wrap" data-product-handle="{{ productHandle.handle }}">
+                              {% for option in productHandle.options_with_values  %}
                                 {% assign outer_forloop = forloop %}
-                                {%- assign variantOptions =  current_product.selected_or_first_available_variant.title | split : '/' -%}
+                                {%- assign variantOptions =  productHandle.selected_or_first_available_variant.title | split : '/' -%}
                                 {%- for variantOptionsTitle in variantOptions -%}
                                   {%- if outer_forloop.index == forloop.index -%}
                                     <span class="option-name option-{{ forloop.index }}" data-option-title="{{ option.name }}">
                                       {{- variantOptionsTitle | strip -}}
-                                      {%- if current_product.type contains 'Pants' and forloop.first  -%}
-                                        &nbsp; x
-                                      {%- endif -%}
                                     </span>
+                                    {%- if productHandle.type contains 'Pants' and forloop.first  -%}
+                                      &nbsp; x
+                                    {%- endif -%}
                                   {%- endif -%}
-                                {% endfor %}
-                                {%- endfor -%}  
+                                {%- endfor -%}
+                              {% endfor %}
                             </span>
                             <span class="edit-item-button" data-button-label="edit-item"> - Edit Size</span>
                             <span class="edit-item-button mobile-show" data-button-label="edit-item">Edit Size</span>
                           </div>
                           <span class="selecte-size-button" data-size-selected="select-size">Select Size</span>
                           <div class="product-price">
-                            <span class="money" data-price="{{ current_product.selected_or_first_available_variant.price }}">
-                              {{ current_product.selected_or_first_available_variant.price | money }}
+                            <span class="money" data-price="{{ productHandle.selected_or_first_available_variant.price }}">
+                              {{ productHandle.selected_or_first_available_variant.price | money }}
                             </span>
-                          </div>         
+                          </div>                               
+                          <span class="error-message parent-error-msg">Please select size</span>  
                         </div>
                       </div>
-                      {%- render 'edit-product-popup', productHandle : current_product, currentProduct: current_product, s_variant: current_product.selected_or_first_available_variant -%}
+                      {%- render 'edit-product-popup', productHandle : productHandle, currentProduct: productHandle, s_variant: productHandle.selected_or_first_available_variant -%}
                     </div>
-                    <span class="plus-sign">+</span>
-                  </div>
-                  <div class="upsell-product-wrapper">
-                    {% assign upsell_product_array = product.metafields.custom.cross_sell_product_jacket_or_pant | split : ',' %}
-                    {%- for upsell_product in upsell_product_array -%}
-                      {% assign productHandle = all_products[upsell_product] %}
-                      <div class="upsell-product-wrap" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
-                        <div class="product-block-wrap">
-                          <div class="product-image">
-                            {%- if productHandle.selected_or_first_available_variant.image != blank -%}
-                              <img srcset="{{ productHandle.selected_or_first_available_variant.image.src | img_url: 'medium' }} 1x, {{ productHandle.selected_or_first_available_variant.image.src | img_url: 'medium', scale: 2 }} 2x"
-                                src="{{ productHandle.selected_or_first_available_variant.image.src | img_url: image_size }}"
-                                loading="lazy"
-                                class="header__heading-logo var-img"
-                                width="{{ productHandle.selected_or_first_available_variant.image.src.width }}"
-                                height="{{ productHandle.selected_or_first_available_variant.image.src.height }}"
-                                alt="{{ productHandle.title }}"
-                              >
-                            {%- else -%}
-                              <img srcset="{{ productHandle.featured_media.image.src | img_url: 'medium' }} 1x, {{ productHandle.featured_media.image.src | img_url: 'medium', scale: 2 }} 2x"
-                                src="{{ productHandle.featured_media.image.src | img_url: image_size }}"
-                                loading="lazy"
-                                class="header__heading-logo prod-img"
-                                width="{{ productHandle.featured_media.image.src.width }}"
-                                height="{{ productHandle.featured_media.image.src.height }}"
-                                alt="{{ productHandle.title }}"
-                              >
-                            {%- endif -%}
-                            <div class="checkbox"></div>
-                          </div>
-                          <div class="product-info">
-                            <h4 class="product-title">{{ productHandle.title }}</h4>
-                            <div class="variant-wrap hidden">
-                              <span class="variant-title variant-info-wrap" data-product-handle="{{ productHandle.handle }}">
-                                {% for option in productHandle.options_with_values  %}
-                                  {% assign outer_forloop = forloop %}
-                                  {%- assign variantOptions =  productHandle.selected_or_first_available_variant.title | split : '/' -%}
-                                  {%- for variantOptionsTitle in variantOptions -%}
-                                    {%- if outer_forloop.index == forloop.index -%}
-                                      <span class="option-name option-{{ forloop.index }}" data-option-title="{{ option.name }}">
-                                        {{- variantOptionsTitle | strip -}}
-                                      </span>
-                                      {%- if productHandle.type contains 'Pants' and forloop.first  -%}
-                                        &nbsp; x
-                                      {%- endif -%}
-                                    {%- endif -%}
-                                  {%- endfor -%}
-                                {% endfor %}
-                              </span>
-                              <span class="edit-item-button" data-button-label="edit-item"> - Edit Size</span>
-                              <span class="edit-item-button mobile-show" data-button-label="edit-item">Edit Size</span>
-                            </div>
-                            <span class="selecte-size-button" data-size-selected="select-size">Select Size</span>
-                            <div class="product-price">
-                              <span class="money" data-price="{{ productHandle.selected_or_first_available_variant.price }}">
-                                {{ productHandle.selected_or_first_available_variant.price | money }}
-                              </span>
-                            </div>                               
-                          </div>
-                        </div>
-                        {%- render 'edit-product-popup', productHandle : productHandle, currentProduct: productHandle, s_variant: productHandle.selected_or_first_available_variant -%}
-                      </div>
-                    {%- endfor -%}
-                  </div>
-                </div>
-                <div class="footer-wrap">
-                  <div class="price-wrap">
-                    <span>Total :</span><span class="price" data-price="{{ current_product.price }}">{{ current_product.price | money }}</span>
-                  </div>
-                  <button type="button" name="add" class="fbt-add-to-cart button button--full-width button--primary disabled">
-                    <span class="btn-title" data-text="Adding..." data-success-msg="Added item into cart">Add selected item(s)</span>
-                  </button>
+                  {%- endfor -%}
                 </div>
               </div>
+              <div class="footer-wrap">
+                <div class="price-wrap">
+                  <span>Total :</span><span class="price" data-price="{{ current_product.price }}">{{ current_product.price | money }}</span>
+                </div>
+                <button type="button" name="add" class="fbt-add-to-cart button button--full-width button--primary disabled">
+                  <span class="btn-title" data-text="Adding..." data-success-msg="Added item into cart">Add selected item(s)</span>
+                </button>
+              </div>
+            </div>
             {%- endif -%}
-          {% endcomment  %}
 
             {{ 'component-pickup-availability.css' | asset_url | stylesheet_tag }}
 
@@ -1235,328 +1182,3 @@
   ]
 }
 {% endschema %}
-
-<script>
-  theme_custom.getFitFinder = function(getProductType){
-    var fitFinderDataHTML = '';
-    $.ajax({
-      url: `${theme_custom.api_base_url}/api/customer/myFit`,
-      method: "GET",
-      data: '',
-      dataType: "json",
-      headers: {
-        "Authorization": 'Bearer '+localStorage.getItem("customerToken")
-      },
-      beforeSend: function() {
-      }, 
-      success: function(result){
-        if(result.success){
-          if(result.data.length > 0){
-            fitFinderDataHTML += `<h5 class="heading">Sizing & Fit</h5>`;
-            for(var i=0; i<result.data.length; i++){
-              fitFinderDataHTML +=`<input class="size_customer_id" type="hidden" value="${result.data[i].customer_id}">`;
-              // if(result.data[i].jacket_size && result.data[i].jacket_type) {
-              //   var jacketType = result.data[i].jacketSize.split(":");
-              //   var jacketTypeVal = '';
-              //   if(jacketType[1] == "S") {
-              //       jacketTypeVal = 'Short'
-              //   } else if(jacketType[1] == "R") {
-              //       jacketTypeVal = 'Regular'
-              //   } else if(jacketType[1] == "L"){
-              //       jacketTypeVal = 'Long'
-              //   }
-              //   fitFinderDataHTML +=`<div class="filed-wrapper">
-              //                         <p class="field__label title">Jacket Size :</p>
-              //                         <p class="value">${jacketType[0]} ${jacketTypeVal}</p>
-              //                       </div>`;
-              // }
-              // if(result.data[i].pants_waist && result.data[i].pants_hight){
-              //   fitFinderDataHTML+= `<div class="filed-wrapper">
-              //                         <p class="field__label title">Pants Size :</p>
-              //                         <p class="value">${result.data[i].pants_waist}W ${result.data[i].pants_hight}H</p>
-              //                       </div>`
-              // }
-              if(result.data[i].shirt_neck && result.data[i].shirt_sleeve && getProductType == 'shirt'){
-                fitFinderDataHTML+= `<div class="filed-wrapper">
-                                      <p class="field__label title">Shirt Size:</p>
-                                      <p class="value">Neck ${result.data[i].shirt_neck}, Sleeve ${result.data[i].shirt_sleeve}</p>
-                                    </div>`
-              }
-              if(result.data[i].shoe_size && getProductType == 'shoes'){
-                fitFinderDataHTML+= `<div class="filed-wrapper">
-                                      <p class="field__label title">Shoe Size:</p>
-                                      <p class="value">${result.data[i].shoe_size}</p>
-                                    </div>`
-              }
-            }
-            $(".fit-finder-main-wrapper").remove();
-            $(".sizing-and-fit-wrapper").html(fitFinderDataHTML);
-            $(".empty-fit-fider-wrapper").addClass("hidden");
-            $(".favorite-event-cart-wrapper .add-to-event .add-event-look").removeClass("disabled");
-          } else{
-            $(".my-size-block-main").css({
-                "display":"block",
-                "min-height" : "auto"
-            });    
-            var html = `<div class="empty_message size-empty-msg"> We didn't find the Fit Finder data....</div>`;
-            $('.my-size-block-main').html(html);
-            $(".empty-fit-fider-wrapper").removeClass("hidden");
-            $('.my-size-block-main').removeClass('displayBlock');
-          }
-          $(".customize-button-fit-your-find").removeClass("hidden");
-          if($(".error-message").text() != '' > 0 || getCookie("fit-finder-data") == ''  ){
-            $(".product-form__submit").addClass("normal-product-disable");
-          } else {
-            $(".product-form__submit").removeClass("normal-product-disable");
-          }
-        }
-      },
-      error:function(xhr,status,error){
-        if(xhr.responseJSON.message=='Token is invalid or expired.'){
-          $(".empty-fit-fider-wrapper").removeClass("hidden");
-          $('.sizing-and-fit-wrapper').html('Something went wrong <a class="try-again-link" href="/account/login">Please try again</a>').css({
-            'text-align':'center',
-            'color':'red'
-          });
-          setTimeout(() => {
-            theme_custom.removeLocalStorage();
-            window.location.href = '/account/logout';
-          }, 5000);
-        } else {
-          $('.sizing-and-fit-wrapper').html(xhr.responseJSON.message);
-          $(".empty-fit-fider-wrapper").removeClass("hidden");
-        }
-      }
-    });  
-  }
-  theme_custom.getFitFinderCookie = function(){
-    var fitFinderDataHTML = '';
-    if(getCookie("fit-finder-data") != ""){
-      var getFitFinderData = JSON.parse(getCookie("fit-finder-data"));
-      if(getFitFinderData.jacket_size && getFitFinderData.jacket_type) {
-        var jacketType = getFitFinderData.jacketSize.split(":");
-        var jacketTypeVal = '';
-        if(jacketType[1] == "S") {
-            jacketTypeVal = 'Short'
-        } else if(jacketType[1] == "R") {
-            jacketTypeVal = 'Regular'
-        } else if(jacketType[1] == "L"){
-            jacketTypeVal = 'Long'
-        }
-        fitFinderDataHTML +=`<div class="filed-wrapper">
-                              <p class="field__label title">Jacket Size :</p>
-                              <p class="value">${jacketType[0]} ${jacketTypeVal}</p>
-                            </div>`;
-      }
-      if(getFitFinderData.pants_waist && getFitFinderData.pants_hight){
-        fitFinderDataHTML+= `<div class="filed-wrapper">
-                              <p class="field__label title">Pants Size :</p>
-                              <p class="value">${getFitFinderData.pants_waist}W ${getFitFinderData.pants_hight}H</p>
-                            </div>`
-      }
-      if(getFitFinderData.shirt_neck && getFitFinderData.shirt_sleeve){
-        fitFinderDataHTML+= `<div class="filed-wrapper">
-                              <p class="field__label title">Shirt Size:</p>
-                              <p class="value">Neck ${getFitFinderData.shirt_neck}, Sleeve ${getFitFinderData.shirt_sleeve}</p>
-                            </div>`
-      }
-      if(getFitFinderData.shoe_size){
-        fitFinderDataHTML+= `<div class="filed-wrapper">
-                              <p class="field__label title">Shoe Size:</p>
-                              <p class="value">${getFitFinderData.shoe_size}</p>
-                            </div>`
-      }
-      $(".fit-finder-main-wrapper").remove();
-      $(".sizing-and-fit-wrapper").html(fitFinderDataHTML);
-      $(".empty-fit-fider-wrapper").addClass("hidden");
-      $(".favorite-event-cart-wrapper .add-to-event .add-event-look").removeClass("disabled");
-      $(".variant-info-wrap").find(".edit-size-title").addClass("hidden");
-      $(".variant-info-wrap").find(".product-variant-value").removeClass("hidden");
-      $(".variant-info-wrap").find(".edit-item-button").text("Edit Item");
-      $(".product-data-card").each(function(){
-        if($(this).attr("data-product-type") == 'vest' || $(this).attr("data-product-type") == 'shoes' || $(this).attr("data-product-type") == 'shirt'){
-          $(this).find(".variant-title").removeClass('hidden');
-          $(this).find(".cta-button-wrap").css('margin-top','0');
-          $(this).find(".edit-item-btn").text('Edit Item');
-        }
-      });
-    } else {
-      $(".my-size-block-main").css({
-        "display":"block",
-        "min-height" : "auto"
-      });
-      var html = `<div class="empty_message size-empty-msg">${theme_custom.fitFinderEmptyMsg}</div>`;
-      $('.my-size-block-main').html(html);
-      $(".empty-fit-fider-wrapper").removeClass("hidden");
-      $('.my-size-block-main').removeClass('displayBlock');
-    }
-    $(".customize-button-fit-your-find").removeClass("hidden");
-    var chekcProductError = setInterval(() => {
-      if($(".error-message").text() != '' > 0 || getCookie("fit-finder-data") == ''){
-        $(".product-form__submit").addClass("normal-product-disable")
-        clearInterval(chekcProductError)
-      } else {
-        $(".product-form__submit").removeClass("normal-product-disable")
-        clearInterval(chekcProductError)
-      }
-    }, 500);
-  }
-  // if ($(".product-type").val() == 'shirt') {
-  //   if(localStorage.getItem("customerToken")){
-  //     var getProductType  = $(".sizing-and-fit-wrapper").attr("data-product-type");
-  //     theme_custom.getFitFinder(getProductType);
-  //     $(".sizing-and-fit-wrapper .empty-fit-fider-wrapper").addClass("disabled");
-  //     $(".product-form__submit").removeClass("normal-product-disable");
-  //   } else {
-  //     theme_custom.getFitFinderCookie();
-  //     $(".product-form__submit").addClass("normal-product-disable");
-  //     $(".sizing-and-fit-wrapper .empty-fit-fider-wrapper").removeClass("disabled");
-  //   }
-  // }
-  $(document).on("click",".product-fit-finder",function(){
-    localStorage.setItem("previous-page-link", "true");
-    localStorage.setItem("page-link",$(this).data("product-url"));
-    window.location.href ='/pages/fit-finder';
-  });
-  $(document).on("click", ".product-form__submit", function(e){
-    e.preventDefault();
-    var button = $(this);
-    theme_custom.openUpsellPopup = false;
-    if(button.hasClass("up-sell-popup")){
-      theme_custom.openUpsellPopup = true;
-    }
-    // button.addClass("disabled");
-    // button.addClass("normal-product-disable");
-    // if(getCookie("fit-finder-data") == '' && ($('.product-type').val() == 'shirt' || $('.product-type').val() != 'shoes') ){
-    //   e.preventDefault();
-    //   $('.fitfinder-err-msg.form-error').remove();
-    //   button.parent().after('<div class="fitfinder-err-msg form-error text-center"><p>Please use the Fit Finder for sizing to continue</p></div>');
-    //   $(".fitfinder-err-msg.form-error").show();
-    //   button.find(".btn-title").text($(this).find(".btn-title").text());
-    //   return false;
-    // }else{
-      button.find(".btn-title").text($(this).find(".btn-title").data("text"));
-      button.removeClass("normal-product-disable");
-    // }
-    button.find(".btn-title").text($(this).find(".btn-title").data("text"));
-    var getShirtVariantId= button.parents('.product__info-container');
-    var variantTitle='' ,varId;
-    if(getShirtVariantId.find('.swatch-product-form[data-option-index="0"] input:checked').length > 0){
-      variantTitle = getShirtVariantId.find('.swatch-product-form[data-option-index="0"] input:checked').val();
-    }
-    if(getShirtVariantId.find('.swatch-product-form[data-option-index="1"] input:checked').length > 0){
-      variantTitle = variantTitle + ' / ' + getShirtVariantId.find('.swatch-product-form[data-option-index="1"] input:checked').val();
-    }
-    if(getShirtVariantId.find('.swatch-product-form[data-option-index="2"] input:checked').length > 0){
-      variantTitle = variantTitle + ' / ' + getShirtVariantId.find('.swatch-product-form[data-option-index="2"] input:checked').val();
-    }
-    varId = getShirtVariantId.find(`.single-option-selector option[data-var-title="${variantTitle}"]`).attr('data-v-id');
-    // var varId = $(".product-form [name='id']").val(),
-      var orderType = $(".order-type").val();
-    var item = {
-      "id": varId,
-      "quantity": 1
-    };
-    if (orderType == 'virtual' || orderType == 'normal') {
-      $.ajax({
-        type: "GET",
-        url: '/cart.js',
-        dataType: 'json',
-        success: function(resp) { 
-          var nullHash = {};
-          for ([key, value] of Object.entries(resp.attributes)) {    
-            nullHash[key] = '';
-          }
-          $.ajax({
-            type: "POST",
-            url: '/cart/update.js',
-            data: {attributes:nullHash},
-            dataType: 'json'
-          });
-        }
-      })
-      $.ajax({
-        type: "GET",
-        url: '/cart.js',
-        dataType: 'json',
-        success: function(resp) { 
-          var nullHash = {};
-          for ([key, value] of Object.entries(resp.attributes)) {    
-            nullHash[key] = '';
-          }
-          $.ajax({
-            type: "POST",
-            url: '/cart/update.js',
-            data: {attributes:nullHash},
-            dataType: 'json'
-          });
-        }
-      })      
-      jQuery.ajax({
-        type: 'POST',
-        url: '/cart/clear.js',
-        data: '',
-        dataType: 'json',
-        success: function() {
-          jQuery.ajax({
-            type: 'POST',
-            url: '/cart/add.js',
-            data: item,
-            dataType: 'json',
-            success: function() {
-              button.find(".btn-title").text("Added to Cart");
-              setTimeout(() => {
-                if(theme_custom.openUpsellPopup){
-                  $("html, body").css({
-                    "overflow" : "hidden"
-                  });
-                  $(".product-upsell-wrapper").addClass("show")
-                } else {
-                  button.removeClass("disabled");
-                  window.location.href = "/cart";
-                }
-              }, 2500);
-            },
-            error: function(xhr, status, error) {
-              alert(xhr.responseJSON.description);
-              button.find(".btn-title").text("Add To Cart");
-              button.removeClass("disabled");
-            }
-          });
-        }
-      })
-    } else {
-      jQuery.ajax({
-        type: 'POST',
-        url: '/cart/add.js',
-        data: item,
-        dataType: 'json',
-        success: function() {
-          button.find(".btn-title").text("Added to Cart");
-          setTimeout(() => {
-            if(theme_custom.openUpsellPopup){
-              $("html, body").css({
-                "overflow" : "hidden"
-              });
-              $(".product-upsell-wrapper").addClass("show")
-            } else {
-              button.removeClass("disabled");
-              window.location.href = "/cart";
-            }
-          }, 2500);
-        },
-        error: function(xhr, status, error) {
-        // alert(xhr.responseJSON.description);
-              button.find(".btn-title").text("Add To Cart");
-          button.removeClass("disabled");
-        
-        }
-      });
-    }
-  });
-</script>
-
-{% if product.metafields.custom.product_page_upsell != blank %}
-  <!-- Product Upsell Popup --> 
-  {% render 'product-upsell' %}
-{% endif %}

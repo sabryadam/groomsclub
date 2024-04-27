@@ -195,7 +195,7 @@
   }
 }
 .collection .card-wrapper .card.card--product .media {
-  padding-bottom: 124.4% !important;
+  padding-bottom: 0 !important;
   overflow: hidden;
 }
 .collection .card-wrapper .card.card--product .media video {
@@ -444,7 +444,7 @@ body .collection .plp-top-looks-product-grid .card-wrapper .card__inner .media{
   text-align: left;
 }
 .plp-top-looks-product-grid .card-wrapper .card__inner .media img {
-  width: 100%;   position: unset; object-fit: cover !important; margin:  0 auto;
+  width: 100%;   position: unset; object-fit: cover !important; margin:  0 auto; min-height: 520px;
 }
 
 

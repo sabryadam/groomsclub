@@ -247,7 +247,11 @@ theme_custom.getFitFinderCookie = function(){
     $(".favorite-event-cart-wrapper .add-to-event .add-event-look").removeClass("disabled");
     $(".variant-info-wrap").find(".edit-size-title").addClass("hidden");
     $(".variant-info-wrap").find(".product-variant-value").removeClass("hidden");
-    $(".variant-info-wrap").find(".edit-item-button").text("- Edit Item");
+    if($(`.template-product-jacket-pant-separate-product`).length > 0) {
+      $(".variant-info-wrap").find(".edit-item-button").text("Edit Item");
+    } else {
+      $(".variant-info-wrap").find(".edit-item-button").text("- Edit Item");
+    }    
   } else {
     $(".my-size-block-main").css({
       "display":"block", 
@@ -1020,7 +1024,11 @@ theme_custom.tlpclickEvent = function(){
         $(`.product-data-card[data-product-handle='${dataHandle}']`).find('.error-message').text('').hide();
         $(`.variant-info-wrap[data-product-type='${productType}']`).find(".edit-size-title").addClass("hidden");
         $(`.variant-info-wrap[data-product-type='${productType}']`).find(".product-variant-value").removeClass("hidden");
-        $(`.variant-info-wrap[data-product-type='${productType}']`).find(".edit-item-button").text(" - Edit Item").removeClass("slide-up");
+        if($(`.template-product-jacket-pant-separate-product`).length > 0) {
+          $(`.variant-info-wrap[data-product-type='${productType}']`).find(".edit-item-button").text("Edit Item").removeClass("slide-up");
+        } else {
+          $(`.variant-info-wrap[data-product-type='${productType}']`).find(".edit-item-button").text(" - Edit Item").removeClass("slide-up");
+        }
         $(`.variant-info-wrap[data-product-type='${productType}']`).find(".error-message").removeClass("error-show").text('').removeClass("product-not-found");
         $(`.edit-item-popup[data-product-handle='${dataHandle}']`).find(`.single-option-selector option[data-title="${variantTitle}"]`).prop("selected",true);
         if(productType == 'jacket'){

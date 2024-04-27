@@ -217,7 +217,10 @@ cart-remove-button .button {
     display: grid;
     grid-template: repeat(2, auto) / repeat(4, 1fr);
     gap: 1.5rem;
-    margin-bottom: 3.5rem;
+    margin-bottom: 1rem;
+  }
+  .cart-page-wrapper .cart-fit-finder-wrapper .order-details-wrapper{
+    margin-top: 0;
   }
 
   .cart-item:last-child {
