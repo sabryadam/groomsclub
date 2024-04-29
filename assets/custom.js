@@ -2278,7 +2278,7 @@ $(document).on("click", ".template-product-jacket-pant-separate-product .pdp-upd
       itemParent.find(".variant-title .option-2").text(parent.find('[data-option-index="1"] input:checked').val());
       if(itemParent.closest(`.parent-product.product-type-pants`).length > 0){
         variant_info_wrap.find(".option-2").text(' x ' + parent.find('[data-option-index="1"] input:checked').val());
-        console.log(variant_info_wrap.find(".option-2").text())
+        // console.log(variant_info_wrap.find(".option-2").text())
       } else {
         variant_info_wrap.find(".option-2").text(parent.find('[data-option-index="1"] input:checked').val());
       }
