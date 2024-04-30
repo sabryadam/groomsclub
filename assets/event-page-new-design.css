@@ -872,6 +872,9 @@
   border: 1px solid #D9D9D9;
   /* display: none; */
 }
+.event-page-new-design-wrapper .page-width-inner-wrapper .look-card-block .assign-look-user-wrap .user-card-block .size-selected-info .reminder-wrap.user-ordered {
+  display: none !important;
+}
 .event-page-new-design-wrapper .page-width-inner-wrapper .look-card-block .assign-look-user-wrap .user-card-block .size-selected-info .size-select-check{
   background: #FFFFFF;
   border: 1px solid rgba(6, 0, 0, 0.14);
