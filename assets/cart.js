@@ -430,26 +430,24 @@ $(document).on("keyup","#weight",function(){
     $(`.confirm-weight-msg.more-then-weight`).removeClass(`hide`);
   } else {
     $(`.confirm-weight-msg`).addClass(`hide`);
-    if(getCookie("fit-finder-data") == '') {
-      theme_custom.recommandation_size();
-    }
+    theme_custom.recommandation_size();
   }
 })
-$(`.height_val`).on("change",function(){
+$(document).on("change",`.height_val`,function(){
   if($(this).val() != ''){
-    $(this).closest(`.height-input`).find(`.error-message`).hide();
-    if(getCookie("fit-finder-data") == '') {
+    $(this).closest(`.height-input`).find(`.error-message`).removeClass('hide').hide();
+    setTimeout(() => {
       theme_custom.recommandation_size();
-    }
+    }, 500);
   } else {
-    $(this).closest(`.height-input`).find(`.error-message`).show();
+    $(this).closest(`.height-input`).find(`.error-message`).addClass('hide').show();
   }
 })
 $(`#pant-waist`).on("change",function(){
   if($(this).val() != ''){
-    $(this).closest(`.pant-waist-wrap`).find(`.error-message`).hide();
+    $(this).closest(`.pant-waist-wrap`).find(`.error-message`).removeClass('hide').hide();
   } else {
-    $(this).closest(`.pant-waist-wrap`).find(`.error-message`).show();
+    $(this).closest(`.pant-waist-wrap`).find(`.error-message`).addClass('show').show();
   }
 })
 
@@ -457,11 +455,11 @@ theme_custom.recommandation_size = function(){
   var userNewHeight = $(`.height_val`).val(), userWeight = $(`#weight`).val(), recommand_jacket_size = "0:0", recommand_pants_size = "0";
   $(`.recommand-error-message`).text(``).hide();
   if(userNewHeight == ''){
-    $(`.recommand-error-message`).text(`please Select user Height!`).show();
+    $(`.height-input .error-message`).show();
     return false;
   }
   if(userWeight == ''){
-    $(`.recommand-error-message`).text(`please Select user Weight!`).show();
+    $(`.weight-input .error-message`).show();
     return false;
   }
   if ((userNewHeight >= 1.0 && userNewHeight <= 5.09) && (userWeight >= 1 && userWeight <= 124)) {
