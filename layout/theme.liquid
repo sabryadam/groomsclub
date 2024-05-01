@@ -256,7 +256,7 @@
     {{ 'event-page-new-design.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'event-page-new-develop.js' | asset_url }}" defer></script>
   {%- endif -%}
-  {% render 'menu-css' %}
+  {% comment %} {% render 'menu-css' %} {% endcomment %}
   <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
