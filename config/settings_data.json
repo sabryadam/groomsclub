@@ -37,7 +37,8 @@
         "block_order": [
           "announcement-bar-0"
         ],
-        "settings": {}
+        "settings": {
+        }
       },
       "header": {
         "type": "header",
@@ -46,7 +47,7 @@
           "logo": "shopify:\/\/shop_images\/header_logo.png",
           "logo_width": 168,
           "logo_position": "middle-left",
-          "menu": "header-menu",
+          "menu": "new-main-menu",
           "mobile_menu": "",
           "show_line_separator": true,
           "enable_sticky_header": true
@@ -535,7 +536,8 @@
       },
       "payment-confirmation-modal": {
         "type": "payment-confirmation-modal",
-        "settings": {}
+        "settings": {
+        }
       },
       "update-event-owner-contact-number": {
         "type": "update-event-owner-contact-number",
@@ -658,7 +660,9 @@
         }
       }
     },
-    "content_for_index": [],
+    "content_for_index": [
+
+    ],
     "blocks": {
       "15683396631634586217": {
         "type": "shopify:\/\/apps\/inbox\/blocks\/chat\/841fc607-4181-4ad1-842d-e24d7f8bad6b",
@@ -675,7 +679,8 @@
       "855628211100114053": {
         "type": "shopify:\/\/apps\/klaviyo-email-marketing-sms\/blocks\/klaviyo-onsite-embed\/2632fe16-c075-4321-a88b-50b567f42507",
         "disabled": false,
-        "settings": {}
+        "settings": {
+        }
       }
     }
   },
@@ -704,7 +709,8 @@
           "block_order": [
             "announcement-bar-0"
           ],
-          "settings": {}
+          "settings": {
+          }
         }
       }
     },
@@ -724,11 +730,13 @@
           "blocks": {
             "menu": {
               "type": "link_list",
-              "settings": {}
+              "settings": {
+              }
             },
             "text": {
               "type": "text",
-              "settings": {}
+              "settings": {
+              }
             }
           },
           "block_order": [
