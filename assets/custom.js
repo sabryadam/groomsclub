@@ -2386,3 +2386,7 @@ $(document).on("click",".frequently-bought-together .checkbox",function(){
   }  
   $(".frequently-bought-together .footer-wrap .price-wrap .price").attr("data-price", final_price).text(theme_custom.Shopify.formatMoney(final_price, theme_custom.money_format));
 })
+$(document).on("click",".size-chart-btn",function(){
+  var target = $(`.size-chart-wrapper`);
+  $.fancybox.open(target);
+})
