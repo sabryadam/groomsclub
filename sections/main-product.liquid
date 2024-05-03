@@ -458,7 +458,7 @@
                     {% assign s_value = product.selected_or_first_available_variant.options[forloop.index0] %}
                     {%- if is_color -%}
                       <fieldset class="js product-form__input swatch-product-form text swatch-{{ option.name | downcase }}" data-option-index="{{forloop.index | minus: 1 }}">
-                        <legend class="form__label swatch-form-label">Demo - {{ option.name }} : </legend>
+                        <legend class="form__label swatch-form-label">{{ option.name }} : </legend>
                         {% assign file_extension = 'png' %}
                         {%- for value in option.values -%}
                           <div class="swatch-outer-wrapper">
@@ -478,7 +478,7 @@
                       </fieldset>
                     {%- else -%}
                       <fieldset class="js product-form__input swatch-product-form text swatch-{{ option.name | downcase }}" data-option-index="{{forloop.index | minus: 1 }}">
-                        <legend class="form__label swatch-form-label">Demo 1 - {{ option.name }} : </legend>
+                        <legend class="form__label swatch-form-label">{{ option.name }} : </legend>
                         {% assign file_extension = 'png' %}
                         {%- for value in option.values -%}
                           <div class="swatch-outer-wrapper">
@@ -526,7 +526,7 @@
                       {% assign s_value = product.selected_or_first_available_variant.options[forloop.index0] %}
                       {%- if is_color -%}
                         <fieldset class="js product-form__input swatch-product-form text swatch-{{ option.name | downcase }}" data-option-index="{{forloop.index | minus: 1 }}">
-                          <legend class="form__label swatch-form-label">Demo 2 -  {{ option.name }} : </legend>
+                          <legend class="form__label swatch-form-label">{{ option.name }} : </legend>
                           {% assign file_extension = 'png' %}
                           {%- for value in option.values -%}
                             <div class="swatch-outer-wrapper">
@@ -560,147 +560,149 @@
                                 background : var(--color-button-light-blue);
                               }
                             </style>
-                            <table style="text-align: center;">
-                              <thead>
-                                <tr>
-                                  <th>Size</th>
-                                  <th>Height (in.)</th>
-                                  <th>Weight (lb.)</th>
-                                  <th>Waist (in.)</th>
-                                  <th>Waist Stretches up to (in.)</th>
-                                  <th>Chest (in.)</th>
-                                  <th>Belly (in.)</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>2</td>
-                                  <td>33"-37"</td>
-                                  <td>25-34</td>
-                                  <td>17"</td>
-                                  <td>19"</td>
-                                  <td>24.5"</td>
-                                  <td>24"</td>
-                                </tr>
-                                <tr>
-                                  <td>4</td>
-                                  <td>38"-42"</td>
-                                  <td>35-41</td>
-                                  <td>20"</td>
-                                  <td>22"</td>
-                                  <td>25"</td>
-                                  <td>25"</td>
-                                </tr>
-                                <tr>
-                                  <td>6</td>
-                                  <td>45"-47"</td>
-                                  <td>42-52</td>
-                                  <td>23"</td>
-                                  <td>25"</td>
-                                  <td>28"</td>
-                                  <td>27"</td>
-                                </tr>
-                                <tr>
-                                  <td>8</td>
-                                  <td>51"-53"</td>
-                                  <td>53-62</td>
-                                  <td>26"</td>
-                                  <td>27"</td>
-                                  <td>29"</td>
-                                  <td>27.5"</td>
-                                </tr>
-                                <tr>
-                                  <td>10</td>
-                                  <td>54"-56"</td>
-                                  <td>63-73</td>
-                                  <td>27"</td>
-                                  <td>28"</td>
-                                  <td>30"</td>
-                                  <td>28.5"</td>
-                                </tr>
-                                <tr>
-                                  <td>10H</td>
-                                  <td>54"-56"</td>
-                                  <td>71-81</td>
-                                  <td>28.5"</td>
-                                  <td>30"</td>
-                                  <td>33"</td>
-                                  <td>31.5"</td>
-                                </tr>
-                                <tr>
-                                  <td>12</td>
-                                  <td>57"-59"</td>
-                                  <td>74-87</td>
-                                  <td>27.5"</td>
-                                  <td>29"</td>
-                                  <td>32"</td>
-                                  <td>30"</td>
-                                </tr>
-                                <tr>
-                                  <td>12H</td>
-                                  <td>57"-59"</td>
-                                  <td>82-95</td>
-                                  <td>30"</td>
-                                  <td>31.5"</td>
-                                  <td>34.5"</td>
-                                  <td>33"</td>
-                                </tr>
-                                <tr>
-                                  <td>14</td>
-                                  <td>60"-62"</td>
-                                  <td>88-100</td>
-                                  <td>28"</td>
-                                  <td>29"</td>
-                                  <td>34"</td>
-                                  <td>32"</td>
-                                </tr>
-                                <tr>
-                                  <td>14H</td>
-                                  <td>60"-62"</td>
-                                  <td>96-114</td>
-                                  <td>31.5"</td>
-                                  <td>33"</td>
-                                  <td>36"</td>
-                                  <td>34"</td>
-                                </tr>
-                                <tr>
-                                  <td>16</td>
-                                  <td>63"-64"</td>
-                                  <td>101-115</td>
-                                  <td>29.5"</td>
-                                  <td>30.5"</td>
-                                  <td>36"</td>
-                                  <td>33"</td>
-                                </tr>
-                                <tr>
-                                  <td>16H</td>
-                                  <td>63"-64"</td>
-                                  <td>115-130</td>
-                                  <td>33"</td>
-                                  <td>34.5"</td>
-                                  <td>38"</td>
-                                  <td>36"</td>
-                                </tr>
-                                <tr>
-                                  <td>18</td>
-                                  <td>65"-66"</td>
-                                  <td>116-126</td>
-                                  <td>31"</td>
-                                  <td>32"</td>
-                                  <td>37"</td>
-                                  <td>35"</td>
-                                </tr>
-                                <tr>
-                                  <td>18H</td>
-                                  <td>65"-66"</td>
-                                  <td>131-145</td>
-                                  <td>34.5"</td>
-                                  <td>36"</td>
-                                  <td>39"</td>
-                                  <td>37.5"</td>
-                                </tr>
-                              </tbody>
-                            </table>
+                            <div style="overflow-x:auto;with:100%">
+                              <table style="text-align: center;">
+                                <thead>
+                                  <tr>
+                                    <th>Size</th>
+                                    <th>Height (in.)</th>
+                                    <th>Weight (lb.)</th>
+                                    <th>Waist (in.)</th>
+                                    <th>Waist Stretches up to (in.)</th>
+                                    <th>Chest (in.)</th>
+                                    <th>Belly (in.)</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>2</td>
+                                    <td>33"-37"</td>
+                                    <td>25-34</td>
+                                    <td>17"</td>
+                                    <td>19"</td>
+                                    <td>24.5"</td>
+                                    <td>24"</td>
+                                  </tr>
+                                  <tr>
+                                    <td>4</td>
+                                    <td>38"-42"</td>
+                                    <td>35-41</td>
+                                    <td>20"</td>
+                                    <td>22"</td>
+                                    <td>25"</td>
+                                    <td>25"</td>
+                                  </tr>
+                                  <tr>
+                                    <td>6</td>
+                                    <td>45"-47"</td>
+                                    <td>42-52</td>
+                                    <td>23"</td>
+                                    <td>25"</td>
+                                    <td>28"</td>
+                                    <td>27"</td>
+                                  </tr>
+                                  <tr>
+                                    <td>8</td>
+                                    <td>51"-53"</td>
+                                    <td>53-62</td>
+                                    <td>26"</td>
+                                    <td>27"</td>
+                                    <td>29"</td>
+                                    <td>27.5"</td>
+                                  </tr>
+                                  <tr>
+                                    <td>10</td>
+                                    <td>54"-56"</td>
+                                    <td>63-73</td>
+                                    <td>27"</td>
+                                    <td>28"</td>
+                                    <td>30"</td>
+                                    <td>28.5"</td>
+                                  </tr>
+                                  <tr>
+                                    <td>10H</td>
+                                    <td>54"-56"</td>
+                                    <td>71-81</td>
+                                    <td>28.5"</td>
+                                    <td>30"</td>
+                                    <td>33"</td>
+                                    <td>31.5"</td>
+                                  </tr>
+                                  <tr>
+                                    <td>12</td>
+                                    <td>57"-59"</td>
+                                    <td>74-87</td>
+                                    <td>27.5"</td>
+                                    <td>29"</td>
+                                    <td>32"</td>
+                                    <td>30"</td>
+                                  </tr>
+                                  <tr>
+                                    <td>12H</td>
+                                    <td>57"-59"</td>
+                                    <td>82-95</td>
+                                    <td>30"</td>
+                                    <td>31.5"</td>
+                                    <td>34.5"</td>
+                                    <td>33"</td>
+                                  </tr>
+                                  <tr>
+                                    <td>14</td>
+                                    <td>60"-62"</td>
+                                    <td>88-100</td>
+                                    <td>28"</td>
+                                    <td>29"</td>
+                                    <td>34"</td>
+                                    <td>32"</td>
+                                  </tr>
+                                  <tr>
+                                    <td>14H</td>
+                                    <td>60"-62"</td>
+                                    <td>96-114</td>
+                                    <td>31.5"</td>
+                                    <td>33"</td>
+                                    <td>36"</td>
+                                    <td>34"</td>
+                                  </tr>
+                                  <tr>
+                                    <td>16</td>
+                                    <td>63"-64"</td>
+                                    <td>101-115</td>
+                                    <td>29.5"</td>
+                                    <td>30.5"</td>
+                                    <td>36"</td>
+                                    <td>33"</td>
+                                  </tr>
+                                  <tr>
+                                    <td>16H</td>
+                                    <td>63"-64"</td>
+                                    <td>115-130</td>
+                                    <td>33"</td>
+                                    <td>34.5"</td>
+                                    <td>38"</td>
+                                    <td>36"</td>
+                                  </tr>
+                                  <tr>
+                                    <td>18</td>
+                                    <td>65"-66"</td>
+                                    <td>116-126</td>
+                                    <td>31"</td>
+                                    <td>32"</td>
+                                    <td>37"</td>
+                                    <td>35"</td>
+                                  </tr>
+                                  <tr>
+                                    <td>18H</td>
+                                    <td>65"-66"</td>
+                                    <td>131-145</td>
+                                    <td>34.5"</td>
+                                    <td>36"</td>
+                                    <td>39"</td>
+                                    <td>37.5"</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div> 
                           </div>  
 
                         {% endif  %}
