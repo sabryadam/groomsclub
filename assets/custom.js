@@ -2278,7 +2278,7 @@ $(document).on("click", ".template-product-jacket-pant-separate-product .pdp-upd
       itemParent.find(".variant-title .option-2").text(parent.find('[data-option-index="1"] input:checked').val());
       if(itemParent.closest(`.parent-product.product-type-pants`).length > 0){
         variant_info_wrap.find(".option-2").text(' x ' + parent.find('[data-option-index="1"] input:checked').val());
-        console.log(variant_info_wrap.find(".option-2").text())
+        // console.log(variant_info_wrap.find(".option-2").text())
       } else {
         variant_info_wrap.find(".option-2").text(parent.find('[data-option-index="1"] input:checked').val());
       }
@@ -2385,4 +2385,8 @@ $(document).on("click",".frequently-bought-together .checkbox",function(){
     $(`.fbt-add-to-cart`).addClass("disabled");
   }  
   $(".frequently-bought-together .footer-wrap .price-wrap .price").attr("data-price", final_price).text(theme_custom.Shopify.formatMoney(final_price, theme_custom.money_format));
+});
+$(document).on("click",".size-chart-btn",function(){
+  var target = $(`.size-chart-wrapper`);
+  $.fancybox.open(target);
 })

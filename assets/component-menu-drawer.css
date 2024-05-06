@@ -61,6 +61,7 @@ details[open].menu-opening > .menu-drawer__submenu {
   transform: translateX(0);
   visibility: visible;
   display: block;
+  padding-right: 0;
 }
 
 @media screen and (min-width: 750px) {
@@ -219,7 +220,7 @@ summary.menu-drawer__menu-item .menu-drawer__menu-item{
 
 .menu-drawer__inner-submenu .menu-drawer__menu-item {
   font-size: 1.4rem;
-  padding: 0rem 2rem 1.5rem 2rem;
+  padding: 0rem 0 1.5rem 2rem;
 }
 
 .no-js .menu-drawer__close-button {
@@ -286,7 +287,7 @@ summary.menu-drawer__menu-item .menu-drawer__menu-item{
 @media screen and (max-width: 590px) {
   .menu-drawer__navigation {padding: 2.7rem 4rem;}
   .menu-drawer__menu-item{padding: 1.4rem 0rem;  font-size: 1.4rem;}
-  .menu-drawer__inner-submenu .menu-drawer__menu-item{padding: 0 1.5rem 1.5rem 1.5rem; font-size: 1.4rem; margin-bottom: 0;}
+  .menu-drawer__inner-submenu .menu-drawer__menu-item{padding: 0 0 1.5rem 1.5rem; font-size: 1.4rem; margin-bottom: 0;}
 
   .header_get_started_btn.mobile-button .btn-small {font-size: 2rem; height: 62px; line-height: 34px; max-width: 200px; margin-top: 25px;}
 }
@@ -294,7 +295,7 @@ summary.menu-drawer__menu-item .menu-drawer__menu-item{
 @media screen and (max-width: 499px) {
   .menu-drawer__navigation {padding: 2.7rem 2rem;}
 }
-@media(max-width : 1199px){
+@media(max-width : 1279px){
   .menu-drawer{
     background: #000000a6; 
   }
@@ -306,7 +307,8 @@ summary.menu-drawer__menu-item .menu-drawer__menu-item{
     padding-right: 0;
     padding-top: 0;
   }
-  .menu-drawer__navigation .menu-drawer__menu li.main-link a{
+  .menu-drawer__navigation .menu-drawer__menu li.main-link a,
+  .menu-drawer__navigation .menu-drawer__menu li.main-link .second-level-nav-item-title .menu-drawer__menu-item{
     padding-left: 15px;
     padding-right: 15px;
     font-size: 16px;
@@ -319,6 +321,33 @@ summary.menu-drawer__menu-item .menu-drawer__menu-item{
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+  }
+  .menu-drawer__navigation .menu-drawer__menu li.main-link .menu-drawer__inner-submenu .second-level-nav-item-title .menu-drawer__menu-item{
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+  .menu-drawer__navigation .menu-drawer__menu li.main-link .menu-drawer__inner-submenu .second-level-nav-item-title .menu-drawer__menu-item::after,
+  .menu-drawer__navigation .menu-drawer__menu li.main-link .menu-drawer__inner-submenu .second-level-nav-item-title .menu-drawer__menu-item::before{
+    position: absolute;
+    width: 10px;
+    height: 2px;
+    content: "";
+    transform: translateY(-50%);
+    top: 50%;
+    right: 20px;
+    background: #000;
+  }
+  .menu-drawer__navigation .menu-drawer__menu li.main-link .menu-drawer__inner-submenu .second-level-nav-item-title .menu-drawer__menu-item::before{
+    transform: rotate(90deg);
+    top: 49%;
+  }
+  .menu-drawer__navigation .menu-drawer__menu li.main-link .menu-drawer__inner-submenu .menu-opening[open] .second-level-nav-item-title .menu-drawer__menu-item::before{
+    display: none;
+  }
+  .menu-drawer__navigation .menu-drawer__menu li.main-link .menu-drawer__inner-submenu .menu-opening[open] .second-level-nav-item-title .menu-drawer__menu-item::::after{
+    background-color: #000;
   }
   .menu-drawer__navigation .menu-drawer__menu li.main-link .menu-drawer__menu-item a{
     cursor: none;
@@ -370,7 +399,7 @@ summary.menu-drawer__menu-item .menu-drawer__menu-item{
   .menu-drawer__submenu{
     padding: 0 15px;
   }
-  .menu-drawer details[open] .menu-drawer__menu-item:before{
+  .menu-drawer details[open] .menu-drawer__menu-item a:before{
     display: none;
   }
   .menu-drawer details[open] .menu-drawer__menu-item:after{
@@ -382,7 +411,7 @@ summary.menu-drawer__menu-item .menu-drawer__menu-item{
     color: #fff !important;
   }
 }
-@media(min-width : 768px) and (max-width : 1199px){
+@media(min-width : 768px) and (max-width : 1279px){
   .menu-drawer__inner-container {
     width : 375px
   }

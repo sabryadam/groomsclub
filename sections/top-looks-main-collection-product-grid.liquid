@@ -460,7 +460,7 @@
         </p>
 
         <div class="main-collection-product-grid" class="main-collection-product-grid-wrapper" data-id="{{ section.id }}">
-          {%- for product in collection.products reversed -%}
+          {%- for product in collection.products -%}
             <div class="product-grid-inner-wrapper" {% if product.metafields.custom.suit_color %}data-suit-color="{{ product.metafields.custom.suit_color }}"{% endif %} {% if product.metafields.custom.tie_color %}data-tie-color="{{ product.metafields.custom.tie_color }}"{% endif %}>
               <div class="plp-top-looks-product-grid" data-index="{{ forloop.index }}">
                 {% render 'product-card-top-plp',
@@ -604,7 +604,7 @@
       parent.find(".facets__list .list-menu__item").each(function (index, value) {
         filterWrapWidth += $(value).width();
       });
-      console.log("filterWrapWidth",filterWrapWidth,"totalScrollSize",totalScrollSize);
+      // console.log("filterWrapWidth",filterWrapWidth,"totalScrollSize",totalScrollSize);
       if (totalScrollSize >= filterWrapWidth) {
         filterWrapRightArrow.addClass("hidden");
       }

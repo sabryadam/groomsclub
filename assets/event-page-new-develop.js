@@ -274,7 +274,7 @@ theme_custom.user = (user) => {
     eventOwner = '';
     reminder_hidden = '';
   }
-  console.log("user.order_number",user.order_number);
+  // console.log("user.order_number",user.order_number);
   // if(status == 'In Progress'){
   //   status = 'Not Ordered'
   //   status_class = 'not-ordered'
@@ -314,7 +314,7 @@ theme_custom.user = (user) => {
     <div class="size-selected-info">
       <div class="size-selected-wrap">
         <span class="size-select-check ">status : <span class="${status_class}">${status}</span></span>
-        <span class="reminder-wrap ${reminder_hidden}" data-member-id="${user.event_member_id}">REMINDER</span>
+        <span class="reminder-wrap user-${status_class} ${reminder_hidden}" data-member-id="${user.event_member_id}">REMINDER</span>
       </div>
       <spa class="pay-status" pay-info="${whoPay}">${whoPay}</span>
     </div>
@@ -2507,7 +2507,7 @@ theme_custom.eventPageClickEvent = function (){
         } else {
           phone_number = data.phone
         }
-        console.log('phone_number',phone_number);
+        // console.log('phone_number',phone_number);
         phone.val(phone_number.slice(2)).trigger('change');
         $(`[name="phone"]`).keydown()
       }
@@ -2904,7 +2904,7 @@ theme_custom.getEventDetails = function () {
       month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
       day   = (currentDate.getDate() + 1).toString().padStart(2, "0");
       var checkEventExpireate = year + '-' + month + '-' + day;
-      console.log(checkEventExpireate,eventDataObj.eventDate);
+      // console.log(checkEventExpireate,eventDataObj.eventDate);
       if(new Date(checkEventExpireate) >= new Date(eventDataObj.eventDate)){
         theme_custom.eventExpire = true;
         theme_custom.eventExpired(result.data);

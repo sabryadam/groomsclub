@@ -123,8 +123,10 @@
                                         </a>
                                       {%- else -%}
                                         <details>
-                                          <summary class="menu-drawer__menu-item link link--text list-menu__item focus-inset">
-                                            {{ childlink.title | escape }}
+                                          <summary class="menu-drawer__menu-item link link--text list-menu__item focus-inset second-level-nav-item-title">
+                                            <span class="menu-drawer__menu-item list-menu__item link link--text focus-inset {% if link.current or link.child_active %} menu-drawer__menu-item--active{% endif %}">
+                                              {{ childlink.title | escape }}
+                                            </span>
                                             {% render 'icon-arrow' %}
                                             {% render 'icon-caret' %}
                                           </summary>
@@ -349,7 +351,7 @@
                   {% if link.title == 'Help Center' %}
                     <div class="header__submenu list-menu--disclosure">
                   {% endif %}
-                  <ul class="{% if link.title != 'Help Center' %}header__submenu list-menu list-menu--disclosure{% endif %} list-menu caption-large motion-reduce{% if link.links.size > 5 %} menu-item-above-five{% endif %}" role="list" tabindex="-1">
+                  <ul class="{% if link.title != 'Help Center' %}header__submenu list-menu list-menu--disclosure{% endif %} list-menu caption-large motion-reduce{% if link.links.size > 5 or link.title == 'Shop' %} menu-item-above-five{% endif %}" role="list" tabindex="-1">
                     {%- for childlink in link.links -%}
                       <li>
                         {%- if childlink.links == blank -%}
@@ -357,12 +359,12 @@
                             {{ childlink.title | escape }}
                           </a>
                         {%- else -%}
-                          <details>
+                          <details open>
                             <summary class="header__menu-item link link--text list-menu__item focus-inset caption-large">
                               {{ childlink.title | escape }}
                               {% render 'icon-caret' %}
                             </summary>
-                            <ul class="header__submenu list-menu motion-reduce">
+                            <ul class="header__submenu list-menu motion-reduce sub-child-menu-wrapper">
                               {%- for grandchildlink in childlink.links -%}
                                 <li>
                                   <a tabindex="0" title="{{ grandchildlink.title }}" href="{{ grandchildlink.url }}" class="header__menu-item list-menu__item link link--text focus-inset caption-large{% if grandchildlink.current %} list-menu__item--active{% endif %}"{% if grandchildlink.current %} aria-current="page"{% endif %}>
