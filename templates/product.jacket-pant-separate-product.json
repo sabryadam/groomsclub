@@ -15,6 +15,12 @@
           "type": "title",
           "settings": {}
         },
+        "junip_product_reviews_ugc_junip_product_summary_cY3tdt": {
+          "type": "shopify:\/\/apps\/junip-product-reviews-ugc\/blocks\/junip-product-summary\/dc14f5a8-ed15-41b1-ad08-cfba23f9789b",
+          "settings": {
+            "product": "{{product}}"
+          }
+        },
         "price": {
           "type": "price",
           "settings": {}
@@ -71,6 +77,7 @@
       "block_order": [
         "vendor",
         "title",
+        "junip_product_reviews_ugc_junip_product_summary_cY3tdt",
         "price",
         "9c0b38ac-0f09-4bed-9016-0b432b9cbf28",
         "subtitle",
@@ -240,6 +247,23 @@
         "banner_image_mobile": "shopify:\/\/shop_images\/before-desktop.png",
         "banner_image_right": "shopify:\/\/shop_images\/after-desktop.png",
         "banner_image_right_mobile": "shopify:\/\/shop_images\/after-desktop.png"
+      }
+    },
+    "17146817386300bb83": {
+      "type": "apps",
+      "blocks": {
+        "junip_product_reviews_ugc_junip_product_review_NUqrWx": {
+          "type": "shopify:\/\/apps\/junip-product-reviews-ugc\/blocks\/junip-product-review\/dc14f5a8-ed15-41b1-ad08-cfba23f9789b",
+          "settings": {
+            "product": "{{product}}"
+          }
+        }
+      },
+      "block_order": [
+        "junip_product_reviews_ugc_junip_product_review_NUqrWx"
+      ],
+      "settings": {
+        "include_margins": false
       }
     },
     "16372210646c46d93a": {
@@ -508,6 +532,7 @@
     "product-recommendations",
     "1637218661f22c5985",
     "1637218881c7cbe80b",
+    "17146817386300bb83",
     "16372210646c46d93a",
     "16372214325ca32849",
     "1637221439d4df7908",
