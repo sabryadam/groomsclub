@@ -15,9 +15,11 @@
           "type": "title",
           "settings": {}
         },
-        "judge_me_reviews_preview_badge_ei8RjN": {
-          "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/preview_badge\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
+        "junip_product_reviews_ugc_junip_product_summary_47tJYj": {
+          "type": "shopify:\/\/apps\/junip-product-reviews-ugc\/blocks\/junip-product-summary\/dc14f5a8-ed15-41b1-ad08-cfba23f9789b",
+          "settings": {
+            "product": "{{product}}"
+          }
         },
         "price": {
           "type": "price",
@@ -76,7 +78,7 @@
       "block_order": [
         "vendor",
         "title",
-        "judge_me_reviews_preview_badge_ei8RjN",
+        "junip_product_reviews_ugc_junip_product_summary_47tJYj",
         "price",
         "f08855fd-3bfb-4f55-95fd-472544dee118",
         "subtitle",
@@ -246,6 +248,23 @@
         "banner_image_mobile": "shopify:\/\/shop_images\/before-desktop.png",
         "banner_image_right": "shopify:\/\/shop_images\/after-desktop.png",
         "banner_image_right_mobile": "shopify:\/\/shop_images\/after-desktop.png"
+      }
+    },
+    "1712634557ed2b92b2": {
+      "type": "apps",
+      "blocks": {
+        "junip_product_reviews_ugc_junip_product_review_XzLJGk": {
+          "type": "shopify:\/\/apps\/junip-product-reviews-ugc\/blocks\/junip-product-review\/dc14f5a8-ed15-41b1-ad08-cfba23f9789b",
+          "settings": {
+            "product": "{{product}}"
+          }
+        }
+      },
+      "block_order": [
+        "junip_product_reviews_ugc_junip_product_review_XzLJGk"
+      ],
+      "settings": {
+        "include_margins": false
       }
     },
     "16372210646c46d93a": {
@@ -437,12 +456,6 @@
         "loop": true
       }
     },
-    "1712634557ed2b92b2": {
-      "type": "apps",
-      "settings": {
-        "include_margins": false
-      }
-    },
     "1637755728898af7e9": {
       "type": "collection-list",
       "blocks": {
@@ -531,12 +544,12 @@
     "product-recommendations",
     "1637218661f22c5985",
     "1637218881c7cbe80b",
+    "1712634557ed2b92b2",
     "16372210646c46d93a",
     "16372214325ca32849",
     "1637221439d4df7908",
     "16372214599f5ccf5a",
     "16376728137efbe4bf",
-    "1712634557ed2b92b2",
     "1637755728898af7e9",
     "custom_liquid_NQWykU"
   ]

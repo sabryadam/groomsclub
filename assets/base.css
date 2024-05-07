@@ -14642,4 +14642,10 @@ div#choose-form-favorite {
     display: none;
   }
 }
+@media(min-width : 1280px){
+  .menu-item-above-five summary {
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+}
 /* custom css */  

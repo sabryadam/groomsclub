@@ -295,7 +295,7 @@ summary.menu-drawer__menu-item .menu-drawer__menu-item{
 @media screen and (max-width: 499px) {
   .menu-drawer__navigation {padding: 2.7rem 2rem;}
 }
-@media(max-width : 1199px){
+@media(max-width : 1279px){
   .menu-drawer{
     background: #000000a6; 
   }
@@ -411,7 +411,7 @@ summary.menu-drawer__menu-item .menu-drawer__menu-item{
     color: #fff !important;
   }
 }
-@media(min-width : 768px) and (max-width : 1199px){
+@media(min-width : 768px) and (max-width : 1279px){
   .menu-drawer__inner-container {
     width : 375px
   }
