@@ -11408,6 +11408,7 @@ select.suit_attr+.icon {
   align-items: center;
   padding: 0;
   width: fit-content;
+  padding-right: 10px;
 }
 
 #fit_finder_data_auto .ff-data strong {
@@ -13053,15 +13054,32 @@ select#event-id.disabled {
   font-weight: 500;
   line-height: 25px;
 }
-.new-arrival-badge {
-  display: inline-block;
+.custom-tag-badge{
+  background-image: url(https://cdn.shopify.com/s/files/1/0585/3223/3402/files/new-arrival_1.png?v=1715115938);
+  background-size: contain;
+  height: 150px;
+  background-repeat: no-repeat;
   position: absolute;
-  left: 0;
   top: 0;
-  z-index: 1;
+  left: 0;
+  display: flex;
+  align-items: center;
 }
-.new-arrival-badge img {
-  max-height: 125px;
+.custom-tag-badge span{
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  color: #fff;
+  text-transform: uppercase;
+}
+@media(max-width:1024px){
+  .custom-tag-badge{
+    height: 125px;
+  }
+}
+@media(min-width:1025px) and (max-width : 1200px) {
+  .custom-tag-badge{
+    height: 130px;
+  }
 }
 .about-collection-wrapper .image-with-text__grid{
   padding-left: 0;
@@ -14174,6 +14192,7 @@ button.btn-wrap.button--secondary.event-update-button {
   #fit_finder_data_auto .ff-data strong,
   #fit_finder_data_auto .ff-data span{
     font-size: 11px;    
+    line-height: normal;
   }
 }
 .template-collection-top-collection .main-collection-product-grid .media img ,
