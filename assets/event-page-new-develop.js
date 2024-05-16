@@ -1707,7 +1707,6 @@ theme_custom.lookInfoData = function (result) {
                       </tr>
                       <tr class="event-owner-look-product-list order-wrap-block look-product-list-wrapper multi-item-add-to-cart"></tr>`;
     } else {
-      debugger;
       productHTML += `<tr class="guest-memeber-look-product-list order-wrap-block order-wrap-${index}">
                         <td class="look-name-wrap">
                           <span class="look_name">${orderItems.look_name}</span>
