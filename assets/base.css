@@ -6585,7 +6585,7 @@ progress[value]::-webkit-progress-value {
 }
 
 .wishlist-add-event-part>* {
-  margin: 0 20px;
+  margin: 0 5px;
 }
 
 .wishlist-add-event-part>*:last-child {
@@ -11301,6 +11301,10 @@ body:not(.suit_page_body) .product-block-wrap-suit-wrapper {
   padding-left: 0;
   padding-right: 0;
 }
+#product_info_box .custom-tabs-scroll .product-block-wrapper[data-product-type="vest"]{
+  margin-bottom: 15px;
+  padding-bottom: 25px;
+}
 
 #product_info_box .product-block-wrapper.one_product_swatch {
   padding-left: 0;
@@ -11634,7 +11638,7 @@ div.tab-top-border {
   content: attr(data-title);
   display: block;
   position: absolute;
-  top: 100%;
+  top: 110%;
   font-size: 12px;
   width: 60px;
   text-align: center;

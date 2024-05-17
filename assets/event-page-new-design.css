@@ -586,7 +586,7 @@
 .event-page-new-design-wrapper .page-width-inner-wrapper  .look-card-block img.look-img  {
   min-height: 450px;
   height: 450px;  
-  object-fit: inherit;
+  object-fit: contain;
 }
 @media(max-width : 767px){
    .event-page-new-design-wrapper .page-width-inner-wrapper  .look-card-block img.look-img  {

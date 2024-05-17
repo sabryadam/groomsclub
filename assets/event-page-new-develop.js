@@ -269,10 +269,8 @@ theme_custom.user = (user) => {
   }
   if(is_host == 1 ){
     eventOwner = 'event-owner';
-    reminder_hidden = 'hidden';
   } else {
     eventOwner = '';
-    reminder_hidden = '';
   }
   // console.log("user.order_number",user.order_number);
   // if(status == 'In Progress'){
@@ -285,10 +283,10 @@ theme_custom.user = (user) => {
 
   if(user.order_number == null){
     status = 'Not Ordered'
-    status_class = 'not-ordered'
+    status_class = 'not-ordered';
   } else {
     status = 'Ordered',
-    status_class = 'ordered'
+    status_class = 'ordered';
   }
 
   var d = new Date();
@@ -538,6 +536,7 @@ theme_custom.successCallback = (data, nextTarget) => {
       $(`[data-target="remove-data-for-user"]`).removeClass("active");
       $(".step-content-wrapper.create-event-look .event-block-wrap").hide();
       $('.show-look-from-event-wrapper,.guest-top-looks').show();
+      $(`.show_look_list`).addClass("event_has_look");
       $(".loader-wrapper").addClass("hidden");
       $(".event-step-wrapper").removeClass("hidden");
       if (nextTarget) {
@@ -568,6 +567,7 @@ theme_custom.successCallback = (data, nextTarget) => {
     $(".step-content-wrapper.create-event-look .event-block-wrap").show();
     $('.show-look-from-event-wrapper,.guest-top-looks').hide();
     $(".loader-wrapper").addClass("hidden");
+    $(`.show_look_list`).removeClass("event_has_look");
     $(".event-step-wrapper").removeClass("hidden");
     if (nextTarget) {
       theme_custom.changeStep(nextTarget);
@@ -1023,7 +1023,7 @@ theme_custom.toDataURL = function (url, callback) {
     }
     reader.readAsDataURL(xhr.response);
   };
-  xhr.open('GET', url);
+  xhr.open('GET', url, true);
   xhr.responseType = 'blob';
   xhr.send();
 }
@@ -3281,3 +3281,8 @@ theme_custom.getAllEvents = function (modalTarget) {
     }
   });
 }
+
+$(document).on("click",".show_look_list.event_has_look",function(){
+  $(this).closest(`.step-content-wrapper`).find(`.event-block-wrap`).hide()
+  $(this).closest(`.step-content-wrapper`).find(`.show-look-from-event-wrapper`).show();
+})
