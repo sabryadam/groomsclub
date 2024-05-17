@@ -212,7 +212,7 @@ $(".member-added-into-event").click(function (e) {
       },
       success: function (result) {
         if(result.message == 'Member already exist in event.'){
-          $(`<p class="member-error-msg" style="display: block;color: #fff!important;background-color: #7dce80!important;padding: 10px 5px;line-height: 1;text-align: center;border-radius: 5px;">${result.message}</p>`).insertAfter($(`[data-step-content-wrap="2"] [data-target="add-guest-popup"] .custom-checkobx.paying-wrap`));
+          $(`<p class="member-error-msg" style="display: block;color: #fff!important;background-color: #7dce80!important;padding: 10px 5px;line-height: 1;text-align: center;border-radius: 5px;">${result.message}</p>`).insertAfter($(`[data-step-content-wrap="3"] [data-target="add-guest-popup"] .custom-checkobx.paying-wrap`));
           setTimeout(function() {
             $(`p.member-error-msg`).remove();
             $('.event-step-wrapper').addClass('hidden');
@@ -283,10 +283,10 @@ theme_custom.user = (user) => {
 
   if(user.order_number == null){
     status = 'Not Ordered'
-    status_class = 'not-ordered'
+    status_class = 'not-ordered';
   } else {
     status = 'Ordered',
-    status_class = 'ordered'
+    status_class = 'ordered';
   }
 
   var d = new Date();
@@ -295,7 +295,7 @@ theme_custom.user = (user) => {
   var showCurrentDate = (month<10 ? '0' : '') + month + '/' + (day<10 ? '0' : '') + day  + '/' + d.getFullYear();  
   var currentDate = d.getFullYear() + '-' + (month<10 ? '0' : '') + month + '-' + (day<10 ? '0' : '') + day;
   const deleteIcon = `<div class="member-delete-icon payment-${status_class}" data-member-id="${user.event_member_id}">
-      <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/delete.png" alt="delete icon" />
+      <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/delete.png?v=1678738752" alt="delete icon" />
     </div>`
   return `<div class="user-card-block ${eventOwner}">
     <div class="action-icon">
@@ -312,7 +312,7 @@ theme_custom.user = (user) => {
     <div class="size-selected-info">
       <div class="size-selected-wrap">
         <span class="size-select-check ">status : <span class="${status_class}">${status}</span></span>
-        <span class="reminder-wrap user-${status_class}" data-member-id="${user.event_member_id}">REMINDER</span>
+        <span class="reminder-wrap user-${status_class} ${reminder_hidden}" data-member-id="${user.event_member_id}">REMINDER</span>
       </div>
       <spa class="pay-status" pay-info="${whoPay}">${whoPay}</span>
     </div>
@@ -360,10 +360,10 @@ theme_custom.createLookHtml = (index, div, item, eventMembers, event_id) => {
     </div>
     <div class="look-image">
       <div class="delete-icon ${lookHaveMember}" data-event-look-id="${item.mapping_id}">
-        <span>Delete</span>
+        <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/delete.png?v=1678738752" alt="delete icon" />
       </div>
       <img class="look-img" src="${item.look_image}" alt="${item.name}" />
-      <button data-href="${item.url}" edit-look-id="${localStorage.getItem("set-event-id")}" look-mapping-id="${item.mapping_id}" edit-look-name="${item.name}" class="button button--primary customise-look customise-look-button ${lookHaveMember}">Edit look</button>
+      <button data-href="${item.url}" edit-look-id="${localStorage.getItem("set-event-id")}" look-mapping-id="${item.mapping_id}" edit-look-name="${item.name}" class="button button--primary customise-look customise-look-button ${lookHaveMember}">Customise look</button>
     </div>
     ${hostLookHTML}
     <div class="assign-look-user-wrap">${users}</div>
@@ -530,11 +530,8 @@ theme_custom.successCallback = (data, nextTarget) => {
     $(".close-icon").click();
     setTimeout(() => {
       theme_custom.lookItemsData(data);
-      console.log("demo",$('.create-event-look .event-look-inner-wrapper .look-card-block, .guest-top-looks .event-look-inner-wrapper .look-card-block').length)
-      if ($('.create-event-look .event-look-inner-wrapper .look-card-block, .guest-top-looks .event-look-inner-wrapper .look-card-block').length >= 2) {
-        setTimeout(() => {
-          theme_custom.eventLookSlider();
-        }, 500);
+      if ($('.create-event-look .event-look-inner-wrapper .look-card-block, .guest-top-looks .event-look-inner-wrapper .look-card-block').length > 2) {
+        theme_custom.eventLookSlider();
       }
       $(`[data-target="remove-data-for-user"]`).removeClass("active");
       $(".step-content-wrapper.create-event-look .event-block-wrap").hide();
@@ -555,14 +552,14 @@ theme_custom.successCallback = (data, nextTarget) => {
       theme_custom.globalLoaderhide();
       $(".event-page-new-design-wrapper").find(".loader-wrapper").addClass("hidden");
       $(".event-page-new-design-wrapper").find(".event-step-wrapper").removeClass("hidden");
-      if ($(`[data-step-content-wrap="2"] .user-card-block .pay-status[pay-info="I pay"]`).length > 0) {
-        $(`[data-step-content-wrap="2"]`).find(".btn-wrap.next-button").removeClass("disabled");
+      if ($(`[data-step-content-wrap="3"] .user-card-block .pay-status[pay-info="I pay"]`).length > 0) {
+        $(`[data-step-content-wrap="3"]`).find(".btn-wrap.next-button").removeClass("disabled");
         $(`.member-summary-wrapper`).find(".heading").text("Summary");
         $(".event-page-new-design-wrapper .button-wrapper").removeClass("active")
       } else {
         $(`.member-summary-wrapper`).find(".heading").addClass("text-center").text("You don't have any look for payment!");
         $(".event-page-new-design-wrapper .button-wrapper").addClass("active")
-        $(`[data-step-content-wrap="2"]`).find(".btn-wrap.next-button").removeClass("disabled");
+        $(`[data-step-content-wrap="3"]`).find(".btn-wrap.next-button").removeClass("disabled");
       }
     }, 2000);
   } else {
@@ -1026,7 +1023,7 @@ theme_custom.toDataURL = function (url, callback) {
     }
     reader.readAsDataURL(xhr.response);
   };
-  xhr.open('GET', url);
+  xhr.open('GET', url, true);
   xhr.responseType = 'blob';
   xhr.send();
 }
@@ -1402,7 +1399,6 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
     },
     beforeSend: function () { },
     success: function (result) {
-      console.log("result",result);
       var productsArray = result.products;
       if(result.products.length > 0){
       $.map(productItemsArrayLooks, function (productItemInfo, index) {
@@ -1683,7 +1679,7 @@ theme_custom.lookInfoData = function (result) {
       }
     }
     if (orderItems.is_host == 1) {
-      productHTML += `<tr class="event-owner-look-product-list order-wrap-block order-wrap-${index}">
+      productHTML += `<tr class="event-owner-look-product-list order-wrap-block product-price-cal order-wrap-${index}">
                         <td class="look-name-wrap">
                           <span class="look_name">${orderItems.look_name}</span>
                         </td>
@@ -1694,7 +1690,7 @@ theme_custom.lookInfoData = function (result) {
                         </td>
                         <td class="pay-info-wrap">
                           <span class="pay-info" >${payInfo}</span>
-                          <span class="look-price" data-price=""></span>  
+                          <span class="look-price" data-price="219.90"></span>  
                         </td>
                         <td class="action-button">
                           <div class="product-data ${product_data_for_host}">
@@ -1707,7 +1703,7 @@ theme_custom.lookInfoData = function (result) {
                       </tr>
                       <tr class="event-owner-look-product-list order-wrap-block look-product-list-wrapper multi-item-add-to-cart"></tr>`;
     } else {
-      productHTML += `<tr class="guest-memeber-look-product-list order-wrap-block order-wrap-${index}">
+      productHTML += `<tr class="guest-memeber-look-product-list product-price-cal order-wrap-block order-wrap-${index}">
                         <td class="look-name-wrap">
                           <span class="look_name">${orderItems.look_name}</span>
                         </td>
@@ -1718,7 +1714,7 @@ theme_custom.lookInfoData = function (result) {
                         </td>
                         <td class="pay-info-wrap">
                           <span class="pay-info" >${payInfo}</span>
-                          <span class="look-price" data-price=""></span>  
+                          <span class="look-price" data-price="219.90"></span>  
                         </td>
                         <td class="action-button">
                           <div class="product-data ${product_data_for_host}">
@@ -1734,17 +1730,15 @@ theme_custom.lookInfoData = function (result) {
     paymentInfoHTMLtarget.append(productHTML);
     $('.event-step-wrapper').removeClass('hidden');
     theme_custom.globalLoaderhide();
-    theme_custom.changeStep(3);
+    theme_custom.changeStep(4);
     $(`.summary-table-wrapper tfoot`).hide();
     setTimeout(() => {
-      if($(".guest-memeber-look-product-list.order-wrap-block").length > 0){
-        var totalPrice = 0;
-        $(".guest-memeber-look-product-list.order-wrap-block").each(function () {
-          totalPrice = totalPrice + ($(this).find("button").attr("data-look-total-price") * 1);
-        })
-        var lookTotalPrice = theme_custom.Shopify.formatMoney(totalPrice, theme_custom.money_format)
-        $(`.summary-table-wrapper tfoot`).fadeIn().find('.total-price').text(lookTotalPrice);
-      }
+      var totalPrice = 0;
+      $(".product-price-cal.order-wrap-block").each(function () {
+        totalPrice = totalPrice + ($(this).find("button").attr("data-look-total-price") * 1);
+      })
+      var lookTotalPrice = theme_custom.Shopify.formatMoney(totalPrice, theme_custom.money_format)
+      $(`.summary-table-wrapper tfoot`).fadeIn().find('.total-price').text(lookTotalPrice);
     }, 3000);
     theme_custom.eventExpired(result.data);
   })
@@ -2655,6 +2649,7 @@ theme_custom.eventPageClickEvent = function (){
       $(`.modal-wrapper[data-target="delete-look-have-member"]`).addClass("active");
       return false;
     }
+    
     localStorage.removeItem("customise-look-button-for-add-look-into-event");
     localStorage.removeItem("customizerlookFrom");
     localStorage.removeItem("editLookId");
@@ -2711,6 +2706,9 @@ theme_custom.eventPageClickEvent = function (){
     if ($(this).closest(`.step-content-wrapper[data-step-content-wrap="2"]`).length > 0) {
       theme_custom.checkLooks(localStorage.getItem("set-event-id"), nextTarget, false);
       goNext = false;
+    }
+    if ($(this).closest(`.step-content-wrapper[data-step-content-wrap="3"]`).length > 0) {
+      goNext = false;
       $('.event-step-wrapper').addClass('hidden');
       theme_custom.setFitFinder();
       theme_custom.eventMemberData();
@@ -2730,7 +2728,7 @@ theme_custom.eventPageClickEvent = function (){
     var currentTabHead = target.closest(".step-content-wrapper").attr("data-step-content-wrap");
     var prevTarget = target.closest(".step-content-wrapper").prev(".step-content-wrapper").attr("data-step-content-wrap");
     prevTarget = parseInt(prevTarget);
-    if ($(this).closest(`.step-content-wrapper[data-step-content-wrap="2"]`).length > 0) {
+    if ($(this).closest(`.step-content-wrapper[data-step-content-wrap="3"]`).length > 0) {
       theme_custom.checkLooks(localStorage.getItem("set-event-id"), prevTarget, false);
       goNext = false;
     }
@@ -2953,7 +2951,7 @@ theme_custom.getEventDetails = function () {
       if (location.href.includes('?step')) {
         theme_custom.checkLooks(localStorage.getItem("set-event-id"));
         $(".step-wrap").addClass("active");
-        $(`.step-content-wrapper[data-step-content-wrap="2"]`).find(".next-button").click();
+        $(`.step-content-wrapper[data-step-content-wrap="3"]`).find(".next-button").click();
         $(".loader-wrapper").addClass("hidden");
         $(".event-step-wrapper, .step-header-wrap, .step-content-wrapper").removeClass("hidden");
         // setTimeout(() => {
@@ -3075,7 +3073,7 @@ $(document).ready(function () {
     $(".loader-wrapper").removeClass("hidden");
     $(".event-step-wrapper, .step-header-wrap, .step-content-wrapper").addClass("hidden");
   }
-  $(`[data-step-content-wrap="2"]`).find(".btn-wrap.next-button").addClass("disabled");
+  $(`[data-step-content-wrap="3"]`).find(".btn-wrap.next-button").addClass("disabled");
 })
 
 theme_custom.eventChangeEvent = () => {
