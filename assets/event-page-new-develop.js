@@ -261,7 +261,7 @@ theme_custom.user = (user) => {
       phone_val = phone
     }
   }
-  let whoPay = "", eventOwner = reminder_hidden = '';
+  let whoPay = "", eventOwner = '';
   if (is_host_paying.toLowerCase() == "self") {
     whoPay = "I pay";
   } else {
@@ -312,7 +312,7 @@ theme_custom.user = (user) => {
     <div class="size-selected-info">
       <div class="size-selected-wrap">
         <span class="size-select-check ">status : <span class="${status_class}">${status}</span></span>
-        <span class="reminder-wrap user-${status_class} ${reminder_hidden}" data-member-id="${user.event_member_id}">REMINDER</span>
+        <span class="reminder-wrap user-${status_class}" data-member-id="${user.event_member_id}">REMINDER</span>
       </div>
       <spa class="pay-status" pay-info="${whoPay}">${whoPay}</span>
     </div>
