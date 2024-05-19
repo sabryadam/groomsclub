@@ -32,7 +32,7 @@
       <header>
         <button class="add-look-wrapper">+ Add New Look</button>
       </header>
-      <div class="event-look-inner-wrapper"></div>
+      {% render 'guest-looks' %}
     </div>
     <div class="modal-wrapper" data-target="choose-from-favorite">
       <div class="choose-form-favorite modal-wrapper-inner-wrapper" id="choose-form-favorite">
@@ -148,9 +148,7 @@
         </span>
       </button>
       <button type="button" class="btn-wrap button--secondary next-button disabled">
-        <span class="label">
-          Next (Add Guest)
-        </span>
+        <span class="label">Next (Final Summary)</span>
         <span class="icon">
           <img class="blue-icon" src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/next-blue-icon.png?v=1675601344" width="22" height="22" alt="Next Arrow" />
           <img class="white-icon" src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/next-white-icon.png?v=1675601344" width="22" height="22" alt="Next Arrow" />
