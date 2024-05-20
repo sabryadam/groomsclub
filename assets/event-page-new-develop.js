@@ -530,8 +530,8 @@ theme_custom.successCallback = (data, nextTarget) => {
     $(".close-icon").click();
     setTimeout(() => {
       theme_custom.lookItemsData(data);
-      if ($('.create-event-look .event-look-inner-wrapper .look-card-block, .guest-top-looks .event-look-inner-wrapper .look-card-block').length >= 2) {
-        theme_custom.eventLookSlider();
+      if ($('.create-event-look .event-look-inner-wrapper .look-card-block, .guest-top-looks .event-look-inner-wrapper .look-card-block').length > 2) {
+          theme_custom.eventLookSlider();
       }
       $(`[data-target="remove-data-for-user"]`).removeClass("active");
       $(".step-content-wrapper.create-event-look .event-block-wrap").hide();

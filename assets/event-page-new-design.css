@@ -341,6 +341,12 @@
   width: calc(50% - 30px);
   padding: 15px 0;
 }
+.create-event-look .modal-wrapper .modal-wrapper-inner-wrapper.browse-top-looks .product-wrapper .product-card {
+  padding: 0;
+}
+.create-event-look .modal-wrapper .modal-wrapper-inner-wrapper.browse-top-looks .product-wrapper .product-card .img{
+  line-height: 0;
+}
 .create-event-look .modal-wrapper .modal-wrapper-inner-wrapper .product-wrapper .product-card .img img{
   width: 100%;
   max-width: 100%;
