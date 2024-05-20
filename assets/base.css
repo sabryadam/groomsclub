@@ -12902,7 +12902,7 @@ select#event-id.disabled {
   font-weight: 400;
   line-height: normal;
 }
-.cta-button-wrap.product-variant-wrap{
+body:not(.template-page-create-event).cta-button-wrap.product-variant-wrap{
   margin-top: 10px !important;
 }
 .template-product-top-looks-pdp [data-product-type="shirt"] .product-info .error-message,
@@ -14687,6 +14687,15 @@ div#choose-form-favorite {
   display: none;
   font-weight: 500;
   width: fit-content;
+}
+
+.template-page-event-invited .estimated-variant-error-block-wrap{
+  font-size: 14px;
+}
+
+.template-page-event-invited .estimated-variant-error-block-wrap .information-icon{
+  width: 20px;
+  height: 20px;
 }
 
 .estimated-variant-error-block-wrap.active {

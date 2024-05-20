@@ -432,11 +432,24 @@
           </div>
         </div>
  
-
         <div class="main-collection-product-grid" data-id="{{ section.id }}">
-          {%- for product in collection.products -%}
-          {%- assign productType = product.type | downcase -%}
-            {%- unless productType contains 'vest' -%}{%- endunless -%}
+          {%- if collection.handle == 'belts' or collection.handle == 'pocket-square' or collection.handle == 'socks' or collection.handle == 'bow-ties' or collection.handle == 'tuxedo-cufflink' or collection.handle == 'suspenders' or collection.handle == 'tie-bar' -%}
+            {% for product in collection.products %}
+              {% for variant in product.variants %}
+                <div class="product-grid-inner-wrapper">
+                  {% render 'product-card',
+                    product_card_product: variant,
+                    media_size: section.settings.image_ratio,
+                    show_secondary_image: section.settings.show_secondary_image,
+                    add_image_padding: section.settings.add_image_padding,
+                    show_vendor: section.settings.show_vendor
+                  %}                
+                </div>
+              {% endfor %}
+            {% endfor %}
+          {%- else -%}
+            {%- for product in collection.products -%}
+              {%- assign productType = product.type | downcase -%}
               <div class="product-grid-inner-wrapper">
                 {% render 'product-card',
                   product_card_product: product,
@@ -446,7 +459,8 @@
                   show_vendor: section.settings.show_vendor
                 %}
               </div>
-          {%- endfor -%}
+            {%- endfor -%}
+          {%- endif -%}
         </div>
 
         {%- if paginate.pages > 1 -%}

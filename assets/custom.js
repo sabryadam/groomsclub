@@ -203,9 +203,7 @@ theme_custom.getProductVariantData = function (parentElement) {
           } else if (productType=='pants') {
             $(`.product-variant-wrap[data-product-type="pants"]`).find(".estimated-variant-error-block-wrap").addClass("active").find(`.estimated-date`).text(`Estimated ship date: ${variantEstimateDate}`);
           } else {
-            if(productParent.find(`.remove-optional-item-wrapper.hidden`).length == 0) {
-              productParent.find(".estimated-variant-error-block-wrap").addClass("active").find(`.estimated-date`).text(`Estimated ship date: ${variantEstimateDate}`);
-            }
+            productParent.find(".estimated-variant-error-block-wrap").addClass("active").find(`.estimated-date`).text(`Estimated ship date: ${variantEstimateDate}`);
           }
         }
       }
