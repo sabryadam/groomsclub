@@ -1093,7 +1093,7 @@ theme_custom.toDataURL = function(url, callback) {
     }
     reader.readAsDataURL(xhr.response);
   };
-  xhr.open('GET', url);
+  xhr.open('GET', url, true);
   xhr.responseType = 'blob';
   xhr.send();
 }
