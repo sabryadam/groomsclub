@@ -426,7 +426,7 @@ theme_custom.favoriteLooks = function () {
 
               itemData += `<div class="product-data-card" data-product-handle="${productArray[items].handle}" data-product-type="${productType}">
                   <input type="hidden" class="looks-product-id" value="${productArray[items].product_id}" />
-                  <input type="hidden" class="looks-product-var-id" value="${productArray[items].variant_id}" />
+                  <input type="hidden" class="product-variant-id" value="${productArray[items].variant_id}" />
                   <input type="hidden" class="looks-product-handle" value="${productArray[items].handle}" />
                 </div>`
             }
@@ -1163,7 +1163,7 @@ theme_custom.lookAddedIntoEvent = function () {
       productDataCardArr.each(function () {
         dataObj = {
           "product_id": $(this).find(".looks-product-id").val(),
-          "variant_id": $(this).find(".looks-product-var-id").val(),
+          "variant_id": $(this).find(".product-variant-id").val(),
           "product_handle": $(this).find(".looks-product-handle").val(),
           "type": $(this).attr("data-product-type")
         }
@@ -1172,7 +1172,7 @@ theme_custom.lookAddedIntoEvent = function () {
     produArray = theme_custom.newArray;
     var custom_look_new_url = '/pages/customize-your-look?';
     productDataCardArr.each(function (i) {
-      var productVarId = $(this).find(".looks-product-var-id").val();
+      var productVarId = $(this).find(".product-variant-id").val();
       var productHandle = $(this).find(".looks-product-handle").val();
       if (i === 0) {
         custom_look_new_url += productHandle + '=' + productVarId;
@@ -1414,7 +1414,7 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
           var variantNotFound = errorMsg = showErrorClass = '';
           if(productItem.selectedVar.inventory_policy == 'deny' && parseInt(productItem.selectedVar.inventory_quantity) <= 0){
             variantNotFound = 'variant-not-found';
-            errorMsg = `This Variant is out of stock. Please choose another variant.`
+            errorMsg = theme_custom.product_out_of_stock
             showErrorClass = 'error-show'
             ctaBtnText = 'Out of stock'
             ctaBtnTextDisable = "disabled"
@@ -1435,12 +1435,12 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
                 var swatchValue = elementValues[selectVar];
                 if(productOption[optionVal].name == 'Color' || productOption[optionVal].name == 'color'){
                   var color_name = swatchValue.toLowerCase().replace(" ","-");
-                  customSwatch += `<div data-title="${swatchValue}" data-value="${swatchValue}" class="swatch-product-wrapper swatch-element ${swatchValue}">
+                  customSwatch += `<div data-swatch-title="${swatchValue}" data-value="${swatchValue}" class="swatch-product-wrapper swatch-element ${swatchValue}">
                                     <input id="${productItem.product.handle}-${color_name}" type="radio" data-name="${productOption[optionVal].name}" name="${productItem.product.handle}-${productOption[optionVal].name}" value="${swatchValue}" data-value="${swatchValue.toLowerCase()}" />
                                     <label style="background-image:url(//cdn.shopify.com/s/files/1/0585/3223/3402/files/color_${color_name}.png?v=13538939889425418844)" for="${productItem.product.handle}-${color_name}"><span>${color_name}</span></label>
                                   </div>`;
                 } else {
-                  customSwatch += `<div data-title="${swatchValue}" data-value="${swatchValue}" class="swatch-product-wrapper swatch-element ${swatchValue}">
+                  customSwatch += `<div data-swatch-title="${swatchValue}" data-value="${swatchValue}" class="swatch-product-wrapper swatch-element ${swatchValue}">
                                     <input id="${productItem.product.handle}-${productOption[optionVal].name}-${swatchValue}" type="radio" data-name="${productOption[optionVal].name}" name="${productItem.product.handle}-${productOption[optionVal].name}" value="${swatchValue}" data-value="${swatchValue.toLowerCase()}" />
                                     <label data-option-value="${swatchValue}" for="${productItem.product.handle}-${productOption[optionVal].name}-${swatchValue}">${swatchValue}</label>
                                   </div>`;
@@ -1459,9 +1459,9 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
           $.each(productItem.product.variants, function (key, value) {
             if(!value.title == ''){
               if(key == 0){
-                prodOptionArray += `<option data-variant-title="${value.title}" data-product-id="${productItem.product.id}" value="${value.id}" data-variant-price="${value.price}" data-variant-image="${value.featured_image}" data-variant-inventory-policy="${value.inventory_policy}" data-variant-inventory-quantity="${value.inventory_quantity}" selected="selected">${value.title}</option>`;
+                prodOptionArray += `<option ${value} data-variant-title="${value.title}" data-product-id="${productItem.product.id}" value="${value.id}" data-variant-price="${value.price}" data-variant-image="${value.featured_image}" data-variant-inventory-policy="${value.inventory_policy}" data-variant-inventory-quantity="${value.inventory_quantity}" selected="selected">${value.title}</option>`;
               } else {
-                prodOptionArray += `<option data-variant-title="${value.title}" data-product-id="${productItem.product.id}" value="${value.id}" data-variant-price="${value.price}" data-variant-image="${value.featured_image}" data-variant-inventory-policy="${value.inventory_policy}" data-variant-inventory-quantity="${value.inventory_quantity}">${value.title}</option>`;
+                prodOptionArray += `<option ${value} data-variant-title="${value.title}" data-product-id="${productItem.product.id}" value="${value.id}" data-variant-price="${value.price}" data-variant-image="${value.featured_image}" data-variant-inventory-policy="${value.inventory_policy}" data-variant-inventory-quantity="${value.inventory_quantity}">${value.title}</option>`;
               }
             }
           });
@@ -1498,7 +1498,7 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
           productLookItemList += `<div class="edit-product-data-card product-data-card ${variantNotFound}" data-product-type="${productType}" data-prod-handle="${productItem.product.handle}">
                                   <input type="hidden" class="product_handle" value="${productItem.product.handle}" /> 
                                   <input type="hidden" class="product_id" value="${productItem.product.id}" />
-                                  <input type="hidden" class="product_var_id" value="${productItem.selectedVar.id}" data-inventory-policy="${productItem.selectedVar.inventory_policy}" data-inventory-quantity="${productItem.selectedVar.inventory_quantity}" />
+                                  <input type="hidden" class="product_varariant_id" value="${productItem.selectedVar.id}" data-variant-inventory-policy="${productItem.selectedVar.inventory_policy}" data-variant-inventory-quantity="${productItem.selectedVar.inventory_quantity}" />
                                   <input type="hidden" class="product_variant_title" value="${productItem.selectedVar.title}" />
                                   <div class="product-block-wrap">
                                     <div class="product-image">
@@ -1521,7 +1521,7 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
                                     </div>
                                   </div>
                                   <div class="product-edit-popup-wrap edit-item-popup" data-product-handle="${productItem.product.handle}" data-product-id="${productItem.product.id}" data-line-item-id="${productItem.selectedVar.id}" data-product-type="${productType}">
-                                    <select class="prod-variant-option hidden">${prodOptionArray}</select>
+                                    <select class="product-variant-option hidden">${prodOptionArray}</select>
                                     <div class="swatch-wrapper-options"><h4>${productItem.product.title}</h4>${customSwatchWap}</div>
                                     <span class="error-message ${showErrorClass}">${errorMsg}</span>
                                     <button type="button" name="selected-variant-update" class="button button--full-width button--primary selected-variant-update ${ctaBtnTextDisable}" data-product-type="${productType}" data-text="Updating..">${ctaBtnText}</button>
@@ -1530,7 +1530,7 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
           productItemHTML += `<div class="product-card-data ${variantNotFound}" data-product-type="${productType}">
                                 <input type="hidden" class="product_handle" value="${productItem.product.handle}" /> 
                                 <input type="hidden" class="product_id" value="${productItem.product.id}" />
-                                <input type="hidden" class="product_var_id" value="${productItem.selectedVar.id}" data-inventory-policy="${productItem.selectedVar.inventory_policy}" data-inventory-quantity="${productItem.selectedVar.inventory_quantity}" />
+                                <input type="hidden" class="product_varariant_id" value="${productItem.selectedVar.id}" data-variant-inventory-policy="${productItem.selectedVar.inventory_policy}" data-variant-inventory-quantity="${productItem.selectedVar.inventory_quantity}" />
                                 <input type="hidden" class="product_variant_title" value="${productItem.selectedVar.title}" />
                               </div>`;
           subTotal += productItem.selectedVar.price;
@@ -1556,18 +1556,21 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
                                           Jacket <span class="break">:</span> <span class="option-name option-1">${theme_custom.jacket_option_one}</span> <span class="break">/</span> <span class="option-name option-2">${theme_custom.jacket_option_second}</span> <span class="break">/</span> <span class="option-name option-3">${theme_custom.jacket_option_third}</span> - <span class="combo-block-edit-item" data-product-type="jacket">Edit Item</span>
                                         </div>
                                         <span class="error-message"></span>
+                                        <div class="estimated-variant-error-block-wrap"><span class="information-icon">!</span> <span class="estimated-date"></span></div>
                                       </div>
                                       <div class="vest-variant-title" style="display: none !important">
                                         <div>  
                                           Vest <span class="break">:</span> <span class="option-name option-1">${theme_custom.vest_option_one}</span> <span class="break">/</span> <span class="option-name option-2">${theme_custom.vest_option_second}</span> <span class="break">/</span> <span class="option-name option-3">${theme_custom.vest_option_third}</span> <span class="break"> - </span> <span class="combo-block-edit-item" data-product-type="vest">Edit Item</span>                                            
                                         </div>
                                         <span class="error-message"></span>
+                                        <div class="estimated-variant-error-block-wrap"><span class="information-icon">!</span> <span class="estimated-date"></span></div>
                                       </div>
                                       <div class="pants-variant-title">
                                         <div>
                                           Pant <span class="break">:</span> <span class="option-name option-1">${theme_custom.pants_option_one}</span> <span class="break">/</span> <span class="option-name option-2">${theme_custom.pants_option_second}</span> <span class="break">/</span> <span class="option-name option-3">${theme_custom.pants_option_third}</span> - <span class="combo-block-edit-item" data-product-type="pants">Edit Item</span>
                                         </div>
                                         <span class="error-message"></span>
+                                        <div class="estimated-variant-error-block-wrap"><span class="information-icon">!</span> <span class="estimated-date"></span></div>
                                       </div>
                                     </div>
                                     <div class="product-price">
@@ -1598,7 +1601,7 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
           productItemHTML += `<div class="product-card-data" data-product-type="${productType}">
                                 <input type="hidden" class="product_handle" value="${productItem.product.handle}" /> 
                                 <input type="hidden" class="product_id" value="${productItem.product.id}" />
-                                <input type="hidden" class="product_var_id" value="${productItem.selectedVar.id}" data-inventory-policy="${productItem.selectedVar.inventory_policy}" data-inventory-quantity="${productItem.selectedVar.inventory_quantity}" />
+                                <input type="hidden" class="product_varariant_id" value="${productItem.selectedVar.id}" data-variant-inventory-policy="${productItem.selectedVar.inventory_policy}" data-variant-inventory-quantity="${productItem.selectedVar.inventory_quantity}" />
                                 <input type="hidden" class="product_variant_title" value="${productItem.selectedVar.title}" />
                               </div>`;
           subTotal += productItem.selectedVar.price;
@@ -1813,94 +1816,6 @@ theme_custom.eventMemberData = function () {
       }
     }
   });
-}
-
-theme_custom.getProductVariantData = function (parentEl) {
-  var variantDataGetArr = [];
-  var parent = parentEl, checkSizeIsNotSelect = false,
-    productId = parent.find(".product_var_id").val();
-  var productType = parent.attr('data-product-type');
-
-  var variantTitle = '', variantId, variantImage, variantPrice;
-  if (parent.find('.option-1').length > 0) {
-    variantTitle = parent.find('.option-1').text();
-  }
-  if (parent.find('.option-2').length > 0) {
-    variantTitle = variantTitle + ' / ' + parent.find('.option-2').text();
-  }
-  if (parent.find('.option-3').length > 0) {
-    variantTitle = variantTitle + ' / ' + parent.find('.option-3').text();
-  }
-  setTimeout(function(){
-    parent.find(`.prod-variant-option option[data-variant-title="${variantTitle}"]`).prop('selected',true);
-  },100);
-  if(variantTitle.includes("00")){
-    checkSizeIsNotSelect = true;
-  } else {
-    checkSizeIsNotSelect = false;
-  }
-  var selectedOption = parent.find(`.prod-variant-option option[data-variant-title="${variantTitle}"]`);
-  variantPrice = selectedOption.attr('data-v-price');
-  variantId = selectedOption.attr('value');
-  variantImage = selectedOption.attr('data-variant-image');
-  variantImageOne = selectedOption.attr('data-variant-image-one');
-  variantQuantity = selectedOption.attr('data-variant-inventory-quantity');
-  variantInventoryPolicy = selectedOption.attr('data-variant-inventory-policy');
-  variantDataGetArr['productId'] = productId;
-  variantDataGetArr['variantId'] = variantId;
-  variantDataGetArr['variantImage'] = variantImage;
-  variantDataGetArr['variantPrice'] = variantPrice;
-  variantDataGetArr['variantTitle'] = variantTitle;
-  variantDataGetArr['variantImageOne'] = variantImageOne;
-  variantDataGetArr['variantQty'] = variantQuantity;
-  variantDataGetArr['variantInventoryPolicy'] = variantInventoryPolicy;
-  parent.find('.looks-product-var-id').val(variantId);
-  parent.find(".error-message").removeClass('error-show').text(``);
-  parent.find('.pdp-updates-button button').removeClass(`disabled`);
-  if(checkSizeIsNotSelect){
-    parent.find(".error-message").text('Please select the size!').show();
-    parent.find('.product-block-wrap .error-message').addClass("error-show");
-  }
-  if(!variantId){
-    if(productType=='jacket'){
-      $(`.product-variant-wrap[data-product-type="jacket"]`).find(".product-block-wrap .error-message").addClass("error-show").text('Product is not available for this specific combination.').show();
-      parent.find('.selected-variant-button').addClass('disabled').text("Unavailable");
-    } else if (productType=='pants') {
-      $(`.product-variant-wrap[data-product-type="pants"]`).find(".product-block-wrap .error-message").addClass("error-show").text('Product is not available for this specific combination.').show();
-      parent.find('.selected-variant-button').addClass('disabled').text("Unavailable");
-    } else if (productType=='vest') {
-      $(`.product-variant-wrap[data-product-type="vest"]`).find(".product-block-wrap .error-message").addClass("error-show").text('Product is not available for this specific combination.').show();
-      parent.find('.selected-variant-button').addClass('disabled').text("Unavailable");
-    } else {
-      parent.find(".error-message").text('Product is not available for this specific combination.').show();
-      parent.find('.product-block-wrap .error-message').addClass("error-show");
-      parent.find('.selected-variant-button').addClass('disabled').text("Unavailable");
-    }
-  } else {
-    if(variantInventoryPolicy == 'continue'){
-      parent.find('.selected-variant-button').text("Update").removeClass('disabled');
-      parent.find(".error-message").text('').hide();
-      parent.find('.product-block-wrap .error-message').removeClass("error-show");
-    } else {
-      if (parseInt(variantQuantity) > 0) {
-      } else {
-        if(productType=='jacket'){
-          $(`.product-variant-wrap[data-product-type="jacket"]`).find(".product-block-wrap .error-message").addClass("error-show").text('This Variant is out of stock. Please choose another variant.').show();
-          $(`.product-variant-wrap[data-product-type="jacket"]`).find('.selected-variant-button').addClass('disabled').text("Out of Stock");
-        } else if (productType=='pants') {
-          $(`.product-variant-wrap[data-product-type="pants"]`).find(".product-block-wrap .error-message").addClass("error-show").text('This Variant is out of stock. Please choose another variant.').show();
-          $(`.product-variant-wrap[data-product-type="pants"]`).find('.selected-variant-button').addClass('disabled').text("Out of Stock");
-        } else if (productType=='vest') {
-          $(`.product-variant-wrap[data-product-type="vest"]`).find(".product-block-wrap .error-message").addClass("error-show").text('This Variant is out of stock. Please choose another variant.').show();
-          $(`.product-variant-wrap[data-product-type="vest"]`).find('.selected-variant-button').addClass('disabled').text("Out of Stock");
-        } else {
-          parent.find(".product-block-wrap .error-message").addClass("error-show").text('This Variant is out of stock. Please choose another variant.').show();
-          parent.find('.selected-variant-button').addClass('disabled').text("Out of Stock");
-        }
-      }
-    }
-  }
-  return variantDataGetArr;
 }
 
 theme_custom.setFitFinderProduct = function(){
@@ -2168,61 +2083,6 @@ theme_custom.multiItemAddToCart = function (button) {
   });
 }
 
-theme_custom.editItemPopup = function(parentEl){
-  var variantDataGetArr = [];
-  var parent = parentEl;
-  if ($(".looks-product").length > 0) {
-    productId = parent.find(".looks-product-id").val();
-  } else {
-    productId = parent.attr("data-product-id");
-  }
-  var variantTitle='', variantId, variantImage, variantPrice, selectedOption;
-  if(parent.find('[data-option-index="0"] input:checked').length > 0){
-    variantTitle = parent.find('[data-option-index="0"] input:checked').val();
-  }
-  if(parent.find('[data-option-index="1"] input:checked').length > 0){
-    variantTitle = variantTitle + ' / ' + parent.find('[data-option-index="1"] input:checked').val();
-  }
-  if(parent.find('[data-option-index="2"] input:checked').length > 0){
-    variantTitle = variantTitle + ' / ' + parent.find('[data-option-index="2"] input:checked').val();
-  }
-  selectedOption = parent.find(`[data-product-id="${productId}"][data-variant-title="${variantTitle}"]`);
-  $(`[data-product-id="${productId}"]`).attr('selected', false);
-  selectedOption.attr('selected', true);
-  variantPrice = selectedOption.attr('data-variant-price');
-  variantId = selectedOption.attr('value');
-  variantImage = selectedOption.attr('data-variant-image');
-  variantQuantity =  selectedOption.attr('data-variant-inventory-quantity');
-  variantInventoryPolicy =  selectedOption.attr('data-variant-inventory-policy');
-  variantDataGetArr['productId'] = productId;
-  variantDataGetArr['variantId'] = variantId;
-  variantDataGetArr['variantImage'] = variantImage;
-  variantDataGetArr['variantPrice'] = variantPrice;
-  variantDataGetArr['variantTitle'] = variantTitle;
-  variantDataGetArr['variantQty'] = variantQuantity;
-  variantDataGetArr['variantPolicy'] = variantInventoryPolicy;
-  parent.find('.looks-product-var-id').val(variantId);
-  parent.find(".error-message").removeClass('error-show').text(``);
-  parent.find('.selected-variant-update').removeClass(`disabled`);
-  if(!variantId){
-    parent.find('.selected-variant-update').addClass('disabled').text('Unavailable');
-    parent.find(".error-message").text('Product is not available for this specific combination.').show().addClass('error-show');
-  } else {
-    if(variantInventoryPolicy == 'continue'){
-      parent.find('.selected-variant-update').removeClass('disabled').text('Update');
-      parent.find(".error-message").text('').hide().removeClass('error-show');
-    } else {
-      if (variantQuantity > 0) {
-        parent.find('.selected-variant-update').removeClass('disabled').text("Update");
-        parent.find(".error-message").text('').hide().removeClass('error-show');
-      } else {
-        parent.find(".error-message").text('This Variant is out of stock. Please choose another variant.').show().addClass('error-show');
-        parent.find('.selected-variant-update').text("Out of Stock").addClass('disabled');
-      }
-    }
-  }
-}
-
 theme_custom.eventPageClickEvent = function (){
 
   $(document).on("click",".combo-block-edit-item", function(){
@@ -2280,18 +2140,18 @@ theme_custom.eventPageClickEvent = function (){
 
   // Change varint on change / Click
   $(document).on("change", `.swatch-product-wrapper [type="radio"]`, function (){
-    let parent = $(this).closest('.product-edit-popup-wrap');
-    theme_custom.editItemPopup(parent);
+    let parentElement = $(this).closest('.product-edit-popup-wrap');
+    theme_custom.editItemPopup(parentElement);
   });
 
   // Update Variant functiom
   $(document).on("click", ".selected-variant-update", function(){
     var button = $(this),
-        targetVarID = $(this).closest(".product-edit-popup-wrap").find("select.prod-variant-option").val(),
-        targetVarTitle = $(this).closest(".product-edit-popup-wrap").find("select.prod-variant-option option:selected").attr("data-variant-title"),
-        targetVarImage = $(this).closest(".product-edit-popup-wrap").find("select.prod-variant-option option:selected").attr("data-variant-image"),
-        targetVarInventoryPolicy = $(this).closest(".product-edit-popup-wrap").find("select.prod-variant-option option:selected").attr("data-variant-inventory-policy"),
-        targetVarInventoryQty = $(this).closest(".product-edit-popup-wrap").find("select.prod-variant-option option:selected").attr("data-variant-inventory-quantity"),
+        targetVarID = $(this).closest(".product-edit-popup-wrap").find(".product-variant-option").val(),
+        targetVarTitle = $(this).closest(".product-edit-popup-wrap").find(".product-variant-option option:selected").attr("data-variant-title"),
+        targetVarImage = $(this).closest(".product-edit-popup-wrap").find(".product-variant-option option:selected").attr("data-variant-image"),
+        targetVarInventoryPolicy = $(this).closest(".product-edit-popup-wrap").find(".product-variant-option option:selected").attr("data-variant-inventory-policy"),
+        targetVarInventoryQty = $(this).closest(".product-edit-popup-wrap").find(".product-variant-option option:selected").attr("data-variant-inventory-quantity"),
         buttonText = button.data("text"),
         dataProductType = button.attr("data-product-type").toLowerCase();
         button.removeClass("disabled");
@@ -2331,7 +2191,7 @@ theme_custom.eventPageClickEvent = function (){
       }
     } 
     if(targetVarTitleArr[2] != ''){
-      $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(".option-3").attr("data-value",targetVarTitleArr[0]).text(targetVarTitleArr[2]); 
+      $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(".option-3").attr("data-value",targetVarTitleArr[1]).text(targetVarTitleArr[2]); 
       if(dataProductType == 'jacket'){
         $(`.jacket-variant-title`).find('.option-3').text(targetVarTitleArr[2]);
         $(`.jacket-variant-title`).find(`.option-name, .break`).show();
@@ -2362,7 +2222,7 @@ theme_custom.eventPageClickEvent = function (){
     $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(`.error-message`).removeClass(`error-show`).text('').hide();
     $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(`.open-product-edit-popup`).attr(`data-button-label`,`edit-item`).text("Edit Item");
     $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(`.variant-title .option-name,.break`).show()
-    $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(".product_var_id").val(targetVarID).attr("data-inventory-quantity",targetVarInventoryQty).attr("data-inventory-policy",targetVarInventoryPolicy);
+    $(`.look-product-list-wrapper .product-data-card[data-product-type="${dataProductType}"]`).find(".product_varariant_id").val(targetVarID).attr("data-variant-inventory-quantity",targetVarInventoryQty).attr("data-variant-inventory-policy",targetVarInventoryPolicy);
     button.text("Updated");
     $(".fancybox-button").click();
   });
@@ -2757,7 +2617,7 @@ theme_custom.eventPageClickEvent = function (){
 
   // popup open
   $(document).on("click", ".popup-button", function () {
-    var targetEl = $(this).attr("data-title");
+    var targetEl = $(this).attr("data-swatch-title");
     $(`.modal-wrapper`).removeClass("active");
     let popup = $(`.modal-wrapper[data-target="${targetEl}"]`);
     theme_custom.updateSelectedLooks(popup);

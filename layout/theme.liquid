@@ -60,8 +60,9 @@
     theme_custom.api_base_url = {{ settings.api_base_url | json }};
     theme_custom.shop_url = {{ shop.url | json}};
     theme_custom.shop_name = {{ shop.name | json}};
-    theme_custom.productNotFoundError = `Some product is not available for that specific size`;
     theme_custom.fitFinderEmptyMsg = 'Please use the Fit Finder below for sizing to Continue';
+    theme_custom.product_unavailable = `Product is not available for this specific combination.`;
+    theme_custom.product_out_of_stock = `This variant is out of stock. Please choose another variant.`;
     theme_custom.order_tax = {{ settings.tax_percentage | json }};
     {%- unless customer -%}
     if (localStorage.getItem("customerToken")) {
@@ -77,7 +78,6 @@
   <script src="{{ 'check-same-name-event-look.js' | asset_url }}" defer="defer"></script>
   {% endif  %}
   <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'custom2.js' | asset_url }}" defer="defer"></script>
 
   {{ content_for_header }}
   {%- liquid
@@ -135,11 +135,9 @@
   --color-base-background-2: {{ settings.colors_background_2 }};
   --color-base-background-2-rgb: {{ settings.colors_background_2 | color_to_rgb | remove: 'rgb(' | remove: ')' }};
   --color-base-solid-button-labels: {{ settings.colors_solid_button_labels }};
-  --color-base-solid-button-labels-rgb: {{ settings.colors_solid_button_labels | color_to_rgb | remove: 'rgb(' | remove:
-  ')' }};
+  --color-base-solid-button-labels-rgb: {{ settings.colors_solid_button_labels | color_to_rgb | remove: 'rgb(' | remove:  ')' }};
   --color-base-outline-button-labels: {{ settings.colors_outline_button_labels }};
-  --color-base-outline-button-labels-rgb: {{ settings.colors_outline_button_labels | color_to_rgb | remove: 'rgb(' |
-  remove: ')' }};
+  --color-base-outline-button-labels-rgb: {{ settings.colors_outline_button_labels | color_to_rgb | remove: 'rgb(' |  remove: ')' }};
   --color-base-accent-1: {{ settings.colors_accent_1 }};
   --color-base-accent-1-rgb: {{ settings.colors_accent_1 | color_to_rgb | remove: 'rgb(' | remove: ')' }};
   --color-base-accent-2: {{ settings.colors_accent_2 }};
@@ -148,10 +146,8 @@
   --color-base-text-opacity-20-percent: {{ settings.colors_text | color_mix: settings.colors_background_1, 20 }};
   --color-base-text-opacity-55-percent: {{ settings.colors_text | color_mix: settings.colors_background_1, 55 }};
   --color-base-text-opacity-85-percent: {{ settings.colors_text | color_mix: settings.colors_background_1, 85 }};
-  --color-base-accent-1-opacity-10-percent: {{ settings.colors_accent_1 | color_mix: settings.colors_background_1, 10
-  }};
-  --color-base-accent-2-opacity-10-percent: {{ settings.colors_accent_2 | color_mix: settings.colors_background_1, 10
-  }};
+  --color-base-accent-1-opacity-10-percent: {{ settings.colors_accent_1 | color_mix: settings.colors_background_1, 10  }};
+  --color-base-accent-2-opacity-10-percent: {{ settings.colors_accent_2 | color_mix: settings.colors_background_1, 10  }};
   }
   *,*::before,*::after {
   box-sizing: inherit;
@@ -167,7 +163,7 @@
   grid-template-columns: 100%;
   min-height: 100%;
   margin: 0;
-  font-size:calc(var(--font-size-body) - 2px);;
+  font-size:calc(var(--font-size-body) - 2px);
   letter-spacing: normal;
   line-height: 1.8;
   font-family: var(--font-body-family);
@@ -188,12 +184,6 @@
   @media screen and (max-width:1199px) and (min-width:768px) {
   body {font-size: calc(var(--font-h6) - 2px);}
   }
-    #shopify-section-announcement-bar{
-      display : none ;
-    }
-/*     .template-cart #shopify-section-announcement-bar{
-      display : block ;
-    } */
   {% endstyle %}
   {{ 'base.css' | asset_url | stylesheet_tag }}
   
@@ -228,12 +218,6 @@
 
 
   {%- if template contains 'index' or template contains 'virtual-consultant'  -%}
-    {%- comment -%}<!-- Calendly badge widget begin -->
-    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
-    <script type="text/javascript">window.onload = function() { Calendly.initBadgeWidget({ url: 'https://calendly.com/groomsclubappointment/30min', text: 'Schedule time with me', color: '#0069ff', textColor: '#ffffff', branding: undefined }); }</script>
-    <!-- Calendly badge widget end -->
-    {%- endcomment -%}
     <!-- Calendly badge widget begin -->
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
     <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
@@ -280,8 +264,14 @@
 {%- if settings.enable_left_column -%}|has-left-column {%- endif -%}
 {%- endcapture -%}
 
+{%- if template.name == 'product' -%}
+  {%- unless template contains 'jacket-pant-combination' or template contains 'top-looks-pdp' -%}
+    {% assign product_default = 'product-default'  %}
+  {%- endunless -%}
+{% endif  %}
+
 <body
-  class="{{ body_class | strip | strip_newlines | split: '|' | join: ' '}}{% if template == 'index' %} homepage{% endif %}{% unless customer %} customer-has-not-logged{% endunless %}{% if template contains 'product' %} template-{{ product.handle}} product-type-{{ product.type | downcase | handleize }}{% endif  %}">
+  class="{{ body_class | strip | strip_newlines | split: '|' | join: ' '}}{% if template == 'index' %} homepage{% endif %}{% unless customer %} customer-has-not-logged{% endunless %}{% if template contains 'product' %} template-{{ product.handle}} product-type-{{ product.type | downcase | handleize }}{% endif  %} {{ product_default }}">
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WPZ3HG7" height="0" width="0"
       style="display:none;visibility:hidden"></iframe></noscript>
@@ -289,8 +279,8 @@
   <a class="skip-to-content-link button visually-hidden" href="#MainContent">
     {{ "accessibility.skip_to_text" | t }}
   </a>
-  {% section 'header' %}
   {% section 'announcement-bar' %}
+  {% section 'header' %}
   <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
     <input type="hidden" id="custom_id_num" value="{{ customer.id }}">
     {%- if customer -%}
@@ -353,19 +343,6 @@
     }
     if (window.location.href.indexOf("virtual-product") > -1) {
       window.location.href = '/collections/all';
-    }
-    // if ((window.location.href.indexOf("waist") > -1) || $(`body.product-type-vest`).length > 0) {
-      // window.location.href = '/collections/all';
-    // }
-    // if ($(".template-page-customize-your-look").length == 0 && $(".template-page-home-try-on-checkout").length == 0) {
-    //   // if (window.location.href.indexOf('-pants') > -1 || window.location.href.indexOf('-jacket') > -1 || window.location.href.indexOf('-vest') > -1) {
-    //    if (window.location.href.indexOf('-pants') > -1 || window.location.href.indexOf('-jacket') > -1) {
-    //      const match = window.location.pathname.match(/(?<=products\/).+?(?=-(jacket|suit|pants))/)[0]
-    //      window.location.href = `/products/${match}-suit`
-    //   }
-    // }
-    if (window.location.href.indexOf('at-home-try-on') > -1) {
-      window.location.href = `/`
     }
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

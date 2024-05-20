@@ -193,9 +193,9 @@ theme_custom.draftOrder = function(button,parent){
       customer_id = $("#customer_id").val(),
       items = [];
   getProduct.each(function(){
-    var product_var_id = $(this).find(".prod-variant-data").attr("data-var-id");
+    var product_varariant_id = $(this).find(".prod-variant-data").attr("data-var-id");
     var item = {
-      "variant_id": product_var_id,
+      "variant_id": product_varariant_id,
       "quantity": 1
     }
     items.push(item);
@@ -287,11 +287,11 @@ theme_custom.ProductData = function(productItemsArr){
               var swatchValue = elementValues[seatchVal];
               if(productOption[optionVal].name == 'Color' || productOption[optionVal].name == 'color'){
                 var color_name = swatchValue.toLowerCase().replace(" ","-");
-                customSwatch += `<div data-title="${swatchValue}" data-value="${swatchValue.toLocaleLowerCase()}" class="swatch-element-item ${swatchValue} ${activeClass}">
+                customSwatch += `<div data-swatch-title="${swatchValue}" data-value="${swatchValue.toLocaleLowerCase()}" class="swatch-element-item ${swatchValue} ${activeClass}">
                                   <label style="background-image:url(//cdn.shopify.com/s/files/1/0585/3223/3402/files/color_${color_name}.png?v=13538939889425418844)" for="swatch-2-tuxedo-black"></label>
                                 </div>`;
               } else {
-                customSwatch += `<div data-title="${swatchValue}" data-value="${swatchValue.toLocaleLowerCase()}" class="swatch-element-item ${swatchValue} ${activeClass}">
+                customSwatch += `<div data-swatch-title="${swatchValue}" data-value="${swatchValue.toLocaleLowerCase()}" class="swatch-element-item ${swatchValue} ${activeClass}">
                                   <span>
                                     ${swatchValue}
                                   </span>
@@ -314,7 +314,7 @@ theme_custom.ProductData = function(productItemsArr){
               if(key == 0){
                 prodOptionArray += `<option data-variant-image="${value.featured_image}" value="${value.id}" data-variant-inventory-policy="${value.inventory_policy}" data-variant-inventory-quantity="${value.inventory_quantity}" data-product-id="${product.id}" data-variant-title="${value.title}" selected="selected">${value.title}</option>`;
               } else {
-                prodOptionArray += `<option data-variant-image="${value.featured_image}" value="${value.id}" data-variant-inventory-policy="${value.inventory_policy}" data-variant-inventory-quantity="${value.inventory_quantity}" data-variant-inventory="${value.inventory_quantity}" data-product-id="${product.id}" data-variant-title="${value.title}">${value.title}</option>`;
+                prodOptionArray += `<option data-variant-image="${value.featured_image}" value="${value.id}" data-variant-inventory-policy="${value.inventory_policy}" data-variant-inventory-quantity="${value.inventory_quantity}" data-product-id="${product.id}" data-variant-title="${value.title}">${value.title}</option>`;
               }
             }
           });
@@ -401,8 +401,8 @@ theme_custom.ProductData = function(productItemsArr){
                                           </p>
                                           <div class="product-swatch-option ${productType}" data-type="${productType}" data-product-handle="${productHandleVal}">
                                             <div class="product-swatches-main"><h4>${product.title}</h4>${customSwatchWap}</div>
-                                            <select class="prod-variant-option hidden">${prodOptionArray}</select>
-                                            <span class="error-message" style="display: none;"></span>                                          
+                                            <select class="product-variant-option hidden">${prodOptionArray}</select>
+                                            <span class="error-message"></span>                                          
                                             <button type="button" name="exchange-look-item" class="button button--full-width button--primary exchange-look-item" data-text="Updating..">Update</button>
                                           </div>
                                         </div>`;
@@ -497,27 +497,27 @@ theme_custom.clickEventInvited = function(){
       }
     })        
 
-    var selectedVar = parent.find($(`.prod-variant-option option[data-variant-title="${variantTitle}"]`)).val();
+    var selectedVarariantId = parent.find($(`.prod-variant-option option[data-variant-title="${variantTitle}"]`)).val();
     var selectedVarInventoryQty = parent.find($(`.prod-variant-option option[data-variant-title="${variantTitle}"]`)).attr("data-variant-inventory-quantity");
     var selectedVarInventoryPolicy = parent.find($(`.prod-variant-option option[data-variant-title="${variantTitle}"]`)).attr("data-variant-inventory-policy");
-    if ($.inArray(variantTitle, productVariantTitle) == -1) {
-      parent.find(".error-message").addClass("error-show").text("Product is not available for this specific combination").fadeIn();
+    if (!selectedVarariantId) {
+      parent.find(".error-message").addClass("error-show").text(theme_custom.product_unavailable);
       parent.find(".exchange-look-item").addClass("disabled").text("Unavailable");
     } else {
       var targetVariant = parent.find($(`.prod-variant-option option[data-variant-title="${variantTitle}"]`))
       parent.closest(".product-item").find(".img img").attr("src", targetVariant.attr("data-variant-image"));
       if (selectedVarInventoryPolicy == 'continue') {
         parent.find(".error-message").removeClass("error-show").text('').fadeOut();
-        parent.find(".prod-variant-option").val(selectedVar);
+        parent.find(".prod-variant-option").val(selectedVarariantId);
         parent.find(".exchange-look-item").removeClass("disabled").text("Update");
       } else {
         if (selectedVarInventoryQty <= 0) {
-          parent.find(".error-message").addClass("error-show").text("This variant is out of stock. Please choose another variant.").fadeIn();
+          parent.find(".error-message").addClass("error-show").text(theme_custom.product_out_of_stock);
           parent.find(".exchange-look-item").addClass("disabled").text("Out of Stock");
         } else {
           parent.find(".error-message").removeClass("error-show").text('').fadeOut();
           parent.find(".exchange-look-item").removeClass("disabled").text("Update");
-          parent.find(".prod-variant-option").val(selectedVar);
+          parent.find(".prod-variant-option").val(selectedVarariantId);
         }
       }
     }
@@ -534,9 +534,9 @@ theme_custom.clickEventInvited = function(){
   })
   $(document).on("click", ".exchange-look-item", function(){
     var button = $(this),
-        targetVarID = $(this).closest(".product-swatch-option").find("select.prod-variant-option").val(),
-        targetVarTitle = $(this).closest(".product-swatch-option").find("select.prod-variant-option option:selected").data("variant-title"),
-        targetVarImg = $(this).closest(".product-swatch-option").find("select.prod-variant-option option:selected").attr("data-variant-image"),
+        targetVarID = $(this).closest(".product-swatch-option").find(".product-variant-option").val(),
+        targetVarTitle = $(this).closest(".product-swatch-option").find(".product-variant-option option:selected").data("variant-title"),
+        targetVarImg = $(this).closest(".product-swatch-option").find(".product-variant-option option:selected").attr("data-variant-image"),
         buttonText = button.data("text"),
         productHandle = button.parent(".product-swatch-option").data("product-handle");
         button.removeClass("disabled"),
@@ -700,7 +700,7 @@ theme_custom.clickEventInvited = function(){
         variantTitle = $(this).closest(".product-swatch-option").find(`.prod-variant-option option[value='${targetVal}']`).attr("data-variant-title"),
         productHandle = $(this).closest(".product-swatch-option").attr("data-product-handle");
     if ($(this).find('option').filter('[data-variant-title="'+variantTitle+'"]').length == 0) {
-      $(this).closest(".product-swatch-option").append("<p class='error-message error-show'>This Variant is out of stock. Please choose another variant.</p>");
+      $(this).closest(".product-swatch-option").append(`<p class='error-message error-show'>${theme_custom.product_out_of_stock}</p>`);
       $(this).closest(".product-swatch-option").find(".exchange-look-item").addClass("disabled");
       $(".return-suit-checkout-button .button").addClass("disabled")
     } else {
@@ -887,20 +887,20 @@ theme_custom.productVariantSeledtUpdate = function(){
       $(this).find('.prod-variant-option option:first').prop('selected', true);
       if(productType == 'jacket' ){
         $(this).find(".exchange-look-item").addClass("disabled").text("Unavailable");
-        $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).text(`Product is not available for this specific combination.`).addClass("error-show").show();
+        $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).addClass("error-show").text(theme_custom.product_unavailable);
         $(`.product-swatch-option[data-type="${productType}"]`).find(`.button.exchange-look-item`).text("Unavailable").addClass("disabled");
       } else if(productType == 'pants' ){
         $(this).find(".exchange-look-item").addClass("disabled").text("Unavailable");
-        $(`.product-variant-wrap[data-product-type="${productType}"]`).find(`.error-message`).text(`Product is not available for this specific combination.`).addClass("error-show").show();
+        $(`.product-variant-wrap[data-product-type="${productType}"]`).find(`.error-message`).addClass("error-show").text(theme_custom.product_unavailable);
         $(`.product-swatch-option[data-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.button.exchange-look-item`).text("Unavailable").addClass("disabled");
       }else if(productType == 'vest' ){
         $(this).find(".exchange-look-item").addClass("disabled").text("Unavailable");
-        $(`.product-variant-wrap[data-product-type="${productType}"]`).find(`.error-message`).text(`Product is not available for this specific combination.`).addClass("error-show").show();
+        $(`.product-variant-wrap[data-product-type="${productType}"]`).find(`.error-message`).addClass("error-show").text(theme_custom.product_unavailable);
         $(`.product-swatch-option[data-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.button.exchange-look-item`).text("Unavailable").addClass("disabled");
       } else {
         $(this).find(".exchange-look-item").addClass("disabled").text("Unavailable");
-        $(this).find(".product-info").append("<p class='error-message error-show'>Product is not available for this specific combination.</p>");
-        $(this).find(`.error-message`).text(`Product is not available for this specific combination.`).addClass("error-show").show();
+        $(this).find(".product-info").append(`<p class='error-message error-show'>${theme_custom.product_unavailable}</p>`);
+        $(this).find(`.error-message`).addClass("error-show").text(theme_custom.product_unavailable);
       }
     } else {
       if(selectedTarget.attr("data-variant-inventory-policy")=="continue"){
@@ -908,25 +908,25 @@ theme_custom.productVariantSeledtUpdate = function(){
         var selectedvarId = $(this).find('.prod-variant-option').val();
         $(this).find(".prod-variant-data").attr("data-var-id",selectedvarId).val(selectedvarId);
       }  else {
-        if(parseInt(selectedTarget.attr("data-variant-inventory")) > 0){
+        if(parseInt(selectedTarget.attr("data-variant-inventory-quantity")) > 0){
           $(this).find('.prod-variant-option option[data-variant-title="'+variantTitle+'"]').prop('selected', true);
           var selectedvarId = $(this).find('.prod-variant-option').val();
           $(this).find(".prod-variant-data").attr("data-var-id",selectedvarId).val(selectedvarId);
         } else {
           $(this).find('.prod-variant-option option:first').prop('selected', true);
           if(productType == 'jacket' ){
-            $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).text(`This Variant is out of stock. Please choose another variant.`).addClass("error-show").show();
+            $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).addClass("error-show").text(theme_custom.product_out_of_stock);
             $(`.product-swatch-option[data-type="${productType}"]`).find(`.button.exchange-look-item`).text("Out Of Stock").addClass("disabled");
           } else  if(productType == 'pants' ){
-            $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).text(`This Variant is out of stock. Please choose another variant.`).addClass("error-show").show();
+            $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).addClass("error-show").text(theme_custom.product_out_of_stock);
             $(`.product-swatch-option[data-type="${productType}"]`).find(`.button.exchange-look-item`).text("Out Of Stock").addClass("disabled");
           }else if(productType == 'vest' ){
-            $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).text(`This Variant is out of stock. Please choose another variant.`).addClass("error-show").show();
+            $(`.product-variant-wrap[data-product-type="${productType}"],.product-swatch-option[data-type="${productType}"]`).find(`.error-message`).addClass("error-show").text(theme_custom.product_out_of_stock);
             $(`.product-swatch-option[data-type="${productType}"]`).find(`.button.exchange-look-item`).text("Out Of Stock").addClass("disabled");
           } else {
             $(this).find(".exchange-look-item").addClass("disabled").text("Out of Stock");
-            $(this).find(".product-info").append("<p class='error-message error-show'>This Variant is out of stock. Please choose another variant.</p>");
-            $(this).find(`.error-message`).text(`Product is not available for this specific combination.`).addClass("error-show").show();
+            $(this).find(".product-info").append(`<p class='error-message error-show'>${theme_custom.product_out_of_stock}</p>`);
+            $(this).find(`.error-message`).addClass("error-show").text(theme_custom.product_unavailable);
           }
         }
       } 

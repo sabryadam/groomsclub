@@ -1,10 +1,10 @@
 {%- assign product = currentProduct -%}
 
-<div class="edit-item-popup {{ orderTypeClass }}" data-product-has-saparate="{{ product_has_saparate }}" data-product-id="{{ product.id }}" data-line-item-id="{{ s_variant.id }}" data-product-handle="{{ product.handle }}" data-product-type="{{ product.type | downcase | handleize }}" {{ item_key }}>
+<div class="edit-item-popup {{ orderTypeClass }}" {% if product_has_saparate  %}data-product-has-saparate="{{ product_has_saparate }}"{% endif  %} data-product-id="{{ product.id }}" data-line-item-id="{{ s_variant.id }}" data-product-handle="{{ product.handle }}" data-product-type="{{ product.type | downcase | handleize }}" {{ item_key }}>
   {% unless template contains 'product' %}<h5>{{ currentProduct.title }}</h5>{% endunless %}
-  <select class="single-option-selector">
+  <select class="product-variant-option">
     {% for variant in currentProduct.variants %}
-      <option data-title="{{ variant.title }}" data-var-title="{{ variant.title }}" data-product-id="{{ product.id }}" value="{{ variant.id }}" data-v-inventory="{{variant.inventory_quantity}}" data-v-price="{{ variant.price }}" data-img="{% if variant.image == blank %}prod-img{% else %}var-img{% endif %}" {% unless variant.metafields.my_fields.color_image_one == blank %} data-variant-image-one="{{ variant.metafields.my_fields.color_image_one | img_url : '1400x'}}"{% endunless %} data-variant-image="{% if variant.image == blank %}{{ productHandle.featured_media.image.src | img_url: 'master' }}{% else %}{{ variant.image.src | img_url : 'master' }}{%endif%}" data-v-id="{{ variant.id }}" data-title="{{ variant.title }}" {% unless variant.available %}disable{% endunless %} data-inventory-policy="{{ variant.inventory_policy }}">
+      <option data-variant-inventory-policy="{{ variant.inventory_policy }}" data-variant-title="{{ variant.title }}" data-product-id="{{ product.id }}" value="{{ variant.id }}" data-variant-inventory-quantity="{{variant.inventory_quantity}}" data-variant-price="{{ variant.price }}" data-img="{% if variant.image == blank %}prod-img{% else %}var-img{% endif %}" {% unless variant.metafields.my_fields.color_image_one == blank %} data-variant-image-one="{{ variant.metafields.my_fields.color_image_one | img_url : '1400x'}}"{% endunless %} data-variant-image="{% if variant.image == blank %}{{ productHandle.featured_media.image.src | img_url: 'master' }}{% else %}{{ variant.image.src | img_url : 'master' }}{%endif%}" data-v-id="{{ variant.id }}" data-title="{{ variant.title }}" {% unless variant.available %}disable{% endunless %} {% if variant.metafields.custom.esimate_to_ship_date != blank %}data-variant-estimate-date="{{ variant.metafields.custom.esimate_to_ship_date }}"{% endif %}>
         {{ variant.title }}
       </option>
     {%- endfor -%}
@@ -26,19 +26,15 @@
   </div>
   {%- if template contains 'cart'  -%}
     <span class="error-message"></span>
-    <div class="updates-button">
-      <button type="button" class="button button--primary disabled">
-        {%- render 'loader-icon' -%}
-        Update
-      </button>
-    </div>
+    <button type="button" class="updates-button button button--primary disabled">
+      {%- render 'loader-icon' -%}
+      <span class="button-label">Update</span>
+    </button>
   {%- else -%}
     <span class="error-message"></span>
-    <div class="pdp-updates-button">
-      <button type="button" class="button button--primary">
-        {%- render 'loader-icon' -%}
-        <span class="button-label">Update</span>
-      </button>
-    </div>
+    <button type="button" class="pdp-updates-button button button--primary disabled">
+      {%- render 'loader-icon' -%}
+      <span class="button-label">Update</span>
+    </button>
   {%- endif -%}
 </div>
