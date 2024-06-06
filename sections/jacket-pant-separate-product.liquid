@@ -158,11 +158,11 @@
       {%- endif -%}
     </div>
     <div class="product__info-wrapper grid__item">
-      <div id="ProductInfo-{{ section.id }}" class="product__info-container product__info-container--sticky when-customer-logged">
+      <div id="ProductInfo-{{ section.id }}" class="product__info-container product__info-container--sticky">
         {%- assign product_form_id = 'product-form-' | append: section.id -%}
-        <select class="single-option-selector hidden">
+        <select class="product-variant-option hidden">
           {% for variant in product.variants %}
-            <option data-variant-image-id="{{ variant.featured_media.id }}" data-var-title="{{ variant.title  }}" value="{{ variant.id }}" data-v-price="{{ variant.price }}" data-img="{% if variant.image == blank %}prod-img{% else %}var-img{% endif %}" {% unless variant.metafields.my_fields.color_image_one == blank %} data-variant-image-one="{{ variant.metafields.my_fields.color_image_one | img_url : '1400x'}}" {% endunless %} data-variant-image="{% if variant.image == blank %}{{ productHandle.featured_media.image.src | img_url: 'master' }}{% else %}{{ variant.image.src | img_url : 'master' }}{%endif%}" data-v-id="{{ variant.id }}" data-title="{{ variant.title }}" {% unless variant.available %}disable{% endunless %} {% if current_var == variant.id %}selected{% endif %}>
+            <option data-variant-image-id="{{ variant.featured_media.id }}" data-variant-title="{{ variant.title  }}" value="{{ variant.id }}" data-variant-price="{{ variant.price }}" data-variant-image="{% if variant.image == blank %}prod-img{% else %}var-img{% endif %}" {% unless variant.metafields.my_fields.color_image_one == blank %} data-variant-image-one="{{ variant.metafields.my_fields.color_image_one | img_url : '1400x'}}" {% endunless %} data-variant-image="{% if variant.image == blank %}{{ productHandle.featured_media.image.src | img_url: 'master' }}{% else %}{{ variant.image.src | img_url : 'master' }}{%endif%}" data-variant-id="{{ variant.id }}" data-title="{{ variant.title }}" {% unless variant.available %}disable{% endunless %} {% if current_var == variant.id %}selected{% endif %} {% if variant.metafields.custom.esimate_to_ship_date != blank %}data-variant-estimate-date="{{ variant.metafields.custom.esimate_to_ship_date }}"{% endif %} data-variant-inventory-policy="{{ variant.inventory_policy }}" data-variant-inventory-quantity="{{ variant.inventory_quantity }}">
               {{ variant.title }}
             </option>
           {%- endfor -%}
@@ -477,32 +477,9 @@
                   </script>
                 </variant-radios>
               {% else %}
-                <div class="produ-var-option hidden">
-                  <select id="Option-{{ section.id }}-{{ forloop.index0 }}"
-                    class="select__select"
-                    name="options[{{ option.name | escape }}]"
-                    form="product-form-{{ section.id }}"
-                  >
-                    {% for variant in product.variants %}          			
-                      <option value="{{ variant.id | escape }}" data-title="{{ variant.title }}">
-                        {{ variant.title }}
-                      </option>
-                    {%- endfor -%}
-                  </select>
-                </div>
-                <div id="suit_fit_finder" class="completefit product_fit_finder" style="display: none;">
-                  <a href="https://www.groomsclub.com/pages/fit-finder">
-                    <div class="fit-finder-info-block">
-                      <h4>Not sure of your size? Try our fit finder</h4>
-                    </div>
-                    <i class="fas fa-chevron-right"></i>
-                  </a>
-                </div>
                 <div id="fit_finder_data_auto" style="display: none;">
                   <div class="ff-top-box">
-                    <h3>Recommended Size</h3>
-                    {%- comment -%}<span>Calculated based on your fit responses.</span>
-                    <a href="https://www.groomsclub.com/pages/fit-finder">Retry fit finder</a>{%- endcomment -%}
+                    <h3>Recommended Size</h3>                    
                   </div>
                   <div id="ff-data-box"></div>
                 </div>
@@ -582,11 +559,11 @@
               </div>
             </noscript>
           {%- when 'buy_buttons' -%}
+            {% render 'expected-ship-date-wrapper' %}
             <product-form class="product-form">
               {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                <!-- when customer is not logged in -->
-                <div class="product-form__buttons display-logout">                  
+                <div class="product-form__buttons">                  
                   <div class="customize-cart-wrapper cutommain-pdp{% unless productType == 'shirt' %} justify-start{% endunless %}">
                     <button type="button" name="add" class="product-form__submit button button--full-width button--primary {% if product.metafields.custom.product_page_upsell != blank %}up-sell-popup{% endif %}">
                       {%- if products.product.sold_out -%}
@@ -602,145 +579,8 @@
                 </div>
               {%- endform -%}
             </product-form>
-            {%- if product.metafields.custom.cross_sell_product_jacket_or_pant != blank  -%}
-            <div class="frequently-bought-together">
-              <h4 class="heading">
-                Frequently bought together
-              </h4>
-              <div class="frequently-bought-together-inner-wrapper">
-                {% assign current_product = product %}
-                <div class="parent-product product-type-{{ current_product.type | downcase }}">
-                  <div class="upsell-product-wrap" data-product-handle="{{ current_product.handle }}" data-product-type="{{ current_product.type | downcase }}">
-                    <div class="product-block-wrap">
-                      <div class="product-image">
-                        {%- if current_product.selected_or_first_available_variant.image != blank -%}
-                          <img srcset="{{ current_product.selected_or_first_available_variant.image.src | img_url: 'medium' }} 1x, {{ current_product.selected_or_first_available_variant.image.src | img_url: 'medium', scale: 2 }} 2x"
-                            src="{{ current_product.selected_or_first_available_variant.image.src | img_url: image_size }}"
-                            loading="lazy"
-                            class="header__heading-logo var-img"
-                            width="{{ current_product.selected_or_first_available_variant.image.src.width }}"
-                            height="{{ current_product.selected_or_first_available_variant.image.src.height }}"
-                            alt="{{ current_product.title }}"
-                          >
-                        {%- else -%}
-                          <img srcset="{{ current_product.featured_media.image.src | img_url: 'medium' }} 1x, {{ current_product.featured_media.image.src | img_url: 'medium', scale: 2 }} 2x"
-                            src="{{ current_product.featured_media.image.src | img_url: image_size }}"
-                            loading="lazy"
-                            class="header__heading-logo prod-img"
-                            width="{{ current_product.featured_media.image.src.width }}"
-                            height="{{ current_product.featured_media.image.src.height }}"
-                            alt="{{ current_product.title }}"
-                          >
-                        {%- endif -%}
-                      </div>
-                      <div class="product-info">
-                        <h4 class="product-title">{{ current_product.title }}</h4>
-                        <div class="variant-wrap">
-                          <span class="variant-title variant-info-wrap" data-product-type="{{ current_product.type }}" data-product-handle="{{ current_product.handle }}">
-                            {% for option in current_product.options_with_values  %}
-                              {% assign outer_forloop = forloop %}
-                              {%- assign variantOptions =  current_product.selected_or_first_available_variant.title | split : '/' -%}
-                              {%- for variantOptionsTitle in variantOptions -%}
-                                {%- if outer_forloop.index == forloop.index -%}
-                                  <span class="option-name option-{{ forloop.index }}" data-option-title="{{ option.name }}">
-                                    {{- variantOptionsTitle | strip -}}
-                                    {%- if current_product.type contains 'Pants' and forloop.first  -%}
-                                      &nbsp; x
-                                    {%- endif -%}
-                                  </span>
-                                {%- endif -%}
-                              {% endfor %}
-                              {%- endfor -%}  
-                          </span>
-                          <span class="edit-item-button" data-button-label="edit-item"> - Edit Size</span>
-                          <span class="edit-item-button mobile-show" data-button-label="edit-item">Edit Size</span>
-                        </div>
-                        <div class="product-price">
-                          <span class="money" data-price="{{ current_product.selected_or_first_available_variant.price }}">
-                            {{ current_product.selected_or_first_available_variant.price | money }}
-                          </span>
-                        </div>   
-                        <span class="error-message parent-error-msg">Please select size</span>       
-                      </div>
-                    </div>
-                    {%- render 'edit-product-popup', productHandle : current_product, currentProduct: current_product, s_variant: current_product.selected_or_first_available_variant -%}
-                  </div>
-                  <span class="plus-sign">+</span>
-                </div>
-                <div class="upsell-product-wrapper">
-                  {% assign upsell_product_array = product.metafields.custom.cross_sell_product_jacket_or_pant | split : ',' %}
-                  {%- for upsell_product in upsell_product_array -%}
-                    {% assign productHandle = all_products[upsell_product] %}
-                    <div class="upsell-product-wrap" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
-                      <div class="product-block-wrap">
-                        <div class="product-image">
-                          {%- if productHandle.selected_or_first_available_variant.image != blank -%}
-                            <img srcset="{{ productHandle.selected_or_first_available_variant.image.src | img_url: 'medium' }} 1x, {{ productHandle.selected_or_first_available_variant.image.src | img_url: 'medium', scale: 2 }} 2x"
-                              src="{{ productHandle.selected_or_first_available_variant.image.src | img_url: image_size }}"
-                              loading="lazy"
-                              class="header__heading-logo var-img"
-                              width="{{ productHandle.selected_or_first_available_variant.image.src.width }}"
-                              height="{{ productHandle.selected_or_first_available_variant.image.src.height }}"
-                              alt="{{ productHandle.title }}"
-                            >
-                          {%- else -%}
-                            <img srcset="{{ productHandle.featured_media.image.src | img_url: 'medium' }} 1x, {{ productHandle.featured_media.image.src | img_url: 'medium', scale: 2 }} 2x"
-                              src="{{ productHandle.featured_media.image.src | img_url: image_size }}"
-                              loading="lazy"
-                              class="header__heading-logo prod-img"
-                              width="{{ productHandle.featured_media.image.src.width }}"
-                              height="{{ productHandle.featured_media.image.src.height }}"
-                              alt="{{ productHandle.title }}"
-                            >
-                          {%- endif -%}
-                          <div class="checkbox"></div>
-                        </div>
-                        <div class="product-info">
-                          <h4 class="product-title">{{ productHandle.title }}</h4>
-                          <div class="variant-wrap hidden">
-                            <span class="variant-title variant-info-wrap" data-product-handle="{{ productHandle.handle }}">
-                              {% for option in productHandle.options_with_values  %}
-                                {% assign outer_forloop = forloop %}
-                                {%- assign variantOptions =  productHandle.selected_or_first_available_variant.title | split : '/' -%}
-                                {%- for variantOptionsTitle in variantOptions -%}
-                                  {%- if outer_forloop.index == forloop.index -%}
-                                    <span class="option-name option-{{ forloop.index }}" data-option-title="{{ option.name }}">
-                                      {{- variantOptionsTitle | strip -}}
-                                    </span>
-                                    {%- if productHandle.type contains 'Pants' and forloop.first  -%}
-                                      &nbsp; x
-                                    {%- endif -%}
-                                  {%- endif -%}
-                                {%- endfor -%}
-                              {% endfor %}
-                            </span>
-                            <span class="edit-item-button" data-button-label="edit-item"> - Edit Size</span>
-                            <span class="edit-item-button mobile-show" data-button-label="edit-item">Edit Size</span>
-                          </div>
-                          <span class="selecte-size-button" data-size-selected="select-size">Select Size</span>
-                          <div class="product-price">
-                            <span class="money" data-price="{{ productHandle.selected_or_first_available_variant.price }}">
-                              {{ productHandle.selected_or_first_available_variant.price | money }}
-                            </span>
-                          </div>                               
-                          <span class="error-message parent-error-msg">Please select size</span>  
-                        </div>
-                      </div>
-                      {%- render 'edit-product-popup', productHandle : productHandle, currentProduct: productHandle, s_variant: productHandle.selected_or_first_available_variant -%}
-                    </div>
-                  {%- endfor -%}
-                </div>
-              </div>
-              <div class="footer-wrap">
-                <div class="price-wrap">
-                  <span>Total :</span><span class="price" data-price="{{ current_product.price }}">{{ current_product.price | money }}</span>
-                </div>
-                <button type="button" name="add" class="fbt-add-to-cart button button--full-width button--primary disabled">
-                  <span class="btn-title" data-text="Adding..." data-success-msg="Added item into cart">Add selected item(s)</span>
-                </button>
-              </div>
-            </div>
-            {%- endif -%}
+            <!-- frequently-bought-together -->
+            {%- render 'frequently-bought-together' -%}
 
             {{ 'component-pickup-availability.css' | asset_url | stylesheet_tag }}
 

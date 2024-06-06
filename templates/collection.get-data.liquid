@@ -17,7 +17,7 @@
           {%- endif -%}
           <div class="product-data-card-wrap product-data-card" data-product-handle="{{ suitProdHandle }}" data-product-type="{{ looksProductType }}">
             <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ suitProdu.id }}">
-            <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ suitProdu.selected_or_first_available_variant.id }}">
+            <input type="hidden" name="product-variant-id" class="product-variant-id" value="{{ suitProdu.selected_or_first_available_variant.id }}">
             <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ suitProdHandle}}">
             <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ suitProdu.selected_or_first_available_variant.id }}">
             <input type="hidden" name="looks-product-main-image" class="looks-product-main-image" value="{{ product.featured_image | img_url: 'master' }}">
@@ -30,7 +30,7 @@
             {%- unless productHandle == blank -%}
               <div class="product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
                 <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
-                <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ productHandle.selected_or_first_available_variant.id }}">
+                <input type="hidden" name="product-variant-id" class="product-variant-id" value="{{ productHandle.selected_or_first_available_variant.id }}">
                 <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
                 <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ productHandle.selected_or_first_available_variant.id }}">
               </div>
@@ -53,7 +53,7 @@
                   {%- assign productHandle = all_products[accessoriesProdHandle] -%}
                   <div class="product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
                     <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
-                    <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ accessoriesProdVarId }}">
+                    <input type="hidden" name="product-variant-id" class="product-variant-id" value="{{ accessoriesProdVarId }}">
                     <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
                     <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ accessoriesProdVarId }}">
                   </div>

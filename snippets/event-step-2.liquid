@@ -8,7 +8,7 @@
       <div class="box-wrap"> 
         {%- for block in section.blocks -%}
           {%- if block.type == 'event_look' -%}
-            <div class="Squer-radio-button-inner box-inner-wrap popup-button {% if block.settings.create_look_title == 'Suit Customizer' %}customise-look-button-for-add-look-into-event{% endif %}" data-href="/pages/customize-your-look?light-grey-suit=41097419653306&light-grey-jacket=41097359065274&light-grey-pants-1=41097369813178&light-grey-vest-1=41097382527162" data-title="{{ block.settings.create_look_title | downcase | handleize }}">
+            <div class="Squer-radio-button-inner box-inner-wrap popup-button {% if block.settings.create_look_title == 'Suit Customizer' %}customise-look-button-for-add-look-into-event{% endif %}" data-href="/pages/customize-your-look?light-grey-suit=41097419653306&light-grey-jacket=41097359065274&light-grey-pants-1=41097369813178&light-grey-vest-1=41097382527162" data-swatch-title="{{ block.settings.create_look_title | downcase | handleize }}">
               <div class="checkmark">
                 {% if block.settings.create_look_icon != blank %}
                   <div class="event-type-icon icon-wrap">

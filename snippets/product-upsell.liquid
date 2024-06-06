@@ -19,9 +19,9 @@
             <p class="heading">{{ upsell_product_data.title }} <span class="product-price">{{ upsell_product_data.selected_or_first_available_variant.price | money }}</span></p>
             <div class="swatch-wrapper-options">
               <div class="product-custom-swatch">
-                <select class="single-option-selector hidden">
+                <select class="product-variant-option hidden">
                   {% for variant in upsell_product_data.variants %}
-                    <option data-variant-title="{{ variant.title }}" data-variant-inventory-qty="{{ variant.inventory_quantity }}" data-variant-inventory-policy="{{ variant.inventory_policy }}"  value="{{ variant.id }}" data-variant-price="{{ variant.price }}" data-variant-image="{% if variant.image == blank %}{{ productHandle.featured_media.image.src | img_url: 'master' }}{% else %}{{ variant.image.src | img_url : 'master' }}{%endif%}" data-variant-id="{{ variant.id }}" data-variant-title="{{ variant.title }}" {% unless variant.available %}disable{% endunless %} {% if current_var == variant.id %}selected{% endif %}>
+                    <option data-variant-title="{{ variant.title }}" data-variant-inventory-quantity="{{ variant.inventory_quantity }}" data-variant-inventory-policy="{{ variant.inventory_policy }}"  value="{{ variant.id }}" data-variant-price="{{ variant.price }}" data-variant-image="{% if variant.image == blank %}{{ productHandle.featured_media.image.src | img_url: 'master' }}{% else %}{{ variant.image.src | img_url : 'master' }}{%endif%}" data-variant-id="{{ variant.id }}" data-variant-title="{{ variant.title }}" {% unless variant.available %}disable{% endunless %} {% if current_var == variant.id %}selected{% endif %} {% if variant.metafields.custom.esimate_to_ship_date != blank %}data-variant-estimate-date="{{ variant.metafields.custom.esimate_to_ship_date }}"{% endif %}>
                       {{ variant.title }}
                     </option>
                   {%- endfor -%}

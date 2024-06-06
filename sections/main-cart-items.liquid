@@ -14,6 +14,7 @@
   {%- assign orderTypeClass = 'event-order' -%}
 {%- endif -%}
 
+{% assign current_date = "now" | date: "%m/%d/%Y" %}
 {%- assign fit_finder_data_enable = false -%}
 {% for cart_item in cart.items  %}
   {%- if cart_item.product.type contains 'Jacket' or cart_item.product.type contains 'Pants' or cart_item.product.type contains 'Vest'  -%} 
@@ -114,19 +115,29 @@
                             {% if subItemProductType == 'pants'  %}
                               {%- assign pantsItemData = pantsItem -%}
                               {%- capture pantOption -%}
-                              <div class="suit-product-info">
-                                <span class="title">
-                                  Pants - 
-                                </span>
-                                <span class="option-wrap">
-                                  {%- for option in pantsItem.options_with_values -%}
-                                    <div class="product-option">
-                                      <span>{{ option.name }}: </span>
-                                      <span>{{ option.value }}</span>
+                                <div class="pant-variant-info">
+                                  <div class="suit-product-info">
+                                    <span class="title">
+                                      Pants - 
+                                    </span>
+                                    <span class="option-wrap">
+                                      {%- for option in pantsItem.options_with_values -%}
+                                        <div class="product-option">
+                                          <span>{{ option.name }}: </span>
+                                          <span>{{ option.value }}</span>
+                                        </div>
+                                      {%- endfor -%}
+                                    </span>
+                                  </div>
+                                  {%- if subItemProductType.variant.inventory_policy == 'continue' and subItemProductType.variant.inventory_quantity <= 0 and current_date <= item.variant.metafields.custom.esimate_to_ship_date  -%}
+                                    <div class="cart-estimated-variant-error-block-wrap" style="margin:0;margin-bottom:8px">
+                                      <span class="clock-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="512" height="512"><g id="_01_align_center" data-name="01 align center"><path d="M12,24A12,12,0,1,1,24,12,12.013,12.013,0,0,1,12,24ZM12,2A10,10,0,1,0,22,12,10.011,10.011,0,0,0,12,2Z"/><polygon points="7.947 15.598 6.886 13.902 11 11.325 11 6 13 6 13 12.433 7.947 15.598"/></g></svg>
+                                      </span> 
+                                      <span style="line-height: normal;">Estimated ship date: {{ item.variant.metafields.custom.esimate_to_ship_date }}</span>
                                     </div>
-                                  {%- endfor -%}
-                                </span>
-                              </div>
+                                  {%- endif -%}
+                                </div>
                               {%- endcapture -%}
                             {%- endif -%}
                           {%- endif -%}
@@ -195,11 +206,16 @@
                                     </div>
                                   {%- endfor -%}
                                 </span>
-                              {%- comment -%}{%- if lineItemType == 'jacket' and currentProduct.variants.size > 1 %} 
-                                <div class="edit-item-title" >
-                                  Edit Item
-                                </div>
-                              {%- endif -%}{%- endcomment -%}
+                              {%- if lineItemType == 'jacket' -%}
+                                {%- if item.variant.inventory_policy == 'continue' and item.variant.inventory_quantity <= 0  -%}
+                                  <div class="cart-estimated-variant-error-block-wrap" style="margin:0;margin-bottom:8px">
+                                    <span class="clock-icon">
+                                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="512" height="512"><g id="_01_align_center" data-name="01 align center"><path d="M12,24A12,12,0,1,1,24,12,12.013,12.013,0,0,1,12,24ZM12,2A10,10,0,1,0,22,12,10.011,10.011,0,0,0,12,2Z"/><polygon points="7.947 15.598 6.886 13.902 11 11.325 11 6 13 6 13 12.433 7.947 15.598"/></g></svg>
+                                    </span> 
+                                    <span style="line-height: normal;">Estimated ship date: {{ item.variant.metafields.custom.esimate_to_ship_date }}</span>
+                                  </div>
+                                {%- endif -%}
+                              {%- endif -%}
                               </div>
                             {%- endif -%}
                             {% unless saparate_product %}
@@ -279,6 +295,16 @@
                               {%- endunless -%}
                               {% endif  %}
                             </div>
+                            {%- unless lineItemType == 'jacket' -%}
+                              {%- if item.variant.inventory_policy == 'continue' and item.variant.inventory_quantity <= 0 and current_date <= item.variant.metafields.custom.esimate_to_ship_date  -%}
+                                <div class="cart-estimated-variant-error-block-wrap">
+                                  <span class="clock-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="512" height="512"><g id="_01_align_center" data-name="01 align center"><path d="M12,24A12,12,0,1,1,24,12,12.013,12.013,0,0,1,12,24ZM12,2A10,10,0,1,0,22,12,10.011,10.011,0,0,0,12,2Z"/><polygon points="7.947 15.598 6.886 13.902 11 11.325 11 6 13 6 13 12.433 7.947 15.598"/></g></svg>
+                                  </span> 
+                                  <span style="line-height: normal;">Estimated ship date: {{ item.variant.metafields.custom.esimate_to_ship_date }}</span>
+                                </div>
+                              {%- endif -%}
+                            {%- endunless -%}
                           </div>
 
                           <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</p>

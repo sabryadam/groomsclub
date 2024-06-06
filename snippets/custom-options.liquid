@@ -81,49 +81,37 @@
             <div class="header">{{ swatch }} : <span class="option-value">{{ s_value }}</span></div>
           {%- endif -%}
         {%- endunless -%}
-      {% if template contains 'cart' %}
-              {% for variant in product.variants %}
-                {% assign value = variant.options[option_index] %}
-                {% unless values contains value %}
-                  {% assign values = values | join: ',' %}
-                  {% assign values = values | append: ',' | append: value %} 
-                  {% assign values = values | split: ',' %}
-                  <div data-value="{{ value | handleize }}" class="swatch-product-wrapper swatch-element swatch-option-{{ option_index }} {% if is_color %}color {% endif %}{{ value | handle }}">
-                    <input id="{% if template contains 'cart' %}{{currentItemTitle}}-{{ product.handle }}-option-{{ option_index }}-{{variantId}}-{{ value | handle }}{% else %}{{ product.handle }}{{ option_index }}-{{ value | handle }}{% endif %}" type="radio" data-name="{{ optionName }}" name="{% if template contains 'cart' %}{{product.handle}}-{{ variantId }}-option-{{ option_index }}{% else %}{{product.handle}}-option-{{ option_index }}{%- endif -%}" value="{{ value | escape }}" {{ selected-value }} data-value="{{ value | downcase }}" {% if s_value == value %} checked="checked"{% endif %}  data-var-id="{{ variant.id }}" />
-                    <label data-option-value="{{ value }}" for="{% if template contains 'cart' %}{{currentItemTitle}}-{{ product.handle }}-option-{{ option_index }}-{{variantId}}-{{ value | handle }}{% else %}{{ product.handle }}{{ option_index }}-{{ value | handle }}{% endif %}">
-                      {{ value }}
-                    </label>
-                  </div>
-                {% endunless %}
-              {% endfor %}
+        {% if template contains 'cart' %}
+          {% for variant in product.variants %}
+            {% assign value = variant.options[option_index] %}
+            {% unless values contains value %}
+              {% assign values = values | join: ',' %}
+              {% assign values = values | append: ',' | append: value %} 
+              {% assign values = values | split: ',' %}
+              <div data-value="{{ value | handleize }}" class="swatch-product-wrapper swatch-element swatch-option-{{ option_index }} {% if is_color %}color {% endif %}{{ value | handle }}">
+                <input id="{% if template contains 'cart' %}{{currentItemTitle}}-{{ product.handle }}-option-{{ option_index }}-{{variantId}}-{{ value | handle }}{% else %}{{ product.handle }}{{ option_index }}-{{ value | handle }}{% endif %}" type="radio" data-name="{{ optionName }}" name="{% if template contains 'cart' %}{{product.handle}}-{{ variantId }}-option-{{ option_index }}{% else %}{{product.handle}}-option-{{ option_index }}{%- endif -%}" value="{{ value | escape }}" {{ selected-value }} data-value="{{ value | downcase }}" {% if s_value == value %} checked="checked"{% endif %}  data-var-id="{{ variant.id }}" />
+                <label data-option-value="{{ value }}" for="{% if template contains 'cart' %}{{currentItemTitle}}-{{ product.handle }}-option-{{ option_index }}-{{variantId}}-{{ value | handle }}{% else %}{{ product.handle }}{{ option_index }}-{{ value | handle }}{% endif %}">
+                  {{ value }}
+                </label>
+              </div>
+            {% endunless %}
+          {% endfor %}
         {% else %}
-        
-              <select id="exampleFormControlSelect2" class="var-select-custom" data-name="{{ downcased_option }}">
-                {%- if swatch == 'Style' -%}
-                  <option value="">Choose Length</option>
-                {% else %}
-                  <option value="">Choose {{ swatch }}</option>
-                {% endif %}
-                {% for value in option.values %}
-                  <option value="{{ value }}">{{ value }}</option>
-                {% endfor %}
-              </select>
-              {% render 'icon-caret' %}
-              {% for variant in product.variants %}
-                {% assign value = variant.options[option_index] %}
-                {% unless values contains value %}
-                  {% assign values = values | join: ',' %}
-                  {% assign values = values | append: ',' | append: value %} 
-                  {% assign values = values | split: ',' %}
-                  <div data-value="{{ value | handleize }}" class="swatch-product-wrapper swatch-element swatch-option-{{ option_index }} {% if is_color %}color {% endif %}{{ value | handle }}">
-                    <input id="{% if template contains 'cart' %}{{currentItemTitle}}-{{ product.handle }}-option-{{ option_index }}-{{variantId}}-{{ value | handle }}{% else %}{{ product.handle }}{{ option_index }}-{{ value | handle }}{% endif %}" type="radio" data-name="{{ optionName }}" name="{% if template contains 'cart' %}{{product.handle}}-{{ variantId }}-option-{{ option_index }}{% else %}{{product.handle}}-option-{{ option_index }}{%- endif -%}" value="{{ value | escape }}" {{ selected-value }} data-value="{{ value | downcase }}" {% if s_value == value %} checked="checked"{% endif %}  data-var-id="{{ variant.id }}" />
-                    <label data-option-value="{{ value }}" for="{% if template contains 'cart' %}{{currentItemTitle}}-{{ product.handle }}-option-{{ option_index }}-{{variantId}}-{{ value | handle }}{% else %}{{ product.handle }}{{ option_index }}-{{ value | handle }}{% endif %}">
-                      {{ value }}
-                    </label>
-                  </div>
-                {% endunless %}
-              {% endfor %}
-          {% endif %}
+          {% for variant in product.variants %}
+            {% assign value = variant.options[option_index] %}
+            {% unless values contains value %}
+              {% assign values = values | join: ',' %}
+              {% assign values = values | append: ',' | append: value %} 
+              {% assign values = values | split: ',' %}
+              <div data-value="{{ value | handleize }}" class="swatch-product-wrapper swatch-element swatch-option-{{ option_index }} {% if is_color %}color {% endif %}{{ value | handle }}">
+                <input id="{% if template contains 'cart' %}{{currentItemTitle}}-{{ product.handle }}-option-{{ option_index }}-{{variantId}}-{{ value | handle }}{% else %}{{ product.handle }}{{ option_index }}-{{ value | handle }}{% endif %}" type="radio" data-name="{{ optionName }}" name="{% if template contains 'cart' %}{{product.handle}}-{{ variantId }}-option-{{ option_index }}{% else %}{{product.handle}}-option-{{ option_index }}{%- endif -%}" value="{{ value | escape }}" {{ selected-value }} data-value="{{ value | downcase }}" {% if s_value == value %} checked="checked"{% endif %}  data-var-id="{{ variant.id }}" />
+                <label data-option-value="{{ value }}" for="{% if template contains 'cart' %}{{currentItemTitle}}-{{ product.handle }}-option-{{ option_index }}-{{variantId}}-{{ value | handle }}{% else %}{{ product.handle }}{{ option_index }}-{{ value | handle }}{% endif %}">
+                  {{ value }}
+                </label>
+              </div>
+            {% endunless %}
+          {% endfor %}
+        {% endif %}
       </div>
     {%- endif -%}
   {% endunless %}

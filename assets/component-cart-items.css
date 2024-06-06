@@ -497,3 +497,9 @@ cart-remove-button .button {
   .product-like-item-details {padding-left: 15px; padding-right: 0;}
 
 }
+@media(min-width : 991px) and (max-width : 1024px) {
+  .cart-item__totals,
+  .cart-item__quantity{
+    width: 100px;
+  }
+}

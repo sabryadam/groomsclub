@@ -709,7 +709,7 @@ theme_custom.fitFinderClickEvent = function () {
       var resultTextWrapper = `<div class="my-size-wrapper">
                                 <p class="text_center sub-title">Based on our fit finder calculations, we recommend the following sizes.</p> 
                                 <div class="my-size-block-main" style=""><input class="size_customer_id" type="hidden" value="15">
-                                  <div class="block1 my-size-block jacket-type">
+                                  <div class="my-size-block jacket-type">
                                     <div class="block-wrap">
                                       <div class="img-section">
                                         <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/jacket-vest.png" alt="Jacket Size">
@@ -723,7 +723,7 @@ theme_custom.fitFinderClickEvent = function () {
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="block1 my-size-block">
+                                  <div class="my-size-block">
                                     <div class="block-wrap">
                                       <div class="img-section">
                                         <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/account-2.png" alt="Pants Size" />
@@ -737,7 +737,7 @@ theme_custom.fitFinderClickEvent = function () {
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="block1 my-size-block">
+                                  <div class="my-size-block">
                                     <div class="block-wrap">
                                       <div class="img-section">
                                         <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/shirt-display-img.png?v=1641880242" alt="Shirt Image" />
@@ -751,7 +751,7 @@ theme_custom.fitFinderClickEvent = function () {
                                       </div>
                                     </div>
                                   </div>
-                                  <div class="block1 my-size-block">
+                                  <div class="my-size-block">
                                     <div class="block-wrap">
                                       <div class="img-section">
                                         <img src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/shoes-display-img.png?v=1641880242" alt="Shoes Size" / >

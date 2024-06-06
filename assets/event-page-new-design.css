@@ -515,7 +515,7 @@
   border: 1px solid #000;
 }
 .event-page-new-design-wrapper .page-width-inner-wrapper .event-look-inner-wrapper{
-  display: block;
+  display: flex;
   /* flex-wrap: wrap;
   justify-content: space-between; */
 }
@@ -595,7 +595,7 @@
 .event-page-new-design-wrapper .page-width-inner-wrapper  .look-card-block img.look-img  {
   min-height: 450px;
   height: 450px;  
-  object-fit: cover;
+  object-fit: contain;
 }
 @media(max-width : 767px){
    .event-page-new-design-wrapper .page-width-inner-wrapper  .look-card-block img.look-img  {
@@ -1661,7 +1661,7 @@ html .template-page-create-event .ui-button.ui-state-disabled:active{
   padding-bottom: 15px;
 }
 .assign-look-user-wrap{
-  max-height: 1755px;
+  max-height: 265px;
   overflow: auto;
   margin-top: 15px;
   /* padding-right: 5px; */

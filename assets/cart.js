@@ -204,21 +204,12 @@ $(document).on('click', '.updates-button button', function(){
   if(parent.find('[data-option-index="2"] input:checked').length > 0){
     variantTitle = variantTitle + ' / ' + parent.find('[data-option-index="2"] input:checked').val();
   }
-  updateVid = parent.find('.single-option-selector option[data-title="'+variantTitle+'"]').attr('value');
-  updatedTitle = parent.find('.single-option-selector option[data-title="'+variantTitle+'"]').attr('data-var-title');
+  updateVid = parent.find(`.product-variant-option option[data-variant-title="${variantTitle}"]`).attr('value');
+  updatedTitle = parent.find(`.product-variant-option option[data-variant-title="${variantTitle}"]`).attr('data-variant-title');
   $(this).find(".loading-overlay").removeClass("hidden");
-  var productVariantTitle = [];
-  var selectOptionVar = $(this).closest(".edit-item-popup").find('.single-option-selector option');
-  selectOptionVar.each(function(){
-    productVariantTitle.push($(this).attr("data-var-title"));    
-  });
-  if($.inArray(variantTitle,productVariantTitle) == -1){
+  if(!updateVid){
     $(this).find(".loading-overlay").addClass("hidden");
-    $(this).closest(".edit-item-popup").find(".error-message").text(theme_custom.productNotFoundError).show();
-    // setTimeout(() => {
-    //   $(".error-message").text('').hide();
-    //   $(".fancybox-button").click();
-    // }, 3000);
+    $(this).closest(".edit-item-popup").find(".error-message").addClass("error-show").text(theme_custom.product_unavailable);
   } else {
     jQuery.ajax({
       type: 'POST',

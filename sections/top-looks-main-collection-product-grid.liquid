@@ -604,7 +604,6 @@
       parent.find(".facets__list .list-menu__item").each(function (index, value) {
         filterWrapWidth += $(value).width();
       });
-      // console.log("filterWrapWidth",filterWrapWidth,"totalScrollSize",totalScrollSize);
       if (totalScrollSize >= filterWrapWidth) {
         filterWrapRightArrow.addClass("hidden");
       }

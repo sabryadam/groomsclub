@@ -37,9 +37,6 @@ document.addEventListener("DOMContentLoaded", function() {
           }
         ]
       });
-      // $(`.product-main-image-loader-wrapper .product-main-image-loader, .product-thumbnail .product-thumb-image-loader`).hide();
-      // $(`.product-main-image-loader-wrapper .product-main-image, .product-thumbnail .product-thumb-image`).show();
-
       $('.product-thumb-image').on('init', function (event, slick) {
         const product_thumb_image_slider = this;
         setTimeout(function() {
@@ -62,9 +59,6 @@ document.addEventListener("DOMContentLoaded", function() {
         centerMode: true,
         centerPadding: '30px'
       });
-      // $(`.product-main-image-loader-wrapper .product-main-image-loader, .product-thumbnail .product-thumb-image-loader`).hide();
-      // $(`.product-main-image-loader-wrapper .product-main-image, .product-thumbnail .product-thumb-image`).show();
-      // On before slide change
       $('.product-main-image').on('afterChange', function(event, slick, currentSlide){
         var slideSlideItem = slick.$slides[currentSlide];
         if($(slideSlideItem).hasClass("product-video")){
@@ -83,8 +77,8 @@ document.addEventListener("DOMContentLoaded", function() {
         });
       }
       if($(".product-type").val() != 'Suit'){
-        var selectVariant = $(".single-option-selector").val(),
-            getImageId = $(`.single-option-selector option[data-v-id='${selectVariant}']`).attr("data-variant-image-id"),
+        var selectVariant = $(".product-variant-option").val(),
+            getImageId = $(`.product-variant-option option[data-variant-id='${selectVariant}']`).attr("data-variant-image-id"),
             getImageIndex = $(`.product__media-item[data-image-id='${getImageId}']`).attr("data-slick-index");
         $('.product-main-image').slick('slickGoTo',getImageIndex);
       }

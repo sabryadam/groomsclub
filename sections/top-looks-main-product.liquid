@@ -151,7 +151,7 @@
     margin-top: 8px;
   }
   @media screen and (max-width: 767px) {
-    div.when-customer-logged .favorite-event-cart-wrapper .product-form__submit {
+    .favorite-event-cart-wrapper .product-form__submit {
       margin: 10px 0 0;
     }
     div.product-data-card.product-data-card-wrap .product-block-wrap {
@@ -280,7 +280,7 @@
       {%- endif -%}
     </div>
     <div class="product__info-wrapper grid__item">
-      <div id="ProductInfo-{{ section.id }}" class="product__info-container{% if section.settings.enable_sticky_info %} product__info-container--sticky{% endif %} when-customer-logged">
+      <div id="ProductInfo-{{ section.id }}" class="product__info-container{% if section.settings.enable_sticky_info %} product__info-container--sticky{% endif %}">
         {%- assign product_form_id = 'product-form-' | append: section.id -%}
         <input type="hidden" name="product-first-image" id="product-first-image" value="{{ product.images[0] | product_img_url: 'master' }}">
         <input type="hidden" name="product_url" id="product-url" value="{{ shop.url }}{{ product.url }}" />
@@ -642,7 +642,7 @@
                     {%- endif -%}
                     <div class="product-data-card-wrap" data-product-handle="{{ suitProdHandle }}" data-product-type="{{ looksProductType }}">
                       <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ suitProdu.id }}">
-                      <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ suitProdu.selected_or_first_available_variant.id }}">
+                      <input type="hidden" name="product-variant-id" class="product-variant-id" value="{{ suitProdu.selected_or_first_available_variant.id }}">
                       <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ suitProdHandle}}">
                       <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ suitProdu.selected_or_first_available_variant.id }}">
                       <input type="hidden" name="looks-product-main-image" class="looks-product-main-image" value="{{ product.featured_image | img_url: 'master' }}">
@@ -715,6 +715,7 @@
                                     <span class="edit-item-button btn select" data-button-label='select-size'> <span style="color:var(--color-gray-text);">-</span> Select Sizes</span>
                                   </div>
                                   <span class="error-message"></span>
+                                  <div class="estimated-variant-error-block-wrap"><span class="information-icon">!</span> <span class="estimated-date"></span></div>
                                 </div>
                               {%- endif -%}
                             {%- endunless -%}
@@ -742,6 +743,7 @@
                               <span class="edit-item-button btn select"> <span style="color:var(--color-gray-text);">-</span> Select Sizes</span>
                             </div>
                             <span class="error-message"></span>
+                            <div class="estimated-variant-error-block-wrap"><span class="information-icon">!</span> <span class="estimated-date"></span></div>
                           </div>
                         </div>
                         {%- endcapture -%}
@@ -800,11 +802,6 @@
                         </div> 
                         {%- assign jacket_pant_data = product.metafields.custom_look.products-0 -%}
                         {%- assign jacket_pant_data_arr = jacket_pant_data | split : ',' -%}
-                        <div class="product-block-wrap-suit-wrappertwo product-block-item">
-                          <div class="row">
-                            <h4>SELECT SIZES:</h4>
-                          </div>
-                        </div>
                       {% endcapture %}
                       {%- capture customLookProductsInfo -%}
                         {{ productMerge }}
@@ -820,7 +817,7 @@
                               {% unless productHandle == blank %}
                                 <div class="product-data-card product-data-card-wrap" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
                                   <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
-                                  <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ accessoriesProdVarId }}" data-inventory-policy="{{ productHandle.selected_or_first_available_variant.inventory_policy }}">
+                                  <input type="hidden" name="product-variant-id" class="product-variant-id" value="{{ accessoriesProdVarId }}" data-variant-inventory-policy="{{ productHandle.selected_or_first_available_variant.inventory_policy }}" data-variant-inventory-quantity="{{ productHandle.selected_or_first_available_variant.inventory_quantity }}">
                                   <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
                                   <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ accessoriesProdVarId }}">
                                   <div class="product-block-wrap">
@@ -893,8 +890,8 @@
                                         <span class="money" data-price="{{ productHandle.selected_or_first_available_variant.price}}">
                                           {{ productHandle.selected_or_first_available_variant.price | money }}
                                         </span>
-                                      </div>    
-                                      {%- comment -%}<span class="error-message"></span>{%- endcomment -%}    
+                                      </div>
+                                      <div class="estimated-variant-error-block-wrap"><span class="information-icon">!</span> <span class="estimated-date"></span></div>
                                     </div>
                                     <div class="product-price desktop-small">
                                       <span class="money" data-price="{{ productHandle.selected_or_first_available_variant.price}}">
@@ -916,7 +913,7 @@
                                   {%- assign productHandleType = productHandle.type | downcase -%}
                                   <div class="product-data-card product-data-card-wrap {% unless productHandleType == 'vest' %}product-block-item{% endunless %}" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase }}">
                                     <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
-                                    <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ productHandle.selected_or_first_available_variant.id }}" data-inventory-policy="{{ productHandle.selected_or_first_available_variant.inventory_policy }}">
+                                    <input type="hidden" name="product-variant-id" class="product-variant-id" value="{{ productHandle.selected_or_first_available_variant.id }}" data-variant-inventory-policy="{{ productHandle.selected_or_first_available_variant.inventory_policy }}" data-variant-inventory-quantity="{{ productHandle.selected_or_first_available_variant.inventory_quantity }}">
                                     <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
                                     <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ productHandle.selected_or_first_available_variant.id }}">
                                     <div class="product-block-wrap">
@@ -988,11 +985,7 @@
                                                   <span class="remove-optional-item-button btn">Remove</span>
                                                 </div>
                                               {%- else -%}
-                                                <span class="edit-item-btn btn {% if productSelectedType == 'vest' or productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}">
-                                                  {%- comment -%}{%- if productSelectedType == 'vest' or productSelectedType == 'shoes' -%}
-                                                    Select Size
-                                                  {%- else -%}
-                                                  {%- endif -%}{%- endcomment -%}
+                                                <span class="edit-item-btn btn {% if productSelectedType == 'shoes' or productSelectedType == 'shirt' %}slide-up{% endif %}">
                                                   Edit Item
                                                 </span>
                                               {%- endif -%}
@@ -1015,7 +1008,8 @@
                                             {{ productHandle.selected_or_first_available_variant.price | money }}
                                           </span>
                                         </div> 
-                                        <span class="error-message"></span>     
+                                        <span class="error-message"></span>
+                                        <div class="estimated-variant-error-block-wrap"><span class="information-icon">!</span> <span class="estimated-date"></span></div>     
                                       </div>
                                       <div class="product-price desktop-small">
                                         <span class="money" data-price="{{ productHandle.selected_or_first_available_variant.price }}">
@@ -1040,17 +1034,6 @@
                       </div>
                     {%- endif -%}
                     <input type="hidden" name="sizing-and-fit-wrapper" class="sizing-and-fit-wrapper" data-product-type="{{ productType }}">
-<!--                     <div class="sizing-and-fit-wrapper" data-product-type="{{ productType }}">
-                      <div class="filed-wrapper empty-fit-fider-wrapper hidden">
-                        <p class="field__label title" style="text-align: center;font-size: 16px;margin: 0;">Please use the Fit Finder below for sizing to Continue</p>
-                      </div>
-                    </div>
-                    <div class = "customize-button-fit-your-find">
-                      <span class="button button--secondary top-look-fit-finder" data-product-url="{{ product.url }}">
-                        <span class="icon">{%- render 'icon-size-chart' -%}</span>
-                        <span class="button-title">Find Your Fit</span>
-                      </span>
-                    </div> -->
                     <div class="favorite-event-cart-wrapper">
                       {%- if customer -%}
                         <div class="wishlist-icon-wrap">
@@ -1392,33 +1375,6 @@ $(document).ready(function(){
       suitSizeDataNonLogged();
     {% endif %}
   }
-  $(document).on("change", ".suit_attr", function(){ 
-    var selectHandle = $(this).data("product-handle");
-    var box = $(`.product-data-card-wrap[data-product-handle="${selectHandle}"]`);
-    if(selectHandle.indexOf('jacket') != -1){
-      var jacket_size = $(`select[name="properties[Jacket Chest Size]"]`).val();
-      var jacket_type = $(`select[name="properties[Jacket Length]"]`).val();
-      var attr = jacket_size + ' / ' + jacket_type;
-    }else if(selectHandle.indexOf('pants') != -1){
-      var waist_size = $(`select[name="properties[Pant Waist Size]"]`).val();
-      var pant_length = $(`select[name="properties[Pant Length]"]`).val();
-      var attr = waist_size + ' / ' + pant_length;
-    }
-    var errorCount = 1;
-    box.find(".single-option-selector option").each(function(){
-      var title = $(this).data("var-title");
-      if(title.indexOf(attr) != -1){
-        var optionValue = $(this).attr("value");
-        box.find(".single-option-selector").val(optionValue);
-        box.find(".pdp-updates-button .button.button--primary").removeClass("disabled");
-        box.find(".pdp-updates-button .button.button--primary").trigger("click");
-        errorCount = 0;
-      }
-    });
-    if(errorCount == 1){
-      alert("Variation not found");
-    }
-  })
 });
 </script>
 {%- if first_3d_model -%}

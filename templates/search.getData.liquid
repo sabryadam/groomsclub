@@ -30,7 +30,8 @@
                             "price":{{variant.price}},
                             "inventory_management":"{{variant.inventory_management}}",
                             "inventory_quantity":"{{variant.inventory_quantity}}",
-                            "inventory_policy": "{{variant.inventory_policy}}"
+                            "inventory_policy": "{{variant.inventory_policy}}",
+                            "esimate_to_ship_date" : "{{ variant.metafields.custom.esimate_to_ship_date }}"
                          }{% unless forloop.last %},{% endunless %}
                         {% endfor %}
                     ]
