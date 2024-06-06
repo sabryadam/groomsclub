@@ -8,7 +8,7 @@
       <div class="box-wrap"> 
         {%- for block in section.blocks -%}
           {%- if block.type == 'event_look' -%}
-            <div class="Squer-radio-button-inner box-inner-wrap popup-button {% if block.settings.create_look_title == 'Suit Customizer' %}customise-look-button-for-add-look-into-event{% endif %}" data-href="/pages/customize-your-look?light-grey-suit=41097419653306&light-grey-jacket=41097359065274&light-grey-pants-1=41097369813178&light-grey-vest-1=41097382527162" data-title="{{ block.settings.create_look_title | downcase | handleize }}">
+            <div class="Squer-radio-button-inner box-inner-wrap popup-button {% if block.settings.create_look_title == 'Suit Customizer' %}customise-look-button-for-add-look-into-event{% endif %}" data-href="/pages/customize-your-look?light-grey-suit=41097419653306&light-grey-jacket=41097359065274&light-grey-pants-1=41097369813178&light-grey-vest-1=41097382527162" data-swatch-title="{{ block.settings.create_look_title | downcase | handleize }}">
               <div class="checkmark">
                 {% if block.settings.create_look_icon != blank %}
                   <div class="event-type-icon icon-wrap">
@@ -71,7 +71,7 @@
                     {%- endif -%}
                     <div class="product-data-card-wrap product-data-card" data-product-handle="{{ suitProdHandle }}" data-product-type="{{ looksProductType }}">
                       <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ suitProdu.id }}">
-                      <input type="hidden" name="product-variant-id" class="product-variant-id" value="{{ suitProdu.selected_or_first_available_variant.id }}">
+                      <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ suitProdu.selected_or_first_available_variant.id }}">
                       <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ suitProdHandle}}">
                       <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ suitProdu.selected_or_first_available_variant.id }}">
                       <input type="hidden" name="looks-product-main-image" class="looks-product-main-image" value="{{ product.featured_image | img_url: 'master' }}">
@@ -84,7 +84,7 @@
                       {%- unless productHandle == blank -%}
                         <div class="product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
                           <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
-                          <input type="hidden" name="product-variant-id" class="product-variant-id" value="{{ productHandle.selected_or_first_available_variant.id }}">
+                          <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ productHandle.selected_or_first_available_variant.id }}">
                           <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
                           <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ productHandle.selected_or_first_available_variant.id }}">
                         </div>
@@ -107,7 +107,7 @@
                             {%- assign productHandle = all_products[accessoriesProdHandle] -%}
                             <div class="product-data-card product-data-card-wrap product-block-item" data-product-handle="{{ productHandle.handle }}" data-product-type="{{ productHandle.type | downcase  }}">
                               <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ productHandle.id }}">
-                              <input type="hidden" name="product-variant-id" class="product-variant-id" value="{{ accessoriesProdVarId }}">
+                              <input type="hidden" name="looks-product-var-id" class="looks-product-var-id" value="{{ accessoriesProdVarId }}">
                               <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ productHandle.handle }}">
                               <input type="hidden" name="customizer-look-for-get-variant" class="customizer-look-forget-variant" value="{{ accessoriesProdVarId }}">
                             </div>
@@ -148,9 +148,7 @@
         </span>
       </button>
       <button type="button" class="btn-wrap button--secondary next-button disabled">
-        <span class="label">
-          Next (Add Guest)
-        </span>
+        <span class="label">Next (Final Summary)</span>
         <span class="icon">
           <img class="blue-icon" src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/next-blue-icon.png?v=1675601344" width="22" height="22" alt="Next Arrow" />
           <img class="white-icon" src="https://cdn.shopify.com/s/files/1/0585/3223/3402/files/next-white-icon.png?v=1675601344" width="22" height="22" alt="Next Arrow" />

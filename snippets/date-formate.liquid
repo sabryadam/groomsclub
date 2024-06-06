@@ -1,7 +1,10 @@
 {%- liquid
  assign product_pub_at = article.published_at | date: '%s' 
  assign totalDay = 'now' | date: '%s' | minus: product_pub_at | divided_by: 86400
-  if totalDay < 7
+ if totalDay == 0
+      assign plurl = article.published_at | time_tag: format: 'date' 
+      echo plurl 
+  elsif totalDay > 0 and totalDay < 7
       assign plurl = totalDay | pluralize: 'day ago', 'days ago'
       echo totalDay 
       echo ' '
@@ -18,7 +21,7 @@
       echo totalDay
       echo ' '
       echo plurl 
-  else
+  elsif totalDay == 365 and totalDay > 365
       assign totalDay = 'now' | date: '%s' | minus: product_pub_at | divided_by: 31536000
       assign plurl = totalDay | pluralize: 'year ago', 'years ago'
       echo totalDay

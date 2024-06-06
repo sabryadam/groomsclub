@@ -251,16 +251,16 @@
     {% for addin in blogs[blog.handle].articles %}
       {% unless addin.handle == currentHandle %}
         <div class="related-single-part">
-          <div class="related-img"><img src="{{ addin.image | img_url:'medium' }}" alt="{{ addin.image.alt }}"></div>
+          <div class="related-img"><img src="{{ addin.image | img_url:'master' }}" alt="{{ addin.image.alt }}"></div>
           
           <div class="related-info">
-          <div class="related-tag">
-            {% for rtag in addin.tags limit:1 %}
-              {{ rtag }}
-            {% endfor %}
-          </div>
-          <div class="related-title"><a href="{{ addin.url }}" class="h3">{{ addin.title }}</a></div>
-          <div class="related-publish-date"> <div class="date-formte">{% render 'date-formate' article:article %} </div></div>
+            <div class="related-tag">
+              {% for rtag in addin.tags limit:1 %}
+                {{ rtag }}
+              {% endfor %}
+            </div>
+            <div class="related-title"><a href="{{ addin.url }}" class="h3">{{ addin.title }}</a></div>
+            <div class="related-publish-date"> <div class="date-formte">{% render 'date-formate' article:addin %} </div></div>
         </div>
        </div>
        {% assign articlesFound = articlesFound |plus: 1 %}
