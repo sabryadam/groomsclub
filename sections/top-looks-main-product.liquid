@@ -973,7 +973,7 @@
                                         </span>
                                         <div class="cta-button-wrap" style="margin-top: 10px;">
                                           {% if productHandle.variants.size > 1 %}
-                                            {% if template contains 'jacket-pant-combination' %}
+                                            {% if template contains 'jacket-pant-combination' or template contains 'top-looks-pdp' %}
                                               {%- if productSelectedType == 'vest' -%}
                                                 <span class="add-optional-item-button btn">
                                                   Add this to my Look
@@ -1034,6 +1034,7 @@
                       </div>
                     {%- endif -%}
                     <input type="hidden" name="sizing-and-fit-wrapper" class="sizing-and-fit-wrapper" data-product-type="{{ productType }}">
+                    <div class="customizer-page-sliver-suit-coming-soon-msg" style="margin-top:10px;color: var(--color-primary);">Exciting news! Our new silver suit will be arriving soon. Call us on <a href="tel:+12015599715" tabindex="0" target="_blank" style="color: #0F75BC;">201-559-9715</a> to add it to your event and ensure all groomsmen suits match</div>
                     <div class="favorite-event-cart-wrapper">
                       {%- if customer -%}
                         <div class="wishlist-icon-wrap">
@@ -1043,7 +1044,7 @@
                           </a>
                         </div>
                         <div class="add-to-event">
-                          <a href="javascript:void(0)" class="link link-with-svg event-text add-event-look">
+                          <a href="javascript:void(0)" class="link link-with-svg event-text add-event-look {% if product.title contains 'silver-suit' or product.title contains 'Silver Suit' %}show-popup-for-upcoming-suit{% endif %}">
                             <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 19 18" style="enable-background:new 0 0 19 18;" xml:space="preserve"><style type="text/css">.plus-icon{fill:#1075BC;}</style><g><g><path class="plus-icon" d="M9.6,1.5c4.1,0,7.5,3.3,7.5,7.5s-3.4,7.5-7.5,7.5S2.1,13.1,2.1,9S5.5,1.5,9.6,1.5 M9.6,0c-5,0-9,4-9,9    s4,9,9,9s9-4,9-9S14.6,0,9.6,0L9.6,0z"/></g><g><rect x="8.6" y="5" class="plus-icon" width="2" height="8.1"/><rect x="8.6" y="5" transform="matrix(6.123234e-17 -1 1 6.123234e-17 0.6405 18.6186)" class="plus-icon" width="2" height="8.1"/></g></g></svg>
                             Add to Event
                           </a>

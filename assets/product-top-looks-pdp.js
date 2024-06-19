@@ -508,10 +508,19 @@ theme_custom.tlpclickEvent = function(){
   });
 
   $(document).on("click", ".add-event-look", function(){
+    if($(this).hasClass(`show-popup-for-upcoming-suit`)) {
+      if($(`.customizer-page-sliver-suit-coming-soon-msg`).hasClass("active")){
+        $(`.customizer-page-sliver-suit-coming-soon-msg`).removeClass("active");
+      } else {
+        $(`.customizer-page-sliver-suit-coming-soon-msg`).addClass("active");
+      }
+    } else {
     $("html,body").css("overflow","hidden");
     $(".page-loader").removeClass("hidden");
-    var modalTarget = $(this).closest(".product__info-container").find(".create-event-look");
+    var modalTarget = $(this).closest(".customize-your-look-page").find(".create-event-look");
     theme_custom.getEventData(modalTarget);
+    theme_custom.createLookImage();
+    }
   });
 
   $(document).on("click", ".favorite-event-button", function(){

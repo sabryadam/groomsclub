@@ -2202,7 +2202,13 @@ select#remiderName{
   bottom: 20px;
 }
 .modal-wrapper .browse-top-looks.modal-wrapper-inner-wrapper{
-  width: 920px;
+  min-width: 80%;
+}
+@media(min-width : 1025px) {
+  .modal-wrapper .browse-top-looks.modal-wrapper-inner-wrapper{
+    min-width: 920px;
+    height: 460px;    
+  }
 }
 .look-edit-item-popup .box-wrap{
   display: flex;
@@ -2263,5 +2269,69 @@ select#remiderName{
     flex-direction: column;
     justify-content: left;
     align-items: baseline;
+  }
+}
+.event-step-1 .event-block-wrap .suit-color-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  margin: 0 auto;
+  justify-content: center;
+  position: relative;
+}
+.event-step-1 .event-block-wrap .suit-color-wrapper .slick-arrow.slick-prev,
+.event-step-1 .event-block-wrap .suit-color-wrapper .slick-arrow.slick-next{
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+}
+.event-step-1 .event-block-wrap .suit-color-wrapper .slick-arrow.slick-prev{
+  left: -25px;
+}
+.event-step-1 .event-block-wrap .suit-color-wrapper .slick-arrow.slick-next{
+  right: -25px;
+}
+.event-step-1 .event-block-wrap .suit-color-wrapper .suit-color-wrap {
+  width: 180px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.event-step-1 .event-block-wrap .suit-color-wrapper .suit-color-wrap img{
+  width: 75px;
+  max-width: 75px;
+  height: 75px;
+  margin-bottom: 10px;
+  border: 1px solid #dedede;
+  padding: 3px;
+  border-radius: 5px;
+}
+.event-step-1 .event-block-wrap .suit-color-wrapper .suit-color-wrap.active img{
+  border: 1px solid #1075bc;
+}
+.event-step-1 .event-block-wrap .suit-color-wrapper .suit-color-wrap .suit-color-value{
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #000;
+  margin-bottom: 10px;
+}
+@media(max-width : 767px){
+  .event-step-1 .event-block-wrap .suit-color-wrapper .suit-color-wrap .suit-color-value{
+    font-size: 12px;
+  }
+  .event-step-1 .event-block-wrap .suit-color-wrapper .slick-arrow.slick-prev,
+  .event-step-1 .event-block-wrap .suit-color-wrapper .slick-arrow.slick-next {
+    width: 20px !important;
+    height: 20px !important;
+  }
+  .event-step-1 .event-block-wrap .suit-color-wrapper .slick-arrow.slick-prev{
+    left: -15px;
+  }
+  .event-step-1 .event-block-wrap .suit-color-wrapper .slick-arrow.slick-next {
+    right: -15px;
   }
 }

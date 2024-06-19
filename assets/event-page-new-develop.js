@@ -424,7 +424,7 @@ theme_custom.favoriteLooks = function () {
 
               itemData += `<div class="product-data-card" data-product-handle="${productArray[items].handle}" data-product-type="${productType}">
                   <input type="hidden" class="looks-product-id" value="${productArray[items].product_id}" />
-                  <input type="hidden" class="product-variant-id" value="${productArray[items].variant_id}" />
+                  <input type="hidden" class="looks-product-var-id" value="${productArray[items].variant_id}" />
                   <input type="hidden" class="looks-product-handle" value="${productArray[items].handle}" />
                 </div>`
             }
@@ -453,7 +453,10 @@ theme_custom.favoriteLooks = function () {
         } else {
           var html = `<div class="empty-message text_center"> You haven't saved any Favorite Looks yet.</div>`;
           $('#choose-form-favorite .product-wrapper').html(html);
-          $("#choose-form-favorite").addClass("empty-fav-look-wrapper")
+          $("#choose-form-favorite").addClass("empty-fav-look-wrapper");
+          $("#choose-form-favorite").css({
+            "height" : "auto"
+          })
         }
       } else {
         // alert(result.data.success);
@@ -536,6 +539,7 @@ theme_custom.successCallback = (data, nextTarget) => {
       $(`[data-target="remove-data-for-user"]`).removeClass("active");
       $(".step-content-wrapper.create-event-look .event-block-wrap").hide();
       $('.show-look-from-event-wrapper,.guest-top-looks').show();
+      $('.guest-top-looks').removeClass("event-has-no-look").addClass("event-has-look");
       $(`.show_look_list`).addClass("event_has_look");
       $(".loader-wrapper").addClass("hidden");
       $(".event-step-wrapper").removeClass("hidden");
@@ -566,6 +570,7 @@ theme_custom.successCallback = (data, nextTarget) => {
     $(`[data-target="remove-data-for-user"]`).removeClass("active");
     $(".step-content-wrapper.create-event-look .event-block-wrap").show();
     $('.show-look-from-event-wrapper,.guest-top-looks').hide();
+    $('.guest-top-looks').addClass("event-has-no-look");
     $(".loader-wrapper").addClass("hidden");
     $(`.show_look_list`).removeClass("event_has_look");
     $(".event-step-wrapper").removeClass("hidden");
@@ -658,12 +663,14 @@ theme_custom.updateEventAPI = function (btn) {
     var event_date = changeEventDate;
     var event_role = $('.event-page-new-design-wrapper [name="event-role"]:checked').attr('data-event-role-id');
     var event_phone = $('.event-page-new-design-wrapper .phone-number').val().replace('(', '').replace(' ', '').replace(')', '').replace('-', '');
+    var event_suit_color = $(".suit-color-wrap.active").find(".suit-color-value").attr("data-value");
     var event_data = {
       "name": event_name,
       "event_type_id": event_type,
       "event_date": event_date,
       "event_role_id": event_role,
-      "owner_phone_number": event_phone
+      "owner_phone_number": event_phone,
+      "event_suit_color" : event_suit_color
     }
     var eventId = localStorage.getItem("set-event-id")
     $.ajax({
@@ -803,12 +810,14 @@ theme_custom.createEventAPI = function (btn) {
     var event_date = changeEventDate;
     var event_role = $('.event-page-new-design-wrapper [name="event-role"]:checked').attr('data-event-role-id');
     var event_phone = $('.event-page-new-design-wrapper .phone-number').val().replace('(', '').replace(' ', '').replace(')', '').replace('-', '');
+    var event_suit_color = $(".suit-color-wrap.active").find(".suit-color-value").attr("data-value");
     var event_data = {
       "name": event_name,
       "event_type_id": event_type,
       "event_date": event_date,
       "event_role_id": event_role,
-      "owner_phone_number": event_phone
+      "owner_phone_number": event_phone,
+      "event_suit_color" : event_suit_color
     }
     $.ajax({
       url: `${theme_custom.base_url}/api/event/create`,
@@ -1152,7 +1161,13 @@ theme_custom.lookAddedIntoEvent = function () {
   })
 
   $(document).on("click", ".look-added-into-event", function (e) {
-    e.preventDefault(); 
+    e.preventDefault();
+    var productTitle = $(this).closest(`.product-info`).find(`.product-title`).text();
+    var TargetValue = "Silver Suit";
+    if(productTitle.indexOf(TargetValue) != -1) {
+      $(`.event-page-sliver-suit-coming-soon-msg`).show();
+    } else {
+    $(`.event-page-sliver-suit-coming-soon-msg`).hide();
     var button = $(this);
     button.text($(this).data("text"));
     var lookName = $(this).closest(".product-card").find(".product-title").text(),
@@ -1163,7 +1178,7 @@ theme_custom.lookAddedIntoEvent = function () {
       productDataCardArr.each(function () {
         dataObj = {
           "product_id": $(this).find(".looks-product-id").val(),
-          "variant_id": $(this).find(".product-variant-id").val(),
+          "variant_id": $(this).find(".looks-product-var-id").val(),
           "product_handle": $(this).find(".looks-product-handle").val(),
           "type": $(this).attr("data-product-type")
         }
@@ -1172,7 +1187,7 @@ theme_custom.lookAddedIntoEvent = function () {
     produArray = theme_custom.newArray;
     var custom_look_new_url = '/pages/customize-your-look?';
     productDataCardArr.each(function (i) {
-      var productVarId = $(this).find(".product-variant-id").val();
+      var productVarId = $(this).find(".looks-product-var-id").val();
       var productHandle = $(this).find(".looks-product-handle").val();
       if (i === 0) {
         custom_look_new_url += productHandle + '=' + productVarId;
@@ -1188,6 +1203,7 @@ theme_custom.lookAddedIntoEvent = function () {
       theme_custom.ImageURL = theme_custom.dataURLtoFile(theme_custom.image_url, 'custom-look.png');
     });
     theme_custom.createLookAPI(lookName, eventId, lookUrl, produArray, button);
+    }
   })
 
   // added-look-into-event
@@ -1399,7 +1415,6 @@ theme_custom.productBlockDataWrap = function (orderItemsObj, orderItems, index, 
     },
     beforeSend: function () { },
     success: function (result) {
-      console.log("result",result);
       var productsArray = result.products;
       if(result.products.length > 0){
       $.map(productItemsArrayLooks, function (productItemInfo, index) {
@@ -2068,6 +2083,11 @@ theme_custom.multiItemAddToCart = function (button) {
 
 theme_custom.eventPageClickEvent = function (){
 
+  $(document).on("click",".suit-color-wrap", function(){
+    $(`.suit-color-wrap`).removeClass("active");
+    $(this).addClass("active");
+  })
+
   $(document).on("click",".combo-block-edit-item", function(){
     var target = $(this).attr("data-product-type");
     $(`.multi-item-add-to-cart .edit-product-data-card[data-product-type="${target}"]`).find(".open-product-edit-popup").trigger("click");
@@ -2651,7 +2671,7 @@ theme_custom.eventPageClickEvent = function (){
   // popup close 
   $(".modal-wrapper .close-icon").click(function () {
     $(this).closest(".modal-wrapper").removeClass("active");
-    if ($(".show-look-from-event-wrapper .event-look-inner-wrapper").find(".look-card-block").length > 0) {
+    if ($(".show-look-from-event-wrapper .event-look-inner-wrapper").find(".guest-top-looks.event-has-look").length > 0) {
       $(".show-look-from-event-wrapper").show();
       $(".create-event-look .event-block-wrap").hide();
     } else {
@@ -2780,6 +2800,7 @@ theme_custom.getEventDetails = function () {
       eventDataObj.eventType = result.data.event_type;
       eventDataObj.eventDate = result.data.event_date;
       eventDataObj.eventRole = result.data.event_role;
+      eventDataObj.eventSuitColor = result.data.event_suit_color;
       var currentDate = new Date();
       year  = currentDate.getFullYear();
       month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
@@ -2859,6 +2880,13 @@ theme_custom.getEventDetails = function () {
         $(".loader-wrapper").addClass("hidden");
         $(".event-step-wrapper").removeClass("hidden");
       }
+      setTimeout(() => {
+        $(`.suit-color-value[data-value="${result.data.event_suit_color}"]`).closest(`.suit-color-wrap`).addClass("active");
+        var targetElement = $(`.suit-color-wrap.active`).clone();
+        $(`.suit-color-wrap.active`).remove();
+        $(`.suit-color-wrapper`).prepend(targetElement);
+        theme_custom.EventSuitColorWrapper();
+      }, 500);
     },
     error: function (xhr, status, error) {
       if (xhr.responseJSON.message == 'Token is invalid or expired.') {
@@ -2948,6 +2976,9 @@ $(document).ready(function () {
     setTimeout(() => {
       $(".loader-wrapper").addClass("hidden");
       $(".event-step-wrapper").removeClass("hidden");
+      setTimeout(() => {
+        theme_custom.EventSuitColorWrapper();
+      }, 500);
     }, 500);
   }
   if (location.href.includes('?step')) {
@@ -3167,3 +3198,46 @@ $(document).on("click",".show_look_list.event_has_look",function(){
   $(this).closest(`.step-content-wrapper`).find(`.event-block-wrap`).hide()
   $(this).closest(`.step-content-wrapper`).find(`.show-look-from-event-wrapper`).show();
 })
+
+theme_custom.EventSuitColorWrapper = function(){
+  $('.event-step-1 .event-block-wrap .suit-color-wrapper').slick({
+    slidesToShow: 7,
+    slidesToScroll: 7,
+    infinite: false,
+    speed: 300,
+    responsive: [
+      {
+        breakpoint: 1280,
+        settings: {
+          slidesToShow: 6,
+          slidesToScroll: 6,
+          adaptiveHeight: true
+        }
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 5,
+          adaptiveHeight: true
+        }
+      },
+      {
+        breakpoint: 991,
+        settings: {
+          slidesToShow: 5,
+          slidesToScroll: 5,
+          adaptiveHeight: true
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          adaptiveHeight: true
+        }
+      }
+    ]
+  });
+}

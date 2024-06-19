@@ -201,15 +201,15 @@ theme_custom.addLookToEvent = function (eventButton) {
       var productDataCardArr = $(".product-data-card");
       theme_custom.customizeURLData  = '';
       if(window.location.pathname != '/pages/customize-your-look'){
-        theme_custom.customizeURLData += $(`.product-data-card-wrap[data-product-type="looks"]`).find(".looks-product-handle").val() + '=' + $(`.product-data-card-wrap[data-product-type="looks"]`).find(".product-variant-id").val() + '&';
+        theme_custom.customizeURLData += $(`.product-data-card-wrap[data-product-type="looks"]`).find(".looks-product-handle").val() + '=' + $(`.product-data-card-wrap[data-product-type="looks"]`).find(".product-variant-id,.looks-product-var-id").val() + '&';
       }
       $.each(productDataCardArr, function(index, value) {
         var customizeURL = ''
         var isLastElement = index == productDataCardArr.length -1;
         if (isLastElement) {
-          customizeURL = $(this).find(".looks-product-handle").val() + '=' + $(this).find(".product-variant-id").val();
+          customizeURL = $(this).find(".looks-product-handle").val() + '=' + $(this).find(".product-variant-id,.looks-product-var-id").val();
         } else {
-          customizeURL = $(this).find(".looks-product-handle").val() + '=' + $(this).find(".product-variant-id").val() + '&';
+          customizeURL = $(this).find(".looks-product-handle").val() + '=' + $(this).find(".product-variant-id,.looks-product-var-id").val() + '&';
         }
         theme_custom.customizeURLData += customizeURL;
       });

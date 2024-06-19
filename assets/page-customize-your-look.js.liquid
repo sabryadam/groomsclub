@@ -352,6 +352,11 @@ theme_custom.productDataFromURL = function() {
         }
       })
     }
+    if($(`.customize-look-overview-product[data-product-handle="silver-suit"]`).length > 0) {
+      $(`.add-to-event .add-event-look`).addClass("show-popup-for-upcoming-suit");
+    } else {
+      $(`.add-to-event .add-event-look`).removeClass("show-popup-for-upcoming-suit");
+    }
     theme_custom.priceUpdate();
     theme_custom.setFitFinderData();
     if (getCookie("fit-finder-data") == "") {
@@ -1438,11 +1443,19 @@ theme_custom.customize_product_clickEvent = function() {
   })
   // add-event-look Click Event 
   $(document).on("click", ".add-event-look", function() {
+    if($(this).hasClass(`show-popup-for-upcoming-suit`)) {
+      if($(`.customizer-page-sliver-suit-coming-soon-msg`).hasClass("active")){
+        $(`.customizer-page-sliver-suit-coming-soon-msg`).removeClass("active");
+      } else {
+        $(`.customizer-page-sliver-suit-coming-soon-msg`).addClass("active");
+      }
+    } else {
     $("html,body").css("overflow", "hidden");
     $(".page-loader").removeClass("hidden");
     var modalTarget = $(this).closest(".customize-your-look-page").find(".create-event-look");
     theme_custom.getEventData(modalTarget);
     theme_custom.createLookImage();
+    }
   });
   // update-event-look-api-button Click Event 
   $(document).on("click", ".update-event-look-api-button", function(e) {
