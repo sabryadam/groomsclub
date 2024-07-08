@@ -1161,7 +1161,7 @@ theme_custom.lookAddedIntoEvent = function () {
   })
 
   $(document).on("click", ".look-added-into-event", function (e) {
-    e.preventDefault();
+    e.preventDefault(); 
     var productTitle = $(this).closest(`.product-info`).find(`.product-title`).text();
     var TargetValue = "Silver Suit";
     if(productTitle.indexOf(TargetValue) != -1) {
@@ -1208,6 +1208,12 @@ theme_custom.lookAddedIntoEvent = function () {
 
   // added-look-into-event
   $(document).on('click', '.added-look-into-event', function () {
+    var productTitle = $(this).closest(`.product-info`).find(`.product-title`).text();
+    var TargetValue = "Silver Suit";
+    if(productTitle.indexOf(TargetValue) != -1) {
+      $(`.event-page-sliver-suit-coming-soon-msg`).show();
+    } else {
+    $(`.event-page-sliver-suit-coming-soon-msg`).hide();
     var add_event_api_url = `${theme_custom.base_url}/api/look/addToEvent`;
     var eventid = localStorage.getItem('set-event-id');
     var favid = $(this).closest(".product-card").attr("data-id");
@@ -1257,6 +1263,7 @@ theme_custom.lookAddedIntoEvent = function () {
         }
       }
     });
+    }
   });
 }
 theme_custom.globalLoaderShow = () => {
@@ -2886,7 +2893,7 @@ theme_custom.getEventDetails = function () {
         $(`.suit-color-wrap.active`).remove();
         $(`.suit-color-wrapper`).prepend(targetElement);
         theme_custom.EventSuitColorWrapper();
-      }, 500);
+      }, 1000);
     },
     error: function (xhr, status, error) {
       if (xhr.responseJSON.message == 'Token is invalid or expired.') {

@@ -2283,7 +2283,7 @@ select#remiderName{
 .event-step-1 .event-block-wrap .suit-color-wrapper .slick-arrow.slick-next{
   position: absolute;
   transform: translateY(-50%);
-  top: 50%;
+  top: 30%;
 }
 .event-step-1 .event-block-wrap .suit-color-wrapper .slick-arrow.slick-prev{
   left: -25px;
