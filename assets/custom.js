@@ -441,7 +441,6 @@ theme_custom.loadEvent = function () {
           if (selectedVariantInventoryPolicy == 'continue') {
             $(`.product-data-card-wrap.product-block-item[data-product-type="neckties"] .product-block-wrap, .product-data-card-wrap[data-product-type="neckties"] .edit-item-popup`).find(".error-message").removeClass("error-show").text('');
           } else {
-            debugger;
             if (selectedVariantInventoryQuantity <= 0) {
               $(`.product-data-card-wrap.product-block-item[data-product-type="neckties"] .product-block-wrap, .product-data-card-wrap[data-product-type="neckties"] .edit-item-popup`).find(".error-message").addClass("error-show").text(theme_custom.product_out_of_stock);
               $(`.product-data-card-wrap[data-product-type="neckties"]`).find('.edit-item-popup .pdp-updates-button').addClass("disabled").find(".button-label").text('Out of Stock')
@@ -1986,7 +1985,6 @@ $(document).on('change', `.upsell-product-items-wrapper input[type="radio"]`, fu
       parent.find(".product-var-id").val(selectedVar);
     } else {
       if(selectedVariantInventoryQuantity <= 0){
-        debugger;
         parent.find(".error-message").addClass("error-show").text(theme_custom.product_out_of_stock);
         parent.find(".upsell-product-add").addClass("disabled");
       } else {

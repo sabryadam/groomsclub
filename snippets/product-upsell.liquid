@@ -8,7 +8,7 @@
     <div class="upsell-product-items-wrapper">
       {% assign upsellProductArr = product.metafields.custom.product_page_upsell | split : ',' %}
       {%- for upsell_product in upsellProductArr -%}
-        {% assign upsell_product_data = all_products[upsell_product] -%} 
+        {% assign upsell_product_data = all_products[upsell_product] -%}
         {% if upsell_product_data.available == true %}
         <div class="product-item">
           <input type="hidden" name="Var id" value="{{ upsell_product_data.selected_or_first_available_variant.id }}" class="product-var-id" />
