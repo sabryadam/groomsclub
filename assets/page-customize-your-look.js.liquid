@@ -353,9 +353,9 @@ theme_custom.productDataFromURL = function() {
       })
     }
     if($(`.customize-look-overview-product[data-product-handle="silver-suit"]`).length > 0) {
-      $(`.add-to-event .add-event-look`).addClass("show-popup-for-upcoming-suit");
+      $(`.add-to-event .add-event-look, .add-to-event .update-look-and-contine`).addClass("show-popup-for-upcoming-suit");
     } else {
-      $(`.add-to-event .add-event-look`).removeClass("show-popup-for-upcoming-suit");
+      $(`.add-to-event .add-event-look, .add-to-event .update-look-and-contine`).removeClass("show-popup-for-upcoming-suit");
     }
     theme_custom.priceUpdate();
     theme_custom.setFitFinderData();
@@ -736,6 +736,90 @@ theme_custom.getEventData = function(modalTarget) {
         }, 5000);
       } else {
         $('.assign-member-look-popup-wrapper .api_error').show().html(xhr.responseJSON.message);
+        setTimeout(() => {
+          $('.assign-member-look-popup-wrapper .api_error').hide();
+        }, 3000);
+      }
+    }
+  });
+}
+// theme_custom.updateLookToEvent
+theme_custom.updateLookToEvent = function(){
+  data = {
+    "eventType": "1",
+    "page": "1",
+    "host": "0",
+    "limit": "100"
+  }
+  $.ajax({
+    url: `${theme_custom.base_url}/api/customer/events`,
+    method: "POST",
+    data: data,
+    dataType: "json",
+    headers: {
+      "Authorization": 'Bearer ' + localStorage.getItem("customerToken")
+    },
+    beforeSend: function() {},
+    success: function(result) {
+      if (result.data.events.length > 0) {
+        $(".page-loader").removeClass("hidden");
+        var productDataCardArr = $(".customize-look-overview-product.product-block-var-data"), dataObj = {};
+        theme_custom.newArray = [],
+        productDataCardArr.each(function() {
+          if ($(this).attr("data-variant-id") != '') {
+            dataObj = {
+              "product_id": $(this).attr("data-product-id"),
+              "variant_id": $(this).attr("data-variant-id"),
+              "product_handle": $(this).attr("data-product-handle"),
+              "type": "looks"
+            }
+            theme_custom.newArray.push(dataObj);
+          }
+        })
+        var dataOptionArray = result.data.events;
+        var optionVal = '';
+        optionVal += `<option value="">Select Event</option>`;
+        for (let i = 0; i < dataOptionArray.length; i++) {
+          if (dataOptionArray[i].hostedBy == "Me" || dataOptionArray[i].hostedBy == 'me') {
+            optionVal += `<option value="${dataOptionArray[i].event_id}">${dataOptionArray[i].name}</option>`;
+          }
+        }
+        $("select#event-id").html(optionVal);
+        if (localStorage.getItem("eventLookName") != null && localStorage.getItem("eventLookId") != null && localStorage.getItem("customize-from-event") != null) {
+          $(".create-event-look #look-name").val(localStorage.getItem("eventLookName"));
+          $(".create-event-look #event-id").val(localStorage.getItem("set-event-id")).change();
+          $(".create-event-look .add-event-look-api-button").removeClass("add-event-look-api-button").addClass("update-event-look-api-button").attr("data-text", "Look Updating...").find(".button-title").text("Update Look");
+        }
+        $(".page-loader").removeClass("hidden");
+        var heightScroll = $("#shopify-section-header").height() + $(".breadcrumb").height() + 30;
+        $('html, body').stop().animate({
+          'scrollTop': $(".tabbed-content-wrapper").offset().top - heightScroll
+        }, 900);
+        $('html, body').css({
+          "overflow": "hidden"
+        })        
+        html2canvas(document.querySelector(".custom-look-image"), {
+          allowTaint: true,
+          useCORS: true,
+        }).then(function(canvas) {
+          $(".page-loader").removeClass("hidden");
+          theme_custom.image_url = canvas.toDataURL("image/png", 1.0);
+          theme_custom.ImageURL = theme_custom.dataURLtoFile(theme_custom.image_url, 'custom-look.png');
+          $(".page-loader").removeClass("hidden");
+          $(".update-event-look-api-button").click();
+        }).catch((e) => {
+          console.log(e);
+        });
+      }
+    },
+    error: function(xhr, status, error) {
+      if (xhr.responseJSON.message == 'Token is invalid or expired.') {
+        setTimeout(() => {
+          theme_custom.removeLocalStorage();
+          window.location.href = '/account/logout';
+        }, 5000);
+      } else {
+        alert(xhr.responseJSON.message);
         setTimeout(() => {
           $('.assign-member-look-popup-wrapper .api_error').hide();
         }, 3000);
@@ -1457,6 +1541,19 @@ theme_custom.customize_product_clickEvent = function() {
     theme_custom.createLookImage();
     }
   });
+  $(document).on("click", ".update-look-and-contine", function() {
+    if($(this).hasClass(`show-popup-for-upcoming-suit`)) {
+      if($(`.customizer-page-sliver-suit-coming-soon-msg`).hasClass("active")){
+        $(`.customizer-page-sliver-suit-coming-soon-msg`).removeClass("active");
+      } else {
+        $(`.customizer-page-sliver-suit-coming-soon-msg`).addClass("active");
+      }
+    } else {
+      $("html,body").css("overflow", "hidden");
+      $(".page-loader").removeClass("hidden");
+      theme_custom.updateLookToEvent();
+    }
+  });
   // update-event-look-api-button Click Event 
   $(document).on("click", ".update-event-look-api-button", function(e) {
     theme_custom.button = $(this);
@@ -1916,7 +2013,7 @@ theme_custom.fitFinderData = function() {
 }
 theme_custom.checkEditLook = function() {
   if (localStorage.getItem("eventLookName") != null && localStorage.getItem("eventLookId") != null && localStorage.getItem("customize-from-event") != null) {
-    $(`[data-tab-content='overview']`).find('.add-to-event span').text("Update Look and Continue");
+    $(`[data-tab-content='overview']`).find('.add-to-event .add-event-look').addClass("update-look-and-contine").removeClass('add-event-look').find('span').text("Update Look and Continue");
     $(`[data-tab-content='overview']`).find(`.wishlist-add-event-part .wishlist-icon-wrap, .product-share-button, .product-info-footer .button-wrapper`).hide();
   }
   if (localStorage.getItem("editLookName") != null && localStorage.getItem("editLookId") != null && localStorage.getItem("look-for-favourite") != null) {

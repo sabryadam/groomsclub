@@ -38,7 +38,7 @@ theme_custom.getEventData = function(modalTarget){
         $("html,body").css("overflow","visible");
         modalTarget.find(".empty-error-msg").addClass("hidden");
         modalTarget.find(".look-assign-wrapper").removeClass("hidden");
-        var productDataCardArr = $(".product-data-card"),
+        var productDataCardArr = $(".product-block-item"),
             dataObj = {};
         theme_custom.newArray = [],
         productDataCardArr.each(function(){

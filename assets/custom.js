@@ -2271,6 +2271,16 @@ $(document).on("click", ".template-product-jacket-pant-separate-product .pdp-upd
     currentVariantVal = parent.find(`.product-variant-option option[data-variant-title="${variantTitle}"]`).attr('value');
     v_price = parent.find(`.product-variant-option option[data-variant-title="${variantTitle}"]`).attr('data-variant-price');
     v_img = parent.find(`.product-variant-option option[data-variant-title="${variantTitle}"]`).attr('data-variant-image');
+
+    
+    var data_variant_inventory_policy = parent.find(`.product-variant-option option[data-variant-title="${variantTitle}"]`).attr("data-variant-inventory-policy");
+    var data_variant_inventory_quantity = parseInt(parent.find(`.product-variant-option option[data-variant-title="${variantTitle}"]`).attr("data-variant-inventory-quantity"));
+    var data_variant_estimate_date = parent.find(`.product-variant-option option[data-variant-title="${variantTitle}"]`).attr("data-variant-estimate-date")
+    if(theme_custom.current_date < data_variant_estimate_date) {
+      if(data_variant_inventory_policy == "continue" && data_variant_inventory_quantity <= 0){
+        $(`.estimated-variant-error-block-wrap[data-varaint-title="${selected_variant_title}"]`).addClass("active");
+      }
+    }
     if (parent.find('[data-option-index="0"] input:checked').length > 0) {
       itemParent.find(".variant-title .option-1").text(parent.find('[data-option-index="0"] input:checked').val());
       variant_info_wrap.find(".option-1").text(parent.find('[data-option-index="0"] input:checked').val());

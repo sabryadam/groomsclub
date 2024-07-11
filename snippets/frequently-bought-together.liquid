@@ -125,7 +125,12 @@
                     {{ productHandle.selected_or_first_available_variant.price | money }}
                   </span>
                 </div>                    
-                <span class="error-message parent-error-msg">Please select size</span>           
+                <span class="error-message">Please select size</span> 
+                {% for variant in productHandle.variants %}
+                  <div class="estimated-variant-error-block-wrap" data-varaint-title="{{ variant.title }}" data-variant-inventory-policy="{{ variant.inventory_policy }}" data-variant-inventory-quantity="{{ variant.inventory_quantity }}" {% if variant.metafields.custom.esimate_to_ship_date != blank %}data-variant-estimate-date="{{ variant.metafields.custom.esimate_to_ship_date }}"{% endif %}>
+                    <span class="information-icon">!</span> Estimated ship date: {{ variant.metafields.custom.esimate_to_ship_date }} 
+                  </div>              
+                {% endfor %}          
                 {% comment %} {% for variant in productHandle.variants %}
                   <div class="estimated-variant-error-block-wrap" data-varaint-title="{{ variant.title }}" data-variant-inventory-policy="{{ variant.inventory_policy }}" data-variant-inventory-quantity="{{ variant.inventory_quantity }}" {% if variant.metafields.custom.esimate_to_ship_date != blank %}data-variant-estimate-date="{{ variant.metafields.custom.esimate_to_ship_date }}"{% endif %}>
                     <span class="information-icon">!</span> Estimated ship date: {{ variant.metafields.custom.esimate_to_ship_date }} 
