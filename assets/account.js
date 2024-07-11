@@ -568,10 +568,14 @@ function favoritelooks() {
                     // result.data[6] = result.data[0];
                     result.data = result.data.reverse();
                     for (var i = 0; i < result.data.length; i++) {    
+                        var lookName = result.data[i].name;
+                        var disabledBtn = '';
+                        if(lookName.indexOf("Silver Suit") != -1){
+                            disabledBtn = "not-added-into-event"
+                        }
                         if (result.data[i].look_image) {
                             favorite_look_image = result.data[i].look_image;
-                        }
-
+                        }                        
                         if (result.data[i].url) {
                             edit_link = `<span data-href="${result.data[i].url}" edit-look-id="${result.data[i].id}" edit-look-name="${result.data[i].name}" class="btn-customiser button button--primary edit-favorite-look-button">CUSTOMIZE</span>`;
                         } else {
@@ -591,7 +595,7 @@ function favoritelooks() {
                         </div>
                         <div class="look-changes btn-wrapper product-slider-detail-edit">
                           <a  class="button button--primary fav-look-add-to-cart hidden" data-index="${i}">Add to Cart</a>
-                          <a href="javascript:void(0)" data-favid="${result.data[i].id}" class="link addevent_fav button button--primary btn-1 link">ADD TO EVENT</a>
+                          <a href="javascript:void(0)" data-favid="${result.data[i].id}" class="link addevent_fav button button--primary btn-1 link ${disabledBtn}">ADD TO EVENT</a>
                         </div>
                         </div>
                         <share-button class="product-share-button product-small-share-icon">
@@ -882,12 +886,17 @@ $(document).on("click", ".close-btn", function () {
 
 $(document).on('click', '.addevent_fav', function (e) {
     e.preventDefault();
+    if($(this).hasClass(`not-added-into-event`)){
+        $(`.customizer-page-sliver-suit-coming-soon-msg`).show()
+    } else {
+    $(`.customizer-page-sliver-suit-coming-soon-msg`).hide()
     var favid = $(this).data('favid');
 
 
     $('#fav-lookupid').val(favid);
     if (favid) {
         addtoeventlist(favid);
+    }
     }
 
 });

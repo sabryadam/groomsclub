@@ -210,16 +210,16 @@ theme_custom.getProductVariantData = function (parentElement) {
     } else {
       if (parseInt(variantInventoryQuantity) <= 0) {
         if(productType=='jacket'){
-          $(`.product-variant-wrap[data-product-type="jacket"]`).find(".product-block-wrap .error-message").addClass("error-show").text(theme_custom.product_out_of_stock);
+          $(`.product-variant-wrap[data-product-type="jacket"]`).find(".product-block-wrap .error-message, .error-message").addClass("error-show").text(theme_custom.product_out_of_stock);
           $(`.product-variant-wrap[data-product-type="jacket"]`).find('.pdp-updates-button').addClass('disabled').text("Out of Stock");
         } else if (productType=='pants') {
-          $(`.product-variant-wrap[data-product-type="pants"]`).find(".product-block-wrap .error-message").addClass("error-show").text(theme_custom.product_out_of_stock);
+          $(`.product-variant-wrap[data-product-type="pants"]`).find(".product-block-wrap .error-message, .error-message").addClass("error-show").text(theme_custom.product_out_of_stock);
           $(`.product-variant-wrap[data-product-type="pants"]`).find('.pdp-updates-button').addClass('disabled').text("Out of Stock");
         } else if (productType=='vest') {
-          $(`.product-variant-wrap[data-product-type="vest"]`).find(".product-block-wrap .error-message").addClass("error-show").text(theme_custom.product_out_of_stock);
+          $(`.product-variant-wrap[data-product-type="vest"]`).find(".product-block-wrap .error-message, .error-message").addClass("error-show").text(theme_custom.product_out_of_stock);
           $(`.product-variant-wrap[data-product-type="vest"]`).find('.pdp-updates-button').addClass('disabled').text("Out of Stock");
         } else {
-          productParent.find(".product-block-wrap .error-message").addClass("error-show").text(theme_custom.product_out_of_stock);
+          productParent.find(".product-block-wrap .error-message, .error-message").addClass("error-show").text(theme_custom.product_out_of_stock);
           productParent.find('.pdp-updates-button').addClass('disabled').text("Out of Stock");
         }
       }
