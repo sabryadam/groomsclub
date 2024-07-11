@@ -14196,6 +14196,12 @@ button.btn-wrap.button--secondary.event-update-button {
 }
 div#choose-form-favorite {
   height: 48vh;
+  min-width: 920px;
+}
+@media(max-width : 1024px) {
+  div#choose-form-favorite {
+    min-width: 80%;
+  } 
 }
 .member-delete-icon.payment-ordered {
   display: none;
@@ -14762,5 +14768,18 @@ div#choose-form-favorite {
 }
 .junip-powered-by-footer{
   display: none !important;
+}
+.customizer-page-sliver-suit-coming-soon-msg{
+  display: none;
+}
+.customizer-page-sliver-suit-coming-soon-msg.active{
+  margin-bottom: 10px;
+  display: block;
+}
+.event-page-sliver-suit-coming-soon-msg {
+  display: none;
+  padding: 0 25px 0;
+  margin-bottom: 15px;
+  color: var(--color-primary);
 }
 /* custom css */  
