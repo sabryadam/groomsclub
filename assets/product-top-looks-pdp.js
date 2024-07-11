@@ -38,7 +38,7 @@ theme_custom.getEventData = function(modalTarget){
         $("html,body").css("overflow","visible");
         modalTarget.find(".empty-error-msg").addClass("hidden");
         modalTarget.find(".look-assign-wrapper").removeClass("hidden");
-        var productDataCardArr = $(".product-data-card"),
+        var productDataCardArr = $(".product-block-item"),
             dataObj = {};
         theme_custom.newArray = [],
         productDataCardArr.each(function(){
@@ -517,9 +517,8 @@ theme_custom.tlpclickEvent = function(){
     } else {
     $("html,body").css("overflow","hidden");
     $(".page-loader").removeClass("hidden");
-    var modalTarget = $(this).closest(".customize-your-look-page").find(".create-event-look");
+    var modalTarget = $(this).closest(".product__info-container").find(".create-event-look");
     theme_custom.getEventData(modalTarget);
-    theme_custom.createLookImage();
     }
   });
 

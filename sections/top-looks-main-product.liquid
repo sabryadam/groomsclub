@@ -762,7 +762,17 @@
                           <div id="ff-data-box">
                           </div>
                         </div>
-                        <div class="product-block-wrap-suit-wrapper product-block-item">
+                        <div class="product-block-wrap-suit-wrapper product-block-item" data-product-handle="{{ product.handle }}" data-product-type="{{ product.type | downcase }}">
+                          <input type="hidden" name="looks-product-id" class="looks-product-id" value="{{ product.id }}">
+                          <input type="hidden" name="product-variant-id" class="product-variant-id" value="{{ product.selected_or_first_available_variant.id }}" data-variant-inventory-policy="{{ product.selected_or_first_available_variant.inventory_policy }}" data-variant-inventory-quantity="{{ productHandle.selected_or_first_available_variant.inventory_quantity }}">
+                          <input type="hidden" name="looks-product-handle" class="looks-product-handle" value="{{ product.handle }}">
+                          <select class="product-variant-option">
+                            {% for variant in product.variants %}
+                              <option data-variant-inventory-policy="{{ variant.inventory_policy }}" data-variant-title="{{ variant.title }}" data-product-id="{{ product.id }}" value="{{ variant.id }}" data-variant-inventory-quantity="{{variant.inventory_quantity}}" data-variant-price="{{ variant.price }}" data-img="{% if variant.image == blank %}prod-img{% else %}var-img{% endif %}" {% unless variant.metafields.my_fields.color_image_one == blank %} data-variant-image-one="{{ variant.metafields.my_fields.color_image_one | img_url : '1400x'}}"{% endunless %} data-variant-image="{% if variant.image == blank %}{{ productHandle.featured_media.image.src | img_url: 'master' }}{% else %}{{ variant.image.src | img_url : 'master' }}{% endif %}" data-v-id="{{ variant.id }}" data-title="{{ variant.title }}" {% unless variant.available %}disable{% endunless %} {% if variant.metafields.custom.esimate_to_ship_date != blank %}data-variant-estimate-date="{{ variant.metafields.custom.esimate_to_ship_date }}"{% endif %}>
+                                {{ variant.title }}
+                              </option>
+                            {%- endfor -%}
+                          </select>
                           <div class="product-image">
                             <img srcset="{{ product.featured_media.image.src | img_url: 'medium' }} 1x, {{ product.featured_media.image.src | img_url: 'medium', scale: 2 }} 2x"
                               src="{{ product.featured_media.image.src | img_url: image_size }}"

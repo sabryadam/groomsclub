@@ -52,9 +52,14 @@ class VariantSelects extends HTMLElement {
         var selectedVariant = $(`.product-variant-option option[data-variant-title="${this.currentVariant.title}"]`);
         var check_inventory_quantity = selectedVariant.attr(`data-variant-inventory-quantity`);
         var check_inventory_policy = selectedVariant.attr(`data-variant-inventory-policy`);
-        if(check_inventory_quantity <= 0 && check_inventory_policy == "continue" ){
-          $(`.estimated-variant-error-block-wrap`).removeClass("active");
-          $(`.estimated-variant-error-block-wrap[data-varaint-title="${this.currentVariant.title}"]`).addClass("active")
+        var data_variant_estimate_date = selectedVariant.attr(`data-variant-estimate-date`);
+        if(theme_custom.current_date < data_variant_estimate_date) {
+          if(check_inventory_quantity <= 0 && check_inventory_policy == "continue" ){
+            $(`.estimated-variant-error-block-wrap`).removeClass("active");
+            $(`.estimated-variant-error-block-wrap[data-varaint-title="${this.currentVariant.title}"]`).addClass("active")
+          } else {
+            $(`.estimated-variant-error-block-wrap`).removeClass("active");
+          }
         } else {
           $(`.estimated-variant-error-block-wrap`).removeClass("active");
         }

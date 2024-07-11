@@ -9,6 +9,7 @@
       {% assign upsellProductArr = product.metafields.custom.product_page_upsell | split : ',' %}
       {%- for upsell_product in upsellProductArr -%}
         {% assign upsell_product_data = all_products[upsell_product] -%} 
+        {% if upsell_product_data.available == true %}
         <div class="product-item">
           <input type="hidden" name="Var id" value="{{ upsell_product_data.selected_or_first_available_variant.id }}" class="product-var-id" />
           <div class="img">
@@ -21,7 +22,7 @@
               <div class="product-custom-swatch">
                 <select class="product-variant-option hidden">
                   {% for variant in upsell_product_data.variants %}
-                    <option data-variant-title="{{ variant.title }}" data-variant-inventory-quantity="{{ variant.inventory_quantity }}" data-variant-inventory-policy="{{ variant.inventory_policy }}"  value="{{ variant.id }}" data-variant-price="{{ variant.price }}" data-variant-image="{% if variant.image == blank %}{{ productHandle.featured_media.image.src | img_url: 'master' }}{% else %}{{ variant.image.src | img_url : 'master' }}{%endif%}" data-variant-id="{{ variant.id }}" data-variant-title="{{ variant.title }}" {% unless variant.available %}disable{% endunless %} {% if current_var == variant.id %}selected{% endif %} {% if variant.metafields.custom.esimate_to_ship_date != blank %}data-variant-estimate-date="{{ variant.metafields.custom.esimate_to_ship_date }}"{% endif %}>
+                    <option data-variant-title="{{ variant.title }}" data-variant-inventory-quantity="{{ variant.inventory_quantity }}" data-variant-inventory-policy="{{ variant.inventory_policy }}" value="{{ variant.id }}" data-variant-price="{{ variant.price }}" data-variant-image="{% if variant.image == blank %}{{ productHandle.featured_media.image.src | img_url: 'master' }}{% else %}{{ variant.image.src | img_url : 'master' }}{% endif %}" data-variant-id="{{ variant.id }}" data-variant-title="{{ variant.title }}" {% unless variant.available %}disable{% endunless %} {% if current_var == variant.id %}selected{% endif %} {% if variant.metafields.custom.esimate_to_ship_date != blank %}data-variant-estimate-date="{{ variant.metafields.custom.esimate_to_ship_date }}"{% endif %}>
                       {{ variant.title }}
                     </option>
                   {%- endfor -%}
@@ -39,6 +40,7 @@
             <span class="error-message"></span>
           </div>
         </div>
+        {% endif %}
       {%- endfor -%}
     </div>
     <a href="/cart" class="button button--full-width button--primary go-to-cart-btn" tabindex="0" title="Go to Cart">

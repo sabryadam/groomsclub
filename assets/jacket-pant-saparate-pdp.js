@@ -79,11 +79,26 @@ $(document).ready(function () {
                   var data_variant_inventory_policy = $(`.product-variant-option option[data-variant-title="${selected_variant_title}"]`).attr("data-variant-inventory-policy");
                   var data_variant_inventory_quantity = parseInt($(`.product-variant-option option[data-variant-title="${selected_variant_title}"]`).attr("data-variant-inventory-quantity"));
                   var data_variant_estimate_date = $(`.product-variant-option option[data-variant-title="${selected_variant_title}"]`).attr("data-variant-estimate-date")
+                  if(data_variant_inventory_quantity <= 0 && data_variant_inventory_policy == "deny") {
+                    $(`.product-form__submit`).css({
+                      "opacity" : "0.5"
+                    }).attr("disabled","true").text("Sold out");
+                    $(`.parent-product .error-message.parent-error-msg`).text("Size Sold out").addClass("error-show").addClass("static");
+                  } else {
+                    $(`.product-form__submit`).css({
+                      "opacity" : "1"
+                    }).attr("disabled","false").text("Add to Cart");
+                    $(`.parent-product .error-message.parent-error-msg`).text(``).removeClass("error-show").removeClass("static");
+                  }
                   if(theme_custom.current_date < data_variant_estimate_date) {
                     if(data_variant_inventory_policy == "continue" && data_variant_inventory_quantity <= 0){
-                      $(`.estimated-variant-error-block-wrap[data-varaint-title="${selected_variant_title}"]`).addClass("active");
+                      $(`.parent-product .estimated-variant-error-block-wrap[data-varaint-title="${selected_variant_title}"]`).addClass("active");
+                    } else {
+                      $(`.parent-product .estimated-variant-error-block-wrap`).removeClass("active");
                     }
-                  }                
+                  } else {
+                    $(`.parent-product .estimated-variant-error-block-wrap`).removeClass("active");
+                  }
                 }, 500);
               }
             }

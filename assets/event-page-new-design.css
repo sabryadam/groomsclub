@@ -921,6 +921,10 @@
   text-transform: none;
   line-height: normal;
 }
+.final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper .heading,
+.final-summary-wrapper .page-width-inner-wrapper .member-reminder-wrapper .heading{
+  display: none;
+}
 .final-summary-wrapper .page-width-inner-wrapper .member-reminder-wrapper .heading.text-center,
 .final-summary-wrapper .page-width-inner-wrapper .member-summary-wrapper .heading.text-center{
   text-align: center;
@@ -2039,6 +2043,7 @@ select#remiderName{
     border: 1px solid #d8d8d8;
     padding: 10px;
     margin-bottom: 5px;
+    display: block;
   }
   .final-summary-wrapper .page-width-inner-wrapper .tab-content .heading::after,
   .final-summary-wrapper .page-width-inner-wrapper .tab-content .heading::before {
