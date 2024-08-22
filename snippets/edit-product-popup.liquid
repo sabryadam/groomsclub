@@ -1,6 +1,6 @@
 {%- assign product = currentProduct -%}
 
-<div class="edit-item-popup {{ orderTypeClass }}" {% if product_has_saparate  %}data-product-has-saparate="{{ product_has_saparate }}"{% endif  %} data-product-id="{{ product.id }}" data-line-item-id="{{ s_variant.id }}" data-product-handle="{{ product.handle }}" data-product-type="{{ product.type | downcase | handleize }}" {{ item_key }}>
+<div class="edit-item-popup {{ orderTypeClass }}" {% if product_has_separate  %}data-product-has-separate="{{ product_has_separate }}"{% endif  %} data-product-id="{{ product.id }}" data-line-item-id="{{ s_variant.id }}" data-product-handle="{{ product.handle }}" data-product-type="{{ product.type | downcase | handleize }}" {{ item_key }}>
   {% unless template contains 'product' %}<h5>{{ currentProduct.title }}</h5>{% endunless %}
   <select class="product-variant-option">
     {% for variant in currentProduct.variants %}

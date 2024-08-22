@@ -227,7 +227,7 @@ $(document).on("click", ".product-form__submit", function (e) {
       "id": varId,
       "quantity": 1,
       "properties": {
-        "saparate-product": "saparate-product"
+        "separate-product": "separate-product"
       }
     },
     dataType: 'json',

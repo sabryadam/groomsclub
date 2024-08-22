@@ -156,13 +156,13 @@ class CartItems extends HTMLElement {
 customElements.define('cart-items', CartItems);
 
 // Add to cart AJAX API
-theme_custom.addToCart = function(variantId,qty,product_has_saparate){
-  if(product_has_saparate == "saparate_product") {
+theme_custom.addToCart = function(variantId,qty,product_has_separate){
+  if(product_has_separate == "separate_product") {
     var items = {
       "quantity" : qty,
       "id" : variantId,
       "properties": {
-        "saparate-product": "saparate-product"
+        "separate-product": "separate-product"
       }
     }
   } else {
@@ -190,7 +190,7 @@ $(document).on('click', '.upsell_product_added', function(){
 })
 // Update cart 
 $(document).on('click', '.updates-button button', function(){
-  var product_has_saparate = $(this).closest(`.edit-item-popup`).attr("data-product-has-saparate");
+  var product_has_separate = $(this).closest(`.edit-item-popup`).attr("data-product-has-separate");
   var parent = $(this).closest(".edit-item-popup"),
       variantId = $(this).closest('.edit-item-popup').data("line-item-id");
       targetProduct = $(this).closest(".edit-item-popup").attr("data-product-handle");  
@@ -220,7 +220,7 @@ $(document).on('click', '.updates-button button', function(){
       }, 
       dataType: 'json',
       success: function() {
-        theme_custom.addToCart(updateVid,theme_custom.qty,product_has_saparate);
+        theme_custom.addToCart(updateVid,theme_custom.qty,product_has_separate);
       },
       error: function(xhr, status, error) {
         button.find(".btn-title").text("Update to cart");

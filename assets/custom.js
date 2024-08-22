@@ -2192,7 +2192,7 @@ $(document).on("click", ".fbt-add-to-cart", function (e) {
         "id": $(`.upsell-product-wrap[data-product-type="jacket"]`).find(`.product-variant-option`).val(),
         "quantity": 1,
         "properties": {
-          "saparate-product": "saparate-product"
+          "separate-product": "separate-product"
         }
       }
     ];
