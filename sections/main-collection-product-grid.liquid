@@ -433,7 +433,7 @@
         </div>
  
         <div class="main-collection-product-grid" data-id="{{ section.id }}">
-          {%- if collection.handle == 'belts' or collection.handle == 'pocket-square' or collection.handle == 'socks' or collection.handle == 'bow-ties' or collection.handle == 'tuxedo-cufflink' or collection.handle == 'suspenders' or collection.handle == 'tie-bar' -%}
+          {%- if collection.handle == 'belts' or collection.handle == 'pocket-square' or collection.handle == 'socks' or collection.handle == 'bow-ties' or collection.handle == 'tuxedo-cufflink' or collection.handle == 'suspenders' or collection.handle == 'tie-bar' or collection.handle == 'neckties' or collection.handle == "tuxedo-stud-set" -%}
             {% for product in collection.products %}
               {% for variant in product.variants %}
                 <div class="product-grid-inner-wrapper">

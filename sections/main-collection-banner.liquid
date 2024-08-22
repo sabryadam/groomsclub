@@ -70,7 +70,7 @@
   </div>
 </div>
 
-{%- if template contains 'top-suit' or template contains 'top-collection'  -%}
+{%- if template contains 'top-suit' or template contains 'top-collection'   -%}
 <div class="page-width">
   <div class="page-top-headpadding-flex collection-breadcrumb-wrapper">
     <div class="breadcrumb">
@@ -85,7 +85,7 @@
 </div>
 {%- endif  -%}
 
-{%- unless template contains 'top-suit' or template contains 'top-collection'  -%}
+{%- unless template contains 'top-suit' or template contains 'top-collection' -%}
   <div class="page-width">
     <div class="page-top-headpadding-flex collection-breadcrumb-wrapper">
       <div class="breadcrumb">
@@ -95,7 +95,9 @@
               <span class="active-page">{{ collection.title}}</span>
           </div>
       </div>
+      {% unless collection.handle == 'belts' or collection.handle == 'pocket-square' or collection.handle == 'socks' or collection.handle == 'bow-ties' or collection.handle == 'tuxedo-cufflink' or collection.handle == 'suspenders' or collection.handle == 'tie-bar' or collection.handle == 'neckties' or collection.handle == "tuxedo-stud-set" %}
       <div class="product-count">{{ collection.all_products_count }} Products</div>
+      {% endunless %}
     </div> 
   </div>
 {%- endunless -%}
