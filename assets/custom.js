@@ -1752,14 +1752,14 @@ theme_custom.changeEvent = function () {
   // edit product Popup
   if (($(".template-cart").length > 0 && $(".edit-item-popup").length > 0)) {
     $(document).on('change', '.swatch-wrap .swatch-element input[type="radio"]', function () {
-      var selectedVal = $(this).closest(".swatch").data("s_value");
+      var selectedVal = $(this).closest(".swatch").data("s_value").toLocaleLowerCase();
       var currentSelectOption = $(this).data("value");
       if (currentSelectOption == selectedVal) {
         $(this).closest(".edit-item-popup").find(".error-message").removeClass(`error-show`).text('');
-        $(this).closest(".edit-item-popup").find(".pdp-updates-button").addClass("disabled");
+        $(this).closest(".edit-item-popup").find(".updates-button, .pdp-updates-button").addClass("disabled");
       } else {
         $(this).closest(".edit-item-popup").find(".error-message").removeClass(`error-show`).text('');
-        $(this).closest(".edit-item-popup").find(".pdp-updates-button").removeClass("disabled");
+        $(this).closest(".edit-item-popup").find(".updates-button, .pdp-updates-button").removeClass("disabled");
       }
     });
   }

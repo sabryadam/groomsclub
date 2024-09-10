@@ -1064,9 +1064,7 @@
   .event-page-new-design-wrapper{
     margin-top: 25px;
   }
-  .event-page-new-design-wrapper .page-width-inner-wrapper{
-    max-width: 320px;
-  }
+  
   .event-page-new-design-wrapper .step-header-wrap{
     display: none;
   }
@@ -2340,5 +2338,33 @@ select#remiderName{
   }
   .event-step-1 .event-block-wrap .suit-color-wrapper .slick-arrow.slick-next {
     right: -15px;
+  }
+
+  .event-page-new-design-wrapper .page-width-inner-wrapper .event-look-inner-wrapper {
+    overflow: auto;
+  }
+  .event-page-new-design-wrapper .page-width-inner-wrapper{
+    max-width: 100%;
+  }
+  .event-owner-look-product-list.look-product-list-wrapper .look-product-details.show {
+    flex-wrap: wrap;
+  }
+  .event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-info-wrapper,
+  .event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper {
+    width: 100%;
+  }
+  .event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .product-data-card .product-block-wrap .product-variant-info{
+    width: calc(100% - 75px);
+  }
+  .event-owner-look-product-list.look-product-list-wrapper .look-product-details .look-products-list-wrapper .product-data-card .product-block-wrap .product-price {
+    width: 100%;
+    text-align: left;
+    padding-left: 85px;
+  }
+}
+
+@media(max-width : 375px){
+  .event-page-new-design-wrapper .page-width-inner-wrapper{
+    max-width: 320px;
   }
 }

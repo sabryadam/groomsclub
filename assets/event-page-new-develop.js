@@ -565,6 +565,12 @@ theme_custom.successCallback = (data, nextTarget) => {
         $(".event-page-new-design-wrapper .button-wrapper").addClass("active")
         $(`[data-step-content-wrap="2"]`).find(".btn-wrap.next-button").removeClass("disabled");
       }
+      if($(`.step-content-wrapper[data-step-content-wrap="1"]`).length > 0){
+        if ($('.event-step-1 .event-block-wrap .suit-color-wrapper').hasClass('slick-initialized')){
+          $('.event-step-1 .event-block-wrap .suit-color-wrapper').slick('unslick');
+        }      
+        theme_custom.EventSuitColorWrapper();
+      }
     }, 2000);
   } else {
     $(`[data-target="remove-data-for-user"]`).removeClass("active");
@@ -2640,7 +2646,7 @@ theme_custom.eventPageClickEvent = function (){
       theme_custom.checkLooks(localStorage.getItem("set-event-id"), prevTarget, false);
       goNext = false;
     }
-    if ($(this).closest(`.step-content-wrapper[data-step-content-wrap="4"]`).length > 0) {
+    if ($(this).closest(`.step-content-wrapper[data-step-content-wrap="3"]`).length > 0) {
       if (theme_custom.globalEventData) {
         theme_custom.checkLooks(localStorage.getItem("set-event-id"), prevTarget, false);
       } else {
@@ -2882,7 +2888,7 @@ theme_custom.getEventDetails = function () {
           if (localStorage.getItem("go-to-event-page") != null) {
             localStorage.removeItem("go-to-event-page");
           }
-        }, 1000);
+        }, 1500);
       } else {
         $(".loader-wrapper").addClass("hidden");
         $(".event-step-wrapper").removeClass("hidden");
@@ -2893,7 +2899,7 @@ theme_custom.getEventDetails = function () {
         $(`.suit-color-wrap.active`).remove();
         $(`.suit-color-wrapper`).prepend(targetElement);
         theme_custom.EventSuitColorWrapper();
-      }, 1000);
+      }, 500);
     },
     error: function (xhr, status, error) {
       if (xhr.responseJSON.message == 'Token is invalid or expired.') {
@@ -2983,9 +2989,7 @@ $(document).ready(function () {
     setTimeout(() => {
       $(".loader-wrapper").addClass("hidden");
       $(".event-step-wrapper").removeClass("hidden");
-      setTimeout(() => {
-        theme_custom.EventSuitColorWrapper();
-      }, 500);
+      theme_custom.EventSuitColorWrapper();
     }, 500);
   }
   if (location.href.includes('?step')) {

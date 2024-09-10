@@ -189,7 +189,7 @@ $(document).on('click', '.upsell_product_added', function(){
   theme_custom.addToCart(vId,qty);
 })
 // Update cart 
-$(document).on('click', '.updates-button button', function(){
+$(document).on('click', '.updates-button', function(){
   var product_has_separate = $(this).closest(`.edit-item-popup`).attr("data-product-has-separate");
   var parent = $(this).closest(".edit-item-popup"),
       variantId = $(this).closest('.edit-item-popup').data("line-item-id");
