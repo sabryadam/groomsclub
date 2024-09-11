@@ -76,11 +76,13 @@ document.addEventListener("DOMContentLoaded", function() {
           focusOnSelect: true
         });
       }
-      if($(".product-type").val() != 'Suit'){
+      
+        debugger;
         var selectVariant = $(".product-variant-option").val(),
             getImageId = $(`.product-variant-option option[data-variant-id='${selectVariant}']`).attr("data-variant-image-id"),
             getImageIndex = $(`.product__media-item[data-image-id='${getImageId}']`).attr("data-slick-index");
         $('.product-main-image').slick('slickGoTo',getImageIndex);
+      if($(".product-type").val() != 'Suit'){
       }
       clearTimeout(productMainImage);
     }

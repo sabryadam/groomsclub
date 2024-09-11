@@ -26,6 +26,10 @@ class VariantSelects extends HTMLElement {
       this.toggleAddButton(true, '', true);
       this.setUnavailable();
     } else {
+      var optionArray = this.currentVariant.options;
+      optionArray.forEach((option, index) => {
+        $(`[data-option-index="${index}"]`).find(`.option-title`).text(option)
+      });
       try{
         $('.product-main-image').slick('slickGoTo', this.currentVariant.featured_media.position-1);
       }catch(e){
@@ -201,7 +205,7 @@ class VariantSelects extends HTMLElement {
     if (!addButton) return;
     $(addButton).text(window.variantStrings.unavailable)
     // addButtonText.textContent = window.variantStrings.unavailable;
-    document.getElementById(`price-${this.dataset.section}`)?.classList.add('visibility-hidden');
+    // document.getElementById(`price-${this.dataset.section}`)?.classList.add('visibility-hidden');
   }
 
   getVariantData() {

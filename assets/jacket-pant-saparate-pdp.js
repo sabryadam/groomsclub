@@ -44,7 +44,9 @@ $(document).ready(function () {
                 $("#fit_finder_data_auto").show();
 
                 $(`[name="Chest Size"][value='${jacket_size}']`).attr("checked", true).change();
+                $(`.swatch-chest-size`).find(`span.option-title`).text(jacket_size);
                 $(`[name="Style"][value='${jacket_type}']`).attr("checked", true).change();
+                $(`.swatch-style`).find(`span.option-title`).text(jacket_type);
 
                 $(`[name="Waist"][value='${result.data[0].pants_waist}']`).attr("checked", true).change();
                 $(`[name="Length"][value='${result.data[0].pants_hight}']`).attr("checked", true).change();
@@ -155,9 +157,13 @@ $(document).ready(function () {
 
         $(`[name="Chest Size"][value='${jacket_size}']`).attr("checked", true).change();
         $(`[name="Style"][value='${jacket_type}']`).attr("checked", true).change();
+        $(`.swatch-chest-size`).find(`span.option-title`).text(jacket_size);
+        $(`.swatch-style`).find(`span.option-title`).text(jacket_type);
 
         $(`[name="Waist"][value='${getFitFinder.pants_waist}']`).attr("checked", true).change();
         $(`[name="Length"][value='${getFitFinder.pants_hight}']`).attr("checked", true).change();
+        $(`.swatch-waist`).find(`span.option-title`).text(getFitFinder.pants_waist);
+        $(`.swatch-length`).find(`span.option-title`).text(getFitFinder.pants_hight);
 
         if($(`.parent-product.product-type-jacket`).length > 0) {
           $(`.parent-product.product-type-jacket`).find(`[data-option-title="Chest Size"]`).text(`${jacket_size}`);

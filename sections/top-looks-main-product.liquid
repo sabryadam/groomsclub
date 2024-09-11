@@ -569,7 +569,7 @@
                       {% endif %}
                       {%- if is_color -%}
                         <fieldset class="js product-form__input swatch-product-form swatch-{{ option.name | downcase }}">
-                          <legend class="form__label swatch-form-label">{{ option.name }} : </legend>
+                          <legend class="form__label swatch-form-label">{{ option.name }} : <span class="option-title">{{ s_value }}</span></legend>
                           {% assign file_extension = 'png' %}
                           {%- for value in option.values -%}
                             <input data-opt_name="{{opt_name}}" type="radio" id="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
@@ -585,7 +585,7 @@
                         </fieldset>
                       {%- else -%}
                         <fieldset class="js product-form__input swatch-product-form {{ opt_name }}" style="display: none;">
-                          <legend class="form__label swatch-form-label">{{ option.name }} : </legend>
+                          <legend class="form__label swatch-form-label">{{ option.name }} : <span class="option-title">{{ s_value }}</span></legend>
                           {% assign file_extension = 'png' %}
                           {%- for value in option.values -%}
                             <input type="radio" id="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
