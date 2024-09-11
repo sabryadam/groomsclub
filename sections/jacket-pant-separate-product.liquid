@@ -434,8 +434,8 @@
                     {% endif %}
                     {% assign s_value = product.selected_or_first_available_variant.options[forloop.index0] %}
                     {%- if is_color -%}
-                      <fieldset class="js product-form__input swatch-product-form text swatch-{{ option.name | downcase }}" data-option-index="{{forloop.index | minus: 1 }}">
-                        <legend class="form__label swatch-form-label">{{ option.name }} : </legend>
+                      <fieldset class="js product-form__input swatch-product-form text swatch-{{ option.name | handleize }}" data-option-index="{{forloop.index | minus: 1 }}">
+                        <legend class="form__label swatch-form-label">{{ option.name }} : <span class="option-title">{{ s_value }}</span></legend>
                         {% assign file_extension = 'png' %}
                         {%- for value in option.values -%}
                           <div class="swatch-outer-wrapper">
@@ -454,8 +454,8 @@
                         {%- endfor -%}
                       </fieldset>
                     {%- else -%}
-                      <fieldset class="js product-form__input swatch-product-form text swatch-{{ option.name | downcase }}" data-option-index="{{forloop.index | minus: 1 }}">
-                        <legend class="form__label swatch-form-label">{{ option.name }} : </legend>
+                      <fieldset class="js product-form__input swatch-product-form text swatch-{{ option.name | handleize }}" data-option-index="{{forloop.index | minus: 1 }}">
+                        <legend class="form__label swatch-form-label">{{ option.name }} : <span class="option-title">{{ s_value }}</span></legend>
                         {% assign file_extension = 'png' %}
                         {%- for value in option.values -%}
                           <div class="swatch-outer-wrapper">
@@ -492,8 +492,8 @@
                       {% endif %}
                       {% assign s_value = product.selected_or_first_available_variant.options[forloop.index0] %}
                       {%- if is_color -%}
-                        <fieldset class="js product-form__input swatch-product-form text swatch-{{ option.name | downcase }}" data-option-index="{{forloop.index | minus: 1 }}">
-                          <legend class="form__label swatch-form-label">{{ option.name }} : </legend>
+                        <fieldset class="js product-form__input swatch-product-form text swatch-{{ option.name | handleize }}" data-option-index="{{forloop.index | minus: 1 }}">
+                          <legend class="form__label swatch-form-label">{{ option.name }} : <span class="option-title">{{ s_value }}</span></legend>
                           {% assign file_extension = 'png' %}
                           {%- for value in option.values -%}
                             <div class="swatch-outer-wrapper">
@@ -512,8 +512,8 @@
                           {%- endfor -%}
                         </fieldset>
                       {%- else -%}
-                        <fieldset class="js product-form__input swatch-product-form text swatch-{{ option.name | downcase }}" data-option-index="{{forloop.index | minus: 1 }}">
-                          <legend class="form__label swatch-form-label">{{ option.name }} : </legend>
+                        <fieldset class="js product-form__input swatch-product-form text swatch-{{ option.name | handleize }}" data-option-index="{{forloop.index | minus: 1 }}">
+                          <legend class="form__label swatch-form-label">{{ option.name }} : <span class="option-title">{{ s_value }}</span></legend>
                           {% assign file_extension = 'png' %}
                           {%- for value in option.values -%}
                             <div class="swatch-outer-wrapper">
