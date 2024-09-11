@@ -14,7 +14,7 @@
         "#CollectionProductGrid {margin-bottom: 0;}"
       ],
       "settings": {
-        "products_per_page": 12,
+        "products_per_page": 16,
         "image_ratio": "adapt",
         "show_secondary_image": false,
         "add_image_padding": false,

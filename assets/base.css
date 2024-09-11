@@ -14789,4 +14789,9 @@ div#choose-form-favorite {
     height: 370px;    
   }
 }
+@media(max-width: 767px){
+  #product_info_box .scroll-part.right-scroll-spcing .product-block-outer-wrapper p.product-title, #product_info_box .scroll-part.right-scroll-spcing .product-block-outer-wrapper:first-child p.product-title{
+    display: flex;
+  }
+}
 /* custom css */  
